@@ -15,6 +15,7 @@
 #include "j1Pathfinding.h"
 #include "j1Fonts.h"
 #include "j1Gui.h"
+#include "j1Player.h"
 #include "j1App.h"
 
 // Constructor
@@ -33,6 +34,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	pathfinding = new j1PathFinding();
 	font = new j1Fonts();
 	gui = new j1Gui();
+	player = new j1Player();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -42,6 +44,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(tex);
 	AddModule(audio);
 	AddModule(map);
+	AddModule(player);
 	//didn't pass it to STL , many changes to do, we'll se what we do with the pathfinding
 	AddModule(pathfinding);
 	AddModule(font);
