@@ -35,10 +35,10 @@ bool j1Player::PostUpdate()
 }
 
 // Called each loop iteration
-void j1Player::Draw()
+/*void j1Player::Draw()
 {
 
-}
+}*/
 
 // Called before quitting
 bool j1Player::CleanUp()

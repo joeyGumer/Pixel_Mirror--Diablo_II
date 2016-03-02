@@ -10,6 +10,9 @@
 #pragma comment( lib, "SDL/libx86/SDL2.lib" )
 #pragma comment( lib, "SDL/libx86/SDL2main.lib" )
 
+//
+//#include "Brofiler.h"
+
 enum MainState
 {
 	CREATE = 1,
@@ -25,6 +28,10 @@ j1App* App = NULL;
 
 int main(int argc, char* args[])
 {
+	//For now brofiler puts the same error as with when i tried to put SDL on the new project, need his help.
+	//This makes brofiler to work
+	//BROFILER_FRAME("Hello World")
+
 	LOG("Engine starting ... %d");
 
 	MainState state = MainState::CREATE;

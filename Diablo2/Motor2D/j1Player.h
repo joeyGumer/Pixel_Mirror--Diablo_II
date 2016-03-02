@@ -24,7 +24,8 @@ public:
 	bool PostUpdate();
 
 	// Called each loop iteration
-	void Draw();
+	//NOTE: for now we don't need this
+	//void Draw();//
 
 	// Called before quitting
 	bool CleanUp();
