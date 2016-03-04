@@ -61,6 +61,12 @@
     <ClCompile Include="j1Player.cpp">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="j1SceneIntro.cpp">
+      <Filter>Desenvolupament  ========\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="j1SceneManager.cpp">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -142,6 +148,12 @@
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
     <ClInclude Include="j1Player.h">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="j1SceneIntro.h">
+      <Filter>Desenvolupament  ========\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="j1SceneManager.h">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
   </ItemGroup>
