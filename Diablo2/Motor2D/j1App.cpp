@@ -114,13 +114,12 @@ bool j1App::Awake()
 		list<j1Module*>::iterator item;
 		item = modules.begin();
 		
-		//WARNING
+		
 		while (item != modules.end() && ret == true)
 		{
 			ret = (*item)->Awake(config.child((*item)->name.GetString()));
 			++item;
 		}
-		//
 	}
 
 	PERF_PEEK(ptimer);
