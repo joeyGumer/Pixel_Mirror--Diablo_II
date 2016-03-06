@@ -14,47 +14,63 @@ class j1Scene : public j1Module
 {
 public:
 
-	j1Scene();
+	// Constructor
+	j1Scene(){}
 
 	// Destructor
-	virtual ~j1Scene();
+	virtual ~j1Scene(){}
 
 	// Called before render is available
-	bool Awake();
+	virtual bool Awake()
+	{
+		return true;
+	}
 
 	// Called before the first frame
-	bool Start();
+	virtual bool Start()
+	{
+		return true;
+	}
 
 	// Called before all Updates
-	bool PreUpdate();
+	virtual bool PreUpdate()
+	{
+		return true;
+	}
 
 	// Called each loop iteration
-	bool Update(float dt);
+	virtual bool Update(float dt)
+	{
+		return true;
+	}
 
 	// Called before all Updates
-	bool PostUpdate();
+	virtual bool PostUpdate()
+	{
+		return true;
+	}
 
 	// Called before quitting
-	bool CleanUp();
+	virtual bool CleanUp()
+	{
+		return true;
+	}
 
 	//Called on certain event
-	void OnEvent(GuiElement* element, GUI_Event even);
+	virtual void OnEvent(GuiElement* element, GUI_Event even){}
+
+	//Load and unload NOTE:(maybe there's no need to make it virtual)
+	virtual bool Load()
+	{
+		return true;
+	}
+
+	virtual bool UnLoad()
+	{
+		return true;
+	}
 
 private:
-	SDL_Texture* debug_tex;
-
-
-	//Scene Elements
-	GuiImage* window;
-	/*
-	GuiImage* button;
-	GuiLabel* button_title;
-	GuiLabel* window_title;
-	GuiInputBox* input;
-	GuiInputBox* input2;*/
-	//EXERCISE 1
-	GuiSlider* slider;
-	GuiLabel* value_label;
 };
 
 #endif // __j1SCENE_H__

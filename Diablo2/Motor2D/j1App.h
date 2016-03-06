@@ -17,7 +17,7 @@ class j1Render;
 class j1Textures;
 class j1Audio;
 class j1FileSystem;
-class j1Scene;
+class j1SceneManager;
 class j1Map;
 class j1PathFinding;
 class j1Fonts;
@@ -92,7 +92,7 @@ public:
 	j1Render*			render = NULL;
 	j1Textures*			tex = NULL;
 	j1Audio*			audio = NULL;
-	j1Scene*			scene = NULL;
+	j1SceneManager*		sm = NULL;
 	j1FileSystem*		fs = NULL;
 	j1Map*				map = NULL;
 	j1PathFinding*		pathfinding = NULL;

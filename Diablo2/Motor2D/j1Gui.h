@@ -49,14 +49,16 @@ public:
 
 	SDL_Texture* GetAtlas() const;
 
+public:
 
 	p2List<GuiElement*> gui_elements;
-private:
-	bool         debug;
-	SDL_Texture* atlas;
-	p2SString atlas_file_name;
 
-	GuiElement* focus;
+private:
+	bool			debug;
+	SDL_Texture*	atlas;
+	p2SString		atlas_file_name;
+
+	GuiElement*		focus;
 
 };
 

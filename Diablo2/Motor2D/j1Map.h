@@ -9,6 +9,8 @@
 #include <list>
 using namespace std;
 
+//WARNING: this has to stay out, i used it only because i wanted to test the the Scene Manager, but then, it didn't detect SDL_Rect and else
+#include "SDL/include/SDL.h"
 // ----------------------------------------------------
 struct Properties
 {
@@ -96,8 +98,8 @@ struct MapData
 	int					tile_height;
 	SDL_Color			background_color;
 	MapTypes			type;
-	list<TileSet*>	tilesets;
-	list<MapLayer*>	layers;
+	list<TileSet*>		tilesets;
+	list<MapLayer*>		layers;
 };
 
 // ----------------------------------------------------

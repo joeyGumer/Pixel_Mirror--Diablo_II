@@ -3,7 +3,7 @@
 
 #include "j1Module.h"
 #include "p2Point.h"
-//I'm doing trap here...
+// WARNING: I'm doing trap here...
 #include "SDL/include/SDL.h"
 
 struct SDL_Texture;
