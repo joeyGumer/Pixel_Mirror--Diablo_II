@@ -22,12 +22,6 @@
     <ClCompile Include="GuiElements.cpp">
       <Filter>Desenvolupament  ========\Modules\j1Gui\GuiElements</Filter>
     </ClCompile>
-    <ClCompile Include="snIntro.cpp">
-      <Filter>Desenvolupament  ========\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="snOutdoor1.cpp">
-      <Filter>Desenvolupament  ========\Scenes</Filter>
-    </ClCompile>
     <ClCompile Include="j1Audio.cpp">
       <Filter>Desenvolupament  ========\Modules\j1Audio</Filter>
     </ClCompile>
@@ -66,6 +60,12 @@
     </ClCompile>
     <ClCompile Include="j1Window.cpp">
       <Filter>Desenvolupament  ========\Modules\j1Window</Filter>
+    </ClCompile>
+    <ClCompile Include="snIntro.cpp">
+      <Filter>Desenvolupament  ========\Scenes\snIntro</Filter>
+    </ClCompile>
+    <ClCompile Include="snOutdoor1.cpp">
+      <Filter>Desenvolupament  ========\Scenes\snOutdoor1</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -114,12 +114,6 @@
     <ClInclude Include="Animation.h">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
-    <ClInclude Include="snIntro.h">
-      <Filter>Desenvolupament  ========\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="snOutdoor1.h">
-      <Filter>Desenvolupament  ========\Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="j1Audio.h">
       <Filter>Desenvolupament  ========\Modules\j1Audio</Filter>
     </ClInclude>
@@ -158,6 +152,12 @@
     </ClInclude>
     <ClInclude Include="j1Window.h">
       <Filter>Desenvolupament  ========\Modules\j1Window</Filter>
+    </ClInclude>
+    <ClInclude Include="snIntro.h">
+      <Filter>Desenvolupament  ========\Scenes\snIntro</Filter>
+    </ClInclude>
+    <ClInclude Include="snOutdoor1.h">
+      <Filter>Desenvolupament  ========\Scenes\snOutdoor1</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -220,6 +220,12 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Modules\j1Gui\GuiElements">
       <UniqueIdentifier>{9e41f391-2267-459a-b2e8-8e209a5a4d3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Scenes\snIntro">
+      <UniqueIdentifier>{afb39d9a-e8a5-43c4-9ad0-6306f02e49b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Scenes\snOutdoor1">
+      <UniqueIdentifier>{4d5586d9-f352-4224-9ccb-6028ed85f905}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

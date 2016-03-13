@@ -1,10 +1,14 @@
 #include "snOutdoor1.h"
 #include "j1App.h"
 #include "j1Map.h"
+#include "j1Render.h"
+#include "j1Input.h"
+#include "j1SceneManager.h"
+#include "snIntro.h"
 
 
 // Constructor
-snOutdoor1::snOutdoor1()
+snOutdoor1::snOutdoor1() : j1Scene()
 {}
 
 // Destructor
@@ -32,6 +36,15 @@ bool snOutdoor1::PreUpdate()
 // Update
 bool snOutdoor1::Update(float dt)
 {
+	//NOTE1 : Test for the scene manager
+	App->render->DrawQuad({ 100, 100, 100, 100 }, 0, 255, 0);
+
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == true)
+	{
+		App->sm->ChangeScene(App->sm->intro);
+	}
+	//
+
 	return true;
 }
 
