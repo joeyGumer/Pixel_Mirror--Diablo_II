@@ -33,6 +33,7 @@ bool snIntro::PreUpdate()
 // Update
 bool snIntro::Update(float dt)
 {
+	//Insert iterations for this scene here
 
 	// NOTE1 : this is for testing the Scene Manager
 	App->render->DrawQuad({ 100, 100, 100, 100 }, 255, 0, 0);
@@ -43,6 +44,7 @@ bool snIntro::Update(float dt)
 		App->sm->ChangeScene(App->sm->outdoor1);
 	}
 	//
+
 	return true;
 }
 
@@ -65,10 +67,12 @@ void snIntro::OnEvent(GuiElement* element, GUI_Event even)
 //Load/UnLoad, called when the scene changes
 bool snIntro::Load()
 {
+	Start();
 	return true;
 }
 
 bool snIntro::UnLoad()
 {
+	CleanUp();
 	return true;
 }

@@ -100,6 +100,9 @@ public:
 	j1Gui*				gui = NULL;
 	j1Player*			player = NULL;
 
+	//NOTE3: Now the debug mode is global form the app, ask Ric
+	bool                debug = false;
+
 private:
 
 	list<j1Module*>	modules;

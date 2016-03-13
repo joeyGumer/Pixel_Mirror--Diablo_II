@@ -5,6 +5,8 @@
 #include "j1Input.h"
 #include "j1SceneManager.h"
 #include "snIntro.h"
+#include "j1Map.h"
+#include "j1Gui.h"
 
 
 // Constructor
@@ -24,6 +26,8 @@ bool snOutdoor1::Awake(pugi::xml_node& conf)
 // Called the first frame
 bool snOutdoor1::Start()
 {
+	App->map->Load("iso.tmx");
+
 	return true;
 }
 
@@ -36,14 +40,12 @@ bool snOutdoor1::PreUpdate()
 // Update
 bool snOutdoor1::Update(float dt)
 {
-	//NOTE1 : Test for the scene manager
-	App->render->DrawQuad({ 100, 100, 100, 100 }, 0, 255, 0);
-
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == true)
-	{
-		App->sm->ChangeScene(App->sm->intro);
-	}
+	//Insert iterations for this scene here
+	
 	//
+
+	//Map
+	App->map->Draw();
 
 	return true;
 }
@@ -67,11 +69,13 @@ void snOutdoor1::OnEvent(GuiElement* element, GUI_Event even)
 //Load
 bool snOutdoor1::Load()
 {
+	Start();
 	return true;
 }
 
 //UnLoad
 bool snOutdoor1::UnLoad()
 {
+	CleanUp();
 	return true;
 }

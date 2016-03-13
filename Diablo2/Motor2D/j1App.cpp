@@ -207,6 +207,11 @@ void j1App::FinishUpdate()
 	if(want_to_load == true)
 		LoadGameNow();
 
+	// Activating debug mode for all the Game
+
+	if (input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+		debug = !debug;
+
 	// Framerate calculations --
 
 	if(last_sec_frame_time.Read() > 1000)
