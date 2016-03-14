@@ -2,6 +2,7 @@
 #include "p2Log.h"
 #include "j1App.h"
 #include "j1Input.h"
+#include "j1Render.h"
 #include "j1Window.h"
 #include "SDL/include/SDL.h"
 
@@ -185,13 +186,18 @@ bool j1Input::GetWindowEvent(j1EventWindow ev)
 
 iPoint j1Input::GetMousePosition()
 {
-	return{ mouse_x, mouse_y };
+	return{ mouse_x, mouse_y};
 }
 
 void j1Input::GetMousePosition(int& x, int& y)
 {
 	x = mouse_x;
 	y = mouse_y;
+}
+
+iPoint j1Input::GetMouseWorldPosition()
+{
+	return{ mouse_x - App->render->camera.x, mouse_y - App->render->camera.y };
 }
 
 void j1Input::GetMouseMotion(int& x, int& y)
@@ -214,7 +220,7 @@ iPoint j1Input::GetMouseMotion()
 void j1Input::StartInput(p2SString edit_input, int pos)
 {
 	SDL_StartTextInput();
-	//I do this so it can have lots of input boxes
+	//so it can have lots of input boxes
 	input_text = edit_input;
 	cursor_pos = pos;
 	enable_input = true;

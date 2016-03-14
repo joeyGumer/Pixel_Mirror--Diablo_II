@@ -35,7 +35,7 @@ GuiElement::GuiElement(iPoint p, SDL_Rect r, GUI_Type t, GuiElement* par, j1Modu
 GuiLabel::GuiLabel(p2SString t, _TTF_Font* f, iPoint p, GuiElement* par, j1Module* list = NULL) 
 	: GuiElement(p, GUI_LABEL, par, list), text(t), font(f)
 {
-	//Have to polish the texture sistem in the label
+	// NOTE :Have to polish the texture sistem in the label
 	tex = App->font->Print(text.GetString());
 	tex_rect = { 0, 0, 0, 0 };
 	App->font->CalcSize(text.GetString(), tex_rect.w, tex_rect.h);
@@ -46,12 +46,12 @@ GuiImage::GuiImage(iPoint p, SDL_Rect r, GuiElement* par, j1Module* list = NULL)
 	: GuiElement(p, r, GUI_IMAGE, par, list)
 {}
 
-//I'm doing and especific constructor, have to change this
+//NOTE :I'm doing and especific constructor, have to change this
 GuiInputBox::GuiInputBox(p2SString t, _TTF_Font* f, iPoint p, int width, SDL_Rect r, iPoint offset, GuiElement* par, j1Module* list)
 	: GuiElement(p, r, GUI_INPUTBOX, par, list), text(t, f, { 0, 0 }, this), image({ offset.x, offset.y }, r, this)
 {
 	SetLocalRect({ p.x, p.y, width, text.GetLocalRect().h});
-	//like this, we move the image
+	
 	image.Center(true, true);
 	inputOn = false;
 	init = false;
@@ -67,23 +67,11 @@ GuiInputBox::GuiInputBox(p2SString t, _TTF_Font* f, iPoint p, int width, SDL_Rec
 void GuiImage::Draw()
 {
 	iPoint p = GetScreenPosition();
-	//For now without mask, it gives some problems
-	/*if (parent && parent->mask)
-	{
-		SDL_Rect r = parent->GetScreenRect();
-
-		App->render->SetViewPort({ r.x , r.y , r.w, r.h });
-		p = GetLocalPosition();
-	}*/
-
-	//Change the camera application to the GetScreenPositionFunction
+	
 	App->render->Blit(App->gui->GetAtlas(),
 		p.x - App->render->camera.x,
 		p.y - App->render->camera.y,
 		&tex_rect);
-
-	/*if (parent && parent->mask)
-		App->render->ResetViewPort();*/
 }
 
 void GuiLabel::Draw()
@@ -170,6 +158,7 @@ void GuiInputBox::Update(GuiElement* hover, GuiElement* focus)
 	}
 
 }
+
 //GuiLabel Functions
 void GuiLabel::SetText(p2SString t)
 {
@@ -183,8 +172,8 @@ void GuiLabel::SetText(p2SString t)
 	App->tex->GetSize(tex, w, h);
 	SetSize(w, h);
 }
-//GuiElement Functions
 
+//GuiElement Functions
 iPoint GuiElement::GetLocalPosition()
 {
 	return{ local_rect.x, local_rect.y };
@@ -343,8 +332,7 @@ void GuiElement::DrawDebug()
 
 }
 
-//EXERCISE 1
-//EXERCISE 6 //The offsets are applied at the constructor
+
 GuiSlider::GuiSlider(iPoint p, SDL_Rect tex_1, SDL_Rect tex_2, int w, int thumb_h, iPoint offset, float value, GuiElement* par, j1Module* list)
 : GuiElement(p, GUI_SLIDER, par, list), image({ offset.x, offset.y }, tex_1, this, NULL), thumb({ p.x + offset.x, thumb_h }, tex_2, this, NULL), width(w), thumb_pos(0), max_value(value)
 {
@@ -364,15 +352,13 @@ void GuiSlider::Update(GuiElement* hover, GuiElement* focus)
 	
 	int last_thumb = thumb_pos;
 	
-	//EXERCISE 2
+
 	if (thumb.CheckCollision(App->input->GetMousePosition()) && App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
 	{
 			iPoint m = App->input->GetMouseMotion();
 			thumb_pos += m.x;
 	}
-	//----------
 
-	//EXERCISE 3
 	if (focused)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
@@ -382,7 +368,7 @@ void GuiSlider::Update(GuiElement* hover, GuiElement* focus)
 			thumb_pos++;
 	}
 
-	//EXERCISE 4
+	
 	if (clicking)
 	{
 		if (thumb.CheckCollision(App->input->GetMousePosition()) == false)
@@ -394,8 +380,6 @@ void GuiSlider::Update(GuiElement* hover, GuiElement* focus)
 		}
 	}
 
-	//APPLIED AT EXERCISE 2 BUT FOR ALL OF THEM
-	//activated only when the thumb position is changed so it has not to be used on every frame
 	if (last_thumb != thumb_pos)
 	{
 		if (thumb_pos < 0 || thumb_pos > width)
@@ -405,14 +389,13 @@ void GuiSlider::Update(GuiElement* hover, GuiElement* focus)
 			else
 				thumb_pos = width;
 		}
-		//I apply some offset
 		thumb.SetLocalPosition({ thumb_pos + image.GetLocalPosition().x, thumb.GetLocalPosition().y });
 
 		listener->OnEvent(this, EVENT_SLIDER_CHANGE);
 	}
 }
 
-//EXERCISE 5
+
 float GuiSlider::GetValue()const
 {
 	float dvalue = max_value / width;

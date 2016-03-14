@@ -3,6 +3,7 @@
 #include "p2Defs.h"
 #include "p2Log.h"
 #include "j1App.h"
+#include "memleaks.h"
 
 // This is needed here because SDL redefines main function
 // do not add any other libraries here, instead put them in their modules
@@ -28,7 +29,7 @@ j1App* App = NULL;
 
 int main(int argc, char* args[])
 {
-	//For now brofiler puts the same error as with when i tried to put SDL on the new project, need his help.
+	// NOTE : For now brofiler puts the same error as with when i tried to put SDL on the new project, need his help.
 	//This makes brofiler to work
 	//BROFILER_FRAME("Hello World")
 
@@ -114,6 +115,9 @@ int main(int argc, char* args[])
 
 	LOG("... Bye! :)\n");
 
+	
 	// Dump memory leaks
+
+	ReportMemoryLeaks();
 	return result;
 }

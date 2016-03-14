@@ -5,6 +5,11 @@
 #include "p2Point.h"
 #include "j1Module.h"
 
+//NOTE : put this to the config file
+#define CAM_SPEED 200.0f
+#define INIT_POS_X 280
+#define INIT_POS_Y 0
+
 class j1Render : public j1Module
 {
 public:

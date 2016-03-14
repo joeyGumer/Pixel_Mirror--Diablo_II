@@ -59,6 +59,16 @@ public:
 		return(r);
 	}
 
+	p2Point operator / (const float& m) const
+	{
+		p2Point r;
+
+		r.x = x / m;
+		r.y = y / m;
+
+		return (r);
+	}
+
 	const p2Point& operator -=(const p2Point &v)
 	{
 		x -= v.x;

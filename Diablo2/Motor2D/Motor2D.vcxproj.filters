@@ -159,6 +159,9 @@
     <ClInclude Include="snOutdoor1.h">
       <Filter>Desenvolupament  ========\Scenes\snOutdoor1</Filter>
     </ClInclude>
+    <ClInclude Include="memleaks.h">
+      <Filter>Desenvolupament  ========\Tools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -191,9 +194,6 @@
     <Filter Include="Desenvolupament  ========\Modules\j1Fonts">
       <UniqueIdentifier>{764ee469-a5ef-4357-9cc6-8bf39c90ccb5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Desenvolupament  ========\Modules\j1Gui">
-      <UniqueIdentifier>{8230f9dd-22bb-451a-a5ba-40a38be40461}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Desenvolupament  ========\Modules\j1Input">
       <UniqueIdentifier>{67ea4f98-6271-4347-86f3-9955d4c947fd}</UniqueIdentifier>
     </Filter>
@@ -218,14 +218,17 @@
     <Filter Include="Desenvolupament  ========\Modules\j1Window">
       <UniqueIdentifier>{50c542cf-c343-4609-bfa1-f63c073dbd61}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Desenvolupament  ========\Modules\j1Gui\GuiElements">
-      <UniqueIdentifier>{9e41f391-2267-459a-b2e8-8e209a5a4d3e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Desenvolupament  ========\Scenes\snIntro">
       <UniqueIdentifier>{afb39d9a-e8a5-43c4-9ad0-6306f02e49b9}</UniqueIdentifier>
     </Filter>
     <Filter Include="Desenvolupament  ========\Scenes\snOutdoor1">
       <UniqueIdentifier>{4d5586d9-f352-4224-9ccb-6028ed85f905}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\j1Gui">
+      <UniqueIdentifier>{8230f9dd-22bb-451a-a5ba-40a38be40461}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\j1Gui\GuiElements">
+      <UniqueIdentifier>{9e41f391-2267-459a-b2e8-8e209a5a4d3e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

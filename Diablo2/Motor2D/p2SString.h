@@ -72,9 +72,10 @@ public:
 	// Destructor
 	virtual ~p2SString()
 	{
-		/*This gives me problems, ask ric
 		if (str != NULL)
-			delete str;*/
+		{
+			delete[] str;
+		}
 	}
 
 	const p2SString& create(const char *format, ...)

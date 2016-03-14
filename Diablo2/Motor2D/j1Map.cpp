@@ -147,6 +147,18 @@ iPoint j1Map::WorldToMap(int x, int y) const
 	return ret;
 }
 
+//Translates any screen position to the tile position (in world coordinates) that it belongs
+iPoint j1Map::GetTileWorld(int x, int y) const
+{
+	// NOTE : this maybe can be better applied anywhere else
+	iPoint ret(x, y);
+
+	ret = WorldToMap(ret.x, ret.y);
+	ret = MapToWorld(ret.x, ret.y);
+
+	return ret;
+}
+
 SDL_Rect TileSet::GetTileRect(int id) const
 {
 	int relative_id = id - firstgid;

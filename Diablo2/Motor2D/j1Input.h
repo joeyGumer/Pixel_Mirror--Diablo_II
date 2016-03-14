@@ -71,6 +71,11 @@ public:
 
 	// Get mouse / axis position
 	//Added for big utility
+	
+	//Gets the world coordinates of the mouse positionb //NOTE : used because there where problems with the map movement
+	iPoint GetMouseWorldPosition();
+
+	//Gets the screen coordinates of the mouse position
 	iPoint GetMousePosition();
 	void GetMousePosition(int &x, int &y);
 	

@@ -2,6 +2,9 @@
 #define _SNOUTDOOR1_H_
 
 #include "j1Scene.h"
+#include "p2Point.h"
+
+class SDL_Texture;
 
 class snOutdoor1 : public j1Scene
 {
@@ -36,6 +39,19 @@ public:
 	//Load/UnLoad, called when the scene changes
 	bool Load();
 	bool UnLoad();
+
+public:
+	// NOTE: this is for testing the movement
+	SDL_Texture* player_tile = NULL;
+	iPoint player_pos;
+	bool movement = false;
+	iPoint final_pos;
+	float distance;
+	fPoint move_vec;
 };
+
+//NOTE: this is for the player too
+
+#define PLAYER_SPEED 0.005f
 
 #endif
