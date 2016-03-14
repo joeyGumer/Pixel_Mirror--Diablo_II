@@ -4,6 +4,7 @@
 #include "j1SceneManager.h"
 #include "j1Input.h"
 #include "snOutdoor1.h"
+#include "j1Gui.h"
 
 
 snIntro::snIntro() :j1Scene()
@@ -21,6 +22,11 @@ bool snIntro::Awake(pugi::xml_node& conf)
 
 bool snIntro::Start()
 {
+	ui_test = App->gui->AddGuiImage({ 100, 100 }, { 0, 0, 270, 35 }, NULL, this);
+	ui_test->interactable = true;
+	ui_test->focusable = true;
+	ui_test->draggable = true;
+
 	return true;
 }
 
@@ -35,8 +41,6 @@ bool snIntro::Update(float dt)
 {
 	//Insert iterations for this scene here
 
-	// NOTE1 : this is for testing the Scene Manager
-	App->render->DrawQuad({ 100, 100, 100, 100 }, 255, 0, 0);
 	// When pressing SPACE it changes to the scene outdoor1
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == true)
 	{
@@ -57,6 +61,8 @@ bool snIntro::PostUpdate()
 // Called before quitting
 bool snIntro::CleanUp()
 {
+	// NOTA : hacer función en UI que elimine un elemento de la lista(no por el nodo), quizas mejor aun si va por conjunto (para quitar todos los elementos de una escena
+	App->gui->gui_elements.del(App->gui->gui_elements.At(App->gui->gui_elements.find(ui_test)));
 	return true;
 }
 

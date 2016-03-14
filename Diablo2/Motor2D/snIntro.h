@@ -3,6 +3,8 @@
 
 #include "j1Scene.h"
 
+class GuiImage;
+
 class snIntro : public j1Scene
 {
 public:
@@ -36,6 +38,11 @@ public:
 	//Load/UnLoad, called when the scene changes
 	bool Load();
 	bool UnLoad();
+
+
+private:
+
+	GuiImage* ui_test = NULL;
 };
 
 #endif // __SNINTRO_H__

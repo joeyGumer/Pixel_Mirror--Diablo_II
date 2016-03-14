@@ -5,9 +5,7 @@
 //I'm doing trap here...
 //So i can take this out i have to change the constructors..., i'll do it later
 #include "GuiElements.h"
-#include <list>
 
-using namespace std;
 
 #define CURSOR_WIDTH 2
 
@@ -35,13 +33,15 @@ public:
 
 	// Called before quitting
 	bool CleanUp();
-	
+
+
+
 	// Gui creation functions
-	GuiImage* AddGuiImage(iPoint p, SDL_Rect r, GuiElement* par,j1Module* list);
+	GuiImage* AddGuiImage(iPoint p, SDL_Rect r, GuiElement* par, j1Module* list);
 	GuiLabel* AddGuiLabel(p2SString t, _TTF_Font* f, iPoint p, GuiElement* par, j1Module* list);
 	GuiInputBox* AddGuiInputBox(p2SString t, _TTF_Font* f, iPoint p, int width, SDL_Rect r, iPoint offset, GuiElement* par, j1Module* list);
 
-	//NOTE5 : this was for the exam exercise, delete it?
+	//EXERCISE 1
 	GuiSlider* AddGuiSlider(iPoint p, SDL_Rect tex_1, SDL_Rect tex_2, int width, int thumb_h, iPoint offset, float value, GuiElement* par, j1Module* list);
 
 	//Get selected element
@@ -51,10 +51,10 @@ public:
 
 public:
 
-	list<GuiElement*> gui_elements;
+	p2List<GuiElement*> gui_elements;
 
 private:
-	
+	bool			debug;
 	SDL_Texture*	atlas;
 	p2SString		atlas_file_name;
 

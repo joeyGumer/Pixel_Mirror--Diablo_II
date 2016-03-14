@@ -150,21 +150,14 @@ void GuiInputBox::Update(GuiElement* hover, GuiElement* focus)
 					listener->OnEvent(this, EVENT_INPUT_CHANGE);
 			}
 
-			//Password mode
-			//It stills has problems
-			/*if (password)
-			{
-				added_text.Fill('*');
-				text.tex = App->font->Print(added_text.GetString());
-			}*/
 
 			cursor_pos = changed_cursor;
 			if (cursor_pos > 0)
 			{
-				//Don't know why need to do this like this, ask ric
+				
 				p2SString selection(100);
 				selection.Reserve(added_text.Length() * 2);
-				//
+			
 				added_text.SubString(0, cursor_pos, selection);
 				
 				App->font->CalcSize(selection.GetString(), cursor.x, cursor.y);
@@ -345,6 +338,8 @@ void GuiElement::DrawDebug()
 	App->render->DrawLine(rect.x, rect.y, rect.x, rect.y + rect.h, 255, 0, 0);
 	App->render->DrawLine(rect.x + rect.w, rect.y, rect.x + rect.w, rect.y + rect.h, 255, 0, 0);
 	App->render->DrawLine(rect.x, rect.y + rect.h, rect.x + rect.w, rect.y + rect.h, 255, 0, 0);
+
+
 
 }
 
