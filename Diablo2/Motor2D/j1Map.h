@@ -124,9 +124,16 @@ public:
 	// Load new map
 	bool Load(const char* path);
 
+	//---------
+	//---------Point getter and coordinate system translators
 	iPoint MapToWorld(int x, int y) const;
 	iPoint WorldToMap(int x, int y) const;
+	//Get the tile world coordinates of a random point from the world
 	iPoint GetTileWorld(int x, int y) const;
+	//Get the center of the tile in world coordinates from a random point in the world
+	iPoint GetTileCenter(int x, int y) const;
+
+	//---------
 	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer) const;
 
 private:

@@ -46,17 +46,14 @@ bool snOutdoor1::PreUpdate()
 
 // Update
 bool snOutdoor1::Update(float dt)
-{
-	//Insert iterations for this scene here
-	
-
+{	
 	//Map
 	App->map->Draw();
 
 	//Player
 	//NOTE: this is before we have player module operative
 	//WARNING : it doesn't work for now
-	/*
+	
 	App->render->Blit(player_tile, player_pos.x, player_pos.y);
 
 	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
@@ -65,19 +62,22 @@ bool snOutdoor1::Update(float dt)
 
 		final_pos = App->input->GetMouseWorldPosition();
 		final_pos = App->map->GetTileWorld(final_pos.x, final_pos.y);
-
-	
 	}
 
 	
-	if (movement && distance < 0.0f)
+	if (movement)
 	{
-		player_pos.x += move_vec.x * PLAYER_SPEED /** dt*/;
-	/*	player_pos.y += move_vec.y * PLAYER_SPEED /** dt*/;
+		if (App->debug)
+		{
 
-	/*	distance = player_pos.DistanceTo(final_pos);
+			App->render->DrawLine(player_pos.x + App->map->data.tile_width/2, 
+									player_pos.y + App->map->data.tile_height, 
+									final_pos.x + App->map->data.tile_width/2,
+									final_pos.y + App->map->data.tile_height,
+									255, 0, 0);
+		}
 	}
-    */
+    
 
 	//Camera
 	//Free movement only avaliable on debug mode

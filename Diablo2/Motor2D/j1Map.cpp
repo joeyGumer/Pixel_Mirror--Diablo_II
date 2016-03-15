@@ -159,6 +159,19 @@ iPoint j1Map::GetTileWorld(int x, int y) const
 	return ret;
 }
 
+//Gets the World coordinate of the center of the tile from the Map coordinate of that tile
+iPoint j1Map::GetTileCenter(int x, int y) const
+{
+	iPoint ret(x, y);
+
+	ret = MapToWorld(ret.x, ret.y);
+	
+	ret.x += data.tile_width;
+	ret.y += data.tile_height;
+
+	return ret;
+}
+
 SDL_Rect TileSet::GetTileRect(int id) const
 {
 	int relative_id = id - firstgid;
