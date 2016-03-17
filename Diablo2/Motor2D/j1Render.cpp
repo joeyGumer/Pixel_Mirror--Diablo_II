@@ -128,6 +128,16 @@ iPoint j1Render::ScreenToWorld(int x, int y) const
 	return ret;
 }
 
+void j1Render::CenterCamera(float x, float y)
+{
+	uint win_x;
+	uint win_y;
+	App->win->GetWindowSize(win_x, win_y);
+
+	camera.x = (win_x / 2) - x;
+	camera.y = (win_y / 2) - y;
+}
+
 // Blit to screen
 bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section, float speed, double angle, int pivot_x, int pivot_y) const
 {

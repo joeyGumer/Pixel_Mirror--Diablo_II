@@ -3,6 +3,8 @@
 
 #include "j1Module.h"
 
+
+
 class j1Player : public j1Module
 {
 public:
@@ -24,11 +26,14 @@ public:
 	bool PostUpdate();
 
 	// Called each loop iteration
-	//NOTE: for now we don't need this
-	//void Draw();//
+	void Draw();
 
 	// Called before quitting
 	bool CleanUp();
+
+public:
+	int pos_x;
+	int pos_y;
 };
 
 #endif // __j1PLAYER_H__
