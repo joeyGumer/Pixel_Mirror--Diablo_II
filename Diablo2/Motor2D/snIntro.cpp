@@ -25,21 +25,27 @@ bool snIntro::Start()
 	pass = false;
 	exit = false;
 
+	//NOTE: Change the structure of the buttons
 	//Play button
 	play_button = App->gui->AddGuiImage({ 370, 210 }, { 0, 0, 270, 35 }, NULL, this);
+	intro_gui.push_back(play_button);
 	play_button->interactable = true;
 	play_button->focusable = true;
-	//play_button->draggable = true;
+
 	//Exit button
 	exit_button = App->gui->AddGuiImage({ 370, 570 }, { 0, 0, 270, 35 }, NULL, this);
+	intro_gui.push_back(exit_button);
 	exit_button->interactable = true;
 	exit_button->focusable = true;
-	//exit_button->draggable = true;
+
 	//Singleplayer text
 	singleplayer = App->gui->AddGuiLabel("Single player", NULL, { 0, 0 }, play_button, this);
+	intro_gui.push_back(singleplayer);
 	singleplayer->Center(370, 210);
+
 	//ExitdiabloII text
 	exitdiabloII = App->gui->AddGuiLabel("Exit diablo II", NULL, { 0, 0 }, exit_button, this);
+	intro_gui.push_back(exitdiabloII);
 	exitdiabloII->Center(370, 570);
 
 	
@@ -89,10 +95,24 @@ bool snIntro::PostUpdate()
 bool snIntro::CleanUp()
 {
 	// NOTA : hacer función en UI que elimine un elemento de la lista(no por el nodo), quizas mejor aun si va por conjunto (para quitar todos los elementos de una escena
-	App->gui->gui_elements.del(App->gui->gui_elements.At(App->gui->gui_elements.find(play_button)));
-	App->gui->gui_elements.del(App->gui->gui_elements.At(App->gui->gui_elements.find(exit_button)));
-	App->gui->gui_elements.del(App->gui->gui_elements.At(App->gui->gui_elements.find(singleplayer)));
-	App->gui->gui_elements.del(App->gui->gui_elements.At(App->gui->gui_elements.find(exitdiabloII)));
+	//deletes the elements from the scene from the gui_elements list
+	//maybe just by deactivating the iteration of this elements is a good way, who knows, ask ric
+
+	for (list<GuiElement*>::iterator item = intro_gui.begin(); item != intro_gui.end(); item++)
+	{
+		for (list<GuiElement*>::iterator item2 = App->gui->gui_elements.begin(); item2 != App->gui->gui_elements.end(); item2++)
+		{
+			if ((*item2) == (*item))
+			{
+				RELEASE(*item2);
+				App->gui->gui_elements.erase(item2);
+				break;
+			}
+		}
+	}
+
+	intro_gui.clear();
+
 	return true;
 }
 
@@ -106,10 +126,12 @@ void snIntro::OnEvent(GuiElement* element, GUI_Event even)
 		{
 		case EVENT_MOUSE_LEFTCLICK_DOWN:
 			element->SetTextureRect({ 0, 36, 270, 35 });
+			
 			break;
 		case EVENT_MOUSE_LEFTCLICK_UP:
 		{
 			element->SetTextureRect({ 0, 0, 270, 35 });
+			//App->sm->ChangeScene(App->sm->outdoor1);
 			pass = true;
 		}
 			break;

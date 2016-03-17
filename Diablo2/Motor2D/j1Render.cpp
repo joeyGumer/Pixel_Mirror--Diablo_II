@@ -128,7 +128,8 @@ iPoint j1Render::ScreenToWorld(int x, int y) const
 	return ret;
 }
 
-void j1Render::CenterCamera(float x, float y)
+
+void j1Render::CenterCamera(int x, int y)
 {
 	uint win_x;
 	uint win_y;

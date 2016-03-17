@@ -8,6 +8,7 @@
 #include "j1Map.h"
 #include "j1Gui.h"
 #include "j1Textures.h"
+#include "j1Player.h"
 
 
 // Constructor
@@ -32,8 +33,6 @@ bool snOutdoor1::Start()
 	App->map->Load("iso.tmx");
 
 	//NOTE: testing movement
-	player_tile = App->tex->Load("maps/path.png");
-	player_pos = App->map->MapToWorld(20, 20);
 
 	return true;
 }
@@ -54,7 +53,8 @@ bool snOutdoor1::Update(float dt)
 	//NOTE: this is before we have player module operative
 	//WARNING : it doesn't work for now
 	
-	App->render->Blit(player_tile, player_pos.x, player_pos.y);
+	App->player->Draw();
+	/*App->render->Blit(player_tile, player_pos.x, player_pos.y);
 
 	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 	{
@@ -76,7 +76,7 @@ bool snOutdoor1::Update(float dt)
 									final_pos.y + App->map->data.tile_height,
 									255, 0, 0);
 		}
-	}
+	}*/
     
 
 	//Camera

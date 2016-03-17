@@ -2,8 +2,12 @@
 #define __SNINTRO_H__
 
 #include "j1Scene.h"
+#include <list>
+
+using namespace std;
 
 class GuiImage;
+class GuiElement;
 
 class snIntro : public j1Scene
 {
@@ -47,6 +51,10 @@ private:
 	GuiImage* exit_button = NULL;
 	GuiLabel* singleplayer = NULL;
 	GuiLabel* exitdiabloII = NULL;
+
+	//NOTE : added this list to iterate easily the gui_elements of the scene. Ask ric about a more optimal way to control the UI
+	//NOTE: do the button class so it can have the diferent images and even a label, so it doesn?t interfere with the rest of the ui
+	list<GuiElement*> intro_gui;
 };
 
 #endif // __SNINTRO_H__

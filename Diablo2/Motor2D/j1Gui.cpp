@@ -55,39 +55,75 @@ bool j1Gui::PreUpdate()
 	if (hover_element && hover_element->focusable && App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 		focus = hover_element;
 
-	p2List_item<GuiElement*>* item;
+	list<GuiElement*>::iterator item;
 
 	if (App->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN)
 	{
-		int index = gui_elements.find(focus);
+		//int index = gui_elements.find(focus);
+		//substitute for focus
+		item = gui_elements.begin();
+		int index = 0;
+		while (item != gui_elements.end())
+		{
+			if ((*item) == focus)
+				break;
+
+			index++;
+			item++;
+		}
+		if (item == gui_elements.end())
+			index = -1;
+		//
 		if (focus)
 		{
 			focus = NULL;
 			index++;
-			item = gui_elements.At(index);
-			for (; item; item = item->next)
-			if (item->data->focusable)
+			item = gui_elements.begin();
+			//substitute for "at"
+			for (int pos = 0; item != gui_elements.end(); item++)
 			{
-				focus = item->data;
-				break;
+				if (pos == index)
+					break;
+
+				pos++;
+			}
+
+			for (; item != gui_elements.end(); item++)
+			{
+				if ((*item)->focusable)
+				{
+					focus = *item;
+					break;
+				}
 			}
 		}
 
 		if (!focus)
-		for (item = gui_elements.start; item; item = item->next)
-		if (item->data->focusable)
+			for (item = gui_elements.begin(); item != gui_elements.end(); item++)
+			{
+				if ((*item)->focusable)
+				{
+					focus = *item;
+					break;
+				}
+			}
+	}
+
+	//NOTE, if we use the changeScene at OnEvent, it crashes here , even if there are no items, it says that there's an item without content (NULL)
+	//Ask ric with more questions about UI
+	for (item = gui_elements.begin(); item != gui_elements.end(); item++)
+	{
+		if ((*item)->interactable)
 		{
-			focus = item->data;
-			break;
+			(*item)->CheckEvent(hover_element, focus);
+			
 		}
 	}
 
-	for (item = gui_elements.start; item; item = item->next)
-	if (item->data->interactable)
-		item->data->CheckEvent(hover_element, focus);
-
-	for (item = gui_elements.start; item; item = item->next)
-		item->data->Update(hover_element, focus);
+	for (item = gui_elements.begin(); item != gui_elements.end(); item++)
+	{
+		(*item)->Update(hover_element, focus);
+	}
 
 	return true;
 }
@@ -96,12 +132,12 @@ bool j1Gui::PreUpdate()
 bool j1Gui::PostUpdate()
 {
 
-	p2List_item<GuiElement*>* item = gui_elements.start;
-	for (; item; item = item->next)
+	list<GuiElement*>::iterator item = gui_elements.begin();
+	for (; item != gui_elements.end(); item++)
 	{
-		item->data->Draw();
+		(*item)->Draw();
 		if (debug)
-			item->data->DrawDebug();
+			(*item)->DrawDebug();
 	}
 
 	return true;
@@ -112,9 +148,9 @@ bool j1Gui::CleanUp()
 {
 	LOG("Freeing GUI");
 
-	p2List_item<GuiElement*>* item = gui_elements.start;
-	for (; item; item = item->next)
-		RELEASE(item->data);
+	list<GuiElement*>::iterator item = gui_elements.begin();
+	for (; item != gui_elements.end(); item++)
+		RELEASE(*item);
 
 	gui_elements.clear();
 
@@ -132,7 +168,7 @@ SDL_Texture* j1Gui::GetAtlas() const
 GuiImage* j1Gui::AddGuiImage(iPoint p, SDL_Rect r, GuiElement* par, j1Module* list)
 {
 	GuiImage* image = new GuiImage(p, r, par, list);
-	gui_elements.add(image);
+	gui_elements.push_back(image);
 	return image;
 }
 
@@ -146,7 +182,7 @@ GuiLabel* j1Gui::AddGuiLabel(p2SString t, _TTF_Font* f, iPoint p, GuiElement* pa
 	else
 		label = new GuiLabel(t, App->font->default, p, par, list);
 
-	gui_elements.add(label);
+	gui_elements.push_back(label);
 
 	return label;
 }
@@ -154,19 +190,19 @@ GuiLabel* j1Gui::AddGuiLabel(p2SString t, _TTF_Font* f, iPoint p, GuiElement* pa
 GuiInputBox* j1Gui::AddGuiInputBox(p2SString t, _TTF_Font* f, iPoint p, int width, SDL_Rect r, iPoint offset, GuiElement* par, j1Module* list)
 {
 	GuiInputBox* input = new GuiInputBox(t, f, p, width, r, offset, par, list);
-	gui_elements.add(input);
+	gui_elements.push_back(input);
 	return input;
 }
 
 GuiElement* j1Gui::FindSelectedElement()
 {
-	p2List_item<GuiElement*>* item = gui_elements.end;
+	list<GuiElement*>::reverse_iterator item = gui_elements.rbegin();
 
-	for (; item; item = item->prev)
+	for (; item != gui_elements.rend(); item++)
 	{
-		if (item->data->CheckCollision(App->input->GetMousePosition()))
+		if ((*item)->CheckCollision(App->input->GetMousePosition()))
 		{
-			return item->data;
+			return *item;
 		}
 	}
 	return NULL;
@@ -176,7 +212,7 @@ GuiElement* j1Gui::FindSelectedElement()
 GuiSlider* j1Gui::AddGuiSlider(iPoint p, SDL_Rect tex_1, SDL_Rect tex_2, int width, int thumb_h, iPoint offset, float value, GuiElement* par, j1Module* list)
 {
 	GuiSlider* slider = new GuiSlider(p, tex_1, tex_2, width, thumb_h, offset, value, par, list);
-	gui_elements.add(slider);
+	gui_elements.push_back(slider);
 	return slider;
 }
 // class Gui ---------------------------------------------------*/

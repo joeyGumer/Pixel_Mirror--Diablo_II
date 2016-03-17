@@ -5,6 +5,7 @@
 //I'm doing trap here...
 //So i can take this out i have to change the constructors..., i'll do it later
 #include "GuiElements.h"
+#include <list>
 
 
 #define CURSOR_WIDTH 2
@@ -50,7 +51,7 @@ public:
 
 public:
 
-	p2List<GuiElement*> gui_elements;
+	list<GuiElement*> gui_elements;
 
 private:
 	bool			debug;
