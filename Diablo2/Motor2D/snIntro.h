@@ -38,11 +38,15 @@ public:
 	//Load/UnLoad, called when the scene changes
 	bool Load();
 	bool UnLoad();
-
+	bool pass;
+	bool exit;
 
 private:
 
-	GuiImage* ui_test = NULL;
+	GuiImage* play_button = NULL;
+	GuiImage* exit_button = NULL;
+	GuiLabel* singleplayer = NULL;
+	GuiLabel* exitdiabloII = NULL;
 };
 
 #endif // __SNINTRO_H__

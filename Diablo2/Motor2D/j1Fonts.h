@@ -7,8 +7,8 @@
 #include <list>
 using namespace std;
 
-#define DEFAULT_FONT "fonts/open_sans/OpenSans-Regular.ttf"
-#define DEFAULT_FONT_SIZE 12
+#define DEFAULT_FONT "fonts/open_sans/DiabloII.TTF"
+#define DEFAULT_FONT_SIZE 19
 
 struct SDL_Texture;
 struct _TTF_Font;
@@ -32,7 +32,7 @@ public:
 	_TTF_Font* const Load(const char* path, int size = 12);
 
 	// Create a surface from text
-	SDL_Texture* Print(const char* text, SDL_Color color = {255, 255, 255, 255}, _TTF_Font* font = NULL);
+	SDL_Texture* Print(const char* text, SDL_Color color = {0, 0, 0, 0}, _TTF_Font* font = NULL);
 
 	bool CalcSize(const char* text, int& width, int& height, _TTF_Font* font = NULL) const;
 
