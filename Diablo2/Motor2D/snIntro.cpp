@@ -5,6 +5,7 @@
 #include "j1Input.h"
 #include "snOutdoor1.h"
 #include "j1Gui.h"
+#include "j1Audio.h"
 
 
 snIntro::snIntro() :j1Scene()
@@ -22,18 +23,26 @@ bool snIntro::Awake(pugi::xml_node& conf)
 
 bool snIntro::Start()
 {
+	App->audio->PlayMusic("audio/music/introedit.ogg", 0);
+
 	pass = false;
 	exit = false;
 
-	//NOTE: Change the structure of the buttons
+	//NOTE: Change the structure of the buttons. 
+	// - What do you mean? 
+
+	//Background
+	background = App->gui->AddGuiImage({ -20, -2 }, {1829, 82, 1062, 642}, NULL, this);
+	intro_gui.push_back(background);
+	
 	//Play button
-	play_button = App->gui->AddGuiImage({ 370, 210 }, { 0, 0, 270, 35 }, NULL, this);
+	play_button = App->gui->AddGuiImage({ 370, 280 }, { 0, 0, 270, 35 }, NULL, this);
 	intro_gui.push_back(play_button);
 	play_button->interactable = true;
 	play_button->focusable = true;
 
 	//Exit button
-	exit_button = App->gui->AddGuiImage({ 370, 570 }, { 0, 0, 270, 35 }, NULL, this);
+	exit_button = App->gui->AddGuiImage({ 370, 480 }, { 0, 0, 270, 35 }, NULL, this);
 	intro_gui.push_back(exit_button);
 	exit_button->interactable = true;
 	exit_button->focusable = true;
@@ -79,7 +88,7 @@ bool snIntro::Update(float dt)
 
 	else if (exit == true)
 	{
-		//SDL_Quit();
+		std::exit(0);
 	}
 
 	return true;
@@ -125,13 +134,15 @@ void snIntro::OnEvent(GuiElement* element, GUI_Event even)
 		switch (even)
 		{
 		case EVENT_MOUSE_LEFTCLICK_DOWN:
+		{
 			element->SetTextureRect({ 0, 36, 270, 35 });
-			
+			singleplayer->SetLocalPosition({ 50, 8 });
+		}
 			break;
 		case EVENT_MOUSE_LEFTCLICK_UP:
 		{
 			element->SetTextureRect({ 0, 0, 270, 35 });
-			//App->sm->ChangeScene(App->sm->outdoor1);
+			singleplayer->Center(370, 210);
 			pass = true;
 		}
 			break;
@@ -149,11 +160,15 @@ void snIntro::OnEvent(GuiElement* element, GUI_Event even)
 		switch (even)
 		{
 		case EVENT_MOUSE_LEFTCLICK_DOWN:
+		{
 			element->SetTextureRect({ 0, 36, 270, 35 });
+			exitdiabloII->SetLocalPosition({ 50, 8 });
+		}
 			break;
 		case EVENT_MOUSE_LEFTCLICK_UP:
 		{
 			element->SetTextureRect({ 0, 0, 270, 35 });
+			exitdiabloII->Center(370, 570);
 			exit = true;
 		}
 			break;

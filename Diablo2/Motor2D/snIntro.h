@@ -49,6 +49,7 @@ private:
 
 	GuiImage* play_button = NULL;
 	GuiImage* exit_button = NULL;
+	GuiImage* background = NULL;
 	GuiLabel* singleplayer = NULL;
 	GuiLabel* exitdiabloII = NULL;
 

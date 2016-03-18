@@ -9,6 +9,7 @@
 #include "j1Gui.h"
 #include "j1Textures.h"
 #include "j1Player.h"
+#include "j1Audio.h"
 
 
 // Constructor
@@ -30,6 +31,8 @@ bool snOutdoor1::Awake(pugi::xml_node& conf)
 // Called the first frame
 bool snOutdoor1::Start()
 {
+	App->audio->PlayMusic("audio/music/town1.ogg", 0);
+
 	App->map->Load("iso.tmx");
 
 	//NOTE: testing movement
