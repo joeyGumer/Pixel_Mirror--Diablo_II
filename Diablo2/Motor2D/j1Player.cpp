@@ -25,7 +25,25 @@ bool j1Player::Awake(pugi::xml_node& conf)
 // Called the first frame
 bool j1Player::Start()
 {
-	character = App->tex->Load("maps/path.png");
+	player_debug = App->tex->Load("maps/path.png");
+	
+
+	//Idle sprites
+	player_sprite = App->tex->Load("textures/vamp_idle.png");
+	//NOTE : put this in a function
+	//it will be an animation, but for now, it will be with rect
+	idle_front = { 0, 0, 96, 92 };
+	idle_left_front = { 0, 93, 96, 92 };
+	//idle_left &= NULL;
+	idle_left_back = { 0, 279, 96, 92 };
+	//idle_back = NULL;
+	idle_right_back = { 0, 465, 96, 92 };
+	//idle_right = NULL;
+	idle_right_front = { 0, 651, 96, 92 };
+
+	current_sprite = idle_front;
+
+	//
 	player_pos = { 20, 20 };
 	return true;
 }
@@ -41,30 +59,35 @@ bool j1Player::PreUpdate()
 bool j1Player::Update(float dt)
 {
 	//NOTE: provisional movement for the player
+	//NOTE: and provisional state machine for the player
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN)
 	{
+		current_sprite = idle_left_back;
 		player_pos.x -= 1;
 	}
 	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN)
 	{
+		current_sprite = idle_right_front;
 		player_pos.x += 1;
 	}
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
 	{
+		current_sprite = idle_right_back;
 		player_pos.y -= 1;
 	}
 	else if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
 	{
+		current_sprite = idle_left_front;
 		player_pos.y += 1;
 	}
 	//
 
-	//Camera
-	//NOTe : maybe is a good idea to put it with an event, so it just iterates when it moves, see it later when we have done the pathfinding
+	//Camera idea to put it with an event, so it just iterates when it moves, see it later when we have done the pathfinding
 	//Create the variable pivot because it will be more needed
+	//NOTe : maybe is a good
 	iPoint pos = App->map->MapToWorld(player_pos.x, player_pos.y);
 	pos.x += App->map->data.tile_width/2;
-	pos.y += App->map->data.tile_height;
+	pos.y += App->map->data.tile_height/2;
 	App->render->CenterCamera(pos.x, pos.y);
 	//NOTE: Add a debug to see the pivot
 
@@ -89,7 +112,7 @@ void j1Player::Draw() const
 	iPoint pos = App->map->MapToWorld(player_pos.x, player_pos.y);
 
 	//Draw player
-	App->render->Blit(character, pos.x, pos.y);
+	App->render->Blit(player_sprite, pos.x, pos.y, &current_sprite);
 }
 
 // Called before quitting

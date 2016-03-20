@@ -3,11 +3,16 @@
 
 #include "j1Module.h"
 #include "p2Point.h"
-
+//WARNING provisional sdl including
+#include "SDL/include/SDL.h"
 //NOTE: player speed, put it at the config file
 #define PLAYER_SPEED 200.0f;
+#define DIRECTIONS 8;
+#define PLAYER_W 96;
+#define PLAYER_H (92);
 
-struct SDL_Texture;
+
+
 
 class j1Player : public j1Module
 {
@@ -42,7 +47,27 @@ public:
 
 	iPoint player_pos;
 	//NOTE: for testing purposes
-	SDL_Texture* character = NULL;
+private:
+	//Textures
+	SDL_Texture* player_debug = NULL;
+	SDL_Texture* player_sprite = NULL;
+
+	//
+	//------Rects for each state and direction
+	//
+	SDL_Rect current_sprite;
+	//Idle
+	//NOTE : later this will be an animation
+	SDL_Rect idle_front;
+	SDL_Rect idle_left_front;
+	SDL_Rect idle_left;
+	SDL_Rect idle_left_back;
+	SDL_Rect idle_back;
+	SDL_Rect idle_right_back;
+	SDL_Rect idle_right;
+	SDL_Rect idle_right_front;
+
+
 };
 
 #endif // __j1PLAYER_H__
