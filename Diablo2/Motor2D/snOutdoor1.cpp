@@ -33,7 +33,8 @@ bool snOutdoor1::Start()
 {
 	App->audio->PlayMusic("audio/music/town1.ogg", 0);
 
-	App->map->Load("iso.tmx");
+	//App->map->Load("iso.tmx");
+	App->map->Load("test_map_swamp.tmx");
 
 	//NOTE: testing movement
 
