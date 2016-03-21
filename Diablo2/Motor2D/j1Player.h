@@ -6,16 +6,19 @@
 //WARNING provisional sdl including
 #include "SDL/include/SDL.h"
 //NOTE: player speed, put it at the config file
-#define PLAYER_SPEED 200.0f;
-#define DIRECTIONS 8;
-#define PLAYER_W 96;
-#define PLAYER_H (92);
+#define PLAYER_SPEED 200.0f
+#define DIRECTIONS 8
+#define PLAYER_W int (96)
+#define PLAYER_H int (92)
+#define PLAYER_PIVOT_OFFSET int(10)
 
 
 
 
 class j1Player : public j1Module
 {
+//Methods
+
 public:
 	j1Player();
 
@@ -43,14 +46,30 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	//NOTE: some of these may go to the entities
+	//Getters
+	iPoint		GetMapPosition() const;
+	iPoint		GetTilePosition() const;
+	iPoint		GetBlitPosition() const;
+	iPoint		GetPivotPosition() const;
+	SDL_Rect	GetPlayerRect() const;
+
+
+
+//Attributes
+
 public:
 
-	iPoint player_pos;
-	//NOTE: for testing purposes
+	
 private:
+
+	//Position
+	iPoint p_map_pos;
+	iPoint p_pivot;
+
 	//Textures
-	SDL_Texture* player_debug = NULL;
-	SDL_Texture* player_sprite = NULL;
+	SDL_Texture* p_debug = NULL;
+	SDL_Texture* p_sprite = NULL;
 
 	//
 	//------Rects for each state and direction
@@ -66,7 +85,6 @@ private:
 	SDL_Rect idle_right_back;
 	SDL_Rect idle_right;
 	SDL_Rect idle_right_front;
-
 
 };
 

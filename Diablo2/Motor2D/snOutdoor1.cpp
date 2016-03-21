@@ -31,9 +31,11 @@ bool snOutdoor1::Awake(pugi::xml_node& conf)
 // Called the first frame
 bool snOutdoor1::Start()
 {
-	App->audio->PlayMusic("audio/music/town1.ogg", 0);
+	//Music
+	//NOTE : deactivated for debugging
+	//App->audio->PlayMusic("audio/music/town1.ogg", 0);
 
-	//App->map->Load("iso.tmx");
+	//Map
 	App->map->Load("test_map_swamp.tmx");
 
 	//NOTE: testing movement
@@ -55,37 +57,13 @@ bool snOutdoor1::Update(float dt)
 
 	//Player
 	//NOTE: this is before we have player module operative
-	//WARNING : it doesn't work for now
 	
 	App->player->Draw();
-	/*App->render->Blit(player_tile, player_pos.x, player_pos.y);
-
-	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
-	{
-		movement = true;
-
-		final_pos = App->input->GetMouseWorldPosition();
-		final_pos = App->map->GetTileWorld(final_pos.x, final_pos.y);
-	}
-
 	
-	if (movement)
-	{
-		if (App->debug)
-		{
-
-			App->render->DrawLine(player_pos.x + App->map->data.tile_width/2, 
-									player_pos.y + App->map->data.tile_height, 
-									final_pos.x + App->map->data.tile_width/2,
-									final_pos.y + App->map->data.tile_height,
-									255, 0, 0);
-		}
-	}*/
-    
 
 	//Camera
 	//Free movement only avaliable on debug mode
-
+	/*
 	if (App->debug)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
@@ -107,7 +85,7 @@ bool snOutdoor1::Update(float dt)
 		{
 			App->render->camera.y += floor(CAM_SPEED*dt);
 		}
-	}
+	}*/
 
 	return true;
 }

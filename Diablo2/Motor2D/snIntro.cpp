@@ -23,7 +23,9 @@ bool snIntro::Awake(pugi::xml_node& conf)
 
 bool snIntro::Start()
 {
-	App->audio->PlayMusic("audio/music/introedit.ogg", 0);
+	//Music
+	//NOTE : deactivated for debugging mode
+	//App->audio->PlayMusic("audio/music/introedit.ogg", 0);
 
 	pass = false;
 	exit = false;

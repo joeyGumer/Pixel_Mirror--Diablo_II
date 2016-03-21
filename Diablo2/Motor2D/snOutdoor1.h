@@ -43,11 +43,8 @@ public:
 public:
 	// NOTE: this is for testing the movement
 	SDL_Texture* player_tile = NULL;
-	iPoint player_pos;
-	bool movement = false;
-	iPoint final_pos;
-	float distance;
-	fPoint move_vec;
+	
+	
 };
 
 //NOTE: this is for the player too
