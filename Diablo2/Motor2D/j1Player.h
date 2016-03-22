@@ -40,11 +40,14 @@ public:
 	//PostUpdate
 	bool PostUpdate();
 
-	// Called each loop iteration
+	//Draws the player each loop iteration
 	void Draw() const;
 
 	// Called before quitting
 	bool CleanUp();
+
+	//Debug mode
+	void Debug() const ;
 
 	//NOTE: some of these may go to the entities
 	//Getters
@@ -53,6 +56,9 @@ public:
 	iPoint		GetBlitPosition() const;
 	iPoint		GetPivotPosition() const;
 	SDL_Rect	GetPlayerRect() const;
+
+	//Estructuralfunctions
+	void SetSpriteRects();
 
 
 

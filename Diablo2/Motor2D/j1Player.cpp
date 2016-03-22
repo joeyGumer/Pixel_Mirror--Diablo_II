@@ -30,16 +30,8 @@ bool j1Player::Start()
 	
 	//Idle sprites
 	p_sprite = App->tex->Load("textures/vamp_idle.png");
-	//NOTE : put this in a function
-	//it will be an animation, but for now, it will be with rect
-	idle_front = { 0, 0, 96, 92 };
-	idle_left_front = { 0, 93, 96, 92 };
-	//idle_left &= NULL;
-	idle_left_back = { 0, 279, 96, 92 };
-	//idle_back = NULL;
-	idle_right_back = { 0, 465, 96, 92 };
-	//idle_right = NULL;
-	idle_right_front = { 0, 651, 96, 92 };
+	SetSpriteRects();
+
 
 	current_sprite = idle_front;
 
@@ -93,7 +85,6 @@ bool j1Player::Update(float dt)
 	pos.x += App->map->data.tile_width/2;
 	pos.y += App->map->data.tile_height/2;
 	App->render->CenterCamera(pos.x, pos.y);
-	//NOTE: Add a debug to see the pivot
 
 	return true;
 }
@@ -121,21 +112,42 @@ void j1Player::Draw() const
 	//Debug mode
 	if (App->debug)
 	{
-		//NOTE : put this in a debug function
-		iPoint t_pos = GetTilePosition();
-		iPoint p_pos = GetPivotPosition();
-
-		App->render->Blit(p_debug, t_pos.x, t_pos.y);
-		App->render->DrawQuad(App->player->GetPlayerRect(), 255, 0, 0, 1000, false);
-		App->render->DrawCircle(p_pos.x, p_pos.y, 5, 255, 0, 0, 1000);
-		App->render->DrawQuad({ p_pos.x, p_pos.y, 3, 3 }, 255, 0, 0);
-	
+		Debug();
 	}
 
 	//Draws Actual sprite
 	App->render->Blit(p_sprite, pos.x, pos.y, &current_sprite);
 }
 
+//Debug
+
+void j1Player::Debug() const
+{
+	iPoint t_pos = GetTilePosition();
+	iPoint p_pos = GetPivotPosition();
+
+	App->render->Blit(p_debug, t_pos.x, t_pos.y);
+	App->render->DrawQuad(App->player->GetPlayerRect(), 255, 0, 0, 1000, false);
+	//App->render->DrawCircle(p_pos.x, p_pos.y, 5, 255, 0, 0, 1000);
+	App->render->DrawQuad({ p_pos.x, p_pos.y, 3, 3 }, 255, 0, 0);
+}
+
+/*
+//-------Structural functions
+*/
+
+void j1Player::SetSpriteRects()
+{
+	//it will be an animation, but for now, it will be with rect
+	idle_front = { 0, 0, 96, 92 };
+	idle_left_front = { 0, 93, 96, 92 };
+	//idle_left &= NULL;
+	idle_left_back = { 0, 279, 96, 92 };
+	//idle_back = NULL;
+	idle_right_back = { 0, 465, 96, 92 };
+	//idle_right = NULL;
+	idle_right_front = { 0, 651, 96, 92 };
+}
 
 /*
 //-------Getters
