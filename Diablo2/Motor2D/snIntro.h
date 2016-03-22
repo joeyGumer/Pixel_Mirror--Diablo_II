@@ -8,6 +8,7 @@ using namespace std;
 
 class GuiImage;
 class GuiElement;
+class GuiButton;
 
 class snIntro : public j1Scene
 {
@@ -42,16 +43,17 @@ public:
 	//Load/UnLoad, called when the scene changes
 	bool Load();
 	bool UnLoad();
+	
+
+private:
+	
 	bool pass;
 	bool exit;
 
-private:
-
-	GuiImage* play_button = NULL;
-	GuiImage* exit_button = NULL;
+	//Ui elements
+	GuiButton* play_button = NULL;
+	GuiButton* exit_button = NULL;
 	GuiImage* background = NULL;
-	GuiLabel* singleplayer = NULL;
-	GuiLabel* exitdiabloII = NULL;
 
 	//NOTE : added this list to iterate easily the gui_elements of the scene. Ask ric about a more optimal way to control the UI
 	//NOTE: do the button class so it can have the diferent images and even a label, so it doesn?t interfere with the rest of the ui

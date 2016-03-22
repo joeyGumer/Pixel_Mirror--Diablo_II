@@ -48,7 +48,7 @@ public:
 	void DrawDebug();
 	void Center(bool x, bool y);
 
-	//Utils
+	//Getters
 	iPoint GetLocalPosition();
 	iPoint GetScreenPosition();
 	SDL_Rect GetScreenRect();
@@ -66,11 +66,11 @@ public:
 	//int		 id;
 	GuiElement*  parent;
 	//not defined
-	bool         visible;
+	bool         visible = true;
+	bool		 interactable = false;
+	bool		 draggable = false;
+	bool		 focusable = false;
 	bool		 mouseIn;
-	bool		 interactable;
-	bool		 draggable;
-	bool		 focusable;
 	bool		 focusIn;
 	bool		 mask;
 	j1Module*    listener;
@@ -135,8 +135,24 @@ public:
 	int		cursor_pos;
 };
 
+class GuiButton : public GuiElement
+{
+public:
+	GuiButton(iPoint p, SDL_Rect idle_r1, SDL_Rect hover_r1, SDL_Rect click_r1, p2SString t, _TTF_Font* f, j1Module* list = NULL, GuiElement* parent = NULL);
+	~GuiButton(){}
 
-//EXERCISE 1
+	void Draw();
+	void Update(GuiElement* hover, GuiElement* focus);
+
+public:
+	GuiImage button_image;
+	GuiLabel button_label;
+	SDL_Rect idle_tex;
+	SDL_Rect hover_tex;
+	SDL_Rect click_tex;
+
+};
+
 class GuiSlider : public GuiElement
 {
 public:

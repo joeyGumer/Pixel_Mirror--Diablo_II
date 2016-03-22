@@ -30,8 +30,10 @@ j1App* App = NULL;
 int main(int argc, char* args[])
 {
 	// NOTE : For now brofiler puts the same error as with when i tried to put SDL on the new project, need his help.
+	//NOTE : the memory leaks detector doesn't work either
 	//This makes brofiler to work
 	//BROFILER_FRAME("Hello World")
+	//ReportMemoryLeaks();
 
 	LOG("Engine starting ... %d");
 
@@ -117,7 +119,11 @@ int main(int argc, char* args[])
 
 	
 	// Dump memory leaks
+	/*ReportMemoryLeaks();
+	char* str;
 
-	ReportMemoryLeaks();
+	str = new char[200];*/
+
+
 	return result;
 }

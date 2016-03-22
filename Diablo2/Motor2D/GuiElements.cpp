@@ -11,7 +11,10 @@
 
 
 
-//Constructors 
+/*
+--------Constructors
+*/
+
 //May i change this in the future for the rect
 GuiElement::GuiElement(iPoint p, GUI_Type t, GuiElement* par = NULL, j1Module* list = NULL) : type(t), parent(par), listener(list), mouseIn(false)
 {
@@ -61,6 +64,21 @@ GuiInputBox::GuiInputBox(p2SString t, _TTF_Font* f, iPoint p, int width, SDL_Rec
 	App->font->CalcSize("A", cursor.x, cursor.y);
 	cursor.x = 0;
 }
+
+GuiButton::GuiButton(iPoint p, SDL_Rect idle_r1, SDL_Rect hover_r1, SDL_Rect click_r1, p2SString t, _TTF_Font* f, j1Module* list, GuiElement* parent)
+	: GuiElement(p, idle_r1, GUI_BUTTON, parent, list),
+	  button_image(p, idle_r1, this, NULL),
+	  button_label(t, f, p, this, NULL)
+{
+	button_image.Center(true, true);
+	button_label.Center(true, true);
+
+	interactable = true;
+
+	idle_tex = idle_r1;
+	hover_tex = hover_r1;
+	click_tex = click_r1;
+}
 //-----
 
 //Draw functions
@@ -89,6 +107,12 @@ void GuiInputBox::Draw()
 		iPoint pos = GetScreenPosition();
 		App->render->DrawQuad({ pos.x + cursor.x - App->render->camera.x, pos.y - App->render->camera.y, CURSOR_WIDTH, cursor.y }, 255, 255, 255);
 	}
+}
+
+void GuiButton::Draw()
+{
+	button_image.Draw();
+	button_label.Draw();
 }
 //
 
@@ -157,6 +181,11 @@ void GuiInputBox::Update(GuiElement* hover, GuiElement* focus)
 		}
 	}
 
+}
+
+void GuiButton::Update(GuiElement* hover, GuiElement* focus)
+{
+	//Nothing
 }
 
 //GuiLabel Functions
@@ -323,13 +352,7 @@ void GuiElement::DrawDebug()
 	rect.x -= App->render->camera.x;
 	rect.y -= App->render->camera.y;
 
-	App->render->DrawLine(rect.x, rect.y, rect.x + rect.w, rect.y, 255, 0, 0);
-	App->render->DrawLine(rect.x, rect.y, rect.x, rect.y + rect.h, 255, 0, 0);
-	App->render->DrawLine(rect.x + rect.w, rect.y, rect.x + rect.w, rect.y + rect.h, 255, 0, 0);
-	App->render->DrawLine(rect.x, rect.y + rect.h, rect.x + rect.w, rect.y + rect.h, 255, 0, 0);
-
-
-
+	App->render->DrawQuad(rect, 255, 0, 0, 1000, false);
 }
 
 

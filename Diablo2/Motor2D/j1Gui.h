@@ -41,6 +41,7 @@ public:
 	GuiImage* AddGuiImage(iPoint p, SDL_Rect r, GuiElement* par, j1Module* list);
 	GuiLabel* AddGuiLabel(p2SString t, _TTF_Font* f, iPoint p, GuiElement* par, j1Module* list);
 	GuiInputBox* AddGuiInputBox(p2SString t, _TTF_Font* f, iPoint p, int width, SDL_Rect r, iPoint offset, GuiElement* par, j1Module* list);
+	GuiButton* AddGuiButton(iPoint p, SDL_Rect idle_r1, SDL_Rect hover_r1, SDL_Rect click_r1, p2SString t = "", _TTF_Font* f = NULL, j1Module* list = NULL, GuiElement* parent = NULL);
 
 	GuiSlider* AddGuiSlider(iPoint p, SDL_Rect tex_1, SDL_Rect tex_2, int width, int thumb_h, iPoint offset, float value, GuiElement* par, j1Module* list);
 

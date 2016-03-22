@@ -30,36 +30,27 @@ bool snIntro::Start()
 	pass = false;
 	exit = false;
 
-	//NOTE: Change the structure of the buttons. 
-	// - What do you mean? 
+	//Gui Elements
 
 	//Background
 	background = App->gui->AddGuiImage({ -20, -2 }, {1829, 82, 1062, 642}, NULL, this);
 	intro_gui.push_back(background);
 	
 	//Play button
-	play_button = App->gui->AddGuiImage({ 370, 280 }, { 0, 0, 270, 35 }, NULL, this);
+	play_button = App->gui->AddGuiButton({ 370, 280 }, { 0, 0, 270, 35 }, { 0, 0, 270, 35 }, { 0, 36, 270, 35 }, "Single player", NULL, this);
 	intro_gui.push_back(play_button);
-	play_button->interactable = true;
-	play_button->focusable = true;
-
+	
 	//Exit button
-	exit_button = App->gui->AddGuiImage({ 370, 480 }, { 0, 0, 270, 35 }, NULL, this);
+	exit_button = App->gui->AddGuiButton({ 370, 480 }, { 0, 0, 270, 35 }, { 0, 0, 270, 35 }, { 0, 36, 270, 35 }, "Exit Diablo II", NULL, this);
 	intro_gui.push_back(exit_button);
-	exit_button->interactable = true;
-	exit_button->focusable = true;
-
-	//Singleplayer text
-	singleplayer = App->gui->AddGuiLabel("Single player", NULL, { 0, 0 }, play_button, this);
-	intro_gui.push_back(singleplayer);
-	singleplayer->Center(370, 210);
-
-	//ExitdiabloII text
-	exitdiabloII = App->gui->AddGuiLabel("Exit diablo II", NULL, { 0, 0 }, exit_button, this);
-	intro_gui.push_back(exitdiabloII);
-	exitdiabloII->Center(370, 570);
 
 	
+
+	//-----------
+	
+
+	
+
 	return true;
 }
 
@@ -135,24 +126,20 @@ void snIntro::OnEvent(GuiElement* element, GUI_Event even)
 	{
 		switch (even)
 		{
+
 		case EVENT_MOUSE_LEFTCLICK_DOWN:
 		{
-			element->SetTextureRect({ 0, 36, 270, 35 });
-			singleplayer->SetLocalPosition({ 50, 8 });
+			play_button->button_image.SetTextureRect(play_button->click_tex);
+			play_button->button_label.SetLocalPosition({ 50, 8 });
 		}
 			break;
+
 		case EVENT_MOUSE_LEFTCLICK_UP:
 		{
-			element->SetTextureRect({ 0, 0, 270, 35 });
-			singleplayer->Center(370, 210);
+			play_button->button_image.SetTextureRect(play_button->idle_tex);
+			play_button->button_label.Center(true, true);
 			pass = true;
 		}
-			break;
-		case EVENT_FOCUS_DOWN:
-			element->SetTextureRect({ 0, 36, 270, 35 });
-			break;
-		case EVENT_FOCUS_UP:
-			element->SetTextureRect({ 0, 0, 270, 35 });
 			break;
 		}
 	}
@@ -163,23 +150,20 @@ void snIntro::OnEvent(GuiElement* element, GUI_Event even)
 		{
 		case EVENT_MOUSE_LEFTCLICK_DOWN:
 		{
-			element->SetTextureRect({ 0, 36, 270, 35 });
-			exitdiabloII->SetLocalPosition({ 50, 8 });
+			exit_button->button_image.SetTextureRect(exit_button->click_tex);
+			//NOTE : put this coordinates at the config.
+			exit_button->button_label.SetLocalPosition({ 50, 8 });
 		}
 			break;
+
 		case EVENT_MOUSE_LEFTCLICK_UP:
 		{
-			element->SetTextureRect({ 0, 0, 270, 35 });
-			exitdiabloII->Center(370, 570);
+			exit_button->button_image.SetTextureRect(exit_button->click_tex);
+			exit_button->button_label.SetLocalPosition({ 50, 8 });
 			exit = true;
 		}
 			break;
-		case EVENT_FOCUS_DOWN:
-			element->SetTextureRect({ 0, 36, 270, 35 });
-			break;
-		case EVENT_FOCUS_UP:
-			element->SetTextureRect({ 0, 0, 270, 35 });
-			break;
+
 		}
 	}
 }
