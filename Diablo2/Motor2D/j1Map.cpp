@@ -32,6 +32,11 @@ void j1Map::Draw()
 	if(map_loaded == false)
 		return;
 	//STL CHANGE
+	//Camera Culling
+	//----------------------
+	SDL_Rect cam = App->render->camera;
+	//----------------------
+
 	list<MapLayer*>::iterator item = data.layers.begin();
 
 	for(; item != data.layers.end(); ++item)
@@ -53,11 +58,20 @@ void j1Map::Draw()
 					SDL_Rect r = tileset->GetTileRect(tile_id);
 					iPoint pos = MapToWorld(x, y);
 
-					App->render->Blit(tileset->texture, pos.x, pos.y, &r);
+					//Camera Culling
+					//NOTE: Maybe this has to be implemented on Render.cpp
+					//----------------------
+					if (pos.x + r.w > -cam.x && pos.x < -cam.x + cam.w &&
+						pos.y + r.h > -cam.y && pos.y < -cam.y + cam.h)
+					{
+						App->render->Blit(tileset->texture, pos.x, pos.y, &r);
+					}
+					//----------------------
 				}
 			}
 		}
 	}
+	
 }
 
 int Properties::Get(const char* value, int default_value) const
