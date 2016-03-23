@@ -33,15 +33,15 @@ bool snIntro::Start()
 	//Gui Elements
 
 	//Background
-	background = App->gui->AddGuiImage({ -20, -2 }, {1829, 82, 1062, 642}, NULL, this);
+	background = App->gui->AddGuiImage({ 0, 0 }, {1829, 82, 800, 600}, NULL, this);
 	intro_gui.push_back(background);
 	
 	//Play button
-	play_button = App->gui->AddGuiButton({ 370, 280 }, { 0, 0, 270, 35 }, { 0, 0, 270, 35 }, { 0, 36, 270, 35 }, "Single player", NULL, this);
+	play_button = App->gui->AddGuiButton({ 264, 260 }, { 0, 0, 270, 35 }, { 0, 0, 270, 35 }, { 0, 36, 270, 35 }, "Single player", NULL, this);
 	intro_gui.push_back(play_button);
 	
 	//Exit button
-	exit_button = App->gui->AddGuiButton({ 370, 480 }, { 0, 0, 270, 35 }, { 0, 0, 270, 35 }, { 0, 36, 270, 35 }, "Exit Diablo II", NULL, this);
+	exit_button = App->gui->AddGuiButton({ 264, 450 }, { 0, 0, 270, 35 }, { 0, 0, 270, 35 }, { 0, 36, 270, 35 }, "Exit Diablo II", NULL, this);
 	intro_gui.push_back(exit_button);
 
 	
