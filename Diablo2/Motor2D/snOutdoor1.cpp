@@ -39,6 +39,12 @@ bool snOutdoor1::Start()
 	//Some variables for the HUD
 	runpressed = false;
 	minipanelpressed = false;
+	lifey = 117;
+	lifeh = 80;
+	lifeypos = 509;
+	manay = 117;
+	manah = 80;
+	manaypos = 509;
 
 	//HUD ----------------------------------------
 	HUDback1 = App->gui->AddGuiImage({ 34, 536 }, { 362, 226, 76, 53 }, NULL, this);
@@ -96,6 +102,91 @@ bool snOutdoor1::PreUpdate()
 // Update
 bool snOutdoor1::Update(float dt)
 {	
+	//HUD's logic ----------------------------------------------------
+	// ---------------------------- LIFE -----------------------------
+	if (App->input->GetKey(SDL_SCANCODE_KP_MINUS) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_KP_MINUS) == KEY_REPEAT)
+	{    
+		if (lifey == 196)
+		{
+			lifey = lifey;
+			lifeh = lifeh;
+			lifeypos = lifeypos;
+			life->SetTextureRect({ 370, lifey, 81, lifeh });
+			life->SetLocalPosition({ 29, lifeypos });
+		}
+		else
+		{
+			lifey = lifey + 1;
+			lifeh = lifeh - 1;
+			lifeypos = lifeypos + 1;
+			life->SetTextureRect({ 370, lifey, 81, lifeh });
+			life->SetLocalPosition({ 29, lifeypos });
+		}
+		
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_KP_PLUS) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_KP_PLUS) == KEY_REPEAT)
+	{
+		if (lifey == 117)
+		{
+			lifey = lifey;
+			lifeh = lifeh;
+			lifeypos = lifeypos;
+			life->SetTextureRect({ 370, lifey, 81, lifeh });
+			life->SetLocalPosition({ 29, lifeypos });
+		}
+		else
+		{
+			lifey = lifey - 1;
+			lifeh = lifeh + 1;
+			lifeypos = lifeypos - 1;
+			life->SetTextureRect({ 370, lifey, 81, lifeh });
+			life->SetLocalPosition({ 29, lifeypos });
+		}
+	}
+	// ---------------------------- MANA -----------------------------
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+	{
+		if (manay == 196)
+		{
+			manay = manay;
+			manah = manah;
+			manaypos = manaypos;
+			mana->SetTextureRect({ 450, manay, 80, manah });
+			mana->SetLocalPosition({ 690, manaypos });
+		}
+		else
+		{
+			manay = manay + 1;
+			manah = manah - 1;
+			manaypos = manaypos + 1;
+			mana->SetTextureRect({ 450, manay, 80, manah });
+			mana->SetLocalPosition({ 690, manaypos });
+		}
+
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+	{
+		if (manay == 117)
+		{
+			manay = manay;
+			manah = manah;
+			manaypos = manaypos;
+			mana->SetTextureRect({ 450, manay, 80, manah });
+			mana->SetLocalPosition({ 690, manaypos });
+		}
+		else
+		{
+			manay = manay - 1;
+			manah = manah + 1;
+			manaypos = manaypos - 1;
+			mana->SetTextureRect({ 450, manay, 80, manah });
+			mana->SetLocalPosition({ 690, manaypos });
+		}
+	}
+	//HUD's logic end ------------------------------------------------
+
 	//In-game menu ------------------------------------------------------------------------
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && menu_active == false)
 	{

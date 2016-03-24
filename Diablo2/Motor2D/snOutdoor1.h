@@ -47,6 +47,12 @@ public:
 	bool UnLoad();
 
 public:
+	int lifey;
+	int lifeh;
+	int lifeypos;
+	int manay;
+	int manah;
+	int manaypos;
 	// NOTE: this is for testing the movement
 	SDL_Texture* player_tile = NULL;
 	
