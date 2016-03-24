@@ -63,6 +63,11 @@ bool snIntro::PreUpdate()
 // Update
 bool snIntro::Update(float dt)
 {
+	//Exit game quick
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	{
+		std::exit(0);
+	}
 	//Insert iterations for this scene here
 
 	/*

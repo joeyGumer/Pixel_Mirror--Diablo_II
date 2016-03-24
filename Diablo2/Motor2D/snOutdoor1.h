@@ -3,7 +3,13 @@
 
 #include "j1Scene.h"
 #include "p2Point.h"
+#include <list>
 
+using namespace std;
+
+class GuiImage;
+class GuiElement;
+class GuiButton;
 class SDL_Texture;
 
 class snOutdoor1 : public j1Scene
@@ -44,7 +50,31 @@ public:
 	// NOTE: this is for testing the movement
 	SDL_Texture* player_tile = NULL;
 	
-	
+private:
+	bool menu_active;
+	bool main_menu;
+	bool keep_playing;
+	bool runpressed;
+	bool minipanelpressed;
+
+	//In game menu elements -------
+	GuiImage* options = NULL;
+	GuiImage* saveandexit = NULL;
+	GuiImage* returntogame = NULL;
+
+	//HUD elements ----------------
+	GuiImage* HUD = NULL;
+	GuiImage* HUDback1 = NULL;
+	GuiImage* HUDback2 = NULL;
+	GuiImage* life = NULL;
+	GuiImage* mana = NULL;
+	GuiImage* runbutton = NULL;
+	GuiImage* minipanelbutton = NULL;
+	GuiImage* minipanel = NULL;
+	GuiImage* attack1 = NULL;
+	GuiImage* attack2 = NULL;
+
+	list<GuiElement*> outdoor_gui;
 };
 
 //NOTE: this is for the player too
