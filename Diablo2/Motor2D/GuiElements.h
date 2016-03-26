@@ -48,6 +48,17 @@ public:
 	void DrawDebug();
 	void Center(bool x, bool y);
 
+	//Activate and desactivate
+	//NOTE: a bit useles...
+	void Desactivate()
+	{
+		active = false;
+	}
+	void Activate()
+	{
+		active = true;
+	}
+	//
 	//Getters
 	iPoint GetLocalPosition();
 	iPoint GetScreenPosition();
@@ -66,6 +77,8 @@ public:
 	//int		 id;
 	GuiElement*  parent;
 	//not defined
+	bool         debug = false;
+	bool		 active = true;
 	bool         visible = true;
 	bool		 interactable = false;
 	bool		 draggable = false;

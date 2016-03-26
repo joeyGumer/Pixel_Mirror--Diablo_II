@@ -44,6 +44,7 @@ bool j1Gui::Start()
 	return true;
 }
 
+//NOTE: puted the active boolean in action,not only a function because when activated again it needs to have the same stats as before
 // Update all guis
 bool j1Gui::PreUpdate()
 {
@@ -57,7 +58,8 @@ bool j1Gui::PreUpdate()
 
 	list<GuiElement*>::iterator item;
 
-	if (App->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN)
+	//NOTE: for now, we don't need the focus
+	/*if (App->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN)
 	{
 		//int index = gui_elements.find(focus);
 		//substitute for focus
@@ -107,13 +109,13 @@ bool j1Gui::PreUpdate()
 					break;
 				}
 			}
-	}
+	}*/
 
 	//NOTE, if we use the changeScene at OnEvent, it crashes here , even if there are no items, it says that there's an item without content (NULL)
 	//Ask ric with more questions about UI
 	for (item = gui_elements.begin(); item != gui_elements.end(); item++)
 	{
-		if ((*item)->interactable)
+		if ((*item)->interactable && (*item)->active)
 		{
 			(*item)->CheckEvent(hover_element, focus);
 			
@@ -122,7 +124,8 @@ bool j1Gui::PreUpdate()
 
 	for (item = gui_elements.begin(); item != gui_elements.end(); item++)
 	{
-		(*item)->Update(hover_element, focus);
+		if ((*item)->active)
+			(*item)->Update(hover_element, focus);
 	}
 
 	return true;
@@ -135,9 +138,20 @@ bool j1Gui::PostUpdate()
 	list<GuiElement*>::iterator item = gui_elements.begin();
 	for (; item != gui_elements.end(); item++)
 	{
-		(*item)->Draw();
-		if (debug)
-			(*item)->DrawDebug();
+		if ((*item)->active)
+		{
+			if ((*item)->debug == false)
+			{
+				(*item)->Draw();
+				if (App->debug)
+					(*item)->DrawDebug();
+			}
+			else
+			{
+				if (App->debug)
+					(*item)->Draw();
+			}
+		}
 	}
 
 	return true;
@@ -208,7 +222,7 @@ GuiElement* j1Gui::FindSelectedElement()
 
 	for (; item != gui_elements.rend(); item++)
 	{
-		if ((*item)->CheckCollision(App->input->GetMousePosition()))
+		if ((*item)->CheckCollision(App->input->GetMousePosition()) && (*item)->active)
 		{
 			return *item;
 		}

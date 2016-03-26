@@ -1,3 +1,4 @@
+
 #include "p2Defs.h"
 #include "p2Log.h"
 #include "j1App.h"
@@ -57,6 +58,9 @@ bool j1Render::Start()
 	LOG("render start");
 	// back background
 	SDL_RenderGetViewport(renderer, &viewport);
+
+	//NOTE: My camera cooling, very simple and works, buts ask ric about if this is cheating
+	SetViewPort({ 0, 0 ,camera.w, camera.h });
 	return true;
 }
 

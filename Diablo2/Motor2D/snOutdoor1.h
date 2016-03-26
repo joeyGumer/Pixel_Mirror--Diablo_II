@@ -47,14 +47,12 @@ public:
 	bool UnLoad();
 
 public:
-	int lifey;
+	/*int lifey;
 	int lifeh;
 	int lifeypos;
 	int manay;
 	int manah;
 	int manaypos;
-	// NOTE: this is for testing the movement
-	SDL_Texture* player_tile = NULL;
 	
 private:
 	bool menu_active;
@@ -78,13 +76,9 @@ private:
 	GuiImage* minipanelbutton = NULL;
 	GuiImage* minipanel = NULL;
 	GuiImage* attack1 = NULL;
-	GuiImage* attack2 = NULL;
+	GuiImage* attack2 = NULL;*/
 
 	list<GuiElement*> outdoor_gui;
 };
-
-//NOTE: this is for the player too
-
-#define PLAYER_SPEED 0.005f
 
 #endif

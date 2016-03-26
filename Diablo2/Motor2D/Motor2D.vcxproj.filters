@@ -67,6 +67,9 @@
     <ClCompile Include="snOutdoor1.cpp">
       <Filter>Desenvolupament  ========\Scenes\snOutdoor1</Filter>
     </ClCompile>
+    <ClCompile Include="j1HUD.cpp">
+      <Filter>Desenvolupament  ========\Modules\j1HUD</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h">
@@ -165,6 +168,9 @@
     <ClInclude Include="ExtraSTL.h">
       <Filter>Programacio 2 ===========</Filter>
     </ClInclude>
+    <ClInclude Include="j1HUD.h">
+      <Filter>Desenvolupament  ========\Modules\j1HUD</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -232,6 +238,9 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Modules\j1Gui\GuiElements">
       <UniqueIdentifier>{9e41f391-2267-459a-b2e8-8e209a5a4d3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\j1HUD">
+      <UniqueIdentifier>{a03a1092-30d4-4fbc-b6b7-d7ed616fb9b9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

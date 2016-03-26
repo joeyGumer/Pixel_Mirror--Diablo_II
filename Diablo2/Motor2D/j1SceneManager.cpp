@@ -20,7 +20,7 @@ j1SceneManager::~j1SceneManager()
 // Called before render is available
 bool j1SceneManager::Awake(pugi::xml_node& conf)
 {
-	current_scene = intro;
+	current_scene = outdoor1;
 	return true;
 }
 

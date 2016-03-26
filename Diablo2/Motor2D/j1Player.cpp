@@ -5,6 +5,7 @@
 #include "j1Map.h"
 #include "j1App.h"
 #include "j1Input.h"
+#include "j1HUD.h"
 #include "SDL/include/SDL.h"
 
 j1Player::j1Player()
@@ -38,6 +39,10 @@ bool j1Player::Start()
 	//Positioning
 	p_map_pos = { 20, 20 };
 	p_pivot = { (PLAYER_W / 2), (PLAYER_H - PLAYER_PIVOT_OFFSET) };
+
+	//initial stats
+	HP_max = HP_current = 100;
+	MP_max = MP_current = 100;
 	
 
 
@@ -75,6 +80,61 @@ bool j1Player::Update(float dt)
 	{
 		current_sprite = idle_left_front;
 		p_map_pos.y += 1;
+	}
+	//
+
+	//NOTE: provisional mana and life changers
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+	{
+		if (HP_current <= 0)
+		{
+			HP_current = 0;
+		}
+		else
+		{
+			HP_current--;
+		}
+
+		PlayerEvent(HP_DOWN);
+	}
+	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+	{
+		if (HP_current >= HP_max)
+		{
+			HP_current = HP_max;
+		}
+		else
+		{
+			HP_current++;
+		}
+
+		PlayerEvent(HP_UP);
+	}
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+	{
+		if (MP_current <= 0)
+		{
+			MP_current = 0;
+		}
+		else
+		{
+			MP_current--;
+		}
+
+		PlayerEvent(MP_DOWN);
+	}
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+	{
+		if (MP_current >= MP_max)
+		{
+			MP_current = MP_max;
+		}
+		else
+		{
+			MP_current++;
+		}
+
+		PlayerEvent(MP_UP);
 	}
 	//
 
@@ -188,4 +248,34 @@ SDL_Rect j1Player::GetPlayerRect() const
 	iPoint pos = GetBlitPosition();
 
 	return{ pos.x, pos.y, current_sprite.w, current_sprite.h };
+}
+
+//NOTE : this is because in the future, the player will need events, for example, when it get hits, low the HP downor other things
+//maybe it ends being provisional
+//There's HP_DOWN and HP_UP instead of HP change because it will act different (when down, it's a inmediat change, when up it's slower)
+void j1Player::PlayerEvent(PLAYER_EVENT even)
+{
+	switch (even)
+	{
+	case HP_DOWN:
+		{
+			App->HUD->SetLife(HP_max, HP_current);
+		}
+		break;
+	case HP_UP:
+		{
+			App->HUD->SetLife(HP_max, HP_current);
+		}
+		break;
+	case MP_DOWN:
+		{
+			App->HUD->SetMana(MP_max, MP_current);
+		}
+		break;
+	case MP_UP:
+		{
+			App->HUD->SetMana(MP_max, MP_current);
+		}
+		break;
+	}
 }

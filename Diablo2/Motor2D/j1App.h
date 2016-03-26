@@ -23,6 +23,7 @@ class j1PathFinding;
 class j1Fonts;
 class j1Gui;
 class j1Player;
+class j1HUD;
 
 class j1App
 {
@@ -99,8 +100,9 @@ public:
 	j1Fonts*			font = NULL;
 	j1Gui*				gui = NULL;
 	j1Player*			player = NULL;
+	j1HUD*				HUD = NULL;
 
-	//NOTE3: Now the debug mode is global form the app, ask Ric
+	//NOTE: Now the debug mode is global form the app, ask Ric
 	bool                debug = false;
 
 private:

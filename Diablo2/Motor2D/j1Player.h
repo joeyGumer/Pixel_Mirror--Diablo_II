@@ -13,7 +13,13 @@
 #define PLAYER_PIVOT_OFFSET int(10)
 
 
-
+enum PLAYER_EVENT
+{
+	HP_DOWN,
+	HP_UP,
+	MP_DOWN,
+	MP_UP,
+};
 
 class j1Player : public j1Module
 {
@@ -60,6 +66,9 @@ public:
 	//Estructuralfunctions
 	void SetSpriteRects();
 
+	//Utils
+	void PlayerEvent(PLAYER_EVENT even);
+
 
 
 //Attributes
@@ -91,6 +100,13 @@ private:
 	SDL_Rect idle_right_back;
 	SDL_Rect idle_right;
 	SDL_Rect idle_right_front;
+
+	//Attributes related
+	int HP_max;
+	int HP_current;
+
+	int MP_max;
+	int MP_current;
 
 };
 

@@ -58,14 +58,14 @@ void j1Map::Draw()
 					SDL_Rect r = tileset->GetTileRect(tile_id);
 					iPoint pos = MapToWorld(x, y);
 
-					//Camera Culling
+					//Camera Cooliing
 					//NOTE: Maybe this has to be implemented on Render.cpp
 					//----------------------
-					if (pos.x + r.w > -cam.x && pos.x < -cam.x + cam.w &&
+					/*if (pos.x + r.w > -cam.x && pos.x < -cam.x + cam.w &&
 						pos.y + r.h > -cam.y && pos.y < -cam.y + cam.h)
-					{
+					{*/
 						App->render->Blit(tileset->texture, pos.x, pos.y, &r);
-					}
+					//}
 					//----------------------
 				}
 			}

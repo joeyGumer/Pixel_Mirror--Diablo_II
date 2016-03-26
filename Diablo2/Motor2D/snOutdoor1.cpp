@@ -32,7 +32,7 @@ bool snOutdoor1::Awake(pugi::xml_node& conf)
 // Called the first frame
 bool snOutdoor1::Start()
 {
-	// Some variables for the in game menu ----
+	/*// Some variables for the in game menu ----
 	menu_active = false;
 	keep_playing = false;
 	main_menu = false;
@@ -78,7 +78,7 @@ bool snOutdoor1::Start()
 	attack2->interactable = true;
 	outdoor_gui.push_back(attack2);
 	//HUD end-------------------------------------
-
+	*/
 
 
 	//Music
@@ -87,8 +87,6 @@ bool snOutdoor1::Start()
 
 	//Map
 	App->map->Load("test_map_swamp.tmx");
-
-	//NOTE: testing movement
 
 	return true;
 }
@@ -102,7 +100,7 @@ bool snOutdoor1::PreUpdate()
 // Update
 bool snOutdoor1::Update(float dt)
 {	
-	//HUD's logic ----------------------------------------------------
+	/*//HUD's logic ----------------------------------------------------
 	// ---------------------------- LIFE -----------------------------
 	if (App->input->GetKey(SDL_SCANCODE_KP_MINUS) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_KP_MINUS) == KEY_REPEAT)
 	{    
@@ -224,12 +222,11 @@ bool snOutdoor1::Update(float dt)
 	{
 		App->sm->ChangeScene(App->sm->intro);
 	}
-
+	*/
 	//Map
 	App->map->Draw();
 
 	//Player
-	//NOTE: this is before we have player module operative
 	
 	App->player->Draw();
 	
@@ -272,7 +269,7 @@ bool snOutdoor1::PostUpdate()
 // Called before quitting
 bool snOutdoor1::CleanUp()
 {
-	for (list<GuiElement*>::iterator item = outdoor_gui.begin(); item != outdoor_gui.end(); item++)
+	/*for (list<GuiElement*>::iterator item = outdoor_gui.begin(); item != outdoor_gui.end(); item++)
 	{
 		for (list<GuiElement*>::iterator item2 = App->gui->gui_elements.begin(); item2 != App->gui->gui_elements.end(); item2++)
 		{
@@ -285,7 +282,7 @@ bool snOutdoor1::CleanUp()
 		}
 	}
 
-	outdoor_gui.clear();
+	outdoor_gui.clear();*/
 
 	return true;
 }
@@ -295,7 +292,7 @@ void snOutdoor1::OnEvent(GuiElement* element, GUI_Event even)
 {
 	//HUD -------------------------------------
 	//Run button
-	if (runbutton == element)
+	/*if (runbutton == element)
 	{
 		switch (even)
 		{
@@ -362,7 +359,7 @@ void snOutdoor1::OnEvent(GuiElement* element, GUI_Event even)
 			keep_playing = true;
 		break;
 		}
-	}
+	}*/
 }
 //Game menu end --------------------------------
 

@@ -17,6 +17,7 @@
 #include "j1Gui.h"
 #include "j1Player.h"
 #include "j1App.h"
+#include "j1HUD.h"
 
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
@@ -35,6 +36,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	font = new j1Fonts();
 	gui = new j1Gui();
 	player = new j1Player();
+	HUD = new j1HUD();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -48,6 +50,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(pathfinding);
 	AddModule(font);
 	AddModule(gui);
+	AddModule(HUD);
 
 	// scene last
 	AddModule(sm);
@@ -229,10 +232,10 @@ void j1App::FinishUpdate()
 
 	static char title[256];
 
-	sprintf_s(title, 256, "Diablo II   version : 0.1");
-	/*
+	//sprintf_s(title, 256, "Diablo II   version : 0.1");
+	
 		sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %u Last sec frames: %i Last dt: %.3f Time since startup: %.3f Frame Count: %lu ",
-			avg_fps, last_frame_ms, frames_on_last_update, dt, seconds_since_startup, frame_count);*/
+			avg_fps, last_frame_ms, frames_on_last_update, dt, seconds_since_startup, frame_count);
 		App->win->SetTitle(title);
 	
 
