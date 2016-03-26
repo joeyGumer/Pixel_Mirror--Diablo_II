@@ -5,6 +5,11 @@
 #include "p2Point.h"
 //WARNING provisional sdl including
 #include "SDL/include/SDL.h"
+
+//StateMachine Includes
+#include <queue>
+using namespace std;
+
 //NOTE: player speed, put it at the config file
 #define PLAYER_SPEED 200.0f
 #define DIRECTIONS 8
@@ -13,7 +18,31 @@
 #define PLAYER_PIVOT_OFFSET int(10)
 
 
+enum INPUT_STATE
+{
+	INPUT_MOVE,
+	INPUT_ATTACK
+};
 
+enum DIRECTION_STATE
+{
+	DIRECTION_UP,
+	DIRECTION_DOWN,
+	DIRECTION_LEFT,
+	DIRECTION_RIGHT,
+	DIRECTION_UP_LEFT,
+	DIRECTION_UP_RIGHT,
+	DIRECTION_DOWN_LEFT,
+	DIRECTION_DOWN_RIGHT
+};
+
+enum ACTION_STATE
+{
+	IDLE,
+	WALKING,
+	RUNNING,
+	ATTACKING
+};
 
 class j1Player : public j1Module
 {
@@ -60,6 +89,11 @@ public:
 	//Estructuralfunctions
 	void SetSpriteRects();
 
+	//StateMachine Functions
+	void				Update_Inputs(queue<INPUT_STATE> inputs);
+	DIRECTION_STATE		Update_Direction(iPoint new_pos);
+	ACTION_STATE		Update_Action(queue<INPUT_STATE> inputs);
+
 
 
 //Attributes
@@ -92,6 +126,10 @@ private:
 	SDL_Rect idle_right;
 	SDL_Rect idle_right_front;
 
+	//StateMachine Attributes
+	queue<INPUT_STATE>	inputs;
+	DIRECTION_STATE		current_direction;
+	ACTION_STATE		current_action;
 };
 
 #endif // __j1PLAYER_H__

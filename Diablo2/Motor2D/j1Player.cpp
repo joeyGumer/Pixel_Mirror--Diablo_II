@@ -47,7 +47,10 @@ bool j1Player::Start()
 //PreUpdate
 bool j1Player::PreUpdate()
 {
-	
+	//StateMachine: We update inputs and then we update player action
+	Update_Inputs(inputs);
+	Update_Action(inputs);
+
 	return true;
 }
 
@@ -188,4 +191,107 @@ SDL_Rect j1Player::GetPlayerRect() const
 	iPoint pos = GetBlitPosition();
 
 	return{ pos.x, pos.y, current_sprite.w, current_sprite.h };
+}
+
+//StateMachine Functions
+void j1Player::Update_Inputs(queue<INPUT_STATE> inputs)
+{
+	//NOTE: input queue might be reconsidered and probably changed/adapted
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN)
+	{
+		inputs.push(INPUT_MOVE);
+
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+		{
+			//NOTE: This and the rest of direction updates are totally useless and provisional
+			current_direction = DIRECTION_UP_LEFT;
+		}
+
+		else if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+		{
+			current_direction = DIRECTION_DOWN_LEFT;
+		}
+
+		else
+		{
+			current_direction = DIRECTION_LEFT;
+		}
+	}
+	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN)
+	{
+		inputs.push(INPUT_MOVE);
+
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+		{
+			current_direction = DIRECTION_UP_RIGHT;
+		}
+
+		else if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+		{
+			current_direction = DIRECTION_DOWN_RIGHT;
+		}
+
+		else
+		{
+			current_direction = DIRECTION_RIGHT;
+		}
+	}
+}
+
+DIRECTION_STATE	j1Player::Update_Direction(iPoint new_pos)
+{
+	//NOTE: This will be used when player movement is implemented
+	//TODO: Compare current_pos with new_pos, update current_direction with the new one 
+	return current_direction;
+}
+
+ACTION_STATE j1Player::Update_Action(queue<INPUT_STATE> inputs)
+{
+	INPUT_STATE last_input;
+	while (inputs.size() > 0)
+	{
+		last_input = inputs.front();
+		inputs.pop();
+
+		switch (current_action)
+		{
+			case IDLE:
+			{
+				switch (last_input)
+				{
+
+				}
+			}
+			break;
+
+			case WALKING:
+			{
+				switch (last_input)
+				{
+
+				}
+			}
+			break;
+
+			case RUNNING:
+			{
+				switch (last_input)
+				{
+
+				}
+			}
+			break;
+
+			case ATTACKING:
+			{
+				switch (last_input)
+				{
+
+				}
+			}
+			break;
+		}
+	}
+
+	return current_action;
 }
