@@ -58,13 +58,13 @@ void j1Map::Draw()
 					SDL_Rect r = tileset->GetTileRect(tile_id);
 					iPoint pos = MapToWorld(x, y);
 
-					//Camera Cooliing
 					//NOTE: Maybe this has to be implemented on Render.cpp
+					//NOTE: changing the offset of the tiles because Ric cheated with the original, think about make it general for any map
 					//----------------------
 					/*if (pos.x + r.w > -cam.x && pos.x < -cam.x + cam.w &&
 						pos.y + r.h > -cam.y && pos.y < -cam.y + cam.h)
 					{*/
-						App->render->Blit(tileset->texture, pos.x, pos.y, &r);
+						App->render->Blit(tileset->texture, pos.x - data.tile_width/2, pos.y, &r);
 					//}
 					//----------------------
 				}
@@ -149,7 +149,7 @@ iPoint j1Map::WorldToMap(int x, int y) const
 		
 		float half_width = data.tile_width * 0.5f;
 		float half_height = data.tile_height * 0.5f;
-		ret.x = int( (x / half_width + y / half_height) / 2) - 1;
+		ret.x = int( (x / half_width + y / half_height) / 2);
 		ret.y = int( (y / half_height - (x / half_width)) / 2);
 	}
 	else

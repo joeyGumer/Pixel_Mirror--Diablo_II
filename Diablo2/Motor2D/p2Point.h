@@ -69,6 +69,16 @@ public:
 		return (r);
 	}
 
+	p2Point operator * (const float& m) const
+	{
+		p2Point r;
+
+		r.x = x * m;
+		r.y = y * m;
+
+		return (r);
+	}
+
 	const p2Point& operator -=(const p2Point &v)
 	{
 		x -= v.x;
@@ -84,6 +94,22 @@ public:
 
 		return(*this);
 	}
+
+	/*const p2Point& operator *=(const f& float)
+	{
+		x *= f;
+		y *= f;
+
+		return(*this);
+	}
+
+	const p2Point& operator /=(const f& float)
+	{
+		x /= f;
+		y /= f;
+
+		return(*this);
+	}*/
 
 	bool operator ==(const p2Point& v) const
 	{
@@ -135,6 +161,52 @@ public:
 	TYPE DistanceManhattan(const p2Point& v) const
 	{
 		return abs(v.x - x) + abs(v.y - y);
+	}
+
+	//Vector methods
+
+	void Normalize()
+	{
+		float module = GetModule();
+		if (module != 0)
+		{
+			x /= module;
+			y /= module;
+		}
+		else
+		{
+			x = 0;
+			y = 0;
+		}
+	}
+
+	p2Point GetNormal()
+	{
+		float module = GetModule();
+		if (module != 0)
+		{
+			p2Point ret;
+		
+			ret.x = x / module;
+			ret.y = y / module;
+
+			return ret;
+		}
+
+		return{ 0, 0 };
+	}
+
+	float GetModule()
+	{
+		return DistanceTo({ 0, 0 });
+	}
+
+	void SetModule(const float& f)
+	{
+		Normalize();
+
+		x *= f;
+		y *= f;
 	}
 };
 

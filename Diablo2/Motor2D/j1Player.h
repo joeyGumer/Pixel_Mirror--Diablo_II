@@ -6,7 +6,7 @@
 //WARNING provisional sdl including
 #include "SDL/include/SDL.h"
 //NOTE: player speed, put it at the config file
-#define PLAYER_SPEED 200.0f
+#define PLAYER_SPEED 150.0f
 #define DIRECTIONS 8
 #define PLAYER_W int (96)
 #define PLAYER_H int (92)
@@ -53,7 +53,14 @@ public:
 	bool CleanUp();
 
 	//Debug mode
-	void Debug() const ;
+	void DrawDebug() const ;
+
+	//Linear Movement
+	//NOTE: this is just for the player, so, at the end, i don't see the need to do another module o r put it anywhere else
+	void Move(float dt);
+	void SetInitVelocity();
+	void UpdateVelocity(float dt);
+	bool IsTargetReached();
 
 	//NOTE: some of these may go to the entities
 	//Getters
@@ -69,6 +76,9 @@ public:
 	//Utils
 	void PlayerEvent(PLAYER_EVENT even);
 
+	//Input
+	void HandleInput();
+
 
 
 //Attributes
@@ -79,16 +89,23 @@ public:
 private:
 
 	//Position
-	iPoint p_map_pos;
+	iPoint p_position;
 	iPoint p_pivot;
+	
+	//Linear movement
+	//NOTE:
+	iPoint		p_target;
+	//NOTE: the declaration will go somewhere else
+	float		target_radius = 2.5f;
+	fPoint		p_velocity;
+	bool		movement;
 
 	//Textures
 	SDL_Texture* p_debug = NULL;
 	SDL_Texture* p_sprite = NULL;
 
-	//
-	//------Rects for each state and direction
-	//
+	//Rects for each state and direction
+	//--------------------
 	SDL_Rect current_sprite;
 	//Idle
 	//NOTE : later this will be an animation
@@ -100,8 +117,9 @@ private:
 	SDL_Rect idle_right_back;
 	SDL_Rect idle_right;
 	SDL_Rect idle_right_front;
+	//--------------------
 
-	//Attributes related
+	//Attributes
 	int HP_max;
 	int HP_current;
 
