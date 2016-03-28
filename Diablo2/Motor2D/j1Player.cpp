@@ -59,17 +59,20 @@ bool j1Player::PreUpdate()
 //Update
 bool j1Player::Update(float dt)
 {
-	
-	HandleInput();
-
-	if (movement)
+	//NOTE: Have to apply a totally diferent pause method
+	if (App->pause == false)
 	{
-		Move(dt);
+		HandleInput();
+
+		if (movement)
+		{
+			Move(dt);
+		}
+		//Camera idea to put it with an event, so it just iterates when it moves, see it later when we have done the pathfinding
+		//Create the variable pivot because it will be more needed
+		//NOTe : maybe is a good
+		App->render->CenterCamera(p_position.x, p_position.y);
 	}
-	//Camera idea to put it with an event, so it just iterates when it moves, see it later when we have done the pathfinding
-	//Create the variable pivot because it will be more needed
-	//NOTe : maybe is a good
-	App->render->CenterCamera(p_position.x, p_position.y);
 
 	return true;
 }
@@ -292,7 +295,7 @@ void j1Player::HandleInput()
 	//NOTE: provisional movement for the player
 	//NOTE: and provisional state machine for the player
 	//
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	/*if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
 		current_sprite = idle_left_back;
 		p_position.x -= 1;
@@ -311,7 +314,7 @@ void j1Player::HandleInput()
 	{
 		current_sprite = idle_left_front;
 		p_position.y += 1;
-	}
+	}*/
 	//
 
 	//NOTE: provisional mana and life changers

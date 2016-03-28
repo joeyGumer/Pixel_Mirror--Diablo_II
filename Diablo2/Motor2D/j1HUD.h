@@ -45,6 +45,7 @@ public:
 	//Utils
 	void SetLife(int max_HP, int HP);
 	void SetMana(int max_MP, int MP);
+	void ActivateMenu();
 
 private:
 	
@@ -54,9 +55,8 @@ private:
 	//Mana
 	float mana_current_h;
 
-	bool menu_active;
-	bool main_menu;
-	bool keep_playing;
+	bool main_menu = false;
+	
 	bool run_pressed = false;
 	bool minipanel_pressed = false;
 

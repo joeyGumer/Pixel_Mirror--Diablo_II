@@ -1,7 +1,10 @@
 #include "j1SceneManager.h"
 
+#include "j1App.h"
 #include "snIntro.h"
 #include "snOutdoor1.h"
+//NOTE: i should totally don't do this
+#include "j1HUD.h"
 
 j1SceneManager::j1SceneManager() : j1Module()
 {
@@ -20,7 +23,7 @@ j1SceneManager::~j1SceneManager()
 // Called before render is available
 bool j1SceneManager::Awake(pugi::xml_node& conf)
 {
-	current_scene = outdoor1;
+	current_scene = intro;
 	return true;
 }
 
@@ -80,7 +83,26 @@ void j1SceneManager::AddScene(j1Scene* scene)
 bool j1SceneManager::ChangeScene(j1Scene* new_scene)
 {
 	current_scene->UnLoad();
+
+	//WARNING: this is purely provisional for the 0.2 version, HAS TO BE CHANGED, the in-game system and all the modules that are activcated there
+	if (current_scene == intro)
+	{
+		App->in_game = true;
+		App->pause = false;
+
+		App->HUD->Start();
+	}
+
+	if (new_scene == intro)
+	{
+		App->in_game = false;
+		App->pause = true;
+
+		App->HUD->CleanUp();
+	}
+	//
 	current_scene = new_scene;
+
 	current_scene->Load();
 
 	return true;

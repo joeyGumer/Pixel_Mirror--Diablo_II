@@ -2,11 +2,11 @@
 #include "j1App.h"
 #include "j1Gui.h"
 #include "j1Player.h"
+#include "j1SceneManager.h"
+#include "snIntro.h"
 
 //NOTE : provisional
 #include "j1Input.h"
-
-//NOTE: Maybe is better to do a simple Module not an object
 
 //Constructor
 j1HUD::j1HUD() : j1Module()
@@ -19,73 +19,86 @@ j1HUD::~j1HUD()
 
 bool j1HUD::Start()
 {
-	// Some variables for the in game menu ----
-	menu_active = false;
-	keep_playing = false;
-	main_menu = false;
+	//NOTE: totally have to change this system...
+	if (App->in_game)
+	{
+		main_menu = false;
 
-	//Some variables for the HUD
-	run_pressed = false;
-	minipanel_pressed = false;
 
-	life_current_h = mana_current_h = 78;
-	//NOTE: this should go following the screen height
+		life_current_h = mana_current_h = 78;
+		//NOTE: this should go following the screen height
 
-	//HUD = App->gui->AddGuiImage({ 0, 499 }, { 0, 331, 800, 103 }, NULL, this);
-	HUD = App->gui->AddGuiImage({ 166, 553 }, { 166, 386, 468, 47 }, NULL, this);
-	HUD_elements.push_back(HUD);
+		//HUD = App->gui->AddGuiImage({ 0, 499 }, { 0, 331, 800, 103 }, NULL, this);
+		HUD = App->gui->AddGuiImage({ 166, 553 }, { 166, 386, 468, 47 }, NULL, this);
+		HUD_elements.push_back(HUD);
 
-	//HUD elements definition
-	//NOTE: these position are very inaccurate
+		//HUD elements definition
+		//NOTE: these position are very inaccurate
 
-	HUDback1 = App->gui->AddGuiImage({ -132, -19 }, { 362, 226, 76, 53 }, HUD, this);
-	HUD_elements.push_back(HUDback1);
+		HUDback1 = App->gui->AddGuiImage({ -132, -19 }, { 362, 226, 76, 53 }, HUD, this);
+		HUD_elements.push_back(HUDback1);
 
-	HUDback2 = App->gui->AddGuiImage({ 524, -19 }, { 437, 226, 80, 53 }, HUD, this);
-	HUD_elements.push_back(HUDback2);
-	
-	life = App->gui->AddGuiImage({ -136, -45 }, { 371, 118, 79, 78}, HUD, this);
-	HUD_elements.push_back(life);
+		HUDback2 = App->gui->AddGuiImage({ 524, -19 }, { 437, 226, 80, 53 }, HUD, this);
+		HUD_elements.push_back(HUDback2);
 
-	mana = App->gui->AddGuiImage({ 524, -45}, { 451, 118, 78, 78 }, HUD, this);
-	HUD_elements.push_back(mana);
+		life = App->gui->AddGuiImage({ -136, -45 }, { 371, 118, 79, 78 }, HUD, this);
+		HUD_elements.push_back(life);
 
-	life_holder = App->gui->AddGuiImage({ -166, -55 }, { 0,  331, 116, 103}, HUD, this);
-	HUD_elements.push_back(life_holder);
+		mana = App->gui->AddGuiImage({ 524, -45 }, { 451, 118, 78, 78 }, HUD, this);
+		HUD_elements.push_back(mana);
 
-	mana_holder = App->gui->AddGuiImage({ 518, -55 }, { 684, 331, 116, 103 }, HUD, this);
-	HUD_elements.push_back(mana_holder);
+		life_holder = App->gui->AddGuiImage({ -166, -55 }, { 0, 331, 116, 103 }, HUD, this);
+		HUD_elements.push_back(life_holder);
 
-	runbutton = App->gui->AddGuiImage({ 88, 19 }, { 148, 279, 18, 22 }, HUD, this);
-	runbutton->interactable = true;
-	HUD_elements.push_back(runbutton);
+		mana_holder = App->gui->AddGuiImage({ 518, -55 }, { 684, 331, 116, 103 }, HUD, this);
+		HUD_elements.push_back(mana_holder);
 
-	minipanelbutton = App->gui->AddGuiImage({ 225, 9 }, { 337, 252, 16, 27 }, HUD, this);
-	minipanelbutton->interactable = true;
-	HUD_elements.push_back(minipanelbutton);
+		runbutton = App->gui->AddGuiImage({ 88, 19 }, { 148, 279, 18, 22 }, HUD, this);
+		runbutton->interactable = true;
+		HUD_elements.push_back(runbutton);
 
-	attack1 = App->gui->AddGuiImage({ -51, 0 }, { 97, 280, 52, 47 }, HUD, this);
-	attack1->interactable = true;
-	HUD_elements.push_back(attack1);
+		minipanelbutton = App->gui->AddGuiImage({ 225, 9 }, { 337, 252, 16, 27 }, HUD, this);
+		minipanelbutton->interactable = true;
+		HUD_elements.push_back(minipanelbutton);
 
-	attack2 = App->gui->AddGuiImage({ 467, 0}, { 97, 280, 52, 47 }, HUD, this);
-	attack2->interactable = true;
-	HUD_elements.push_back(attack2);
+		attack1 = App->gui->AddGuiImage({ -51, 0 }, { 97, 280, 52, 47 }, HUD, this);
+		attack1->interactable = true;
+		HUD_elements.push_back(attack1);
 
-	minipanel = App->gui->AddGuiImage({ 156, -24 }, { 169, 252, 154, 27 }, HUD, this);
-	HUD_elements.push_back(minipanel);
-	minipanel->active = false;
+		attack2 = App->gui->AddGuiImage({ 467, 0 }, { 97, 280, 52, 47 }, HUD, this);
+		attack2->interactable = true;
+		HUD_elements.push_back(attack2);
 
-	//Debug labels
-	//NOTE : coming soon
-	/*life_debug = App->gui->AddGuiLabel("", NULL, { 0, 0 }, life, this);
-	life_debug->Center(true, true);
-	life_debug->debug = true;
+		minipanel = App->gui->AddGuiImage({ 156, -24 }, { 169, 252, 154, 27 }, HUD, this);
+		HUD_elements.push_back(minipanel);
+		minipanel->active = false;
 
-	mana_debug = App->gui->AddGuiLabel("", NULL, { 0, 0 }, mana, this);
-	mana_debug->Center(true, true);
-	mana_debug->debug = true;*/
+		//Menu
+		options = App->gui->AddGuiImage({ 310, 130 }, { 395, 71, 194, 31 }, NULL, this);
+		options->interactable = true;
+		options->active = false;
+		HUD_elements.push_back(options);
 
+		saveandexit = App->gui->AddGuiImage({ 145, 200 }, { 460, 0, 534, 35 }, NULL, this);
+		saveandexit->interactable = true;
+		saveandexit->active = false;
+		HUD_elements.push_back(saveandexit);
+
+		returntogame = App->gui->AddGuiImage({ 195, 270 }, { 994, 0, 438, 35 }, NULL, this);
+		returntogame->interactable = true;
+		returntogame->active = false;
+		HUD_elements.push_back(returntogame);
+
+		//Debug labels
+		//NOTE : coming soon
+		/*life_debug = App->gui->AddGuiLabel("", NULL, { 0, 0 }, life, this);
+		life_debug->Center(true, true);
+		life_debug->debug = true;
+
+		mana_debug = App->gui->AddGuiLabel("", NULL, { 0, 0 }, mana, this);
+		mana_debug->Center(true, true);
+		mana_debug->debug = true;*/
+	}
 	return true;
 }
 
@@ -98,108 +111,21 @@ bool j1HUD::PreUpdate()
 //Called each frame
 bool j1HUD::Update(float dt)
 {
-	//NOTE: provisional
-	//HUD's logic ----------------------------------------------------
-	// ---------------------------- LIFE -----------------------------
-	/*if (App->input->GetKey(SDL_SCANCODE_KP_MINUS) == KEY_REPEAT)
-	{
-		if (life_current_h <= 0)
-		{
-			life_current_h = 0;
-		}
-		else
-		{
-			life_current_h--;
-		}
-
-		life->SetTextureRect({ 371, STAT_TEX_Y - life_current_h, 79, life_current_h });
-		life->SetLocalPosition({ -136, STAT_LOCAL_Y - life_current_h });
-
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_KP_PLUS) == KEY_REPEAT)
-	{
-		if (life_current_h >= STAT_MAX_H)
-		{
-			life_current_h = STAT_MAX_H;
-		}
-		else
-		{
-			life_current_h++;
-		}
-		life->SetTextureRect({ 371, STAT_TEX_Y - life_current_h, 79, life_current_h });
-		life->SetLocalPosition({ -136, STAT_LOCAL_Y - life_current_h });
-	}
-
-	// ---------------------------- MANA -----------------------------
-	if ( App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-	{
-		if (mana_current_h <= 0)
-		{
-			mana_current_h = 0;
-		}
-		else
-		{
-			mana_current_h--;
-		}
-
-		mana->SetTextureRect({ 451, STAT_TEX_Y - mana_current_h, 78, mana_current_h });
-		mana->SetLocalPosition({ 524, STAT_LOCAL_Y - mana_current_h });
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-	{
-		if (mana_current_h >= STAT_MAX_H)
-		{
-			mana_current_h = STAT_MAX_H;
-		}
-		else
-		{
-			mana_current_h++;
-		}
-
-		mana->SetTextureRect({ 451, STAT_TEX_Y - mana_current_h, 78, mana_current_h });
-		mana->SetLocalPosition({ 524, STAT_LOCAL_Y - mana_current_h });
-	}*/
-	//HUD's logic end ------------------------------------------------
-
+	//WARNING: another in-game use...
 	//In-game menu ------------------------------------------------------------------------
-	/*if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && menu_active == false)
+	if (App->in_game)
 	{
-	menu_active = true;
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+		{
+			ActivateMenu();
+		}
 
-	options = App->gui->AddGuiImage({ 310, 130 }, { 395, 71, 194, 31 }, NULL, this);
-	options->focusable = true;
-	options->interactable = true;
-	outdoor_gui.push_back(options);
 
-	saveandexit = App->gui->AddGuiImage({ 145, 200 }, { 460, 0, 534, 35 }, NULL, this);
-	saveandexit->focusable = true;
-	saveandexit->interactable = true;
-	outdoor_gui.push_back(saveandexit);
-
-	returntogame = App->gui->AddGuiImage({ 195, 270 }, { 994, 0, 438, 35 }, NULL, this);
-	returntogame->focusable = true;
-	returntogame->interactable = true;
-	outdoor_gui.push_back(returntogame);
-	}*/
-	//In-game menu end ---------------------------------------------------------------------
-
-	/*else if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && menu_active == true)
-	{
-	menu_active = false;
-	CleanUp();
+		if (main_menu == true)
+		{	
+			App->sm->ChangeScene(App->sm->intro);
+		}
 	}
-
-	else if (keep_playing == true)
-	{
-	App->sm->ChangeScene(App->sm->outdoor1);
-	}
-
-	else if (main_menu == true)
-	{
-	App->sm->ChangeScene(App->sm->intro);
-	}*/
 	
 	return true;
 }
@@ -297,7 +223,7 @@ void j1HUD::OnEvent(GuiElement* element, GUI_Event even)
 		switch (even)
 		{
 		case EVENT_MOUSE_LEFTCLICK_DOWN:
-			keep_playing = true;
+			ActivateMenu();
 			break;
 		}
 	}
@@ -353,4 +279,14 @@ void j1HUD::SetMana(int max_MP, int MP)
 
 	mana->SetTextureRect({ 451, STAT_TEX_Y - int(mana_current_h), 78, int(mana_current_h) });
 	mana->SetLocalPosition({ 524, STAT_LOCAL_Y - int(mana_current_h) });
+}
+
+void j1HUD::ActivateMenu()
+{
+	options->active = !options->active;
+	returntogame->active = !returntogame->active;
+	saveandexit->active = !saveandexit->active;
+
+
+	App->pause = !App->pause;
 }

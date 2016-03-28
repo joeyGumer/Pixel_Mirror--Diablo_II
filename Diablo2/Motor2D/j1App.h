@@ -104,6 +104,9 @@ public:
 
 	//NOTE: Now the debug mode is global form the app, ask Ric
 	bool                debug = false;
+	//NOTE: provisional Pause, and in-game system:
+	bool                pause = true;
+	bool				in_game = false;
 
 private:
 
