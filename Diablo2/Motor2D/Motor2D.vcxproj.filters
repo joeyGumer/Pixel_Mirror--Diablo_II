@@ -144,9 +144,6 @@
     <ClInclude Include="j1Player.h">
       <Filter>Desenvolupament  ========\Modules\j1Player</Filter>
     </ClInclude>
-    <ClInclude Include="j1Render.h">
-      <Filter>Desenvolupament  ========\Modules\j1Render</Filter>
-    </ClInclude>
     <ClInclude Include="j1SceneManager.h">
       <Filter>Desenvolupament  ========\Modules\j1SceneManager</Filter>
     </ClInclude>
@@ -170,6 +167,9 @@
     </ClInclude>
     <ClInclude Include="j1HUD.h">
       <Filter>Desenvolupament  ========\Modules\j1HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Render.h">
+      <Filter>Desenvolupament  ========\Modules\j1SceneManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

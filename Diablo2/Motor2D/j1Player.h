@@ -14,7 +14,18 @@
 #define SPRITE_MARGIN int(1)
 #define PLAYER_PIVOT_OFFSET int(10)
 
-
+//NOTE: provisional, this will go somewhere alse to apply to all entities, or maybe deleted because the state machine
+enum DIRECTION
+{
+	D_FRONT,
+	D_FRONT_LEFT,
+	D_LEFT,
+	D_BACK_LEFT,
+	D_BACK,
+	D_BACK_RIGHT,
+	D_RIGHT,
+	D_FRONT_RIGHT,
+};
 
 enum PLAYER_EVENT
 {
@@ -75,6 +86,7 @@ public:
 
 	//Estructuralfunctions
 	void SetAnimations();
+	void SetDirection();
 
 	//Utils
 	void PlayerEvent(PLAYER_EVENT even);

@@ -8,6 +8,8 @@
 #include "p2Defs.h"
 #include <math.h>
 
+#define RADTODEG 57.2957795
+
 template<class TYPE>
 class p2Point
 {
@@ -207,6 +209,11 @@ public:
 
 		x *= f;
 		y *= f;
+	}
+
+	float GetAngle()
+	{
+		return (atan2(y, x) * RADTODEG);
 	}
 };
 

@@ -139,23 +139,30 @@ void j1Player::DrawDebug() const
 
 void j1Player::SetAnimations()
 {
-	//it will be an animation, but for now, it will be with rect
-	/*idle_front.frames.push_back({ 0, 0, PLAYER_SPRITE_W, PLAYER_SPRITE_H });
-	idle_front.frames.push_back({ PLAYER_SPRITE_W + SPRITE_MARGIN, 0, PLAYER_SPRITE_W, PLAYER_SPRITE_H });
-	idle_front.frames.push_back({ (PLAYER_SPRITE_W + SPRITE_MARGIN) * 2, 0, PLAYER_SPRITE_W, PLAYER_SPRITE_H });
-	idle_front.frames.push_back({ (PLAYER_SPRITE_W + SPRITE_MARGIN) * 3, 0, PLAYER_SPRITE_W, PLAYER_SPRITE_H });
-	idle_front.frames.push_back({ (PLAYER_SPRITE_W + SPRITE_MARGIN) * 4, 0, PLAYER_SPRITE_W, PLAYER_SPRITE_H });
-	idle_front.frames.push_back({ (PLAYER_SPRITE_W + SPRITE_MARGIN) * 5, 0, PLAYER_SPRITE_W, PLAYER_SPRITE_H });
-	idle_front.frames.push_back({ (PLAYER_SPRITE_W + SPRITE_MARGIN) * 6, 0, PLAYER_SPRITE_W, PLAYER_SPRITE_H });
-	idle_front.frames.push_back({ (PLAYER_SPRITE_W + SPRITE_MARGIN) * 7, 0, PLAYER_SPRITE_W, PLAYER_SPRITE_H });
-	idle_front.frames.push_back({ (PLAYER_SPRITE_W + SPRITE_MARGIN) * 8, 0, PLAYER_SPRITE_W, PLAYER_SPRITE_H });
-	idle_front.frames.push_back({ (PLAYER_SPRITE_W + SPRITE_MARGIN) * 9, 0, PLAYER_SPRITE_W, PLAYER_SPRITE_H });
-	idle_front.frames.push_back({ (PLAYER_SPRITE_W + SPRITE_MARGIN) * 10, 0, PLAYER_SPRITE_W, PLAYER_SPRITE_H });
-	idle_front.frames.push_back({ (PLAYER_SPRITE_W + SPRITE_MARGIN) * 11, 0, PLAYER_SPRITE_W, PLAYER_SPRITE_H });
-	idle_front.frames.push_back({ (PLAYER_SPRITE_W + SPRITE_MARGIN) * 12, 0, PLAYER_SPRITE_W, PLAYER_SPRITE_H });
-	idle_front.frames.push_back({ (PLAYER_SPRITE_W + SPRITE_MARGIN) * 13, 0, PLAYER_SPRITE_W, PLAYER_SPRITE_H });*/
+	//NOTE: think of a easier way to know the speed you are going to put the animation
 	idle_front.SetFrames(0, 0, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, 1);
 	idle_front.speed = 0.2f;
+
+	idle_left_front.SetFrames(0, (PLAYER_SPRITE_H + 1) * D_FRONT_LEFT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, 1);
+	idle_left_front.speed = 0.2f;
+	
+	idle_left.SetFrames(0, (PLAYER_SPRITE_H + 1) * D_LEFT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, 1);
+	idle_left.speed = 0.2f;
+
+	idle_left_back.SetFrames(0, (PLAYER_SPRITE_H + 1) * D_BACK_LEFT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, 1);
+	idle_left_back.speed = 0.2f;
+
+	idle_back.SetFrames(0, (PLAYER_SPRITE_H + 1) * D_BACK, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, 1);
+	idle_back.speed = 0.2f;
+
+	idle_right_back.SetFrames(0, (PLAYER_SPRITE_H + 1) * D_BACK_RIGHT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, 1);
+	idle_right_back.speed = 0.2f;
+
+	idle_right.SetFrames(0, (PLAYER_SPRITE_H + 1) * D_RIGHT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, 1);
+	idle_right.speed = 0.2f;
+
+	idle_right_front.SetFrames(0, (PLAYER_SPRITE_H + 1) * D_FRONT_RIGHT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, 1);
+	idle_right_front.speed = 0.2f;
 	
 	/*idle_left_front = { 0, 93, 96, 92 };
 	//idle_left &= NULL;
@@ -166,6 +173,32 @@ void j1Player::SetAnimations()
 	idle_right_front = { 0, 651, 96, 92 };*/
 }
 
+void j1Player::SetDirection()
+{
+	float angle = p_velocity.GetAngle();
+
+		
+	//NOTE: should be a more elegant way to do this, and also, is provisional for the animations of the player, should be with the ENUM DIRECTION
+	//Also, the angles will have to be especified again because in isometric , the intervals are not the same.
+	if (angle < 22.5 && angle > -22.5)
+		current_animation = idle_right;
+	else if (angle >= 22.5 && angle <= 67.5)
+		current_animation = idle_right_front;
+	else if (angle > 67.5 && angle < 112.5)
+		current_animation = idle_front;
+	else if (angle >= 112.5 && angle <= 157.5)
+		current_animation = idle_left_front;
+	else if (angle > 157.5 || angle < -157.5)
+		current_animation = idle_left;
+	else if (angle >= -157.5 && angle <= -112.5)
+		current_animation = idle_left_back;
+	else if (angle > -112.5 && angle < -67.5)
+		current_animation = idle_back;
+	else if (angle >= -67.5 && angle <= -22.5)
+		current_animation = idle_right_back;
+
+
+}
 /*
 //-------Getters
 */
@@ -251,6 +284,9 @@ void j1Player::SetInitVelocity()
 	p_velocity.y = p_target.y - p_position.y;
 
 	p_velocity.SetModule(PLAYER_SPEED);
+
+	SetDirection();
+
 }
 
 void j1Player::Move(float dt)
@@ -311,29 +347,25 @@ bool j1Player::IsTargetReached()
 
 void j1Player::HandleInput()
 {
-	//NOTE: provisional movement for the player
+	
 	//NOTE: and provisional state machine for the player
 	//
-	/*if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
-		current_sprite = idle_left_back;
-		p_position.x -= 1;
+		current_animation = idle_left;
 	}
 	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
-		current_sprite = idle_right_front;
-		p_position.x += 1;
+		current_animation = idle_right;
 	}
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 	{
-		current_sprite = idle_right_back;
-		p_position.y -= 1;
+		current_animation = idle_back;
 	}
 	else if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
 	{
-		current_sprite = idle_left_front;
-		p_position.y += 1;
-	}*/
+		current_animation = idle_front;
+	}
 	//
 
 	//NOTE: provisional mana and life changers
