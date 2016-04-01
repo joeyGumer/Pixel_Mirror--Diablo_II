@@ -34,7 +34,7 @@ bool snOutdoor1::Start()
 {
 	//Music
 	//NOTE : deactivated for debugging
-	App->audio->PlayMusic("audio/music/town1.ogg", 0);
+	//App->audio->PlayMusic("audio/music/town1.ogg", 0);
 
 	//Map
 	App->map->Load("test_map_swamp.tmx");

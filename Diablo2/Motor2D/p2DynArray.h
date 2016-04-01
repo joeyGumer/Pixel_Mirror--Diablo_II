@@ -34,20 +34,27 @@ public:
 	// Destructor
 	~p2DynArray()
 	{
+		//Explodes here, but have  no fear, we'll be using the vector
 		delete[] data;
 	}
 
 	// Operators
 	VALUE& operator[](unsigned int index)
 	{
-		ASSERT(index < num_elements);
-		return data[index];
+		if (index < num_elements)
+			return data[index];
+
+		else
+			return data[0];
+		
 	}
 
 	const VALUE& operator[](unsigned int index) const
 	{
-		assert(index < num_elements);
-		return data[index];
+		if(index < num_elements)
+			return data[index];
+		else
+			return data[0];
 	}
 
 	const p2DynArray<VALUE>& operator+= (const p2DynArray<VALUE>& array)

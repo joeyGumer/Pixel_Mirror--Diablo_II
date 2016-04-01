@@ -10,6 +10,7 @@
 
 j1Player::j1Player()
 {
+	
 }
 
 //Destructor
@@ -31,14 +32,14 @@ bool j1Player::Start()
 	
 	//Idle sprites
 	p_sprite = App->tex->Load("textures/vamp_idle.png");
-	SetSpriteRects();
+	SetAnimations();
 
 
-	current_sprite = idle_front;
+	current_animation = idle_front;
 
 	//Positioning
 	p_position = { 0, 0 };
-	p_pivot = { (PLAYER_W / 2), (PLAYER_H - PLAYER_PIVOT_OFFSET) };
+	p_pivot = { (PLAYER_SPRITE_W / 2), (PLAYER_SPRITE_H - PLAYER_PIVOT_OFFSET) };
 
 	//initial stats
 	HP_max = HP_current = 100;
@@ -92,7 +93,8 @@ bool j1Player::CleanUp()
 
 
 //Draws the player sprite to the scene
-void j1Player::Draw() const
+//NOTE: had to take out the const because of the animation
+void j1Player::Draw() 
 {
 	
 	iPoint pos = GetBlitPosition();
@@ -102,7 +104,8 @@ void j1Player::Draw() const
 	{
 		DrawDebug();
 	}
-
+	//NOTE: for pause mode, this will have to be on update to vary on dt
+	SDL_Rect current_sprite = current_animation.GetCurrentFrame();
 	//Draws Actual sprite
 	App->render->Blit(p_sprite, pos.x, pos.y, &current_sprite);
 }
@@ -134,17 +137,33 @@ void j1Player::DrawDebug() const
 //-------Structural functions
 */
 
-void j1Player::SetSpriteRects()
+void j1Player::SetAnimations()
 {
 	//it will be an animation, but for now, it will be with rect
-	idle_front = { 0, 0, 96, 92 };
-	idle_left_front = { 0, 93, 96, 92 };
+	/*idle_front.frames.push_back({ 0, 0, PLAYER_SPRITE_W, PLAYER_SPRITE_H });
+	idle_front.frames.push_back({ PLAYER_SPRITE_W + SPRITE_MARGIN, 0, PLAYER_SPRITE_W, PLAYER_SPRITE_H });
+	idle_front.frames.push_back({ (PLAYER_SPRITE_W + SPRITE_MARGIN) * 2, 0, PLAYER_SPRITE_W, PLAYER_SPRITE_H });
+	idle_front.frames.push_back({ (PLAYER_SPRITE_W + SPRITE_MARGIN) * 3, 0, PLAYER_SPRITE_W, PLAYER_SPRITE_H });
+	idle_front.frames.push_back({ (PLAYER_SPRITE_W + SPRITE_MARGIN) * 4, 0, PLAYER_SPRITE_W, PLAYER_SPRITE_H });
+	idle_front.frames.push_back({ (PLAYER_SPRITE_W + SPRITE_MARGIN) * 5, 0, PLAYER_SPRITE_W, PLAYER_SPRITE_H });
+	idle_front.frames.push_back({ (PLAYER_SPRITE_W + SPRITE_MARGIN) * 6, 0, PLAYER_SPRITE_W, PLAYER_SPRITE_H });
+	idle_front.frames.push_back({ (PLAYER_SPRITE_W + SPRITE_MARGIN) * 7, 0, PLAYER_SPRITE_W, PLAYER_SPRITE_H });
+	idle_front.frames.push_back({ (PLAYER_SPRITE_W + SPRITE_MARGIN) * 8, 0, PLAYER_SPRITE_W, PLAYER_SPRITE_H });
+	idle_front.frames.push_back({ (PLAYER_SPRITE_W + SPRITE_MARGIN) * 9, 0, PLAYER_SPRITE_W, PLAYER_SPRITE_H });
+	idle_front.frames.push_back({ (PLAYER_SPRITE_W + SPRITE_MARGIN) * 10, 0, PLAYER_SPRITE_W, PLAYER_SPRITE_H });
+	idle_front.frames.push_back({ (PLAYER_SPRITE_W + SPRITE_MARGIN) * 11, 0, PLAYER_SPRITE_W, PLAYER_SPRITE_H });
+	idle_front.frames.push_back({ (PLAYER_SPRITE_W + SPRITE_MARGIN) * 12, 0, PLAYER_SPRITE_W, PLAYER_SPRITE_H });
+	idle_front.frames.push_back({ (PLAYER_SPRITE_W + SPRITE_MARGIN) * 13, 0, PLAYER_SPRITE_W, PLAYER_SPRITE_H });*/
+	idle_front.SetFrames(0, 0, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, 1);
+	idle_front.speed = 0.2f;
+	
+	/*idle_left_front = { 0, 93, 96, 92 };
 	//idle_left &= NULL;
 	idle_left_back = { 0, 279, 96, 92 };
 	//idle_back = NULL;
 	idle_right_back = { 0, 465, 96, 92 };
 	//idle_right = NULL;
-	idle_right_front = { 0, 651, 96, 92 };
+	idle_right_front = { 0, 651, 96, 92 };*/
 }
 
 /*
@@ -185,7 +204,7 @@ SDL_Rect j1Player::GetPlayerRect() const
 	//NOTE: this may be adapted when we use colliders
 	iPoint pos = GetBlitPosition();
 
-	return{ pos.x, pos.y, current_sprite.w, current_sprite.h };
+	return{ pos.x, pos.y, PLAYER_SPRITE_W, PLAYER_SPRITE_H};
 }
 
 /*

@@ -3,14 +3,17 @@
 
 #include "j1Module.h"
 #include "p2Point.h"
+#include "Animation.h"
 //WARNING provisional sdl including
 #include "SDL/include/SDL.h"
 //NOTE: player speed, put it at the config file
 #define PLAYER_SPEED 150.0f
 #define DIRECTIONS 8
-#define PLAYER_W int (96)
-#define PLAYER_H int (92)
+#define PLAYER_SPRITE_W int (96)
+#define PLAYER_SPRITE_H int (92)
+#define SPRITE_MARGIN int(1)
 #define PLAYER_PIVOT_OFFSET int(10)
+
 
 
 enum PLAYER_EVENT
@@ -47,7 +50,7 @@ public:
 	bool PostUpdate();
 
 	//Draws the player each loop iteration
-	void Draw() const;
+	void Draw() ;
 
 	// Called before quitting
 	bool CleanUp();
@@ -71,7 +74,7 @@ public:
 	SDL_Rect	GetPlayerRect() const;
 
 	//Estructuralfunctions
-	void SetSpriteRects();
+	void SetAnimations();
 
 	//Utils
 	void PlayerEvent(PLAYER_EVENT even);
@@ -106,17 +109,17 @@ private:
 
 	//Rects for each state and direction
 	//--------------------
-	SDL_Rect current_sprite;
+	Animation current_animation;
 	//Idle
-	//NOTE : later this will be an animation
-	SDL_Rect idle_front;
-	SDL_Rect idle_left_front;
-	SDL_Rect idle_left;
-	SDL_Rect idle_left_back;
-	SDL_Rect idle_back;
-	SDL_Rect idle_right_back;
-	SDL_Rect idle_right;
-	SDL_Rect idle_right_front;
+	//NOTE : Can i make this more elegant (maybe with a list)
+	Animation idle_front;
+	Animation idle_left_front;
+	Animation idle_left;
+	Animation idle_left_back;
+	Animation idle_back;
+	Animation idle_right_back;
+	Animation idle_right;
+	Animation idle_right_front;
 	//--------------------
 
 	//Attributes
