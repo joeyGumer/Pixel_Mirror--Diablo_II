@@ -16,6 +16,7 @@ enum GUI_Type
 	GUI_BUTTON,
 	GUI_INPUTBOX,
 	GUI_SLIDER,
+	GUI_MOUSE_IMAGE,
 };
 
 enum GUI_Event
@@ -185,6 +186,21 @@ public:
 	int		width;
 	int     thumb_pos;
 	bool	clicking = false;
+};
+//MOUSE
+class GuiMouseImage : public GuiElement
+{
+public:
+	GuiMouseImage(iPoint p, SDL_Rect r, GuiElement* par, j1Module* list = NULL);
+	~GuiMouseImage(){}
+
+	void Draw();
+	void Update();
+
+public:
+	GuiImage mouse_image;
+	int mouse_y, mouse_x;
+
 };
 //----
 #endif _GUIELEMENTS_H_

@@ -40,7 +40,11 @@ bool j1Gui::Awake(pugi::xml_node& conf)
 bool j1Gui::Start()
 {
 	atlas = App->tex->Load(atlas_file_name.GetString());
-
+	//Disables the cursor
+	SDL_ShowCursor(SDL_DISABLE);
+	//Mouse--------
+	mouse = new GuiMouseImage({ mouse_x, mouse_y }, { 189, 97, 34, 28 }, NULL, this);
+	//-------------
 	return true;
 }
 
@@ -48,6 +52,8 @@ bool j1Gui::Start()
 // Update all guis
 bool j1Gui::PreUpdate()
 {
+	mouse->Update();
+	//---------------
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 		debug = !debug;
 
@@ -134,6 +140,8 @@ bool j1Gui::PreUpdate()
 // Called after all Updates
 bool j1Gui::PostUpdate()
 {
+	//Mouse----------
+	
 
 	list<GuiElement*>::iterator item = gui_elements.begin();
 	for (; item != gui_elements.end(); item++)
@@ -153,6 +161,8 @@ bool j1Gui::PostUpdate()
 			}
 		}
 	}
+
+	mouse->Draw();
 
 	return true;
 }

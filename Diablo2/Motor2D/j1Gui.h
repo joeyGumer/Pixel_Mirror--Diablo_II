@@ -45,6 +45,8 @@ public:
 
 	GuiSlider* AddGuiSlider(iPoint p, SDL_Rect tex_1, SDL_Rect tex_2, int width, int thumb_h, iPoint offset, float value, GuiElement* par, j1Module* list);
 
+	GuiMouseImage* AddGuiMouseImage(iPoint p, SDL_Rect r, GuiElement* par, j1Module* list);
+
 	//Get selected element
 	GuiElement* FindSelectedElement();
 
@@ -58,9 +60,10 @@ private:
 	bool			debug;
 	SDL_Texture*	atlas;
 	p2SString		atlas_file_name;
+	int             mouse_x, mouse_y;
 
 	GuiElement*		focus;
-
+	GuiMouseImage* mouse = NULL;
 };
 
 #endif // __j1GUI_H__

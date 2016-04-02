@@ -49,7 +49,7 @@ GuiImage::GuiImage(iPoint p, SDL_Rect r, GuiElement* par, j1Module* list = NULL)
 	: GuiElement(p, r, GUI_IMAGE, par, list)
 {}
 
-//NOTE :I'm doing and especific constructor, have to change this
+//NOTE :I'm doing an especific constructor, have to change this
 GuiInputBox::GuiInputBox(p2SString t, _TTF_Font* f, iPoint p, int width, SDL_Rect r, iPoint offset, GuiElement* par, j1Module* list)
 	: GuiElement(p, r, GUI_INPUTBOX, par, list), text(t, f, { 0, 0 }, this), image({ offset.x, offset.y }, r, this)
 {
@@ -79,9 +79,24 @@ GuiButton::GuiButton(iPoint p, SDL_Rect idle_r1, SDL_Rect hover_r1, SDL_Rect cli
 	hover_tex = hover_r1;
 	click_tex = click_r1;
 }
+
+GuiMouseImage::GuiMouseImage(iPoint p, SDL_Rect r, GuiElement* par, j1Module* list)
+	: GuiElement(p, r, GUI_MOUSE_IMAGE, par, list), mouse_image({ p.x, p.y }, r, this, NULL)
+{}
 //-----
 
 //Draw functions
+//MOUSE----------------------------
+void GuiMouseImage::Draw()
+{
+	iPoint p = GetScreenPosition();
+
+	App->render->Blit(App->gui->GetAtlas(),
+		p.x - App->render->camera.x,
+		p.y - App->render->camera.y,
+		&tex_rect);
+}
+//---------------------------------
 void GuiImage::Draw()
 {
 	iPoint p = GetScreenPosition();
@@ -117,6 +132,14 @@ void GuiButton::Draw()
 //
 
 //Update functions
+//MOUSE-----------------
+void GuiMouseImage::Update()
+{
+	Uint32 buttons = SDL_GetMouseState(&mouse_x, &mouse_y);
+	
+	this->SetLocalPosition({ mouse_x, mouse_y });
+}
+//----------------------
 void GuiImage::Update(GuiElement* hover, GuiElement* focus)
 {
 	//Nothing
