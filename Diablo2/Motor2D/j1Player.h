@@ -33,6 +33,23 @@ enum PLAYER_EVENT
 	HP_UP,
 	MP_DOWN,
 	MP_UP,
+	STATE_CHANGE,
+};
+
+enum ACTION_STATE
+{
+	IDLE,
+	WALKING,
+	RUNNING,
+	ATTACKING,
+};
+
+enum INPUT_STATE
+{
+	INPUT_MOVE,
+	INPUT_STOP_MOVE,
+	INPUT_ATTACK,
+	INPUT_NULL,
 };
 
 class j1Player : public j1Module
@@ -88,6 +105,10 @@ public:
 	void SetAnimations();
 	void SetDirection();
 
+	//StateMachine functions
+	ACTION_STATE UpdateAction();
+	void StateMachine();
+
 	//Utils
 	void PlayerEvent(PLAYER_EVENT even);
 
@@ -132,6 +153,15 @@ private:
 	Animation idle_right_back;
 	Animation idle_right;
 	Animation idle_right_front;
+
+	Animation walk_front;
+	Animation walk_left_front;
+	Animation walk_left;
+	Animation walk_left_back;
+	Animation walk_back;
+	Animation walk_right_back;
+	Animation walk_right;
+	Animation walk_right_front;
 	//--------------------
 
 	//Attributes
@@ -140,6 +170,11 @@ private:
 
 	int MP_max;
 	int MP_current;
+
+	//StateMachine Attributes
+	ACTION_STATE	current_action;
+	DIRECTION		current_direction;
+	INPUT_STATE		current_input;
 
 };
 
