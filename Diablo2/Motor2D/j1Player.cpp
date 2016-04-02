@@ -69,9 +69,7 @@ bool j1Player::Update(float dt)
 		{
 			Move(dt);
 		}
-		//Camera idea to put it with an event, so it just iterates when it moves, see it later when we have done the pathfinding
-		//Create the variable pivot because it will be more needed
-		//NOTe : maybe is a good
+
 		App->render->CenterCamera(p_position.x, p_position.y);
 	}
 
@@ -133,72 +131,7 @@ void j1Player::DrawDebug() const
 	}
 }
 
-/*
-//-------Structural functions
-*/
 
-void j1Player::SetAnimations()
-{
-	//NOTE: think of a easier way to know the speed you are going to put the animation
-	idle_front.SetFrames(0, 0, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, 1);
-	idle_front.speed = 0.2f;
-
-	idle_left_front.SetFrames(0, (PLAYER_SPRITE_H + 1) * D_FRONT_LEFT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, 1);
-	idle_left_front.speed = 0.2f;
-	
-	idle_left.SetFrames(0, (PLAYER_SPRITE_H + 1) * D_LEFT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, 1);
-	idle_left.speed = 0.2f;
-
-	idle_left_back.SetFrames(0, (PLAYER_SPRITE_H + 1) * D_BACK_LEFT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, 1);
-	idle_left_back.speed = 0.2f;
-
-	idle_back.SetFrames(0, (PLAYER_SPRITE_H + 1) * D_BACK, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, 1);
-	idle_back.speed = 0.2f;
-
-	idle_right_back.SetFrames(0, (PLAYER_SPRITE_H + 1) * D_BACK_RIGHT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, 1);
-	idle_right_back.speed = 0.2f;
-
-	idle_right.SetFrames(0, (PLAYER_SPRITE_H + 1) * D_RIGHT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, 1);
-	idle_right.speed = 0.2f;
-
-	idle_right_front.SetFrames(0, (PLAYER_SPRITE_H + 1) * D_FRONT_RIGHT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, 1);
-	idle_right_front.speed = 0.2f;
-	
-	/*idle_left_front = { 0, 93, 96, 92 };
-	//idle_left &= NULL;
-	idle_left_back = { 0, 279, 96, 92 };
-	//idle_back = NULL;
-	idle_right_back = { 0, 465, 96, 92 };
-	//idle_right = NULL;
-	idle_right_front = { 0, 651, 96, 92 };*/
-}
-
-void j1Player::SetDirection()
-{
-	float angle = p_velocity.GetAngle();
-
-		
-	//NOTE: should be a more elegant way to do this, and also, is provisional for the animations of the player, should be with the ENUM DIRECTION
-	//Also, the angles will have to be especified again because in isometric , the intervals are not the same.
-	if (angle < 22.5 && angle > -22.5)
-		current_animation = idle_right;
-	else if (angle >= 22.5 && angle <= 67.5)
-		current_animation = idle_right_front;
-	else if (angle > 67.5 && angle < 112.5)
-		current_animation = idle_front;
-	else if (angle >= 112.5 && angle <= 157.5)
-		current_animation = idle_left_front;
-	else if (angle > 157.5 || angle < -157.5)
-		current_animation = idle_left;
-	else if (angle >= -157.5 && angle <= -112.5)
-		current_animation = idle_left_back;
-	else if (angle > -112.5 && angle < -67.5)
-		current_animation = idle_back;
-	else if (angle >= -67.5 && angle <= -22.5)
-		current_animation = idle_right_back;
-
-
-}
 /*
 //-------Getters
 */
@@ -347,27 +280,6 @@ bool j1Player::IsTargetReached()
 
 void j1Player::HandleInput()
 {
-	
-	//NOTE: and provisional state machine for the player
-	//
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-	{
-		current_animation = idle_left;
-	}
-	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-	{
-		current_animation = idle_right;
-	}
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-	{
-		current_animation = idle_back;
-	}
-	else if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
-	{
-		current_animation = idle_front;
-	}
-	//
-
 	//NOTE: provisional mana and life changers
 	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
 	{
@@ -427,6 +339,66 @@ void j1Player::HandleInput()
 	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 	{
 		SetInitVelocity();
+		SetDirection();
 		movement = true;
 	}
+}
+
+/*
+//-------Structural functions
+*/
+
+void j1Player::SetAnimations()
+{
+	//NOTE: think of a easier way to know the speed you are going to put the animation
+	idle_front.SetFrames(0, 0, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, 1);
+	idle_front.speed = 0.2f;
+
+	idle_left_front.SetFrames(0, (PLAYER_SPRITE_H + 1) * D_FRONT_LEFT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, 1);
+	idle_left_front.speed = 0.2f;
+
+	idle_left.SetFrames(0, (PLAYER_SPRITE_H + 1) * D_LEFT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, 1);
+	idle_left.speed = 0.2f;
+
+	idle_left_back.SetFrames(0, (PLAYER_SPRITE_H + 1) * D_BACK_LEFT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, 1);
+	idle_left_back.speed = 0.2f;
+
+	idle_back.SetFrames(0, (PLAYER_SPRITE_H + 1) * D_BACK, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, 1);
+	idle_back.speed = 0.2f;
+
+	idle_right_back.SetFrames(0, (PLAYER_SPRITE_H + 1) * D_BACK_RIGHT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, 1);
+	idle_right_back.speed = 0.2f;
+
+	idle_right.SetFrames(0, (PLAYER_SPRITE_H + 1) * D_RIGHT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, 1);
+	idle_right.speed = 0.2f;
+
+	idle_right_front.SetFrames(0, (PLAYER_SPRITE_H + 1) * D_FRONT_RIGHT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, 1);
+	idle_right_front.speed = 0.2f;
+}
+
+void j1Player::SetDirection()
+{
+	float angle = p_velocity.GetAngle();
+
+
+	//NOTE: should be a more elegant way to do this, and also, is provisional for the animations of the player, should be with the ENUM DIRECTION
+	//Also, the angles will have to be especified again because in isometric , the intervals are not the same.
+	if (angle < 22.5 && angle > -22.5)
+		current_animation = idle_right;
+	else if (angle >= 22.5 && angle <= 67.5)
+		current_animation = idle_right_front;
+	else if (angle > 67.5 && angle < 112.5)
+		current_animation = idle_front;
+	else if (angle >= 112.5 && angle <= 157.5)
+		current_animation = idle_left_front;
+	else if (angle > 157.5 || angle < -157.5)
+		current_animation = idle_left;
+	else if (angle >= -157.5 && angle <= -112.5)
+		current_animation = idle_left_back;
+	else if (angle > -112.5 && angle < -67.5)
+		current_animation = idle_back;
+	else if (angle >= -67.5 && angle <= -22.5)
+		current_animation = idle_right_back;
+
+
 }

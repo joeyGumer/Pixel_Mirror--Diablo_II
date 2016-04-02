@@ -199,6 +199,9 @@ void j1App::PrepareUpdate()
 
 	dt = frame_time.ReadSec();
 	frame_time.Start();
+
+	if (pause)
+		dt = 0;
 }
 
 // ---------------------------------------------
