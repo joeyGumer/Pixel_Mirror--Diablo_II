@@ -34,7 +34,9 @@ bool j1Player::Start()
 	p_sprite = App->tex->Load("textures/vamp_idle.png");
 	SetAnimations();
 
-
+	current_action = IDLE;
+	current_direction = D_FRONT;
+	current_input = INPUT_NULL;
 	current_animation = idle_front;
 
 	//Positioning
@@ -53,7 +55,8 @@ bool j1Player::Start()
 //PreUpdate
 bool j1Player::PreUpdate()
 {
-	
+	Update_Action();
+
 	return true;
 }
 
@@ -180,22 +183,28 @@ void j1Player::SetDirection()
 		
 	//NOTE: should be a more elegant way to do this, and also, is provisional for the animations of the player, should be with the ENUM DIRECTION
 	//Also, the angles will have to be especified again because in isometric , the intervals are not the same.
+
+	//NOTE2: changed with ENUM DIRECTION
+	
 	if (angle < 22.5 && angle > -22.5)
-		current_animation = idle_right;
+		current_direction = D_RIGHT;
 	else if (angle >= 22.5 && angle <= 67.5)
-		current_animation = idle_right_front;
+		current_direction = D_FRONT_RIGHT;
 	else if (angle > 67.5 && angle < 112.5)
-		current_animation = idle_front;
+		current_direction = D_FRONT;
 	else if (angle >= 112.5 && angle <= 157.5)
-		current_animation = idle_left_front;
+		current_direction = D_FRONT_LEFT;
 	else if (angle > 157.5 || angle < -157.5)
-		current_animation = idle_left;
+		current_direction = D_LEFT;
 	else if (angle >= -157.5 && angle <= -112.5)
-		current_animation = idle_left_back;
+		current_direction = D_BACK_LEFT;
 	else if (angle > -112.5 && angle < -67.5)
-		current_animation = idle_back;
+		current_direction = D_BACK;
 	else if (angle >= -67.5 && angle <= -22.5)
-		current_animation = idle_right_back;
+		current_direction = D_BACK_RIGHT;
+
+	
+	
 
 
 }
@@ -270,6 +279,74 @@ void j1Player::PlayerEvent(PLAYER_EVENT even)
 			App->HUD->SetMana(MP_max, MP_current);
 		}
 		break;
+	case STATE_CHANGE:
+		{
+			switch (current_action)
+			{
+			case IDLE:
+				switch (current_direction)
+				{
+				case D_FRONT:
+					current_animation = idle_front;
+					break;
+				case D_FRONT_LEFT:
+					current_animation = idle_left_front;
+					break;
+				case D_LEFT:
+					current_animation = idle_left;
+					break;
+				case D_BACK_LEFT:
+					current_animation = idle_left_back;
+					break;
+				case D_BACK:
+					current_animation = idle_back;
+					break;
+				case D_BACK_RIGHT:
+					current_animation = idle_right_back;
+					break;
+				case D_RIGHT:
+					current_animation = idle_right;
+					break;
+				case D_FRONT_RIGHT:
+					current_animation = idle_right_front;
+					break;
+				}
+				break;
+			case WALKING:
+				switch (current_direction)
+				{
+				case D_FRONT:
+					current_animation = idle_front;
+					break;
+				case D_FRONT_LEFT:
+					current_animation = idle_left_front;
+					break;
+				case D_LEFT:
+					current_animation = idle_left;
+					break;
+				case D_BACK_LEFT:
+					current_animation = idle_left_back;
+					break;
+				case D_BACK:
+					current_animation = idle_back;
+					break;
+				case D_BACK_RIGHT:
+					current_animation = idle_right_back;
+					break;
+				case D_RIGHT:
+					current_animation = idle_right;
+					break;
+				case D_FRONT_RIGHT:
+					current_animation = idle_right_front;
+					break;
+				}
+				break;
+			case RUNNING:
+				break;
+			case ATTACKING:
+				break;
+			}
+		}
 	}
 }
 
@@ -301,6 +378,12 @@ void j1Player::Move(float dt)
 	if (movement)
 	{
 		UpdateVelocity(dt);
+	}
+
+	//StateMachine change
+	else
+	{
+		current_input = INPUT_STOP_MOVE;
 	}
 	
 	//Debug mode
@@ -427,6 +510,56 @@ void j1Player::HandleInput()
 	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 	{
 		SetInitVelocity();
+
 		movement = true;
+
+		//StateMachine change
+		current_input = INPUT_MOVE;
 	}
+}
+
+//StateMachine Functions
+ACTION_STATE j1Player::Update_Action()
+{
+	if (current_input != INPUT_NULL)
+	{
+		switch (current_action)
+		{
+		case IDLE:
+		{
+			if (current_input == INPUT_MOVE)
+			{
+				current_action = WALKING;
+			}
+		}
+		break;
+
+		case WALKING:
+		{
+			if (current_input == INPUT_STOP_MOVE)
+			{
+				current_action = IDLE;
+			}
+		}
+		break;
+
+		case RUNNING:
+		{
+
+		}
+		break;
+
+		case ATTACKING:
+		{
+
+		}
+		break;
+		}
+
+		PlayerEvent(STATE_CHANGE);
+	}
+	
+	current_input = INPUT_NULL;
+
+	return current_action;
 }
