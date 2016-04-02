@@ -2,6 +2,7 @@
 #include "j1App.h"
 #include "j1Gui.h"
 #include "j1Player.h"
+#include "j1Game.h"
 #include "j1SceneManager.h"
 #include "snIntro.h"
 
@@ -20,15 +21,11 @@ j1HUD::~j1HUD()
 bool j1HUD::Start()
 {
 	//NOTE: totally have to change this system...
-	if (App->in_game)
-	{
 		main_menu = false;
 
 
 		life_current_h = mana_current_h = 78;
-		//NOTE: this should go following the screen height
 
-		//HUD = App->gui->AddGuiImage({ 0, 499 }, { 0, 331, 800, 103 }, NULL, this);
 		HUD = App->gui->AddGuiImage({ 166, 553 }, { 166, 386, 468, 47 }, NULL, this);
 		HUD_elements.push_back(HUD);
 
@@ -98,7 +95,7 @@ bool j1HUD::Start()
 		mana_debug = App->gui->AddGuiLabel("", NULL, { 0, 0 }, mana, this);
 		mana_debug->Center(true, true);
 		mana_debug->debug = true;*/
-	}
+
 	return true;
 }
 
@@ -111,10 +108,6 @@ bool j1HUD::PreUpdate()
 //Called each frame
 bool j1HUD::Update(float dt)
 {
-	//WARNING: another in-game use...
-	//In-game menu ------------------------------------------------------------------------
-	if (App->in_game)
-	{
 		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		{
 			ActivateMenu();
@@ -125,7 +118,6 @@ bool j1HUD::Update(float dt)
 		{	
 			App->sm->ChangeScene(App->sm->intro);
 		}
-	}
 	
 	return true;
 }
@@ -288,5 +280,5 @@ void j1HUD::ActivateMenu()
 	saveandexit->active = !saveandexit->active;
 
 
-	App->pause = !App->pause;
+	App->game->pause = !App->game->pause;
 }

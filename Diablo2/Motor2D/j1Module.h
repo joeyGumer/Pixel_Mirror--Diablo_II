@@ -78,6 +78,10 @@ public:
 	virtual void OnEvent(GuiElement* element, GUI_Event even)
 	{}
 
+	//NOTE: provisional for the game system, maybe goes to another kind of module
+	virtual void Draw()
+	{}
+
 public:
 
 	p2SString	name;

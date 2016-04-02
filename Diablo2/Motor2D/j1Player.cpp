@@ -4,6 +4,7 @@
 //NOTE: doubts about including the map to player
 #include "j1Map.h"
 #include "j1App.h"
+#include "j1Game.h"
 #include "j1Input.h"
 #include "j1HUD.h"
 #include "SDL/include/SDL.h"
@@ -63,9 +64,6 @@ bool j1Player::PreUpdate()
 //Update
 bool j1Player::Update(float dt)
 {
-	//NOTE: Have to apply a totally diferent pause method
-	if (App->pause == false)
-	{
 		HandleInput();
 
 		if (movement)
@@ -74,7 +72,6 @@ bool j1Player::Update(float dt)
 		}
 
 		App->render->CenterCamera(p_position.x, p_position.y);
-	}
 
 	return true;
 }
@@ -119,7 +116,7 @@ void j1Player::DrawDebug() const
 	iPoint p_pos = GetPivotPosition();
 
 	App->render->Blit(p_debug, t_pos.x, t_pos.y);
-	App->render->DrawQuad(App->player->GetPlayerRect(), 255, 0, 0, 1000, false);
+	App->render->DrawQuad(GetPlayerRect(), 255, 0, 0, 1000, false);
 	//App->render->DrawCircle(p_pos.x, p_pos.y, 5, 255, 0, 0, 1000);
 	App->render->DrawQuad({ p_pos.x, p_pos.y, 3, 3 }, 255, 0, 0);
 
@@ -186,22 +183,22 @@ void j1Player::PlayerEvent(PLAYER_EVENT even)
 	{
 	case HP_DOWN:
 		{
-			App->HUD->SetLife(HP_max, HP_current);
+			App->game->HUD->SetLife(HP_max, HP_current);
 		}
 		break;
 	case HP_UP:
 		{
-			App->HUD->SetLife(HP_max, HP_current);
+			App->game->HUD->SetLife(HP_max, HP_current);
 		}
 		break;
 	case MP_DOWN:
 		{
-			App->HUD->SetMana(MP_max, MP_current);
+			App->game->HUD->SetMana(MP_max, MP_current);
 		}
 		break;
 	case MP_UP:
 		{
-			App->HUD->SetMana(MP_max, MP_current);
+			App->game->HUD->SetMana(MP_max, MP_current);
 		}
 		break;
 

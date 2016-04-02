@@ -3,8 +3,8 @@
 #include "j1App.h"
 #include "snIntro.h"
 #include "snOutdoor1.h"
-//NOTE: i should totally don't do this
-#include "j1HUD.h"
+#include "j1Game.h"
+
 
 j1SceneManager::j1SceneManager() : j1Module()
 {
@@ -87,18 +87,15 @@ bool j1SceneManager::ChangeScene(j1Scene* new_scene)
 	//WARNING: this is purely provisional for the 0.2 version, HAS TO BE CHANGED, the in-game system and all the modules that are activcated there
 	if (current_scene == intro)
 	{
-		App->in_game = true;
-		App->pause = false;
-
-		App->HUD->Start();
+		//NOTE: may have to be changed in the future
+		App->game->Init();
+		App->game->Start();
 	}
 
 	if (new_scene == intro)
 	{
-		App->in_game = false;
-		App->pause = true;
-
-		App->HUD->CleanUp();
+		App->game->active = false;
+		App->game->CleanUp();
 	}
 	//
 	current_scene = new_scene;

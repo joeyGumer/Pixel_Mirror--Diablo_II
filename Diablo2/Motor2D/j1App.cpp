@@ -15,9 +15,8 @@
 #include "j1Pathfinding.h"
 #include "j1Fonts.h"
 #include "j1Gui.h"
-#include "j1Player.h"
 #include "j1App.h"
-#include "j1HUD.h"
+#include "j1Game.h"
 
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
@@ -35,8 +34,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	pathfinding = new j1PathFinding();
 	font = new j1Fonts();
 	gui = new j1Gui();
-	player = new j1Player();
-	HUD = new j1HUD();
+	game = new j1Game();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -46,14 +44,15 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(tex);
 	AddModule(audio);
 	AddModule(map);
-	AddModule(player);
 	AddModule(pathfinding);
 	AddModule(font);
 	AddModule(gui);
-	AddModule(HUD);
 
-	// scene last
+	// scene manager
 	AddModule(sm);
+
+	// game last 
+	AddModule(game);
 
 	// render last to swap buffer
 	AddModule(render);
@@ -140,7 +139,13 @@ bool j1App::Start()
 
 	while (item != modules.end() && ret == true)
 	{
-		ret = (*item)->Start();
+		if ((*item) != game)
+		{
+			ret = (*item)->Start();
+		} 
+		else
+			(*item)->active = false;
+
 		++item;
 	}
 
@@ -199,9 +204,6 @@ void j1App::PrepareUpdate()
 
 	dt = frame_time.ReadSec();
 	frame_time.Start();
-
-	if (pause)
-		dt = 0;
 }
 
 // ---------------------------------------------
@@ -235,10 +237,10 @@ void j1App::FinishUpdate()
 
 	static char title[256];
 
-	sprintf_s(title, 256, "Diablo II   version : 0.2");
+	//sprintf_s(title, 256, "Diablo II   version : 0.3");
 	
-		/*sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %u Last sec frames: %i Last dt: %.3f Time since startup: %.3f Frame Count: %lu ",
-			avg_fps, last_frame_ms, frames_on_last_update, dt, seconds_since_startup, frame_count);*/
+	sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %u Last sec frames: %i Last dt: %.3f Time since startup: %.3f Frame Count: %lu ",
+			avg_fps, last_frame_ms, frames_on_last_update, dt, seconds_since_startup, frame_count);
 		App->win->SetTitle(title);
 	
 

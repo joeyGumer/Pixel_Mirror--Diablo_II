@@ -78,7 +78,7 @@ public:
 	bool PostUpdate();
 
 	//Draws the player each loop iteration
-	void Draw() ;
+	void Draw();
 
 	// Called before quitting
 	bool CleanUp();

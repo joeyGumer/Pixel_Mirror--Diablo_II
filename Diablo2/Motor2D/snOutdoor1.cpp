@@ -56,7 +56,7 @@ bool snOutdoor1::Update(float dt)
 
 	//Player
 	
-	App->player->Draw();
+	//App->game->player->Draw();
 	
 
 	//Camera

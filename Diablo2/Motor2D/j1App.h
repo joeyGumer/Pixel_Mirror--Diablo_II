@@ -22,8 +22,7 @@ class j1Map;
 class j1PathFinding;
 class j1Fonts;
 class j1Gui;
-class j1Player;
-class j1HUD;
+class j1Game;
 
 class j1App
 {
@@ -49,6 +48,8 @@ public:
 
 	// Add a new module to handle
 	void AddModule(j1Module* module);
+
+	
 
 	// Exposing some properties for reading
 	int GetArgc() const;
@@ -99,14 +100,10 @@ public:
 	j1PathFinding*		pathfinding = NULL;
 	j1Fonts*			font = NULL;
 	j1Gui*				gui = NULL;
-	j1Player*			player = NULL;
-	j1HUD*				HUD = NULL;
+	j1Game*             game = NULL;
 
 	//NOTE: Now the debug mode is global form the app, ask Ric
 	bool                debug = false;
-	//NOTE: provisional Pause, and in-game system:
-	bool                pause = true;
-	bool				in_game = false;
 
 private:
 
