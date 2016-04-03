@@ -139,6 +139,8 @@ private:
 	//Textures
 	SDL_Texture* p_debug = NULL;
 	SDL_Texture* p_sprite = NULL;
+	SDL_Texture* p_idle = NULL;
+	SDL_Texture* p_walk = NULL;
 
 	//Rects for each state and direction
 	//--------------------

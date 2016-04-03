@@ -184,7 +184,7 @@
       <Filter>Desenvolupament  ========\Modules\j1EntityManager</Filter>
     </ClInclude>
     <ClInclude Include="j1Enemy.h">
-      <Filter>Desenvolupament  ========\Modules\j1Enemy</Filter>
+      <Filter>Desenvolupament  ========\Modules\j1EntityManager\j1Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -263,7 +263,7 @@
     <Filter Include="Desenvolupament  ========\Modules\j1EntityManager">
       <UniqueIdentifier>{e207d71e-6e6c-4e68-aac4-1b52eae69768}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Desenvolupament  ========\Modules\j1Enemy">
+    <Filter Include="Desenvolupament  ========\Modules\j1EntityManager\j1Enemy">
       <UniqueIdentifier>{69b7d4e8-dc9d-491e-99a5-7ed1492c2ac3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>

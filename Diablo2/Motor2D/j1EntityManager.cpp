@@ -36,13 +36,13 @@ bool j1EntityManager::PreUpdate()
 	// Clicking middle button, eliminates an entity
 	if (App->input->GetMouseButtonDown(SDL_BUTTON_MIDDLE) == KEY_DOWN)
 	{
-		iPoint p; 
-		p = App->input->GetMouseWorldPosition();
-		const j1Enemy* e = EntityOnMouse();
+		iPoint pos; 
+		pos = App->input->GetMouseWorldPosition();
+		const j1Enemy* enemy = EntityOnMouse();
 
-		if (e != NULL)
+		if (enemy != NULL)
 		{
-			Remove(e->id);
+			Remove(enemy->id);
 		}
 	}
 
@@ -53,9 +53,9 @@ bool j1EntityManager::PreUpdate()
 bool j1EntityManager::PostUpdate()
 {
 	// Entities drawing
-	map<uint, j1Enemy*>::iterator it = active_entities.begin();
-	for (; it != active_entities.end(); ++it)
-		it->second->Draw();
+	map<uint, j1Enemy*>::iterator item = active_entities.begin();
+	for (; item != active_entities.end(); ++item)
+		item->second->Draw();
 
 	return true;
 }
@@ -63,13 +63,13 @@ bool j1EntityManager::PostUpdate()
 // Called before quitting
 bool j1EntityManager::CleanUp()
 {
-	map<uint, j1Enemy*>::iterator it = active_entities.begin();
-	for (; it != active_entities.end(); it++)
-		delete it->second;
+	map<uint, j1Enemy*>::iterator item = active_entities.begin();
+	for (; item != active_entities.end(); item++)
+		delete item->second;
 
-	it = inactive_entities.begin();
-	for (; it != inactive_entities.end(); it++)
-		delete it->second;
+	item = inactive_entities.begin();
+	for (; item != inactive_entities.end(); item++)
+		delete item->second;
 
 	active_entities.clear();
 	inactive_entities.clear();
@@ -78,17 +78,18 @@ bool j1EntityManager::CleanUp()
 }
 
 // Add method
+
 j1Enemy* j1EntityManager::Add(iPoint &pos, ENEMY_TYPE type)
 {
 	j1Enemy* enemy = NULL;
 	iPoint tile_pos = App->map->WorldToMap(pos.x, pos.y);
 
 	// Checking for another bricks already on the map_tile specified by argument pos.
-	map<uint, j1Enemy*>::iterator it = active_entities.begin();
+	map<uint, j1Enemy*>::iterator item = active_entities.begin();
 
-	for (; it != active_entities.end(); it++)
+	for (; item != active_entities.end(); item++)
 	{
-		if (it->second->tile_pos == tile_pos)
+		if (item->second->tile_pos == tile_pos)
 			return enemy; // No entity is created!
 	}
 
@@ -124,8 +125,8 @@ bool j1EntityManager::Remove(uint id)
 // Return ID for the corresponding entity
 j1Enemy* j1EntityManager::GetEntity(uint id)
 {
-	map<uint, j1Enemy*>::iterator it = active_entities.find(id);
-	return (it != active_entities.end() ? it->second : NULL);
+	map<uint, j1Enemy*>::iterator item = active_entities.find(id);
+	return (item != active_entities.end() ? item->second : NULL);
 }
 
 // WhichEntityOnMouse: Returns an entity under the mouse cursor
@@ -133,14 +134,14 @@ j1Enemy* j1EntityManager::EntityOnMouse()
 {
 	iPoint p = App->input->GetMouseWorldPosition();
 
-	map<uint, j1Enemy*>::reverse_iterator rit = active_entities.rbegin();
-	for (; rit != active_entities.rend(); ++rit)
+	map<uint, j1Enemy*>::reverse_iterator item = active_entities.rbegin();
+	for (; item != active_entities.rend(); ++item)
 	{
-		if (p.x >= rit->second->dim.x &&
-			p.x <= rit->second->dim.x + rit->second->dim.w &&
-			p.y >= rit->second->dim.y &&
-			p.y <= rit->second->dim.y + rit->second->dim.h)
-			return rit->second;
+		if (p.x >= item->second->dim.x &&
+			p.x <= item->second->dim.x + item->second->dim.w &&
+			p.y >= item->second->dim.y &&
+			p.y <= item->second->dim.y + item->second->dim.h)
+			return item->second;
 	}
 	return NULL;
 }

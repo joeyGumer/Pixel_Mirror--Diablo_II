@@ -31,8 +31,9 @@ bool j1Player::Start()
 	//Debug tile
 	p_debug = App->tex->Load("maps/path.png");
 	
-	//Idle sprites
-	p_sprite = App->tex->Load("textures/vamp_idle.png");
+	//Sprites
+	p_sprite = p_idle = App->tex->Load("textures/vamp_idle.png");
+	p_walk = App->tex->Load("textures/vamp_run.png");
 	SetAnimations();
 
 	current_action = IDLE;
@@ -43,6 +44,7 @@ bool j1Player::Start()
 	//Positioning
 	p_position = { 0, 0 };
 	p_pivot = { (PLAYER_SPRITE_W / 2), (PLAYER_SPRITE_H - PLAYER_PIVOT_OFFSET) };
+	movement = false;
 
 	//initial stats
 	HP_max = HP_current = 100;
@@ -407,29 +409,56 @@ ACTION_STATE j1Player::UpdateAction()
 void j1Player::SetAnimations()
 {
 	//NOTE: think of a easier way to know the speed you are going to put the animation
-	idle_front.SetFrames(0, 0, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, 1);
+
+	//Idle
+	idle_front.SetFrames(0, 0, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, SPRITE_MARGIN);
 	idle_front.speed = 0.2f;
 
-	idle_left_front.SetFrames(0, (PLAYER_SPRITE_H + 1) * D_FRONT_LEFT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, 1);
+	idle_left_front.SetFrames(0, (PLAYER_SPRITE_H + SPRITE_MARGIN) * D_FRONT_LEFT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, SPRITE_MARGIN);
 	idle_left_front.speed = 0.2f;
 
-	idle_left.SetFrames(0, (PLAYER_SPRITE_H + 1) * D_LEFT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, 1);
+	idle_left.SetFrames(0, (PLAYER_SPRITE_H + SPRITE_MARGIN) * D_LEFT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, SPRITE_MARGIN);
 	idle_left.speed = 0.2f;
 
-	idle_left_back.SetFrames(0, (PLAYER_SPRITE_H + 1) * D_BACK_LEFT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, 1);
+	idle_left_back.SetFrames(0, (PLAYER_SPRITE_H + SPRITE_MARGIN) * D_BACK_LEFT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, SPRITE_MARGIN);
 	idle_left_back.speed = 0.2f;
 
-	idle_back.SetFrames(0, (PLAYER_SPRITE_H + 1) * D_BACK, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, 1);
+	idle_back.SetFrames(0, (PLAYER_SPRITE_H + SPRITE_MARGIN) * D_BACK, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, SPRITE_MARGIN);
 	idle_back.speed = 0.2f;
 
-	idle_right_back.SetFrames(0, (PLAYER_SPRITE_H + 1) * D_BACK_RIGHT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, 1);
+	idle_right_back.SetFrames(0, (PLAYER_SPRITE_H + SPRITE_MARGIN) * D_BACK_RIGHT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, SPRITE_MARGIN);
 	idle_right_back.speed = 0.2f;
 
-	idle_right.SetFrames(0, (PLAYER_SPRITE_H + 1) * D_RIGHT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, 1);
+	idle_right.SetFrames(0, (PLAYER_SPRITE_H + SPRITE_MARGIN) * D_RIGHT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, SPRITE_MARGIN);
 	idle_right.speed = 0.2f;
 
-	idle_right_front.SetFrames(0, (PLAYER_SPRITE_H + 1) * D_FRONT_RIGHT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, 1);
+	idle_right_front.SetFrames(0, (PLAYER_SPRITE_H + SPRITE_MARGIN) * D_FRONT_RIGHT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, SPRITE_MARGIN);
 	idle_right_front.speed = 0.2f;
+
+	//Walk
+	walk_front.SetFrames(0, (PLAYER_SPRITE_H + SPRITE_MARGIN) * D_FRONT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 8, SPRITE_MARGIN);
+	walk_front.speed = 0.2f;
+
+	walk_left_front.SetFrames(0, (PLAYER_SPRITE_H + SPRITE_MARGIN) * D_FRONT_LEFT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 8, SPRITE_MARGIN);
+	walk_left_front.speed = 0.2f;
+
+	walk_left.SetFrames(0, (PLAYER_SPRITE_H + SPRITE_MARGIN) * D_LEFT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 8, SPRITE_MARGIN);
+	walk_left.speed = 0.2f;
+
+	walk_left_back.SetFrames(0, (PLAYER_SPRITE_H + SPRITE_MARGIN) * D_BACK_LEFT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 8, SPRITE_MARGIN);
+	walk_left_back.speed = 0.2f;
+
+	walk_back.SetFrames(0, (PLAYER_SPRITE_H + SPRITE_MARGIN) * D_BACK, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 8, SPRITE_MARGIN);
+	walk_back.speed = 0.2f;
+
+	walk_right_back.SetFrames(0, (PLAYER_SPRITE_H + SPRITE_MARGIN) * D_BACK_RIGHT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 8, SPRITE_MARGIN);
+	walk_right_back.speed = 0.2f;
+
+	walk_right.SetFrames(0, (PLAYER_SPRITE_H + SPRITE_MARGIN) * D_RIGHT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 8, SPRITE_MARGIN);
+	walk_right.speed = 0.2f;
+
+	walk_right_front.SetFrames(0, (PLAYER_SPRITE_H + SPRITE_MARGIN) * D_FRONT_RIGHT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 8, SPRITE_MARGIN);
+	walk_right_front.speed = 0.2f;
 }
 
 void j1Player::SetDirection()
@@ -459,6 +488,7 @@ void j1Player::StateMachine()
 	switch (current_action)
 	{
 	case IDLE:
+		p_sprite = p_idle;
 		switch (current_direction)
 		{
 		case D_FRONT:
@@ -488,31 +518,32 @@ void j1Player::StateMachine()
 		}
 		break;
 	case WALKING:
+		p_sprite = p_walk;
 		switch (current_direction)
 		{
 		case D_FRONT:
-			current_animation = idle_front;
+			current_animation = walk_front;
 			break;
 		case D_FRONT_LEFT:
-			current_animation = idle_left_front;
+			current_animation = walk_left_front;
 			break;
 		case D_LEFT:
-			current_animation = idle_left;
+			current_animation = walk_left;
 			break;
 		case D_BACK_LEFT:
-			current_animation = idle_left_back;
+			current_animation = walk_left_back;
 			break;
 		case D_BACK:
-			current_animation = idle_back;
+			current_animation = walk_back;
 			break;
 		case D_BACK_RIGHT:
-			current_animation = idle_right_back;
+			current_animation = walk_right_back;
 			break;
 		case D_RIGHT:
-			current_animation = idle_right;
+			current_animation = walk_right;
 			break;
 		case D_FRONT_RIGHT:
-			current_animation = idle_right_front;
+			current_animation = walk_right_front;
 			break;
 		}
 		break;

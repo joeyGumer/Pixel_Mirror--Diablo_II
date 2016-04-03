@@ -102,24 +102,24 @@ bool j1HUD::Start()
 //Called before each loop iteration
 bool j1HUD::PreUpdate()
 {
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	{
+		ActivateMenu();
+	}
+
+
+	if (main_menu == true)
+	{
+		ActivateMenu();
+		App->sm->ChangeScene(App->sm->intro);
+	}
+
 	return true;
 }
 
 //Called each frame
 bool j1HUD::Update(float dt)
-{
-		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-		{
-			ActivateMenu();
-		}
-
-		
-		if (main_menu == true)
-		{	
-			App->sm->ChangeScene(App->sm->intro);
-		}
-		
-	
+{	
 	return true;
 }
 
