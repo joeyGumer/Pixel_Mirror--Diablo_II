@@ -113,11 +113,12 @@ bool j1HUD::Update(float dt)
 			ActivateMenu();
 		}
 
-
+		
 		if (main_menu == true)
 		{	
 			App->sm->ChangeScene(App->sm->intro);
 		}
+		
 	
 	return true;
 }

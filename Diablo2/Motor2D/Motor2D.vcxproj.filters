@@ -73,6 +73,9 @@
     <ClCompile Include="j1Game.cpp">
       <Filter>Desenvolupament  ========\Modules\j1Game</Filter>
     </ClCompile>
+    <ClCompile Include="j1EntityManager.cpp">
+      <Filter>Desenvolupament  ========\Modules\j1EntityManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h">
@@ -177,6 +180,12 @@
     <ClInclude Include="j1Render.h">
       <Filter>Desenvolupament  ========\Modules\j1Render</Filter>
     </ClInclude>
+    <ClInclude Include="j1EntityManager.h">
+      <Filter>Desenvolupament  ========\Modules\j1EntityManager</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Enemy.h">
+      <Filter>Desenvolupament  ========\Modules\j1Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -250,6 +259,12 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Modules\j1Game">
       <UniqueIdentifier>{2addcc75-9722-4af9-b02f-0617b7b4a70e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\j1EntityManager">
+      <UniqueIdentifier>{e207d71e-6e6c-4e68-aac4-1b52eae69768}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\j1Enemy">
+      <UniqueIdentifier>{69b7d4e8-dc9d-491e-99a5-7ed1492c2ac3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -23,6 +23,7 @@ class j1PathFinding;
 class j1Fonts;
 class j1Gui;
 class j1Game;
+class j1EntityManager;
 
 class j1App
 {
@@ -101,6 +102,7 @@ public:
 	j1Fonts*			font = NULL;
 	j1Gui*				gui = NULL;
 	j1Game*             game = NULL;
+	j1EntityManager*	em = NULL;
 
 	//NOTE: Now the debug mode is global form the app, ask Ric
 	bool                debug = false;

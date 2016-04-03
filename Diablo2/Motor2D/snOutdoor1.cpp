@@ -10,6 +10,8 @@
 #include "j1Textures.h"
 #include "j1Player.h"
 #include "j1Audio.h"
+#include "j1EntityManager.h"
+#include "j1Enemy.h"
 
 using namespace std;
 
@@ -51,6 +53,14 @@ bool snOutdoor1::PreUpdate()
 // Update
 bool snOutdoor1::Update(float dt)
 {	
+	//Add Entity
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN)
+	{
+		iPoint p;
+		p = App->input->GetMouseWorldPosition();
+		App->em->Add(p, ENEMY_DEBUG);
+	}
+
 	//Map
 	App->map->Draw();
 
