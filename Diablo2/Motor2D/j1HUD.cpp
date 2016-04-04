@@ -66,9 +66,41 @@ bool j1HUD::Start()
 		attack2->interactable = true;
 		HUD_elements.push_back(attack2);
 
-		minipanel = App->gui->AddGuiImage({ 156, -24 }, { 169, 252, 154, 27 }, HUD, this);
-		HUD_elements.push_back(minipanel);
-		minipanel->active = false;
+		//Minipanel's buttons
+		stats = App->gui->AddGuiImage({ 157, -23 }, { 170, 253, 24, 25 }, HUD, this);
+		stats->interactable = true;
+		stats->active = false;
+		HUD_elements.push_back(stats);
+
+		skilltree = App->gui->AddGuiImage({ 180, -23 }, { 193, 253, 22, 25 }, HUD, this);
+		skilltree->interactable = true;
+		skilltree->active = false;
+		HUD_elements.push_back(skilltree);
+
+		inventory = App->gui->AddGuiImage({ 201, -23 }, { 214, 253, 22, 25 }, HUD, this);
+		inventory->interactable = true;
+		inventory->active = false;
+		HUD_elements.push_back(inventory);
+
+		map = App->gui->AddGuiImage({ 222, -23 }, { 235, 253, 22, 25 }, HUD, this);
+		map->interactable = true;
+		map->active = false;
+		HUD_elements.push_back(map);
+
+		message_log = App->gui->AddGuiImage({ 243, -23 }, { 256, 253, 22, 25 }, HUD, this);
+		message_log->interactable = true;
+		message_log->active = false;
+		HUD_elements.push_back(message_log);
+
+		search_log = App->gui->AddGuiImage({ 264, -23 }, { 277, 253, 22, 25 }, HUD, this);
+		search_log->interactable = true;
+		search_log->active = false;
+		HUD_elements.push_back(search_log);
+
+		game_menu = App->gui->AddGuiImage({ 285, -23 }, { 298, 253, 24, 25 }, HUD, this);
+		game_menu->interactable = true;
+		game_menu->active = false;
+		HUD_elements.push_back(game_menu);
 
 		//Menu
 		options = App->gui->AddGuiImage({ 310, 130 }, { 395, 71, 194, 31 }, NULL, this);
@@ -184,13 +216,25 @@ void j1HUD::OnEvent(GuiElement* element, GUI_Event even)
 			{
 				minipanel_pressed = true;
 				minipanelbutton->SetTextureRect({ 322, 252, 16, 27 });
-				minipanel->active = true;
+				stats->active = true;
+				skilltree->active = true;
+				inventory->active = true;
+				map->active = true;
+				message_log->active = true;
+				search_log->active = true;
+				game_menu->active = true;
 			}
 			else
 			{
 				minipanel_pressed = false;
 				minipanelbutton->SetTextureRect({ 337, 252, 16, 27 });
-				minipanel->active = false;
+				stats->active = false;
+				skilltree->active = false;
+				inventory->active = false;
+				map->active = false;
+				message_log->active = false;
+				search_log->active = false;
+				game_menu->active = false;
 			}
 		}
 		break;
