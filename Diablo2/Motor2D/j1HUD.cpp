@@ -25,6 +25,7 @@ bool j1HUD::Start()
 
 
 		life_current_h = mana_current_h = 78;
+		stamina_current_w = 102;
 
 		HUD = App->gui->AddGuiImage({ 166, 553 }, { 166, 386, 468, 47 }, NULL, this);
 		HUD_elements.push_back(HUD);
@@ -43,6 +44,9 @@ bool j1HUD::Start()
 
 		mana = App->gui->AddGuiImage({ 524, -45 }, { 451, 118, 78, 78 }, HUD, this);
 		HUD_elements.push_back(mana);
+
+		stamina = App->gui->AddGuiImage({ 107, 20 }, { 530, 118, 102, 18 }, HUD, this);
+		HUD_elements.push_back(stamina);
 
 		life_holder = App->gui->AddGuiImage({ -166, -55 }, { 0, 331, 116, 103 }, HUD, this);
 		HUD_elements.push_back(life_holder);
@@ -316,6 +320,25 @@ void j1HUD::SetMana(int max_MP, int MP)
 
 	mana->SetTextureRect({ 451, STAT_TEX_Y - int(mana_current_h), 78, int(mana_current_h) });
 	mana->SetLocalPosition({ 524, STAT_LOCAL_Y - int(mana_current_h) });
+}
+
+void j1HUD::SetStamina(int max_ST, int ST)
+{
+	if (ST != max_ST && ST != 0)
+	{
+		stamina_current_w = STAT_MAX_W / max_ST;
+		stamina_current_w *= ST;
+	}
+	else if (max_ST == ST)
+	{
+		stamina_current_w = STAT_MAX_W;
+	}
+	else if (ST == 0)
+	{
+		stamina_current_w = 0;
+	}
+
+	stamina->SetTextureRect({ 530, 118, int(stamina_current_w), 18});
 }
 
 void j1HUD::ActivateMenu()

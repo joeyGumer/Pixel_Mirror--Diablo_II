@@ -9,6 +9,7 @@ using namespace std;
 #define STAT_LOCAL_Y 33
 #define STAT_TEX_Y 196
 #define STAT_MAX_H float(78)
+#define STAT_MAX_W float(102)
 
 
 enum GUI_Event;
@@ -45,6 +46,7 @@ public:
 	//Utils
 	void SetLife(int max_HP, int HP);
 	void SetMana(int max_MP, int MP);
+	void SetStamina(int max_ST, int ST);
 	void ActivateMenu();
 
 private:
@@ -54,6 +56,9 @@ private:
 
 	//Mana
 	float mana_current_h;
+
+	//Stamina
+	float stamina_current_w;
 
 	bool main_menu = false;
 	
@@ -72,6 +77,7 @@ private:
 	GuiImage* HUDback2 = NULL;
 	GuiImage* life = NULL;
 	GuiImage* mana = NULL;
+	GuiImage* stamina = NULL;
 	GuiImage* life_holder = NULL;
 	GuiImage* mana_holder = NULL;
 	GuiImage* runbutton = NULL;

@@ -49,6 +49,7 @@ bool j1Player::Start()
 	//initial stats
 	HP_max = HP_current = 100;
 	MP_max = MP_current = 100;
+	ST_max = ST_current = 100;
 	
 
 
@@ -203,6 +204,16 @@ void j1Player::PlayerEvent(PLAYER_EVENT even)
 			App->game->HUD->SetMana(MP_max, MP_current);
 		}
 		break;
+	case ST_DOWN:
+		{
+			App->game->HUD->SetStamina(ST_max, ST_current);
+		}
+		break;
+	case ST_UP:
+		{
+			App->game->HUD->SetStamina(ST_max, ST_current);
+		}
+		break;
 
 	case STATE_CHANGE:
 		{
@@ -341,6 +352,32 @@ void j1Player::HandleInput()
 		}
 
 		PlayerEvent(MP_UP);
+	}
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	{
+		if (ST_current <= 0)
+		{
+			ST_current = 0;
+		}
+		else
+		{
+			ST_current--;
+		}
+
+		PlayerEvent(ST_DOWN);
+	}
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	{
+		if (ST_current >= ST_max)
+		{
+			ST_current = ST_max;
+		}
+		else
+		{
+			ST_current++;
+		}
+
+		PlayerEvent(ST_UP);
 	}
 	//
 

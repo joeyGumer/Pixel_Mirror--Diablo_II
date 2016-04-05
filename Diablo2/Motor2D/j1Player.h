@@ -33,6 +33,8 @@ enum PLAYER_EVENT
 	HP_UP,
 	MP_DOWN,
 	MP_UP,
+	ST_DOWN,
+	ST_UP,
 	STATE_CHANGE,
 };
 
@@ -172,6 +174,9 @@ private:
 
 	int MP_max;
 	int MP_current;
+
+	int ST_max;
+	int ST_current;
 
 	//StateMachine Attributes
 	ACTION_STATE	current_action;
