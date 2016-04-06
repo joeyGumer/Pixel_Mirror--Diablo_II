@@ -82,6 +82,9 @@
     <ClCompile Include="hudPause.cpp">
       <Filter>Desenvolupament  ========\Modules\j1HUD\hudElements\hudPause</Filter>
     </ClCompile>
+    <ClCompile Include="Entities.cpp">
+      <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h">
@@ -186,9 +189,6 @@
     <ClInclude Include="j1EntityManager.h">
       <Filter>Desenvolupament  ========\Modules\j1EntityManager</Filter>
     </ClInclude>
-    <ClInclude Include="j1Enemy.h">
-      <Filter>Desenvolupament  ========\Modules\j1EntityManager\j1Enemy</Filter>
-    </ClInclude>
     <ClInclude Include="hudElement.h">
       <Filter>Desenvolupament  ========\Modules\j1HUD\hudElements</Filter>
     </ClInclude>
@@ -200,6 +200,9 @@
     </ClInclude>
     <ClInclude Include="hudPause.h">
       <Filter>Desenvolupament  ========\Modules\j1HUD\hudElements\hudPause</Filter>
+    </ClInclude>
+    <ClInclude Include="Entities.h">
+      <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -278,9 +281,6 @@
     <Filter Include="Desenvolupament  ========\Modules\j1EntityManager">
       <UniqueIdentifier>{e207d71e-6e6c-4e68-aac4-1b52eae69768}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Desenvolupament  ========\Modules\j1EntityManager\j1Enemy">
-      <UniqueIdentifier>{69b7d4e8-dc9d-491e-99a5-7ed1492c2ac3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Desenvolupament  ========\Modules\j1HUD\hudElements">
       <UniqueIdentifier>{e54e4de0-ef91-49e5-aa76-d1cd58096b20}</UniqueIdentifier>
     </Filter>
@@ -289,6 +289,9 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Modules\j1HUD\hudElements\hudPause">
       <UniqueIdentifier>{ddc02d96-4370-43e4-a077-e4566b2a3044}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\j1EntityManager\Entities">
+      <UniqueIdentifier>{69b7d4e8-dc9d-491e-99a5-7ed1492c2ac3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

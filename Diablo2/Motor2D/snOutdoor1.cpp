@@ -11,7 +11,7 @@
 #include "j1Player.h"
 #include "j1Audio.h"
 #include "j1EntityManager.h"
-#include "j1Enemy.h"
+#include "Entities.h"
 
 using namespace std;
 
@@ -53,6 +53,7 @@ bool snOutdoor1::PreUpdate()
 // Update
 bool snOutdoor1::Update(float dt)
 {	
+	//NOTE: Debug feature so we can test entities
 	//Add Entity
 	if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN)
 	{

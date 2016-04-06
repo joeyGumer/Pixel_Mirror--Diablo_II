@@ -1,7 +1,7 @@
 #include "j1App.h"
 #include "j1EntityManager.h"
 #include "j1Input.h"
-#include "j1Enemy.h"
+#include "Entities.h"
 #include "j1Pathfinding.h"
 #include "p2Log.h"
 #include <algorithm>
@@ -38,11 +38,11 @@ bool j1EntityManager::PreUpdate()
 	{
 		iPoint pos; 
 		pos = App->input->GetMouseWorldPosition();
-		const j1Enemy* enemy = EntityOnMouse();
+		const Entity* entity = EntityOnMouse();
 
-		if (enemy != NULL)
+		if (entity != NULL)
 		{
-			Remove(enemy->id);
+			Remove(entity->id);
 		}
 	}
 
@@ -53,7 +53,7 @@ bool j1EntityManager::PreUpdate()
 bool j1EntityManager::PostUpdate()
 {
 	// Entities drawing
-	map<uint, j1Enemy*>::iterator item = active_entities.begin();
+	map<uint, Entity*>::iterator item = active_entities.begin();
 	for (; item != active_entities.end(); ++item)
 		item->second->Draw();
 
@@ -63,7 +63,7 @@ bool j1EntityManager::PostUpdate()
 // Called before quitting
 bool j1EntityManager::CleanUp()
 {
-	map<uint, j1Enemy*>::iterator item = active_entities.begin();
+	map<uint, Entity*>::iterator item = active_entities.begin();
 	for (; item != active_entities.end(); item++)
 		delete item->second;
 
@@ -79,18 +79,18 @@ bool j1EntityManager::CleanUp()
 
 // Add method
 
-j1Enemy* j1EntityManager::Add(iPoint &pos, ENEMY_TYPE type)
+Entity* j1EntityManager::Add(iPoint &pos, ENTITY_TYPE type)
 {
-	j1Enemy* enemy = NULL;
+	Entity* entity = NULL;
 	iPoint tile_pos = App->map->WorldToMap(pos.x, pos.y);
 
 	// Checking for another bricks already on the map_tile specified by argument pos.
-	map<uint, j1Enemy*>::iterator item = active_entities.begin();
+	map<uint, Entity*>::iterator item = active_entities.begin();
 
 	for (; item != active_entities.end(); item++)
 	{
 		if (item->second->tile_pos == tile_pos)
-			return enemy; // No entity is created!
+			return entity; // No entity is created!
 	}
 
 	//if (App->pathfinding->IsWalkable(tile_pos))	// Can we add a new entity on that tile? i.e. Is that tile walkable?
@@ -98,15 +98,15 @@ j1Enemy* j1EntityManager::Add(iPoint &pos, ENEMY_TYPE type)
 		switch (type)
 		{
 		case (ENEMY_DEBUG) :
-			enemy = new EnemyDebug(pos, ++next_ID);
+			entity = new entEnemyDebug(pos, ++next_ID);
 			break;
 		}
 
 		// We add the new entity to the map of active entities. 
-		active_entities.insert(pair<uint, j1Enemy*>(next_ID, enemy));
+		active_entities.insert(pair<uint, Entity*>(next_ID, entity));
 	//}
 
-	return enemy;
+	return entity;
 }
 
 // Remove an entity using its ID
@@ -114,8 +114,8 @@ bool j1EntityManager::Remove(uint id)
 {
 	if (active_entities.erase(id) > 0)
 	{
-		j1Enemy* e = GetEntity(id);
-		inactive_entities.insert(pair<uint, j1Enemy*>(id, e));
+		Entity* e = GetEntity(id);
+		inactive_entities.insert(pair<uint, Entity*>(id, e));
 
 		return true;
 	}
@@ -123,18 +123,18 @@ bool j1EntityManager::Remove(uint id)
 }
 
 // Return ID for the corresponding entity
-j1Enemy* j1EntityManager::GetEntity(uint id)
+Entity* j1EntityManager::GetEntity(uint id)
 {
-	map<uint, j1Enemy*>::iterator item = active_entities.find(id);
+	map<uint, Entity*>::iterator item = active_entities.find(id);
 	return (item != active_entities.end() ? item->second : NULL);
 }
 
 // WhichEntityOnMouse: Returns an entity under the mouse cursor
-j1Enemy* j1EntityManager::EntityOnMouse()
+Entity* j1EntityManager::EntityOnMouse()
 {
 	iPoint p = App->input->GetMouseWorldPosition();
 
-	map<uint, j1Enemy*>::reverse_iterator item = active_entities.rbegin();
+	map<uint, Entity*>::reverse_iterator item = active_entities.rbegin();
 	for (; item != active_entities.rend(); ++item)
 	{
 		if (p.x >= item->second->dim.x &&

@@ -7,8 +7,8 @@
 #include <map>
 #include <vector>
 
-enum ENEMY_TYPE;
-class j1Enemy;
+enum ENTITY_TYPE;
+class Entity;
 using namespace std;
 
 class j1EntityManager : public j1Module
@@ -36,15 +36,15 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	j1Enemy* Add(iPoint &pos, ENEMY_TYPE type);
+	Entity* Add(iPoint &pos, ENTITY_TYPE type);
 	bool Remove(uint id);
-	j1Enemy* GetEntity(uint id);
+	Entity* GetEntity(uint id);
 
-	j1Enemy* EntityOnMouse();
+	Entity* EntityOnMouse();
 
 private:
-	map<uint, j1Enemy*> active_entities;
-	map<uint, j1Enemy*> inactive_entities;
+	map<uint, Entity*> active_entities;
+	map<uint, Entity*> inactive_entities;
 	//selection
 	//selection_ordered
 	uint next_ID;
