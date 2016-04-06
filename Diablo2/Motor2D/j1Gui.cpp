@@ -52,6 +52,10 @@ bool j1Gui::Start()
 // Update all guis
 bool j1Gui::PreUpdate()
 {
+	//Interaction with mouse reseted every beginning of iteration
+	mouse_hovering = false;
+
+	//Updating the mouse cursor image
 	mouse->Update();
 	//---------------
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
@@ -121,9 +125,10 @@ bool j1Gui::PreUpdate()
 	//Ask ric with more questions about UI
 	for (item = gui_elements.begin(); item != gui_elements.end(); item++)
 	{
-		if ((*item)->interactable && (*item)->active)
+		//Checks the interactable items and the hover one, to check if there's any mouse interaction (because the player doen't move when interacting with GUI)
+		if (((*item)->interactable || (*item) == hover_element) && (*item)->active)
 		{
-			(*item)->CheckEvent(hover_element, focus);
+			(*item)->CheckEvent(hover_element, focus, mouse_hovering);
 			
 		}
 	}

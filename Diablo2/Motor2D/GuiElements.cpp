@@ -303,7 +303,7 @@ bool GuiElement::CheckCollision(iPoint p)
 	return ret;
 }
 
-bool GuiElement::CheckEvent(GuiElement* hover, GuiElement* focus)
+bool GuiElement::CheckEvent(GuiElement* hover, GuiElement* focus, bool& interaction)
 {
 	bool inside = (hover == this);
 	bool focused = (focus == this);
@@ -314,7 +314,9 @@ bool GuiElement::CheckEvent(GuiElement* hover, GuiElement* focus)
 			if (listener)
 			{
 				if (inside)
+				{
 					listener->OnEvent(this, EVENT_MOUSE_ENTER);
+				}
 				else
 					listener->OnEvent(this, EVENT_MOUSE_EXIT);
 			}
@@ -323,6 +325,8 @@ bool GuiElement::CheckEvent(GuiElement* hover, GuiElement* focus)
 		
 		if (inside)
 		{
+			interaction = true;
+
 			if (listener)
 			{
 				if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)

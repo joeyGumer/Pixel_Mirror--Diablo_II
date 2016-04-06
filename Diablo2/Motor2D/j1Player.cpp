@@ -7,6 +7,8 @@
 #include "j1Game.h"
 #include "j1Input.h"
 #include "j1HUD.h"
+#include "j1Gui.h"
+#include "hudBelt.h"
 #include "SDL/include/SDL.h"
 
 j1Player::j1Player()
@@ -67,7 +69,10 @@ bool j1Player::PreUpdate()
 //Update
 bool j1Player::Update(float dt)
 {
-		HandleInput();
+		if (!App->gui->mouse_hovering)
+		{
+			HandleInput();
+		}
 
 		if (movement)
 		{
@@ -186,32 +191,32 @@ void j1Player::PlayerEvent(PLAYER_EVENT even)
 	{
 	case HP_DOWN:
 		{
-			App->game->HUD->SetLife(HP_max, HP_current);
+			App->game->HUD->belt->SetLife(HP_max, HP_current);
 		}
 		break;
 	case HP_UP:
 		{
-			App->game->HUD->SetLife(HP_max, HP_current);
+			App->game->HUD->belt->SetLife(HP_max, HP_current);
 		}
 		break;
 	case MP_DOWN:
 		{
-			App->game->HUD->SetMana(MP_max, MP_current);
+			App->game->HUD->belt->SetMana(MP_max, MP_current);
 		}
 		break;
 	case MP_UP:
 		{
-			App->game->HUD->SetMana(MP_max, MP_current);
+			App->game->HUD->belt->SetMana(MP_max, MP_current);
 		}
 		break;
 	case ST_DOWN:
 		{
-			App->game->HUD->SetStamina(ST_max, ST_current);
+			App->game->HUD->belt->SetStamina(ST_max, ST_current);
 		}
 		break;
 	case ST_UP:
 		{
-			App->game->HUD->SetStamina(ST_max, ST_current);
+			App->game->HUD->belt->SetStamina(ST_max, ST_current);
 		}
 		break;
 

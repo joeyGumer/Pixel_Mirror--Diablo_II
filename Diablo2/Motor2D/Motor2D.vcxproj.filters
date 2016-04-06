@@ -67,14 +67,20 @@
     <ClCompile Include="snOutdoor1.cpp">
       <Filter>Desenvolupament  ========\Scenes\snOutdoor1</Filter>
     </ClCompile>
-    <ClCompile Include="j1HUD.cpp">
-      <Filter>Desenvolupament  ========\Modules\j1HUD</Filter>
-    </ClCompile>
     <ClCompile Include="j1Game.cpp">
       <Filter>Desenvolupament  ========\Modules\j1Game</Filter>
     </ClCompile>
     <ClCompile Include="j1EntityManager.cpp">
       <Filter>Desenvolupament  ========\Modules\j1EntityManager</Filter>
+    </ClCompile>
+    <ClCompile Include="hudBelt.cpp">
+      <Filter>Desenvolupament  ========\Modules\j1HUD\hudElements\hudBelt</Filter>
+    </ClCompile>
+    <ClCompile Include="j1HUD.cpp">
+      <Filter>Desenvolupament  ========\Modules\j1HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="hudPause.cpp">
+      <Filter>Desenvolupament  ========\Modules\j1HUD\hudElements\hudPause</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -171,9 +177,6 @@
     <ClInclude Include="ExtraSTL.h">
       <Filter>Programacio 2 ===========</Filter>
     </ClInclude>
-    <ClInclude Include="j1HUD.h">
-      <Filter>Desenvolupament  ========\Modules\j1HUD</Filter>
-    </ClInclude>
     <ClInclude Include="j1Game.h">
       <Filter>Desenvolupament  ========\Modules\j1Game</Filter>
     </ClInclude>
@@ -185,6 +188,18 @@
     </ClInclude>
     <ClInclude Include="j1Enemy.h">
       <Filter>Desenvolupament  ========\Modules\j1EntityManager\j1Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="hudElement.h">
+      <Filter>Desenvolupament  ========\Modules\j1HUD\hudElements</Filter>
+    </ClInclude>
+    <ClInclude Include="hudBelt.h">
+      <Filter>Desenvolupament  ========\Modules\j1HUD\hudElements\hudBelt</Filter>
+    </ClInclude>
+    <ClInclude Include="j1HUD.h">
+      <Filter>Desenvolupament  ========\Modules\j1HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="hudPause.h">
+      <Filter>Desenvolupament  ========\Modules\j1HUD\hudElements\hudPause</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -265,6 +280,15 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Modules\j1EntityManager\j1Enemy">
       <UniqueIdentifier>{69b7d4e8-dc9d-491e-99a5-7ed1492c2ac3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\j1HUD\hudElements">
+      <UniqueIdentifier>{e54e4de0-ef91-49e5-aa76-d1cd58096b20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\j1HUD\hudElements\hudBelt">
+      <UniqueIdentifier>{1f597317-7711-474b-83b7-f94f019ffb23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\j1HUD\hudElements\hudPause">
+      <UniqueIdentifier>{ddc02d96-4370-43e4-a077-e4566b2a3044}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

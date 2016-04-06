@@ -45,7 +45,7 @@ public:
 
 	//Utils
 	bool CheckCollision(iPoint p);
-	bool CheckEvent(GuiElement* hover, GuiElement* focus);
+	bool CheckEvent(GuiElement* hover, GuiElement* focus, bool& interaction);
 	void DrawDebug();
 	void Center(bool x, bool y);
 

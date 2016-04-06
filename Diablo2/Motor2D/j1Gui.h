@@ -55,6 +55,7 @@ public:
 public:
 
 	list<GuiElement*> gui_elements;
+	bool			mouse_hovering;
 
 private:
 	bool			debug;
