@@ -56,7 +56,14 @@ bool j1EntityManager::PostUpdate()
 	// Entities drawing
 	map<uint, Entity*>::iterator item = active_entities.begin();
 	for (; item != active_entities.end(); ++item)
+	{
+		if (App->debug)
+		{
+			item->second->DrawDebug();
+		}
+
 		item->second->Draw();
+	}	
 
 	return true;
 }
@@ -138,10 +145,10 @@ Entity* j1EntityManager::EntityOnMouse()
 	map<uint, Entity*>::reverse_iterator item = active_entities.rbegin();
 	for (; item != active_entities.rend(); ++item)
 	{
-		if (p.x >= item->second->dim.x &&
-			p.x <= item->second->dim.x + item->second->dim.w &&
-			p.y >= item->second->dim.y &&
-			p.y <= item->second->dim.y + item->second->dim.h)
+		if (p.x >= item->second->GetPlayerRect().x &&
+			p.x <= item->second->GetPlayerRect().x + item->second->GetPlayerRect().w &&
+			p.y >= item->second->GetPlayerRect().y &&
+			p.y <= item->second->GetPlayerRect().y + item->second->GetPlayerRect().h)
 			return item->second;
 	}
 	return NULL;

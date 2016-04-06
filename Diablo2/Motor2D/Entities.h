@@ -22,16 +22,6 @@ class Entity
 
 public:
 
-	SDL_Rect		dim;
-	ENTITY_TYPE		type;
-	uint			id;
-	iPoint			tile_pos;
-	
-	//Animations
-	SDL_Rect		current_sprite;
-	SDL_Texture*    idle;
-	Animation		idle_front;
-
 	//Constructors
 	Entity(const iPoint &p, uint ID);
 
@@ -41,13 +31,44 @@ public:
 	//Draw
 	void Draw();
 
+	//Debug Draw
+	void DrawDebug();
+
+	//Getters
+	iPoint		GetMapPosition() const;
+	iPoint		GetTilePosition() const;
+	iPoint		GetBlitPosition() const;
+	iPoint		GetPivotPosition() const;
+	SDL_Rect	GetPlayerRect() const;
+
+	//Setters
+	virtual void SetAnimations() {}
+
+//Attributes
+public:
+	SDL_Rect		rect;
+	ENTITY_TYPE		type;
+	iPoint			pivot;
+	iPoint			tile_pos;
+	uint			id;
+
+	Animation		current_animation;
+	SDL_Texture*	sprite;
+	SDL_Texture*    idle;
+	Animation		idle_front;
+	
+
 };
 
 class entEnemyDebug : public Entity
 {
 public:
 
-	entEnemyDebug(iPoint &p, uint id);
+	entEnemyDebug(iPoint &position, uint id);
+
+	void SetAnimations();
+
+private:
 
 };
 
