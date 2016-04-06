@@ -59,6 +59,8 @@ bool snOutdoor1::Update(float dt)
 	{
 		iPoint p;
 		p = App->input->GetMouseWorldPosition();
+		p.x += App->map->data.tile_width/2;
+		p.y += App->map->data.tile_height/2;
 		App->em->Add(p, ENEMY_DEBUG);
 	}
 
