@@ -1,4 +1,8 @@
 #include "Entities.h"
+#include "j1App.h"
+#include "j1Textures.h"
+#include "j1Render.h"
+#include "j1Map.h"
 
 //Entity Code
 //---------------------------------------

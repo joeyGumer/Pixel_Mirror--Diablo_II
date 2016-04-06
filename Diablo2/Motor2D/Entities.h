@@ -2,10 +2,7 @@
 #define __ENTITIES_H__
 
 #include "SDL\include\SDL.h"
-#include "j1Textures.h"
-#include "j1Render.h"
-#include "j1Map.h"
-#include "j1App.h"
+#include "p2Point.h"
 #include "Animation.h"
 
 //NOTE: the copy paste is strong in this one,

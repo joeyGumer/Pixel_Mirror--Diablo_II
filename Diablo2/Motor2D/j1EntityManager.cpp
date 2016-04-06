@@ -4,6 +4,7 @@
 #include "Entities.h"
 #include "j1Pathfinding.h"
 #include "p2Log.h"
+#include "j1Map.h"
 #include <algorithm>
 
 
