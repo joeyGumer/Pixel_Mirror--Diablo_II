@@ -47,36 +47,8 @@ public:
 	bool UnLoad();
 
 public:
-	/*int lifey;
-	int lifeh;
-	int lifeypos;
-	int manay;
-	int manah;
-	int manaypos;
-	
-private:
-	bool menu_active;
-	bool main_menu;
-	bool keep_playing;
-	bool runpressed;
-	bool minipanelpressed;
-
-	//In game menu elements -------
-	GuiImage* options = NULL;
-	GuiImage* saveandexit = NULL;
-	GuiImage* returntogame = NULL;
-
-	//HUD elements ----------------
-	GuiImage* HUD = NULL;
-	GuiImage* HUDback1 = NULL;
-	GuiImage* HUDback2 = NULL;
-	GuiImage* life = NULL;
-	GuiImage* mana = NULL;
-	GuiImage* runbutton = NULL;
-	GuiImage* minipanelbutton = NULL;
-	GuiImage* minipanel = NULL;
-	GuiImage* attack1 = NULL;
-	GuiImage* attack2 = NULL;*/
+	//NOTE: provisional.
+	SDL_Texture* debug = NULL;
 
 	list<GuiElement*> outdoor_gui;
 };

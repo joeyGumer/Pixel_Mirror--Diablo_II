@@ -31,7 +31,7 @@ bool j1Player::Awake(pugi::xml_node& conf)
 bool j1Player::Start()
 {
 	//Debug tile
-	p_debug = App->tex->Load("maps/path.png");
+	p_debug = App->tex->Load("maps/mini_path.png");
 	
 	//Sprites
 	p_sprite = p_idle = App->tex->Load("textures/vamp_idle.png");

@@ -32,6 +32,7 @@ void j1Map::Draw()
 	if(map_loaded == false)
 		return;
 	//STL CHANGE
+	//NOTE: well
 	//Camera Culling
 	//----------------------
 	SDL_Rect cam = App->render->camera;
@@ -43,8 +44,11 @@ void j1Map::Draw()
 	{
 		MapLayer* layer = *item;
 
-		if(layer->properties.Get("Nodraw") != 0)
-			continue;
+
+		//NOTE: when drawing navigation map, framerate drops to the half
+		if (!App->debug)
+			if(layer->properties.Get("Nodraw") != 0)
+				continue;
 
 		for(int y = 0; y < data.height; ++y)
 		{
@@ -60,12 +64,15 @@ void j1Map::Draw()
 
 					//NOTE: Maybe this has to be implemented on Render.cpp
 					//NOTE: changing the offset of the tiles because Ric cheated with the original, think about make it general for any map
+					//NOTE: because of test sake
 					//----------------------
-					/*if (pos.x + r.w > -cam.x && pos.x < -cam.x + cam.w &&
-						pos.y + r.h > -cam.y && pos.y < -cam.y + cam.h)
-					{*/
-						App->render->Blit(tileset->texture, pos.x - data.tile_width/2, pos.y, &r);
-					//}
+
+						if (layer->name == "Background")
+							App->render->Blit(tileset->texture, pos.x - data.tile_width / 2 + tileset->offset_x, pos.y, &r);
+						else if (layer->name == "Navigation")
+							App->render->Blit(tileset->texture, pos.x - data.tile_width / 2 , pos.y, &r);
+						
+					
 					//----------------------
 				}
 			}
@@ -184,6 +191,17 @@ iPoint j1Map::GetTileCenter(int x, int y) const
 	ret.y += data.tile_height;
 
 	return ret;
+}
+
+//Gives the blit position of a tile from the map coordinates of the tile
+iPoint j1Map::GetTileBlit(int x, int y)const
+{
+	iPoint ret(x, y);
+
+	ret = MapToWorld(ret.x, ret.y);
+	ret.x -= data.tile_width / 2;
+	return ret;
+
 }
 
 SDL_Rect TileSet::GetTileRect(int id) const
@@ -533,11 +551,10 @@ bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 				if(tileset != NULL)
 				{
 					map[i] = (tile_id - tileset->firstgid) > 0 ? 0 : 1;
-					/*TileType* ts = tileset->GetTileType(tile_id);
-					if(ts != NULL)
-					{
-						map[i] = ts->properties.Get("walkable", 1);
-					}*/
+				}
+				else
+				{
+					map[i] = 0;
 				}
 			}
 		}

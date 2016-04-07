@@ -132,6 +132,8 @@ public:
 	iPoint GetTileWorld(int x, int y) const;
 	//Get the center of the tile in world coordinates from a random point in the world
 	iPoint GetTileCenter(int x, int y) const;
+	//Get the blit position of a tile
+	iPoint GetTileBlit(int x, int y) const;
 
 	//---------
 	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer) const;
@@ -149,7 +151,7 @@ private:
 public:
 
 	MapData data;
-
+	bool debug = false;
 private:
 
 	pugi::xml_document	map_file;

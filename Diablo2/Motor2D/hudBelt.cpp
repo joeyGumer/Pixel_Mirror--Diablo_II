@@ -201,6 +201,7 @@ void hudBelt::OnEvent(GuiElement* element, GUI_Event even)
 			break;
 		}
 	}
+
 	//Mini panel button
 	if (minipanelbutton == element)
 	{
@@ -236,6 +237,7 @@ void hudBelt::OnEvent(GuiElement* element, GUI_Event even)
 			break;
 		}
 	}
+
 	//Attack1
 	if (attack1 == element)
 	{
@@ -261,6 +263,7 @@ void hudBelt::OnEvent(GuiElement* element, GUI_Event even)
 		break;
 		}
 	}
+
 	//Attack2
 	if (attack2 == element)
 	{

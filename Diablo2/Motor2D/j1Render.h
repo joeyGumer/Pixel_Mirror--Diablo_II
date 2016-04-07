@@ -12,7 +12,7 @@ using namespace std;
 #define INIT_POS_X 280
 #define INIT_POS_Y 0
 
-//NOTE: Struct Sprite
+//Struct Sprite
 struct Sprite
 {
 	Sprite();
@@ -62,9 +62,11 @@ public:
 	bool DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool filled = true, bool use_camera = true) const;
 	bool DrawLine(int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool use_camera = true) const;
 	bool DrawCircle(int x1, int y1, int redius, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool use_camera = true) const;
+	
 	//blit sprites
 	bool Blit2(Sprite* s);
 	bool SortSprite(Sprite* s);
+	
 	// Set background color
 	void SetBackgroundColor(SDL_Color color);
 

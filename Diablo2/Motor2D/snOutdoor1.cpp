@@ -11,6 +11,7 @@
 #include "j1Player.h"
 #include "j1Audio.h"
 #include "j1EntityManager.h"
+#include "j1Pathfinding.h"
 #include "Entities.h"
 
 using namespace std;
@@ -38,8 +39,18 @@ bool snOutdoor1::Start()
 	//NOTE : deactivated for debugging
 	//App->audio->PlayMusic("audio/music/town1.ogg", 0);
 
+	debug = App->tex->Load("maps/mini_path.png");
+	
 	//Map
-	App->map->Load("test_map_swamp.tmx");
+	if(App->map->Load("map_swamp.tmx") == true)
+	{
+		int w, h;
+		uchar* data = NULL;
+		if (App->map->CreateWalkabilityMap(w, h, &data))
+			App->pathfinding->SetMap(w, h, data);
+
+		RELEASE_ARRAY(data);
+	}
 
 	return true;
 }
@@ -47,6 +58,30 @@ bool snOutdoor1::Start()
 // PreUpdate
 bool snOutdoor1::PreUpdate()
 {
+	//NOTE: just to test the pathfinding
+	// debug pathfing ------------------
+	/*static iPoint origin;
+	static bool origin_selected = false;
+
+	int x, y;
+	App->input->GetMousePosition(x, y);
+	iPoint p = App->render->ScreenToWorld(x, y);
+	p = App->map->WorldToMap(p.x, p.y);
+
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
+	{
+		if (origin_selected == true)
+		{
+			App->pathfinding->CreatePath(origin, p);
+			origin_selected = false;
+		}
+		else
+		{
+			origin = p;
+			origin_selected = true;
+		}
+	}*/
+	//
 	return true;
 }
 
@@ -74,8 +109,8 @@ bool snOutdoor1::Update(float dt)
 
 	//Camera
 	//Free movement only avaliable on debug mode
-	/*
-	if (App->debug)
+	
+	/*if (App->debug)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		{
@@ -96,6 +131,25 @@ bool snOutdoor1::Update(float dt)
 		{
 			App->render->camera.y += floor(CAM_SPEED*dt);
 		}
+	}*/
+
+	//Pathfinding debug
+	//NOTE: uncomment for testing pathfinding
+	int x, y;
+	App->input->GetMousePosition(x, y);
+	iPoint p = App->render->ScreenToWorld(x, y);
+	p = App->map->WorldToMap(p.x, p.y);
+	p = App->map->GetTileBlit(p.x, p.y);
+
+	App->render->Blit(debug, p.x, p.y);
+
+	/*const vector<iPoint>* path = App->pathfinding->GetLastPath();
+
+	for (uint i = 0; i < path->size(); ++i)
+	{
+		iPoint pos = App->map->GetTileBlit(path->at(i).x, path->at(i).y);
+		
+		App->render->Blit(debug, pos.x, pos.y);
 	}*/
 
 	return true;
