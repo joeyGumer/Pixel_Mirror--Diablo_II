@@ -10,6 +10,19 @@
 #define INIT_POS_X 280
 #define INIT_POS_Y 0
 
+//NOTE: Struct Sprite
+struct Sprite
+{
+	Sprite();
+	Sprite(SDL_Texture* texture, SDL_Rect& section, int xWorld, int yWorld);
+
+public:
+	SDL_Texture* texture;
+	SDL_Rect section;
+	int xWorld;
+	int yWorld;
+};
+
 class j1Render : public j1Module
 {
 public:
@@ -47,7 +60,9 @@ public:
 	bool DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool filled = true, bool use_camera = true) const;
 	bool DrawLine(int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool use_camera = true) const;
 	bool DrawCircle(int x1, int y1, int redius, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool use_camera = true) const;
-
+	//blit sprites
+	bool Blit2(Sprite* s);
+	bool SortSprite(Sprite* s);
 	// Set background color
 	void SetBackgroundColor(SDL_Color color);
 
@@ -57,6 +72,9 @@ public:
 	SDL_Rect		camera;
 	SDL_Rect		viewport;
 	SDL_Color		background;
+
+	//Note: sprites list
+	list<Sprite*>	sprites;
 };
 
 #endif // __j1RENDER_H__

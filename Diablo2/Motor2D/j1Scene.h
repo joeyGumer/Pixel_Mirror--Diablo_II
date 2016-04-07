@@ -4,6 +4,8 @@
 #include "j1Module.h"
 
 struct SDL_Texture;
+
+
 class GuiElement;
 class GuiLabel;
 class GuiImage;

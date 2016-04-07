@@ -73,6 +73,42 @@ bool j1Render::PreUpdate()
 
 bool j1Render::PostUpdate()
 {
+
+	//Sort sprites by z == y
+	sprites.sort([](const Sprite* a, const Sprite* b) { return a->yWorld < b->yWorld; });
+
+	//Draw sprites
+	list<Sprite*>::iterator i = sprites.begin();
+
+	while (i != sprites.end())
+	{
+		uint scale = App->win->GetScale();
+
+		SDL_Rect rect;
+		rect.x = (int)(camera.x) + (*i)->xWorld * scale;
+		rect.y = (int)(camera.y) + (*i)->yWorld * scale;
+
+
+		SDL_QueryTexture((*i)->texture, NULL, NULL, &rect.w, &rect.h);
+
+
+		rect.w *= scale;
+		rect.h *= scale;
+
+		SDL_Point* p = NULL;
+		SDL_Point pivot;
+
+		pivot.x = pivot.y = INT_MAX;
+
+		if (SDL_RenderCopyEx(renderer, (*i)->texture, NULL, &rect, 0, p, SDL_FLIP_NONE) != 0)
+		{
+			LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
+		}
+		++i;
+	}
+
+
+
 	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
 	SDL_RenderPresent(renderer);
 	return true;
@@ -265,4 +301,59 @@ bool j1Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, U
 	}
 
 	return ret;
+}
+//NOTE: Blit sprite
+bool j1Render::Blit2(Sprite* s)
+{
+	bool ret = true;
+
+	if (s != NULL)
+	{
+		if (s->texture != NULL)
+		{
+
+			sprites.push_back(s);
+		
+		}
+		else
+		{
+			LOG("Could not render texture sprite. Empty texture sprite");
+			ret = false;
+		}
+	}
+	else
+		ret = false;
+
+
+	return ret;
+}
+//NOTE: Sort Sprite
+bool j1Render::SortSprite(Sprite* s)
+{
+	bool ret = true;
+
+	
+
+
+	return ret;
+}
+
+//#NOTE: sprite cosntructors
+Sprite::Sprite()
+{
+	texture = NULL;
+	xWorld = 0;
+	yWorld = 0;
+	
+}
+Sprite::Sprite(SDL_Texture* texture, SDL_Rect& section, int xWorld, int yWorld)
+{
+	this->texture = texture;
+	this->xWorld = xWorld;
+	this->yWorld = yWorld;
+	SDL_Rect rec;
+	rec.x = section.x;
+	rec.y = section.y;
+	rec.w = section.w;
+	rec.h = section.h;
 }
