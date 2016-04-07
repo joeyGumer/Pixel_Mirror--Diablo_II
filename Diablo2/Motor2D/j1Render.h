@@ -4,7 +4,9 @@
 #include "SDL/include/SDL.h"
 #include "p2Point.h"
 #include "j1Module.h"
+#include <list>
 
+using namespace std;
 //NOTE : put this to the config file
 #define CAM_SPEED 200.0f
 #define INIT_POS_X 280
