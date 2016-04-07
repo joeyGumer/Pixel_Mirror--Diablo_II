@@ -28,7 +28,7 @@ bool hudBelt::Start()
 
 	HUDback1 = App->gui->AddGuiImage({ -132, -19 }, { 362, 226, 76, 53 }, HUD, this);
 	hud_gui_elements.push_back(HUDback1);
-
+	
 	HUDback2 = App->gui->AddGuiImage({ 524, -19 }, { 437, 226, 80, 53 }, HUD, this);
 	hud_gui_elements.push_back(HUDback2);
 
@@ -97,41 +97,41 @@ bool hudBelt::Start()
 	hud_gui_elements.push_back(skill23);
 
 	//Minipanel's buttons -------------------------------
-	stats = App->gui->AddGuiImage({ 157, -23 }, { 170, 253, 24, 25 }, HUD, this);
+	stats = App->gui->AddGuiImage({ -23, -33 }, { 170, 253, 24, 25 }, HUD, this);
 	stats->interactable = true;
-	stats->active = false;
+	minipanelbutton->AddChild(stats);
 	hud_gui_elements.push_back(stats);
 
-	skilltree = App->gui->AddGuiImage({ 180, -23 }, { 193, 253, 22, 25 }, HUD, this);
+	skilltree = App->gui->AddGuiImage({ 0, -33 }, { 193, 253, 22, 25 }, HUD, this);
 	skilltree->interactable = true;
-	skilltree->active = false;
+	minipanelbutton->AddChild(skilltree);
 	hud_gui_elements.push_back(skilltree);
 
-	inventory = App->gui->AddGuiImage({ 201, -23 }, { 214, 253, 22, 25 }, HUD, this);
+	inventory = App->gui->AddGuiImage({ 21, -33 }, { 214, 253, 22, 25 }, HUD, this);
 	inventory->interactable = true;
-	inventory->active = false;
+	minipanelbutton->AddChild(inventory);
 	hud_gui_elements.push_back(inventory);
 
-	map = App->gui->AddGuiImage({ 222, -23 }, { 235, 253, 22, 25 }, HUD, this);
+	map = App->gui->AddGuiImage({ 41, -33 }, { 235, 253, 22, 25 }, HUD, this);
 	map->interactable = true;
-	map->active = false;
+	minipanelbutton->AddChild(map);
 	hud_gui_elements.push_back(map);
 
-	message_log = App->gui->AddGuiImage({ 243, -23 }, { 256, 253, 22, 25 }, HUD, this);
+	message_log = App->gui->AddGuiImage({ 63, -33 }, { 256, 253, 22, 25 }, HUD, this);
 	message_log->interactable = true;
-	message_log->active = false;
+	minipanelbutton->AddChild(message_log);
 	hud_gui_elements.push_back(message_log);
 
-	search_log = App->gui->AddGuiImage({ 264, -23 }, { 277, 253, 22, 25 }, HUD, this);
+	search_log = App->gui->AddGuiImage({ 86, -33 }, { 277, 253, 22, 25 }, HUD, this);
 	search_log->interactable = true;
-	search_log->active = false;
+	minipanelbutton->AddChild(search_log);
 	hud_gui_elements.push_back(search_log);
 
-	game_menu = App->gui->AddGuiImage({ 285, -23 }, { 298, 253, 24, 25 }, HUD, this);
+	game_menu = App->gui->AddGuiImage({ 107, -33 }, { 298, 253, 24, 25 }, HUD, this);
 	game_menu->interactable = true;
-	game_menu->active = false;
+	minipanelbutton->AddChild(game_menu);
 	hud_gui_elements.push_back(game_menu);
-
+	minipanelbutton->DesactivateChilds();
 	return true;
 }
 
@@ -213,25 +213,13 @@ void hudBelt::OnEvent(GuiElement* element, GUI_Event even)
 				{
 					minipanel_pressed = true;
 					minipanelbutton->SetTextureRect({ 322, 252, 16, 27 });
-					stats->active = true;
-					skilltree->active = true;
-					inventory->active = true;
-					map->active = true;
-				    message_log->active = true;
-				    search_log->active = true;
-				    game_menu->active = true;
+					minipanelbutton->ActivateChilds();
 				}
 				else
 				{
 					minipanel_pressed = false;
 				    minipanelbutton->SetTextureRect({ 337, 252, 16, 27 });
-					stats->active = false;
-					skilltree->active = false;
-					inventory->active = false;
-					map->active = false;
-					message_log->active = false;
-					search_log->active = false;
-					game_menu->active = false;
+					minipanelbutton->DesactivateChilds();
 				}
 			}
 			break;
