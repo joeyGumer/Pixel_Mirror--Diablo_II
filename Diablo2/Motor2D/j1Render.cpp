@@ -73,7 +73,22 @@ bool j1Render::PreUpdate()
 
 bool j1Render::PostUpdate()
 {
+	//Scene sprites iteration
+	std::multimap<int, Sprite*>::const_iterator it = spriteList_scene.begin();
+	while (it != spriteList_scene.end())
+	{
+		if ((*it).second)
+		{
+			if (IsSpriteDrawable((*it).second))
+				Blit((*it).second->texture, &(*it).second->position, &(*it).second->section);
+			(*it).second->inList = false;
+		}
+		it++;
+	}
+	spriteList_scene.clear();
 
+
+	/*
 	//Sort sprites by z == y
 	sprites.sort([](const Sprite* a, const Sprite* b) { return a->yWorld < b->yWorld; });
 
@@ -106,7 +121,7 @@ bool j1Render::PostUpdate()
 		}
 		++i;
 	}
-
+	*/
 
 
 	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
@@ -337,8 +352,117 @@ bool j1Render::SortSprite(Sprite* s)
 
 	return ret;
 }
+bool j1Render::Blit(const SDL_Texture* texture, const SDL_Rect* onScreenPosition, const SDL_Rect* section, float speed, double angle, int pivot_x, int pivot_y)
+{
+	bool ret = true;
+	uint scale = App->win->GetScale();
 
+	SDL_Rect rect;
+
+	rect.x = (int)onScreenPosition->x * scale;
+	rect.y = (int)onScreenPosition->y * scale;
+
+
+
+	rect.w = onScreenPosition->w;
+	rect.h = onScreenPosition->h;
+
+	if (onScreenPosition->w == 0 && onScreenPosition->h == 0)
+	{
+		if (section != NULL && (section->w != 0 && section->h != 0))
+		{
+			rect.w = section->w;
+			rect.h = section->h;
+		}
+		else
+		{
+			SDL_QueryTexture((SDL_Texture*)texture, NULL, NULL, &rect.w, &rect.h);
+		}
+	}
+	else
+	{
+		rect.w = onScreenPosition->w;
+		rect.h = onScreenPosition->h;
+	}
+
+	rect.w *= scale;
+	rect.h *= scale;
+
+	SDL_Point* p = NULL;
+	SDL_Point pivot;
+
+	if (pivot_x != INT_MAX && pivot_y != INT_MAX)
+	{
+		pivot.x = pivot_x;
+		pivot.y = pivot_y;
+		p = &pivot;
+	}
+
+	if (section != NULL && section->w != 0 && section->h != 0)
+	{
+		
+			LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
+			ret = false;
+		
+	}
+	
+	return ret;
+}
+
+bool j1Render::IsSpriteDrawable(const Sprite* sprite) const
+{
+	return true;
+}
+void j1Render::AddSprite(Sprite* sprite, Sprite_Type type)
+{
+	switch (type)
+	{
+	case (SCENE) :
+	{
+		std::pair<int, Sprite*> toAdd((*sprite).y_ref, sprite);
+		spriteList_scene.insert(toAdd);
+		sprite->inList = true;
+		sprite->list = &spriteList_scene;
+		sprite->layer = -1;
+		break;
+	}
+	case (GUI) :
+	{
+		break;
+	}
+	}
+}
+
+void j1Render::AddSprite(Sprite_Type type, SDL_Texture* texture, SDL_Rect* onScreenPosition, SDL_Rect* section)
+{
+	/*
+	SDL_Rect pos, sect = { 0, 0, 0, 0 };
+	if (onScreenPosition)
+	pos = *onScreenPosition;
+	if (section)
+	sect = *section;
+
+	const C_Sprite sprite(texture, &pos, useCamera, &sect, flip);
+
+	switch (type)
+	{
+	case (SCENE) :
+	{
+	std::pair<uint, const C_Sprite*> toAdd(sprite.y_ref, &sprite);
+	spriteList_scene.insert(toAdd);
+	break;
+	}
+	case (GUI) :
+	{
+	std::pair<uint, const C_Sprite*> toAdd(sprite.layer, &sprite);
+	spriteList_GUI.insert(toAdd);
+	break;
+	}
+	}
+	*/
+}
 //#NOTE: sprite cosntructors
+/*
 Sprite::Sprite()
 {
 	texture = NULL;
@@ -356,4 +480,4 @@ Sprite::Sprite(SDL_Texture* texture, SDL_Rect& section, int xWorld, int yWorld)
 	rec.y = section.y;
 	rec.w = section.w;
 	rec.h = section.h;
-}
+}*/
