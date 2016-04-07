@@ -62,6 +62,8 @@ public:
 	//Some buttons bools
 	bool run_pressed = false;
 	bool minipanel_pressed = false;
+	bool attack1_pressed = false;
+	bool attack2_pressed = false;
 
 	//Belt Gui Elements
 	GuiImage* HUD = NULL;
@@ -83,6 +85,12 @@ public:
 	GuiImage* game_menu = NULL;
 	GuiImage* attack1 = NULL;
 	GuiImage* attack2 = NULL;
+	GuiImage* skill11 = NULL;
+	GuiImage* skill12 = NULL;
+	GuiImage* skill13 = NULL;
+	GuiImage* skill21 = NULL;
+	GuiImage* skill22 = NULL;
+	GuiImage* skill23 = NULL;
 
 	//NOTE : labels for debug:
 	GuiLabel* life_debug;

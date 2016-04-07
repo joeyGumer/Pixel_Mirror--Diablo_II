@@ -47,7 +47,7 @@ bool hudBelt::Start()
 	mana_holder = App->gui->AddGuiImage({ 518, -55 }, { 684, 331, 116, 103 }, HUD, this);
 	hud_gui_elements.push_back(mana_holder);
 
-	runbutton = App->gui->AddGuiImage({ 88, 19 }, { 148, 279, 18, 22 }, HUD, this);
+	runbutton = App->gui->AddGuiImage({ 89, 19 }, { 153, 280, 18, 22 }, HUD, this);
 	runbutton->interactable = true;
 	hud_gui_elements.push_back(runbutton);
 
@@ -55,15 +55,48 @@ bool hudBelt::Start()
 	minipanelbutton->interactable = true;
 	hud_gui_elements.push_back(minipanelbutton);
 
-	attack1 = App->gui->AddGuiImage({ -51, 0 }, { 97, 280, 52, 47 }, HUD, this);
+	attack1 = App->gui->AddGuiImage({ -50, 0 }, { 102, 280, 50, 47 }, HUD, this);
 	attack1->interactable = true;
 	hud_gui_elements.push_back(attack1);
 
-	attack2 = App->gui->AddGuiImage({ 467, 0 }, { 97, 280, 52, 47 }, HUD, this);
+	attack2 = App->gui->AddGuiImage({ 468, 0 }, { 102, 280, 50, 47 }, HUD, this);
 	attack2->interactable = true;
 	hud_gui_elements.push_back(attack2);
 
-	//Minipanel's buttons
+	//Skills
+	//Attack 1 ----------------------------------------
+	skill11 = App->gui->AddGuiImage({ -51, -70 }, { 51, 280, 50, 47 }, HUD, this);
+	skill11->interactable = true;
+	skill11->active = false;
+	hud_gui_elements.push_back(skill11);
+
+	skill12 = App->gui->AddGuiImage({ 20, -70 }, { 0, 280, 50, 47 }, HUD, this);
+	skill12->interactable = true;
+	skill12->active = false;
+	hud_gui_elements.push_back(skill12);
+
+	skill13 = App->gui->AddGuiImage({ 91, -70 }, { 0, 280, 50, 47 }, HUD, this);
+	skill13->interactable = true;
+	skill13->active = false;
+	hud_gui_elements.push_back(skill13);
+
+	//Attack 2 ----------------------------------------
+	skill21 = App->gui->AddGuiImage({ 467, -70 }, { 51, 280, 50, 47 }, HUD, this);
+	skill21->interactable = true;
+	skill21->active = false;
+	hud_gui_elements.push_back(skill21);
+
+	skill22 = App->gui->AddGuiImage({ 396, -70 }, { 0, 280, 50, 47 }, HUD, this);
+	skill22->interactable = true;
+	skill22->active = false;
+	hud_gui_elements.push_back(skill22);
+
+	skill23 = App->gui->AddGuiImage({ 325, -70 }, { 0, 280, 50, 47 }, HUD, this);
+	skill23->interactable = true;
+	skill23->active = false;
+	hud_gui_elements.push_back(skill23);
+
+	//Minipanel's buttons -------------------------------
 	stats = App->gui->AddGuiImage({ 157, -23 }, { 170, 253, 24, 25 }, HUD, this);
 	stats->interactable = true;
 	stats->active = false;
@@ -157,12 +190,12 @@ void hudBelt::OnEvent(GuiElement* element, GUI_Event even)
 				if (run_pressed == false)
 				{
 					run_pressed = true;
-					runbutton->SetTextureRect({ 148, 300, 18, 22 });
+					runbutton->SetTextureRect({ 153, 301, 18, 22 });
 				}
 				else
 				{
 					run_pressed = false;
-					 runbutton->SetTextureRect({ 148, 279, 18, 22 });
+					 runbutton->SetTextureRect({ 153, 280, 18, 22 });
 				}
 			}
 			break;
@@ -201,6 +234,143 @@ void hudBelt::OnEvent(GuiElement* element, GUI_Event even)
 				}
 			}
 			break;
+		}
+	}
+	//Attack1
+	if (attack1 == element)
+	{
+		switch (even)
+		{
+		case EVENT_MOUSE_LEFTCLICK_DOWN:
+		{
+			if (attack1_pressed == false)
+			{
+				attack1_pressed = true;
+				skill11->active = true;
+				skill12->active = true;
+				skill13->active = true;
+			}
+			else
+			{
+				attack1_pressed = false;
+				skill11->active = false;
+				skill12->active = false;
+				skill13->active = false;
+			}
+		}
+		break;
+		}
+	}
+	//Attack2
+	if (attack2 == element)
+	{
+		switch (even)
+		{
+		case EVENT_MOUSE_LEFTCLICK_DOWN:
+		{
+			if (attack2_pressed == false)
+			{
+				attack2_pressed = true;
+				skill21->active = true;
+				skill22->active = true;
+				skill23->active = true;
+			}
+			else
+			{
+				attack2_pressed = false;
+				skill21->active = false;
+				skill22->active = false;
+				skill23->active = false;
+			}
+		}
+		break;
+		}
+	}
+	//Skills
+	//Attack 1---------------------------------
+	if (skill11 == element)
+	{
+		switch (even)
+		{
+		case EVENT_MOUSE_LEFTCLICK_DOWN:
+		{
+			SDL_Rect rect = skill11->GetTextureRect();
+			SDL_Rect rect2 = attack1->GetTextureRect();
+			attack1->SetTextureRect(rect);
+			skill11->SetTextureRect(rect2);
+		}
+		break;
+		}
+	}
+	if (skill12 == element)
+	{
+		switch (even)
+		{
+		case EVENT_MOUSE_LEFTCLICK_DOWN:
+		{
+			SDL_Rect rect = skill12->GetTextureRect();
+			SDL_Rect rect2 = attack1->GetTextureRect();
+			attack1->SetTextureRect(rect);
+			skill12->SetTextureRect(rect2);
+		}
+		break;
+		}
+	}
+	if (skill13 == element)
+	{
+		switch (even)
+		{
+		case EVENT_MOUSE_LEFTCLICK_DOWN:
+		{
+			SDL_Rect rect = skill13->GetTextureRect();
+			SDL_Rect rect2 = attack1->GetTextureRect();
+			attack1->SetTextureRect(rect);
+			skill13->SetTextureRect(rect2);
+		}
+		break;
+		}
+	}
+	//Attack 2---------------------------------
+	if (skill21 == element)
+	{
+		switch (even)
+		{
+		case EVENT_MOUSE_LEFTCLICK_DOWN:
+		{
+			SDL_Rect rect = skill21->GetTextureRect();
+			SDL_Rect rect2 = attack2->GetTextureRect();
+			attack2->SetTextureRect(rect);
+			skill21->SetTextureRect(rect2);
+		}
+		break;
+		}
+	}
+	if (skill22 == element)
+	{
+		switch (even)
+		{
+		case EVENT_MOUSE_LEFTCLICK_DOWN:
+		{
+			SDL_Rect rect = skill22->GetTextureRect();
+			SDL_Rect rect2 = attack2->GetTextureRect();
+			attack2->SetTextureRect(rect);
+			skill22->SetTextureRect(rect2);
+		}
+		break;
+		}
+	}
+	if (skill23 == element)
+	{
+		switch (even)
+		{
+		case EVENT_MOUSE_LEFTCLICK_DOWN:
+		{
+			SDL_Rect rect = skill23->GetTextureRect();
+			SDL_Rect rect2 = attack2->GetTextureRect();
+			attack2->SetTextureRect(rect);
+			skill23->SetTextureRect(rect2);
+		}
+		break;
 		}
 	}
 	//HUD end ---------------------------------

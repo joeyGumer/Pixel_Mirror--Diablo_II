@@ -65,11 +65,13 @@ public:
 	iPoint GetScreenPosition();
 	SDL_Rect GetScreenRect();
 	SDL_Rect GetLocalRect();
+	SDL_Rect GetTextureRect(){ return tex_rect; };
 	
 	void SetLocalPosition(iPoint p);
 	void SetSize(int w, int h){ local_rect.w = w, local_rect.h = h; }
 	void SetTextureRect(SDL_Rect r){ tex_rect = r; }
 	void SetLocalRect(SDL_Rect r){ local_rect = r; }
+	
 
 
 public:
