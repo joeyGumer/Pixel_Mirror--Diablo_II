@@ -373,6 +373,57 @@ bool GuiElement::CheckEvent(GuiElement* hover, GuiElement* focus, bool& interact
 	return true;
 }
 
+void GuiElement::AddChild(GuiElement* child)
+{
+	childs.push_back(child);
+	if (child->parent != this)
+		child->parent = this;
+}
+
+void GuiElement::RemoveChild(GuiElement* child)
+{
+	childs.remove(child);
+	if (child->parent == this)
+		child->parent = NULL;
+}
+
+void GuiElement::Activate()
+{
+	active = true;
+	for (list<GuiElement*>::iterator item = childs.begin(); item != childs.end(); item++)
+	{
+		item._Ptr->_Myval->active = true;
+	}
+}
+
+void GuiElement::ActivateChilds()
+{
+	if (active){
+	for (list<GuiElement*>::iterator item = childs.begin(); item != childs.end(); item++)
+	{
+		item._Ptr->_Myval->active = true;
+	}
+	}
+}
+void GuiElement::DesactivateChilds()
+{
+	for (list<GuiElement*>::iterator item = childs.begin(); item != childs.end(); item++)
+	{
+		item._Ptr->_Myval->active = false;
+	}
+}
+
+
+
+void GuiElement::Desactivate()
+{
+	active = false;
+	for (list<GuiElement*>::iterator item = childs.begin(); item != childs.end(); item++)
+	{
+		item._Ptr->_Myval->active = false;
+	}
+}
+
 void GuiElement::DrawDebug()
 {
 	SDL_Rect rect = GetScreenRect();

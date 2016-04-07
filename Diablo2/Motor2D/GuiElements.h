@@ -3,6 +3,10 @@
 
 #include "j1Module.h"
 #include "p2Point.h"
+
+#include <list>
+
+using namespace std;
 // WARNING: I'm doing trap here...
 #include "SDL/include/SDL.h"
 
@@ -51,14 +55,10 @@ public:
 
 	//Activate and desactivate
 	//NOTE: a bit useles...
-	void Desactivate()
-	{
-		active = false;
-	}
-	void Activate()
-	{
-		active = true;
-	}
+	void Desactivate();
+	void Activate();
+	void ActivateChilds();
+	void DesactivateChilds();
 	//
 	//Getters
 	iPoint GetLocalPosition();
@@ -71,14 +71,15 @@ public:
 	void SetSize(int w, int h){ local_rect.w = w, local_rect.h = h; }
 	void SetTextureRect(SDL_Rect r){ tex_rect = r; }
 	void SetLocalRect(SDL_Rect r){ local_rect = r; }
-	
-
+	void AddChild(GuiElement* child);
+	void RemoveChild(GuiElement* child);
 
 public:
 	//not used
 	GUI_Type	 type;
 	//int		 id;
 	GuiElement*  parent;
+	list<GuiElement*> childs;
 	//not defined
 	bool         debug = false;
 	bool		 active = true;
