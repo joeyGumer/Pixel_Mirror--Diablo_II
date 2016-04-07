@@ -12,6 +12,15 @@ using namespace std;
 
 struct SDL_Texture;
 struct _TTF_Font;
+enum TextColor
+{
+	RED,
+	GREEN,
+	BLUE,
+	YELLOW,
+	WHITE
+};
+
 
 class j1Fonts : public j1Module
 {
@@ -33,6 +42,7 @@ public:
 
 	// Create a surface from text
 	SDL_Texture* Print(const char* text, SDL_Color color = {0, 0, 0, 0}, _TTF_Font* font = NULL);
+	SDL_Texture* Print(const char* text, TextColor color);
 
 	bool CalcSize(const char* text, int& width, int& height, _TTF_Font* font = NULL) const;
 
