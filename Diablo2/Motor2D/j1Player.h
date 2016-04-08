@@ -6,6 +6,10 @@
 #include "Animation.h"
 //WARNING provisional sdl including
 #include "SDL/include/SDL.h"
+#include <vector>
+
+using namespace std;
+
 //NOTE: player speed, put it at the config file
 #define PLAYER_SPEED 150.0f
 #define DIRECTIONS 8
@@ -25,6 +29,7 @@ enum DIRECTION
 	D_BACK_RIGHT,
 	D_RIGHT,
 	D_FRONT_RIGHT,
+	D_DEFAULT
 };
 
 enum PLAYER_EVENT
@@ -44,6 +49,7 @@ enum ACTION_STATE
 	WALKING,
 	RUNNING,
 	ATTACKING,
+	DEFAULT,
 };
 
 enum INPUT_STATE
@@ -88,19 +94,24 @@ public:
 	//Debug mode
 	void DrawDebug() const ;
 
-	//Linear Movement
-	//NOTE: this is just for the player, so, at the end, i don't see the need to do another module o r put it anywhere else
+	//Movement
 	void Move(float dt);
+	void SetMovement(int x, int y);
 	void SetInitVelocity();
+	void SetTarget(iPoint target);
+	void SetNewPath(int x, int y);
 	void UpdateVelocity(float dt);
+	void UpdateMovement(float dt);
 	bool IsTargetReached();
+	void GetNewTarget();
+	
 
 	//NOTE: some of these may go to the entities
 	//Getters
 	iPoint		GetMapPosition() const;
 	iPoint		GetTilePosition() const;
 	iPoint		GetBlitPosition() const;
-	iPoint		GetPivotPosition() const;
+	fPoint		GetPivotPosition() const;
 	SDL_Rect	GetPlayerRect() const;
 
 	//Estructuralfunctions
@@ -127,16 +138,20 @@ public:
 private:
 
 	//Position
-	iPoint p_position;
+	fPoint p_position;
 	iPoint p_pivot;
 	
-	//Linear movement
-	//NOTE:
+	//Movement
+	//NOTE: All this will be used with the moving unities too
+	vector<iPoint> path;
 	iPoint		p_target;
+	int			p_current_node;
 	//NOTE: the declaration will go somewhere else
 	float		target_radius = 2.5f;
 	fPoint		p_velocity;
 	bool		movement;
+	bool		target_reached;
+	bool		path_on = true;
 
 	//Textures
 	SDL_Texture* p_debug = NULL;
@@ -146,26 +161,11 @@ private:
 
 	//Rects for each state and direction
 	//--------------------
-	Animation current_animation;
+	Animation* current_animation;
 	//Idle
 	//NOTE : Can i make this more elegant (maybe with a list)
-	Animation idle_front;
-	Animation idle_left_front;
-	Animation idle_left;
-	Animation idle_left_back;
-	Animation idle_back;
-	Animation idle_right_back;
-	Animation idle_right;
-	Animation idle_right_front;
-
-	Animation walk_front;
-	Animation walk_left_front;
-	Animation walk_left;
-	Animation walk_left_back;
-	Animation walk_back;
-	Animation walk_right_back;
-	Animation walk_right;
-	Animation walk_right_front;
+	vector<Animation> idle;
+	vector<Animation> walk;
 	//--------------------
 
 	//Attributes
@@ -180,8 +180,10 @@ private:
 
 	//StateMachine Attributes
 	ACTION_STATE	current_action;
+	vector<Animation> current_animation_set;
 	DIRECTION		current_direction;
 	INPUT_STATE		current_input;
+	INPUT_STATE		previous_input = INPUT_NULL;
 
 };
 

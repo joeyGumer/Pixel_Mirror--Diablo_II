@@ -65,6 +65,10 @@ public:
 
 	// Utility: return the walkability value of a tile
 	uchar GetTileAt(const iPoint& pos) const;
+	
+	int GetNewPath(iPoint start, iPoint goal, vector<iPoint>& path);
+
+
 
 private:
 

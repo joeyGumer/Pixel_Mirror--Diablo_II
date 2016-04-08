@@ -9,6 +9,7 @@
 #include "j1HUD.h"
 #include "j1Gui.h"
 #include "hudBelt.h"
+#include "j1Pathfinding.h"
 #include "SDL/include/SDL.h"
 
 j1Player::j1Player()
@@ -41,7 +42,8 @@ bool j1Player::Start()
 	current_action = IDLE;
 	current_direction = D_FRONT;
 	current_input = INPUT_NULL;
-	current_animation = idle_front;
+	current_animation_set = idle;
+	current_animation = &current_animation_set[current_direction];
 
 	//Positioning
 	p_position = { 0, 0 };
@@ -74,10 +76,7 @@ bool j1Player::Update(float dt)
 			HandleInput();
 		}
 
-		if (movement)
-		{
-			Move(dt);
-		}
+		UpdateMovement(dt);
 
 		App->render->CenterCamera(p_position.x, p_position.y);
 
@@ -111,7 +110,7 @@ void j1Player::Draw()
 		DrawDebug();
 	}
 	//NOTE: for pause mode, this will have to be on update to vary on dt
-	SDL_Rect current_sprite = current_animation.GetCurrentFrame();
+	SDL_Rect current_sprite = current_animation->GetCurrentFrame();
 	//Draws Actual sprite
 	App->render->Blit(p_sprite, pos.x, pos.y, &current_sprite);
 }
@@ -121,7 +120,7 @@ void j1Player::Draw()
 void j1Player::DrawDebug() const
 {
 	iPoint t_pos = GetTilePosition();
-	iPoint p_pos = GetPivotPosition();
+	fPoint p_pos = GetPivotPosition();
 
 	App->render->Blit(p_debug, t_pos.x, t_pos.y);
 	App->render->DrawQuad(GetPlayerRect(), 255, 0, 0, 1000, false);
@@ -130,13 +129,18 @@ void j1Player::DrawDebug() const
 
 	if (movement)
 	{
-		if (movement)
-		{
-			App->render->DrawLine(p_position.x, p_position.y, p_target.x, p_target.y, 0, 0, 255);
+		App->render->DrawLine(p_position.x, p_position.y, p_target.x, p_target.y, 0, 0, 255);
+		App->render->DrawLine(p_position.x, p_position.y, p_velocity.x+ p_position.x, p_velocity.y + p_position.y, 0, 255, 255);
 
-			App->render->DrawLine(p_position.x, p_position.y, p_velocity.x+ p_position.x, p_velocity.y + p_position.y, 0, 255, 255);
+		//Path
+		for (int i = 0; i < path.size(); i++)
+		{
+			iPoint tmp = path[i];
+			tmp = App->map->GetTileBlit(tmp.x, tmp.y);
+			App->render->Blit(p_debug, tmp.x, tmp.y);
 		}
 	}
+	
 }
 /*
 //-------Getters
@@ -158,14 +162,15 @@ iPoint j1Player::GetTilePosition()const
 
 iPoint j1Player::GetBlitPosition()const
 {
-	iPoint ret = GetPivotPosition();
+	fPoint tmp = GetPivotPosition();
+	iPoint ret(tmp.x, tmp.y);
 	ret.x -= p_pivot.x;
 	ret.y -= p_pivot.y;
 
 	return  ret;
 }
 
-iPoint j1Player::GetPivotPosition()const
+fPoint j1Player::GetPivotPosition()const
 {
 	//NOTE : put a tile pivot?, more accesible
 	return p_position;
@@ -228,7 +233,7 @@ void j1Player::PlayerEvent(PLAYER_EVENT even)
 }
 
 /*
-//---Linear Movement
+//-------------------------------------------Linear Movement
 */
 void j1Player::SetInitVelocity()
 {
@@ -247,31 +252,6 @@ void j1Player::Move(float dt)
 
 	p_position.x += int(vel.x);
 	p_position.y += int(vel.y);
-
-	movement = !IsTargetReached();
-
-	if (movement)
-	{
-		UpdateVelocity(dt);
-	}
-
-	//StateMachine change
-	else
-	{
-		current_input = INPUT_STOP_MOVE;
-	}
-	
-	//Debug mode
-	/*if (App->debug)
-	{
-		if (movement)
-		{
-			App->render->DrawLine(p_position.x, p_position.y, p_target.x, p_target.y, 0, 0, 255);
-
-			App->render->DrawLine(p_position.x, p_position.y, vel.x * 50 + p_position.x, vel.y * 50 + p_position.y, 0, 255, 255);
-		}
-	}*/
-
 }
 
 void j1Player::UpdateVelocity(float dt)
@@ -280,6 +260,8 @@ void j1Player::UpdateVelocity(float dt)
 	p_velocity.y = p_target.y - p_position.y;
 
 	p_velocity.SetModule(PLAYER_SPEED);
+
+	SetDirection();
 }
 
 bool j1Player::IsTargetReached()
@@ -291,12 +273,91 @@ bool j1Player::IsTargetReached()
 
 	if (vel.GetModule() <= target_radius)
 	{
+		if (!path_on)
+		{
+			current_input = INPUT_STOP_MOVE;
+			movement = false;
+		}
+
 		return true;
 	}
 
 	return false;
 }
 
+void j1Player::SetTarget(iPoint target)
+{
+	p_target = target;
+	movement = true;
+	target_reached = false;
+}
+
+void j1Player::GetNewTarget()
+{
+	if ((uint)p_current_node + 1< path.size())
+	{
+		p_current_node++;
+		SetTarget(App->map->GetTileCenter(path[p_current_node].x, path[p_current_node].y));
+	}
+	else
+	{
+		current_input = INPUT_STOP_MOVE;
+		movement = false;
+	}
+}
+
+void j1Player::UpdateMovement(float dt)
+{
+	if (movement)
+	{
+		if (!target_reached)
+		{
+			UpdateVelocity(dt);
+			Move(dt);
+			if (IsTargetReached())
+				target_reached = true;
+		}
+		else
+		{
+			GetNewTarget();
+		}
+	}
+}
+
+void j1Player::SetMovement(int x, int y)
+{
+	if (path_on)
+	{ 
+		SetNewPath(x,y);
+	}
+	else
+	{
+		iPoint target = App->map->GetTileCenter(x, y);
+		SetTarget(target);
+		
+		//StateMachine change
+		current_input = INPUT_MOVE;
+	}
+}
+
+void j1Player::SetNewPath(int x, int y)
+{
+	iPoint start = App->map->WorldToMap(p_position.x, p_position.y);
+	iPoint goal = { x, y };
+
+	int steps = App->pathfinding->GetNewPath(start, goal, path);
+
+	if (steps > 0)
+	{
+		//StateMachine change
+		current_input = INPUT_MOVE;
+
+		movement = true;
+		p_current_node = -1;
+		GetNewTarget();
+	}
+
+}
 //---------------------------
 
 /*
@@ -389,20 +450,17 @@ void j1Player::HandleInput()
 	//Linear Movement activation
 	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 	{
-		SetInitVelocity();
-		SetDirection();
+		iPoint target = App->input->GetMouseWorldPosition();
+		target = App->map->WorldToMap(target.x, target.y);
+		SetMovement(target.x, target.y);
 
-		movement = true;
-
-		//StateMachine change
-		current_input = INPUT_MOVE;
 	}
 }
 
 //StateMachine Functions
 ACTION_STATE j1Player::UpdateAction()
 {
-	if (current_input != INPUT_NULL)
+	if (current_input != INPUT_NULL && current_input != previous_input)
 	{
 		switch (current_action)
 		{
@@ -437,6 +495,7 @@ ACTION_STATE j1Player::UpdateAction()
 		break;
 		}
 
+		previous_input = current_input;
 		PlayerEvent(STATE_CHANGE);
 	}
 
@@ -450,79 +509,56 @@ ACTION_STATE j1Player::UpdateAction()
 
 void j1Player::SetAnimations()
 {
-	//NOTE: think of a easier way to know the speed you are going to put the animation
-
 	//Idle
-	idle_front.SetFrames(0, 0, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, SPRITE_MARGIN);
-	idle_front.speed = 0.2f;
+	for (int i = 0; i < 8; i++)
+	{
+		Animation tmp;
+		tmp.SetFrames(0, (PLAYER_SPRITE_H + SPRITE_MARGIN) * i, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, SPRITE_MARGIN);
+		tmp.speed = 0.2f;
 
-	idle_left_front.SetFrames(0, (PLAYER_SPRITE_H + SPRITE_MARGIN) * D_FRONT_LEFT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, SPRITE_MARGIN);
-	idle_left_front.speed = 0.2f;
-
-	idle_left.SetFrames(0, (PLAYER_SPRITE_H + SPRITE_MARGIN) * D_LEFT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, SPRITE_MARGIN);
-	idle_left.speed = 0.2f;
-
-	idle_left_back.SetFrames(0, (PLAYER_SPRITE_H + SPRITE_MARGIN) * D_BACK_LEFT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, SPRITE_MARGIN);
-	idle_left_back.speed = 0.2f;
-
-	idle_back.SetFrames(0, (PLAYER_SPRITE_H + SPRITE_MARGIN) * D_BACK, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, SPRITE_MARGIN);
-	idle_back.speed = 0.2f;
-
-	idle_right_back.SetFrames(0, (PLAYER_SPRITE_H + SPRITE_MARGIN) * D_BACK_RIGHT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, SPRITE_MARGIN);
-	idle_right_back.speed = 0.2f;
-
-	idle_right.SetFrames(0, (PLAYER_SPRITE_H + SPRITE_MARGIN) * D_RIGHT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, SPRITE_MARGIN);
-	idle_right.speed = 0.2f;
-
-	idle_right_front.SetFrames(0, (PLAYER_SPRITE_H + SPRITE_MARGIN) * D_FRONT_RIGHT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, SPRITE_MARGIN);
-	idle_right_front.speed = 0.2f;
+		idle.push_back(tmp);
+	}
 
 	//Walk
-	walk_front.SetFrames(0, (PLAYER_SPRITE_H + SPRITE_MARGIN) * D_FRONT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 8, SPRITE_MARGIN);
-	walk_front.speed = 0.2f;
+	for (int i = 0; i < 8; i++)
+	{
+		Animation tmp2;
+		tmp2.SetFrames(0, (PLAYER_SPRITE_H + SPRITE_MARGIN) * i, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 8, SPRITE_MARGIN);
+		tmp2.speed = 0.2f;
 
-	walk_left_front.SetFrames(0, (PLAYER_SPRITE_H + SPRITE_MARGIN) * D_FRONT_LEFT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 8, SPRITE_MARGIN);
-	walk_left_front.speed = 0.2f;
-
-	walk_left.SetFrames(0, (PLAYER_SPRITE_H + SPRITE_MARGIN) * D_LEFT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 8, SPRITE_MARGIN);
-	walk_left.speed = 0.2f;
-
-	walk_left_back.SetFrames(0, (PLAYER_SPRITE_H + SPRITE_MARGIN) * D_BACK_LEFT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 8, SPRITE_MARGIN);
-	walk_left_back.speed = 0.2f;
-
-	walk_back.SetFrames(0, (PLAYER_SPRITE_H + SPRITE_MARGIN) * D_BACK, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 8, SPRITE_MARGIN);
-	walk_back.speed = 0.2f;
-
-	walk_right_back.SetFrames(0, (PLAYER_SPRITE_H + SPRITE_MARGIN) * D_BACK_RIGHT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 8, SPRITE_MARGIN);
-	walk_right_back.speed = 0.2f;
-
-	walk_right.SetFrames(0, (PLAYER_SPRITE_H + SPRITE_MARGIN) * D_RIGHT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 8, SPRITE_MARGIN);
-	walk_right.speed = 0.2f;
-
-	walk_right_front.SetFrames(0, (PLAYER_SPRITE_H + SPRITE_MARGIN) * D_FRONT_RIGHT, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 8, SPRITE_MARGIN);
-	walk_right_front.speed = 0.2f;
+		walk.push_back(tmp2);
+	}
 }
 
 void j1Player::SetDirection()
 {
 	float angle = p_velocity.GetAngle();
 
+	DIRECTION dir;
+
 	if (angle < 22.5 && angle > -22.5)
-		current_direction = D_RIGHT;
+		dir = D_RIGHT;
 	else if (angle >= 22.5 && angle <= 67.5)
-		current_direction = D_FRONT_RIGHT;
+		dir = D_FRONT_RIGHT;
 	else if (angle > 67.5 && angle < 112.5)
-		current_direction = D_FRONT;
+		dir = D_FRONT;
 	else if (angle >= 112.5 && angle <= 157.5)
-		current_direction = D_FRONT_LEFT;
+		dir = D_FRONT_LEFT;
 	else if (angle > 157.5 || angle < -157.5)
-		current_direction = D_LEFT;
+		dir = D_LEFT;
 	else if (angle >= -157.5 && angle <= -112.5)
-		current_direction = D_BACK_LEFT;
+		dir = D_BACK_LEFT;
 	else if (angle > -112.5 && angle < -67.5)
-		current_direction = D_BACK;
+		dir = D_BACK;
 	else if (angle >= -67.5 && angle <= -22.5)
-		current_direction = D_BACK_RIGHT;
+		dir = D_BACK_RIGHT;
+
+	if (dir != current_direction)
+	{
+		current_direction = dir;
+		current_animation = &current_animation_set[current_direction];
+	}
+
 }
 
 void j1Player::StateMachine()
@@ -531,63 +567,11 @@ void j1Player::StateMachine()
 	{
 	case IDLE:
 		p_sprite = p_idle;
-		switch (current_direction)
-		{
-		case D_FRONT:
-			current_animation = idle_front;
-			break;
-		case D_FRONT_LEFT:
-			current_animation = idle_left_front;
-			break;
-		case D_LEFT:
-			current_animation = idle_left;
-			break;
-		case D_BACK_LEFT:
-			current_animation = idle_left_back;
-			break;
-		case D_BACK:
-			current_animation = idle_back;
-			break;
-		case D_BACK_RIGHT:
-			current_animation = idle_right_back;
-			break;
-		case D_RIGHT:
-			current_animation = idle_right;
-			break;
-		case D_FRONT_RIGHT:
-			current_animation = idle_right_front;
-			break;
-		}
+		current_animation_set = idle;
 		break;
 	case WALKING:
 		p_sprite = p_walk;
-		switch (current_direction)
-		{
-		case D_FRONT:
-			current_animation = walk_front;
-			break;
-		case D_FRONT_LEFT:
-			current_animation = walk_left_front;
-			break;
-		case D_LEFT:
-			current_animation = walk_left;
-			break;
-		case D_BACK_LEFT:
-			current_animation = walk_left_back;
-			break;
-		case D_BACK:
-			current_animation = walk_back;
-			break;
-		case D_BACK_RIGHT:
-			current_animation = walk_right_back;
-			break;
-		case D_RIGHT:
-			current_animation = walk_right;
-			break;
-		case D_FRONT_RIGHT:
-			current_animation = walk_right_front;
-			break;
-		}
+		current_animation_set = walk;
 		break;
 	case RUNNING:
 		break;

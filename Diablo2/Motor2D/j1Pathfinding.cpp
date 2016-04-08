@@ -284,3 +284,15 @@ void PathList::Clear()
 
 	nlist.clear();
 }
+
+int j1PathFinding::GetNewPath(iPoint start, iPoint goal, vector<iPoint>& path)
+{
+	if (start == goal)
+		return -1;
+
+	int steps = CreatePath(start, goal);
+	path.clear();
+	path = last_path;
+
+	return steps;
+}

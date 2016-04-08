@@ -14,13 +14,14 @@ using namespace std;
 #define INIT_POS_Y 0
 
 
-//NOTE: Struct Sprite
+//NOTE: We won't need the sprite type, won't do the gui elements sprites.
 enum Sprite_Type
 {
 	SCENE,
 	GUI,
 };
 
+//WARNING: Guillem please, define this at the .cpp
 struct Sprite
 {
 	Sprite();

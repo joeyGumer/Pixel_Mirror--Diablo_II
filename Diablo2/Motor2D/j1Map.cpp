@@ -187,8 +187,7 @@ iPoint j1Map::GetTileCenter(int x, int y) const
 
 	ret = MapToWorld(ret.x, ret.y);
 	
-	ret.x += data.tile_width;
-	ret.y += data.tile_height;
+	ret.y += data.tile_height/2;
 
 	return ret;
 }

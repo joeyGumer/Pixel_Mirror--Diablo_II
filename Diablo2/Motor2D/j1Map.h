@@ -130,7 +130,7 @@ public:
 	iPoint WorldToMap(int x, int y) const;
 	//Get the tile world coordinates of a random point from the world
 	iPoint GetTileWorld(int x, int y) const;
-	//Get the center of the tile in world coordinates from a random point in the world
+	//Get the center of the tile in world coordinates from a map coordinate
 	iPoint GetTileCenter(int x, int y) const;
 	//Get the blit position of a tile
 	iPoint GetTileBlit(int x, int y) const;
