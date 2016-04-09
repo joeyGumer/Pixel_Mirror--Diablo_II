@@ -240,6 +240,8 @@ entEnemyDebug::entEnemyDebug(iPoint &position, uint id) : Entity(position, id)
 
 bool entEnemyDebug::Update(float dt)
 {
+	UpdateAction();
+
 	fPoint player_rect = App->game->player->GetPivotPosition();
 
 	if (player_rect.x >= GetPlayerRect().x - target_radius &&
@@ -267,6 +269,10 @@ void entEnemyDebug::SetAnimations()
 	rect.h = 54;
 	idle_front.SetFrames(0, 0, rect.w, rect.h, 12, 1);
 	idle_front.speed = 0.2f;
+
+	walk = App->tex->Load("textures/wolf_walk.png");
+	walk_front.SetFrames(0, 0, 94, 73, 12, 1);
+	walk_front.speed = 0.2f;
 
 
 }
@@ -314,7 +320,7 @@ void entEnemyDebug::EntityEvent(ENTITY_EVENT even)
 {
 	switch (even)
 	{
-		case STATE_CHANGE:
+		case ENTITY_STATE_CHANGE:
 		{
 			StateMachine();
 		}
@@ -326,10 +332,18 @@ void entEnemyDebug::StateMachine()
 	switch (current_action)
 	{
 	case ENTITY_IDLE:
-		//sprite = idle;
+		sprite = idle;
+		current_animation = idle_front;
+		rect.w = 69;
+		rect.h = 54;
+		pivot = { (rect.w / 2), (rect.h - 5) };
 		break;
 	case ENTITY_WALKING:
-		//sprite = walk;
+		sprite = walk;
+		current_animation = walk_front;
+		rect.w = 94;
+		rect.h = 73;
+		pivot = { (rect.w / 2), (rect.h - 5) };
 		break;
 	case ATTACKING:
 		break;

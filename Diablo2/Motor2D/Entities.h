@@ -93,7 +93,9 @@ public:
 	Animation		current_animation;
 	SDL_Texture*	sprite;
 	SDL_Texture*    idle;
+	SDL_Texture*	walk;
 	Animation		idle_front;
+	Animation		walk_front;
 
 	vector<iPoint>	path;
 	iPoint			target;
