@@ -56,6 +56,7 @@ bool j1EntityManager::Update(float dt)
 	map<uint, Entity*>::iterator item = active_entities.begin();
 	for (; item != active_entities.end(); ++item)
 	{
+		item->second->Update(dt);
 	}
 
 	return true;

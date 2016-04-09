@@ -267,6 +267,8 @@ void entEnemyDebug::SetAnimations()
 	rect.h = 54;
 	idle_front.SetFrames(0, 0, rect.w, rect.h, 12, 1);
 	idle_front.speed = 0.2f;
+
+
 }
 
 ENTITY_STATE entEnemyDebug::UpdateAction()
