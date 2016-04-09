@@ -482,14 +482,20 @@ Sprite::Sprite(SDL_Texture* texture, SDL_Rect& section, int xWorld, int yWorld)
 }*/
 Sprite::Sprite()
 {
+	texture = NULL;
+	//position = { 0, 0, 0, 0 };
+	//section = { 0, 0, 0, 0 };
 
+	inList = false;
+	y_ref = 0;
+	layer = 0;
 }
 
-Sprite::Sprite(SDL_Texture* _texture, SDL_Rect* _position, SDL_Rect* _section = NULL)
+Sprite::Sprite(SDL_Texture* _texture, SDL_Rect _position, SDL_Rect _section)
 {
 	texture = _texture;
-	position = *_position;
-	section = *_section;
+	position = _position;
+	section = _section;
 
 }
 //NOTE: Destructor

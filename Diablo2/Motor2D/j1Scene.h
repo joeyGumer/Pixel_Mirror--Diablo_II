@@ -5,7 +5,7 @@
 
 struct SDL_Texture;
 
-
+struct Sprite;
 class GuiElement;
 class GuiLabel;
 class GuiImage;

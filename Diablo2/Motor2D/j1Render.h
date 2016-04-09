@@ -17,10 +17,10 @@ using namespace std;
 struct Sprite
 {
 	Sprite();
-	Sprite(SDL_Texture* _texture, SDL_Rect* _position, SDL_Rect* _section = NULL);
+	Sprite(SDL_Texture* _texture, SDL_Rect _position, SDL_Rect _section);
 	~Sprite();
 	
-		
+public:
 	SDL_Texture*		texture;
 	SDL_Rect			position;
 	SDL_Rect			section;

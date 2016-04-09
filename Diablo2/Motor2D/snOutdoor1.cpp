@@ -52,6 +52,21 @@ bool snOutdoor1::Start()
 		RELEASE_ARRAY(data);
 	}
 
+	//NOTE: Test Sprites
+	//Player
+	//problem on texture reading
+	/*cow->texture = App->tex->Load("textures/cow.png");
+	cow->position.x = 10;
+	cow->position.y = 50;
+	cow->section.x = 96;
+	cow->section.y = 120;
+
+	building->texture = App->tex->Load("textures/building.png");
+	building->position.x = 30;
+	building->position.y = 300;
+	cow->section.x = 131;
+	cow->section.y = 110;*/
+
 	return true;
 }
 
@@ -152,6 +167,11 @@ bool snOutdoor1::Update(float dt)
 		App->render->Blit(debug, pos.x, pos.y);
 	}*/
 
+
+	//NOTE: Sprite Test
+	//App->render->Blit2(cow);
+
+	//App->render->Blit2(building);
 	return true;
 }
 
@@ -187,3 +207,30 @@ bool snOutdoor1::UnLoad()
 	CleanUp();
 	return true;
 }
+/*problem on cow*/
+/*
+void snOutdoor1::PlayerInput(float dt)
+{
+
+	if (App->input->GetKey(SDL_SCANCODE_H) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
+	{
+		cow->position.x += SPEED * dt;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
+	{
+		cow->position.x -= SPEED * dt;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_T) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
+	{
+		cow->position.y -= SPEED * dt;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_G) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN)
+	{
+		cow->position.y += SPEED * dt;
+	}
+
+}
+*/

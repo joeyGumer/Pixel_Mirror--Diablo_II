@@ -7,10 +7,14 @@
 
 using namespace std;
 
+
+struct Sprite;
 class GuiImage;
 class GuiElement;
 class GuiButton;
 class SDL_Texture;
+//NOTE: Cow Sprite Speed
+#define SPEED 100
 
 class snOutdoor1 : public j1Scene
 {
@@ -45,12 +49,22 @@ public:
 	//Load/UnLoad, called when the scene changes
 	bool Load();
 	bool UnLoad();
+//NOTE: Test Sprite Cow movment WASD
+private:
+
+	//void PlayerInput(float dt);
 
 public:
 	//NOTE: provisional.
 	SDL_Texture* debug = NULL;
 
 	list<GuiElement*> outdoor_gui;
+
+	//NOTE: Test Sprite
+	//player
+	//Sprite* cow;
+
+	//Sprite* building;
 };
 
 #endif
