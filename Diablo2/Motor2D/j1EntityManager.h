@@ -30,6 +30,9 @@ public:
 	// Called each loop iteration
 	bool PreUpdate();
 
+	// Update
+	bool Update(float dt);
+
 	// Called each loop iteration
 	bool PostUpdate();
 

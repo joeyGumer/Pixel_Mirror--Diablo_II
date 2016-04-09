@@ -50,6 +50,17 @@ bool j1EntityManager::PreUpdate()
 	return true;
 }
 
+//Update
+bool j1EntityManager::Update(float dt)
+{
+	map<uint, Entity*>::iterator item = active_entities.begin();
+	for (; item != active_entities.end(); ++item)
+	{
+	}
+
+	return true;
+}
+
 // Called each loop iteration
 bool j1EntityManager::PostUpdate()
 {
@@ -101,8 +112,8 @@ Entity* j1EntityManager::Add(iPoint &pos, ENTITY_TYPE type)
 			return entity; // No entity is created!
 	}
 
-	//if (App->pathfinding->IsWalkable(tile_pos))	// Can we add a new entity on that tile? i.e. Is that tile walkable?
-	//{
+	if (App->pathfinding->IsWalkable(tile_pos))	// Can we add a new entity on that tile? i.e. Is that tile walkable?
+	{
 		switch (type)
 		{
 		case (ENEMY_DEBUG) :
@@ -112,7 +123,7 @@ Entity* j1EntityManager::Add(iPoint &pos, ENTITY_TYPE type)
 
 		// We add the new entity to the map of active entities. 
 		active_entities.insert(pair<uint, Entity*>(next_ID, entity));
-	//}
+	}
 
 	return entity;
 }

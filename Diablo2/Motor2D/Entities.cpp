@@ -3,6 +3,9 @@
 #include "j1Textures.h"
 #include "j1Render.h"
 #include "j1Map.h"
+#include "j1Pathfinding.h"
+#include "j1Player.h"
+#include "j1Game.h"
 
 //Entity Code
 //---------------------------------------
@@ -17,6 +20,7 @@ Entity::Entity(const iPoint &p, uint ID)
 	rect.x = tmp.x - (App->map->data.tile_width / 2);
 	rect.y = tmp.y;
 	id = ID;
+	movement = false;
 }
 
 //Destructor
@@ -42,6 +46,15 @@ void Entity::DrawDebug()
 	App->render->DrawQuad(GetPlayerRect(), 255, 0, 0, 1000, false);
 	//App->render->DrawCircle(p_pos.x, p_pos.y, 5, 255, 0, 0, 1000);
 	App->render->DrawQuad({ p_pos.x, p_pos.y, 3, 3 }, 255, 0, 0);
+
+	//Agro Draw
+	SDL_Rect agro_rect;
+	agro_rect.x = GetPlayerRect().x - target_radius;
+	agro_rect.w = GetPlayerRect().w + target_radius*2;
+	agro_rect.y = GetPlayerRect().y - target_radius;
+	agro_rect.h = GetPlayerRect().h + target_radius*2;
+
+	App->render->DrawQuad(agro_rect, 0, 0, 255, 1000, false);
 
 }
 
@@ -83,6 +96,131 @@ SDL_Rect Entity::GetPlayerRect() const
 	return{ pos.x, pos.y, rect.w, rect.h };
 }
 
+//Movement
+void Entity::SetInitVelocity()
+{
+	target = App->game->player->GetMapPosition();
+
+	velocity.x = target.x - rect.x;
+	velocity.y = target.y - rect.y;
+
+	velocity.SetModule(PLAYER_SPEED);
+
+}
+
+void Entity::Move(float dt)
+{
+	fPoint vel = velocity * dt;
+
+	rect.x += int(vel.x);
+	rect.y += int(vel.y);
+}
+
+void Entity::UpdateVelocity(float dt)
+{
+	velocity.x = target.x - rect.x;
+	velocity.y = target.y - rect.y;
+
+	velocity.SetModule(PLAYER_SPEED * 0.75f);
+
+	//SetDirection();
+}
+
+bool Entity::IsTargetReached()
+{
+	fPoint vel;
+
+	vel.x = target.x - rect.x;
+	vel.y = target.y - rect.y;
+
+	if (vel.GetModule() <= target_radius)
+	{
+		if (!path_on)
+		{
+			current_input = ENTITY_INPUT_STOP_MOVE;
+			movement = false;
+		}
+
+		return true;
+	}
+
+	return false;
+}
+
+void Entity::SetTarget(iPoint _target)
+{
+	target = _target;
+	movement = true;
+	target_reached = false;
+}
+
+void Entity::GetNewTarget()
+{
+	if ((uint)current_node + 1< path.size())
+	{
+		current_node++;
+		SetTarget(App->map->GetTileCenter(path[current_node].x, path[current_node].y));
+	}
+	else
+	{
+		current_input = ENTITY_INPUT_STOP_MOVE;
+		movement = false;
+	}
+}
+
+void Entity::UpdateMovement(float dt)
+{
+	if (movement)
+	{
+		if (!target_reached)
+		{
+			UpdateVelocity(dt);
+			Move(dt);
+			if (IsTargetReached())
+				target_reached = true;
+		}
+		else
+		{
+			GetNewTarget();
+		}
+	}
+}
+
+void Entity::SetMovement(int x, int y)
+{
+	if (path_on)
+	{
+		SetNewPath(x, y);
+	}
+	else
+	{
+		iPoint target = App->map->GetTileCenter(x, y);
+		SetTarget(target);
+
+		//StateMachine change
+		current_input = ENTITY_INPUT_MOVE;
+	}
+}
+
+void Entity::SetNewPath(int x, int y)
+{
+	iPoint start = App->map->WorldToMap(rect.x, rect.y);
+	iPoint goal = { x, y };
+
+	int steps = App->pathfinding->GetNewPath(start, goal, path);
+
+	if (steps > 0)
+	{
+		//StateMachine change
+		current_input = ENTITY_INPUT_MOVE;
+
+		movement = true;
+		current_node = -1;
+		GetNewTarget();
+	}
+
+}
+
 //---------------------------------------
 
 
@@ -96,6 +234,29 @@ entEnemyDebug::entEnemyDebug(iPoint &position, uint id) : Entity(position, id)
 	current_animation = idle_front;
 	pivot = { (rect.w / 2), (rect.h - 5) };
 	type = ENEMY_DEBUG;
+	current_action = ENTITY_IDLE;
+	current_input = ENTITY_INPUT_NULL;
+}
+
+bool entEnemyDebug::Update(float dt)
+{
+	fPoint player_rect = App->game->player->GetPivotPosition();
+
+	if (player_rect.x >= GetPlayerRect().x - target_radius &&
+		player_rect.x <= GetPlayerRect().x + GetPlayerRect().w + target_radius*2 &&
+		player_rect.y >= GetPlayerRect().y - target_radius &&
+		player_rect.y <= GetPlayerRect().y + GetPlayerRect().h + target_radius*2)
+	{
+		int targetX = player_rect.x;
+		int targetY = player_rect.y;
+		iPoint _target = { targetX, targetY };
+		_target = App->map->WorldToMap(_target.x, _target.y);
+		SetMovement(_target.x, _target.y);
+	}
+
+	UpdateMovement(dt);
+
+	return true;
 }
 
 //Animation Setter
@@ -106,5 +267,70 @@ void entEnemyDebug::SetAnimations()
 	rect.h = 54;
 	idle_front.SetFrames(0, 0, rect.w, rect.h, 12, 1);
 	idle_front.speed = 0.2f;
+}
+
+ENTITY_STATE entEnemyDebug::UpdateAction()
+{
+	if (current_input != ENTITY_INPUT_NULL && current_input != previous_input)
+	{
+		switch (current_action)
+		{
+		case ENTITY_IDLE:
+		{
+			if (current_input == ENTITY_INPUT_MOVE)
+			{
+				current_action = ENTITY_WALKING;
+			}
+		}
+		break;
+
+		case ENTITY_WALKING:
+		{
+			if (current_input == ENTITY_INPUT_STOP_MOVE)
+			{
+				current_action = ENTITY_IDLE;
+			}
+		}
+		break;
+
+		case ENTITY_ATTACKING:
+		{
+
+		}
+		break;
+		}
+
+		previous_input = current_input;
+		EntityEvent(ENTITY_STATE_CHANGE);
+	}
+
+	current_input = ENTITY_INPUT_NULL;
+	return current_action;
+}
+
+void entEnemyDebug::EntityEvent(ENTITY_EVENT even)
+{
+	switch (even)
+	{
+		case STATE_CHANGE:
+		{
+			StateMachine();
+		}
+	}
+}
+
+void entEnemyDebug::StateMachine()
+{
+	switch (current_action)
+	{
+	case ENTITY_IDLE:
+		//sprite = idle;
+		break;
+	case ENTITY_WALKING:
+		//sprite = walk;
+		break;
+	case ATTACKING:
+		break;
+	}
 }
 //---------------------------------------
