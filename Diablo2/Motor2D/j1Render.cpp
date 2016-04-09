@@ -74,8 +74,8 @@ bool j1Render::PreUpdate()
 bool j1Render::PostUpdate()
 {
 	//Scene sprites iteration
-	std::multimap<int, Sprite*>::const_iterator it = spriteList_scene.begin();
-	while (it != spriteList_scene.end())
+	std::multimap<int, Sprite*>::const_iterator it = spritesMultiMap.begin();
+	while (it != spritesMultiMap.end())
 	{
 		if ((*it).second)
 		{
@@ -85,7 +85,7 @@ bool j1Render::PostUpdate()
 		}
 		it++;
 	}
-	spriteList_scene.clear();
+	spritesMultiMap.clear();
 
 
 	/*
@@ -421,27 +421,18 @@ bool j1Render::IsSpriteDrawable(const Sprite* sprite) const
 {
 	return true;
 }
-void j1Render::AddSprite(Sprite* sprite, Sprite_Type type)
+void j1Render::AddSprite(Sprite* sprite)
 {
-	switch (type)
-	{
-	case (SCENE) :
-	{
+	
 		std::pair<int, Sprite*> toAdd((*sprite).y_ref, sprite);
-		spriteList_scene.insert(toAdd);
+		spritesMultiMap.insert(toAdd);
 		sprite->inList = true;
-		sprite->list = &spriteList_scene;
+		sprite->list = &spritesMultiMap;
 		sprite->layer = -1;
-		break;
-	}
-	case (GUI) :
-	{
-		break;
-	}
-	}
+	
 }
 
-void j1Render::AddSprite(Sprite_Type type, SDL_Texture* texture, SDL_Rect* onScreenPosition, SDL_Rect* section)
+void j1Render::AddSprite(SDL_Texture* texture, SDL_Rect* onScreenPosition, SDL_Rect* section)
 {
 	/*
 	SDL_Rect pos, sect = { 0, 0, 0, 0 };
@@ -489,3 +480,50 @@ Sprite::Sprite(SDL_Texture* texture, SDL_Rect& section, int xWorld, int yWorld)
 	rec.w = section.w;
 	rec.h = section.h;
 }*/
+Sprite::Sprite()
+{
+
+}
+
+Sprite::Sprite(SDL_Texture* _texture, SDL_Rect* _position, SDL_Rect* _section = NULL)
+{
+	texture = _texture;
+	position = *_position;
+	section = *_section;
+
+}
+//NOTE: Destructor
+Sprite::~Sprite()
+{
+	if (inList)
+	{
+		std::multimap<int, Sprite*>::iterator it;
+		if (layer < 0)
+		{
+			if (list)
+			{
+				it = list->find(y_ref);
+				while (it != list->end() && (*it).second != this)
+				{
+					++it;
+				}
+				list->erase(it);
+				inList = false;
+			}
+		}
+		else
+		{
+			if (list)
+			{
+				it = list->find(layer);
+				while (it != list->end() && (*it).second != this)
+				{
+					++it;
+				}
+				list->erase(it);
+				inList = false;
+			}
+
+		}
+	}
+}
