@@ -59,6 +59,7 @@ void Entity::DrawDebug()
 }
 
 //Getters
+
 iPoint Entity::GetMapPosition() const
 {
 	return App->map->WorldToMap(rect.x, rect.y);

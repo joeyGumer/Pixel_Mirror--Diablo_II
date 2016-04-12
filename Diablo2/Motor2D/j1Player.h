@@ -60,6 +60,8 @@ enum INPUT_STATE
 	INPUT_NULL,
 };
 
+class Entity;
+
 class j1Player : public j1Module
 {
 //Methods
@@ -105,6 +107,8 @@ public:
 	bool IsTargetReached();
 	void GetNewTarget();
 	
+	//Attack
+	bool IsInRange(Entity* enemy);
 
 	//NOTE: some of these may go to the entities
 	//Getters
@@ -153,11 +157,15 @@ private:
 	bool		target_reached;
 	bool		path_on = true;
 
+	//Attack
+	bool		attacking;
+
 	//Textures
 	SDL_Texture* p_debug = NULL;
 	SDL_Texture* p_sprite = NULL;
 	SDL_Texture* p_idle = NULL;
 	SDL_Texture* p_walk = NULL;
+	SDL_Texture* p_attack = NULL;
 
 	//Rects for each state and direction
 	//--------------------
@@ -166,6 +174,7 @@ private:
 	//NOTE : Can i make this more elegant (maybe with a list)
 	vector<Animation> idle;
 	vector<Animation> walk;
+	vector<Animation> attack;
 	//--------------------
 
 	//Attributes
@@ -178,12 +187,19 @@ private:
 	int ST_max;
 	int ST_current;
 
+
+	float attack_range = 100.0f;
+
 	//StateMachine Attributes
 	ACTION_STATE	current_action;
 	vector<Animation> current_animation_set;
 	DIRECTION		current_direction;
 	INPUT_STATE		current_input;
 	INPUT_STATE		previous_input = INPUT_NULL;
+
+	//NOTE: will be cahnged to a enemy once entity manager structure is changed
+	//Enemy target
+	Entity* enemy;
 
 };
 
