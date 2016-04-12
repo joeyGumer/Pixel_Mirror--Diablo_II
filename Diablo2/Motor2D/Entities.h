@@ -15,6 +15,7 @@
 enum ENTITY_TYPE
 {
 	ENEMY_DEBUG,
+	ENEMY_CRAWLER
 };
 
 enum ENTITY_EVENT
@@ -137,6 +138,23 @@ class entEnemyDebug : public Entity
 public:
 
 	entEnemyDebug(iPoint &position, uint id);
+
+	bool Update(float dt);
+
+	void SetAnimations();
+	ENTITY_STATE UpdateAction();
+	void EntityEvent(ENTITY_EVENT even);
+	void StateMachine();
+
+private:
+
+};
+
+class entEnemyCrawler : public Entity
+{
+public:
+
+	entEnemyCrawler(iPoint &position, uint id);
 
 	bool Update(float dt);
 

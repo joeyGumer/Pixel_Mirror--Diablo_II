@@ -397,3 +397,146 @@ void entEnemyDebug::StateMachine()
 	}
 }
 //---------------------------------------
+
+//DebugEnemy Code
+//---------------------------------------
+
+//Constructor
+entEnemyCrawler::entEnemyCrawler(iPoint &position, uint id) : Entity(position, id)
+{
+	SetAnimations();
+	pivot = { (rect.w / 2), (rect.h - 5) };
+	type = ENEMY_CRAWLER;
+	current_action = ENTITY_IDLE;
+	current_input = ENTITY_INPUT_NULL;
+	current_direction = ENTITY_D_FRONT;
+	current_animation_set = idle_set;
+	current_animation = &current_animation_set[current_direction];
+}
+
+bool entEnemyCrawler::Update(float dt)
+{
+	UpdateAction();
+
+	fPoint player_rect = App->game->player->GetPivotPosition();
+
+	if (player_rect.x >= GetPlayerRect().x - target_radius &&
+		player_rect.x <= GetPlayerRect().x + GetPlayerRect().w + target_radius * 2 &&
+		player_rect.y >= GetPlayerRect().y - target_radius &&
+		player_rect.y <= GetPlayerRect().y + GetPlayerRect().h + target_radius * 2)
+	{
+		int targetX = player_rect.x;
+		int targetY = player_rect.y;
+		iPoint _target = { targetX, targetY };
+		_target = App->map->WorldToMap(_target.x, _target.y);
+		SetMovement(_target.x, _target.y);
+	}
+
+	UpdateMovement(dt);
+
+	return true;
+}
+
+//Animation Setter
+void entEnemyCrawler::SetAnimations()
+{
+	sprite = idle = App->tex->Load("textures/crawler_idle.png");
+	walk = App->tex->Load("textures/crawler_walk.png");
+	rect.w = 78;
+	rect.h = 51;
+
+	//Idle
+	for (int i = 0; i < 8; i++)
+	{
+		Animation tmp;
+		tmp.SetFrames(0, (51 + 0) * i, 78, 51, 4, 0);
+		tmp.speed = 0.2f;
+
+		idle_set.push_back(tmp);
+	}
+
+	for (int i = 0; i < 8; i++)
+	{
+		Animation tmp;
+		tmp.SetFrames(0, (54 + 0) * i, 78, 54, 9, 0);
+		tmp.speed = 0.2f;
+
+		walk_set.push_back(tmp);
+	}
+
+}
+
+ENTITY_STATE entEnemyCrawler::UpdateAction()
+{
+	if (current_input != ENTITY_INPUT_NULL && current_input != previous_input)
+	{
+		switch (current_action)
+		{
+		case ENTITY_IDLE:
+		{
+			if (current_input == ENTITY_INPUT_MOVE)
+			{
+				current_action = ENTITY_WALKING;
+			}
+		}
+		break;
+
+		case ENTITY_WALKING:
+		{
+			if (current_input == ENTITY_INPUT_STOP_MOVE)
+			{
+				current_action = ENTITY_IDLE;
+			}
+		}
+		break;
+
+		case ENTITY_ATTACKING:
+		{
+
+		}
+		break;
+		}
+
+		previous_input = current_input;
+		EntityEvent(ENTITY_STATE_CHANGE);
+	}
+
+	current_input = ENTITY_INPUT_NULL;
+	return current_action;
+}
+
+void entEnemyCrawler::EntityEvent(ENTITY_EVENT even)
+{
+	switch (even)
+	{
+	case ENTITY_STATE_CHANGE:
+	{
+		StateMachine();
+	}
+	}
+}
+
+void entEnemyCrawler::StateMachine()
+{
+	switch (current_action)
+	{
+	case ENTITY_IDLE:
+		sprite = idle;
+		current_animation_set = idle_set;
+		//current_animation = idle_front;
+		rect.w = 78;
+		rect.h = 51;
+		pivot = { (rect.w / 2), (rect.h - 5) };
+		break;
+	case ENTITY_WALKING:
+		sprite = walk;
+		current_animation_set = walk_set;
+		//current_animation = walk_front;
+		rect.w = 78;
+		rect.h = 54;
+		pivot = { (rect.w / 2), (rect.h - 5) };
+		break;
+	case ATTACKING:
+		break;
+	}
+}
