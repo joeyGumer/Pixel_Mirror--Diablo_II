@@ -405,7 +405,7 @@ void entEnemyDebug::StateMachine()
 entEnemyCrawler::entEnemyCrawler(iPoint &position, uint id) : Entity(position, id)
 {
 	SetAnimations();
-	pivot = { (rect.w / 2), (rect.h - 5) };
+	pivot = { (rect.w / 2), (rect.h - 25) };
 	type = ENEMY_CRAWLER;
 	current_action = ENTITY_IDLE;
 	current_input = ENTITY_INPUT_NULL;
@@ -526,7 +526,7 @@ void entEnemyCrawler::StateMachine()
 		//current_animation = idle_front;
 		rect.w = 78;
 		rect.h = 51;
-		pivot = { (rect.w / 2), (rect.h - 5) };
+		pivot = { (rect.w / 2), (rect.h - 25) };
 		break;
 	case ENTITY_WALKING:
 		sprite = walk;
@@ -534,7 +534,7 @@ void entEnemyCrawler::StateMachine()
 		//current_animation = walk_front;
 		rect.w = 78;
 		rect.h = 54;
-		pivot = { (rect.w / 2), (rect.h - 5) };
+		pivot = { (rect.w / 2), (rect.h - 25) };
 		break;
 	case ATTACKING:
 		break;
