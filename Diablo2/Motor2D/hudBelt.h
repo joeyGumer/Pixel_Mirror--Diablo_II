@@ -10,7 +10,7 @@ class GuiImage;
 class GuiLabel;
 
 
-#define STAT_LOCAL_Y 33
+#define STAT_LOCAL_Y 34
 #define STAT_TEX_Y 196
 #define STAT_MAX_H float(78)
 #define STAT_MAX_W float(102)
@@ -67,6 +67,8 @@ public:
 
 	//Belt Gui Elements
 	GuiImage* HUD = NULL;
+	GuiImage* HUDornament = NULL;
+	GuiImage* minipanel = NULL;
 	GuiImage* HUDback1 = NULL;
 	GuiImage* HUDback2 = NULL;
 	GuiImage* life = NULL;

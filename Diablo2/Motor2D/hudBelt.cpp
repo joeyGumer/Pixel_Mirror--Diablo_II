@@ -20,38 +20,41 @@ bool hudBelt::Start()
 {
 	life_current_h = mana_current_h = 78;
 
-	HUD = App->gui->AddGuiImage({ 166, 553 }, { 166, 386, 468, 47 }, NULL, this);
+	HUD = App->gui->AddGuiImage({ 166, 553 }, { 166, 386, 408, 47 }, NULL, this);
 	hud_gui_elements.push_back(HUD);
 
 	//HUD elements definition
 	//NOTE: these position are very inaccurate
 
+	HUDornament = App->gui->AddGuiImage({ 96, -5 }, { 262, 381, 115, 5 }, HUD, this);
+	hud_gui_elements.push_back(HUDornament);
+
 	HUDback1 = App->gui->AddGuiImage({ -132, -19 }, { 362, 226, 76, 53 }, HUD, this);
 	hud_gui_elements.push_back(HUDback1);
 	
-	HUDback2 = App->gui->AddGuiImage({ 524, -19 }, { 437, 226, 80, 53 }, HUD, this);
+	HUDback2 = App->gui->AddGuiImage({ 364, -18 }, { 437, 226, 80, 53 }, HUD, this);
 	hud_gui_elements.push_back(HUDback2);
 
-	life = App->gui->AddGuiImage({ -136, -45 }, { 371, 118, 79, 78 }, HUD, this);
+	life = App->gui->AddGuiImage({ -136, -44 }, { 371, 118, 79, 78 }, HUD, this);
 	hud_gui_elements.push_back(life);
 
-	mana = App->gui->AddGuiImage({ 524, -45 }, { 451, 118, 78, 78 }, HUD, this);
+	mana = App->gui->AddGuiImage({ 366, -44 }, { 451, 118, 78, 78 }, HUD, this);
 	hud_gui_elements.push_back(mana);
 
-	stamina = App->gui->AddGuiImage({ 107, 20 }, { 530, 118, 102, 18 }, HUD, this);
+	stamina = App->gui->AddGuiImage({ 27, 20 }, { 530, 118, 102, 18 }, HUD, this);
 	hud_gui_elements.push_back(stamina);
 
 	life_holder = App->gui->AddGuiImage({ -166, -55 }, { 0, 331, 116, 103 }, HUD, this);
 	hud_gui_elements.push_back(life_holder);
 
-	mana_holder = App->gui->AddGuiImage({ 518, -55 }, { 684, 331, 116, 103 }, HUD, this);
+	mana_holder = App->gui->AddGuiImage({ 358, -55 }, { 524, 331, 116, 102 }, HUD, this);
 	hud_gui_elements.push_back(mana_holder);
 
-	runbutton = App->gui->AddGuiImage({ 89, 19 }, { 153, 280, 18, 22 }, HUD, this);
+	runbutton = App->gui->AddGuiImage({ 9, 19 }, { 153, 280, 18, 22 }, HUD, this);
 	runbutton->interactable = true;
 	hud_gui_elements.push_back(runbutton);
 
-	minipanelbutton = App->gui->AddGuiImage({ 225, 9 }, { 337, 252, 16, 27 }, HUD, this);
+	minipanelbutton = App->gui->AddGuiImage({ 145, 8 }, { 337, 252, 16, 27 }, HUD, this);
 	minipanelbutton->interactable = true;
 	hud_gui_elements.push_back(minipanelbutton);
 
@@ -59,7 +62,7 @@ bool hudBelt::Start()
 	attack1->interactable = true;
 	hud_gui_elements.push_back(attack1);
 
-	attack2 = App->gui->AddGuiImage({ 468, 0 }, { 102, 280, 50, 47 }, HUD, this);
+	attack2 = App->gui->AddGuiImage({ 308, 0 }, { 102, 280, 50, 47 }, HUD, this);
 	attack2->interactable = true;
 	hud_gui_elements.push_back(attack2);
 
@@ -81,57 +84,63 @@ bool hudBelt::Start()
 	hud_gui_elements.push_back(skill13);
 
 	//Attack 2 ----------------------------------------
-	skill21 = App->gui->AddGuiImage({ 467, -70 }, { 51, 280, 50, 47 }, HUD, this);
+	skill21 = App->gui->AddGuiImage({ 305, -70 }, { 51, 280, 50, 47 }, HUD, this);
 	skill21->interactable = true;
 	skill21->active = false;
 	hud_gui_elements.push_back(skill21);
 
-	skill22 = App->gui->AddGuiImage({ 396, -70 }, { 0, 280, 50, 47 }, HUD, this);
+	skill22 = App->gui->AddGuiImage({ 233, -70 }, { 0, 280, 50, 47 }, HUD, this);
 	skill22->interactable = true;
 	skill22->active = false;
 	hud_gui_elements.push_back(skill22);
 
-	skill23 = App->gui->AddGuiImage({ 325, -70 }, { 0, 280, 50, 47 }, HUD, this);
+	skill23 = App->gui->AddGuiImage({ 162, -70 }, { 0, 280, 50, 47 }, HUD, this);
 	skill23->interactable = true;
 	skill23->active = false;
 	hud_gui_elements.push_back(skill23);
 
 	//Minipanel's buttons -------------------------------
-	stats = App->gui->AddGuiImage({ -23, -33 }, { 170, 253, 24, 25 }, HUD, this);
+	
+	minipanel = App->gui->AddGuiImage({-68, -33}, { 170, 253, 152, 25 }, HUD, this);
+	minipanelbutton->AddChild(minipanel);
+	hud_gui_elements.push_back(minipanel);
+
+	stats = App->gui->AddGuiImage({ -65, -30 }, { 170, 279, 20, 19 }, HUD, this);
 	stats->interactable = true;
 	minipanelbutton->AddChild(stats);
 	hud_gui_elements.push_back(stats);
 
-	skilltree = App->gui->AddGuiImage({ 0, -33 }, { 193, 253, 22, 25 }, HUD, this);
-	skilltree->interactable = true;
-	minipanelbutton->AddChild(skilltree);
-	hud_gui_elements.push_back(skilltree);
-
-	inventory = App->gui->AddGuiImage({ 21, -33 }, { 214, 253, 22, 25 }, HUD, this);
+	inventory = App->gui->AddGuiImage({ -44, -30 }, { 191, 279, 20, 19 }, HUD, this);
 	inventory->interactable = true;
 	minipanelbutton->AddChild(inventory);
 	hud_gui_elements.push_back(inventory);
 
-	map = App->gui->AddGuiImage({ 41, -33 }, { 235, 253, 22, 25 }, HUD, this);
+	skilltree = App->gui->AddGuiImage({ -23, -30 }, { 212, 279, 20, 19 }, HUD, this);
+	skilltree->interactable = true;
+	minipanelbutton->AddChild(skilltree);
+	hud_gui_elements.push_back(skilltree);
+
+	map = App->gui->AddGuiImage({ -2, -30 }, { 233, 279, 20, 19 }, HUD, this);
 	map->interactable = true;
 	minipanelbutton->AddChild(map);
 	hud_gui_elements.push_back(map);
 
-	message_log = App->gui->AddGuiImage({ 63, -33 }, { 256, 253, 22, 25 }, HUD, this);
+	message_log = App->gui->AddGuiImage({ 19, -30 }, { 252, 279, 20, 19 }, HUD, this);
 	message_log->interactable = true;
 	minipanelbutton->AddChild(message_log);
 	hud_gui_elements.push_back(message_log);
 
-	search_log = App->gui->AddGuiImage({ 86, -33 }, { 277, 253, 22, 25 }, HUD, this);
+	search_log = App->gui->AddGuiImage({ 39, -30 }, { 275, 279, 20, 19 }, HUD, this);
 	search_log->interactable = true;
 	minipanelbutton->AddChild(search_log);
 	hud_gui_elements.push_back(search_log);
 
-	game_menu = App->gui->AddGuiImage({ 107, -33 }, { 298, 253, 24, 25 }, HUD, this);
+	game_menu = App->gui->AddGuiImage({ 60, -30 }, { 296, 279, 24, 19 }, HUD, this);
 	game_menu->interactable = true;
 	minipanelbutton->AddChild(game_menu);
 	hud_gui_elements.push_back(game_menu);
 	minipanelbutton->DesactivateChilds();
+
 	return true;
 }
 
@@ -416,7 +425,7 @@ void hudBelt::SetMana(int max_MP, int MP)
 	}*/
 
 	mana->SetTextureRect({ 451, STAT_TEX_Y - int(mana_current_h), 78, int(mana_current_h) });
-	mana->SetLocalPosition({ 524, STAT_LOCAL_Y - int(mana_current_h) });
+	mana->SetLocalPosition({ 366, STAT_LOCAL_Y - int(mana_current_h) });
 }
 
 void hudBelt::SetStamina(int max_ST, int ST)
