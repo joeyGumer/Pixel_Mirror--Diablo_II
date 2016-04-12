@@ -111,7 +111,12 @@ bool snOutdoor1::Update(float dt)
 		p = App->input->GetMouseWorldPosition();
 		p.x += App->map->data.tile_width/2;
 		p.y += App->map->data.tile_height/2;
-		App->em->Add(p, ENEMY_DEBUG);
+
+		int a = rand() % 2;
+		if (a == 0)
+			App->em->Add(p, ENEMY_DEBUG);
+		if (a == 1)
+			App->em->Add(p, ENEMY_CRAWLER);
 	}
 
 	//Map

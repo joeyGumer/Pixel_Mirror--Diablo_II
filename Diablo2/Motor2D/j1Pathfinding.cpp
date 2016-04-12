@@ -114,7 +114,7 @@ list<PathNode*>::iterator PathList::GetNodeLowestScore()
 PathNode::PathNode() : g(-1), h(-1), pos(-1, -1), parent(NULL)
 {}
 
-PathNode::PathNode(int g, int h, const iPoint& pos, PathNode* p) : g(g), h(h), pos(pos), parent(p)
+PathNode::PathNode(float g, float h, const iPoint& pos, PathNode* p) : g(g), h(h), pos(pos), parent(p)
 {}
 
 PathNode::PathNode(PathNode& node) : g(node.g), h(node.h), pos(node.pos), parent(node.parent)
@@ -137,12 +137,30 @@ uint PathNode::FindWalkableAdjacents(PathList& list_to_fill)
 		list_to_fill.nlist.push_back(child);
 	}
 
+	// north - east
+	cell.create(pos.x + 1, pos.y + 1);
+	if (App->pathfinding->IsWalkable(cell))
+	{
+		PathNode* child;
+		child = new PathNode(0, -1, cell, this);
+		list_to_fill.nlist.push_back(child);
+	}
+
 	// south
 	cell.create(pos.x, pos.y - 1);
 	if(App->pathfinding->IsWalkable(cell))
 	{
 		PathNode* child;
 		child = new PathNode(-1, -1, cell, this);
+		list_to_fill.nlist.push_back(child);
+	}
+
+	// south -east
+	cell.create(pos.x + 1, pos.y - 1);
+	if (App->pathfinding->IsWalkable(cell))
+	{
+		PathNode* child;
+		child = new PathNode(0, -1, cell, this);
 		list_to_fill.nlist.push_back(child);
 	}
 
@@ -155,6 +173,15 @@ uint PathNode::FindWalkableAdjacents(PathList& list_to_fill)
 		list_to_fill.nlist.push_back(child);
 	}
 
+	// south - west
+	cell.create(pos.x - 1, pos.y - 1);
+	if (App->pathfinding->IsWalkable(cell))
+	{
+		PathNode* child;
+		child = new PathNode(0, -1, cell, this);
+		list_to_fill.nlist.push_back(child);
+	}
+
 	// west
 	cell.create(pos.x - 1, pos.y);
 	if(App->pathfinding->IsWalkable(cell))
@@ -164,13 +191,22 @@ uint PathNode::FindWalkableAdjacents(PathList& list_to_fill)
 		list_to_fill.nlist.push_back(child);
 	}
 
+	// south - west
+	cell.create(pos.x - 1, pos.y + 1);
+	if (App->pathfinding->IsWalkable(cell))
+	{
+		PathNode* child;
+		child = new PathNode(0, -1, cell, this);
+		list_to_fill.nlist.push_back(child);
+	}
+
 	return list_to_fill.nlist.size();
 }
 
 // PathNode -------------------------------------------------------------------------
 // Calculates this tile score
 // ----------------------------------------------------------------------------------
-int PathNode::Score() const
+float PathNode::Score() const
 {
 	return g + h;
 }
@@ -178,9 +214,16 @@ int PathNode::Score() const
 // PathNode -------------------------------------------------------------------------
 // Calculate the F for a specific destination tile
 // ----------------------------------------------------------------------------------
-int PathNode::CalculateF(const iPoint& destination)
+float PathNode::CalculateF(const iPoint& destination)
 {
-	g = parent->g + 1;
+	//g = parent->g + 1;
+	if (g == 0)
+	{
+		g = parent->g + 1.4;
+	}
+	else
+		g = parent->g + 1;
+
 	h = pos.DistanceTo(destination);
 
 	return g + h;

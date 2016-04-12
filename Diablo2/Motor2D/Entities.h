@@ -15,6 +15,7 @@
 enum ENTITY_TYPE
 {
 	ENEMY_DEBUG,
+	ENEMY_CRAWLER
 };
 
 enum ENTITY_EVENT
@@ -35,6 +36,19 @@ enum ENTITY_INPUT
 	ENTITY_INPUT_STOP_MOVE,
 	ENTITY_INPUT_ATTACK,
 	ENTITY_INPUT_NULL,
+};
+
+enum ENTITY_DIRECTION
+{
+	ENTITY_D_FRONT,
+	ENTITY_D_FRONT_LEFT,
+	ENTITY_D_LEFT,
+	ENTITY_D_BACK_LEFT,
+	ENTITY_D_BACK,
+	ENTITY_D_BACK_RIGHT,
+	ENTITY_D_RIGHT,
+	ENTITY_D_FRONT_RIGHT,
+	ENTITY_D_DEFAULT
 };
 
 class Entity
@@ -66,6 +80,7 @@ public:
 
 	//Setters
 	virtual void SetAnimations() {}
+	void SetDirection();
 
 	//Events and states
 	virtual void EntityEvent(ENTITY_EVENT even) {}
@@ -90,12 +105,12 @@ public:
 	iPoint			tile_pos;
 	uint			id;
 
-	Animation		current_animation;
-	SDL_Texture*	sprite;
-	SDL_Texture*    idle;
-	SDL_Texture*	walk;
-	Animation		idle_front;
-	Animation		walk_front;
+	Animation*			current_animation;
+	SDL_Texture*		sprite;
+	SDL_Texture*		idle;
+	vector<Animation>	idle_set;
+	SDL_Texture*		walk;
+	vector<Animation>	walk_set;
 
 	vector<iPoint>	path;
 	iPoint			target;
@@ -109,6 +124,7 @@ public:
 
 	ENTITY_STATE		current_action;
 	vector<Animation>	current_animation_set;
+	ENTITY_DIRECTION	current_direction;
 	ENTITY_INPUT		current_input;
 	ENTITY_INPUT		previous_input = ENTITY_INPUT_NULL;
 
@@ -122,6 +138,23 @@ class entEnemyDebug : public Entity
 public:
 
 	entEnemyDebug(iPoint &position, uint id);
+
+	bool Update(float dt);
+
+	void SetAnimations();
+	ENTITY_STATE UpdateAction();
+	void EntityEvent(ENTITY_EVENT even);
+	void StateMachine();
+
+private:
+
+};
+
+class entEnemyCrawler : public Entity
+{
+public:
+
+	entEnemyCrawler(iPoint &position, uint id);
 
 	bool Update(float dt);
 
