@@ -33,7 +33,7 @@ Entity::~Entity()
 void Entity::Draw()
 {
 	iPoint pos = GetBlitPosition();
-	SDL_Rect current_sprite = current_animation.GetCurrentFrame();
+	SDL_Rect current_sprite = current_animation->GetCurrentFrame();
 	App->render->Blit(sprite, pos.x, pos.y, &current_sprite);
 }
 
@@ -123,7 +123,7 @@ void Entity::UpdateVelocity(float dt)
 
 	velocity.SetModule(PLAYER_SPEED * 0.75f);
 
-	//SetDirection();
+	SetDirection();
 }
 
 bool Entity::IsTargetReached()
@@ -221,6 +221,36 @@ void Entity::SetNewPath(int x, int y)
 
 }
 
+void Entity::SetDirection()
+{
+	float angle = velocity.GetAngle();
+
+	ENTITY_DIRECTION dir;
+
+	if (angle < 22.5 && angle > -22.5)
+		dir = ENTITY_D_RIGHT;
+	else if (angle >= 22.5 && angle <= 67.5)
+		dir = ENTITY_D_FRONT_RIGHT;
+	else if (angle > 67.5 && angle < 112.5)
+		dir = ENTITY_D_FRONT;
+	else if (angle >= 112.5 && angle <= 157.5)
+		dir = ENTITY_D_FRONT_LEFT;
+	else if (angle > 157.5 || angle < -157.5)
+		dir = ENTITY_D_LEFT;
+	else if (angle >= -157.5 && angle <= -112.5)
+		dir = ENTITY_D_BACK_LEFT;
+	else if (angle > -112.5 && angle < -67.5)
+		dir = ENTITY_D_BACK;
+	else if (angle >= -67.5 && angle <= -22.5)
+		dir = ENTITY_D_BACK_RIGHT;
+
+	if (dir != current_direction)
+	{
+		current_direction = dir;
+		current_animation = &current_animation_set[current_direction];
+	}
+}
+
 //---------------------------------------
 
 
@@ -231,11 +261,13 @@ void Entity::SetNewPath(int x, int y)
 entEnemyDebug::entEnemyDebug(iPoint &position, uint id) : Entity(position, id)
 {
 	SetAnimations();
-	current_animation = idle_front;
 	pivot = { (rect.w / 2), (rect.h - 5) };
 	type = ENEMY_DEBUG;
 	current_action = ENTITY_IDLE;
 	current_input = ENTITY_INPUT_NULL;
+	current_direction = ENTITY_D_FRONT;
+	current_animation_set = idle_set;
+	current_animation = &current_animation_set[current_direction];
 }
 
 bool entEnemyDebug::Update(float dt)
@@ -265,15 +297,28 @@ bool entEnemyDebug::Update(float dt)
 void entEnemyDebug::SetAnimations()
 {
 	sprite = idle = App->tex->Load("textures/wolf.png");
+	walk = App->tex->Load("textures/wolf_walk.png");
 	rect.w = 69;
 	rect.h = 54;
-	idle_front.SetFrames(0, 0, rect.w, rect.h, 12, 1);
-	idle_front.speed = 0.2f;
 
-	walk = App->tex->Load("textures/wolf_walk.png");
-	walk_front.SetFrames(0, 0, 94, 73, 12, 1);
-	walk_front.speed = 0.2f;
+	//Idle
+	for (int i = 0; i < 8; i++)
+	{
+		Animation tmp;
+		tmp.SetFrames(0, (54 + 1) * i, 69, 54, 12, 1);
+		tmp.speed = 0.2f;
 
+		idle_set.push_back(tmp);
+	}
+
+	for (int i = 0; i < 8; i++)
+	{
+		Animation tmp;
+		tmp.SetFrames(0, (73 + 1) * i, 94, 73, 12, 1);
+		tmp.speed = 0.2f;
+
+		walk_set.push_back(tmp);
+	}
 
 }
 
@@ -333,14 +378,16 @@ void entEnemyDebug::StateMachine()
 	{
 	case ENTITY_IDLE:
 		sprite = idle;
-		current_animation = idle_front;
+		current_animation_set = idle_set;
+		//current_animation = idle_front;
 		rect.w = 69;
 		rect.h = 54;
 		pivot = { (rect.w / 2), (rect.h - 5) };
 		break;
 	case ENTITY_WALKING:
 		sprite = walk;
-		current_animation = walk_front;
+		current_animation_set = walk_set;
+		//current_animation = walk_front;
 		rect.w = 94;
 		rect.h = 73;
 		pivot = { (rect.w / 2), (rect.h - 5) };
