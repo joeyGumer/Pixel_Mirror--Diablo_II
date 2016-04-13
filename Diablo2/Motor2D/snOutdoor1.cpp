@@ -56,10 +56,11 @@ bool snOutdoor1::Start()
 	}
 
 	imatge_vaca = App->tex->Load("textures/cow.png");
-	SDL_Rect puta = { 2, 2, 2, 2 };
+	SDL_Rect puta = { 0, 0, 0, 0 };
 	pos = &puta;
-	SDL_Rect pene = { 2, 2, 2, 2 };
+	SDL_Rect pene = { 96, 120, 0, 0 };
 	sect = &pene;
+
 
 	hola = new Sprite(imatge_vaca, pos, sect);
 	App->render->AddSpriteToList(hola);
@@ -217,32 +218,37 @@ bool snOutdoor1::Update(float dt)
 
 
 	
-	App->render->DrawSprite(hola);
+	//App->render->DrawSprite(hola);
+	//App->render->Blit(hola->texture, hola->positionMap->x, hola->positionMap->y);
+
 	App->render->Blit(hola->texture, hola->positionMap->x, hola->positionMap->y);
+
+
+
 	//->render->PintarSprite(hola->textura,hola->posisiomapa,hola->seccioTextura);
 
-	/*
-
+	
+	
 	if (App->input->GetKey(SDL_SCANCODE_H) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
 	{
-		hola->posisiomapa->x += SPEED * dt;
+		hola->positionMap->x += SPEED * dt;
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
 	{
-		hola->posisiomapa->x -= SPEED * dt;
+		hola->positionMap->x -= SPEED * dt;
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_T) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
 	{
-		hola->posisiomapa->y -= SPEED * dt;
+		hola->positionMap->y -= SPEED * dt;
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_G) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN)
 	{
-		hola->posisiomapa->y += SPEED * dt;
+		hola->positionMap->y += SPEED * dt;
 	}
-	*/
+	
 
 
 	/*const vector<iPoint>* path = App->pathfinding->GetLastPath();
