@@ -66,6 +66,9 @@ bool snOutdoor1::Start()
 	hola->textura = App->tex->Load("textures/cow.png");
 	App->render->posarllista(hola);
 
+	//hola->posisiomapa = {0,0};
+	//hola->posisiomapa->y = 100;
+
 	
 	
 
@@ -190,7 +193,33 @@ bool snOutdoor1::Update(float dt)
 	p = App->map->GetTileBlit(p.x, p.y);
 
 	App->render->Blit(debug, p.x, p.y);
-	App->render->Blit(hola->textura, 15, 100);
+	
+
+	 //App->render->Blit(hola->textura, hola->posisiomapa->x, hola->posisiomapa->y);
+
+	/*
+
+	if (App->input->GetKey(SDL_SCANCODE_H) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
+	{
+		hola->posisiomapa->x += SPEED * dt;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
+	{
+		hola->posisiomapa->x -= SPEED * dt;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_T) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
+	{
+		hola->posisiomapa->y -= SPEED * dt;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_G) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN)
+	{
+		hola->posisiomapa->y += SPEED * dt;
+	}
+	*/
+
 
 	/*const vector<iPoint>* path = App->pathfinding->GetLastPath();
 
