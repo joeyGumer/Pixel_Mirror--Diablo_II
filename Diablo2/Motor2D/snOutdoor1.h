@@ -3,6 +3,7 @@
 
 #include "j1Scene.h"
 #include "p2Point.h"
+#include "j1Render.h"
 #include <list>
 
 using namespace std;
@@ -65,6 +66,8 @@ public:
 	//Sprite* cow;
 
 	//Sprite* building;
+
+	Sprite* hola;
 };
 
 #endif

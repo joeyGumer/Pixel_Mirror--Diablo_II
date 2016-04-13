@@ -14,6 +14,9 @@
 #include "j1Pathfinding.h"
 #include "Entities.h"
 
+// quit log en no debug
+#include "p2Log.h"
+
 using namespace std;
 
 // Constructor
@@ -51,6 +54,31 @@ bool snOutdoor1::Start()
 
 		RELEASE_ARRAY(data);
 	}
+	int valor1 = 5;
+	int valor2 = 3;
+	hola = new Sprite(valor1,valor2);
+	
+
+	//hola->resta1 = valor1;
+	//hola->resta2 = valor2;
+	int si = hola->resta(hola->prova, hola->prova2);
+	LOG("Valor %d", si);
+	hola->textura = App->tex->Load("textures/cow.png");
+	App->render->posarllista(hola);
+
+	
+	
+
+//	hola->seccioTextura->x = 96;
+	//hola->seccioTextura->y = 120;
+	//hola->posisiomapa->x = 10;
+	//hola->posisiomapa->y = 10;
+
+
+	
+
+	
+	
 
 	//NOTE: Test Sprites
 	//Player
@@ -162,6 +190,7 @@ bool snOutdoor1::Update(float dt)
 	p = App->map->GetTileBlit(p.x, p.y);
 
 	App->render->Blit(debug, p.x, p.y);
+	App->render->Blit(hola->textura, 15, 100);
 
 	/*const vector<iPoint>* path = App->pathfinding->GetLastPath();
 

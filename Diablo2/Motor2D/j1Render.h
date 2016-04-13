@@ -13,7 +13,7 @@ using namespace std;
 #define INIT_POS_X 280
 #define INIT_POS_Y 0
 
-//WARNING: Guillem please, define this at the .cpp
+/*
 struct Sprite
 {
 	Sprite();
@@ -31,6 +31,29 @@ public:
 	int					y_ref;
 	int					layer;
 };
+*/
+
+struct Sprite
+{
+	Sprite();
+	Sprite(int prova, int prova2);
+	~Sprite();
+
+	int resta(int resta1, int resta2);
+
+	//int resta1;
+	//int resta2;
+	int prova;
+	int prova2;
+	bool inList = false;
+	SDL_Texture* textura;
+	iPoint* posisiomapa;
+	SDL_Rect* seccioTextura;
+
+	list<Sprite> resultats;
+	list<Sprite>::iterator it;
+};
+
 
 class j1Render : public j1Module
 {
@@ -72,13 +95,15 @@ public:
 	
 	//blit sprites
 	//NOTE: With list
-	bool Blit2(Sprite* s);
-	bool SortSprite(Sprite* s);
+	//bool Blit2(Sprite* s);
+	//bool SortSprite(Sprite* s);
 	//NOTE: With multimap
-	bool Blit(const SDL_Texture* texture, const SDL_Rect* onScreenPosition, const SDL_Rect* section = NULL, float speed = 1.0f, double angle = 0, int pivot_x = INT_MAX, int pivot_y = INT_MAX);
-	bool IsSpriteDrawable(const Sprite*) const;
-	void AddSprite(Sprite*);
-	void AddSprite(SDL_Texture* texture, SDL_Rect* onScreenPosition, SDL_Rect* section = NULL);
+	//bool Blit(const SDL_Texture* texture, const SDL_Rect* onScreenPosition, const SDL_Rect* section = NULL, float speed = 1.0f, double angle = 0, int pivot_x = INT_MAX, int pivot_y = INT_MAX);
+	//bool IsSpriteDrawable(const Sprite*) const;
+	//void AddSprite(Sprite*);
+	//void AddSprite(SDL_Texture* texture, SDL_Rect* onScreenPosition, SDL_Rect* section = NULL);
+
+	bool posarllista(Sprite* sprite);
 
 
 	// Set background color
@@ -92,8 +117,12 @@ public:
 	SDL_Color		background;
 
 	//Note: sprites list & multimap
-	std::multimap<int, Sprite*> spritesMultiMap;
+	//std::multimap<int, Sprite*> spritesMultiMap;
 	list<Sprite*>	sprites;
+	//list<int> results;
+
+	
+	
 };
 
 #endif // __j1RENDER_H__

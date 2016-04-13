@@ -74,7 +74,7 @@ bool j1Render::PreUpdate()
 bool j1Render::PostUpdate()
 {
 	//Scene sprites iteration
-	std::multimap<int, Sprite*>::const_iterator it = spritesMultiMap.begin();
+	/*std::multimap<int, Sprite*>::const_iterator it = spritesMultiMap.begin();
 	while (it != spritesMultiMap.end())
 	{
 		if ((*it).second)
@@ -86,7 +86,7 @@ bool j1Render::PostUpdate()
 		it++;
 	}
 	spritesMultiMap.clear();
-
+	*/
 
 	/*
 	//Sort sprites by z == y
@@ -326,6 +326,7 @@ bool j1Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, U
 	return ret;
 }
 //NOTE: Blit sprite
+/*
 bool j1Render::Blit2(Sprite* s)
 {
 	bool ret = true;
@@ -360,6 +361,7 @@ bool j1Render::SortSprite(Sprite* s)
 
 	return ret;
 }
+
 bool j1Render::Blit(const SDL_Texture* texture, const SDL_Rect* onScreenPosition, const SDL_Rect* section, float speed, double angle, int pivot_x, int pivot_y)
 {
 	bool ret = true;
@@ -458,8 +460,10 @@ void j1Render::AddSprite(SDL_Texture* texture, SDL_Rect* onScreenPosition, SDL_R
 	break;
 	}
 	}
-	*/
+	
 }
+
+*/
 //#NOTE: sprite cosntructors
 /*
 Sprite::Sprite()
@@ -480,6 +484,8 @@ Sprite::Sprite(SDL_Texture* texture, SDL_Rect& section, int xWorld, int yWorld)
 	rec.w = section.w;
 	rec.h = section.h;
 }*/
+
+/*
 Sprite::Sprite()
 {
 	texture = NULL;
@@ -533,3 +539,73 @@ Sprite::~Sprite()
 		}
 	}
 }
+*/
+
+bool j1Render::posarllista(Sprite* sprite)
+{
+	bool ret;
+	ret = true;
+	//ret = sprite.inList;
+
+	if (sprite != NULL)
+	{
+		if (sprite->textura != NULL)
+		{
+			sprites.push_back(sprite);
+			LOG("Posat a la llista Sprites al final, va de darrera a andavant");
+		}
+		else
+		{
+			LOG("No sa posat a la llista. La textura es buida.");
+			ret = false;
+		}
+	}
+	else
+	{
+		ret = false;
+	}
+	return ret;
+}
+
+Sprite::Sprite()
+{
+	
+	
+}
+
+Sprite::Sprite(int prova, int prova2)
+{
+	this->prova = prova;
+	this->prova2 = prova2;
+	textura = NULL;
+	posisiomapa = NULL;
+	seccioTextura = NULL;
+
+
+}
+Sprite::~Sprite()
+{
+	LOG("Erase list of Sprites");
+
+	//it = resultats.begin();
+
+	// Remove all tilesets
+	//list<TileSet*>::iterator item;
+	//item = data.tilesets.begin();
+
+	//while (item != data.tilesets.end())
+	//{
+		//RELEASE(*item);
+		//item++;
+	//}
+	//data.tilesets.clear();
+}
+int Sprite::resta(int resta1, int resta2)
+{
+	//this->resta1 = resta1;
+	//this->resta2 = resta2;
+	int resultat;
+	resultat = resta1 - resta2;
+	return resultat;
+}
+
