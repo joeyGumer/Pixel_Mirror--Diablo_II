@@ -73,26 +73,12 @@ bool j1Render::PreUpdate()
 
 bool j1Render::PostUpdate()
 {
-	//Scene sprites iteration
-	/*std::multimap<int, Sprite*>::const_iterator it = spritesMultiMap.begin();
-	while (it != spritesMultiMap.end())
-	{
-		if ((*it).second)
-		{
-			if (IsSpriteDrawable((*it).second))
-				Blit((*it).second->texture, &(*it).second->position, &(*it).second->section);
-			(*it).second->inList = false;
-		}
-		it++;
-	}
-	spritesMultiMap.clear();
-	*/
-
 	/*
 	//Sort sprites by z == y
 	sprites.sort([](const Sprite* a, const Sprite* b) { return a->yWorld < b->yWorld; });
+	*/
 
-	//Draw sprites
+	
 	list<Sprite*>::iterator i = sprites.begin();
 
 	while (i != sprites.end())
@@ -100,8 +86,8 @@ bool j1Render::PostUpdate()
 		uint scale = App->win->GetScale();
 
 		SDL_Rect rect;
-		rect.x = (int)(camera.x) + (*i)->xWorld * scale;
-		rect.y = (int)(camera.y) + (*i)->yWorld * scale;
+		rect.x = (int)(camera.x) + (*i)->positionMap->x * scale;
+		rect.y = (int)(camera.y) + (*i)->positionMap->y * scale;
 
 
 		SDL_QueryTexture((*i)->texture, NULL, NULL, &rect.w, &rect.h);
@@ -121,7 +107,6 @@ bool j1Render::PostUpdate()
 		}
 		++i;
 	}
-	*/
 
 
 	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
@@ -325,287 +310,82 @@ bool j1Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, U
 
 	return ret;
 }
-//NOTE: Blit sprite
-/*
-bool j1Render::Blit2(Sprite* s)
+//NOTE: Sprite
+
+
+Sprite* j1Render::AddSpriteToList(Sprite* sprite)
 {
-	bool ret = true;
-
-	if (s != NULL)
-	{
-		if (s->texture != NULL)
-		{
-
-			sprites.push_back(s);
-		
-		}
-		else
-		{
-			LOG("Could not render texture sprite. Empty texture sprite");
-			ret = false;
-		}
-	}
-	else
-		ret = false;
-
-
-	return ret;
-}
-//NOTE: Sort Sprite
-bool j1Render::SortSprite(Sprite* s)
-{
-	bool ret = true;
-
-	
-
-
-	return ret;
-}
-
-bool j1Render::Blit(const SDL_Texture* texture, const SDL_Rect* onScreenPosition, const SDL_Rect* section, float speed, double angle, int pivot_x, int pivot_y)
-{
-	bool ret = true;
-	uint scale = App->win->GetScale();
-
-	SDL_Rect rect;
-
-	rect.x = (int)onScreenPosition->x * scale;
-	rect.y = (int)onScreenPosition->y * scale;
-
-
-
-	rect.w = onScreenPosition->w;
-	rect.h = onScreenPosition->h;
-
-	if (onScreenPosition->w == 0 && onScreenPosition->h == 0)
-	{
-		if (section != NULL && (section->w != 0 && section->h != 0))
-		{
-			rect.w = section->w;
-			rect.h = section->h;
-		}
-		else
-		{
-			SDL_QueryTexture((SDL_Texture*)texture, NULL, NULL, &rect.w, &rect.h);
-		}
-	}
-	else
-	{
-		rect.w = onScreenPosition->w;
-		rect.h = onScreenPosition->h;
-	}
-
-	rect.w *= scale;
-	rect.h *= scale;
-
-	SDL_Point* p = NULL;
-	SDL_Point pivot;
-
-	if (pivot_x != INT_MAX && pivot_y != INT_MAX)
-	{
-		pivot.x = pivot_x;
-		pivot.y = pivot_y;
-		p = &pivot;
-	}
-
-	if (section != NULL && section->w != 0 && section->h != 0)
-	{
-		
-			LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
-			ret = false;
-		
-	}
-	
-	return ret;
-}
-
-bool j1Render::IsSpriteDrawable(const Sprite* sprite) const
-{
-	return true;
-}
-void j1Render::AddSprite(Sprite* sprite)
-{
-	
-		std::pair<int, Sprite*> toAdd((*sprite).y_ref, sprite);
-		spritesMultiMap.insert(toAdd);
-		sprite->inList = true;
-		sprite->list = &spritesMultiMap;
-		sprite->layer = -1;
-	
-}
-
-void j1Render::AddSprite(SDL_Texture* texture, SDL_Rect* onScreenPosition, SDL_Rect* section)
-{
-	/*
-	SDL_Rect pos, sect = { 0, 0, 0, 0 };
-	if (onScreenPosition)
-	pos = *onScreenPosition;
-	if (section)
-	sect = *section;
-
-	const C_Sprite sprite(texture, &pos, useCamera, &sect, flip);
-
-	switch (type)
-	{
-	case (SCENE) :
-	{
-	std::pair<uint, const C_Sprite*> toAdd(sprite.y_ref, &sprite);
-	spriteList_scene.insert(toAdd);
-	break;
-	}
-	case (GUI) :
-	{
-	std::pair<uint, const C_Sprite*> toAdd(sprite.layer, &sprite);
-	spriteList_GUI.insert(toAdd);
-	break;
-	}
-	}
-	
-}
-
-*/
-//#NOTE: sprite cosntructors
-/*
-Sprite::Sprite()
-{
-	texture = NULL;
-	xWorld = 0;
-	yWorld = 0;
-	
-}
-Sprite::Sprite(SDL_Texture* texture, SDL_Rect& section, int xWorld, int yWorld)
-{
-	this->texture = texture;
-	this->xWorld = xWorld;
-	this->yWorld = yWorld;
-	SDL_Rect rec;
-	rec.x = section.x;
-	rec.y = section.y;
-	rec.w = section.w;
-	rec.h = section.h;
-}*/
-
-/*
-Sprite::Sprite()
-{
-	texture = NULL;
-	//position = { 0, 0, 0, 0 };
-	//section = { 0, 0, 0, 0 };
-
-	inList = false;
-	y_ref = 0;
-	layer = 0;
-}
-
-Sprite::Sprite(SDL_Texture* _texture, SDL_Rect _position, SDL_Rect _section)
-{
-	texture = _texture;
-	position = _position;
-	section = _section;
-
-}
-//NOTE: Destructor
-Sprite::~Sprite()
-{
-	if (inList)
-	{
-		std::multimap<int, Sprite*>::iterator it;
-		if (layer < 0)
-		{
-			if (list)
-			{
-				it = list->find(y_ref);
-				while (it != list->end() && (*it).second != this)
-				{
-					++it;
-				}
-				list->erase(it);
-				inList = false;
-			}
-		}
-		else
-		{
-			if (list)
-			{
-				it = list->find(layer);
-				while (it != list->end() && (*it).second != this)
-				{
-					++it;
-				}
-				list->erase(it);
-				inList = false;
-			}
-
-		}
-	}
-}
-*/
-
-bool j1Render::posarllista(Sprite* sprite)
-{
-	bool ret;
-	ret = true;
-	//ret = sprite.inList;
-
 	if (sprite != NULL)
 	{
-		if (sprite->textura != NULL)
+		if (sprite->texture != NULL)
 		{
 			sprites.push_back(sprite);
-			LOG("Posat a la llista Sprites al final, va de darrera a andavant");
+			LOG("Sprite put correct inside of list");
 		}
 		else
 		{
-			LOG("No sa posat a la llista. La textura es buida.");
-			ret = false;
+			LOG("Error. No put list. Texture is empty");
 		}
 	}
 	else
 	{
-		ret = false;
+		LOG("Error, this sprite is not correct.");
 	}
-	return ret;
+	return sprite;
 }
 
+bool j1Render::DrawSprite(Sprite* sprite)
+{
+	bool ret = false;
+	//Blit(sprite->texture,0,0,sprite->sectionTexture);
+	//Draw sprites
+	list<Sprite*>::iterator i = sprites.begin();
+	
+	while (i != sprites.end())
+	{
+		uint scale = App->win->GetScale();
+
+		SDL_Rect rect;
+		rect.x = (int)(camera.x) + (*i)->positionMap->x * scale;
+		rect.y = (int)(camera.y) + (*i)->positionMap->y * scale;
+
+
+		SDL_QueryTexture((*i)->texture, NULL, NULL, &rect.w, &rect.h);
+
+
+		rect.w *= scale;
+		rect.h *= scale;
+
+		SDL_Point* p = NULL;
+		SDL_Point pivot;
+
+		pivot.x = pivot.y = INT_MAX;
+
+		if (SDL_RenderCopyEx(renderer, (*i)->texture, NULL, &rect, 0, p, SDL_FLIP_NONE) != 0)
+		{
+			LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
+		}
+		++i;
+	}
+
+	return ret;
+
+}
+//NOTE: Constructors of struct Sprites
 Sprite::Sprite()
 {
-	
-	
+	LOG("Constructor empty Sprite");
 }
 
-Sprite::Sprite(int prova, int prova2)
+Sprite::Sprite(SDL_Texture* texture, SDL_Rect* positionMap, SDL_Rect* sectionTexture)
 {
-	this->prova = prova;
-	this->prova2 = prova2;
-	textura = NULL;
-	posisiomapa = NULL;
-	seccioTextura = NULL;
-
-
+	this->texture = texture;
+	this->positionMap = positionMap;
+	this->sectionTexture = sectionTexture;
 }
 Sprite::~Sprite()
 {
-	LOG("Erase list of Sprites");
+	LOG("Erase Sprites");
 
-	//it = resultats.begin();
-
-	// Remove all tilesets
-	//list<TileSet*>::iterator item;
-	//item = data.tilesets.begin();
-
-	//while (item != data.tilesets.end())
-	//{
-		//RELEASE(*item);
-		//item++;
-	//}
-	//data.tilesets.clear();
-}
-int Sprite::resta(int resta1, int resta2)
-{
-	//this->resta1 = resta1;
-	//this->resta2 = resta2;
-	int resultat;
-	resultat = resta1 - resta2;
-	return resultat;
 }
 

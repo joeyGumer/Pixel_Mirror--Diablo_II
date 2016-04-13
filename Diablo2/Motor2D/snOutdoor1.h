@@ -68,6 +68,9 @@ public:
 	//Sprite* building;
 
 	Sprite* hola;
+	SDL_Rect* pos;
+	SDL_Rect* sect;
+	SDL_Texture* imatge_vaca;
 };
 
 #endif

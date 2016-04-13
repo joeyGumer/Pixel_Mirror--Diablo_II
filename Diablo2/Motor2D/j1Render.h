@@ -13,45 +13,16 @@ using namespace std;
 #define INIT_POS_X 280
 #define INIT_POS_Y 0
 
-/*
 struct Sprite
 {
 	Sprite();
-	Sprite(SDL_Texture* _texture, SDL_Rect _position, SDL_Rect _section);
-	~Sprite();
-	
-public:
-	SDL_Texture*		texture;
-	SDL_Rect			position;
-	SDL_Rect			section;
-
-	bool				inList = false;
-
-	std::multimap<int, Sprite*>* list;
-	int					y_ref;
-	int					layer;
-};
-*/
-
-struct Sprite
-{
-	Sprite();
-	Sprite(int prova, int prova2);
+	Sprite(SDL_Texture* texture, SDL_Rect* positionMap, SDL_Rect* sectionTexture);
 	~Sprite();
 
-	int resta(int resta1, int resta2);
+	SDL_Texture* texture;
+	SDL_Rect* positionMap;
+	SDL_Rect* sectionTexture;
 
-	//int resta1;
-	//int resta2;
-	int prova;
-	int prova2;
-	bool inList = false;
-	SDL_Texture* textura;
-	iPoint* posisiomapa;
-	SDL_Rect* seccioTextura;
-
-	list<Sprite> resultats;
-	list<Sprite>::iterator it;
 };
 
 
@@ -95,15 +66,8 @@ public:
 	
 	//blit sprites
 	//NOTE: With list
-	//bool Blit2(Sprite* s);
-	//bool SortSprite(Sprite* s);
-	//NOTE: With multimap
-	//bool Blit(const SDL_Texture* texture, const SDL_Rect* onScreenPosition, const SDL_Rect* section = NULL, float speed = 1.0f, double angle = 0, int pivot_x = INT_MAX, int pivot_y = INT_MAX);
-	//bool IsSpriteDrawable(const Sprite*) const;
-	//void AddSprite(Sprite*);
-	//void AddSprite(SDL_Texture* texture, SDL_Rect* onScreenPosition, SDL_Rect* section = NULL);
-
-	bool posarllista(Sprite* sprite);
+	Sprite* AddSpriteToList(Sprite* sprite);
+	bool DrawSprite(Sprite* sprite);
 
 
 	// Set background color
@@ -117,9 +81,7 @@ public:
 	SDL_Color		background;
 
 	//Note: sprites list & multimap
-	//std::multimap<int, Sprite*> spritesMultiMap;
 	list<Sprite*>	sprites;
-	//list<int> results;
 
 	
 	

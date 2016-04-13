@@ -54,17 +54,35 @@ bool snOutdoor1::Start()
 
 		RELEASE_ARRAY(data);
 	}
-	int valor1 = 5;
-	int valor2 = 3;
-	hola = new Sprite(valor1,valor2);
+
+	imatge_vaca = App->tex->Load("textures/cow.png");
+	SDL_Rect puta = { 2, 2, 2, 2 };
+	pos = &puta;
+	SDL_Rect pene = { 2, 2, 2, 2 };
+	sect = &pene;
+
+	hola = new Sprite(imatge_vaca, pos, sect);
+	App->render->AddSpriteToList(hola);
+	//hola->posisiomapa.x;
+	//hola->textura;
+
+
+	//int valor1 = 5;
+	//int valor2 = 3;
+	//hola = new Sprite(valor1,valor2);
+
+	//int p1 = 96;
+	//int p2 = 120;
 	
 
 	//hola->resta1 = valor1;
 	//hola->resta2 = valor2;
-	int si = hola->resta(hola->prova, hola->prova2);
-	LOG("Valor %d", si);
-	hola->textura = App->tex->Load("textures/cow.png");
-	App->render->posarllista(hola);
+	//int si = hola->resta(hola->prova, hola->prova2);
+	//LOG("Valor %d", si);
+	//hola->textura = App->tex->Load("textures/cow.png");
+	//App->render->posarllista(hola);
+
+	//hola->seccioTextura = {0};
 
 	//hola->posisiomapa = {0,0};
 	//hola->posisiomapa->y = 100;
@@ -194,8 +212,14 @@ bool snOutdoor1::Update(float dt)
 
 	App->render->Blit(debug, p.x, p.y);
 	
+	
+	//int x, y;
 
-	 //App->render->Blit(hola->textura, hola->posisiomapa->x, hola->posisiomapa->y);
+
+	
+	App->render->DrawSprite(hola);
+	App->render->Blit(hola->texture, hola->positionMap->x, hola->positionMap->y);
+	//->render->PintarSprite(hola->textura,hola->posisiomapa,hola->seccioTextura);
 
 	/*
 
