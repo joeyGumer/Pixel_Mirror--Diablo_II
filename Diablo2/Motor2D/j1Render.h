@@ -84,7 +84,8 @@ public:
 	SDL_Color		background;
 
 	//Note: sprites list & multimap
-	list<Sprite*>*	sprites;
+	list<Sprite*>	sprites;
+	list<Sprite*>::iterator iterator;
 
 	
 	

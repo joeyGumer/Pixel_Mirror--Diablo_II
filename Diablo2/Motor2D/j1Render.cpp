@@ -4,6 +4,7 @@
 #include "j1App.h"
 #include "j1Window.h"
 #include "j1Render.h"
+#include "j1Map.h"
 
 #define VSYNC true
 
@@ -77,12 +78,12 @@ bool j1Render::PostUpdate()
 	//Sort sprites by z == y
 	sprites.sort([](const Sprite* a, const Sprite* b) { return a->yWorld < b->yWorld; });
 	*/
-
+	
 	// iterate list sprites call function sort and blit
-	list<Sprite*>::iterator i = sprites->begin();
-	for (i; i != sprites->end(); i++)
+	iterator = sprites.begin();
+	for (iterator; iterator != sprites.end(); iterator++)
 	{
-		DrawSprite(*i);
+		DrawSprite(*iterator);
 		//DrawSprite(i._Ptr->_Myval->texture, i._Ptr->_Myval->positionMap, i._Ptr->_Myval->sectionTexture);
 	}
 
@@ -103,12 +104,12 @@ bool j1Render::PostUpdate()
 bool j1Render::CleanUp()
 {
 	// erase list Sprites
-	list<Sprite*>::iterator i = sprites->begin();
-	while (i != sprites->end())
+	list<Sprite*>::iterator i = sprites.begin();
+	while (i != sprites.end())
 	{
 		++i;
 	}
-	sprites->clear();
+	sprites.clear();
 
 	LOG("Destroying SDL render");
 	SDL_DestroyRenderer(renderer);
@@ -309,25 +310,42 @@ bool j1Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, U
 bool j1Render::AddSpriteToList(Sprite* sprite)
 {
 	bool ret = true;
-
+	
 
 	if (sprite != NULL)
 	{
 		if (sprite->texture != NULL)
 		{
-			sprites->push_back(sprite);
+			
+			sprites.push_back(sprite);
 			LOG("Sprite put correct inside of list");
+			
+			
 		}
 		else
 		{
 			LOG("Error. No put list. Texture is empty");
 		}
+
+		
+	
+
+
+
 	}
 	else
 	{
 		LOG("Error, this sprite is not correct.");
 	}
+
 	return ret;
+
+
+	
+	
+
+
+
 }
 
 bool j1Render::DrawSprite(SDL_Texture* texture, SDL_Rect* positionMap, SDL_Rect* section, float speed, double angle, int pivot_x, int pivot_y)
