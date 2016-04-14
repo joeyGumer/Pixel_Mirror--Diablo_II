@@ -78,7 +78,7 @@ bool j1Render::PostUpdate()
 	iterator = sprites.begin();
 	for (iterator; iterator != sprites.end(); iterator++)
 	{
-
+		//insert sort function here
 		DrawSprite(*iterator);
 	}
 	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);

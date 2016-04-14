@@ -59,6 +59,8 @@ bool snOutdoor1::Start()
 
 
 	//NOTE: Test Sprite
+
+	/*
 	SDL_Rect position = { 2, 2, 0, 0 };
 	pos_cow = &position;
 	SDL_Rect section = { 0, 0, 96, 120 };
@@ -98,7 +100,7 @@ bool snOutdoor1::Start()
 
 	App->render->AddSpriteToList(enemy);
 
-	
+	*/
 	return true;
 }
 
@@ -193,7 +195,7 @@ bool snOutdoor1::Update(float dt)
 	p = App->map->GetTileBlit(p.x, p.y);
 
 	App->render->Blit(debug, p.x, p.y);
-	
+	/*
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT)
 	{
 		sprite_cow->positionMap.x = sprite_cow->positionMap.x -= floor(CAM_SPEED*dt);
@@ -213,7 +215,7 @@ bool snOutdoor1::Update(float dt)
 	{
 		sprite_cow->positionMap.y += floor(CAM_SPEED*dt);
 	}
-	
+	*/
 
 
 
