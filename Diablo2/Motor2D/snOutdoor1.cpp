@@ -55,31 +55,34 @@ bool snOutdoor1::Start()
 		RELEASE_ARRAY(data);
 	}
 
-	cow = App->tex->Load("textures/cow.png");
+
+
+	//cow = App->tex->Load("textures/cow.png");
 	SDL_Rect position = { 2, 2, 0, 0 };
 	pos_cow = &position;
 	SDL_Rect section = { 0, 0, 96, 120 };
 	sect_cow = &section;
+	
+	sprite_cow = new Sprite(NULL, sect_cow, pos_cow);
+	sprite_cow->texture = App->tex->Load("textures/cow.png");
+	sprite_cow->positionMap.x = 3;
+	sprite_cow->positionMap.y = 50;
+	sprite_cow->positionMap.w = 0;
+	sprite_cow->positionMap.h = 0;
 
+	sprite_cow->sectionTexture.x = 0;
+	sprite_cow->sectionTexture.y = 0;
+	sprite_cow->sectionTexture.w = 96;
+	sprite_cow->sectionTexture.h = 120;
 
-	sprite_cow = new Sprite(cow, pos_cow, sect_cow);
-
-	sprite_cow->positionMap->x = 3;
-	sprite_cow->positionMap->y = 50;
-	sprite_cow->positionMap->w = 0;
-	sprite_cow->positionMap->h = 0;
-
-	sprite_cow->sectionTexture->x = 0;
-	sprite_cow->sectionTexture->y = 0;
-	sprite_cow->sectionTexture->w = 96;
-	sprite_cow->sectionTexture->h = 120;
-
-
+	sprite_cow->vx = 3;
+	sprite_cow->vy = 3;
+	int* pet = &sprite_cow->vx;
+	int* pet2 = &sprite_cow->vy;
+	sprite_cow->prova(pet, pet2);
 	sprite_cow->y = 1;
 
-
-
-	App->render->AddSpriteToList(sprite_cow);
+	//App->render->AddSpriteToList(sprite_cow);
 
 	/*
 	building->texture = App->tex->Load("textures/building.png");
@@ -142,12 +145,11 @@ bool snOutdoor1::Update(float dt)
 
 	//Map
 	App->map->Draw();
-
+	
 	//Player
 	
 	//App->game->player->Draw();
 	
-
 	//Camera
 	//Free movement only avaliable on debug mode
 	
@@ -184,43 +186,12 @@ bool snOutdoor1::Update(float dt)
 
 	App->render->Blit(debug, p.x, p.y);
 	
+	App->render->AddSpriteToList(sprite_cow);
 	
-	//int x, y;
-
-
-	
-	//App->render->DrawSprite(hola);
-	//App->render->Blit(sprite_cow->texture, sprite_cow->positionMap->x, sprite_cow->positionMap->y);
-
-	//App->render->Blit(hola->texture, hola->positionMap->x, hola->positionMap->y);
 
 
 
-	//->render->PintarSprite(hola->textura,hola->posisiomapa,hola->seccioTextura);
 
-	/*
-	
-	if (App->input->GetKey(SDL_SCANCODE_H) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
-	{
-		hola->positionMap->x += SPEED * dt;
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
-	{
-		hola->positionMap->x -= SPEED * dt;
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_T) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
-	{
-		hola->positionMap->y -= SPEED * dt;
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_G) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN)
-	{
-		hola->positionMap->y += SPEED * dt;
-	}
-	
-	*/
 
 	/*const vector<iPoint>* path = App->pathfinding->GetLastPath();
 
@@ -266,30 +237,4 @@ bool snOutdoor1::UnLoad()
 	CleanUp();
 	return true;
 }
-/*problem on cow*/
-/*
-void snOutdoor1::PlayerInput(float dt)
-{
 
-	if (App->input->GetKey(SDL_SCANCODE_H) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
-	{
-		cow->position.x += SPEED * dt;
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
-	{
-		cow->position.x -= SPEED * dt;
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_T) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
-	{
-		cow->position.y -= SPEED * dt;
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_G) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN)
-	{
-		cow->position.y += SPEED * dt;
-	}
-
-}
-*/

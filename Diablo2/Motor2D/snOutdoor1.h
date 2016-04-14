@@ -70,7 +70,7 @@ public:
 	Sprite* sprite_cow;
 	SDL_Rect* pos_cow;
 	SDL_Rect* sect_cow;
-	SDL_Texture* cow;
+	
 };
 
 #endif

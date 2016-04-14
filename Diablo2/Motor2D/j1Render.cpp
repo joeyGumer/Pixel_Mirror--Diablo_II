@@ -74,6 +74,17 @@ bool j1Render::PreUpdate()
 
 bool j1Render::PostUpdate()
 {
+
+	int r = 0;
+	iterator = sprites.begin();
+	for (iterator; iterator != sprites.end(); iterator++)
+	{
+		r = suma(iterator._Ptr->_Myval->vx, iterator._Ptr->_Myval->vy);
+
+
+	}
+	LOG("Resultat: %d", r);
+
 	/*
 	//Sort sprites by z == y
 	sprites.sort([](const Sprite* a, const Sprite* b) { return a->yWorld < b->yWorld; });
@@ -83,8 +94,9 @@ bool j1Render::PostUpdate()
 	iterator = sprites.begin();
 	for (iterator; iterator != sprites.end(); iterator++)
 	{
+		
 		DrawSprite(*iterator);
-		//DrawSprite(i._Ptr->_Myval->texture, i._Ptr->_Myval->positionMap, i._Ptr->_Myval->sectionTexture);
+		//DrawSprite((*iterator)->texture, (*iterator)->positionMap, (*iterator)->sectionTexture);
 	}
 
 	/*while (i != sprites.end())
@@ -304,9 +316,8 @@ bool j1Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, U
 
 	return ret;
 }
+
 //NOTE: Sprite
-
-
 bool j1Render::AddSpriteToList(Sprite* sprite)
 {
 	bool ret = true;
@@ -319,36 +330,20 @@ bool j1Render::AddSpriteToList(Sprite* sprite)
 			
 			sprites.push_back(sprite);
 			LOG("Sprite put correct inside of list");
-			
-			
 		}
 		else
 		{
 			LOG("Error. No put list. Texture is empty");
 		}
-
-		
-	
-
-
-
 	}
 	else
 	{
 		LOG("Error, this sprite is not correct.");
 	}
-
 	return ret;
-
-
-	
-	
-
-
-
 }
 
-bool j1Render::DrawSprite(SDL_Texture* texture, SDL_Rect* positionMap, SDL_Rect* section, float speed, double angle, int pivot_x, int pivot_y)
+bool j1Render::DrawSprite(SDL_Texture* texture, SDL_Rect& positionMap, SDL_Rect& section, float speed, double angle, int pivot_x, int pivot_y)
 {
 	bool ret = true;
 
@@ -363,17 +358,17 @@ bool j1Render::DrawSprite(SDL_Texture* texture, SDL_Rect* positionMap, SDL_Rect*
 	SDL_Rect rect;
 
 	//NOTE: Put condition if use camera culling. 
-	rect.x = (int)positionMap->x * scale;
-	rect.y = (int)positionMap->y * scale;
+	rect.x = (int)positionMap.x * scale;
+	rect.y = (int)positionMap.y * scale;
 
-	rect.w = positionMap->w;
-	rect.h = positionMap->h;
-	if (positionMap->w == 0 && positionMap->h == 0)
+	rect.w = positionMap.w;
+	rect.h = positionMap.h;
+	if (positionMap.w == 0 && positionMap.h == 0)
 	{
-		if (section != NULL && (section->w != 0 && section->h != 0))
+		if (&section != NULL && (section.w != 0 && section.h != 0))
 		{
-			rect.w = section->w;
-			rect.h = section->h;
+			rect.w = section.w;
+			rect.h = section.h;
 		}
 		else
 		{
@@ -382,8 +377,8 @@ bool j1Render::DrawSprite(SDL_Texture* texture, SDL_Rect* positionMap, SDL_Rect*
 	}
 	else
 	{
-		rect.w = positionMap->w;
-		rect.h = positionMap->h;
+		rect.w = positionMap.w;
+		rect.h = positionMap.h;
 	}
 
 	rect.w *= scale;
@@ -399,9 +394,9 @@ bool j1Render::DrawSprite(SDL_Texture* texture, SDL_Rect* positionMap, SDL_Rect*
 		p = &pivot;
 	}
 
-	if (section != NULL && section->w != 0 && section->h != 0)
+	if (&section != NULL && section.w != 0 && section.h != 0)
 	{ 
-		if (SDL_RenderCopyEx(renderer, (SDL_Texture*)texture, section, &rect, angle, p, SDL_FLIP_NONE) != 0)
+		if (SDL_RenderCopyEx(renderer, (SDL_Texture*)texture, &section, &rect, angle, p, SDL_FLIP_NONE) != 0)
 		{
 			LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
 			ret = false;
@@ -433,27 +428,27 @@ bool j1Render::DrawSprite(Sprite* sprite, float speed, double angle, int pivot_x
 	SDL_Rect rect;
 
 	//NOTE: Put condition if use camera culling. 
-	rect.x = (int)sprite->positionMap->x * scale;
-	rect.y = (int)sprite->positionMap->y * scale;
+	rect.x = (int)sprite->positionMap.x * scale;
+	rect.y = (int)sprite->positionMap.y * scale;
 
-	rect.w = sprite->positionMap->w;
-	rect.h = sprite->positionMap->h;
-	if (sprite->positionMap->w == 0 && sprite->positionMap->h == 0)
+	rect.w = sprite->positionMap.w;
+	rect.h = sprite->positionMap.h;
+	if (sprite->positionMap.w == 0 && sprite->positionMap.h == 0)
 	{
-		if (sprite->sectionTexture != NULL && (sprite->sectionTexture->w != 0 && sprite->sectionTexture->h != 0))
+		if (&sprite->sectionTexture != NULL && (sprite->sectionTexture.w != 0 && sprite->sectionTexture.h != 0))
 		{
-			rect.w = sprite->sectionTexture->w;
-			rect.h = sprite->sectionTexture->h;
+			rect.w = sprite->sectionTexture.w;
+			rect.h = sprite->sectionTexture.h;
 		}
 		else
 		{
-			SDL_QueryTexture(sprite->texture, NULL, NULL, &rect.w, &rect.h);
+			SDL_QueryTexture((SDL_Texture*)(sprite->texture), NULL, NULL, &rect.w, &rect.h);
 		}
 	}
 	else
 	{
-		rect.w = sprite->positionMap->w;
-		rect.h = sprite->positionMap->h;
+		rect.w = sprite->positionMap.w;
+		rect.h = sprite->positionMap.h;
 	}
 
 	rect.w *= scale;
@@ -469,16 +464,16 @@ bool j1Render::DrawSprite(Sprite* sprite, float speed, double angle, int pivot_x
 		p = &pivot;
 	}
 
-	if (sprite->sectionTexture != NULL && sprite->sectionTexture->w != 0 && sprite->sectionTexture->h != 0)
+	if (&sprite->sectionTexture != NULL && sprite->sectionTexture.w != 0 && sprite->sectionTexture.h != 0)
 	{
-		if (SDL_RenderCopyEx(renderer, sprite->texture, sprite->sectionTexture, &rect, angle, p, SDL_FLIP_NONE) != 0)
+		if (SDL_RenderCopyEx(renderer, (SDL_Texture*)sprite->texture, &sprite->sectionTexture, &rect, angle, p, SDL_FLIP_NONE) != 0)
 		{
 			LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
 			ret = false;
 		}
 	}
 	else
-		if (SDL_RenderCopyEx(renderer, sprite->texture, NULL, &rect, angle, p, SDL_FLIP_NONE) != 0)
+		if (SDL_RenderCopyEx(renderer, (SDL_Texture*)sprite->texture, NULL, &rect, angle, p, SDL_FLIP_NONE) != 0)
 		{
 			LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
 			ret = false;
@@ -496,13 +491,32 @@ Sprite::Sprite()
 
 Sprite::Sprite(SDL_Texture* texture, SDL_Rect* positionMap, SDL_Rect* sectionTexture)
 {
-	this->texture = texture;
-	this->positionMap = positionMap;
-	this->sectionTexture = sectionTexture;
+	texture = this->texture;
+	positionMap = &this->positionMap;
+	sectionTexture = &this->sectionTexture;
+	
+
 }
 Sprite::~Sprite()
 {
-	LOG("Erase Sprites");
+	LOG("Destructor");
 
+}
+bool Sprite::prova(int* px, int* py)
+{
+	bool ret = true;
+	px = &vx;
+	py = &vy;
+	LOG("Aqui els punters apunten a les variables vx i vy de la struct sprite amb &");
+	return ret;
+
+}
+int j1Render::suma(int w, int t)
+{
+	int resultat;
+
+	resultat = w + t;
+	LOG("Estas dins de la function suma, la suma es: %d", resultat);
+	return resultat;
 }
 
