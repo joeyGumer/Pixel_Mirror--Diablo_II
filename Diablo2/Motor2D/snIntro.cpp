@@ -45,7 +45,6 @@ bool snIntro::Start()
 	exit_button = App->gui->AddGuiButton({ 0, 100 }, { 0, 0, 270, 35 }, { 0, 0, 270, 35 }, { 0, 36, 270, 35 }, "Exit Diablo II", NULL, this);
 	intro_gui.push_back(exit_button);
 
-	play_button->AddChild(exit_button);
 	//-----------
 	
 

@@ -197,6 +197,7 @@ SDL_Texture* j1Gui::GetAtlas() const
 GuiImage* j1Gui::AddGuiImage(iPoint p, SDL_Rect r, GuiElement* par, j1Module* list)
 {
 	GuiImage* image = new GuiImage(p, r, par, list);
+	if (image->parent != NULL)image->parent->AddChild(image);
 	gui_elements.push_back(image);
 	return image;
 }
@@ -212,7 +213,7 @@ GuiLabel* j1Gui::AddGuiLabel(p2SString t, _TTF_Font* f, iPoint p, GuiElement* pa
 		label = new GuiLabel(t, App->font->default, p, par, list);
 
 	gui_elements.push_back(label);
-
+	if (label->parent != NULL)label->parent->AddChild(label);
 	return label;
 }
 
@@ -220,6 +221,7 @@ GuiInputBox* j1Gui::AddGuiInputBox(p2SString t, _TTF_Font* f, iPoint p, int widt
 {
 	GuiInputBox* input = new GuiInputBox(t, f, p, width, r, offset, par, list);
 	gui_elements.push_back(input);
+	if (input->parent != NULL)input->parent->AddChild(input);
 	return input;
 }
 
@@ -227,6 +229,7 @@ GuiButton* j1Gui::AddGuiButton(iPoint p, SDL_Rect idle_r1, SDL_Rect hover_r1, SD
 {
 	GuiButton* button = new GuiButton(p, idle_r1, hover_r1, click_r1, t, f, list, parent);
 	gui_elements.push_back(button);
+	if (button->parent != NULL)button->parent->AddChild(button);
 	return button;
 
 }
@@ -250,6 +253,7 @@ GuiSlider* j1Gui::AddGuiSlider(iPoint p, SDL_Rect tex_1, SDL_Rect tex_2, int wid
 {
 	GuiSlider* slider = new GuiSlider(p, tex_1, tex_2, width, thumb_h, offset, value, par, list);
 	gui_elements.push_back(slider);
+	if (par != NULL)par->AddChild(slider);
 	return slider;
 }
 // class Gui ---------------------------------------------------*/
