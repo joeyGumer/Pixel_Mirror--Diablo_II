@@ -59,8 +59,6 @@ bool j1Player::Start()
 	MP_max = MP_current = 100;
 	ST_max = ST_current = 100;
 	
-
-
 	return true;
 }
 
@@ -86,13 +84,32 @@ bool j1Player::Update(float dt)
 
 		App->render->CenterCamera(p_position.x, p_position.y);
 
+		if (current_action == WALKING)
+		{
+			if (ST_current > 0)
+			{
+				ST_current--;
+				PlayerEvent(ST_DOWN);
+			}
+		}
+		else
+		{
+			if (ST_current == ST_max)
+			{
+				ST_current = ST_max;
+			}	
+			else
+			{
+				ST_current++;
+				PlayerEvent(ST_UP);
+			}
+		}
 	return true;
 }
 
 //PostUpdate
 bool j1Player::PostUpdate()
 {
-	
 	return true;
 }
 
@@ -564,7 +581,7 @@ ACTION_STATE j1Player::UpdateAction()
 			if (current_input == INPUT_ATTACK)
 			{
 				current_action = ATTACKING;
-			}
+			}			
 		}
 		break;
 
@@ -672,6 +689,10 @@ void j1Player::StateMachine()
 	case WALKING:
 		p_sprite = p_walk;
 		current_animation_set = walk;
+		/*
+		--ST_current;
+		PlayerEvent(ST_DOWN);
+		*/
 		break;
 	case RUNNING:
 		break;
