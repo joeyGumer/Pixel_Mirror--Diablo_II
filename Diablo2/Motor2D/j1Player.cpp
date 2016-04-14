@@ -284,14 +284,20 @@ bool j1Player::IsTargetReached()
 	if (enemy)
 	{
 		//Don't fucking know why but it doesn't give a fuck if it's null
-		if (IsInRange(enemy) == true);
+		if (IsInRange(enemy))
 		{
 			movement = false;
 			//attacking = false;
 			current_input = INPUT_ATTACK;
 
 			return true;
+
 		}
+		else
+		{
+			int ret = 0;
+		}
+		
 		
 	}
 
@@ -321,15 +327,31 @@ void j1Player::SetTarget(iPoint target)
 
 void j1Player::GetNewTarget()
 {
-	if ((uint)p_current_node + 1< path.size())
+	if (enemy)
 	{
-		p_current_node++;
-		SetTarget(App->map->GetTileCenter(path[p_current_node].x, path[p_current_node].y));
+		if (!IsInRange(enemy) && (uint)p_current_node + 1< path.size())
+		{
+			p_current_node++;
+			SetTarget(App->map->GetTileCenter(path[p_current_node].x, path[p_current_node].y));
+		}
+		else
+		{
+			current_input = INPUT_STOP_MOVE;
+			movement = false;
+		}
 	}
 	else
 	{
-		current_input = INPUT_STOP_MOVE;
-		movement = false;
+		if ((uint)p_current_node + 1 < path.size())
+		{
+			p_current_node++;
+			SetTarget(App->map->GetTileCenter(path[p_current_node].x, path[p_current_node].y));
+		}
+		else
+		{
+			current_input = INPUT_STOP_MOVE;
+			movement = false;
+		}
 	}
 }
 
@@ -504,7 +526,7 @@ void j1Player::HandleInput()
 		iPoint target;
 		enemy = App->em->EntityOnMouse();
 
-		if (App->em->EntityOnMouse())
+		if (enemy)
 		{
 			attacking = true;
 		}
@@ -554,7 +576,10 @@ ACTION_STATE j1Player::UpdateAction()
 
 		case ATTACKING:
 		{
-			
+			 if (current_animation->Finished())
+			{
+				 current_action = IDLE;
+			}
 		}
 		break;
 		}
