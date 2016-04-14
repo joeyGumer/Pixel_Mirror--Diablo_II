@@ -57,7 +57,8 @@ bool snOutdoor1::Start()
 
 
 
-	//cow = App->tex->Load("textures/cow.png");
+
+	//NOTE: Test Sprite
 	SDL_Rect position = { 2, 2, 0, 0 };
 	pos_cow = &position;
 	SDL_Rect section = { 0, 0, 96, 120 };
@@ -65,32 +66,18 @@ bool snOutdoor1::Start()
 	
 	sprite_cow = new Sprite(NULL, sect_cow, pos_cow);
 	sprite_cow->texture = App->tex->Load("textures/cow.png");
-	sprite_cow->positionMap.x = 3;
-	sprite_cow->positionMap.y = 50;
+	sprite_cow->positionMap.x = -100;
+	sprite_cow->positionMap.y = 100;
 	sprite_cow->positionMap.w = 0;
 	sprite_cow->positionMap.h = 0;
 
 	sprite_cow->sectionTexture.x = 0;
 	sprite_cow->sectionTexture.y = 0;
-	sprite_cow->sectionTexture.w = 96;
-	sprite_cow->sectionTexture.h = 120;
+	sprite_cow->sectionTexture.w = 0;
+	sprite_cow->sectionTexture.h = 0;
 
-	sprite_cow->vx = 3;
-	sprite_cow->vy = 3;
-	int* pet = &sprite_cow->vx;
-	int* pet2 = &sprite_cow->vy;
-	sprite_cow->prova(pet, pet2);
-	sprite_cow->y = 1;
-
-	//App->render->AddSpriteToList(sprite_cow);
-
-	/*
-	building->texture = App->tex->Load("textures/building.png");
-	building->position.x = 30;
-	building->position.y = 300;
-	cow->section.x = 131;
-	cow->section.y = 110;
-	*/
+	App->render->AddSpriteToList(sprite_cow);
+	
 	return true;
 }
 
@@ -186,7 +173,25 @@ bool snOutdoor1::Update(float dt)
 
 	App->render->Blit(debug, p.x, p.y);
 	
-	App->render->AddSpriteToList(sprite_cow);
+	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT)
+	{
+		sprite_cow->positionMap.x = sprite_cow->positionMap.x -= floor(CAM_SPEED*dt);
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_H) == KEY_REPEAT)
+	{
+		sprite_cow->positionMap.x += floor(CAM_SPEED*dt);
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_T) == KEY_REPEAT)
+	{
+		sprite_cow->positionMap.y -= floor(CAM_SPEED*dt);
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_G) == KEY_REPEAT)
+	{
+		sprite_cow->positionMap.y += floor(CAM_SPEED*dt);
+	}
 	
 
 

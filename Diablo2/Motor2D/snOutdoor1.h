@@ -3,19 +3,19 @@
 
 #include "j1Scene.h"
 #include "p2Point.h"
-#include "j1Render.h"
 #include <list>
 
 using namespace std;
 
 
 struct Sprite;
+struct SDL_Texture;
+struct SDL_Rect;
 class GuiImage;
 class GuiElement;
 class GuiButton;
-class SDL_Texture;
-//NOTE: Cow Sprite Speed
-#define SPEED 100
+
+
 
 class snOutdoor1 : public j1Scene
 {
@@ -61,12 +61,8 @@ public:
 
 	list<GuiElement*> outdoor_gui;
 
-	//NOTE: Test Sprite
-	//player
-	//Sprite* cow;
-
-	//Sprite* building;
-
+	
+	//NOTE: Test Sprite 
 	Sprite* sprite_cow;
 	SDL_Rect* pos_cow;
 	SDL_Rect* sect_cow;

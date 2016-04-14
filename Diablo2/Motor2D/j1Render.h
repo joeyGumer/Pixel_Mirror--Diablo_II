@@ -5,7 +5,6 @@
 #include "p2Point.h"
 #include "j1Module.h"
 #include <list>
-#include <map>
 
 using namespace std;
 //NOTE : put this to the config file
@@ -19,16 +18,12 @@ struct Sprite
 	Sprite(SDL_Texture* texture, SDL_Rect* positionMap, SDL_Rect* sectionTexture);
 	~Sprite();
 
-	bool prova(int* py, int* px);
-
 	SDL_Texture*	texture;
 	SDL_Rect		positionMap;
 	SDL_Rect		sectionTexture;
 
 	int				y;
 
-	int				vx;
-	int				vy;
 
 };
 
@@ -74,11 +69,7 @@ public:
 	//blit sprites
 	//NOTE: With list
 	bool AddSpriteToList(Sprite* sprite);
-	bool DrawSprite(SDL_Texture* texture, SDL_Rect& positionMap, SDL_Rect& section, float speed = 1.0f, double angle = 0, int pivot_x = INT_MAX, int pivot_y = INT_MAX);
 	bool DrawSprite(Sprite* sprite, float speed = 1.0f, double angle = 0, int pivot_x = INT_MAX, int pivot_y = INT_MAX);
-	
-	int suma(int w, int t);
-
 	// Set background color
 	void SetBackgroundColor(SDL_Color color);
 
