@@ -376,8 +376,6 @@ bool GuiElement::CheckEvent(GuiElement* hover, GuiElement* focus, bool& interact
 void GuiElement::AddChild(GuiElement* child)
 {
 	childs.push_back(child);
-	if (child->parent != this)
-		child->parent = this;
 }
 
 void GuiElement::RemoveChild(GuiElement* child)
@@ -392,7 +390,7 @@ void GuiElement::Activate()
 	active = true;
 	for (list<GuiElement*>::iterator item = childs.begin(); item != childs.end(); item++)
 	{
-		item._Ptr->_Myval->active = true;
+		item._Ptr->_Myval->Activate();
 	}
 }
 
@@ -420,7 +418,7 @@ void GuiElement::Desactivate()
 	active = false;
 	for (list<GuiElement*>::iterator item = childs.begin(); item != childs.end(); item++)
 	{
-		item._Ptr->_Myval->active = false;
+		item._Ptr->_Myval->Desactivate();
 	}
 }
 

@@ -10,6 +10,8 @@
 #include "j1Gui.h"
 #include "hudBelt.h"
 #include "j1Pathfinding.h"
+#include "j1EntityManager.h"
+#include "Entities.h"
 #include "SDL/include/SDL.h"
 
 j1Player::j1Player()
@@ -37,6 +39,7 @@ bool j1Player::Start()
 	//Sprites
 	p_sprite = p_idle = App->tex->Load("textures/vamp_idle.png");
 	p_walk = App->tex->Load("textures/vamp_run.png");
+	p_attack = App->tex->Load("textures/vamp_attack.png");
 	SetAnimations();
 
 	current_action = IDLE;
@@ -49,6 +52,7 @@ bool j1Player::Start()
 	p_position = { 0, 0 };
 	p_pivot = { (PLAYER_SPRITE_W / 2), (PLAYER_SPRITE_H - PLAYER_PIVOT_OFFSET) };
 	movement = false;
+	attacking = false;
 
 	//initial stats
 	HP_max = HP_current = 100;
@@ -75,6 +79,8 @@ bool j1Player::Update(float dt)
 		{
 			HandleInput();
 		}
+
+		//Test for attack
 
 		UpdateMovement(dt);
 
@@ -123,9 +129,12 @@ void j1Player::DrawDebug() const
 	fPoint p_pos = GetPivotPosition();
 
 	App->render->Blit(p_debug, t_pos.x, t_pos.y);
-	App->render->DrawQuad(GetPlayerRect(), 255, 0, 0, 1000, false);
+	//App->render->DrawQuad(GetPlayerRect(), 255, 0, 0, 1000, false);
 	//App->render->DrawCircle(p_pos.x, p_pos.y, 5, 255, 0, 0, 1000);
-	App->render->DrawQuad({ p_pos.x, p_pos.y, 3, 3 }, 255, 0, 0);
+	App->render->DrawQuad({ p_pos.x, p_pos.y, 3, 3 }, 255, 0, 0, 255, false);
+
+	
+	App->render->DrawCircle(p_pos.x, p_pos.y, attack_range, 255, 0, 0);
 
 	if (movement)
 	{
@@ -271,15 +280,39 @@ bool j1Player::IsTargetReached()
 	vel.x = p_target.x - p_position.x;
 	vel.y = p_target.y - p_position.y;
 
-	if (vel.GetModule() <= target_radius)
+	//NOTE: provisional attack state
+	if (enemy)
 	{
-		if (!path_on)
+		//Don't fucking know why but it doesn't give a fuck if it's null
+		if (IsInRange(enemy))
 		{
-			current_input = INPUT_STOP_MOVE;
 			movement = false;
-		}
+			//attacking = false;
+			current_input = INPUT_ATTACK;
 
-		return true;
+			return true;
+
+		}
+		else
+		{
+			int ret = 0;
+		}
+		
+		
+	}
+
+	else
+	{
+		if (vel.GetModule() <= target_radius)
+		{
+			if (!path_on)
+			{
+				current_input = INPUT_STOP_MOVE;
+				movement = false;
+			}
+
+			return true;
+		}
 	}
 
 	return false;
@@ -294,15 +327,31 @@ void j1Player::SetTarget(iPoint target)
 
 void j1Player::GetNewTarget()
 {
-	if ((uint)p_current_node + 1< path.size())
+	if (enemy)
 	{
-		p_current_node++;
-		SetTarget(App->map->GetTileCenter(path[p_current_node].x, path[p_current_node].y));
+		if (!IsInRange(enemy) && (uint)p_current_node + 1< path.size())
+		{
+			p_current_node++;
+			SetTarget(App->map->GetTileCenter(path[p_current_node].x, path[p_current_node].y));
+		}
+		else
+		{
+			current_input = INPUT_STOP_MOVE;
+			movement = false;
+		}
 	}
 	else
 	{
-		current_input = INPUT_STOP_MOVE;
-		movement = false;
+		if ((uint)p_current_node + 1 < path.size())
+		{
+			p_current_node++;
+			SetTarget(App->map->GetTileCenter(path[p_current_node].x, path[p_current_node].y));
+		}
+		else
+		{
+			current_input = INPUT_STOP_MOVE;
+			movement = false;
+		}
 	}
 }
 
@@ -359,6 +408,30 @@ void j1Player::SetNewPath(int x, int y)
 
 }
 //---------------------------
+
+/*
+//---------Attack
+*/
+
+bool j1Player::IsInRange(Entity* enemy)
+{
+	iPoint target_enemy = enemy->GetPivotPosition();
+
+	fPoint dist;
+
+	dist.x = target_enemy.x - p_position.x;
+	dist.y = target_enemy.y - p_position.y;
+
+	float ret = dist.GetModule();
+	ret = ret;
+
+	if (attack_range > ret)
+	{
+		return true;
+	}
+
+	return false;
+}
 
 /*
 //--------Input
@@ -450,7 +523,15 @@ void j1Player::HandleInput()
 	//Linear Movement activation
 	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 	{
-		iPoint target = App->input->GetMouseWorldPosition();
+		iPoint target;
+		enemy = App->em->EntityOnMouse();
+
+		if (enemy)
+		{
+			attacking = true;
+		}
+		
+		target = App->input->GetMouseWorldPosition();
 		target = App->map->WorldToMap(target.x, target.y);
 		SetMovement(target.x, target.y);
 
@@ -479,6 +560,11 @@ ACTION_STATE j1Player::UpdateAction()
 			{
 				current_action = IDLE;
 			}
+
+			if (current_input == INPUT_ATTACK)
+			{
+				current_action = ATTACKING;
+			}
 		}
 		break;
 
@@ -490,7 +576,10 @@ ACTION_STATE j1Player::UpdateAction()
 
 		case ATTACKING:
 		{
-
+			 if (current_animation->Finished())
+			{
+				 current_action = IDLE;
+			}
 		}
 		break;
 		}
@@ -512,21 +601,32 @@ void j1Player::SetAnimations()
 	//Idle
 	for (int i = 0; i < 8; i++)
 	{
-		Animation tmp;
-		tmp.SetFrames(0, (PLAYER_SPRITE_H + SPRITE_MARGIN) * i, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, SPRITE_MARGIN);
-		tmp.speed = 0.2f;
+		Animation id;
+		id.SetFrames(0, (PLAYER_SPRITE_H + SPRITE_MARGIN) * i, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, SPRITE_MARGIN);
+		id.speed = 0.2f;
 
-		idle.push_back(tmp);
+		idle.push_back(id);
 	}
 
 	//Walk
 	for (int i = 0; i < 8; i++)
 	{
-		Animation tmp2;
-		tmp2.SetFrames(0, (PLAYER_SPRITE_H + SPRITE_MARGIN) * i, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 8, SPRITE_MARGIN);
-		tmp2.speed = 0.2f;
+		Animation wlk;
+		wlk.SetFrames(0, (PLAYER_SPRITE_H + SPRITE_MARGIN) * i, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 8, SPRITE_MARGIN);
+		wlk.speed = 0.2f;
 
-		walk.push_back(tmp2);
+		walk.push_back(wlk);
+	}
+
+	//Attack
+	for (int i = 0; i < 8; i++)
+	{
+		Animation atk;
+		atk.SetFrames(0, (92 + SPRITE_MARGIN) * i, 119, 92, 20, SPRITE_MARGIN);
+		atk.speed = 0.3f;
+		atk.loop = false;
+
+		attack.push_back(atk);
 	}
 }
 
@@ -576,6 +676,8 @@ void j1Player::StateMachine()
 	case RUNNING:
 		break;
 	case ATTACKING:
+		p_sprite = p_attack;
+		current_animation_set = attack;
 		break;
 	}
 }

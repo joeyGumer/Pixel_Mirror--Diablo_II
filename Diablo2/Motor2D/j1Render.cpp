@@ -148,6 +148,16 @@ iPoint j1Render::ScreenToWorld(int x, int y) const
 	return ret;
 }
 
+iPoint j1Render::WorldToScreen(int x, int y) const
+{
+	iPoint ret;
+	int scale = App->win->GetScale();
+
+	ret.x = (x + camera.x / scale);
+	ret.y = (y - camera.x / scale);
+
+	return ret;
+}
 
 void j1Render::CenterCamera(int x, int y)
 {
@@ -269,22 +279,31 @@ bool j1Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, U
 	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 	SDL_SetRenderDrawColor(renderer, r, g, b, a);
 
+	
 	int result = -1;
 	SDL_Point points[360];
 
 	float factor = (float)M_PI / 180.0f;
 
+	if (use_camera)
+	{
+		x *= scale;
+		y *= scale;
+		x += camera.x;
+		y += camera.y;
+	}
+
 	for(uint i = 0; i < 360; ++i)
 	{
-		points[i].x = (int)(x + radius * cos(i * factor));
-		points[i].y = (int)(y + radius * sin(i * factor));
+		points[i].x = (int)(x + radius * cos(i * factor) * scale);
+		points[i].y = (int)(y + radius * sin(i * factor) * scale);
 	}
 
 	result = SDL_RenderDrawPoints(renderer, points, 360);
 
 	if(result != 0)
 	{
-		LOG("Cannot draw quad to screen. SDL_RenderFillRect error: %s", SDL_GetError());
+		LOG("Cannot draw circle to screen. SDL_RenderFillRect error: %s", SDL_GetError());
 		ret = false;
 	}
 
