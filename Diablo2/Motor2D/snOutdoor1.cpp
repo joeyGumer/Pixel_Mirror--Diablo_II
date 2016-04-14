@@ -75,6 +75,8 @@ bool snOutdoor1::Start()
 	sprite_cow->sectionTexture->h = 120;
 
 
+	sprite_cow->y = 1;
+
 
 
 	App->render->AddSpriteToList(sprite_cow);
@@ -188,7 +190,7 @@ bool snOutdoor1::Update(float dt)
 
 	
 	//App->render->DrawSprite(hola);
-	App->render->Blit(sprite_cow->texture, sprite_cow->positionMap->x, sprite_cow->positionMap->y);
+	//App->render->Blit(sprite_cow->texture, sprite_cow->positionMap->x, sprite_cow->positionMap->y);
 
 	//App->render->Blit(hola->texture, hola->positionMap->x, hola->positionMap->y);
 

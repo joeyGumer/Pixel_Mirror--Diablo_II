@@ -70,6 +70,7 @@ public:
 	//NOTE: With list
 	bool AddSpriteToList(Sprite* sprite);
 	bool DrawSprite(SDL_Texture* texture, SDL_Rect* positionMap, SDL_Rect* section = NULL, float speed = 1.0f, double angle = 0, int pivot_x = INT_MAX, int pivot_y = INT_MAX);
+	bool DrawSprite(Sprite* sprite, float speed = 1.0f, double angle = 0, int pivot_x = INT_MAX, int pivot_y = INT_MAX);
 
 
 	// Set background color
@@ -83,7 +84,7 @@ public:
 	SDL_Color		background;
 
 	//Note: sprites list & multimap
-	list<Sprite*>	sprites;
+	list<Sprite*>*	sprites;
 
 	
 	
