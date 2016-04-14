@@ -77,6 +77,27 @@ bool snOutdoor1::Start()
 	sprite_cow->sectionTexture.h = 0;
 
 	App->render->AddSpriteToList(sprite_cow);
+
+
+	SDL_Rect positione = { 2, 2, 0, 0 };
+	pos_enemy = &positione;
+	SDL_Rect sectione = { 0, 0, 96, 120 };
+	sect_enemy = &sectione;
+
+	enemy = new Sprite(NULL, sect_enemy, pos_enemy);
+	enemy->texture = App->tex->Load("textures/enemy1.png");
+	enemy->positionMap.x = -100;
+	enemy->positionMap.y = 150;
+	enemy->positionMap.w = 0;
+	enemy->positionMap.h = 0;
+
+	enemy->sectionTexture.x = 0;
+	enemy->sectionTexture.y = 0;
+	enemy->sectionTexture.w = 0;
+	enemy->sectionTexture.h = 0;
+
+	App->render->AddSpriteToList(enemy);
+
 	
 	return true;
 }
