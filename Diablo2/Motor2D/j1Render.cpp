@@ -74,10 +74,11 @@ bool j1Render::PreUpdate()
 
 bool j1Render::PostUpdate()
 {
-	// iterate list sprites call function sort and blit
+	// NOTE:iterate list sprites call function sort and blit
 	iterator = sprites.begin();
 	for (iterator; iterator != sprites.end(); iterator++)
 	{
+
 		DrawSprite(*iterator);
 	}
 	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
