@@ -67,10 +67,10 @@ public:
 
 	//Sprite* building;
 
-	Sprite* hola;
-	SDL_Rect* pos;
-	SDL_Rect* sect;
-	SDL_Texture* imatge_vaca;
+	Sprite* sprite_cow;
+	SDL_Rect* pos_cow;
+	SDL_Rect* sect_cow;
+	SDL_Texture* cow;
 };
 
 #endif

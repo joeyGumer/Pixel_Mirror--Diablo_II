@@ -55,68 +55,37 @@ bool snOutdoor1::Start()
 		RELEASE_ARRAY(data);
 	}
 
-	imatge_vaca = App->tex->Load("textures/cow.png");
-	SDL_Rect puta = { 0, 0, 0, 0 };
-	pos = &puta;
-	SDL_Rect pene = { 96, 120, 0, 0 };
-	sect = &pene;
+	cow = App->tex->Load("textures/cow.png");
+	SDL_Rect position = { 2, 2, 0, 0 };
+	pos_cow = &position;
+	SDL_Rect section = { 0, 0, 96, 120 };
+	sect_cow = &section;
 
 
-	hola = new Sprite(imatge_vaca, pos, sect);
-	App->render->AddSpriteToList(hola);
-	//hola->posisiomapa.x;
-	//hola->textura;
+	sprite_cow = new Sprite(cow, pos_cow, sect_cow);
+
+	sprite_cow->positionMap->x = 3;
+	sprite_cow->positionMap->y = 50;
+	sprite_cow->positionMap->w = 0;
+	sprite_cow->positionMap->h = 0;
+
+	sprite_cow->sectionTexture->x = 0;
+	sprite_cow->sectionTexture->y = 0;
+	sprite_cow->sectionTexture->w = 96;
+	sprite_cow->sectionTexture->h = 120;
 
 
-	//int valor1 = 5;
-	//int valor2 = 3;
-	//hola = new Sprite(valor1,valor2);
-
-	//int p1 = 96;
-	//int p2 = 120;
-	
-
-	//hola->resta1 = valor1;
-	//hola->resta2 = valor2;
-	//int si = hola->resta(hola->prova, hola->prova2);
-	//LOG("Valor %d", si);
-	//hola->textura = App->tex->Load("textures/cow.png");
-	//App->render->posarllista(hola);
-
-	//hola->seccioTextura = {0};
-
-	//hola->posisiomapa = {0,0};
-	//hola->posisiomapa->y = 100;
-
-	
-	
-
-//	hola->seccioTextura->x = 96;
-	//hola->seccioTextura->y = 120;
-	//hola->posisiomapa->x = 10;
-	//hola->posisiomapa->y = 10;
 
 
-	
+	App->render->AddSpriteToList(sprite_cow);
 
-	
-	
-
-	//NOTE: Test Sprites
-	//Player
-	//problem on texture reading
-	/*cow->texture = App->tex->Load("textures/cow.png");
-	cow->position.x = 10;
-	cow->position.y = 50;
-	cow->section.x = 96;
-	cow->section.y = 120;
-
+	/*
 	building->texture = App->tex->Load("textures/building.png");
 	building->position.x = 30;
 	building->position.y = 300;
 	cow->section.x = 131;
-	cow->section.y = 110;*/
-
+	cow->section.y = 110;
+	*/
 	return true;
 }
 
@@ -219,15 +188,15 @@ bool snOutdoor1::Update(float dt)
 
 	
 	//App->render->DrawSprite(hola);
-	//App->render->Blit(hola->texture, hola->positionMap->x, hola->positionMap->y);
+	App->render->Blit(sprite_cow->texture, sprite_cow->positionMap->x, sprite_cow->positionMap->y);
 
-	App->render->Blit(hola->texture, hola->positionMap->x, hola->positionMap->y);
+	//App->render->Blit(hola->texture, hola->positionMap->x, hola->positionMap->y);
 
 
 
 	//->render->PintarSprite(hola->textura,hola->posisiomapa,hola->seccioTextura);
 
-	
+	/*
 	
 	if (App->input->GetKey(SDL_SCANCODE_H) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
 	{
@@ -249,7 +218,7 @@ bool snOutdoor1::Update(float dt)
 		hola->positionMap->y += SPEED * dt;
 	}
 	
-
+	*/
 
 	/*const vector<iPoint>* path = App->pathfinding->GetLastPath();
 
@@ -260,11 +229,6 @@ bool snOutdoor1::Update(float dt)
 		App->render->Blit(debug, pos.x, pos.y);
 	}*/
 
-
-	//NOTE: Sprite Test
-	//App->render->Blit2(cow);
-
-	//App->render->Blit2(building);
 	return true;
 }
 

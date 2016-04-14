@@ -78,36 +78,20 @@ bool j1Render::PostUpdate()
 	sprites.sort([](const Sprite* a, const Sprite* b) { return a->yWorld < b->yWorld; });
 	*/
 
-	
+	// iterate list sprites call function sort and blit
 	list<Sprite*>::iterator i = sprites.begin();
-
-	while (i != sprites.end())
+	for (i; i != sprites.end(); i++)
 	{
-		uint scale = App->win->GetScale();
-
-		SDL_Rect rect;
-		rect.x = (int)(camera.x) + (*i)->positionMap->x * scale;
-		rect.y = (int)(camera.y) + (*i)->positionMap->y * scale;
-
-
-		SDL_QueryTexture((*i)->texture, NULL, NULL, &rect.w, &rect.h);
-
-
-		rect.w *= scale;
-		rect.h *= scale;
-
-		SDL_Point* p = NULL;
-		SDL_Point pivot;
-
-		pivot.x = pivot.y = INT_MAX;
-
-		if (SDL_RenderCopyEx(renderer, (*i)->texture, NULL, &rect, 0, p, SDL_FLIP_NONE) != 0)
-		{
-			LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
-		}
-		++i;
+		DrawSprite(i._Ptr->_Myval->texture, i._Ptr->_Myval->positionMap, i._Ptr->_Myval->sectionTexture);
 	}
 
+	/*while (i != sprites.end())
+	{
+		DrawSprite(i._Ptr->_Myval->texture, i._Ptr->_Myval->positionMap, i._Ptr->_Myval->sectionTexture);
+		++i;
+	}
+	//sprites.clear();
+	*/
 
 	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
 	SDL_RenderPresent(renderer);
@@ -117,6 +101,14 @@ bool j1Render::PostUpdate()
 // Called before quitting
 bool j1Render::CleanUp()
 {
+	// erase list Sprites
+	list<Sprite*>::iterator i = sprites.begin();
+	while (i != sprites.end())
+	{
+		++i;
+	}
+	sprites.clear();
+
 	LOG("Destroying SDL render");
 	SDL_DestroyRenderer(renderer);
 	return true;
@@ -313,8 +305,11 @@ bool j1Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, U
 //NOTE: Sprite
 
 
-Sprite* j1Render::AddSpriteToList(Sprite* sprite)
+bool j1Render::AddSpriteToList(Sprite* sprite)
 {
+	bool ret = true;
+
+
 	if (sprite != NULL)
 	{
 		if (sprite->texture != NULL)
@@ -331,43 +326,74 @@ Sprite* j1Render::AddSpriteToList(Sprite* sprite)
 	{
 		LOG("Error, this sprite is not correct.");
 	}
-	return sprite;
+	return ret;
 }
 
-bool j1Render::DrawSprite(Sprite* sprite)
+bool j1Render::DrawSprite(SDL_Texture* texture, SDL_Rect* positionMap, SDL_Rect* section, float speed, double angle, int pivot_x, int pivot_y)
 {
-	bool ret = false;
-	//Blit(sprite->texture,0,0,sprite->sectionTexture);
-	//Draw sprites
-	list<Sprite*>::iterator i = sprites.begin();
-	
-	while (i != sprites.end())
+	bool ret = true;
+
+	//Camera culling
+	//if (section)
+		//if (!(x + section->w > -camera.x && x < -camera.x + camera.w &&
+			//y + section->h > -camera.y && y < -camera.y + camera.h))
+			//return false;
+	//
+	uint scale = App->win->GetScale();
+
+	SDL_Rect rect;
+
+	//NOTE: Put condition if use camera culling. 
+	rect.x = (int)positionMap->x * scale;
+	rect.y = (int)positionMap->y * scale;
+
+	rect.w = positionMap->w;
+	rect.h = positionMap->h;
+	if (positionMap->w == 0 && positionMap->h == 0)
 	{
-		uint scale = App->win->GetScale();
-
-		SDL_Rect rect;
-		rect.x = (int)(camera.x) + (*i)->positionMap->x * scale;
-		rect.y = (int)(camera.y) + (*i)->positionMap->y * scale;
-
-
-		SDL_QueryTexture((*i)->texture, NULL, NULL, &rect.w, &rect.h);
-
-
-		rect.w *= scale;
-		rect.h *= scale;
-
-		SDL_Point* p = NULL;
-		SDL_Point pivot;
-
-		pivot.x = pivot.y = INT_MAX;
-
-		if (SDL_RenderCopyEx(renderer, (*i)->texture, NULL, &rect, 0, p, SDL_FLIP_NONE) != 0)
+		if (section != NULL && (section->w != 0 && section->h != 0))
 		{
-			LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
+			rect.w = section->w;
+			rect.h = section->h;
 		}
-		++i;
+		else
+		{
+			SDL_QueryTexture((SDL_Texture*)texture, NULL, NULL, &rect.w, &rect.h);
+		}
+	}
+	else
+	{
+		rect.w = positionMap->w;
+		rect.h = positionMap->h;
 	}
 
+	rect.w *= scale;
+	rect.h *= scale;
+
+	SDL_Point* p = NULL;
+	SDL_Point pivot;
+
+	if (pivot_x != INT_MAX && pivot_y != INT_MAX)
+	{
+		pivot.x = pivot_x;
+		pivot.y = pivot_y;
+		p = &pivot;
+	}
+
+	if (section != NULL && section->w != 0 && section->h != 0)
+	{ 
+		if (SDL_RenderCopyEx(renderer, (SDL_Texture*)texture, section, &rect, angle, p, SDL_FLIP_NONE) != 0)
+		{
+			LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
+			ret = false;
+		}
+	}
+	else
+		if (SDL_RenderCopyEx(renderer, (SDL_Texture*)texture, NULL, &rect, angle, p, SDL_FLIP_NONE) != 0)
+		{
+			LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
+			ret = false;
+		}
 	return ret;
 
 }
