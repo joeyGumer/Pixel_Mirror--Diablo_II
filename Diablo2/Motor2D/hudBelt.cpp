@@ -101,36 +101,37 @@ bool hudBelt::Start()
 
 	//Minipanel's buttons -------------------------------
 	
-	minipanel = App->gui->AddGuiImage({ -68, -33 }, { 170, 253, 152, 25 }, HUD, this);
+	minipanel = App->gui->AddGuiImage({ 76, -25 }, { 170, 253, 152, 25 }, HUD, this);
 	hud_gui_elements.push_back(minipanel);
 
-	stats = App->gui->AddGuiImage({ -65, 0 }, { 170, 279, 20, 19 }, minipanel, this);
+	stats = App->gui->AddGuiImage({ 3, 3 }, { 170, 279, 20, 19 }, minipanel, this);
 	stats->interactable = true;
 	hud_gui_elements.push_back(stats);
 
-	inventory = App->gui->AddGuiImage({ -44, 0 }, { 191, 279, 20, 19 }, minipanel, this);
+	inventory = App->gui->AddGuiImage({ 24, 3 }, { 191, 279, 20, 19 }, minipanel, this);
 	inventory->interactable = true;
 	hud_gui_elements.push_back(inventory);
 
-	skilltree = App->gui->AddGuiImage({ -23, 0 }, { 212, 279, 20, 19 }, minipanel, this);
+	skilltree = App->gui->AddGuiImage({ 45, 3 }, { 212, 279, 20, 19 }, minipanel, this);
 	skilltree->interactable = true;
 	hud_gui_elements.push_back(skilltree);
 
-	map = App->gui->AddGuiImage({ -2, 0 }, { 233, 279, 20, 19 }, minipanel, this);
+	map = App->gui->AddGuiImage({ 66, 3 }, { 233, 279, 20, 19 }, minipanel, this);
 	map->interactable = true;
 	hud_gui_elements.push_back(map);
 
-	message_log = App->gui->AddGuiImage({ 19, 0 }, { 252, 279, 20, 19 }, minipanel, this);
+	message_log = App->gui->AddGuiImage({ 87, 3 }, { 252, 279, 20, 19 }, minipanel, this);
 	message_log->interactable = true;
 	hud_gui_elements.push_back(message_log);
 
-	search_log = App->gui->AddGuiImage({ 39, 0 }, { 275, 279, 20, 19 }, minipanel, this);
+	search_log = App->gui->AddGuiImage({ 108, 3 }, { 275, 279, 20, 19 }, minipanel, this);
 	search_log->interactable = true;
 	hud_gui_elements.push_back(search_log);
 
-	game_menu = App->gui->AddGuiImage({ 60, 0 }, { 296, 279, 24, 19 }, minipanelbutton, this);
+	game_menu = App->gui->AddGuiImage({ 129, 3 }, { 296, 279, 24, 19 }, minipanel, this);
 	game_menu->interactable = true;
 	hud_gui_elements.push_back(game_menu);
+	
 	minipanel->Desactivate();
 
 	return true;
