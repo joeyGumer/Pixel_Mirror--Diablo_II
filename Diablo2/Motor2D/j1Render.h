@@ -71,8 +71,10 @@ public:
 	//NOTE: With list
 	bool AddSpriteToList(Sprite* sprite);
 	bool DrawSprite(Sprite* sprite, float speed = 1.0f, double angle = 0, int pivot_x = INT_MAX, int pivot_y = INT_MAX);
+	bool SortSprites();
 	// Set background color
 	void SetBackgroundColor(SDL_Color color);
+	
 
 public:
 
@@ -84,7 +86,6 @@ public:
 	//Note: sprites list & multimap
 	list<Sprite*>	sprites;
 	list<Sprite*>::iterator iterator;
-
 	
 	
 };

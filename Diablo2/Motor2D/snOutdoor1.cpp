@@ -101,6 +101,8 @@ bool snOutdoor1::Start()
 	App->render->AddSpriteToList(enemy);
 
 	*/
+
+	
 	return true;
 }
 

@@ -29,7 +29,7 @@ bool j1Render::Awake(pugi::xml_node& config)
 	// load flags
 	Uint32 flags = SDL_RENDERER_ACCELERATED;
 
-	if(config.child("vsync").attribute("value").as_bool(true) == true)
+	if (config.child("vsync").attribute("value").as_bool(true) == true)
 	{
 		flags |= SDL_RENDERER_PRESENTVSYNC;
 		LOG("Using vsync");
@@ -37,7 +37,7 @@ bool j1Render::Awake(pugi::xml_node& config)
 
 	renderer = SDL_CreateRenderer(App->win->window, -1, flags);
 
-	if(renderer == NULL)
+	if (renderer == NULL)
 	{
 		LOG("Could not create the renderer! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
@@ -61,7 +61,7 @@ bool j1Render::Start()
 	SDL_RenderGetViewport(renderer, &viewport);
 
 	//NOTE: My camera cooling, very simple and works, buts ask ric about if this is cheating
-	SetViewPort({ 0, 0 ,camera.w, camera.h });
+	SetViewPort({ 0, 0, camera.w, camera.h });
 	return true;
 }
 
@@ -72,15 +72,35 @@ bool j1Render::PreUpdate()
 	return true;
 }
 
+
+// NOTE: Function of C, compare Sprites to prepare sort
+bool compare_sprites(const Sprite* first, const Sprite* second)
+{
+	//bool ret = true;
+	//unsigned int i = 0;
+	//while ((i < first.length()) && (i < second.length()))
+	//{
+		//if (tolower(first[i]) < tolower(second[i])) return true;
+		//else if (tolower(first[i]) > tolower(second[i])) return false;
+		//++i;
+	//}
+	return (first->positionMap.y > second->positionMap.y);
+}
 bool j1Render::PostUpdate()
 {
 	// NOTE:iterate list sprites call function sort and blit
+
+	//insert sort function here
+	sprites.sort(compare_sprites);
+
 	iterator = sprites.begin();
 	for (iterator; iterator != sprites.end(); iterator++)
 	{
-		//insert sort function here
+		
 		DrawSprite(*iterator);
 	}
+
+
 	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
 	SDL_RenderPresent(renderer);
 	return true;
@@ -338,28 +358,72 @@ bool j1Render::DrawSprite(Sprite* sprite, float speed, double angle, int pivot_x
 {
 	bool ret = true;
 
-	uint scale = App->win->GetScale();
-
-	SDL_Rect rect;
-	rect.x = (int)(camera.x) + sprite->positionMap.x * scale;
-	rect.y = (int)(camera.y) + sprite->positionMap.y * scale;
 
 
-	SDL_QueryTexture(sprite->texture, NULL, NULL, &rect.w, &rect.h);
-
-
-	rect.w *= scale;
-	rect.h *= scale;
-
-	SDL_Point* p = NULL;
-	SDL_Point pivot;
-
-	pivot.x = pivot.y = INT_MAX;
-
-	if (SDL_RenderCopyEx(renderer, sprite->texture, NULL, &rect, 0, p, SDL_FLIP_NONE) != 0)
+	
+	if (!App->debug)
 	{
-		LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
+
+	
+		uint scale = App->win->GetScale();
+
+		SDL_Rect rect;
+		rect.x = (int)(camera.x) + sprite->positionMap.x * scale;
+		rect.y = (int)(camera.y) + sprite->positionMap.y * scale;
+
+
+		SDL_QueryTexture(sprite->texture, NULL, NULL, &rect.w, &rect.h);
+
+
+		rect.w *= scale;
+		rect.h *= scale;
+
+		SDL_Point* p = NULL;
+		SDL_Point pivot;
+
+		pivot.x = pivot.y = INT_MAX;
+
+		if (SDL_RenderCopyEx(renderer, sprite->texture, NULL, &rect, 0, p, SDL_FLIP_NONE) != 0)
+		{
+			LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
+		}
 	}
+	else
+	{
+		//Debug mode
+		uint scale = App->win->GetScale();
+
+		SDL_Rect rect;
+		rect.x = (int)(camera.x) + sprite->positionMap.x * scale;
+		rect.y = (int)(camera.y) + sprite->positionMap.y * scale;
+
+
+		SDL_QueryTexture(sprite->texture, NULL, NULL, &rect.w, &rect.h);
+
+
+		rect.w *= scale;
+		rect.h *= scale;
+
+		SDL_Point* p = NULL;
+		SDL_Point pivot;
+
+		pivot.x = pivot.y = INT_MAX;
+
+		if (SDL_RenderCopyEx(renderer, sprite->texture, NULL, &rect, 0, p, SDL_FLIP_NONE) != 0)
+		{
+			LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
+		}
+
+		App->render->DrawQuad({ rect.x, rect.y, rect.w, rect.h/2 }, 255, 0, 255, 255, false, false);
+		App->render->DrawQuad({ rect.x, rect.y + (rect.h / 2), rect.w, rect.h / 2 }, 0, 0, 255, 255, false, false);
+	}
+	return ret;
+
+}
+bool j1Render::SortSprites()
+{
+	bool ret = true;
+	
 	
 	return ret;
 
@@ -375,8 +439,6 @@ Sprite::Sprite(SDL_Texture* texture, SDL_Rect* positionMap, SDL_Rect* sectionTex
 	texture = this->texture;
 	positionMap = &this->positionMap;
 	sectionTexture = &this->sectionTexture;
-	
-
 }
 //NOTE: Destructor
 Sprite::~Sprite()
