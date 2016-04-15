@@ -1,7 +1,7 @@
 #include "j1App.h"
 #include "j1EntityManager.h"
 #include "j1Input.h"
-#include "Entities.h"
+#include "EntEnemy.h"
 #include "j1Pathfinding.h"
 #include "p2Log.h"
 #include "j1Map.h"
@@ -109,7 +109,7 @@ Entity* j1EntityManager::Add(iPoint &pos, ENTITY_TYPE type)
 
 	for (; item != active_entities.end(); item++)
 	{
-		if (item->second->tile_pos == tile_pos)
+		if (item->second->GetTilePosition() == tile_pos)
 			return entity; // No entity is created!
 	}
 
@@ -117,12 +117,8 @@ Entity* j1EntityManager::Add(iPoint &pos, ENTITY_TYPE type)
 	{
 		switch (type)
 		{
-		case (ENEMY_DEBUG) :
-			entity = new entEnemyDebug(pos, ++next_ID);
-			break;
-
-		case (ENEMY_CRAWLER) :
-			entity = new entEnemyCrawler(pos, ++next_ID);
+		case (ENEMY_WOLF) :
+			entity = new EntEnemyWolf(pos, ++next_ID);
 			break;
 		}
 

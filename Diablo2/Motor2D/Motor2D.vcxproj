@@ -77,7 +77,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Entities.cpp" />
+    <ClCompile Include="EntEnemy.cpp" />
+    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="EntMobile.cpp" />
     <ClCompile Include="hudBelt.cpp" />
     <ClCompile Include="hudPause.cpp" />
     <ClCompile Include="j1EntityManager.cpp" />
@@ -108,11 +110,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="EntEnemy.h" />
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="EntMobile.h" />
     <ClInclude Include="GuiElements.h" />
     <ClInclude Include="hudBelt.h" />
     <ClInclude Include="hudElement.h" />
     <ClInclude Include="hudPause.h" />
-    <ClInclude Include="Entities.h" />
     <ClInclude Include="j1EntityManager.h" />
     <ClInclude Include="j1Game.h" />
     <ClInclude Include="j1Collision.h" />

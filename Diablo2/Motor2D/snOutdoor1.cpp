@@ -12,7 +12,7 @@
 #include "j1Audio.h"
 #include "j1EntityManager.h"
 #include "j1Pathfinding.h"
-#include "Entities.h"
+#include "Entity.h"
 
 // quit log en no debug
 #include "p2Log.h"
@@ -148,7 +148,7 @@ bool snOutdoor1::Update(float dt)
 
 		//int a = rand() % 2;
 		//if (a == 0)
-			App->em->Add(p, ENEMY_DEBUG);
+			App->em->Add(p, ENEMY_WOLF);
 		//if (a == 1)
 			//App->em->Add(p, ENEMY_CRAWLER);
 	}

@@ -11,7 +11,7 @@
 #include "hudBelt.h"
 #include "j1Pathfinding.h"
 #include "j1EntityManager.h"
-#include "Entities.h"
+#include "Entity.h"
 #include "SDL/include/SDL.h"
 
 j1Player::j1Player()
@@ -432,7 +432,7 @@ void j1Player::SetNewPath(int x, int y)
 
 bool j1Player::IsInRange(Entity* enemy)
 {
-	iPoint target_enemy = enemy->GetPivotPosition();
+	fPoint target_enemy = enemy->GetPivotPosition();
 
 	fPoint dist;
 

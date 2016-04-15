@@ -82,8 +82,14 @@
     <ClCompile Include="hudPause.cpp">
       <Filter>Desenvolupament  ========\Modules\j1HUD\hudElements\hudPause</Filter>
     </ClCompile>
-    <ClCompile Include="Entities.cpp">
+    <ClCompile Include="Entity.cpp">
       <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="EntMobile.cpp">
+      <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile</Filter>
+    </ClCompile>
+    <ClCompile Include="EntEnemy.cpp">
+      <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile\EntEnemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -201,8 +207,14 @@
     <ClInclude Include="hudPause.h">
       <Filter>Desenvolupament  ========\Modules\j1HUD\hudElements\hudPause</Filter>
     </ClInclude>
-    <ClInclude Include="Entities.h">
+    <ClInclude Include="Entity.h">
       <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="EntMobile.h">
+      <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile</Filter>
+    </ClInclude>
+    <ClInclude Include="EntEnemy.h">
+      <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile\EntEnemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -292,6 +304,12 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Modules\j1EntityManager\Entities">
       <UniqueIdentifier>{69b7d4e8-dc9d-491e-99a5-7ed1492c2ac3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile">
+      <UniqueIdentifier>{ac71612b-8f7b-4abe-98b7-ee2ec6b716a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile\EntEnemy">
+      <UniqueIdentifier>{9cb4a80d-922c-4ead-a2a5-9e75b8e18b78}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
