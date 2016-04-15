@@ -76,15 +76,10 @@ bool j1Render::PreUpdate()
 // NOTE: Function of C, compare Sprites to prepare sort
 bool compare_sprites(const Sprite* first, const Sprite* second)
 {
-	//bool ret = true;
-	//unsigned int i = 0;
-	//while ((i < first.length()) && (i < second.length()))
-	//{
-		//if (tolower(first[i]) < tolower(second[i])) return true;
-		//else if (tolower(first[i]) > tolower(second[i])) return false;
-		//++i;
-	//}
-	return (first->positionMap.y > second->positionMap.y);
+		if ((first->y > second->y) && (first->positionMap.y  > second->positionMap.y/2))
+		return (first->positionMap.y  > second->positionMap.y);
+	else if ((first->y < second->y) && (first->positionMap.y/2  > second->positionMap.y))
+		return (first->positionMap.y  < second->positionMap.y);
 }
 bool j1Render::PostUpdate()
 {

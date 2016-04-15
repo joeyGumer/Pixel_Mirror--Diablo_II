@@ -63,14 +63,18 @@ public:
 
 	
 	//NOTE: Test Sprite 
-	
+	/*
 	Sprite* sprite_cow;
 	SDL_Rect* pos_cow;
 	SDL_Rect* sect_cow;
 
 	Sprite* enemy;
 	SDL_Rect* pos_enemy;
-	SDL_Rect* sect_enemy;
+	SDL_Rect* sect_enemy;*/
+
+	/*Sprite* enemy2;
+	SDL_Rect* pos_enemy2;
+	SDL_Rect* sect_enemy2;*/
 	
 	
 	

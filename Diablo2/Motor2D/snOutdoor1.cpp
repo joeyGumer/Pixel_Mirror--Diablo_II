@@ -72,6 +72,7 @@ bool snOutdoor1::Start()
 	sprite_cow->positionMap.y = 100;
 	sprite_cow->positionMap.w = 0;
 	sprite_cow->positionMap.h = 0;
+	sprite_cow->y = 0;
 
 	sprite_cow->sectionTexture.x = 0;
 	sprite_cow->sectionTexture.y = 0;
@@ -97,10 +98,31 @@ bool snOutdoor1::Start()
 	enemy->sectionTexture.y = 0;
 	enemy->sectionTexture.w = 0;
 	enemy->sectionTexture.h = 0;
+	enemy->y = -1;
 
 	App->render->AddSpriteToList(enemy);
-
 	*/
+	/*SDL_Rect positionee = { 2, 2, 0, 0 };
+	pos_enemy2 = &positionee;
+	SDL_Rect sectionee = { 0, 0, 96, 120 };
+	sect_enemy2 = &sectionee;
+
+	enemy2 = new Sprite(NULL, sect_enemy2, pos_enemy2);
+	enemy2->texture = App->tex->Load("textures/enemy1.png");
+	enemy2->positionMap.x = -20;
+	enemy2->positionMap.y = 130;
+	enemy2->positionMap.w = 0;
+	enemy2->positionMap.h = 0;
+
+	enemy2->sectionTexture.x = 0;
+	enemy2->sectionTexture.y = 0;
+	enemy2->sectionTexture.w = 0;
+	enemy2->sectionTexture.h = 0;
+	enemy2->y = 1;*/
+
+//	App->render->AddSpriteToList(enemy2);
+
+	
 
 	
 	return true;
@@ -221,17 +243,18 @@ bool snOutdoor1::Update(float dt)
 
 
 
-
-
-	/*const vector<iPoint>* path = App->pathfinding->GetLastPath();
+	/*
+	
+	const vector<iPoint>* path = App->pathfinding->GetLastPath();
 
 	for (uint i = 0; i < path->size(); ++i)
 	{
 		iPoint pos = App->map->GetTileBlit(path->at(i).x, path->at(i).y);
 		
 		App->render->Blit(debug, pos.x, pos.y);
-	}*/
-
+	}
+	*/
+	
 	return true;
 }
 
