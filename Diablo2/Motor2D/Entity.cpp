@@ -38,8 +38,8 @@ iPoint Entity::GetBlitPosition() const
 {
 	fPoint tmp = GetPivotPosition();
 	iPoint ret(tmp.x, tmp.y);
-	ret.x -= pivot.x;
-	ret.y -= pivot.y;
+	ret.x -= sprite_pivot.x;
+	ret.y -= sprite_pivot.y;
 
 	return ret;
 }
@@ -53,7 +53,12 @@ fPoint Entity::GetPivotPosition() const
 SDL_Rect Entity::GetPlayerRect() const
 {
 	//NOTE: this may be adapted when we use colliders
-	iPoint pos = GetBlitPosition();
+	fPoint blit = GetPivotPosition();
 
-	return{ pos.x, pos.y, sprite_dim.x, sprite_dim.y };
+	blit.x -= pivot.x;
+	blit.y -= pivot.y;
+
+
+
+	return{ blit.x, blit.y, collider_rect.w, collider_rect.h };
 }

@@ -28,8 +28,11 @@ void EntEnemy::DrawDebug()
 {
 	iPoint t_pos = GetTilePosition();
 	fPoint p_pos = GetPivotPosition();
+	SDL_Rect rect = GetPlayerRect();
 
 	App->render->DrawQuad({ p_pos.x, p_pos.y, 3, 3 }, 255, 0, 0, 255, false);
+
+	App->render->DrawQuad(rect, 255, 0, 0, 255, false);
 
 	App->render->DrawCircle(p_pos.x, p_pos.y, attack_range, 255, 0, 0);
 	App->render->DrawCircle(p_pos.x, p_pos.y, agro_range, 0, 0, 255);
@@ -69,7 +72,6 @@ EntEnemyWolf::EntEnemyWolf(const iPoint &p, uint ID) : EntEnemy(p, ID)
 	SetAnimations();
 	current_animation_set = idle;
 	current_animation = &current_animation_set[current_direction];
-	pivot = { (collider_rect.w / 2), (collider_rect.h - 5) };
 
 	type = ENEMY_WOLF;
 
@@ -78,7 +80,6 @@ EntEnemyWolf::EntEnemyWolf(const iPoint &p, uint ID) : EntEnemy(p, ID)
 
 	movement = false;
 	agro_range = 80.0f;
-
 }
 
 //Update
@@ -90,9 +91,10 @@ bool EntEnemyWolf::Update(float dt)
 
 	if (PlayerInRange())
 	{
-		int targetX = player_pos.x;
-		int targetY = player_pos.y;
-		iPoint _target = { targetX, targetY };
+		int target_x = player_pos.x;
+		int target_y = player_pos.y;
+
+		iPoint _target = { target_x, target_y };
 		_target = App->map->WorldToMap(_target.x, _target.y);
 		SetMovement(_target.x, _target.y);
 	}
@@ -150,30 +152,41 @@ void EntEnemyWolf::StateMachine()
 {
 	switch (current_action)
 	{
+		//PIVOT DOESN'T CHANGE!
+		//Related to the collider rect, not the sprite
 		case ENTITY_IDLE:
 			sprite = idle_tex;
 			current_animation_set = idle;
-			//current_animation = idle_front;
+
 			sprite_rect.w = sprite_dim.x = 69;
 			sprite_rect.h = sprite_dim.y = 54;
-			pivot = { (sprite_rect.w / 2), (sprite_rect.h - 5) };
+			sprite_pivot = sprite_dim / 2;
+
 			break;
+
 		case ENTITY_WALKING:
 			sprite = walk_tex;
 			current_animation_set = walk;
-			//current_animation = walk_front;
+
 			sprite_rect.w = sprite_dim.x = 94;
 			sprite_rect.h = sprite_dim.y = 73;
-			pivot = { (sprite_rect.w / 2), (sprite_rect.h - 5) };
+			sprite_pivot = sprite_dim / 2;
+
 			break;
 	}
 }
 
 void EntEnemyWolf::SetAnimations()
 {
+	//NOTE: this should not go here
 	collider_rect.w = sprite_rect.w = sprite_dim.x = 69;
 	collider_rect.h = sprite_rect.h = sprite_dim.y = 54;
 
+	sprite_pivot = pivot = { collider_rect.w / 2, collider_rect.h - 20 };
+	
+	
+
+	//NOTE: Do it like a player, no number, variables
 	//Idle
 	for (int i = 0; i < 8; i++)
 	{

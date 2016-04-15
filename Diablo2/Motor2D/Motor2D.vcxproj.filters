@@ -219,9 +219,6 @@
     <ClInclude Include="Entity.h">
       <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="EntMobile.h">
-      <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile</Filter>
-    </ClInclude>
     <ClInclude Include="EntEnemy.h">
       <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile\EntEnemy</Filter>
     </ClInclude>
@@ -233,6 +230,9 @@
     </ClInclude>
     <ClInclude Include="EntItem.h">
       <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities\EntStatic\EntItem</Filter>
+    </ClInclude>
+    <ClInclude Include="EntMobile.h">
+      <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

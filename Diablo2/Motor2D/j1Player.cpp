@@ -78,9 +78,10 @@ bool j1Player::Update(float dt)
 			HandleInput();
 		}
 
-		//Test for attack
+		UpdateAttack();
 
-		UpdateMovement(dt);
+		if (!attacking)
+			UpdateMovement(dt);
 
 		App->render->CenterCamera(p_position.x, p_position.y);
 
@@ -88,7 +89,7 @@ bool j1Player::Update(float dt)
 		{
 			if (ST_current > 0)
 			{
-				ST_current -= 0.5f;
+				ST_current -= 0.05f;
 				PlayerEvent(ST_DOWN);
 			}
 		}
@@ -100,10 +101,11 @@ bool j1Player::Update(float dt)
 			}	
 			else
 			{
-				ST_current += 0.5f;
+				ST_current += 0.05f;
 				PlayerEvent(ST_UP);
 			}
 		}
+
 	return true;
 }
 
@@ -297,29 +299,8 @@ bool j1Player::IsTargetReached()
 	vel.x = p_target.x - p_position.x;
 	vel.y = p_target.y - p_position.y;
 
-	//NOTE: provisional attack state
-	if (enemy)
-	{
-		//Don't fucking know why but it doesn't give a fuck if it's null
-		if (IsInRange(enemy))
-		{
-			movement = false;
-			//attacking = false;
-			current_input = INPUT_ATTACK;
 
-			return true;
 
-		}
-		else
-		{
-			int ret = 0;
-		}
-		
-		
-	}
-
-	else
-	{
 		if (vel.GetModule() <= target_radius)
 		{
 			if (!path_on)
@@ -330,7 +311,6 @@ bool j1Player::IsTargetReached()
 
 			return true;
 		}
-	}
 
 	return false;
 }
@@ -344,21 +324,6 @@ void j1Player::SetTarget(iPoint target)
 
 void j1Player::GetNewTarget()
 {
-	if (enemy)
-	{
-		if (!IsInRange(enemy) && (uint)p_current_node + 1< path.size())
-		{
-			p_current_node++;
-			SetTarget(App->map->GetTileCenter(path[p_current_node].x, path[p_current_node].y));
-		}
-		else
-		{
-			current_input = INPUT_STOP_MOVE;
-			movement = false;
-		}
-	}
-	else
-	{
 		if ((uint)p_current_node + 1 < path.size())
 		{
 			p_current_node++;
@@ -369,11 +334,11 @@ void j1Player::GetNewTarget()
 			current_input = INPUT_STOP_MOVE;
 			movement = false;
 		}
-	}
 }
 
 void j1Player::UpdateMovement(float dt)
 {
+
 	if (movement)
 	{
 		if (!target_reached)
@@ -450,6 +415,38 @@ bool j1Player::IsInRange(Entity* enemy)
 	return false;
 }
 
+void j1Player::UpdateAttack()
+{
+	//NOTE: provisional attack state
+	if (enemy && current_action != ATTACKING)
+	{
+		if (IsInRange(enemy))
+		{
+
+			fPoint target = enemy->GetPivotPosition();
+
+			fPoint dist = { target - p_position };
+			p_velocity = dist;
+
+			SetDirection();
+
+
+			movement = false;
+			current_input = INPUT_ATTACK;
+			enemy = NULL;
+			attacking = true;
+		}
+	}
+
+	else if (current_action == ATTACKING)
+	{
+		if (current_animation->Finished())
+		{
+			current_input = INPUT_STOP_MOVE;
+			attacking = false;
+		}
+	}
+}
 /*
 //--------Input
 */
@@ -543,10 +540,6 @@ void j1Player::HandleInput()
 		iPoint target;
 		enemy = App->em->EntityOnMouse();
 
-		if (enemy)
-		{
-			attacking = true;
-		}
 		
 		target = App->input->GetMouseWorldPosition();
 		target = App->map->WorldToMap(target.x, target.y);
@@ -567,6 +560,11 @@ ACTION_STATE j1Player::UpdateAction()
 			if (current_input == INPUT_MOVE)
 			{
 				current_action = WALKING;
+			}
+
+			if (current_input == INPUT_ATTACK)
+			{
+				current_action = ATTACKING;
 			}
 		}
 		break;
@@ -593,10 +591,11 @@ ACTION_STATE j1Player::UpdateAction()
 
 		case ATTACKING:
 		{
-			 if (current_animation->Finished())
+			if (current_input == INPUT_STOP_MOVE)
 			{
-				 current_action = IDLE;
+				current_action = IDLE;
 			}
+			
 		}
 		break;
 		}
@@ -689,10 +688,6 @@ void j1Player::StateMachine()
 	case WALKING:
 		p_sprite = p_walk;
 		current_animation_set = walk;
-		/*
-		--ST_current;
-		PlayerEvent(ST_DOWN);
-		*/
 		break;
 	case RUNNING:
 		break;

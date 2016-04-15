@@ -50,6 +50,7 @@ public:
 	iPoint			sprite_dim;
 	ENTITY_TYPE		type;
 	iPoint			pivot;
+	iPoint			sprite_pivot;
 	fPoint			position;
 	uint			id;
 

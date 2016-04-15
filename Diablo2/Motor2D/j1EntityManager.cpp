@@ -69,12 +69,12 @@ bool j1EntityManager::PostUpdate()
 	map<uint, Entity*>::iterator item = active_entities.begin();
 	for (; item != active_entities.end(); ++item)
 	{
+		item->second->Draw();
 		if (App->debug)
 		{
 			item->second->DrawDebug();
 		}
 
-		item->second->Draw();
 	}	
 
 	return true;
@@ -157,12 +157,13 @@ Entity* j1EntityManager::EntityOnMouse()
 	map<uint, Entity*>::reverse_iterator item = active_entities.rbegin();
 	for (; item != active_entities.rend(); ++item)
 	{
-		if (p.x >= item->second->GetPlayerRect().x &&
-			p.x <= item->second->GetPlayerRect().x + item->second->GetPlayerRect().w &&
-			p.y >= item->second->GetPlayerRect().y &&
-			p.y <= item->second->GetPlayerRect().y + item->second->GetPlayerRect().h)
+		SDL_Rect rect = item->second->GetPlayerRect();
+
+		if (p.x >= rect.x && p.x <= rect.x + rect.w &&
+			p.y >= rect.y && p.y <= rect.y + rect.h)
 			return item->second;
 	}
+
 	return NULL;
 }
 

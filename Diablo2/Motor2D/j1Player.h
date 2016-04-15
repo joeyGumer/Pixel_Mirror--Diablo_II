@@ -109,6 +109,7 @@ public:
 	
 	//Attack
 	bool IsInRange(Entity* enemy);
+	void UpdateAttack();
 
 	//NOTE: some of these may go to the entities
 	//Getters
@@ -188,7 +189,7 @@ private:
 	float ST_current;
 
 
-	float attack_range = 100.0f;
+	float attack_range = 65.0f;
 
 	//StateMachine Attributes
 	ACTION_STATE	current_action;
