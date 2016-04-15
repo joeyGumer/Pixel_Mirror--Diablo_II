@@ -38,8 +38,9 @@ bool j1Player::Start()
 	
 	//Sprites
 	p_sprite = p_idle = App->tex->Load("textures/vamp_idle.png");
-	p_walk = App->tex->Load("textures/vamp_run.png");
+	p_walk = App->tex->Load("textures/vamp_walk.png");
 	p_attack = App->tex->Load("textures/vamp_attack.png");
+	p_run = App->tex->Load("textures/vamp_run.png");
 	SetAnimations();
 
 	current_action = IDLE;
@@ -101,42 +102,30 @@ bool j1Player::Update(float dt)
 			}
 		}
 
+		//NOTE:Make this more elegant
 		switch (current_action)
 		{
 		case IDLE:
+			RecoverStamina();
 			break;
 		case RUNNING:
+			UpdateMovement(dt);
+			LowerStamina();
+			break;
 		case WALKING:
 			UpdateMovement(dt);
+			RecoverStamina();
 			break;
 		case ATTACKING:
 			UpdateAttack();
+			RecoverStamina();
 			break;
 		
 		}
 
 		App->render->CenterCamera(p_position.x, p_position.y);
 
-		if (current_action == WALKING)
-		{
-			if (ST_current > 0)
-			{
-				ST_current -= 0.05f;
-				PlayerEvent(ST_DOWN);
-			}
-		}
-		else
-		{
-			if (ST_current == ST_max)
-			{
-				ST_current = ST_max;
-			}	
-			else
-			{
-				ST_current += 0.05f;
-				PlayerEvent(ST_UP);
-			}
-		}
+		
 
 	return true;
 }
@@ -302,7 +291,7 @@ void j1Player::SetInitVelocity()
 	p_velocity.x = p_target.x - p_position.x;
 	p_velocity.y = p_target.y - p_position.y;
 
-	p_velocity.SetModule(PLAYER_SPEED);
+	p_velocity.SetModule(p_speed);
 
 }
 
@@ -319,7 +308,7 @@ void j1Player::UpdateVelocity(float dt)
 	p_velocity.x = p_target.x - p_position.x;
 	p_velocity.y = p_target.y - p_position.y;
 
-	p_velocity.SetModule(PLAYER_SPEED);
+	p_velocity.SetModule(p_speed);
 
 	SetDirection();
 }
@@ -567,6 +556,15 @@ void j1Player::HandleInput()
 	}
 	//
 
+	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
+	{
+		running = !running;
+		if (current_action == RUNNING || current_action == WALKING)
+		{
+			SetInput(INPUT_MOVE);
+		}
+	}
+
 	//Linear Movement activation
 	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 	{
@@ -592,7 +590,7 @@ void j1Player::SetInput(INPUT_STATE input)
 //StateMachine Functions
 ACTION_STATE j1Player::UpdateAction()
 {
-	if (current_input != INPUT_NULL && current_input != previous_input)
+	if (current_input != INPUT_NULL)
 	{
 		switch (current_action)
 		{
@@ -600,13 +598,17 @@ ACTION_STATE j1Player::UpdateAction()
 		{
 			if (current_input == INPUT_MOVE)
 			{
-				current_action = WALKING;
+				if (!running)
+					current_action = WALKING;
+				else
+					current_action = RUNNING;
 			}
 
 			if (current_input == INPUT_ATTACK)
 			{
 				current_action = ATTACKING;
 			}
+			
 		}
 		break;
 
@@ -620,13 +622,25 @@ ACTION_STATE j1Player::UpdateAction()
 			if (current_input == INPUT_ATTACK)
 			{
 				current_action = ATTACKING;
-			}			
+			}		
+
+			if (current_input == INPUT_MOVE && running)
+			{
+				current_action = RUNNING;
+			}
 		}
 		break;
 
 		case RUNNING:
 		{
-
+			if (current_input == INPUT_STOP_MOVE)
+			{
+				current_action = IDLE;
+			}
+			if (current_input == INPUT_MOVE && !running)
+			{
+				current_action = WALKING;
+			}
 		}
 		break;
 
@@ -641,14 +655,50 @@ ACTION_STATE j1Player::UpdateAction()
 		break;
 		}
 
-		previous_input = current_input;
-		PlayerEvent(STATE_CHANGE);
+		if (previous_action != current_action)
+			PlayerEvent(STATE_CHANGE);
+
+		previous_action = current_action;
 	}
 
 	current_input = INPUT_NULL;
 	return current_action;
 }
 
+/*
+//-------Stats related
+*/
+
+void j1Player::LowerStamina()
+{
+	if (ST_current > 0)
+	{
+		ST_current -= STAMINA_SPEED;
+		PlayerEvent(ST_DOWN);
+	}
+
+	if (ST_current <= 0)
+	{
+		running = false;
+		SetInput(INPUT_MOVE);
+	}
+}
+
+void j1Player::RecoverStamina()
+{
+	if (ST_current != ST_max)
+	{
+		if (ST_current > ST_max)
+		{
+			ST_current = ST_max;
+		}
+		else
+		{
+			ST_current += STAMINA_SPEED;
+			PlayerEvent(ST_UP);
+		}
+	}
+}
 /*
 //-------Structural functions
 */
@@ -673,6 +723,16 @@ void j1Player::SetAnimations()
 		wlk.speed = 0.2f;
 
 		walk.push_back(wlk);
+	}
+
+	//Run
+	for (int i = 0; i < 8; i++)
+	{
+		Animation rn;
+		rn.SetFrames(0, (PLAYER_SPRITE_H + SPRITE_MARGIN) * i, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 8, SPRITE_MARGIN);
+		rn.speed = 0.2f;
+
+		run.push_back(rn);
 	}
 
 	//Attack
@@ -729,8 +789,12 @@ void j1Player::StateMachine()
 	case WALKING:
 		p_sprite = p_walk;
 		current_animation_set = walk;
+		p_speed = PLAYER_SPEED;
 		break;
 	case RUNNING:
+		p_sprite = p_run;
+		current_animation_set = run;
+		p_speed = PLAYER_RUN_SPEED;
 		break;
 	case ATTACKING:
 		p_sprite = p_attack;

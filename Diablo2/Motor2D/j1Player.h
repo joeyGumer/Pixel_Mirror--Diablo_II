@@ -12,11 +12,13 @@ using namespace std;
 
 //NOTE: player speed, put it at the config file
 #define PLAYER_SPEED 150.0f
+#define PLAYER_RUN_SPEED 200.0f
 #define DIRECTIONS 8
 #define PLAYER_SPRITE_W int (96)
 #define PLAYER_SPRITE_H int (92)
 #define SPRITE_MARGIN int(1)
 #define PLAYER_PIVOT_OFFSET int(10)
+#define STAMINA_SPEED 0.05f
 
 //NOTE: provisional, this will go somewhere alse to apply to all entities, or maybe deleted because the state machine
 enum DIRECTION
@@ -55,6 +57,7 @@ enum ACTION_STATE
 enum INPUT_STATE
 {
 	INPUT_MOVE,
+	INPUT_RUN,
 	INPUT_STOP_MOVE,
 	INPUT_ATTACK,
 	INPUT_NULL,
@@ -134,7 +137,9 @@ public:
 	void HandleInput();
 	void SetInput(INPUT_STATE input);
 
-
+	//Stats realted
+	void LowerStamina();
+	void RecoverStamina();
 
 //Attributes
 
@@ -155,6 +160,8 @@ private:
 	//NOTE: the declaration will go somewhere else
 	float		target_radius = 2.5f;
 	fPoint		p_velocity;
+	float		p_speed = PLAYER_SPEED;
+	bool		running = false;
 	bool		movement;
 	bool		target_reached;
 	bool		path_on = true;
@@ -167,6 +174,7 @@ private:
 	SDL_Texture* p_sprite = NULL;
 	SDL_Texture* p_idle = NULL;
 	SDL_Texture* p_walk = NULL;
+	SDL_Texture* p_run = NULL;
 	SDL_Texture* p_attack = NULL;
 
 	//Rects for each state and direction
@@ -177,6 +185,7 @@ private:
 	vector<Animation> idle;
 	vector<Animation> walk;
 	vector<Animation> attack;
+	vector<Animation> run;
 	//--------------------
 
 	//Attributes
@@ -197,7 +206,7 @@ private:
 	vector<Animation> current_animation_set;
 	DIRECTION		current_direction;
 	INPUT_STATE		current_input;
-	INPUT_STATE		previous_input = INPUT_NULL;
+	ACTION_STATE	previous_action = DEFAULT;
 	bool			input_locked = false;
 
 	//NOTE: will be cahnged to a enemy once entity manager structure is changed
