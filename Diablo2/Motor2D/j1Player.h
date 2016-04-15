@@ -132,6 +132,7 @@ public:
 
 	//Input
 	void HandleInput();
+	void SetInput(INPUT_STATE input);
 
 
 
@@ -197,6 +198,7 @@ private:
 	DIRECTION		current_direction;
 	INPUT_STATE		current_input;
 	INPUT_STATE		previous_input = INPUT_NULL;
+	bool			input_locked = false;
 
 	//NOTE: will be cahnged to a enemy once entity manager structure is changed
 	//Enemy target

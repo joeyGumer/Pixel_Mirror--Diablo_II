@@ -78,10 +78,42 @@ bool j1Player::Update(float dt)
 			HandleInput();
 		}
 
-		UpdateAttack();
+		//if (!attacking)
+			//UpdateMovement(dt);
+		if (enemy && !attacking)
+		{
+			if (IsInRange(enemy))
+			{
 
-		if (!attacking)
+				fPoint target = enemy->GetPivotPosition();
+
+				fPoint dist = { target - p_position };
+				p_velocity = dist;
+
+				SetDirection();
+
+
+				movement = false;
+				current_input = INPUT_ATTACK;
+				enemy = NULL;
+				attacking = true;
+				input_locked = true;
+			}
+		}
+
+		switch (current_action)
+		{
+		case IDLE:
+			break;
+		case RUNNING:
+		case WALKING:
 			UpdateMovement(dt);
+			break;
+		case ATTACKING:
+			UpdateAttack();
+			break;
+		
+		}
 
 		App->render->CenterCamera(p_position.x, p_position.y);
 
@@ -305,7 +337,7 @@ bool j1Player::IsTargetReached()
 		{
 			if (!path_on)
 			{
-				current_input = INPUT_STOP_MOVE;
+				SetInput(INPUT_STOP_MOVE);
 				movement = false;
 			}
 
@@ -331,7 +363,7 @@ void j1Player::GetNewTarget()
 		}
 		else
 		{
-			current_input = INPUT_STOP_MOVE;
+			SetInput(INPUT_STOP_MOVE);
 			movement = false;
 		}
 }
@@ -367,7 +399,7 @@ void j1Player::SetMovement(int x, int y)
 		SetTarget(target);
 		
 		//StateMachine change
-		current_input = INPUT_MOVE;
+		SetInput(INPUT_MOVE);
 	}
 }
 
@@ -418,7 +450,7 @@ bool j1Player::IsInRange(Entity* enemy)
 void j1Player::UpdateAttack()
 {
 	//NOTE: provisional attack state
-	if (enemy && current_action != ATTACKING)
+	if (enemy && !attacking)
 	{
 		if (IsInRange(enemy))
 		{
@@ -435,17 +467,18 @@ void j1Player::UpdateAttack()
 			current_input = INPUT_ATTACK;
 			enemy = NULL;
 			attacking = true;
+			input_locked = true;
 		}
 	}
 
-	else if (current_action == ATTACKING)
-	{
+	
 		if (current_animation->Finished())
 		{
 			current_input = INPUT_STOP_MOVE;
 			attacking = false;
+			input_locked = false;
 		}
-	}
+	
 }
 /*
 //--------Input
@@ -545,6 +578,14 @@ void j1Player::HandleInput()
 		target = App->map->WorldToMap(target.x, target.y);
 		SetMovement(target.x, target.y);
 
+	}
+}
+
+void j1Player::SetInput(INPUT_STATE input)
+{
+	if (!input_locked)
+	{
+		current_input = input;
 	}
 }
 

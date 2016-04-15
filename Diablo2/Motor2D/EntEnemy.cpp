@@ -85,7 +85,7 @@ EntEnemyWolf::EntEnemyWolf(const iPoint &p, uint ID) : EntEnemy(p, ID)
 //Update
 bool EntEnemyWolf::Update(float dt)
 {
-	UpdateAction();
+	/*UpdateAction();
 
 	fPoint player_pos = App->game->player->GetPivotPosition();
 
@@ -99,7 +99,7 @@ bool EntEnemyWolf::Update(float dt)
 		SetMovement(_target.x, _target.y);
 	}
 
-	UpdateMovement(dt);
+	UpdateMovement(dt);*/
 
 	return true;
 }
