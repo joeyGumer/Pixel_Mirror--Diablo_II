@@ -78,8 +78,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="EntEnemy.cpp" />
+    <ClCompile Include="EntItem.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntMobile.cpp" />
+    <ClCompile Include="EntProp.cpp" />
+    <ClCompile Include="EntStatic.cpp" />
     <ClCompile Include="hudBelt.cpp" />
     <ClCompile Include="hudPause.cpp" />
     <ClCompile Include="j1EntityManager.cpp" />
@@ -111,8 +114,11 @@
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="EntEnemy.h" />
+    <ClInclude Include="EntItem.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntMobile.h" />
+    <ClInclude Include="EntProp.h" />
+    <ClInclude Include="EntStatic.h" />
     <ClInclude Include="GuiElements.h" />
     <ClInclude Include="hudBelt.h" />
     <ClInclude Include="hudElement.h" />

@@ -91,6 +91,15 @@
     <ClCompile Include="EntEnemy.cpp">
       <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile\EntEnemy</Filter>
     </ClCompile>
+    <ClCompile Include="EntProp.cpp">
+      <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities\EntStatic\EntProp</Filter>
+    </ClCompile>
+    <ClCompile Include="EntStatic.cpp">
+      <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities\EntStatic</Filter>
+    </ClCompile>
+    <ClCompile Include="EntItem.cpp">
+      <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities\EntStatic\EntItem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h">
@@ -216,6 +225,15 @@
     <ClInclude Include="EntEnemy.h">
       <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile\EntEnemy</Filter>
     </ClInclude>
+    <ClInclude Include="EntProp.h">
+      <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities\EntStatic\EntProp</Filter>
+    </ClInclude>
+    <ClInclude Include="EntStatic.h">
+      <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities\EntStatic</Filter>
+    </ClInclude>
+    <ClInclude Include="EntItem.h">
+      <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities\EntStatic\EntItem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -310,6 +328,15 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile\EntEnemy">
       <UniqueIdentifier>{9cb4a80d-922c-4ead-a2a5-9e75b8e18b78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\j1EntityManager\Entities\EntStatic">
+      <UniqueIdentifier>{5821480b-d82b-4b05-bc25-093f5029b1b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\j1EntityManager\Entities\EntStatic\EntProp">
+      <UniqueIdentifier>{0756e088-82e2-482a-b622-2c1ddbbfbf36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\j1EntityManager\Entities\EntStatic\EntItem">
+      <UniqueIdentifier>{c16e2a19-23a0-49c7-b12f-2defe3f8c213}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

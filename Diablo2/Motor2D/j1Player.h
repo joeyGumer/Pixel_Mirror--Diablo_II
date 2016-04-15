@@ -184,8 +184,8 @@ private:
 	int MP_max;
 	int MP_current;
 
-	int ST_max;
-	int ST_current;
+	float ST_max;
+	float ST_current;
 
 
 	float attack_range = 100.0f;

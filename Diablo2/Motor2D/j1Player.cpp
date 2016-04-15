@@ -57,7 +57,7 @@ bool j1Player::Start()
 	//initial stats
 	HP_max = HP_current = 100;
 	MP_max = MP_current = 100;
-	ST_max = ST_current = 100;
+	ST_max = ST_current = 100.0f;
 	
 	return true;
 }
@@ -88,7 +88,7 @@ bool j1Player::Update(float dt)
 		{
 			if (ST_current > 0)
 			{
-				ST_current--;
+				ST_current -= 0.5f;
 				PlayerEvent(ST_DOWN);
 			}
 		}
@@ -100,7 +100,7 @@ bool j1Player::Update(float dt)
 			}	
 			else
 			{
-				ST_current++;
+				ST_current += 0.5f;
 				PlayerEvent(ST_UP);
 			}
 		}
