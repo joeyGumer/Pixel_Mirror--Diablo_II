@@ -57,9 +57,9 @@ bool j1Player::Start()
 	attacking = false;
 
 	//initial stats
-	HP_max = HP_current = 100;
+	HP_max = HP_current = 200.0f;
 	MP_max = MP_current = 100;
-	ST_max = ST_current = 100.0f;
+	ST_max = ST_current = 200.0f;
 	
 	return true;
 }

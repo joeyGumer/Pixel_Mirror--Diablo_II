@@ -6,7 +6,7 @@
 
 class j1Player;
 
-#define PATHFINDING_FRAMES 10
+#define PATHFINDING_FRAMES 60
 
 
 class EntEnemy : public EntMobile
@@ -42,7 +42,7 @@ public:
 
 	//Attack
 	float	attack_range;
-	int		damage = 5;
+	int		damage = 1;
 	bool attacking;
 	//NOTE: in the future it will be an entity
 	j1Player* enemy;

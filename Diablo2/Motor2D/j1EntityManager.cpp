@@ -60,14 +60,8 @@ bool j1EntityManager::Update(float dt)
 		item->second->Update(dt);
 	}
 
-	return true;
-}
-
-// Called each loop iteration
-bool j1EntityManager::PostUpdate()
-{
 	// Entities drawing
-	map<uint, Entity*>::iterator item = active_entities.begin();
+	item = active_entities.begin();
 	for (; item != active_entities.end(); ++item)
 	{
 		item->second->Draw();
@@ -77,6 +71,13 @@ bool j1EntityManager::PostUpdate()
 		}
 
 	}
+
+	return true;
+}
+
+// Called each loop iteration
+bool j1EntityManager::PostUpdate()
+{
 
 	//Checking if there's an entity under the mouse to do it's stuff
 	// NOTE: put it as gui

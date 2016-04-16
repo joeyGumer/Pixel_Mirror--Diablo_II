@@ -135,9 +135,7 @@ void EntEnemy::CheckToAttack()
 
 			movement = false;
 			current_input = ENTITY_INPUT_ATTACK;
-			enemy = NULL;
 			attacking = true;
-			//input_locked = true;
 		}
 	}
 }
@@ -163,8 +161,8 @@ EntEnemyWolf::EntEnemyWolf(const iPoint &p, uint ID) : EntEnemy(p, ID)
 
 	movement = false;
 
-	attack_range = 100.0f;
-	agro_range = 80.0f;
+	attack_range = 50.0f;
+	agro_range = 150.0f;
 
 	last_update = PATHFINDING_FRAMES;
 
@@ -179,8 +177,8 @@ bool EntEnemyWolf::Update(float dt)
 
 		fPoint player_pos = App->game->player->GetPivotPosition();
 
-
-	if (PlayerInRange() && !enemy && last_update > PATHFINDING_FRAMES)
+	//NOTE: The enemy is for following the player one it has been founded, but for now, better not, because of the low framerate
+	if ((PlayerInRange() /*|| enemy*/) && !attacking && last_update >= PATHFINDING_FRAMES)
 	{
 			last_update = 0;
 			int target_x = player_pos.x;
@@ -202,10 +200,9 @@ bool EntEnemyWolf::Update(float dt)
 			UpdateAttack();
 		case ENTITY_WALKING:
 			UpdateMovement(dt);
-			last_update++;
-		
 		}
 
+		last_update++;
 	}
 
 	return true;
@@ -389,7 +386,7 @@ void EntEnemyWolf::SetAnimations()
 		int margin = 1;
 		tmp.SetFrames(0, (height + margin) * i, width, height, 6, margin);
 		tmp.loop = false;
-		tmp.speed = 0.2;
+		tmp.speed = 0.15;
 
 		attack.push_back(tmp);
 	}
