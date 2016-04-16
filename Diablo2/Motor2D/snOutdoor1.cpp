@@ -13,6 +13,7 @@
 #include "j1EntityManager.h"
 #include "j1Pathfinding.h"
 #include "Entity.h"
+#include "j1Game.h"
 
 // quit log en no debug
 #include "p2Log.h"
@@ -55,7 +56,16 @@ bool snOutdoor1::Start()
 		RELEASE_ARRAY(data);
 	}
 
-
+	//Entities
+	iPoint p = { 190, 170 };
+	entity_list.push_back(App->game->em->Add(p, ENEMY));
+	p = { 0, 200 };
+	entity_list.push_back(App->game->em->Add(p, ENEMY));
+	p = { -140, 180 };
+	entity_list.push_back(App->game->em->Add(p, ENEMY));
+	//entity_list.push_back(App->em->Add({ 200, 130 }, ENEMY));
+	//entity_list.push_back(App->em->Add({ 250, 50 }, ENEMY));
+	//entity_list.push_back(App->em->Add({ 200, 100 }, ENEMY));
 
 
 	//NOTE: Test Sprite
@@ -172,7 +182,7 @@ bool snOutdoor1::Update(float dt)
 
 		//int a = rand() % 2;
 		//if (a == 0)
-		entity_list.push_back(App->em->Add(p, ENEMY));
+			App->game->em->Add(p, ENEMY);
 		//if (a == 1)
 			//App->em->Add(p, ENEMY_CRAWLER);
 	}
@@ -273,7 +283,7 @@ bool snOutdoor1::CleanUp()
 
 	while (item != entity_list.end())
 	{
-		App->em->Remove(item._Ptr->_Myval->id);
+		App->game->em->Remove(item._Ptr->_Myval->id);
 		item++;
 	}
 	entity_list.clear();
