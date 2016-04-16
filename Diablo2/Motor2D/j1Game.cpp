@@ -2,16 +2,19 @@
 #include "j1Game.h"
 #include "j1Player.h"
 #include "j1HUD.h"
+#include "j1EntityManager.h"
 
 
 j1Game::j1Game() : j1Module()
 {
 	//Init modules
 	player	= new j1Player();
+	em		= new j1EntityManager();
 	HUD		= new j1HUD();
 
 	//Add modules to the list
 	AddModule(player);
+	AddModule(em);
 	AddModule(HUD);
 }
 

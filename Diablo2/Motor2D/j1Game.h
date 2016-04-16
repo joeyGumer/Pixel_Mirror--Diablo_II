@@ -8,6 +8,7 @@ using namespace std;
 
 class j1Player;
 class j1HUD;
+class j1EntityManager;
 
 class j1Game : public j1Module
 {
@@ -43,8 +44,9 @@ public:
 public:
 	//Modules
 
-	j1Player*	player = NULL;
-	j1HUD*		HUD = NULL;
+	j1Player*			player = NULL;
+	j1HUD*				HUD = NULL;
+	j1EntityManager*	em = NULL;
 
 
 	bool        pause = false;

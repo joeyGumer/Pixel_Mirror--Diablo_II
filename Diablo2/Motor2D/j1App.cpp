@@ -13,7 +13,6 @@
 #include "j1FileSystem.h"
 #include "j1Map.h"
 #include "j1Pathfinding.h"
-#include "j1EntityManager.h"
 #include "j1Fonts.h"
 #include "j1Gui.h"
 #include "j1App.h"
@@ -35,7 +34,6 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	pathfinding = new j1PathFinding();
 	font = new j1Fonts();
 	gui = new j1Gui();
-	em = new j1EntityManager();
 	game = new j1Game();
 
 	// Ordered for awake / Start / Update
@@ -47,7 +45,6 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio);
 	AddModule(map);
 	AddModule(pathfinding);
-	AddModule(em);
 	AddModule(font);
 	AddModule(gui);
 

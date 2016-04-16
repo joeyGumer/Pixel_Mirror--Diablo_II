@@ -3,7 +3,12 @@
 
 #include "EntMobile.h"
 
+
 class j1Player;
+
+#define PATHFINDING_FRAMES 10
+
+
 class EntEnemy : public EntMobile
 {
 public:
@@ -66,7 +71,7 @@ public:
 	void SetAnimations();
 
 public:
-
+	uint last_update;
 
 };
 #endif

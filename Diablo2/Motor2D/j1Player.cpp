@@ -561,7 +561,7 @@ void j1Player::HandleInput()
 	{
 		iPoint target;
 		//NOTE: this will be later changed
-		enemy = (EntEnemy*)App->em->EntityOnMouse();
+		enemy = (EntEnemy*)App->game->em->EntityOnMouse();
 
 		
 		target = App->input->GetMouseWorldPosition();

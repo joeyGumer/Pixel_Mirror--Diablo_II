@@ -14,6 +14,7 @@ struct SDL_Rect;
 class GuiImage;
 class GuiElement;
 class GuiButton;
+class Entity;
 
 
 
@@ -59,8 +60,8 @@ public:
 	//NOTE: provisional.
 	SDL_Texture* debug = NULL;
 
-	list<GuiElement*> outdoor_gui;
-
+	list<GuiElement*>	outdoor_gui;
+	list<Entity*>		entity_list;
 	
 	//NOTE: Test Sprite 
 	/*
