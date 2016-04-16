@@ -122,6 +122,8 @@ public:
 	void CheckToAttack();
 	void TakeDamage(int damage);
 
+	bool Alive();
+
 	void Respawn();
 
 	//NOTE: some of these may go to the entities

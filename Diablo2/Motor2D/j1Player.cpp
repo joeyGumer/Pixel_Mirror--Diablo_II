@@ -515,6 +515,12 @@ void j1Player::TakeDamage(int damage)
 	}
 
 }
+
+bool j1Player::Alive()
+{
+	return current_action != DEATH;
+}
+
 /*
 //--------Input
 */

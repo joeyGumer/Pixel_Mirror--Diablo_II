@@ -113,8 +113,13 @@ void EntEnemy::UpdateAttack()
 {
 	if (current_animation->Finished())
 	{
-		current_input = ENTITY_INPUT_STOP_MOVE;
+		if (!enemy->Alive() || !PlayerInAttackRange())
+		{
+			current_input = ENTITY_INPUT_STOP_MOVE;
+		}
+			
 		attacking = false;
+		current_animation->Reset();
 		//input_locked = false;
 	}
 }
@@ -195,6 +200,7 @@ bool EntEnemyWolf::Update(float dt)
 
 		if (App->game->em->EntityOnCoords(App->map->MapToWorld(GetMapPosition().x, GetMapPosition().y)) != NULL &&
 			App->game->em->EntityOnCoords(App->map->MapToWorld(GetMapPosition().x, GetMapPosition().y)) != this &&
+			last_update >= PATHFINDING_FRAMES &&
 			movement == false)
 		{
 			int target_x = FindClosestWalkable(GetMapPosition()).x;
@@ -308,6 +314,7 @@ void EntEnemyWolf::StateMachine()
 			sprite_rect.w = sprite_dim.x = 69;
 			sprite_rect.h = sprite_dim.y = 54;
 			sprite_pivot = sprite_dim / 2;
+			sprite_pivot.y += 5;
 
 			break;
 
@@ -318,6 +325,7 @@ void EntEnemyWolf::StateMachine()
 			sprite_rect.w = sprite_dim.x = 94;
 			sprite_rect.h = sprite_dim.y = 73;
 			sprite_pivot = sprite_dim / 2;
+			sprite_pivot.y += 5;
 
 			break;
 
@@ -328,6 +336,7 @@ void EntEnemyWolf::StateMachine()
 			sprite_rect.w = sprite_dim.x = 135;
 			sprite_rect.h = sprite_dim.y = 103;
 			sprite_pivot = sprite_dim / 2;
+			sprite_pivot.y += 5;
 
 			dead = true;
 			break;
@@ -352,6 +361,7 @@ void EntEnemyWolf::SetAnimations()
 	collider_rect.h = sprite_rect.h = sprite_dim.y = 54;
 
 	sprite_pivot = pivot = { collider_rect.w / 2, collider_rect.h - 20 };
+	sprite_pivot.y += 5;
 	
 	
 
@@ -398,9 +408,9 @@ void EntEnemyWolf::SetAnimations()
 		int width = 68;
 		int height = 54;
 		int margin = 1;
-		tmp.SetFrames(0, (height + margin) * i, width, height, 6, margin);
+		tmp.SetFrames(0, (height + margin) * i, width, height, 10, margin);
 		tmp.loop = false;
-		tmp.speed = 0.15;
+		tmp.speed = 0.2f;
 
 		attack.push_back(tmp);
 	}
