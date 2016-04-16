@@ -66,6 +66,7 @@ public:
 	void UpdateMovement(float dt);
 	bool IsTargetReached();
 	void GetNewTarget();
+	iPoint FindClosestWalkable(iPoint pos);
 
 public:
 	//Attributes

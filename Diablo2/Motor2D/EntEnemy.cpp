@@ -5,6 +5,7 @@
 #include "j1Textures.h"
 #include "j1Player.h"
 #include "j1Game.h"
+#include "j1EntityManager.h"
 
 //EntEnemy
 //----------------------------
@@ -177,20 +178,33 @@ bool EntEnemyWolf::Update(float dt)
 
 		fPoint player_pos = App->game->player->GetPivotPosition();
 
-	//NOTE: The enemy is for following the player one it has been founded, but for now, better not, because of the low framerate
-	if ((PlayerInRange() /*|| enemy*/) && !attacking && last_update >= PATHFINDING_FRAMES)
-	{
-			last_update = 0;
-			int target_x = player_pos.x;
-			int target_y = player_pos.y;
+		//NOTE: The enemy is for following the player one it has been founded, but for now, better not, because of the low framerate
+		if ((PlayerInRange() /*|| enemy*/) && !attacking && last_update >= PATHFINDING_FRAMES)
+		{
+				last_update = 0;
+				int target_x = player_pos.x;
+				int target_y = player_pos.y;
+
+				iPoint _target = { target_x, target_y };
+				_target = App->map->WorldToMap(_target.x, _target.y);
+				SetMovement(_target.x, _target.y);
+
+
+				enemy = App->game->player;
+		}
+
+		if (App->game->em->EntityOnCoords(App->map->MapToWorld(GetMapPosition().x, GetMapPosition().y)) != NULL &&
+			App->game->em->EntityOnCoords(App->map->MapToWorld(GetMapPosition().x, GetMapPosition().y)) != this &&
+			movement == false)
+		{
+			int target_x = FindClosestWalkable(GetMapPosition()).x;
+			int target_y = FindClosestWalkable(GetMapPosition()).y;
 
 			iPoint _target = { target_x, target_y };
 			_target = App->map->WorldToMap(_target.x, _target.y);
 			SetMovement(_target.x, _target.y);
 
-
-			enemy = App->game->player;
-	}
+		}
 
 		CheckToAttack();
 

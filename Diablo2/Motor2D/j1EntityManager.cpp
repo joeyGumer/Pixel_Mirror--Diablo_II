@@ -121,7 +121,7 @@ Entity* j1EntityManager::Add(iPoint &pos, ENTITY_TYPE type)
 
 	for (; item != active_entities.end(); item++)
 	{
-		if (item->second->GetTilePosition() == tile_pos)
+		if (EntityOnCoords(pos) != NULL)
 			return entity; // No entity is created!
 	}
 
@@ -167,16 +167,21 @@ Entity* j1EntityManager::EntityOnMouse()
 {
 	iPoint p = App->input->GetMouseWorldPosition();
 
+	return EntityOnCoords(p);
+}
+
+Entity* j1EntityManager::EntityOnCoords(iPoint &pos)
+{
 	map<uint, Entity*>::reverse_iterator item = active_entities.rbegin();
 	for (; item != active_entities.rend(); ++item)
 	{
 		SDL_Rect rect = item->second->GetPlayerRect();
 
-		if (p.x >= rect.x && p.x <= rect.x + rect.w &&
-			p.y >= rect.y && p.y <= rect.y + rect.h)
+		if (pos.x >= rect.x && pos.x <= rect.x + rect.w &&
+			pos.y >= rect.y && pos.y <= rect.y + rect.h)
 			return item->second;
 	}
-
 	return NULL;
 }
+
 

@@ -44,6 +44,7 @@ public:
 	Entity* GetEntity(uint id);
 
 	Entity* EntityOnMouse();
+	Entity* EntityOnCoords(iPoint &pos);
 
 private:
 	map<uint, Entity*> active_entities;

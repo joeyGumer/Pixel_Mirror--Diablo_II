@@ -4,6 +4,7 @@
 #include "j1Player.h"
 #include "j1Game.h"
 #include "j1Pathfinding.h"
+#include "j1EntityManager.h"
 
 //Constructor
 EntMobile::EntMobile(const iPoint &p, uint ID) : Entity(p, ID)
@@ -130,6 +131,48 @@ void EntMobile::GetNewTarget()
 
 }
 
+iPoint EntMobile::FindClosestWalkable(iPoint pos)
+{
+	bool found = false;
+	int lenght = 0;
+
+	iPoint tile = { pos.x, pos.y };
+
+	while (!found && lenght < 10)
+	{
+		while (tile.y < pos.y + lenght && !found)
+		{
+			tile.y++;
+			if (App->pathfinding->IsWalkable(tile))
+				found = true;
+		}
+
+		while (tile.x > pos.x - lenght && !found)
+		{
+			tile.x--;
+			if (App->pathfinding->IsWalkable(tile))
+				found = true;
+		}
+
+		while (tile.y > pos.y - lenght && !found)
+		{
+			tile.y--;
+			if (App->pathfinding->IsWalkable(tile))
+				found = true;
+
+		}
+
+		while (tile.x < pos.x + lenght && !found)
+		{
+			tile.x++;
+			if (App->pathfinding->IsWalkable(tile))
+				found = true;
+		}
+		lenght += 1;
+	}
+	return tile;
+}
+
 void EntMobile::UpdateMovement(float dt)
 {
 	if (movement)
@@ -168,6 +211,12 @@ void EntMobile::SetNewPath(int x, int y)
 {
 	iPoint start = App->map->WorldToMap(position.x, position.y);
 	iPoint goal = { x, y };
+
+	if (App->game->em->EntityOnCoords(App->map->MapToWorld(GetMapPosition().x, GetMapPosition().y)) != NULL &&
+		App->game->em->EntityOnCoords(App->map->MapToWorld(GetMapPosition().x, GetMapPosition().y)) != this)
+	{
+		goal = FindClosestWalkable(goal);
+	}
 
 	int steps = App->pathfinding->GetNewPath(start, goal, path);
 
