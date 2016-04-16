@@ -99,6 +99,10 @@ bool j1Player::Update(float dt)
 			UpdateMovement(dt);
 			RecoverStamina();
 			break;
+		case RUNNING:
+			UpdateMovement(dt);
+			LowerStamina();
+			break;
 		case ATTACKING:
 			UpdateAttack();
 			RecoverStamina();
@@ -250,6 +254,15 @@ SDL_Rect j1Player::GetPlayerRect() const
 	return{ pos.x, pos.y, PLAYER_SPRITE_W, PLAYER_SPRITE_H};
 }
 
+
+void j1Player::RunOn()
+{
+	running = !running;
+	if (current_action == RUNNING || current_action == WALKING)
+	{
+		SetInput(INPUT_MOVE);
+	}
+}
 /*
 //-------Events
 */
@@ -588,15 +601,6 @@ void j1Player::HandleInput()
 		PlayerEvent(ST_UP);
 	}
 	//
-
-	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
-	{
-		running = !running;
-		if (current_action == RUNNING || current_action == WALKING)
-		{
-			SetInput(INPUT_MOVE);
-		}
-	}
 
 	//Linear Movement activation
 	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)

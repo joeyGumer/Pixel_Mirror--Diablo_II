@@ -4,6 +4,8 @@
 //NOPE
 #include "j1Game.h"
 #include "j1HUD.h"
+#include "j1Player.h"
+#include "j1Input.h"
 
 
 
@@ -18,6 +20,11 @@ hudBelt::~hudBelt()
 //Called before fist frame
 bool hudBelt::Start()
 {
+
+	//Player
+	player = App->game->player;
+
+	//
 	life_current_h = mana_current_h = 78;
 
 	HUD = App->gui->AddGuiImage({ 166, 553 }, { 166, 386, 408, 47 }, NULL, this);
@@ -140,6 +147,11 @@ bool hudBelt::Start()
 //Called before each loop iteration
 bool hudBelt::PreUpdate()
 {
+	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
+	{
+		RunningOn();
+	}
+
 	return true;
 }
 
@@ -189,16 +201,7 @@ void hudBelt::OnEvent(GuiElement* element, GUI_Event even)
 		{
 			case EVENT_MOUSE_LEFTCLICK_DOWN:
 			{
-				if (run_pressed == false)
-				{
-					run_pressed = true;
-					runbutton->SetTextureRect({ 153, 301, 18, 22 });
-				}
-				else
-				{
-					run_pressed = false;
-					 runbutton->SetTextureRect({ 153, 280, 18, 22 });
-				}
+				RunningOn();
 			}
 			break;
 		}
@@ -438,4 +441,21 @@ void hudBelt::SetStamina(int max_ST, int ST)
 	}
 
 	stamina->SetTextureRect({ 530, 118, int(stamina_current_w), 18 });
+}
+
+void hudBelt::RunningOn()
+{
+	if (run_pressed == false)
+	{
+		run_pressed = true;
+		runbutton->SetTextureRect({ 153, 301, 18, 22 });
+
+	}
+	else
+	{
+		run_pressed = false;
+		runbutton->SetTextureRect({ 153, 280, 18, 22 });
+	}
+
+	player->RunOn();
 }

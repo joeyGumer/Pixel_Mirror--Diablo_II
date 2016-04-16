@@ -113,6 +113,8 @@ public:
 	void UpdateMovement(float dt);
 	bool IsTargetReached();
 	void GetNewTarget();
+
+	void RunOn();
 	
 	//Attack
 	bool IsInRange(Entity* enemy);

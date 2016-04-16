@@ -8,6 +8,7 @@ class j1HUD;
 class GuiElement;
 class GuiImage;
 class GuiLabel;
+class j1Player;
 
 
 #define STAT_LOCAL_Y 34
@@ -47,6 +48,9 @@ public:
 	void SetLife(int max_HP, int HP);
 	void SetMana(int max_MP, int MP);
 	void SetStamina(int max_ST, int ST);
+
+	//Running On
+	void RunningOn();
 
 public:
 
@@ -97,6 +101,9 @@ public:
 	//NOTE : labels for debug:
 	GuiLabel* life_debug;
 	GuiLabel* mana_debug;
+
+	//Strict relation with the player
+	j1Player* player;
 };
 
 
