@@ -190,6 +190,7 @@ bool EntEnemyWolf::Update(float dt)
 			_target = App->map->WorldToMap(_target.x, _target.y);
 			SetMovement(_target.x, _target.y);
 
+
 			enemy = App->game->player;
 	}
 
@@ -201,11 +202,11 @@ bool EntEnemyWolf::Update(float dt)
 			UpdateAttack();
 		case ENTITY_WALKING:
 			UpdateMovement(dt);
+			last_update++;
 		
 		}
-	}
 
-	last_update++;
+	}
 
 	return true;
 }
