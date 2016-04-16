@@ -70,13 +70,13 @@ public:
 
 	Sprite* enemy;
 	SDL_Rect* pos_enemy;
-	SDL_Rect* sect_enemy;*/
+	SDL_Rect* sect_enemy;
 
-	/*Sprite* enemy2;
+	Sprite* enemy2;
 	SDL_Rect* pos_enemy2;
-	SDL_Rect* sect_enemy2;*/
+	SDL_Rect* sect_enemy2;
 	
-	
+	*/
 	
 };
 

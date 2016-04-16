@@ -101,8 +101,8 @@ bool snOutdoor1::Start()
 	enemy->y = -1;
 
 	App->render->AddSpriteToList(enemy);
-	*/
-	/*SDL_Rect positionee = { 2, 2, 0, 0 };
+	
+	SDL_Rect positionee = { 2, 2, 0, 0 };
 	pos_enemy2 = &positionee;
 	SDL_Rect sectionee = { 0, 0, 96, 120 };
 	sect_enemy2 = &sectionee;
@@ -118,10 +118,10 @@ bool snOutdoor1::Start()
 	enemy2->sectionTexture.y = 0;
 	enemy2->sectionTexture.w = 0;
 	enemy2->sectionTexture.h = 0;
-	enemy2->y = 1;*/
+	enemy2->y = 1;
 
-//	App->render->AddSpriteToList(enemy2);
-
+	App->render->AddSpriteToList(enemy2);
+	*/
 	
 
 	

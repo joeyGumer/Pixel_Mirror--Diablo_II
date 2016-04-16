@@ -71,17 +71,15 @@ bool j1Render::PreUpdate()
 	SDL_RenderClear(renderer);
 	return true;
 }
-
-
 // NOTE: Function of C, compare Sprites to prepare sort
 bool compare_sprites(const Sprite* first, const Sprite* second)
 {
-		if ((first->y > second->y) && (first->positionMap.y  > second->positionMap.y/2))
+	if ((first->y > second->y) && (first->positionMap.y  > second->positionMap.y / 2))
 		return (first->positionMap.y  > second->positionMap.y);
-	else if ((first->y < second->y) && (first->positionMap.y/2  > second->positionMap.y))
+	else if ((first->y < second->y) && (first->positionMap.y / 2  > second->positionMap.y))
 		return (first->positionMap.y  < second->positionMap.y);
 }
-bool j1Render::PostUpdate()
+bool j1Render::Update(float dt)
 {
 	// NOTE:iterate list sprites call function sort and blit
 
@@ -91,12 +89,19 @@ bool j1Render::PostUpdate()
 	iterator = sprites.begin();
 	for (iterator; iterator != sprites.end(); iterator++)
 	{
-		
+
 		DrawSprite(*iterator);
 	}
 
 
-	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
+	return true;
+}
+
+
+bool j1Render::PostUpdate()
+{
+
+	//SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
 	SDL_RenderPresent(renderer);
 	return true;
 }
