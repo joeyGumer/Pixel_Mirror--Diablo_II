@@ -172,7 +172,7 @@ bool snOutdoor1::Update(float dt)
 
 		//int a = rand() % 2;
 		//if (a == 0)
-			App->em->Add(p, ENEMY);
+		entity_list.push_back(App->em->Add(p, ENEMY));
 		//if (a == 1)
 			//App->em->Add(p, ENEMY_CRAWLER);
 	}
@@ -267,6 +267,16 @@ bool snOutdoor1::PostUpdate()
 // Called before quitting
 bool snOutdoor1::CleanUp()
 {
+	// Remove all entities
+	list<Entity*>::iterator item;
+	item = entity_list.begin();
+
+	while (item != entity_list.end())
+	{
+		App->em->Remove(item._Ptr->_Myval->id);
+		item++;
+	}
+	entity_list.clear();
 
 	return true;
 }
