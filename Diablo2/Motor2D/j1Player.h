@@ -6,6 +6,7 @@
 #include "Animation.h"
 //WARNING provisional sdl including
 #include "SDL/include/SDL.h"
+#include "j1Timer.h"
 #include <vector>
 
 using namespace std;
@@ -51,6 +52,7 @@ enum ACTION_STATE
 	WALKING,
 	RUNNING,
 	ATTACKING,
+	DEATH,
 	DEFAULT,
 };
 
@@ -118,6 +120,7 @@ public:
 	void CheckToAttack();
 	void TakeDamage(int damage);
 
+	void Respawn();
 
 	//NOTE: some of these may go to the entities
 	//Getters
@@ -182,6 +185,7 @@ private:
 	SDL_Texture* p_walk = NULL;
 	SDL_Texture* p_run = NULL;
 	SDL_Texture* p_attack = NULL;
+	SDL_Texture* p_death = NULL;
 
 	//Rects for each state and direction
 	//--------------------
@@ -192,6 +196,7 @@ private:
 	vector<Animation> walk;
 	vector<Animation> attack;
 	vector<Animation> run;
+	vector<Animation> death;
 	//--------------------
 
 	//Attributes
@@ -214,6 +219,7 @@ private:
 	INPUT_STATE		current_input;
 	ACTION_STATE	previous_action = DEFAULT;
 	bool			input_locked = false;
+	j1Timer			respawn_timer;
 
 	//NOTE: will be cahnged to a enemy once entity manager structure is changed
 	//Enemy target

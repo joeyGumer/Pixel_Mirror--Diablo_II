@@ -15,6 +15,7 @@
 #include "EntEnemy.h"
 #include "SDL/include/SDL.h"
 
+
 j1Player::j1Player()
 {
 	
@@ -42,6 +43,7 @@ bool j1Player::Start()
 	p_walk = App->tex->Load("textures/vamp_walk.png");
 	p_attack = App->tex->Load("textures/vamp_attack.png");
 	p_run = App->tex->Load("textures/vamp_run.png");
+	p_death = App->tex->Load("textures/vamp_death.png");
 	SetAnimations();
 
 	current_action = IDLE;
@@ -60,6 +62,8 @@ bool j1Player::Start()
 	HP_max = HP_current = 200.0f;
 	MP_max = MP_current = 100;
 	ST_max = ST_current = 200.0f;
+
+	
 	
 	return true;
 }
@@ -67,6 +71,7 @@ bool j1Player::Start()
 //PreUpdate
 bool j1Player::PreUpdate()
 {
+
 	UpdateAction();
 
 	return true;
@@ -75,6 +80,8 @@ bool j1Player::PreUpdate()
 //Update
 bool j1Player::Update(float dt)
 {
+	if (current_action != DEATH)
+	{
 		if (!App->gui->mouse_hovering)
 		{
 			HandleInput();
@@ -96,8 +103,16 @@ bool j1Player::Update(float dt)
 			UpdateAttack();
 			RecoverStamina();
 			break;
-		
+
 		}
+	}
+	else
+	{
+		if (respawn_timer.ReadSec() >= 5)
+		{
+			Respawn();
+		}
+	}
 
 		App->render->CenterCamera(p_position.x, p_position.y);
 
@@ -118,6 +133,32 @@ bool j1Player::CleanUp()
 	return true;
 }
 
+void j1Player::Respawn()
+{
+	//Cosnumable attributes restablished
+	HP_current = HP_max;
+	MP_current = MP_max;
+	ST_current = ST_max;
+
+	PlayerEvent(HP_UP);
+	PlayerEvent(MP_UP);
+	PlayerEvent(ST_UP);
+
+	//Reset state and animation
+	current_action = IDLE;
+	current_direction = D_FRONT;
+	current_input = INPUT_STOP_MOVE;
+	current_animation_set = idle;
+	current_animation = &current_animation_set[current_direction];
+
+
+	//Init position and booleans
+	p_position = { 0, 0 };
+	movement = false;
+	attacking = false;
+	running = false;
+	enemy = NULL;
+}
 
 //Draws the player sprite to the scene
 //NOTE: had to take out the const because of the animation
@@ -452,13 +493,14 @@ void j1Player::CheckToAttack()
 void j1Player::TakeDamage(int damage)
 {
 	HP_current -= damage;
+	PlayerEvent(HP_DOWN);
+
 	if (HP_current <= 0)
 	{
 		HP_current = 0;
 		current_input = INPUT_DEATH;
 	}
 
-	PlayerEvent(HP_DOWN);
 }
 /*
 //--------Input
@@ -596,9 +638,13 @@ ACTION_STATE j1Player::UpdateAction()
 					current_action = RUNNING;
 			}
 
-			if (current_input == INPUT_ATTACK)
+			else if (current_input == INPUT_ATTACK)
 			{
 				current_action = ATTACKING;
+			}
+			else if (current_input == INPUT_DEATH)
+			{
+				current_action = DEATH;
 			}
 			
 		}
@@ -611,14 +657,18 @@ ACTION_STATE j1Player::UpdateAction()
 				current_action = IDLE;
 			}
 
-			if (current_input == INPUT_ATTACK)
+			else if (current_input == INPUT_ATTACK)
 			{
 				current_action = ATTACKING;
 			}		
 
-			if (current_input == INPUT_MOVE && running)
+			else if (current_input == INPUT_MOVE && running)
 			{
 				current_action = RUNNING;
+			}
+			else if (current_input == INPUT_DEATH)
+			{
+				current_action = DEATH;
 			}
 		}
 		break;
@@ -629,13 +679,17 @@ ACTION_STATE j1Player::UpdateAction()
 			{
 				current_action = IDLE;
 			}
-			if (current_input == INPUT_MOVE && !running)
+			else if (current_input == INPUT_MOVE && !running)
 			{
 				current_action = WALKING;
 			}
-			if (current_input == INPUT_ATTACK)
+			else if (current_input == INPUT_ATTACK)
 			{
 				current_action = ATTACKING;
+			}
+			else if (current_input == INPUT_DEATH)
+			{
+				current_action = DEATH;
 			}
 		}
 		break;
@@ -646,7 +700,20 @@ ACTION_STATE j1Player::UpdateAction()
 			{
 				current_action = IDLE;
 			}
+			else if (current_input == INPUT_DEATH)
+			{
+				current_action = DEATH;
+			}
 			
+		}
+		break;
+
+		case DEATH:
+		{
+			if (current_input == INPUT_STOP_MOVE)
+			{
+				current_action = IDLE;
+			}
 		}
 		break;
 		}
@@ -741,6 +808,17 @@ void j1Player::SetAnimations()
 
 		attack.push_back(atk);
 	}
+
+	//Death
+	for (int i = 0; i < 8; i++)
+	{
+		Animation dth;
+		dth.SetFrames(0, (PLAYER_SPRITE_H + SPRITE_MARGIN)* i, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 14, SPRITE_MARGIN);
+		dth.speed = 0.2f;
+		dth.loop = false;
+
+		death.push_back(dth);
+	}
 }
 
 void j1Player::SetDirection()
@@ -796,5 +874,10 @@ void j1Player::StateMachine()
 		p_sprite = p_attack;
 		current_animation_set = attack;
 		break;
+	case DEATH:
+		p_sprite = p_death;
+		current_animation_set = death;
+		respawn_timer.Start();
 	}
+	current_animation = &current_animation_set[current_direction];
 }
