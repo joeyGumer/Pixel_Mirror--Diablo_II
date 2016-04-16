@@ -16,12 +16,22 @@ public:
 
 	bool PlayerInRange();
 
+	//Damage
+	void TakeDamage(int damage);
+	void DrawHPbar();
+
 public:
 
 	//Attributes
+
+	//Health
 	int		HP_max;
 	int		HP_current;
+
+	//Attack
 	float	attack_range = 100.0f;
+
+	//Detection
 	float	agro_range;
 };
 

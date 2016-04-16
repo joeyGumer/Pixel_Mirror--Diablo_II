@@ -60,6 +60,30 @@ bool EntEnemy::PlayerInRange()
 }
 //----------------------------
 
+
+void EntEnemy::TakeDamage(int damage)
+{
+	//NOTE: this will be changed when the defense is applied
+	HP_current -= damage;
+	if (HP_current < 0)
+	{
+		HP_current = 0;
+		current_input = INPUT_DEATH;
+	}
+}
+
+void EntEnemy::DrawHPbar()
+{
+	//NOTE: make this to GUI so it can put the enemy's name
+	float total_width = 200;
+	int height = 20;
+	int current_width = (total_width/HP_max)* HP_current;
+
+	App->render->DrawQuad({ 220, 0, total_width, height }, 0, 0, 0, 255, true, false);
+	App->render->DrawQuad({ 220, 0, current_width, height }, 255, 0, 0, 255, true, false);
+
+
+}
 //EntEnemyWolf
 //----------------------------
 
@@ -68,12 +92,14 @@ EntEnemyWolf::EntEnemyWolf(const iPoint &p, uint ID) : EntEnemy(p, ID)
 {
 	sprite = idle_tex = App->tex->Load("textures/wolf.png");
 	walk_tex = App->tex->Load("textures/wolf_walk.png");
+	death_tex = App->tex->Load("textures/wolf_death.png");
+	attack_tex = App->tex->Load("textures/wolf_attack.png");
 
 	SetAnimations();
 	current_animation_set = idle;
 	current_animation = &current_animation_set[current_direction];
 
-	type = ENEMY_WOLF;
+	type = ENEMY;
 
 	HP_max = HP_current = 100;
 	speed = 100.0f;
@@ -85,21 +111,24 @@ EntEnemyWolf::EntEnemyWolf(const iPoint &p, uint ID) : EntEnemy(p, ID)
 //Update
 bool EntEnemyWolf::Update(float dt)
 {
-	/*UpdateAction();
-
-	fPoint player_pos = App->game->player->GetPivotPosition();
-
-	if (PlayerInRange())
+	if (!dead)
 	{
-		int target_x = player_pos.x;
-		int target_y = player_pos.y;
+		UpdateAction();
 
-		iPoint _target = { target_x, target_y };
-		_target = App->map->WorldToMap(_target.x, _target.y);
-		SetMovement(_target.x, _target.y);
+		fPoint player_pos = App->game->player->GetPivotPosition();
+
+		if (PlayerInRange())
+		{
+			int target_x = player_pos.x;
+			int target_y = player_pos.y;
+
+			iPoint _target = { target_x, target_y };
+			_target = App->map->WorldToMap(_target.x, _target.y);
+			SetMovement(_target.x, _target.y);
+		}
+
+		UpdateMovement(dt);
 	}
-
-	UpdateMovement(dt);*/
 
 	return true;
 }
@@ -116,6 +145,10 @@ ENTITY_STATE EntEnemyWolf::UpdateAction()
 				{
 					current_action = ENTITY_WALKING;
 				}
+				if (current_input == INPUT_DEATH)
+				{
+					current_action = ENTITY_DEATH;
+				}
 			}
 			break;
 
@@ -124,6 +157,10 @@ ENTITY_STATE EntEnemyWolf::UpdateAction()
 				if (current_input == ENTITY_INPUT_STOP_MOVE)
 				{
 					current_action = ENTITY_IDLE;
+				}
+				if (current_input == INPUT_DEATH)
+				{
+					current_action = ENTITY_DEATH;
 				}
 			}
 			break;
@@ -173,6 +210,18 @@ void EntEnemyWolf::StateMachine()
 			sprite_pivot = sprite_dim / 2;
 
 			break;
+
+		case ENTITY_DEATH:
+			sprite = death_tex;
+			current_animation_set = death;
+
+			sprite_rect.w = sprite_dim.x = 135;
+			sprite_rect.h = sprite_dim.y = 103;
+			sprite_pivot = sprite_dim / 2;
+
+			dead = true;
+
+			break;
 	}
 }
 
@@ -206,6 +255,20 @@ void EntEnemyWolf::SetAnimations()
 		tmp.speed = 0.2f;
 
 		walk.push_back(tmp);
+	}
+
+	//Death
+	for (int i = 0; i < 8; i++)
+	{
+		Animation tmp;
+		int width = 135;
+		int height = 103;
+		int margin = 1;
+		tmp.SetFrames(0, (height + margin) * i, width, height, 16, margin);
+		tmp.loop = false;
+		tmp.speed = 0.2f;
+
+		death.push_back(tmp);
 	}
 }
 

@@ -47,6 +47,7 @@ bool j1EntityManager::PreUpdate()
 		}
 	}
 
+
 	return true;
 }
 
@@ -75,7 +76,17 @@ bool j1EntityManager::PostUpdate()
 			item->second->DrawDebug();
 		}
 
-	}	
+	}
+
+	//Checking if there's an entity under the mouse to do it's stuff
+	// NOTE: put it as gui
+	if (Entity* ent = EntityOnMouse())
+	{
+		if (ent->type == ENEMY)
+		{
+			((EntEnemy*)ent)->DrawHPbar();
+		}
+	}
 
 	return true;
 }
@@ -117,7 +128,8 @@ Entity* j1EntityManager::Add(iPoint &pos, ENTITY_TYPE type)
 	{
 		switch (type)
 		{
-		case (ENEMY_WOLF) :
+		//NOTE: to diferentiate the kinds of enemies, put ENEMY_TYPE enum, but don't use the one from the diferent kinds of entities
+		case (ENEMY) :
 			entity = new EntEnemyWolf(pos, ++next_ID);
 			break;
 		}

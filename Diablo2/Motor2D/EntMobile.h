@@ -12,6 +12,7 @@ enum ENTITY_STATE
 {
 	ENTITY_IDLE,
 	ENTITY_WALKING,
+	ENTITY_DEATH,
 };
 
 enum ENTITY_INPUT
@@ -19,6 +20,7 @@ enum ENTITY_INPUT
 	ENTITY_INPUT_MOVE,
 	ENTITY_INPUT_STOP_MOVE,
 	ENTITY_INPUT_NULL,
+	INPUT_DEATH
 };
 
 enum ENTITY_DIRECTION
@@ -68,8 +70,14 @@ public:
 	Animation*			current_animation;
 	vector<Animation>	idle;
 	vector<Animation>	walk;
+	//NOTE: not all the mobile entities would do this
+	vector<Animation>	attack;
+	vector<Animation>	death;
+
 	SDL_Texture*		idle_tex;
 	SDL_Texture*		walk_tex;
+	SDL_Texture*		death_tex;
+	SDL_Texture*		attack_tex;
 
 	vector<iPoint>		path;
 	iPoint				target;
@@ -80,6 +88,7 @@ public:
 	bool				movement;
 	bool				target_reached;
 	bool				path_on = true;
+	bool				dead = false;
 
 	ENTITY_STATE		current_action;
 	vector<Animation>	current_animation_set;

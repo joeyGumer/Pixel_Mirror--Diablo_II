@@ -63,6 +63,7 @@ enum INPUT_STATE
 	INPUT_NULL,
 };
 
+class EntEnemy;
 class Entity;
 
 class j1Player : public j1Module
@@ -168,6 +169,7 @@ private:
 
 	//Attack
 	bool		attacking;
+	int			atk_damage = 10;
 
 	//Textures
 	SDL_Texture* p_debug = NULL;
@@ -211,7 +213,7 @@ private:
 
 	//NOTE: will be cahnged to a enemy once entity manager structure is changed
 	//Enemy target
-	Entity* enemy;
+	EntEnemy* enemy;
 
 };
 

@@ -127,6 +127,7 @@ void EntMobile::GetNewTarget()
 		current_input = ENTITY_INPUT_STOP_MOVE;
 		movement = false;
 	}
+
 }
 
 void EntMobile::UpdateMovement(float dt)

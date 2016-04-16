@@ -12,6 +12,7 @@
 #include "j1Pathfinding.h"
 #include "j1EntityManager.h"
 #include "Entity.h"
+#include "EntEnemy.h"
 #include "SDL/include/SDL.h"
 
 j1Player::j1Player()
@@ -93,7 +94,9 @@ bool j1Player::Update(float dt)
 
 				SetDirection();
 
-
+				//NOTE: Make the damage to be done according to the animation time
+				enemy->TakeDamage(atk_damage);
+		
 				movement = false;
 				current_input = INPUT_ATTACK;
 				enemy = NULL;
@@ -439,7 +442,7 @@ bool j1Player::IsInRange(Entity* enemy)
 void j1Player::UpdateAttack()
 {
 	//NOTE: provisional attack state
-	if (enemy && !attacking)
+	/*if (enemy && !attacking)
 	{
 		if (IsInRange(enemy))
 		{
@@ -451,6 +454,7 @@ void j1Player::UpdateAttack()
 
 			SetDirection();
 
+			
 
 			movement = false;
 			current_input = INPUT_ATTACK;
@@ -458,7 +462,7 @@ void j1Player::UpdateAttack()
 			attacking = true;
 			input_locked = true;
 		}
-	}
+	}*/
 
 	
 		if (current_animation->Finished())
@@ -569,7 +573,8 @@ void j1Player::HandleInput()
 	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 	{
 		iPoint target;
-		enemy = App->em->EntityOnMouse();
+		//NOTE: this will be later changed
+		enemy = (EntEnemy*)App->em->EntityOnMouse();
 
 		
 		target = App->input->GetMouseWorldPosition();
@@ -640,6 +645,10 @@ ACTION_STATE j1Player::UpdateAction()
 			if (current_input == INPUT_MOVE && !running)
 			{
 				current_action = WALKING;
+			}
+			if (current_input == INPUT_ATTACK)
+			{
+				current_action = ATTACKING;
 			}
 		}
 		break;
