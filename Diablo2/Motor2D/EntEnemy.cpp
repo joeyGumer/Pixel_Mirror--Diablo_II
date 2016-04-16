@@ -131,9 +131,8 @@ bool EntEnemyWolf::Update(float dt)
 		}
 
 		UpdateMovement(dt);
+		last_update++;
 	}
-
-	last_update++;
 
 	return true;
 }
