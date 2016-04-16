@@ -106,6 +106,8 @@ EntEnemyWolf::EntEnemyWolf(const iPoint &p, uint ID) : EntEnemy(p, ID)
 
 	movement = false;
 	agro_range = 80.0f;
+
+	last_update = PATHFINDING_FRAMES;
 }
 
 //Update
@@ -117,8 +119,9 @@ bool EntEnemyWolf::Update(float dt)
 
 		fPoint player_pos = App->game->player->GetPivotPosition();
 
-		if (PlayerInRange())
+		if (PlayerInRange() && last_update > PATHFINDING_FRAMES)
 		{
+			last_update = 0;
 			int target_x = player_pos.x;
 			int target_y = player_pos.y;
 
@@ -129,6 +132,8 @@ bool EntEnemyWolf::Update(float dt)
 
 		UpdateMovement(dt);
 	}
+
+	last_update++;
 
 	return true;
 }

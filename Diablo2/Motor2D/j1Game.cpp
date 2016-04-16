@@ -9,13 +9,13 @@ j1Game::j1Game() : j1Module()
 {
 	//Init modules
 	player	= new j1Player();
-	HUD		= new j1HUD();
 	em		= new j1EntityManager();
+	HUD		= new j1HUD();
 
 	//Add modules to the list
 	AddModule(player);
-	AddModule(HUD);
 	AddModule(em);
+	AddModule(HUD);
 }
 
 //Destructor
