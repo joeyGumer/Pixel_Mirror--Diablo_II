@@ -58,7 +58,5 @@ SDL_Rect Entity::GetPlayerRect() const
 	blit.x -= pivot.x;
 	blit.y -= pivot.y;
 
-
-
 	return{ blit.x, blit.y, collider_rect.w, collider_rect.h };
 }

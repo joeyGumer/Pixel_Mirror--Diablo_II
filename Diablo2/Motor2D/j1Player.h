@@ -60,6 +60,7 @@ enum INPUT_STATE
 	INPUT_RUN,
 	INPUT_STOP_MOVE,
 	INPUT_ATTACK,
+	INPUT_DEATH,
 	INPUT_NULL,
 };
 
@@ -114,6 +115,9 @@ public:
 	//Attack
 	bool IsInRange(Entity* enemy);
 	void UpdateAttack();
+	void CheckToAttack();
+	void TakeDamage(int damage);
+
 
 	//NOTE: some of these may go to the entities
 	//Getters
@@ -169,7 +173,7 @@ private:
 
 	//Attack
 	bool		attacking;
-	int			atk_damage = 10;
+	int			atk_damage = 50;
 
 	//Textures
 	SDL_Texture* p_debug = NULL;

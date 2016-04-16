@@ -3,6 +3,7 @@
 
 #include "EntMobile.h"
 
+class j1Player;
 class EntEnemy : public EntMobile
 {
 public:
@@ -15,11 +16,17 @@ public:
 	void DrawDebug();
 
 	bool PlayerInRange();
+	bool PlayerInAttackRange();
 
 	//Damage
 	void TakeDamage(int damage);
 	void DrawHPbar();
+	
+	//Attack
+	void UpdateAttack();
+	void CheckToAttack();
 
+	
 public:
 
 	//Attributes
@@ -29,10 +36,17 @@ public:
 	int		HP_current;
 
 	//Attack
-	float	attack_range = 100.0f;
+	float	attack_range;
+	int		damage = 5;
+	bool attacking;
+	//NOTE: in the future it will be an entity
+	j1Player* enemy;
 
 	//Detection
 	float	agro_range;
+
+
+
 };
 
 

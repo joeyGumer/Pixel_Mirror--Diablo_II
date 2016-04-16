@@ -80,40 +80,13 @@ bool j1Player::Update(float dt)
 			HandleInput();
 		}
 
-		//if (!attacking)
-			//UpdateMovement(dt);
-		if (enemy && !attacking)
-		{
-			if (IsInRange(enemy))
-			{
-
-				fPoint target = enemy->GetPivotPosition();
-
-				fPoint dist = { target - p_position };
-				p_velocity = dist;
-
-				SetDirection();
-
-				//NOTE: Make the damage to be done according to the animation time
-				enemy->TakeDamage(atk_damage);
-		
-				movement = false;
-				current_input = INPUT_ATTACK;
-				enemy = NULL;
-				attacking = true;
-				input_locked = true;
-			}
-		}
+		CheckToAttack();
 
 		//NOTE:Make this more elegant
 		switch (current_action)
 		{
 		case IDLE:
 			RecoverStamina();
-			break;
-		case RUNNING:
-			UpdateMovement(dt);
-			LowerStamina();
 			break;
 		case WALKING:
 			UpdateMovement(dt);
@@ -442,7 +415,18 @@ bool j1Player::IsInRange(Entity* enemy)
 void j1Player::UpdateAttack()
 {
 	//NOTE: provisional attack state
-	/*if (enemy && !attacking)
+		if (current_animation->Finished())
+		{
+			current_input = INPUT_STOP_MOVE;
+			attacking = false;
+			input_locked = false;
+		}
+	
+}
+
+void j1Player::CheckToAttack()
+{
+	if (enemy && !attacking)
 	{
 		if (IsInRange(enemy))
 		{
@@ -454,7 +438,7 @@ void j1Player::UpdateAttack()
 
 			SetDirection();
 
-			
+			enemy->TakeDamage(atk_damage);
 
 			movement = false;
 			current_input = INPUT_ATTACK;
@@ -462,16 +446,19 @@ void j1Player::UpdateAttack()
 			attacking = true;
 			input_locked = true;
 		}
-	}*/
+	}
+}
 
-	
-		if (current_animation->Finished())
-		{
-			current_input = INPUT_STOP_MOVE;
-			attacking = false;
-			input_locked = false;
-		}
-	
+void j1Player::TakeDamage(int damage)
+{
+	HP_current -= damage;
+	if (HP_current <= 0)
+	{
+		HP_current = 0;
+		current_input = INPUT_DEATH;
+	}
+
+	PlayerEvent(HP_DOWN);
 }
 /*
 //--------Input

@@ -65,10 +65,10 @@ void EntEnemy::TakeDamage(int damage)
 {
 	//NOTE: this will be changed when the defense is applied
 	HP_current -= damage;
-	if (HP_current < 0)
+	if (HP_current <= 0)
 	{
 		HP_current = 0;
-		current_input = INPUT_DEATH;
+		current_input = ENTITY_INPUT_DEATH;
 	}
 }
 
@@ -83,6 +83,63 @@ void EntEnemy::DrawHPbar()
 	App->render->DrawQuad({ 220, 0, current_width, height }, 255, 0, 0, 255, true, false);
 
 
+}
+
+/*
+//---- Attack
+*/
+
+bool EntEnemy::PlayerInAttackRange()
+{
+	fPoint target_enemy = App->game->player->GetPivotPosition();
+
+	fPoint dist;
+
+	dist.x = target_enemy.x - position.x;
+	dist.y = target_enemy.y - position.y;
+
+	float ret = dist.GetModule();
+
+	if (attack_range > ret)
+	{
+		return true;
+	}
+
+	return false;
+}
+
+void EntEnemy::UpdateAttack()
+{
+	if (current_animation->Finished())
+	{
+		current_input = ENTITY_INPUT_STOP_MOVE;
+		attacking = false;
+		//input_locked = false;
+	}
+}
+void EntEnemy::CheckToAttack()
+{
+	if (enemy && !attacking)
+	{
+		if (PlayerInAttackRange())
+		{
+
+			fPoint target = enemy->GetPivotPosition();
+
+			fPoint dist = { target - position };
+			velocity = dist;
+
+			SetDirection();
+
+			enemy->TakeDamage(damage);
+
+			movement = false;
+			current_input = ENTITY_INPUT_ATTACK;
+			enemy = NULL;
+			attacking = true;
+			//input_locked = true;
+		}
+	}
 }
 //EntEnemyWolf
 //----------------------------
@@ -105,7 +162,8 @@ EntEnemyWolf::EntEnemyWolf(const iPoint &p, uint ID) : EntEnemy(p, ID)
 	speed = 100.0f;
 
 	movement = false;
-	agro_range = 80.0f;
+	agro_range = 150.0f;
+	attack_range = 100.0f;
 }
 
 //Update
@@ -117,7 +175,7 @@ bool EntEnemyWolf::Update(float dt)
 
 		fPoint player_pos = App->game->player->GetPivotPosition();
 
-		if (PlayerInRange())
+		if (PlayerInRange() && !enemy)
 		{
 			int target_x = player_pos.x;
 			int target_y = player_pos.y;
@@ -125,9 +183,20 @@ bool EntEnemyWolf::Update(float dt)
 			iPoint _target = { target_x, target_y };
 			_target = App->map->WorldToMap(_target.x, _target.y);
 			SetMovement(_target.x, _target.y);
+
+			enemy = App->game->player;
 		}
 
-		UpdateMovement(dt);
+		CheckToAttack();
+
+		switch (current_action)
+		{
+		case ENTITY_ATTACKING:
+			UpdateAttack();
+		case ENTITY_WALKING:
+			UpdateMovement(dt);
+		
+		}
 	}
 
 	return true;
@@ -149,10 +218,31 @@ ENTITY_STATE EntEnemyWolf::UpdateAction()
 				{
 					current_action = ENTITY_DEATH;
 				}
+				if (current_input == ENTITY_INPUT_ATTACK)
+				{
+					current_action = ENTITY_ATTACKING;
+				}
 			}
 			break;
 
 			case ENTITY_WALKING:
+			{
+				if (current_input == ENTITY_INPUT_STOP_MOVE)
+				{
+					current_action = ENTITY_IDLE;
+				}
+				if (current_input == INPUT_DEATH)
+				{
+					current_action = ENTITY_DEATH;
+				}
+				if (current_input == ENTITY_INPUT_ATTACK)
+				{
+					current_action = ENTITY_ATTACKING;
+				}
+			}
+			break;
+
+			case ENTITY_ATTACKING:
 			{
 				if (current_input == ENTITY_INPUT_STOP_MOVE)
 				{
@@ -220,6 +310,16 @@ void EntEnemyWolf::StateMachine()
 			sprite_pivot = sprite_dim / 2;
 
 			dead = true;
+			break;
+
+
+		case ENTITY_ATTACKING:
+			sprite = attack_tex;
+			current_animation_set = attack;
+
+			sprite_rect.w = sprite_dim.x = 68;
+			sprite_rect.h = sprite_dim.y = 54;
+			sprite_pivot = sprite_dim / 2;
 
 			break;
 	}
@@ -269,6 +369,20 @@ void EntEnemyWolf::SetAnimations()
 		tmp.speed = 0.2f;
 
 		death.push_back(tmp);
+	}
+
+	//Attack
+	for (int i = 0; i < 8; i++)
+	{
+		Animation tmp;
+		int width = 68;
+		int height = 54;
+		int margin = 1;
+		tmp.SetFrames(0, (height + margin) * i, width, height, 6, margin);
+		tmp.loop = false;
+		tmp.speed = 0.2;
+
+		attack.push_back(tmp);
 	}
 }
 
