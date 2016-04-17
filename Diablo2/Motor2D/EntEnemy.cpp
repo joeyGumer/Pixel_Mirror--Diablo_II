@@ -363,7 +363,7 @@ void EntEnemyWolf::StateMachine()
 			sprite_rect.w = sprite_dim.x = 68;
 			sprite_rect.h = sprite_dim.y = 54;
 			sprite_pivot = sprite_dim / 2;
-			sprite_pivot.y += 5;
+			//sprite_pivot.y += 5;
 
 			break;
 	}
@@ -448,7 +448,7 @@ EntEnemyCrawler::EntEnemyCrawler(const iPoint &p, uint ID) : EntEnemy(p, ID)
 	current_animation_set = idle;
 	current_animation = &current_animation_set[current_direction];
 
-	type = ENEMY;
+	type = ENEMY_CRAWLER;
 
 	HP_max = HP_current = 100;
 	speed = 100.0f;
