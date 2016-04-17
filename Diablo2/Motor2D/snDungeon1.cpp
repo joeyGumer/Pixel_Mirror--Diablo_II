@@ -10,6 +10,7 @@
 #include "j1Input.h"
 #include "j1SceneManager.h"
 #include "snWin.h"
+#include "j1Audio.h"
 
 
 
@@ -38,6 +39,7 @@ bool snDungeon1::Start()
 {
 	win = false;
 
+	App->audio->PlayMusic("audio/music/town1.ogg", 0);
 	debug = App->tex->Load("maps/mini_path.png");
 
 	//Map

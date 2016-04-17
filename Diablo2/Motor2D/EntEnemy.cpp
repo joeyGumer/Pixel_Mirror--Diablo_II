@@ -756,6 +756,8 @@ EntEnemyBoss::EntEnemyBoss(const iPoint &p, uint ID) : EntEnemy(p, ID)
 	attack_range = 50.0f;
 	agro_range = 150.0f;
 
+	damage = 7;
+
 	last_update = PATHFINDING_FRAMES;
 
 	//Sprite creation

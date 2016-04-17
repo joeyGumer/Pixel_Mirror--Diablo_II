@@ -49,7 +49,6 @@ public:
 
 	//Attack
 	float	attack_range;
-	int		damage = 1;
 	bool attacking;
 	//NOTE: in the future it will be an entity
 	j1Player* enemy;
@@ -58,7 +57,7 @@ public:
 	float	agro_range;
 
 	//ENEMY_TYPE emy_type;
-
+	int		damage;
 
 
 };
@@ -102,7 +101,7 @@ public:
 
 public:
 	uint last_update;
-
+	
 };
 
 
@@ -124,6 +123,6 @@ public:
 public:
 	uint last_update;
 	j1Timer win;
-
+	
 };
 #endif
