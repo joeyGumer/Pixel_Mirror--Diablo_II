@@ -44,6 +44,7 @@ bool j1Gui::Start()
 	SDL_ShowCursor(SDL_DISABLE);
 	//Mouse--------
 	mouse = new GuiMouseImage({ mouse_x, mouse_y }, { 189, 97, 34, 28 }, NULL, this);
+	dragged_item = NULL;
 	//-------------
 	return true;
 }
@@ -66,6 +67,18 @@ bool j1Gui::PreUpdate()
 	if (hover_element && hover_element->focusable && App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 		focus = hover_element;
 
+	if (dragged_item)
+	{
+		dragged_item->Move();
+		if (hover_element == NULL && App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
+		{
+			dragged_item->inventory->items.remove(dragged_item);
+			RELEASE(dragged_item);
+			mouse_hovering = true;
+		}
+	}
+
+	
 	list<GuiElement*>::iterator item;
 
 	//NOTE: for now, we don't need the focus
@@ -167,7 +180,19 @@ bool j1Gui::PostUpdate()
 		}
 	}
 
-	mouse->Draw();
+	if (dragged_item)
+	{
+		dragged_item->Draw();
+		if (App->debug)
+		{
+			dragged_item->DrawDebug();
+		}
+	}
+	//
+	else
+	{
+		mouse->Draw();
+	}
 
 	return true;
 }
@@ -255,5 +280,13 @@ GuiSlider* j1Gui::AddGuiSlider(iPoint p, SDL_Rect tex_1, SDL_Rect tex_2, int wid
 	gui_elements.push_back(slider);
 	if (par != NULL)par->AddChild(slider);
 	return slider;
+}
+
+
+GuiInventory* j1Gui::AddGuiInventory(iPoint p, SDL_Rect r, int col, int rows, int slot_w, int slot_h, GuiElement* par, j1Module* list)
+{
+	GuiInventory* inventory = new GuiInventory(p, r, col, rows, slot_w, slot_h, par, list);
+	gui_elements.push_back(inventory);
+	return inventory;
 }
 // class Gui ---------------------------------------------------*/

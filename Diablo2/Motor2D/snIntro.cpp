@@ -4,6 +4,7 @@
 #include "j1SceneManager.h"
 #include "j1Input.h"
 #include "snOutdoor1.h"
+#include "snDungeon1.h"
 #include "j1Gui.h"
 #include "j1Audio.h"
 
@@ -80,7 +81,7 @@ bool snIntro::Update(float dt)
 	*/
 	if (pass == true)
 	{
-		App->sm->ChangeScene(App->sm->outdoor1);
+		App->sm->ChangeScene(App->sm->dungeon1);
 	}
 
 	else if (exit == true)

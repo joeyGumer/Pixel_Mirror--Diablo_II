@@ -5,12 +5,14 @@
 //I'm doing trap here...
 //So i can take this out i have to change the constructors..., i'll do it later
 #include "GuiElements.h"
+#include "GuiInventory.h"
 #include <list>
 
 
 #define CURSOR_WIDTH 2
 
 // ---------------------------------------------------
+;
 class j1Gui : public j1Module
 {
 public:
@@ -47,6 +49,9 @@ public:
 
 	GuiMouseImage* AddGuiMouseImage(iPoint p, SDL_Rect r, GuiElement* par, j1Module* list);
 
+	//Function that creates an inventory
+	GuiInventory* AddGuiInventory(iPoint p, SDL_Rect r, int columns, int rows, int slot_w, int slot_h, GuiElement* par = NULL, j1Module* list = NULL);
+
 	//Get selected element
 	GuiElement* FindSelectedElement();
 
@@ -56,6 +61,7 @@ public:
 
 	list<GuiElement*> gui_elements;
 	bool			mouse_hovering;
+	GuiItem*		dragged_item;
 
 private:
 	bool			debug;
