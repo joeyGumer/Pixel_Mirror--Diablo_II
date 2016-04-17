@@ -133,6 +133,10 @@ Entity* j1EntityManager::Add(iPoint &pos, ENTITY_TYPE type)
 		case (ENEMY) :
 			entity = new EntEnemyWolf(pos, ++next_ID);
 			break;
+
+		case (ENEMY_CRAWLER) :
+			entity = new EntEnemyCrawler(pos, ++next_ID);
+			break;
 		}
 
 		// We add the new entity to the map of active entities. 

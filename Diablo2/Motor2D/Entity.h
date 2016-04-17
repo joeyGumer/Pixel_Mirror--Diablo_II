@@ -10,6 +10,7 @@ struct Sprite;
 enum ENTITY_TYPE
 {
 	ENEMY,
+	ENEMY_CRAWLER,
 	NPC,
 	PROP,
 	ITEM
