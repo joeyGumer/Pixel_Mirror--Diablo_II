@@ -35,9 +35,13 @@ bool hudBelt::Start()
 
 	
 	inventory1 = App->gui->AddGuiInventory({ 176, 9 }, { 342, 395, 30, 30 }, 1, 1 , 30, 30, HUD, this);
+	hud_gui_elements.push_back(inventory1);
 	inventory2 = App->gui->AddGuiInventory({ 207, 9 }, { 373, 395, 30, 30 }, 1, 1, 30, 30, HUD, this);
+	hud_gui_elements.push_back(inventory2);
 	inventory3 = App->gui->AddGuiInventory({ 238, 9 }, { 404, 395, 30, 30 }, 1, 1, 30, 30, HUD, this);
+	hud_gui_elements.push_back(inventory3);
 	inventory4 = App->gui->AddGuiInventory({ 269, 9 }, { 435, 395, 30, 30 }, 1, 1, 30, 30, HUD, this);
+	hud_gui_elements.push_back(inventory4);
 	//HUD elements definition
 	//NOTE: these position are very inaccurate
 
