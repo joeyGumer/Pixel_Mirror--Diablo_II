@@ -29,6 +29,7 @@ void EntEnemy::Draw()
 		iPoint pos(p.x, p.y);
 		sprite->UpdateSprite(tex, pos, sprite_pivot, current_sprite);
 	}
+
 }
 
 void EntEnemy::DrawDebug()
@@ -447,7 +448,7 @@ EntEnemyCrawler::EntEnemyCrawler(const iPoint &p, uint ID) : EntEnemy(p, ID)
 	current_animation_set = idle;
 	current_animation = &current_animation_set[current_direction];
 
-	type = ENEMY_CRAWLER;
+	type = ENEMY;
 
 	HP_max = HP_current = 100;
 	speed = 100.0f;
@@ -729,7 +730,7 @@ EntEnemyBoss::EntEnemyBoss(const iPoint &p, uint ID) : EntEnemy(p, ID)
 	current_animation_set = idle;
 	current_animation = &current_animation_set[current_direction];
 
-	type = ENEMY_BOSS;
+	type = ENEMY;
 
 	HP_max = HP_current = 100;
 	speed = 100.0f;

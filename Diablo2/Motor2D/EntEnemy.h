@@ -3,7 +3,12 @@
 
 #include "EntMobile.h"
 
-
+/*enum ENEMY_TYPE
+{
+	ENEMY_WOLF,
+	ENEMY_CRAWLER,
+	ENEMY_BOSS,
+};*/
 
 class j1Player;
 
@@ -50,6 +55,8 @@ public:
 
 	//Detection
 	float	agro_range;
+
+	//ENEMY_TYPE emy_type;
 
 
 

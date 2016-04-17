@@ -229,7 +229,7 @@ private:
 
 	//NOTE: will be cahnged to a enemy once entity manager structure is changed
 	//Enemy target
-	EntEnemy* enemy;
+	EntEnemy* enemy = NULL;
 
 };
 

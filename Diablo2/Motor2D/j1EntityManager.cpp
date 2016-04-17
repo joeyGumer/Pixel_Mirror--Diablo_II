@@ -183,7 +183,12 @@ Entity* j1EntityManager::EntityOnCoords(iPoint &pos)
 	map<uint, Entity*>::reverse_iterator item = active_entities.rbegin();
 	for (; item != active_entities.rend(); ++item)
 	{
-		SDL_Rect rect = item->second->GetPlayerRect();
+		//NOTE: Have to be specified to just Enemy....
+		if (item->second->type == ENEMY || item->second->type == ENEMY_CRAWLER || item->second->type == ENEMY_BOSS)
+			if (((EntEnemy*)item->second)->current_action == ENTITY_DEATH)
+				continue;
+
+			SDL_Rect rect = item->second->GetPlayerRect();
 
 		if (pos.x >= rect.x && pos.x <= rect.x + rect.w &&
 			pos.y >= rect.y && pos.y <= rect.y + rect.h)
