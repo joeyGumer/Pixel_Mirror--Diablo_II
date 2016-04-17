@@ -25,6 +25,7 @@ j1Player::j1Player()
 //Destructor
 j1Player::~j1Player()
 {
+
 }
 
 // Called before render is available
@@ -140,6 +141,15 @@ bool j1Player::PostUpdate()
 // Called before quitting
 bool j1Player::CleanUp()
 {
+
+	SDL_DestroyTexture(p_sprite);
+	//Take an eye on this
+	if (sprite)
+	{
+		App->render->sprites.remove(sprite);
+		RELEASE(sprite);
+	}
+
 	return true;
 }
 
