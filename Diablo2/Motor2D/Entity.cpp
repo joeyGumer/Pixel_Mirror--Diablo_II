@@ -1,6 +1,7 @@
 #include "Entity.h"
 #include "j1App.h"
 #include "j1Map.h"
+#include "j1Render.h"
 
 //Constructor
 Entity::Entity(const iPoint &p, uint ID)
@@ -12,12 +13,19 @@ Entity::Entity(const iPoint &p, uint ID)
 	position.x = tmp.x - (App->map->data.tile_width / 2);
 	position.y = tmp.y;
 	id = ID;
+
 }
 
 //Destructor
 Entity::~Entity()
 {
-	SDL_DestroyTexture(sprite);
+	SDL_DestroyTexture(tex);
+	//Take an eye on this
+	if (sprite)
+	{
+		App->render->sprites.remove(sprite);
+		delete sprite;
+	}
 }
 
 //Getters

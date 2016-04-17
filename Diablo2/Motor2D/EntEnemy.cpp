@@ -6,6 +6,7 @@
 #include "j1Player.h"
 #include "j1Game.h"
 #include "j1EntityManager.h"
+#include "p2Point.h"
 
 //EntEnemy
 //----------------------------
@@ -19,10 +20,15 @@ EntEnemy::EntEnemy(const iPoint &p, uint ID) : EntMobile(p, ID)
 //Drawing methods
 void EntEnemy::Draw()
 {
-	iPoint pos = GetBlitPosition();
+	//iPoint pos = GetBlitPosition();
 
-	SDL_Rect current_sprite = current_animation->GetCurrentFrame();
-	App->render->Blit(sprite, pos.x, pos.y, &current_sprite);
+	if (sprite)
+	{
+		SDL_Rect current_sprite = current_animation->GetCurrentFrame();
+		fPoint p = GetPivotPosition();
+		iPoint pos(p.x, p.y);
+		sprite->UpdateSprite(tex, pos, sprite_pivot, current_sprite);
+	}
 }
 
 void EntEnemy::DrawDebug()
@@ -151,7 +157,7 @@ void EntEnemy::CheckToAttack()
 //Constructor
 EntEnemyWolf::EntEnemyWolf(const iPoint &p, uint ID) : EntEnemy(p, ID)
 {
-	sprite = idle_tex = App->tex->Load("textures/wolf.png");
+	tex = idle_tex = App->tex->Load("textures/wolf.png");
 	walk_tex = App->tex->Load("textures/wolf_walk.png");
 	death_tex = App->tex->Load("textures/wolf_death.png");
 	attack_tex = App->tex->Load("textures/wolf_attack.png");
@@ -171,6 +177,14 @@ EntEnemyWolf::EntEnemyWolf(const iPoint &p, uint ID) : EntEnemy(p, ID)
 	agro_range = 150.0f;
 
 	last_update = PATHFINDING_FRAMES;
+
+	//Sprite creation
+	
+	fPoint po = GetPivotPosition();
+	iPoint pos(po.x, po.y);
+	SDL_Rect current_sprite = current_animation->GetCurrentFrame();
+	sprite = new Sprite(tex, pos, sprite_pivot, current_sprite);
+	App->render->AddSpriteToList(sprite);
 
 }
 
@@ -308,7 +322,7 @@ void EntEnemyWolf::StateMachine()
 		//PIVOT DOESN'T CHANGE!
 		//Related to the collider rect, not the sprite
 		case ENTITY_IDLE:
-			sprite = idle_tex;
+			tex = idle_tex;
 			current_animation_set = idle;
 
 			sprite_rect.w = sprite_dim.x = 69;
@@ -319,7 +333,7 @@ void EntEnemyWolf::StateMachine()
 			break;
 
 		case ENTITY_WALKING:
-			sprite = walk_tex;
+			tex = walk_tex;
 			current_animation_set = walk;
 
 			sprite_rect.w = sprite_dim.x = 94;
@@ -330,7 +344,7 @@ void EntEnemyWolf::StateMachine()
 			break;
 
 		case ENTITY_DEATH:
-			sprite = death_tex;
+			tex = death_tex;
 			current_animation_set = death;
 
 			sprite_rect.w = sprite_dim.x = 135;
@@ -343,7 +357,7 @@ void EntEnemyWolf::StateMachine()
 
 
 		case ENTITY_ATTACKING:
-			sprite = attack_tex;
+			tex = attack_tex;
 			current_animation_set = attack;
 
 			sprite_rect.w = sprite_dim.x = 68;

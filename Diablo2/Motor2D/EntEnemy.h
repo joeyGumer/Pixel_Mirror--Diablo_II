@@ -4,6 +4,7 @@
 #include "EntMobile.h"
 
 
+
 class j1Player;
 
 #define PATHFINDING_FRAMES 60

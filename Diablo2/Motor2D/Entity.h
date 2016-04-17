@@ -5,6 +5,8 @@
 #include "p2Point.h"
 #include "Animation.h"
 
+struct Sprite;
+
 enum ENTITY_TYPE
 {
 	ENEMY,
@@ -53,7 +55,9 @@ public:
 	fPoint			position;
 	uint			id;
 
-	SDL_Texture*	sprite;
+	Sprite*			sprite;
+
+	SDL_Texture*	tex;
 
 };
 

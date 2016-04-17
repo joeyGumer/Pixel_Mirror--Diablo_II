@@ -220,4 +220,13 @@ public:
 typedef p2Point<int> iPoint;
 typedef p2Point<float> fPoint;
 
+/*iPoint RoundPoint(fPoint f)
+{
+	iPoint ret;
+	ret.x = round(f.x);
+	ret.y = round(f.y);
+
+	return ret;
+}*/
+
 #endif // __P2POINT_H__

@@ -74,10 +74,14 @@ bool j1Render::PreUpdate()
 // NOTE: Function of C, compare Sprites to prepare sort
 bool compare_sprites(const Sprite* first, const Sprite* second)
 {
-	if ((first->y > second->y) && (first->positionMap.y  > second->positionMap.y / 2))
-		return (first->positionMap.y  > second->positionMap.y);
-	else if ((first->y < second->y) && (first->positionMap.y / 2  > second->positionMap.y))
-		return (first->positionMap.y  < second->positionMap.y);
+	if ((first->y > second->y) && (first->position_map.y > second->position_map.y / 2))
+	{
+		return (first->position_map.y > second->position_map.y);
+	}
+	else if ((first->y < second->y) && (first->position_map.y / 2  > second->position_map.y))
+	{
+		return (first->position_map.y < second->position_map.y);
+	}
 }
 bool j1Render::Update(float dt)
 {
@@ -353,49 +357,25 @@ bool j1Render::AddSpriteToList(Sprite* sprite)
 	}
 	return ret;
 }
-//NOTE: Blit Sprite
+//Sprite
 bool j1Render::DrawSprite(Sprite* sprite, float speed, double angle, int pivot_x, int pivot_y)
 {
 	bool ret = true;
 
+	//NOTE: Just do a blit like the render, here you are just copying again, and you are not creating well the rect
+	iPoint pos = sprite->position_map;
+	iPoint piv = sprite->pivot;
 
-
-	
-	if (!App->debug)
+	Blit(sprite->texture, pos.x - piv.x, pos.y - piv.y, &(sprite->section_texture));
+	/*else
 	{
-
-	
-		uint scale = App->win->GetScale();
-
-		SDL_Rect rect;
-		rect.x = (int)(camera.x) + sprite->positionMap.x * scale;
-		rect.y = (int)(camera.y) + sprite->positionMap.y * scale;
-
-
-		SDL_QueryTexture(sprite->texture, NULL, NULL, &rect.w, &rect.h);
-
-
-		rect.w *= scale;
-		rect.h *= scale;
-
-		SDL_Point* p = NULL;
-		SDL_Point pivot;
-
-		pivot.x = pivot.y = INT_MAX;
-
-		if (SDL_RenderCopyEx(renderer, sprite->texture, NULL, &rect, 0, p, SDL_FLIP_NONE) != 0)
-		{
-			LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
-		}
-	}
-	else
-	{
+		//NOTE: just do a blit, we don't need all this 
 		//Debug mode
 		uint scale = App->win->GetScale();
 
 		SDL_Rect rect;
-		rect.x = (int)(camera.x) + sprite->positionMap.x * scale;
-		rect.y = (int)(camera.y) + sprite->positionMap.y * scale;
+		rect.x = (int)(camera.x) + sprite->position_map.x * scale;
+		rect.y = (int)(camera.y) + sprite->position_map.y * scale;
 
 
 		SDL_QueryTexture(sprite->texture, NULL, NULL, &rect.w, &rect.h);
@@ -416,7 +396,7 @@ bool j1Render::DrawSprite(Sprite* sprite, float speed, double angle, int pivot_x
 
 		App->render->DrawQuad({ rect.x, rect.y, rect.w, rect.h/2 }, 255, 0, 255, 255, false, false);
 		App->render->DrawQuad({ rect.x, rect.y + (rect.h / 2), rect.w, rect.h / 2 }, 0, 0, 255, 255, false, false);
-	}
+	}*/
 	return ret;
 
 }
@@ -424,27 +404,41 @@ bool j1Render::SortSprites()
 {
 	bool ret = true;
 	
-	
 	return ret;
-
 }
-//NOTE: Constructors of struct Sprites
+
+
+//Constructors of sprites
 Sprite::Sprite()
 {
-	LOG("Constructor empty Sprite");
+	//Els logs no s'utilitzen aixi
+	//LOG("Constructor empty Sprite");
 }
 
-Sprite::Sprite(SDL_Texture* texture, SDL_Rect* positionMap, SDL_Rect* sectionTexture)
+Sprite::Sprite(SDL_Texture* tex, iPoint& pMap, iPoint& piv, SDL_Rect& tex_section)
 {
-	texture = this->texture;
-	positionMap = &this->positionMap;
-	sectionTexture = &this->sectionTexture;
+	texture = tex;
+	position_map = pMap;
+	section_texture = tex_section;
+	pivot = piv;
 }
-//NOTE: Destructor
+
 Sprite::~Sprite()
 {
-	LOG("Destructor");
+	//LOG("Destructor");
 	SDL_DestroyTexture(texture);
 
 }
 
+void Sprite::UpdateSprite(SDL_Texture* tex, iPoint& p, iPoint& piv, SDL_Rect& section)
+{
+	texture = tex;
+	position_map = p;
+	section_texture = section;
+	pivot = piv;
+}
+
+void Sprite::DrawSprite()
+{
+	//App->render->Blit(texture, )
+}

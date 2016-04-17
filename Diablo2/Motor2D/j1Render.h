@@ -15,12 +15,16 @@ using namespace std;
 struct Sprite
 {
 	Sprite();
-	Sprite(SDL_Texture* texture, SDL_Rect* positionMap, SDL_Rect* sectionTexture);
+	Sprite(SDL_Texture* texture, iPoint& position_map, iPoint& piv, SDL_Rect& section_texture);
 	~Sprite();
 
+	void UpdateSprite(SDL_Texture* tex, iPoint& p, iPoint& piv, SDL_Rect& section);
+	void DrawSprite();
+
 	SDL_Texture*	texture;
-	SDL_Rect		positionMap;
-	SDL_Rect		sectionTexture;
+	iPoint			position_map;
+	iPoint			pivot;
+	SDL_Rect		section_texture;
 
 	int				y;
 
