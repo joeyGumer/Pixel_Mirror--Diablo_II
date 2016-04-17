@@ -61,6 +61,21 @@ private:
 	//SelectAvailable
 	//void calculateSelector
 	//void sortEntities
+
+public:
+	//Wolf textures
+
+	//Crawler textures
+	SDL_Texture* crawler_idle;
+	SDL_Texture* crawler_walk;
+	SDL_Texture* crawler_attack;
+	SDL_Texture* crawler_death;
+
+	//Boss textures
+	SDL_Texture* boss_idle;
+	SDL_Texture* boss_walk;
+	SDL_Texture* boss_attack;
+	SDL_Texture* boss_death;
 };
 
 #endif // __EntityManager_H__

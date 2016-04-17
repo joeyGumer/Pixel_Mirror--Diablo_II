@@ -5,8 +5,12 @@
 #include "j1Pathfinding.h"
 #include "p2Log.h"
 #include "j1Map.h"
+
 #include "j1Render.h"
 #include "EntItem.h"
+
+#include "j1Textures.h"
+
 #include <algorithm>
 
 
@@ -30,6 +34,17 @@ bool j1EntityManager::Awake(pugi::xml_node &node)
 // Called before the first frame
 bool j1EntityManager::Start()
 {
+	//Crawler
+	crawler_idle = App->tex->Load("textures/crawler_idle.png");
+	crawler_walk = App->tex->Load("textures/crawler_walk.png");
+	crawler_death = App->tex->Load("textures/crawler_death.png");
+	crawler_attack = App->tex->Load("textures/crawler_attack.png");
+
+	//Boss
+	boss_idle = App->tex->Load("textures/boss_idle.png");
+	boss_walk = App->tex->Load("textures/boss_walk.png");
+	boss_death = App->tex->Load("textures/boss_death.png");
+	boss_attack = App->tex->Load("textures/boss_attack.png");
 	return true;
 }
 

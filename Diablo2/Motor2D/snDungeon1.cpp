@@ -48,6 +48,8 @@ bool snDungeon1::Start()
 		RELEASE_ARRAY(data);
 	}
 
+	AddEnemies();
+
 	return true;
 }
 
@@ -77,7 +79,33 @@ bool snDungeon1::Update(float dt)
 		//if (a == 0)
 		//App->game->em->Add(p, ENEMY);
 		//App->game->em->Add(p, ENEMY_CRAWLER);
-		App->game->em->Add(p, ENEMY_BOSS);
+		App->game->em->Add(p, ENEMY_CRAWLER);
+		p = App->map->WorldToMap(p.x, p.y);
+		int i = 0;
+	}
+
+
+	if (App->debug)
+	{
+		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+		{
+			App->render->camera.x -= floor(CAM_SPEED * 5 * dt);
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+		{
+			App->render->camera.x += floor(CAM_SPEED * 5 * dt);
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+		{
+			App->render->camera.y -= floor(CAM_SPEED * 5 * dt);
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+		{
+			App->render->camera.y += floor(CAM_SPEED * 5 * dt);
+		}
 	}
 
 	return true;
@@ -100,7 +128,7 @@ bool snDungeon1::CleanUp()
 
 	while (item != entity_list.end())
 	{
-		App->game->em->Remove((*item)->id);
+		App->game->em->Remove(item._Ptr->_Myval->id);
 		item++;
 	}
 	entity_list.clear();
@@ -126,4 +154,247 @@ bool snDungeon1::UnLoad()
 {
 	CleanUp();
 	return true;
+}
+
+//Adding Enemies
+void snDungeon1::AddEnemies()
+{
+	iPoint tile_pos;
+	Entity* to_add = NULL;
+
+	tile_pos = { 182, 80 };
+	for (int i = 0; i < 12; i++)
+	{
+		if (i % 2 == 1)
+		{
+			tile_pos.x -= 4;
+		}
+		to_add = App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
+		if (to_add != NULL)
+			entity_list.push_back(to_add);
+		tile_pos.y -= 4;
+	}
+
+	tile_pos = { 159, 92 };
+	for (int i = 0; i < 6; i++)
+	{
+		if (i % 2 == 1)
+		{
+			tile_pos.x += 3;
+		}
+		to_add = App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
+		if (to_add != NULL)
+			entity_list.push_back(to_add);
+		tile_pos.y -= 4;
+	}
+
+	tile_pos = { 105, 82 };
+	for (int i = 0; i < 6; i++)
+	{
+		if (i % 2 == 1)
+		{
+			tile_pos.x += 3;
+		}
+		to_add = App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
+		if (to_add != NULL)
+			entity_list.push_back(to_add);
+		tile_pos.y -= 3;
+	}
+
+	tile_pos = { 204, 47 };
+	for (int i = 0; i < 7; i++)
+	{
+		if (i % 2 == 1)
+		{
+			tile_pos.x += 2;
+		}
+		to_add = App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
+		if (to_add != NULL)
+			entity_list.push_back(to_add);
+		tile_pos.y -= 3;
+	}
+
+	tile_pos = { 52, 108 };
+	for (int i = 0; i < 4; i++)
+	{
+		if (i % 2 == 1)
+		{
+			tile_pos.x += 3;
+		}
+		to_add = App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
+		if (to_add != NULL)
+			entity_list.push_back(to_add);
+		tile_pos.y -= 4;
+	}
+
+	tile_pos = { 131,	35 };
+	for (int i = 0; i < 13; i++)
+	{
+		if (i % 2 == 1)
+		{
+			tile_pos.x += 1;
+		}
+		to_add = App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
+		if (to_add != NULL)
+			entity_list.push_back(to_add);
+		tile_pos.y -= 2;
+	}
+
+	tile_pos = { 127, 160 };
+	for (int i = 0; i < 13; i++)
+	{
+		if (i % 2 == 1)
+		{
+			tile_pos.x += 2;
+		}
+		else
+		{
+			to_add = App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
+			if (to_add != NULL)
+				entity_list.push_back(to_add);
+		}
+		
+		tile_pos.y -= 3;
+	}
+
+	tile_pos = { 204, 141 };
+	for (int i = 0; i < 8; i++)
+	{
+		if (i % 2 == 1)
+		{
+			tile_pos.x += 1;
+		}
+		else
+		{
+			to_add = App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
+			if (to_add != NULL)
+				entity_list.push_back(to_add);
+		}
+		tile_pos.y -= 2;
+	}
+
+	tile_pos = { 204, 222 };
+	for (int i = 0; i < 10; i++)
+	{
+		if (i % 2 == 1)
+		{
+			tile_pos.x += 3;
+			tile_pos.y -= 3;
+		}
+		else
+		{
+			to_add = App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
+			if (to_add != NULL)
+				entity_list.push_back(to_add);
+		}
+	}
+
+	tile_pos = { 96, 222 };
+	for (int i = 0; i < 8; i++)
+	{
+		if (i % 2 == 1)
+		{
+			tile_pos.x += 3;
+			tile_pos.y -= 3;
+		}
+		else
+		{
+			to_add = App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
+			if (to_add != NULL)
+				entity_list.push_back(to_add);
+		}
+	}
+
+	tile_pos = { 100, 205 };
+	for (int i = 0; i < 8; i++)
+	{
+		if (i % 2 == 1)
+		{
+			tile_pos.x += 3;
+			tile_pos.y += 3;
+		}
+		else
+		{
+			to_add = App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
+			if (to_add != NULL)
+				entity_list.push_back(to_add);
+		}
+	}
+
+	tile_pos = { 18, 94 };
+	for (int i = 0; i < 10; i++)
+	{
+		if (i % 2 == 1)
+		{
+			tile_pos.x += 3;
+		}
+
+		to_add = App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
+		if (to_add != NULL)
+			entity_list.push_back(to_add);
+		
+		tile_pos.y += 2;
+	}
+
+	tile_pos = { 19, 120 };
+	for (int i = 0; i < 8; i++)
+	{
+
+		to_add = App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
+		if (to_add != NULL)
+			entity_list.push_back(to_add);
+
+		tile_pos.y += 2;
+	}
+
+	tile_pos = { 69, 22 };
+	for (int i = 0; i < 10; i++)
+	{
+		if (i % 2 == 1)
+		{
+			tile_pos.x += 3;
+			tile_pos.y += 3;
+		}
+		else
+		{
+			to_add = App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
+			if (to_add != NULL)
+				entity_list.push_back(to_add);
+		}
+	}
+
+	tile_pos = { 19, 216 };
+	for (int i = 0; i < 12; i++)
+	{
+		if (i % 2 == 1)
+		{
+			tile_pos.x += 2;
+			tile_pos.y += 2;
+		}
+		to_add = App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
+		if (to_add != NULL)
+			entity_list.push_back(to_add);
+
+		tile_pos.x -= 1;
+		tile_pos.y -= 3;
+	}
+
+	tile_pos = { 93, 138 };
+	App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_BOSS);
+
+	tile_pos = { 93, 149 };
+	for (int i = 0; i < 6; i++)
+	{
+		if (i % 2 == 1)
+		{
+			tile_pos.x += 3;
+			tile_pos.y -= 3;
+		}
+		else
+		{
+			to_add = App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
+			if (to_add != NULL)
+				entity_list.push_back(to_add);
+		}
+	}
 }
