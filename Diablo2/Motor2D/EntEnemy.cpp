@@ -6,7 +6,9 @@
 #include "j1Player.h"
 #include "j1Game.h"
 #include "j1EntityManager.h"
+#include "j1SceneManager.h"
 #include "p2Point.h"
+#include "snWin.h"
 
 //EntEnemy
 //----------------------------
@@ -815,6 +817,13 @@ bool EntEnemyBoss::Update(float dt)
 
 		last_update++;
 	}
+	else
+	{
+		if (win.ReadSec() > 5)
+		{
+			App->sm->ChangeScene(App->sm->win);
+		}
+	}
 
 	return true;
 }
@@ -934,11 +943,10 @@ void EntEnemyBoss::StateMachine()
 		sprite_pivot.y += 5;
 		sprite_pivot.x += 40;
 
-
-		//Item out
-		App->game->em->Add(pos, ITEM_HEALTH);
+		win.Start();
 
 		dead = true;
+
 		break;
 
 

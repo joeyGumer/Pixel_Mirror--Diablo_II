@@ -2,6 +2,7 @@
 #define __ENT_ENEMY_H__
 
 #include "EntMobile.h"
+#include "j1Timer.h"
 
 /*enum ENEMY_TYPE
 {
@@ -122,6 +123,7 @@ public:
 
 public:
 	uint last_update;
+	j1Timer win;
 
 };
 #endif

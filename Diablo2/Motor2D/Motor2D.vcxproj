@@ -115,6 +115,7 @@
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
     <ClCompile Include="GuiElements.cpp" />
     <ClCompile Include="snOutdoor1.cpp" />
+    <ClCompile Include="snWin.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -166,6 +167,7 @@
     <ClInclude Include="PugiXml\src\pugixml.hpp" />
     <ClInclude Include="snOutdoor1.h" />
     <ClInclude Include="ExtraSTL.h" />
+    <ClInclude Include="snWin.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

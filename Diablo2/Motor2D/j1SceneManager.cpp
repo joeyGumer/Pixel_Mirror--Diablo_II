@@ -4,6 +4,7 @@
 #include "snIntro.h"
 #include "snOutdoor1.h"
 #include "snDungeon1.h"
+#include "snWin.h"
 
 #include "j1Game.h"
 
@@ -13,7 +14,9 @@ j1SceneManager::j1SceneManager() : j1Module()
 	intro = new snIntro();
 	outdoor1 = new snOutdoor1();
 	dungeon1 = new snDungeon1();
+	win = new snWin();
 
+	AddScene(win);
 	AddScene(intro);
 	AddScene(outdoor1);
 	AddScene(dungeon1);
@@ -96,7 +99,7 @@ bool j1SceneManager::ChangeScene(j1Scene* new_scene)
 		App->game->Start();
 	}
 
-	if (new_scene == intro)
+	if ((new_scene == intro && current_scene != win) || new_scene == win)
 	{
 		App->game->active = false;
 		App->game->CleanUp();

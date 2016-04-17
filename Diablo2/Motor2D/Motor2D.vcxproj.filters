@@ -115,6 +115,9 @@
     <ClCompile Include="snDungeon1.cpp">
       <Filter>Desenvolupament  ========\Scenes\snDungeon</Filter>
     </ClCompile>
+    <ClCompile Include="snWin.cpp">
+      <Filter>Desenvolupament  ========\Scenes\snWin</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h">
@@ -264,6 +267,9 @@
     <ClInclude Include="snDungeon1.h">
       <Filter>Desenvolupament  ========\Scenes\snDungeon</Filter>
     </ClInclude>
+    <ClInclude Include="snWin.h">
+      <Filter>Desenvolupament  ========\Scenes\snWin</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -376,6 +382,9 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Scenes\snDungeon">
       <UniqueIdentifier>{4305708b-481b-48c2-bb28-eaec19279639}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Scenes\snWin">
+      <UniqueIdentifier>{d25bc987-7973-438c-a1c7-a4360353fdb8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
