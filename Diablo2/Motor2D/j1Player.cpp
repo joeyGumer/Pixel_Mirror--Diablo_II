@@ -53,7 +53,7 @@ bool j1Player::Start()
 	current_animation = &current_animation_set[current_direction];
 
 	//Positioning
-	p_position = { 0, 0 };
+	p_position = { 0, 500 };
 	p_pivot = { (PLAYER_SPRITE_W / 2), (PLAYER_SPRITE_H - PLAYER_PIVOT_OFFSET) };
 	movement = false;
 	attacking = false;
@@ -157,7 +157,7 @@ void j1Player::Respawn()
 
 
 	//Init position and booleans
-	p_position = { 0, 0 };
+	p_position = { 0, 500 };
 	movement = false;
 	attacking = false;
 	running = false;

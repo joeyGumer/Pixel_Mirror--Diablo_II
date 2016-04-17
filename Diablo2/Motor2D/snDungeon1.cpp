@@ -38,7 +38,7 @@ bool snDungeon1::Start()
 	debug = App->tex->Load("maps/mini_path.png");
 
 	//Map
-	/*if (App->map->Load("map_dungeon.tmx") == true)
+	if (App->map->Load("map_dungeon.tmx") == true)
 	{
 		int w, h;
 		uchar* data = NULL;
@@ -46,7 +46,7 @@ bool snDungeon1::Start()
 			App->pathfinding->SetMap(w, h, data);
 
 		RELEASE_ARRAY(data);
-	}*/
+	}
 
 	return true;
 }
