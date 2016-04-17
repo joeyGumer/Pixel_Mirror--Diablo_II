@@ -439,10 +439,10 @@ void EntEnemyWolf::SetAnimations()
 //Constructor
 EntEnemyCrawler::EntEnemyCrawler(const iPoint &p, uint ID) : EntEnemy(p, ID)
 {
-	tex = idle_tex = App->tex->Load("textures/crawler_idle.png");
-	walk_tex = App->tex->Load("textures/crawler_walk.png");
-	death_tex = App->tex->Load("textures/crawler_death.png");
-	attack_tex = App->tex->Load("textures/crawler_attack.png");
+	tex = idle_tex = App->game->em->crawler_idle;
+	walk_tex = App->game->em->crawler_walk;
+	death_tex = App->game->em->crawler_death;
+	attack_tex = App->game->em->crawler_attack;
 
 	SetAnimations();
 	current_animation_set = idle;
@@ -721,10 +721,10 @@ void EntEnemyCrawler::SetAnimations()
 //Constructor
 EntEnemyBoss::EntEnemyBoss(const iPoint &p, uint ID) : EntEnemy(p, ID)
 {
-	tex = idle_tex = App->tex->Load("textures/boss_idle.png");
-	walk_tex = App->tex->Load("textures/boss_walk.png");
-	death_tex = App->tex->Load("textures/boss_death.png");
-	attack_tex = App->tex->Load("textures/boss_attack.png");
+	tex = idle_tex = App->game->em->boss_idle;
+	walk_tex = App->game->em->boss_walk;
+	death_tex = App->game->em->boss_death;
+	attack_tex = App->game->em->boss_attack;
 
 	SetAnimations();
 	current_animation_set = idle;
