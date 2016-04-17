@@ -748,7 +748,7 @@ EntEnemyBoss::EntEnemyBoss(const iPoint &p, uint ID) : EntEnemy(p, ID)
 
 	type = ENEMY;
 
-	HP_max = HP_current = 100;
+	HP_max = HP_current = 400;
 	speed = 100.0f;
 
 	movement = false;
