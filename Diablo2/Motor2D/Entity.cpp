@@ -24,7 +24,7 @@ Entity::~Entity()
 	if (sprite)
 	{
 		App->render->sprites.remove(sprite);
-		delete sprite;
+		RELEASE(sprite);
 	}
 }
 

@@ -23,7 +23,7 @@ hudPause::~hudPause()
 bool hudPause::Start()
 {
 	main_menu = false;
-
+	active = true;
 	//Menu
 	options = App->gui->AddGuiImage({ 310, 130 }, { 395, 71, 194, 31 }, NULL, this);
 	options->interactable = true;

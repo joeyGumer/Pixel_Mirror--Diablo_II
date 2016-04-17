@@ -74,13 +74,22 @@ bool j1Render::PreUpdate()
 // NOTE: Function of C, compare Sprites to prepare sort
 bool compare_sprites(const Sprite* first, const Sprite* second)
 {
-	if ((first->y > second->y) && (first->position_map.y > second->position_map.y / 2))
+	/*if ((first->y > second->y) /*&& (first->position_map.y > second->position_map.y / 2))
 	{
 		return (first->position_map.y > second->position_map.y);
 	}
-	else if ((first->y < second->y) && (first->position_map.y / 2  > second->position_map.y))
+	/*else if ((first->y < second->y) /*&& (first->position_map.y / 2  > second->position_map.y))
 	{
 		return (first->position_map.y < second->position_map.y);
+	}*/
+	
+	if (first->y < second->y)
+	{
+		return true;
+	}
+	else if (first->y > second->y)
+	{
+		return false;
 	}
 }
 bool j1Render::Update(float dt)
@@ -93,7 +102,6 @@ bool j1Render::Update(float dt)
 	iterator = sprites.begin();
 	for (iterator; iterator != sprites.end(); iterator++)
 	{
-
 		DrawSprite(*iterator);
 	}
 
@@ -114,11 +122,11 @@ bool j1Render::PostUpdate()
 bool j1Render::CleanUp()
 {
 	// erase list Sprites
-	list<Sprite*>::iterator i = sprites.begin();
-	while (i != sprites.end())
+	/*list<Sprite*>::iterator item = sprites.begin();
+	for (; item != sprites.end(); item++)
 	{
-		++i;
-	}
+		RELEASE((*item));
+	}*/
 	sprites.clear();
 
 	LOG("Destroying SDL render");
@@ -341,19 +349,7 @@ bool j1Render::AddSpriteToList(Sprite* sprite)
 	bool ret = true;
 	if (sprite != NULL)
 	{
-		if (sprite->texture != NULL)
-		{	
-			sprites.push_back(sprite);
-			LOG("Sprite put correct inside of list");
-		}
-		else
-		{
-			LOG("Error. No put list. Texture is empty");
-		}
-	}
-	else
-	{
-		LOG("Error, this sprite is not correct.");
+		sprites.push_back(sprite);
 	}
 	return ret;
 }
@@ -436,6 +432,7 @@ void Sprite::UpdateSprite(SDL_Texture* tex, iPoint& p, iPoint& piv, SDL_Rect& se
 	position_map = p;
 	section_texture = section;
 	pivot = piv;
+	y = p.y;
 }
 
 void Sprite::DrawSprite()

@@ -68,6 +68,7 @@ enum INPUT_STATE
 
 class EntEnemy;
 class Entity;
+class Sprite;
 
 class j1Player : public j1Module
 {
@@ -183,6 +184,7 @@ private:
 	int			atk_damage = 50;
 
 	//Textures
+	Sprite* sprite = NULL;
 	SDL_Texture* p_debug = NULL;
 	SDL_Texture* p_sprite = NULL;
 	SDL_Texture* p_idle = NULL;

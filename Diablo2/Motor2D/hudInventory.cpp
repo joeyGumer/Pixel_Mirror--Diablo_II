@@ -116,7 +116,8 @@ bool hudInventory::CleanUp()
 {
 	//WARNING: can't do this plox
 	App->gui->dragged_item = NULL;
-	inventory->CleanItems();
+	if (inventory)
+		inventory->CleanItems();
 
 	for (int i = 0; i < hud_gui_elements.size(); i++)
 	{

@@ -63,7 +63,12 @@ bool j1Player::Start()
 	MP_max = MP_current = 100;
 	ST_max = ST_current = 200.0f;
 
-	
+	//Sprite creation
+	SDL_Rect current_sprite = current_animation->GetCurrentFrame();
+
+	iPoint pos(p_position.x, p_position.y);
+	sprite = new Sprite(p_sprite, pos, p_pivot, current_sprite);
+	App->render->AddSpriteToList(sprite);
 	
 	return true;
 }
@@ -168,18 +173,21 @@ void j1Player::Respawn()
 //NOTE: had to take out the const because of the animation
 void j1Player::Draw() 
 {
-	
-	iPoint pos = GetBlitPosition();
+	//NOTE: for pause mode, this will have to be on update to vary on dt
+	if (sprite)
+	{
+		SDL_Rect current_sprite = current_animation->GetCurrentFrame();
+		iPoint pos(p_position.x, p_position.y);
+		sprite->UpdateSprite(p_sprite, pos, p_pivot, current_sprite);
+	}
 
 	//Debug mode
 	if (App->debug)
 	{
 		DrawDebug();
 	}
-	//NOTE: for pause mode, this will have to be on update to vary on dt
-	SDL_Rect current_sprite = current_animation->GetCurrentFrame();
-	//Draws Actual sprite
-	App->render->Blit(p_sprite, pos.x, pos.y, &current_sprite);
+	
+
 }
 
 //Debug

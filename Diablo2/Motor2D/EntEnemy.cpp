@@ -179,7 +179,6 @@ EntEnemyWolf::EntEnemyWolf(const iPoint &p, uint ID) : EntEnemy(p, ID)
 	last_update = PATHFINDING_FRAMES;
 
 	//Sprite creation
-	
 	fPoint po = GetPivotPosition();
 	iPoint pos(po.x, po.y);
 	SDL_Rect current_sprite = current_animation->GetCurrentFrame();
