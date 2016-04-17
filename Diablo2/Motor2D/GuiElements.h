@@ -5,7 +5,7 @@
 #include "p2Point.h"
 
 #include <list>
-
+;
 using namespace std;
 // WARNING: I'm doing trap here...
 #include "SDL/include/SDL.h"
@@ -21,6 +21,9 @@ enum GUI_Type
 	GUI_INPUTBOX,
 	GUI_SLIDER,
 	GUI_MOUSE_IMAGE,
+	GUI_ITEM,
+	GUI_INVENTORY,
+	GUI_SLOT
 };
 
 enum GUI_Event
