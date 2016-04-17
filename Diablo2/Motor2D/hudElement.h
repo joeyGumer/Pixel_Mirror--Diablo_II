@@ -2,7 +2,7 @@
 #define _HUDELEMENT_H_
 
 #include "j1Module.h"
-#include <vector>;
+#include <vector>
 
 using namespace std;
 
@@ -53,9 +53,14 @@ public:
 	
 	}
 
+	virtual void Activate()
+	{
+		active = !active;
+	}
 
 public:
 	
+	bool active;
 	vector<GuiElement*> hud_gui_elements;
 };
 

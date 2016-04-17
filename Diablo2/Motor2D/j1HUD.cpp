@@ -8,6 +8,7 @@
 #include "hudElement.h"
 #include "hudBelt.h"
 #include "hudPause.h"
+#include "hudInventory.h"
 
 
 //NOTE : provisional
@@ -18,9 +19,12 @@ j1HUD::j1HUD() : j1Module()
 {
 	belt = new hudBelt();
 	pause_menu = new hudPause();
+	inventory = new hudInventory();
 
+	HUD_elements.push_back(inventory);
 	HUD_elements.push_back(belt);
 	HUD_elements.push_back(pause_menu);
+	
 }
 
 j1HUD::~j1HUD()
@@ -47,9 +51,15 @@ bool j1HUD::Start()
 bool j1HUD::PreUpdate()
 {
 
+	if (App->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN)
+	{
+		inventory->Activate();
+	}
+
 	for (int i = 0; i < HUD_elements.size(); i++)
 	{
-		HUD_elements[i]->PreUpdate();
+		if (HUD_elements[i]->active)
+			HUD_elements[i]->PreUpdate();
 	}
 
 	return true;
@@ -60,7 +70,8 @@ bool j1HUD::Update(float dt)
 {	
 	for (int i = 0; i < HUD_elements.size(); i++)
 	{
-		HUD_elements[i]->Update(dt);
+		if (HUD_elements[i]->active)
+			HUD_elements[i]->Update(dt);
 	}
 
 
@@ -72,7 +83,8 @@ bool j1HUD::PostUpdate()
 {
 	for (int i = 0; i < HUD_elements.size(); i++)
 	{
-		HUD_elements[i]->PostUpdate();
+		if (HUD_elements[i]->active)
+			HUD_elements[i]->PostUpdate();
 	}
 
 	return true;

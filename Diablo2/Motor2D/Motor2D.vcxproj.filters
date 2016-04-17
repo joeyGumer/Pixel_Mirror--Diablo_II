@@ -100,6 +100,21 @@
     <ClCompile Include="EntItem.cpp">
       <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities\EntStatic\EntItem</Filter>
     </ClCompile>
+    <ClCompile Include="GuiInventory.cpp">
+      <Filter>Desenvolupament  ========\Modules\j1Gui\GuiElements\GuiInventory</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiItem.cpp">
+      <Filter>Desenvolupament  ========\Modules\j1Gui\GuiElements\GuiInventory</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiSlot.cpp">
+      <Filter>Desenvolupament  ========\Modules\j1Gui\GuiElements\GuiInventory</Filter>
+    </ClCompile>
+    <ClCompile Include="hudInventory.cpp">
+      <Filter>Desenvolupament  ========\Modules\j1HUD\hudElements\hudInventory</Filter>
+    </ClCompile>
+    <ClCompile Include="snDungeon1.cpp">
+      <Filter>Desenvolupament  ========\Scenes\snDungeon</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h">
@@ -234,6 +249,21 @@
     <ClInclude Include="EntMobile.h">
       <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile</Filter>
     </ClInclude>
+    <ClInclude Include="GuiInventory.h">
+      <Filter>Desenvolupament  ========\Modules\j1Gui\GuiElements\GuiInventory</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiItem.h">
+      <Filter>Desenvolupament  ========\Modules\j1Gui\GuiElements\GuiInventory</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiSlot.h">
+      <Filter>Desenvolupament  ========\Modules\j1Gui\GuiElements\GuiInventory</Filter>
+    </ClInclude>
+    <ClInclude Include="hudInventory.h">
+      <Filter>Desenvolupament  ========\Modules\j1HUD\hudElements\hudInventory</Filter>
+    </ClInclude>
+    <ClInclude Include="snDungeon1.h">
+      <Filter>Desenvolupament  ========\Scenes\snDungeon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -337,6 +367,15 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Modules\j1EntityManager\Entities\EntStatic\EntItem">
       <UniqueIdentifier>{c16e2a19-23a0-49c7-b12f-2defe3f8c213}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\j1Gui\GuiElements\GuiInventory">
+      <UniqueIdentifier>{a9fd7529-693f-480f-80a8-9750459d5b17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\j1HUD\hudElements\hudInventory">
+      <UniqueIdentifier>{749a4e10-224d-494c-9745-d50d07b818ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Scenes\snDungeon">
+      <UniqueIdentifier>{4305708b-481b-48c2-bb28-eaec19279639}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -14,11 +14,11 @@ struct SDL_Texture;
 struct _TTF_Font;
 enum TextColor
 {
-	RED,
-	GREEN,
-	BLUE,
-	YELLOW,
-	WHITE
+	FONT_RED,
+	FONT_GREEN,
+	FONT_BLUE,
+	FONT_YELLOW,
+	FONT_WHITE
 };
 
 

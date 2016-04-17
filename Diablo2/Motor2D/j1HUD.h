@@ -11,6 +11,7 @@ enum GUI_Event;
 class hudElement;
 class hudBelt;
 class hudPause;
+class hudInventory;
 
 
 class j1HUD : public j1Module
@@ -43,6 +44,7 @@ public:
 	//HUD main belt
 	hudBelt* belt = NULL;
 	hudPause* pause_menu = NULL;
+	hudInventory* inventory = NULL;
 
 	vector<hudElement*> HUD_elements;
 };

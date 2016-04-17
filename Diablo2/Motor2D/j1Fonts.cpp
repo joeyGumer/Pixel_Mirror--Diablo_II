@@ -96,11 +96,11 @@ SDL_Texture* j1Fonts::Print(const char* text, TextColor color)
 {
 	switch (color)
 	{
-	case RED: return Print(text, { 255,0 , 0 }); break;
-	case GREEN: return Print(text, { 0, 255, 0 }); break;
-	case BLUE:return  Print(text, { 0, 0, 255 }); break;
-	case YELLOW: return Print(text, { 255, 255, 0 }); break;
-	case WHITE: return Print(text, { 255, 255, 255 }); break;
+	case FONT_RED: return Print(text, { 255, 0, 0 }); break;
+	case FONT_GREEN: return Print(text, { 0, 255, 0 }); break;
+	case FONT_BLUE:return  Print(text, { 0, 0, 255 }); break;
+	case FONT_YELLOW: return Print(text, { 255, 255, 0 }); break;
+	case FONT_WHITE: return Print(text, { 255, 255, 255 }); break;
 	default: return Print(text); break;
 	}
 

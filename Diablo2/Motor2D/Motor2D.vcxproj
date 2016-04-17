@@ -83,7 +83,11 @@
     <ClCompile Include="EntMobile.cpp" />
     <ClCompile Include="EntProp.cpp" />
     <ClCompile Include="EntStatic.cpp" />
+    <ClCompile Include="GuiInventory.cpp" />
+    <ClCompile Include="GuiItem.cpp" />
+    <ClCompile Include="GuiSlot.cpp" />
     <ClCompile Include="hudBelt.cpp" />
+    <ClCompile Include="hudInventory.cpp" />
     <ClCompile Include="hudPause.cpp" />
     <ClCompile Include="j1EntityManager.cpp" />
     <ClCompile Include="j1Game.cpp" />
@@ -97,6 +101,7 @@
     <ClCompile Include="j1Audio.cpp" />
     <ClCompile Include="j1Input.cpp" />
     <ClCompile Include="j1Map.cpp" />
+    <ClCompile Include="snDungeon1.cpp" />
     <ClCompile Include="snIntro.cpp" />
     <ClCompile Include="j1Pathfinding.cpp" />
     <ClCompile Include="j1PerfTimer.cpp" />
@@ -120,8 +125,12 @@
     <ClInclude Include="EntProp.h" />
     <ClInclude Include="EntStatic.h" />
     <ClInclude Include="GuiElements.h" />
+    <ClInclude Include="GuiInventory.h" />
+    <ClInclude Include="GuiItem.h" />
+    <ClInclude Include="GuiSlot.h" />
     <ClInclude Include="hudBelt.h" />
     <ClInclude Include="hudElement.h" />
+    <ClInclude Include="hudInventory.h" />
     <ClInclude Include="hudPause.h" />
     <ClInclude Include="j1EntityManager.h" />
     <ClInclude Include="j1Game.h" />
@@ -132,6 +141,7 @@
     <ClInclude Include="j1HUD.h" />
     <ClInclude Include="j1Map.h" />
     <ClInclude Include="memleaks.h" />
+    <ClInclude Include="snDungeon1.h" />
     <ClInclude Include="snIntro.h" />
     <ClInclude Include="j1Pathfinding.h" />
     <ClInclude Include="j1PerfTimer.h" />

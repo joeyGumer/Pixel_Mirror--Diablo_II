@@ -27,7 +27,7 @@ bool hudBelt::Start()
 	//
 	life_current_h = mana_current_h = 78;
 
-	HUD = App->gui->AddGuiImage({ 166, 553 }, { 166, 386, 408, 47 }, NULL, this);
+	HUD = App->gui->AddGuiImage({ 166, 430 }, { 166, 386, 408, 47 }, NULL, this);
 	hud_gui_elements.push_back(HUD);
 
 	//HUD elements definition

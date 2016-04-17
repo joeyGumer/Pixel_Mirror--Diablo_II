@@ -45,7 +45,7 @@ public:
 
 	GuiImage* background = NULL;
 	GuiInventory* inventory = NULL;
-	GuiInventory* inventory2 = NULL;
+	
 
 };
 

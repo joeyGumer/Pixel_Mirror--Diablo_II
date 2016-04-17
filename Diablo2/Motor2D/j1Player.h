@@ -53,7 +53,7 @@ enum ACTION_STATE
 	RUNNING,
 	ATTACKING,
 	DEATH,
-	DEFAULT,
+	NOTHING,
 };
 
 enum INPUT_STATE
@@ -221,7 +221,7 @@ private:
 	vector<Animation> current_animation_set;
 	DIRECTION		current_direction;
 	INPUT_STATE		current_input;
-	ACTION_STATE	previous_action = DEFAULT;
+	ACTION_STATE	previous_action = NOTHING;
 	bool			input_locked = false;
 	j1Timer			respawn_timer;
 
