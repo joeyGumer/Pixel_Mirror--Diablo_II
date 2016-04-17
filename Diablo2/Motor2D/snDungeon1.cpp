@@ -76,7 +76,8 @@ bool snDungeon1::Update(float dt)
 		//int a = rand() % 2;
 		//if (a == 0)
 		//App->game->em->Add(p, ENEMY);
-		App->game->em->Add(p, ENEMY_CRAWLER);
+		//App->game->em->Add(p, ENEMY_CRAWLER);
+		App->game->em->Add(p, ENEMY_BOSS);
 	}
 
 	return true;

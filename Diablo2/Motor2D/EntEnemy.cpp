@@ -712,3 +712,288 @@ void EntEnemyCrawler::SetAnimations()
 		attack.push_back(tmp);
 	}
 }
+
+//-----------------------------
+
+//EntEnemyBoss
+//----------------------------
+
+//Constructor
+EntEnemyBoss::EntEnemyBoss(const iPoint &p, uint ID) : EntEnemy(p, ID)
+{
+	tex = idle_tex = App->tex->Load("textures/boss_idle.png");
+	walk_tex = App->tex->Load("textures/boss_walk.png");
+	death_tex = App->tex->Load("textures/boss_death.png");
+	attack_tex = App->tex->Load("textures/boss_attack.png");
+
+	SetAnimations();
+	current_animation_set = idle;
+	current_animation = &current_animation_set[current_direction];
+
+	type = ENEMY_BOSS;
+
+	HP_max = HP_current = 100;
+	speed = 100.0f;
+
+	movement = false;
+
+	attack_range = 50.0f;
+	agro_range = 150.0f;
+
+	last_update = PATHFINDING_FRAMES;
+
+	//Sprite creation
+
+	fPoint po = GetPivotPosition();
+	iPoint pos(po.x, po.y);
+	SDL_Rect current_sprite = current_animation->GetCurrentFrame();
+	sprite = new Sprite(tex, pos, sprite_pivot, current_sprite);
+	App->render->AddSpriteToList(sprite);
+
+}
+
+//Update
+bool EntEnemyBoss::Update(float dt)
+{
+	if (!dead)
+	{
+		UpdateAction();
+
+		fPoint player_pos = App->game->player->GetPivotPosition();
+
+		//NOTE: The enemy is for following the player one it has been founded, but for now, better not, because of the low framerate
+		if ((PlayerInRange() /*|| enemy*/) && !attacking && last_update >= PATHFINDING_FRAMES)
+		{
+			last_update = 0;
+			int target_x = player_pos.x;
+			int target_y = player_pos.y;
+
+			iPoint _target = { target_x, target_y };
+			_target = App->map->WorldToMap(_target.x, _target.y);
+			SetMovement(_target.x, _target.y);
+
+
+			enemy = App->game->player;
+		}
+
+		if (App->game->em->EntityOnCoords(App->map->MapToWorld(GetMapPosition().x, GetMapPosition().y)) != NULL &&
+			App->game->em->EntityOnCoords(App->map->MapToWorld(GetMapPosition().x, GetMapPosition().y)) != this &&
+			last_update >= PATHFINDING_FRAMES &&
+			movement == false)
+		{
+			int target_x = FindClosestWalkable(GetMapPosition()).x;
+			int target_y = FindClosestWalkable(GetMapPosition()).y;
+
+			iPoint _target = { target_x, target_y };
+			_target = App->map->WorldToMap(_target.x, _target.y);
+			SetMovement(_target.x, _target.y);
+
+		}
+
+		CheckToAttack();
+
+		switch (current_action)
+		{
+		case ENTITY_ATTACKING:
+			UpdateAttack();
+		case ENTITY_WALKING:
+			UpdateMovement(dt);
+		}
+
+		last_update++;
+	}
+
+	return true;
+}
+
+ENTITY_STATE EntEnemyBoss::UpdateAction()
+{
+	if (current_input != ENTITY_INPUT_NULL && current_input != previous_input)
+	{
+		switch (current_action)
+		{
+		case ENTITY_IDLE:
+		{
+			if (current_input == ENTITY_INPUT_MOVE)
+			{
+				current_action = ENTITY_WALKING;
+			}
+			if (current_input == INPUT_DEATH)
+			{
+				current_action = ENTITY_DEATH;
+			}
+			if (current_input == ENTITY_INPUT_ATTACK)
+			{
+				current_action = ENTITY_ATTACKING;
+			}
+		}
+		break;
+
+		case ENTITY_WALKING:
+		{
+			if (current_input == ENTITY_INPUT_STOP_MOVE)
+			{
+				current_action = ENTITY_IDLE;
+			}
+			if (current_input == INPUT_DEATH)
+			{
+				current_action = ENTITY_DEATH;
+			}
+			if (current_input == ENTITY_INPUT_ATTACK)
+			{
+				current_action = ENTITY_ATTACKING;
+			}
+		}
+		break;
+
+		case ENTITY_ATTACKING:
+		{
+			if (current_input == ENTITY_INPUT_STOP_MOVE)
+			{
+				current_action = ENTITY_IDLE;
+			}
+			if (current_input == INPUT_DEATH)
+			{
+				current_action = ENTITY_DEATH;
+			}
+		}
+		break;
+		}
+
+		previous_input = current_input;
+		EntityEvent(ENTITY_STATE_CHANGE);
+	}
+
+	current_input = ENTITY_INPUT_NULL;
+	return current_action;
+}
+
+void EntEnemyBoss::EntityEvent(ENTITY_EVENT even)
+{
+	switch (even)
+	{
+	case ENTITY_STATE_CHANGE:
+	{
+		StateMachine();
+	}
+	}
+}
+
+void EntEnemyBoss::StateMachine()
+{
+	switch (current_action)
+	{
+		//PIVOT DOESN'T CHANGE!
+		//Related to the collider rect, not the sprite
+	case ENTITY_IDLE:
+		tex = idle_tex;
+		current_animation_set = idle;
+
+		sprite_rect.w = sprite_dim.x = 78;
+		sprite_rect.h = sprite_dim.y = 51;
+		sprite_pivot = pivot = { collider_rect.w / 2, collider_rect.h - 20 };
+		sprite_pivot.y += 5;
+
+		break;
+
+	case ENTITY_WALKING:
+		tex = walk_tex;
+		current_animation_set = walk;
+
+		sprite_rect.w = sprite_dim.x = 78;
+		sprite_rect.h = sprite_dim.y = 54;
+		sprite_pivot = pivot = { collider_rect.w / 2, collider_rect.h - 20 };
+		sprite_pivot.y += 5;
+		sprite_pivot.x += 40;
+
+		break;
+
+	case ENTITY_DEATH:
+		tex = death_tex;
+		current_animation_set = death;
+
+		sprite_rect.w = sprite_dim.x = 190;
+		sprite_rect.h = sprite_dim.y = 129;
+		sprite_pivot = pivot = { collider_rect.w / 2, collider_rect.h - 20 };
+		sprite_pivot.y += 5;
+		sprite_pivot.x += 40;
+
+		dead = true;
+		break;
+
+
+	case ENTITY_ATTACKING:
+		tex = attack_tex;
+		current_animation_set = attack;
+
+		sprite_rect.w = sprite_dim.x = 170;
+		sprite_rect.h = sprite_dim.y = 81;
+		sprite_pivot = pivot = { collider_rect.w / 2, collider_rect.h - 20 };
+		sprite_pivot.y += 5;
+		sprite_pivot.x += 40;
+
+		break;
+	}
+}
+
+void EntEnemyBoss::SetAnimations()
+{
+	//NOTE: this should not go here
+	collider_rect.w = sprite_rect.w = sprite_dim.x = 77;
+	collider_rect.h = sprite_rect.h = sprite_dim.y = 97;
+
+	sprite_pivot = pivot = { collider_rect.w / 2, collider_rect.h - 20 };
+	sprite_pivot.y += 5;
+
+
+
+	//NOTE: Do it like a player, no number, variables
+	//Idle
+	for (int i = 0; i < 8; i++)
+	{
+		Animation tmp;
+		tmp.SetFrames(0, (97 + 0) * i, 77, 97, 7, 0);
+		tmp.speed = 0.2f;
+
+		idle.push_back(tmp);
+	}
+
+
+	//Walk
+	for (int i = 0; i < 8; i++)
+	{
+		Animation tmp;
+		tmp.SetFrames(0, (117 + 0) * i, 140, 117, 11, 0);
+		tmp.speed = 0.2f;
+
+		walk.push_back(tmp);
+	}
+
+	//Death
+	for (int i = 0; i < 8; i++)
+	{
+		Animation tmp;
+		int width = 190;
+		int height = 129;
+		int margin = 0;
+		tmp.SetFrames(0, (height + margin) * i, width, height, 19, margin);
+		tmp.loop = false;
+		tmp.speed = 0.2f;
+
+		death.push_back(tmp);
+	}
+
+	//Attack
+	for (int i = 0; i < 8; i++)
+	{
+		Animation tmp;
+		int width = 150;
+		int height = 105;
+		int margin = 0;
+		tmp.SetFrames(0, (height + margin) * i, width, height, 10, margin);
+		tmp.loop = false;
+		tmp.speed = 0.2f;
+
+		attack.push_back(tmp);
+	}
+}

@@ -96,4 +96,25 @@ public:
 	uint last_update;
 
 };
+
+
+class EntEnemyBoss : public EntEnemy
+{
+public:
+
+	//Constructor
+	EntEnemyBoss(const iPoint &p, uint ID);
+
+	bool Update(float dt);
+
+	ENTITY_STATE UpdateAction();
+	void EntityEvent(ENTITY_EVENT even);
+	void StateMachine();
+
+	void SetAnimations();
+
+public:
+	uint last_update;
+
+};
 #endif
