@@ -603,6 +603,9 @@ void EntEnemyCrawler::EntityEvent(ENTITY_EVENT even)
 
 void EntEnemyCrawler::StateMachine()
 {
+	iPoint pos(position.x - 30, position.y + 30);
+	int r;
+
 	switch (current_action)
 	{
 		//PIVOT DOESN'T CHANGE!
@@ -637,6 +640,12 @@ void EntEnemyCrawler::StateMachine()
 		sprite_rect.h = sprite_dim.y = 56;
 		sprite_pivot = sprite_dim / 2;
 		sprite_pivot.y += 5;
+
+
+		//Item out
+		r = rand() % 5;
+		if (r == 0)
+			App->game->em->Add(pos, ITEM_HEALTH);
 
 		dead = true;
 		break;
@@ -886,7 +895,7 @@ void EntEnemyBoss::EntityEvent(ENTITY_EVENT even)
 void EntEnemyBoss::StateMachine()
 {
 	//NOTE: so maaaany wrong things
-	iPoint pos(position.x - 30, position.y + 30);;
+	iPoint pos(position.x - 30, position.y + 30);
 	switch (current_action)
 	{
 		//NOTE: so maaaany wrong things

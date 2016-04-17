@@ -176,7 +176,7 @@ bool j1EntityManager::Remove(uint id)
 	//NOTE: has to delete, not do this!
 	//It's not destroyed? we'll see for later weeks
 	Entity* e = GetEntity(id);
-	if (e->sprite)
+	if (e && e->sprite)
 	{
 		//NOTE: here, is a beautiful memory leak, if i uncomment this all the game goes fucked
 
@@ -187,10 +187,10 @@ bool j1EntityManager::Remove(uint id)
 
 	if (active_entities.erase(id) > 0)
 	{
-		/*Entity* e = GetEntity(id);
+		Entity* e = GetEntity(id);
 		//NOTE: has to delete, not do this!
 		//It's not destroyed? we'll see for later weeks
-		inactive_entities.insert(pair<uint, Entity*>(id, e));*/
+		inactive_entities.insert(pair<uint, Entity*>(id, e));
 
 		return true;
 	}
