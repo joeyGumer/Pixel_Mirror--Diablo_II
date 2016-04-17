@@ -38,7 +38,7 @@ bool snWin::PreUpdate()
 	// Update
 bool snWin::Update(float dt)
 {
-	App->render->Blit(back, -220, 0, NULL);
+	App->render->Blit(back, 0, 0, NULL);
 	if (ret.ReadSec() > 5)
 		App->sm->ChangeScene(App->sm->intro);
 	return true;

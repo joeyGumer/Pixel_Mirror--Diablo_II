@@ -9,6 +9,7 @@
 #include "j1SceneManager.h"
 #include "p2Point.h"
 #include "snWin.h"
+#include "snDungeon1.h"
 
 //EntEnemy
 //----------------------------
@@ -821,7 +822,7 @@ bool EntEnemyBoss::Update(float dt)
 	{
 		if (win.ReadSec() > 5)
 		{
-			App->sm->ChangeScene(App->sm->win);
+			App->sm->dungeon1->win = true;
 		}
 	}
 

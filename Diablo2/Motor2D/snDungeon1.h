@@ -61,6 +61,7 @@ public:
 
 	list<Entity*>		entity_list;
 
+	bool win;
 };
 
 #endif _SNDUNGEON1_H

@@ -8,6 +8,8 @@
 #include "j1EntityManager.h"
 #include "Entity.h"
 #include "j1Input.h"
+#include "j1SceneManager.h"
+#include "snWin.h"
 
 
 
@@ -34,6 +36,7 @@ bool snDungeon1::Awake(pugi::xml_node& conf)
 // Called the first frame
 bool snDungeon1::Start()
 {
+	win = false;
 
 	debug = App->tex->Load("maps/mini_path.png");
 
@@ -67,26 +70,28 @@ bool snDungeon1::Update(float dt)
 	//Map
 	App->map->Draw();
 
-	//Entities for debug
-	if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN)
-	{
-		iPoint p;
-		p = App->input->GetMouseWorldPosition();
-		p.x += App->map->data.tile_width / 2;
-		p.y += App->map->data.tile_height / 2;
 
-		//int a = rand() % 2;
-		//if (a == 0)
-		//App->game->em->Add(p, ENEMY);
-		//App->game->em->Add(p, ENEMY_CRAWLER);
-		App->game->em->Add(p, ENEMY_CRAWLER);
-		p = App->map->WorldToMap(p.x, p.y);
-		int i = 0;
-	}
 
 
 	if (App->debug)
 	{
+		//Entities for debug
+		if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN)
+		{
+			iPoint p;
+			p = App->input->GetMouseWorldPosition();
+			p.x += App->map->data.tile_width / 2;
+			p.y += App->map->data.tile_height / 2;
+
+			//int a = rand() % 2;
+			//if (a == 0)
+			//App->game->em->Add(p, ENEMY);
+			//App->game->em->Add(p, ENEMY_CRAWLER);
+			App->game->em->Add(p, ENEMY_CRAWLER);
+			p = App->map->WorldToMap(p.x, p.y);
+			int i = 0;
+		}
+
 		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		{
 			App->render->camera.x -= floor(CAM_SPEED * 5 * dt);
@@ -115,6 +120,10 @@ bool snDungeon1::Update(float dt)
 // PostUpdate
 bool snDungeon1::PostUpdate()
 {
+	if (win)
+	{
+		App->sm->ChangeScene(App->sm->win);
+	}
 	return true;
 }
 
