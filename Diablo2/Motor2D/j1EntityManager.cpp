@@ -5,6 +5,8 @@
 #include "j1Pathfinding.h"
 #include "p2Log.h"
 #include "j1Map.h"
+#include "j1Render.h"
+#include "EntItem.h"
 #include <algorithm>
 
 
@@ -141,6 +143,9 @@ Entity* j1EntityManager::Add(iPoint &pos, ENTITY_TYPE type)
 		case (ENEMY_BOSS) :
 			entity = new EntEnemyBoss(pos, ++next_ID);
 			break;
+		case (ITEM_HEALTH) :
+			entity = new itmPotionHP(pos, ++next_ID);
+			break;
 		}
 
 		// We add the new entity to the map of active entities. 
@@ -153,10 +158,24 @@ Entity* j1EntityManager::Add(iPoint &pos, ENTITY_TYPE type)
 // Remove an entity using its ID
 bool j1EntityManager::Remove(uint id)
 {
+	//NOTE: has to delete, not do this!
+	//It's not destroyed? we'll see for later weeks
+	Entity* e = GetEntity(id);
+	if (e->sprite)
+	{
+		//NOTE: here, is a beautiful memory leak, if i uncomment this all the game goes fucked
+
+		//RELEASE(e->sprite);
+		App->render->sprites.remove(e->sprite);
+		//RELEASE(e->sprite);
+	}
+
 	if (active_entities.erase(id) > 0)
 	{
-		Entity* e = GetEntity(id);
-		inactive_entities.insert(pair<uint, Entity*>(id, e));
+		/*Entity* e = GetEntity(id);
+		//NOTE: has to delete, not do this!
+		//It's not destroyed? we'll see for later weeks
+		inactive_entities.insert(pair<uint, Entity*>(id, e));*/
 
 		return true;
 	}

@@ -21,6 +21,7 @@ using namespace std;
 #define PLAYER_PIVOT_OFFSET int(10)
 #define STAMINA_SPEED 0.05f
 
+
 //NOTE: provisional, this will go somewhere alse to apply to all entities, or maybe deleted because the state machine
 enum DIRECTION
 {
@@ -44,6 +45,7 @@ enum PLAYER_EVENT
 	ST_DOWN,
 	ST_UP,
 	STATE_CHANGE,
+	GET_ITEM,
 };
 
 enum ACTION_STATE
@@ -154,6 +156,7 @@ public:
 	void LowerStamina();
 	void RecoverStamina();
 
+	void RestoreHP(int health);
 //Attributes
 
 public:
@@ -230,6 +233,7 @@ private:
 	//NOTE: will be cahnged to a enemy once entity manager structure is changed
 	//Enemy target
 	EntEnemy* enemy = NULL;
+	Entity*	objective = NULL;
 
 };
 

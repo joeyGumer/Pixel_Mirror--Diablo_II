@@ -3,13 +3,29 @@
 
 #include "EntStatic.h"
 
+class j1Player;
 class EntItem : public EntStatic
 {
 public:
 	EntItem(const iPoint &p, uint ID);
 
-public:
+	void Draw()
+	{}
+	void DrawDebug()
+	{}
 
+public:
 };
 
+
+
+class itmPotionHP : public EntItem
+{
+public:
+	itmPotionHP(const iPoint &p, uint ID);
+
+	void Effect();
+	
+	int HP_points = 50;
+};
 #endif

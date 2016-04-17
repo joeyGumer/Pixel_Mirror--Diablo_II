@@ -8,6 +8,7 @@ class j1HUD;
 class GuiElement;
 class GuiImage;
 class GuiLabel;
+class GuiInventory;
 class j1Player;
 
 
@@ -102,6 +103,10 @@ public:
 	GuiLabel* life_debug;
 	GuiLabel* mana_debug;
 
+	GuiInventory* inventory1;
+	GuiInventory* inventory2;
+	GuiInventory* inventory3;
+	GuiInventory* inventory4;
 	//Strict relation with the player
 	j1Player* player;
 };

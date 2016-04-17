@@ -5,6 +5,9 @@
 #include "GuiInventory.h"
 #include "j1Gui.h"
 #include "j1Render.h"
+//Absolutely not
+#include "j1Player.h"
+#include "j1Game.h"
 
 
 
@@ -100,4 +103,11 @@ void GuiItem::Move()
 	tmp.y -= GetLocalRect().h / 2;
 
 	SetLocalPosition(tmp);
+}
+
+//WARNING: guarrada
+void GuiItem::Effect()
+{
+	j1Player* player = App->game->player;
+	player->RestoreHP(50);
 }

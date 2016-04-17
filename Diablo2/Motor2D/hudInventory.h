@@ -41,6 +41,10 @@ public:
 	//Activation/Desactivation
 	void Activate();
 
+	//NOTE: master of nope, but now i need it
+	//Change it for an addItem
+	bool AddPotion();
+
 public:
 
 	GuiImage* background = NULL;

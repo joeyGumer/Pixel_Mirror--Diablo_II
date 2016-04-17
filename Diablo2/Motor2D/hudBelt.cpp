@@ -9,9 +9,12 @@
 
 
 
+
 //Constructor
 hudBelt::hudBelt():hudElement()
-{}
+{
+	active = true;
+}
 
 //Destructor
 hudBelt::~hudBelt()
@@ -30,6 +33,11 @@ bool hudBelt::Start()
 	HUD = App->gui->AddGuiImage({ 166, 430 }, { 166, 386, 408, 47 }, NULL, this);
 	hud_gui_elements.push_back(HUD);
 
+	
+	inventory1 = App->gui->AddGuiInventory({ 176, 9 }, { 342, 395, 30, 30 }, 1, 1 , 30, 30, HUD, this);
+	inventory2 = App->gui->AddGuiInventory({ 207, 9 }, { 373, 395, 30, 30 }, 1, 1, 30, 30, HUD, this);
+	inventory3 = App->gui->AddGuiInventory({ 238, 9 }, { 404, 395, 30, 30 }, 1, 1, 30, 30, HUD, this);
+	inventory4 = App->gui->AddGuiInventory({ 269, 9 }, { 435, 395, 30, 30 }, 1, 1, 30, 30, HUD, this);
 	//HUD elements definition
 	//NOTE: these position are very inaccurate
 
@@ -152,6 +160,61 @@ bool hudBelt::PreUpdate()
 		RunningOn();
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+	{
+		list<GuiItem*>::iterator it = inventory1->items.begin();
+		if (it != inventory1->items.end())
+		{
+			GuiItem* i = (*it);
+			i->Effect();
+			i->FreeSlots();
+			inventory1->items.remove(i);
+			RELEASE(i);
+		}
+
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
+	{
+		list<GuiItem*>::iterator it = inventory2->items.begin();
+		if (it != inventory2->items.end())
+		{
+			GuiItem* i = (*it);
+			i->Effect();
+			i->FreeSlots();
+			inventory2->items.remove(i);
+			RELEASE(i);
+		}
+
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
+	{
+		list<GuiItem*>::iterator it = inventory3->items.begin();
+		if (it != inventory3->items.end())
+		{
+			GuiItem* i = (*it);
+			i->Effect();
+			i->FreeSlots();
+			inventory3->items.remove(i);
+			RELEASE(i);
+		}
+
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
+	{
+		list<GuiItem*>::iterator it = inventory4->items.begin();
+		if (it != inventory4->items.end())
+		{
+			GuiItem* i = (*it);
+			i->Effect();
+			i->FreeSlots();
+			inventory4->items.remove(i);
+			RELEASE(i);
+		}
+
+	}
 	return true;
 }
 

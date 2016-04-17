@@ -11,6 +11,7 @@
 #include "hudBelt.h"
 #include "j1Pathfinding.h"
 #include "j1EntityManager.h"
+#include "hudInventory.h"
 #include "Entity.h"
 #include "EntEnemy.h"
 #include "SDL/include/SDL.h"
@@ -311,7 +312,15 @@ void j1Player::PlayerEvent(PLAYER_EVENT even)
 			App->game->HUD->belt->SetStamina(ST_max, ST_current);
 		}
 		break;
-
+	case GET_ITEM:
+		{
+			//NOTE: GUARRALITY
+			if (App->game->HUD->inventory->AddPotion())
+			{
+				App->game->em->Remove(objective->id);	
+			}
+		}
+		break;
 	case STATE_CHANGE:
 		{
 			StateMachine();
@@ -505,8 +514,28 @@ void j1Player::CheckToAttack()
 			movement = false;
 			current_input = INPUT_ATTACK;
 			enemy = NULL;
+			objective = NULL;
 			attacking = true;
 			input_locked = true;
+		}
+	}
+
+	else if (objective && !enemy)
+	{
+		if (IsInRange(objective))
+		{
+			fPoint target = objective->GetPivotPosition();
+
+			fPoint dist = { target - p_position };
+			p_velocity = dist;
+
+			SetDirection();
+
+			movement = false;
+			current_input = INPUT_STOP_MOVE;
+			
+			PlayerEvent(GET_ITEM);
+			objective = NULL;
 		}
 	}
 }
@@ -621,7 +650,13 @@ void j1Player::HandleInput()
 	{
 		iPoint target;
 		//NOTE: this will be later changed
-		enemy = (EntEnemy*)App->game->em->EntityOnMouse();
+		objective = App->game->em->EntityOnMouse();
+		if (objective && objective->type == ENEMY)
+		{
+			enemy = (EntEnemy*)App->game->em->EntityOnMouse();
+		}
+		
+
 
 		
 		target = App->input->GetMouseWorldPosition();
@@ -779,6 +814,18 @@ void j1Player::RecoverStamina()
 			PlayerEvent(ST_UP);
 		}
 	}
+}
+
+void j1Player::RestoreHP(int health)
+{
+	
+	HP_current += health;
+	if (HP_current >= HP_max)
+	{
+		HP_max = HP_current;
+	}
+
+	PlayerEvent(HP_UP);
 }
 /*
 //-------Structural functions

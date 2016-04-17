@@ -881,8 +881,11 @@ void EntEnemyBoss::EntityEvent(ENTITY_EVENT even)
 
 void EntEnemyBoss::StateMachine()
 {
+	//NOTE: so maaaany wrong things
+	iPoint pos(position.x - 30, position.y + 30);;
 	switch (current_action)
 	{
+		//NOTE: so maaaany wrong things
 		//PIVOT DOESN'T CHANGE!
 		//Related to the collider rect, not the sprite
 	case ENTITY_IDLE:
@@ -917,6 +920,10 @@ void EntEnemyBoss::StateMachine()
 		sprite_pivot = pivot = { collider_rect.w / 2, collider_rect.h - 20 };
 		sprite_pivot.y += 5;
 		sprite_pivot.x += 40;
+
+
+		//Item out
+		App->game->em->Add(pos, ITEM_HEALTH);
 
 		dead = true;
 		break;

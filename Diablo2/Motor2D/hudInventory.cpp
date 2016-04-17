@@ -42,7 +42,7 @@ bool hudInventory::Start()
 bool hudInventory::PreUpdate()
 {
 	//Adding different item to the inventory
-	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+	/*if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
 		//Potion
 		GuiItem* new_item;
@@ -95,7 +95,7 @@ bool hudInventory::PreUpdate()
 			delete new_item;
 		}
 
-	}
+	}*/
 	return true;
 }
 
@@ -148,6 +148,23 @@ void hudInventory::Activate()
 
 
 }
+
+bool hudInventory::AddPotion()
+{
+	bool ret = true;
+	//Potion
+	GuiItem* new_item;
+	iPoint coords[1] = { { 0, 0 } };
+	new_item = new GuiItem(1, coords, { 2285, 799, ITEM_SECTION_SIZE, ITEM_SECTION_SIZE });
+	if (!inventory->AutomaticAddItem(new_item))
+	{
+		delete new_item;
+		ret = false;
+	}
+
+	return ret;
+}
+
 //Called when there's a gui event
 void hudInventory::OnEvent(GuiElement* element, GUI_Event even)
 {

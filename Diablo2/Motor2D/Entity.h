@@ -14,7 +14,8 @@ enum ENTITY_TYPE
 	ENEMY_BOSS,
 	NPC,
 	PROP,
-	ITEM
+	ITEM,
+	ITEM_HEALTH,
 };
 
 class Entity
