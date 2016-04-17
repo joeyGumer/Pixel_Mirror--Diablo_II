@@ -74,7 +74,13 @@ bool j1EntityManager::Update(float dt)
 	map<uint, Entity*>::iterator item = active_entities.begin();
 	for (; item != active_entities.end(); ++item)
 	{
-		item->second->Update(dt);
+		SDL_Rect cam = App->render->camera;
+		fPoint pos = item->second->position;
+		if (pos.x + 100 > -cam.x && pos.x - 100 < -cam.x + cam.w &&
+			pos.y + 100 > -cam.y && pos.y - 100 < -cam.y + cam.h)
+		{
+			item->second->Update(dt);
+		}
 	}
 
 	// Entities drawing
