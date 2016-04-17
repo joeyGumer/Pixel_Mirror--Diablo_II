@@ -580,7 +580,7 @@ bool j1Player::Alive()
 void j1Player::HandleInput()
 {
 	//NOTE: provisional mana and life changers
-	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+	/*if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
 	{
 		if (HP_current <= 0)
 		{
@@ -657,7 +657,7 @@ void j1Player::HandleInput()
 		}
 
 		PlayerEvent(ST_UP);
-	}
+	}*/
 	//
 
 	//Linear Movement activation
