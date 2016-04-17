@@ -48,6 +48,8 @@ bool snDungeon1::Start()
 		RELEASE_ARRAY(data);
 	}
 
+	AddEnemies();
+
 	return true;
 }
 
@@ -77,7 +79,33 @@ bool snDungeon1::Update(float dt)
 		//if (a == 0)
 		//App->game->em->Add(p, ENEMY);
 		//App->game->em->Add(p, ENEMY_CRAWLER);
-		App->game->em->Add(p, ENEMY_BOSS);
+		App->game->em->Add(p, ENEMY_CRAWLER);
+		p = App->map->WorldToMap(p.x, p.y);
+		int i = 0;
+	}
+
+
+	if (App->debug)
+	{
+		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+		{
+			App->render->camera.x -= floor(CAM_SPEED * 5 * dt);
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+		{
+			App->render->camera.x += floor(CAM_SPEED * 5 * dt);
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+		{
+			App->render->camera.y -= floor(CAM_SPEED * 5 * dt);
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+		{
+			App->render->camera.y += floor(CAM_SPEED * 5 * dt);
+		}
 	}
 
 	return true;
@@ -126,4 +154,166 @@ bool snDungeon1::UnLoad()
 {
 	CleanUp();
 	return true;
+}
+
+//Adding Enemies
+void snDungeon1::AddEnemies()
+{
+	iPoint tile_pos = { 20, 141 };
+	entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+	tile_pos = { 20, 141 };
+	entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+	tile_pos = { 25, 141 };
+	entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+	tile_pos = { 22, 147 };
+	entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+	tile_pos = { 27, 147 };
+	entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+	tile_pos = { 25, 152 };
+	entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+	tile_pos = { 22, 152 };
+	entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+	tile_pos = { 18, 122 };
+	entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+	tile_pos = { 22, 122 };
+	entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+	tile_pos = { 20, 130 };
+	entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+	tile_pos = { 24, 130 };
+	entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+
+	tile_pos = { 18, 73 };
+	entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+	tile_pos = { 22, 73 };
+	entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+	tile_pos = { 17, 77 };
+	entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+	tile_pos = { 20, 77 };
+	entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+	tile_pos = { 14, 82 };
+	entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+	tile_pos = { 22, 82 };
+	entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+	tile_pos = { 18, 87 };
+	entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+	tile_pos = { 20, 87 };
+	entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+
+
+	tile_pos = { 149, 25 };
+	entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+	tile_pos = { 150, 28 };
+	entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+	tile_pos = { 155, 30 };
+	entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+	tile_pos = { 156, 32 };
+	entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+	tile_pos = { 162, 35 };
+	entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+	tile_pos = { 164, 33 };
+	entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+	tile_pos = { 159, 25 };
+	entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+	tile_pos = { 150, 34 };
+	entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+	tile_pos = { 145, 30 };
+	entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+	tile_pos = { 146, 32 };
+	entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+	tile_pos = { 152, 35 };
+	entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+	tile_pos = { 154, 33 };
+	entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+
+	tile_pos = { 76, 25 };
+	entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+	tile_pos = { 78, 28 };
+	entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+	tile_pos = { 80, 30 };
+	entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+	tile_pos = { 82, 32 };
+	entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+	tile_pos = { 72, 25 };
+	entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+	tile_pos = { 72, 23 };
+	entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+
+	tile_pos = { 62, 93 };
+	entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+	tile_pos = { 65, 88 };
+	entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+	tile_pos = { 60, 93 };
+	entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+	tile_pos = { 68, 89 };
+	entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+	tile_pos = { 72, 90 };
+	entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+	tile_pos = { 72, 92 };
+	entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+
+	tile_pos = { 182, 80 };
+	for (int i = 0; i < 12; i++)
+	{
+		if (i % 2 == 1)
+		{
+			tile_pos.x -= 4;
+		}
+		entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+		tile_pos.y -= 4;
+	}
+
+	tile_pos = { 159, 92 };
+	for (int i = 0; i < 6; i++)
+	{
+		if (i % 2 == 1)
+		{
+			tile_pos.x += 3;
+		}
+		entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+		tile_pos.y -= 4;
+	}
+
+	tile_pos = { 105, 82 };
+	for (int i = 0; i < 6; i++)
+	{
+		if (i % 2 == 1)
+		{
+			tile_pos.x += 3;
+		}
+		entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+		tile_pos.y -= 3;
+	}
+
+	tile_pos = { 204, 47 };
+	for (int i = 0; i < 7; i++)
+	{
+		if (i % 2 == 1)
+		{
+			tile_pos.x += 2;
+		}
+		entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+		tile_pos.y -= 3;
+	}
+
+	tile_pos = { 52, 108 };
+	for (int i = 0; i < 4; i++)
+	{
+		if (i % 2 == 1)
+		{
+			tile_pos.x += 3;
+		}
+		entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+		tile_pos.y -= 4;
+	}
+
+	tile_pos = { 131,	35 };
+	for (int i = 0; i < 13; i++)
+	{
+		if (i % 2 == 1)
+		{
+			tile_pos.x += 1;
+		}
+		entity_list.push_back(App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER));
+		tile_pos.y -= 2;
+	}
 }

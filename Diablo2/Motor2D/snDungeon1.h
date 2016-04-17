@@ -48,6 +48,9 @@ public:
 	//Load/UnLoad, called when the scene changes
 	bool Load();
 	bool UnLoad();
+
+	//Adding Enemies
+	void AddEnemies();
 	
 private:
 
