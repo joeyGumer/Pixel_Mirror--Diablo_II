@@ -177,6 +177,8 @@ EntEnemyWolf::EntEnemyWolf(const iPoint &p, uint ID) : EntEnemy(p, ID)
 	attack_range = 50.0f;
 	agro_range = 150.0f;
 
+	damage = 3;
+
 	last_update = PATHFINDING_FRAMES;
 
 	//Sprite creation
@@ -456,7 +458,9 @@ EntEnemyCrawler::EntEnemyCrawler(const iPoint &p, uint ID) : EntEnemy(p, ID)
 	movement = false;
 
 	attack_range = 50.0f;
-	agro_range = 150.0f;
+	agro_range = 190.0f;
+
+	damage = 5;
 
 	last_update = PATHFINDING_FRAMES;
 
