@@ -48,6 +48,9 @@ bool j1Player::Start()
 	p_death = App->tex->Load("textures/vamp_death.png");
 	SetAnimations();
 
+	//states
+	previous_action = NOTHING;
+	input_locked = false;
 	current_action = IDLE;
 	current_direction = D_FRONT;
 	current_input = INPUT_NULL;
@@ -64,6 +67,8 @@ bool j1Player::Start()
 	HP_max = HP_current = 200.0f;
 	MP_max = MP_current = 100;
 	ST_max = ST_current = 200.0f;
+
+
 
 	//Sprite creation
 	SDL_Rect current_sprite = current_animation->GetCurrentFrame();

@@ -643,7 +643,7 @@ void EntEnemyCrawler::StateMachine()
 
 
 		//Item out
-		r = rand() % 5;
+		r = rand() % 2;
 		if (r == 0)
 			App->game->em->Add(pos, ITEM_HEALTH);
 
