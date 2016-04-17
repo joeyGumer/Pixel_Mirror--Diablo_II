@@ -333,6 +333,7 @@ void j1Player::PlayerEvent(PLAYER_EVENT even)
 			if (App->game->HUD->inventory->AddPotion())
 			{
 				App->game->em->Remove(objective->id);	
+				objective = NULL;
 			}
 		}
 		break;

@@ -69,6 +69,7 @@ enum INPUT_STATE
 };
 
 class EntEnemy;
+class EntItem;
 class Entity;
 class Sprite;
 
