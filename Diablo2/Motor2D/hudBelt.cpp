@@ -9,7 +9,6 @@
 
 
 
-
 //Constructor
 hudBelt::hudBelt():hudElement()
 {
@@ -23,7 +22,6 @@ hudBelt::~hudBelt()
 //Called before fist frame
 bool hudBelt::Start()
 {
-
 	//Player
 	player = App->game->player;
 
@@ -127,9 +125,9 @@ bool hudBelt::Start()
 	stats->interactable = true;
 	hud_gui_elements.push_back(stats);
 
-	inventory = App->gui->AddGuiImage({ 24, 3 }, { 191, 279, 20, 19 }, minipanel, this);
-	inventory->interactable = true;
-	hud_gui_elements.push_back(inventory);
+	inventorybutton = App->gui->AddGuiImage({ 24, 3 }, { 191, 279, 20, 19 }, minipanel, this);
+	inventorybutton->interactable = true;
+	hud_gui_elements.push_back(inventorybutton);
 
 	skilltree = App->gui->AddGuiImage({ 45, 3 }, { 212, 279, 20, 19 }, minipanel, this);
 	skilltree->interactable = true;
@@ -295,6 +293,22 @@ void hudBelt::OnEvent(GuiElement* element, GUI_Event even)
 				}
 			}
 			break;
+		}
+	}
+	
+	//Inventory button
+	if (inventorybutton == element)
+	{
+		switch (even)
+		{
+		case EVENT_MOUSE_LEFTCLICK_DOWN:
+		{
+			if (inventorybutton_pressed == false)
+				inventorybutton_pressed = true;
+			else
+				inventorybutton_pressed = false;
+		}
+		break;
 		}
 	}
 

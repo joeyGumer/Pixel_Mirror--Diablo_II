@@ -70,6 +70,7 @@ public:
 	bool minipanel_pressed = false;
 	bool attack1_pressed = false;
 	bool attack2_pressed = false;
+	bool inventorybutton_pressed = false;
 
 	//Belt Gui Elements
 	GuiImage* HUD = NULL;
@@ -86,7 +87,7 @@ public:
 	GuiImage* minipanelbutton = NULL;
 	GuiImage* stats = NULL;
 	GuiImage* skilltree = NULL;
-	GuiImage* inventory = NULL;
+	GuiImage* inventorybutton = NULL;
 	GuiImage* map = NULL;
 	GuiImage* message_log = NULL;
 	GuiImage* search_log = NULL;
@@ -108,6 +109,8 @@ public:
 	GuiInventory* inventory2;
 	GuiInventory* inventory3;
 	GuiInventory* inventory4;
+	
+
 	//Strict relation with the player
 	j1Player* player;
 };

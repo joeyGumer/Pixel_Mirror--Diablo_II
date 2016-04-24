@@ -54,9 +54,11 @@ bool j1HUD::Start()
 bool j1HUD::PreUpdate()
 {
 
-	if (App->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN || belt->inventorybutton_pressed == true)
 	{
+		belt->inventorybutton_pressed = false;
 		inventory->Activate();
+
 	}
 
 	for (int i = 0; i < HUD_elements.size(); i++)
