@@ -42,6 +42,29 @@ public:
 
 public:
 
+	int skillpoints;
+	int skill1points;
+	int skill2points;
+	int skill3points;
+	int skill4points;
+	int skill5points;
+	int skill6points;
+	int skill7points;
+	int skill8points;
+	int skill9points;
+	int skill10points;
+
+	bool skill1_pressed = false;
+	bool skill2_pressed = false;
+	bool skill3_pressed = false;
+	bool skill4_pressed = false;
+	bool skill5_pressed = false;
+	bool skill6_pressed = false;
+	bool skill7_pressed = false;
+	bool skill8_pressed = false;
+	bool skill9_pressed = false;
+	bool skill10_pressed = false;
+
 	GuiImage* skilltree = NULL;
 	GuiImage* skill1 = NULL;
 	GuiImage* skill2 = NULL;

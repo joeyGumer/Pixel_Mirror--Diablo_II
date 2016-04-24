@@ -25,11 +25,12 @@ j1HUD::j1HUD() : j1Module()
 	blood = new hudBlood();
 	skilltree = new hudSkilltree();
 
+	HUD_elements.push_back(skilltree);
 	HUD_elements.push_back(inventory);
 	HUD_elements.push_back(belt);
 	HUD_elements.push_back(pause_menu);
 	HUD_elements.push_back(blood);
-	HUD_elements.push_back(skilltree);
+	
 	
 }
 
