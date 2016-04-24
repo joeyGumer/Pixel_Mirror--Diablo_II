@@ -87,6 +87,7 @@
     <ClCompile Include="GuiItem.cpp" />
     <ClCompile Include="GuiSlot.cpp" />
     <ClCompile Include="hudBelt.cpp" />
+    <ClCompile Include="hudBlood.cpp" />
     <ClCompile Include="hudInventory.cpp" />
     <ClCompile Include="hudPause.cpp" />
     <ClCompile Include="j1EntityManager.cpp" />
@@ -130,6 +131,7 @@
     <ClInclude Include="GuiItem.h" />
     <ClInclude Include="GuiSlot.h" />
     <ClInclude Include="hudBelt.h" />
+    <ClInclude Include="hudBlood.h" />
     <ClInclude Include="hudElement.h" />
     <ClInclude Include="hudInventory.h" />
     <ClInclude Include="hudPause.h" />

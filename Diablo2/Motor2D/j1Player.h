@@ -46,6 +46,8 @@ enum PLAYER_EVENT
 	ST_UP,
 	STATE_CHANGE,
 	GET_ITEM,
+	BLOOD_UP,
+	BLOOD_DOWN
 };
 
 enum ACTION_STATE
@@ -126,6 +128,9 @@ public:
 	void CheckToAttack();
 	void TakeDamage(int damage);
 
+	//Pure Blood System
+	void ReceiveBlood(int blood);
+
 	bool Alive();
 
 	void Respawn();
@@ -156,6 +161,8 @@ public:
 	//Stats realted
 	void LowerStamina();
 	void RecoverStamina();
+
+	void IncreaseBlood(int blood);
 
 	void RestoreHP(int health);
 //Attributes
@@ -219,6 +226,7 @@ private:
 	float ST_max;
 	float ST_current;
 
+	int blood_current;
 
 	float attack_range = 65.0f;
 

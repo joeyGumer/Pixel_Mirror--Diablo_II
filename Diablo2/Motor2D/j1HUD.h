@@ -12,6 +12,7 @@ class hudElement;
 class hudBelt;
 class hudPause;
 class hudInventory;
+class hudBlood;
 
 
 class j1HUD : public j1Module
@@ -45,6 +46,7 @@ public:
 	hudBelt* belt = NULL;
 	hudPause* pause_menu = NULL;
 	hudInventory* inventory = NULL;
+	hudBlood* blood = NULL;
 
 	vector<hudElement*> HUD_elements;
 };

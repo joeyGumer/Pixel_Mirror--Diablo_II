@@ -21,6 +21,7 @@ class j1Player;
 class hudBelt : public hudElement
 {
 public:
+
 	//Constructor
 	hudBelt();
 

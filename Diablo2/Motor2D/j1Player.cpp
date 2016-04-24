@@ -12,6 +12,7 @@
 #include "j1Pathfinding.h"
 #include "j1EntityManager.h"
 #include "hudInventory.h"
+#include "hudBlood.h"
 #include "Entity.h"
 #include "EntEnemy.h"
 #include "SDL/include/SDL.h"
@@ -67,6 +68,7 @@ bool j1Player::Start()
 	HP_max = HP_current = 200.0f;
 	MP_max = MP_current = 100;
 	ST_max = ST_current = 200.0f;
+	blood_current = 0;
 
 
 
@@ -337,10 +339,21 @@ void j1Player::PlayerEvent(PLAYER_EVENT even)
 			}
 		}
 		break;
+	case BLOOD_UP:
+		{
+			App->game->HUD->blood->SetBlood(blood_current);
+		}
+		break;
+	case BLOOD_DOWN:
+		{
+			//Code here
+		}
+		break;
 	case STATE_CHANGE:
 		{
 			StateMachine();
 		}
+		break;
 	}
 }
 
@@ -830,6 +843,11 @@ void j1Player::RecoverStamina()
 			PlayerEvent(ST_UP);
 		}
 	}
+}
+
+void j1Player::IncreaseBlood(int blood)
+{
+	blood_current += blood;
 }
 
 void j1Player::RestoreHP(int health)

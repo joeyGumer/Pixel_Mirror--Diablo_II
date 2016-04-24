@@ -17,7 +17,7 @@
 //Constructor
 EntEnemy::EntEnemy(const iPoint &p, uint ID) : EntMobile(p, ID)
 {
-
+	blood_drop = 0;
 }
 
 //Drawing methods
@@ -465,6 +465,8 @@ EntEnemyCrawler::EntEnemyCrawler(const iPoint &p, uint ID) : EntEnemy(p, ID)
 
 	damage = 5;
 
+	blood_drop = 50;
+
 	last_update = PATHFINDING_FRAMES;
 
 	//Sprite creation
@@ -644,6 +646,8 @@ void EntEnemyCrawler::StateMachine()
 		sprite_pivot = sprite_dim / 2;
 		sprite_pivot.y += 5;
 
+		App->game->player->IncreaseBlood(blood_drop);
+		App->game->player->PlayerEvent(BLOOD_UP);
 
 		//Item out
 		r = rand() % 4;

@@ -59,6 +59,9 @@ public:
 	//ENEMY_TYPE emy_type;
 	int		damage;
 
+	//Pure Blood System;
+	int		blood_drop;
+
 
 };
 

@@ -118,6 +118,9 @@
     <ClCompile Include="snWin.cpp">
       <Filter>Desenvolupament  ========\Scenes\snWin</Filter>
     </ClCompile>
+    <ClCompile Include="hudBlood.cpp">
+      <Filter>Desenvolupament  ========\Modules\j1HUD\hudElements\hudBlood</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h">
@@ -270,6 +273,9 @@
     <ClInclude Include="snWin.h">
       <Filter>Desenvolupament  ========\Scenes\snWin</Filter>
     </ClInclude>
+    <ClInclude Include="hudBlood.h">
+      <Filter>Desenvolupament  ========\Modules\j1HUD\hudElements\hudBlood</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -385,6 +391,9 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Scenes\snWin">
       <UniqueIdentifier>{d25bc987-7973-438c-a1c7-a4360353fdb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\j1HUD\hudElements\hudBlood">
+      <UniqueIdentifier>{e1b9b919-0b5d-488c-9f38-90be2bcc3001}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

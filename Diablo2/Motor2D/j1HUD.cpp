@@ -9,6 +9,7 @@
 #include "hudBelt.h"
 #include "hudPause.h"
 #include "hudInventory.h"
+#include "hudBlood.h"
 
 
 //NOTE : provisional
@@ -20,10 +21,12 @@ j1HUD::j1HUD() : j1Module()
 	belt = new hudBelt();
 	pause_menu = new hudPause();
 	inventory = new hudInventory();
+	blood = new hudBlood();
 
 	HUD_elements.push_back(inventory);
 	HUD_elements.push_back(belt);
 	HUD_elements.push_back(pause_menu);
+	HUD_elements.push_back(blood);
 	
 }
 
