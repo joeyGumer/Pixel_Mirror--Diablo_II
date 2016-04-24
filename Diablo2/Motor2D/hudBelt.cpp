@@ -312,6 +312,22 @@ void hudBelt::OnEvent(GuiElement* element, GUI_Event even)
 		}
 	}
 
+	//Skilltree button
+	if (skilltree == element)
+	{
+		switch (even)
+		{
+		case EVENT_MOUSE_LEFTCLICK_DOWN:
+		{
+			if (skilltreebutton_pressed == false)
+				skilltreebutton_pressed = true;
+			else
+				skilltreebutton_pressed = false;
+		}
+		break;
+		}
+	}
+
 	//Attack1
 	if (attack1 == element)
 	{

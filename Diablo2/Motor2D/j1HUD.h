@@ -13,6 +13,7 @@ class hudBelt;
 class hudPause;
 class hudInventory;
 class hudBlood;
+class hudSkilltree;
 
 
 class j1HUD : public j1Module
@@ -47,6 +48,7 @@ public:
 	hudPause* pause_menu = NULL;
 	hudInventory* inventory = NULL;
 	hudBlood* blood = NULL;
+	hudSkilltree* skilltree = NULL;
 
 	vector<hudElement*> HUD_elements;
 };

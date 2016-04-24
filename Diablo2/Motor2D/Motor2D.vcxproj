@@ -90,6 +90,7 @@
     <ClCompile Include="hudBlood.cpp" />
     <ClCompile Include="hudInventory.cpp" />
     <ClCompile Include="hudPause.cpp" />
+    <ClCompile Include="hudSkilltree.cpp" />
     <ClCompile Include="j1EntityManager.cpp" />
     <ClCompile Include="j1Game.cpp" />
     <ClCompile Include="j1Collision.cpp" />
@@ -136,6 +137,7 @@
     <ClInclude Include="hudElement.h" />
     <ClInclude Include="hudInventory.h" />
     <ClInclude Include="hudPause.h" />
+    <ClInclude Include="hudSkilltree.h" />
     <ClInclude Include="j1EntityManager.h" />
     <ClInclude Include="j1Game.h" />
     <ClInclude Include="j1Collision.h" />

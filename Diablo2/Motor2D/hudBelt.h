@@ -71,6 +71,7 @@ public:
 	bool attack1_pressed = false;
 	bool attack2_pressed = false;
 	bool inventorybutton_pressed = false;
+	bool skilltreebutton_pressed = false;
 
 	//Belt Gui Elements
 	GuiImage* HUD = NULL;

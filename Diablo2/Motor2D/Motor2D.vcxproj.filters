@@ -124,6 +124,9 @@
     <ClCompile Include="playerParticle.cpp">
       <Filter>Desenvolupament  ========\Modules\j1Player\playerParticle</Filter>
     </ClCompile>
+    <ClCompile Include="hudSkilltree.cpp">
+      <Filter>Desenvolupament  ========\Modules\j1HUD\hudElements\hudSkilltree</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h">
@@ -282,6 +285,9 @@
     <ClInclude Include="playerParticle.h">
       <Filter>Desenvolupament  ========\Modules\j1Player\playerParticle</Filter>
     </ClInclude>
+    <ClInclude Include="hudSkilltree.h">
+      <Filter>Desenvolupament  ========\Modules\j1HUD\hudElements\hudSkilltree</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -403,6 +409,9 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Modules\j1Player\playerParticle">
       <UniqueIdentifier>{de39471a-ba8a-48d0-92ff-866181ca9abb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\j1HUD\hudElements\hudSkilltree">
+      <UniqueIdentifier>{81258b05-5d87-4ba2-a924-29796fd9192e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
