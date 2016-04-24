@@ -8,6 +8,7 @@
 #include "SDL/include/SDL.h"
 #include "j1Timer.h"
 #include <vector>
+#include <list>
 
 using namespace std;
 
@@ -74,6 +75,7 @@ class EntEnemy;
 class EntItem;
 class Entity;
 class Sprite;
+class playerParticle;
 
 class j1Player : public j1Module
 {
@@ -243,6 +245,9 @@ private:
 	//Enemy target
 	EntEnemy* enemy = NULL;
 	Entity*	objective = NULL;
+
+	//NOTE: this might be changed, particles in development
+	list<playerParticle*> particle_list;
 
 };
 

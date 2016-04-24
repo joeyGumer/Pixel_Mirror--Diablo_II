@@ -17,6 +17,9 @@
 #include "EntEnemy.h"
 #include "SDL/include/SDL.h"
 
+//NOTE:Partciles in development, for now we will include this
+#include "playerParticle.h"
+
 
 j1Player::j1Player()
 {
@@ -94,6 +97,25 @@ bool j1Player::PreUpdate()
 //Update
 bool j1Player::Update(float dt)
 {
+	//NOTE: Debug purposes, must be changed! (Particle system)
+	//------------
+	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+	{
+		fPoint destination;
+		destination.x = App->input->GetMouseWorldPosition().x;
+		destination.y = App->input->GetMouseWorldPosition().y;
+		playerParticle* particle = new playerParticle(p_position, destination);
+		particle_list.push_back(particle);
+	}
+
+	list<playerParticle*>::iterator item;
+
+	for (item = particle_list.begin(); item != particle_list.end(); item++)
+	{
+		item._Ptr->_Myval->Update(dt);
+	}
+	//------------
+
 	if (current_action != DEATH)
 	{
 		if (!App->gui->mouse_hovering)

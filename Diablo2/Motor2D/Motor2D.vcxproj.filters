@@ -121,6 +121,9 @@
     <ClCompile Include="hudBlood.cpp">
       <Filter>Desenvolupament  ========\Modules\j1HUD\hudElements\hudBlood</Filter>
     </ClCompile>
+    <ClCompile Include="playerParticle.cpp">
+      <Filter>Desenvolupament  ========\Modules\j1Player\playerParticle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h">
@@ -276,6 +279,9 @@
     <ClInclude Include="hudBlood.h">
       <Filter>Desenvolupament  ========\Modules\j1HUD\hudElements\hudBlood</Filter>
     </ClInclude>
+    <ClInclude Include="playerParticle.h">
+      <Filter>Desenvolupament  ========\Modules\j1Player\playerParticle</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -394,6 +400,9 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Modules\j1HUD\hudElements\hudBlood">
       <UniqueIdentifier>{e1b9b919-0b5d-488c-9f38-90be2bcc3001}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\j1Player\playerParticle">
+      <UniqueIdentifier>{de39471a-ba8a-48d0-92ff-866181ca9abb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
