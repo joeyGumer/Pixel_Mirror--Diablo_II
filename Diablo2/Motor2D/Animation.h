@@ -63,7 +63,7 @@ public:
 
 	int CurrentFrame() const
 	{
-		return current_frame;
+		return (int)current_frame;
 	}
 };
 

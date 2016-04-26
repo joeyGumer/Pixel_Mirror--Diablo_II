@@ -48,6 +48,7 @@ bool j1Player::Start()
 	p_sprite = p_idle = App->tex->Load("textures/vamp_idle.png");
 	p_walk = App->tex->Load("textures/vamp_walk.png");
 	p_attack = App->tex->Load("textures/vamp_attack.png");
+	p_casting = App->tex->Load("textures/vamp_cast.png");
 	p_run = App->tex->Load("textures/vamp_run.png");
 	p_death = App->tex->Load("textures/vamp_death.png");
 	SetAnimations();
@@ -97,24 +98,13 @@ bool j1Player::PreUpdate()
 //Update
 bool j1Player::Update(float dt)
 {
-	//NOTE: Debug purposes, must be changed! (Particle system)
-	//------------
-	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
-	{
-		fPoint destination;
-		destination.x = App->input->GetMouseWorldPosition().x;
-		destination.y = App->input->GetMouseWorldPosition().y;
-		playerParticle* particle = new playerParticle(p_position, destination);
-		particle_list.push_back(particle);
-	}
-
+	//NOTE: Debug - Particles
 	list<playerParticle*>::iterator item;
 
 	for (item = particle_list.begin(); item != particle_list.end(); item++)
 	{
 		item._Ptr->_Myval->Update(dt);
 	}
-	//------------
 
 	if (current_action != DEATH)
 	{
@@ -141,6 +131,10 @@ bool j1Player::Update(float dt)
 			break;
 		case ATTACKING:
 			UpdateAttack();
+			RecoverStamina();
+			break;
+		case CASTING:
+			UpdateMagic();
 			RecoverStamina();
 			break;
 
@@ -457,7 +451,6 @@ void j1Player::GetNewTarget()
 
 void j1Player::UpdateMovement(float dt)
 {
-
 	if (movement)
 	{
 		if (!target_reached)
@@ -544,6 +537,24 @@ void j1Player::UpdateAttack()
 			input_locked = false;
 		}
 	
+}
+
+void j1Player::UpdateMagic()
+{
+	//NOTE: provisional
+	if (current_animation->CurrentFrame() >= 7 && !particle_is_casted)
+	{
+		playerParticle* particle = new playerParticle({ p_position.x, p_position.y - 40 }, particle_destination);
+		particle_list.push_back(particle);
+		particle_is_casted = true;
+	}
+
+	if (current_animation->Finished())
+	{
+		current_input = INPUT_STOP_MOVE;
+		input_locked = false;
+		particle_is_casted = false;
+	}
 }
 
 void j1Player::CheckToAttack()
@@ -702,19 +713,32 @@ void j1Player::HandleInput()
 		iPoint target;
 		//NOTE: this will be later changed
 		objective = App->game->em->EntityOnMouse();
+
 		if (objective && objective->type == ENEMY)
 		{
 			enemy = (EntEnemy*)App->game->em->EntityOnMouse();
 		}
-		
-
-
 		
 		target = App->input->GetMouseWorldPosition();
 		target = App->map->WorldToMap(target.x, target.y);
 		SetMovement(target.x, target.y);
 
 	}
+
+	//NOTE: Debug purposes, must be changed! (Particle system)
+	//------------
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN)
+	{
+		if (!input_locked)
+		{
+			particle_destination.x = App->input->GetMouseWorldPosition().x;
+			particle_destination.y = App->input->GetMouseWorldPosition().y;
+			SetDirection(particle_destination);
+			SetInput(INPUT_CAST);
+			input_locked = true;
+		}
+	}
+	//------------
 }
 
 void j1Player::SetInput(INPUT_STATE input)
@@ -746,6 +770,12 @@ ACTION_STATE j1Player::UpdateAction()
 			{
 				current_action = ATTACKING;
 			}
+
+			else if (current_input == INPUT_CAST)
+			{
+				current_action = CASTING;
+			}
+
 			else if (current_input == INPUT_DEATH)
 			{
 				current_action = DEATH;
@@ -766,10 +796,16 @@ ACTION_STATE j1Player::UpdateAction()
 				current_action = ATTACKING;
 			}		
 
+			else if (current_input == INPUT_CAST)
+			{
+				current_action = CASTING;
+			}
+
 			else if (current_input == INPUT_MOVE && running)
 			{
 				current_action = RUNNING;
 			}
+
 			else if (current_input == INPUT_DEATH)
 			{
 				current_action = DEATH;
@@ -791,6 +827,10 @@ ACTION_STATE j1Player::UpdateAction()
 			{
 				current_action = ATTACKING;
 			}
+			else if (current_input == INPUT_CAST)
+			{
+				current_action = CASTING;
+			}
 			else if (current_input == INPUT_DEATH)
 			{
 				current_action = DEATH;
@@ -809,6 +849,19 @@ ACTION_STATE j1Player::UpdateAction()
 				current_action = DEATH;
 			}
 			
+		}
+		break;
+
+		case CASTING:
+		{
+			if (current_input == INPUT_STOP_MOVE)
+			{
+				current_action = IDLE;
+			}
+			else if (current_input == INPUT_DEATH)
+			{
+				current_action = DEATH;
+			}
 		}
 		break;
 
@@ -930,6 +983,17 @@ void j1Player::SetAnimations()
 		attack.push_back(atk);
 	}
 
+	//Casting
+	for (int i = 0; i < 12; i++)
+	{
+		Animation cst;
+		cst.SetFrames(0, (92 + SPRITE_MARGIN) * i, 119, 92, 12, SPRITE_MARGIN);
+		cst.speed = 0.3f;
+		cst.loop = false;
+
+		cast.push_back(cst);
+	}
+
 	//Death
 	for (int i = 0; i < 8; i++)
 	{
@@ -945,6 +1009,44 @@ void j1Player::SetAnimations()
 void j1Player::SetDirection()
 {
 	float angle = p_velocity.GetAngle();
+
+	DIRECTION dir;
+
+	if (angle < 22.5 && angle > -22.5)
+		dir = D_RIGHT;
+	else if (angle >= 22.5 && angle <= 67.5)
+		dir = D_FRONT_RIGHT;
+	else if (angle > 67.5 && angle < 112.5)
+		dir = D_FRONT;
+	else if (angle >= 112.5 && angle <= 157.5)
+		dir = D_FRONT_LEFT;
+	else if (angle > 157.5 || angle < -157.5)
+		dir = D_LEFT;
+	else if (angle >= -157.5 && angle <= -112.5)
+		dir = D_BACK_LEFT;
+	else if (angle > -112.5 && angle < -67.5)
+		dir = D_BACK;
+	else if (angle >= -67.5 && angle <= -22.5)
+		dir = D_BACK_RIGHT;
+
+	if (dir != current_direction)
+	{
+		current_direction = dir;
+		current_animation = &current_animation_set[current_direction];
+	}
+
+}
+
+void j1Player::SetDirection(fPoint pos)
+{
+	//NOTE: This has been created to change the direction without moving the player
+	fPoint direction;
+	direction.x = pos.x - p_position.x;
+	direction.y = pos.y - p_position.y;
+
+	direction.SetModule(1);
+
+	float angle = direction.GetAngle();
 
 	DIRECTION dir;
 
@@ -994,6 +1096,10 @@ void j1Player::StateMachine()
 	case ATTACKING:
 		p_sprite = p_attack;
 		current_animation_set = attack;
+		break;
+	case CASTING:
+		p_sprite = p_casting;
+		current_animation_set = cast;
 		break;
 	case DEATH:
 		p_sprite = p_death;

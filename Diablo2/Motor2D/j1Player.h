@@ -57,6 +57,7 @@ enum ACTION_STATE
 	WALKING,
 	RUNNING,
 	ATTACKING,
+	CASTING,
 	DEATH,
 	NOTHING,
 };
@@ -67,6 +68,7 @@ enum INPUT_STATE
 	INPUT_RUN,
 	INPUT_STOP_MOVE,
 	INPUT_ATTACK,
+	INPUT_CAST,
 	INPUT_DEATH,
 	INPUT_NULL,
 };
@@ -130,6 +132,9 @@ public:
 	void CheckToAttack();
 	void TakeDamage(int damage);
 
+	//Casting
+	void UpdateMagic();
+
 	//Pure Blood System
 	void ReceiveBlood(int blood);
 
@@ -148,6 +153,7 @@ public:
 	//Estructuralfunctions
 	void SetAnimations();
 	void SetDirection();
+	void SetDirection(fPoint pos);
 
 	//StateMachine functions
 	ACTION_STATE UpdateAction();
@@ -204,6 +210,7 @@ private:
 	SDL_Texture* p_walk = NULL;
 	SDL_Texture* p_run = NULL;
 	SDL_Texture* p_attack = NULL;
+	SDL_Texture* p_casting = NULL;
 	SDL_Texture* p_death = NULL;
 
 	//Rects for each state and direction
@@ -214,6 +221,7 @@ private:
 	vector<Animation> idle;
 	vector<Animation> walk;
 	vector<Animation> attack;
+	vector<Animation> cast;
 	vector<Animation> run;
 	vector<Animation> death;
 	//--------------------
@@ -247,7 +255,9 @@ private:
 	Entity*	objective = NULL;
 
 	//NOTE: this might be changed, particles in development
-	list<playerParticle*> particle_list;
+	list<playerParticle*>	particle_list;
+	fPoint					particle_destination;
+	bool					particle_is_casted = false;
 
 };
 
