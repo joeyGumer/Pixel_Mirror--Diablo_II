@@ -1075,6 +1075,11 @@ void j1Player::SetDirection(fPoint pos)
 
 }
 
+void j1Player::SetPosition(fPoint pos)
+{
+	p_position = pos;
+}
+
 void j1Player::StateMachine()
 {
 	switch (current_action)

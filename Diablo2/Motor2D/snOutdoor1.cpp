@@ -14,6 +14,7 @@
 #include "j1Pathfinding.h"
 #include "Entity.h"
 #include "j1Game.h"
+#include "snDungeon1.h"
 
 // quit log en no debug
 #include "p2Log.h"
@@ -43,7 +44,8 @@ bool snOutdoor1::Start()
 	//NOTE : deactivated for debugging
 	//App->audio->PlayMusic("audio/music/town1.ogg", 0);
 
-	debug = App->tex->Load("maps/mini_path.png");
+	if (debug == NULL)
+		debug = App->tex->Load("maps/mini_path.png");
 	
 	//Map
 	if(App->map->Load("map_swamp.tmx") == true)
@@ -56,16 +58,7 @@ bool snOutdoor1::Start()
 		RELEASE_ARRAY(data);
 	}
 
-	//Entities
-	iPoint p = { 190, 170 };
-	entity_list.push_back(App->game->em->Add(p, ENEMY));
-	p = { 0, 200 };
-	entity_list.push_back(App->game->em->Add(p, ENEMY));
-	p = { -140, 180 };
-	entity_list.push_back(App->game->em->Add(p, ENEMY));
-	//entity_list.push_back(App->em->Add({ 200, 130 }, ENEMY));
-	//entity_list.push_back(App->em->Add({ 250, 50 }, ENEMY));
-	//entity_list.push_back(App->em->Add({ 200, 100 }, ENEMY));
+	App->game->player->SetPosition({ 0, 0 });
 
 
 	//NOTE: Test Sprite
@@ -271,6 +264,12 @@ bool snOutdoor1::Update(float dt)
 // PostUpdate
 bool snOutdoor1::PostUpdate()
 {
+	//NOTE: In progress
+	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
+	{
+		App->sm->ChangeScene(App->sm->dungeon1);
+	}
+
 	return true;
 }
 
@@ -308,6 +307,8 @@ bool snOutdoor1::Load()
 bool snOutdoor1::UnLoad()
 {
 	CleanUp();
+	App->map->CleanUp();
+	App->pathfinding->CleanUp();
 	return true;
 }
 

@@ -154,6 +154,7 @@ public:
 	void SetAnimations();
 	void SetDirection();
 	void SetDirection(fPoint pos);
+	void SetPosition(fPoint pos);
 
 	//StateMachine functions
 	ACTION_STATE UpdateAction();

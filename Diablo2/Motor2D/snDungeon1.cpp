@@ -11,6 +11,8 @@
 #include "j1SceneManager.h"
 #include "snWin.h"
 #include "j1Audio.h"
+#include "snOutdoor1.h"
+#include "j1Player.h"
 
 
 
@@ -40,7 +42,9 @@ bool snDungeon1::Start()
 	win = false;
 
 	App->audio->PlayMusic("audio/music/town1.ogg", 0);
-	debug = App->tex->Load("maps/mini_path.png");
+
+	if (debug == NULL)
+		debug = App->tex->Load("maps/mini_path.png");
 
 	//Map
 	if (App->map->Load("map_dungeon.tmx") == true)
@@ -52,6 +56,8 @@ bool snDungeon1::Start()
 
 		RELEASE_ARRAY(data);
 	}
+
+	App->game->player->SetPosition({0, 500});
 
 	AddEnemies();
 
@@ -122,6 +128,12 @@ bool snDungeon1::Update(float dt)
 // PostUpdate
 bool snDungeon1::PostUpdate()
 {
+	//NOTE: In progress
+	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
+	{
+		App->sm->ChangeScene(App->sm->outdoor1);
+	}
+
 	if (win)
 	{
 		App->sm->ChangeScene(App->sm->win);
@@ -164,6 +176,8 @@ bool snDungeon1::Load()
 bool snDungeon1::UnLoad()
 {
 	CleanUp();
+	App->map->CleanUp();
+	App->pathfinding->CleanUp();
 	return true;
 }
 

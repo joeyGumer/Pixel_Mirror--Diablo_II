@@ -259,7 +259,7 @@ ENTITY_STATE EntEnemyWolf::UpdateAction()
 				{
 					current_action = ENTITY_WALKING;
 				}
-				if (current_input == INPUT_DEATH)
+				if (current_input == ENTITY_INPUT_DEATH)
 				{
 					current_action = ENTITY_DEATH;
 				}
@@ -276,7 +276,7 @@ ENTITY_STATE EntEnemyWolf::UpdateAction()
 				{
 					current_action = ENTITY_IDLE;
 				}
-				if (current_input == INPUT_DEATH)
+				if (current_input == ENTITY_INPUT_DEATH)
 				{
 					current_action = ENTITY_DEATH;
 				}
@@ -293,7 +293,7 @@ ENTITY_STATE EntEnemyWolf::UpdateAction()
 				{
 					current_action = ENTITY_IDLE;
 				}
-				if (current_input == INPUT_DEATH)
+				if (current_input == ENTITY_INPUT_DEATH)
 				{
 					current_action = ENTITY_DEATH;
 				}
@@ -545,7 +545,7 @@ ENTITY_STATE EntEnemyCrawler::UpdateAction()
 			{
 				current_action = ENTITY_WALKING;
 			}
-			if (current_input == INPUT_DEATH)
+			if (current_input == ENTITY_INPUT_DEATH)
 			{
 				current_action = ENTITY_DEATH;
 			}
@@ -579,7 +579,7 @@ ENTITY_STATE EntEnemyCrawler::UpdateAction()
 			{
 				current_action = ENTITY_IDLE;
 			}
-			if (current_input == INPUT_DEATH)
+			if (current_input == ENTITY_INPUT_DEATH)
 			{
 				current_action = ENTITY_DEATH;
 			}
@@ -847,7 +847,7 @@ ENTITY_STATE EntEnemyBoss::UpdateAction()
 			{
 				current_action = ENTITY_WALKING;
 			}
-			if (current_input == INPUT_DEATH)
+			if (current_input == ENTITY_INPUT_DEATH)
 			{
 				current_action = ENTITY_DEATH;
 			}
@@ -864,7 +864,7 @@ ENTITY_STATE EntEnemyBoss::UpdateAction()
 			{
 				current_action = ENTITY_IDLE;
 			}
-			if (current_input == INPUT_DEATH)
+			if (current_input == ENTITY_INPUT_DEATH)
 			{
 				current_action = ENTITY_DEATH;
 			}
@@ -881,7 +881,7 @@ ENTITY_STATE EntEnemyBoss::UpdateAction()
 			{
 				current_action = ENTITY_IDLE;
 			}
-			if (current_input == INPUT_DEATH)
+			if (current_input == ENTITY_INPUT_DEATH)
 			{
 				current_action = ENTITY_DEATH;
 			}
