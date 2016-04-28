@@ -26,7 +26,7 @@ bool snIntro::Start()
 {
 	//Music
 	//NOTE : deactivated for debugging mode
-	App->audio->PlayMusic("audio/music/introedit.ogg", 0);
+	//App->audio->PlayMusic("audio/music/introedit.ogg", 0);
 
 	pass = false;
 	exit = false;
@@ -139,6 +139,13 @@ void snIntro::OnEvent(GuiElement* element, GUI_Event even)
 		}
 			break;
 
+		case EVENT_MOUSE_EXIT:
+		{
+			play_button->button_image.SetTextureRect(play_button->idle_tex);
+			play_button->button_label.Center(true, true);
+		}
+			break;
+
 		case EVENT_MOUSE_LEFTCLICK_UP:
 		{
 			play_button->button_image.SetTextureRect(play_button->idle_tex);
@@ -157,6 +164,13 @@ void snIntro::OnEvent(GuiElement* element, GUI_Event even)
 		{
 			exit_button->button_image.SetTextureRect(exit_button->click_tex);
 			//NOTE : put this coordinates at the config.
+			exit_button->button_label.SetLocalPosition({ 50, 8 });
+		}
+			break;
+
+		case EVENT_MOUSE_EXIT:
+		{
+			exit_button->button_image.SetTextureRect(exit_button->click_tex);
 			exit_button->button_label.SetLocalPosition({ 50, 8 });
 		}
 			break;
