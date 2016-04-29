@@ -15,6 +15,7 @@
 #include "Entity.h"
 #include "j1Game.h"
 #include "snDungeon1.h"
+#include "EntPortal.h"
 
 // quit log en no debug
 #include "p2Log.h"
@@ -177,7 +178,9 @@ bool snOutdoor1::Update(float dt)
 		//if (a == 0)
 			//App->game->em->Add(p, ENEMY);
 		//if (a == 1)
-			App->game->em->Add(p, ENEMY_CRAWLER);
+			EntPortal* ent = (EntPortal*)App->game->em->Add(p, PORTAL);
+			ent->SetDestiny(App->sm->dungeon1);
+			
 	}
 
 	//Map
@@ -265,9 +268,11 @@ bool snOutdoor1::Update(float dt)
 bool snOutdoor1::PostUpdate()
 {
 	//NOTE: In progress
-	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
+	if (App->game->player->TeleportReady())
 	{
-		App->sm->ChangeScene(App->sm->dungeon1);
+		j1Scene* destiny = App->game->player->GetDestiny();
+		App->game->player->ResetTeleport();
+		App->sm->ChangeScene(destiny);
 	}
 
 	return true;

@@ -15,6 +15,7 @@
 #include "hudBlood.h"
 #include "Entity.h"
 #include "EntEnemy.h"
+#include "EntPortal.h"
 #include "SDL/include/SDL.h"
 
 //NOTE:Partciles in development, for now we will include this
@@ -365,6 +366,14 @@ void j1Player::PlayerEvent(PLAYER_EVENT even)
 			//Code here
 		}
 		break;
+	case TELEPORT:
+		{
+			EntPortal* portal = (EntPortal*)objective;
+			objective = NULL;
+			teleport = true;
+			scene_to_teleport = portal->destiny;
+		}
+		break;
 	case STATE_CHANGE:
 		{
 			StateMachine();
@@ -596,7 +605,10 @@ void j1Player::CheckToAttack()
 			movement = false;
 			current_input = INPUT_STOP_MOVE;
 			
-			PlayerEvent(GET_ITEM);
+			if (objective->type == ITEM_HEALTH)
+				PlayerEvent(GET_ITEM);
+			if (objective->type == PORTAL)
+				PlayerEvent(TELEPORT);
 			objective = NULL;
 		}
 	}
@@ -935,6 +947,22 @@ void j1Player::RestoreHP(int health)
 	}
 
 	PlayerEvent(HP_UP);
+}
+
+bool j1Player::TeleportReady()
+{
+	return teleport;
+}
+
+j1Scene* j1Player::GetDestiny()
+{
+	return scene_to_teleport;
+}
+
+void j1Player::ResetTeleport()
+{
+	teleport = NULL;
+	scene_to_teleport = NULL;
 }
 /*
 //-------Structural functions

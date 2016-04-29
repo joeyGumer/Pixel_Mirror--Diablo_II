@@ -13,6 +13,7 @@
 #include "j1Audio.h"
 #include "snOutdoor1.h"
 #include "j1Player.h"
+#include "EntPortal.h"
 
 
 
@@ -79,7 +80,24 @@ bool snDungeon1::Update(float dt)
 	App->map->Draw();
 
 
+	//Entities for debug
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN)
+	{
+		iPoint p;
+		p = App->input->GetMouseWorldPosition();
+		p.x += App->map->data.tile_width / 2;
+		p.y += App->map->data.tile_height / 2;
 
+		//int a = rand() % 2;
+		//if (a == 0)
+		//App->game->em->Add(p, ENEMY);
+		//App->game->em->Add(p, ENEMY_CRAWLER);
+		EntPortal* portal = (EntPortal*)App->game->em->Add(p, PORTAL);
+		portal->destiny = App->sm->outdoor1;
+
+		p = App->map->WorldToMap(p.x, p.y);
+		int i = 0;
+	}
 
 	if (App->debug)
 	{
@@ -129,9 +147,11 @@ bool snDungeon1::Update(float dt)
 bool snDungeon1::PostUpdate()
 {
 	//NOTE: In progress
-	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
+	if (App->game->player->TeleportReady())
 	{
-		App->sm->ChangeScene(App->sm->outdoor1);
+		j1Scene* destiny = App->game->player->GetDestiny();
+		App->game->player->ResetTeleport();
+		App->sm->ChangeScene(destiny);
 	}
 
 	if (win)

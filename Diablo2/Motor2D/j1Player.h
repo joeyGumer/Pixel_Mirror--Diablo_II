@@ -48,7 +48,8 @@ enum PLAYER_EVENT
 	STATE_CHANGE,
 	GET_ITEM,
 	BLOOD_UP,
-	BLOOD_DOWN
+	BLOOD_DOWN,
+	TELEPORT
 };
 
 enum ACTION_STATE
@@ -78,6 +79,7 @@ class EntItem;
 class Entity;
 class Sprite;
 class playerParticle;
+class j1Scene;
 
 class j1Player : public j1Module
 {
@@ -174,6 +176,10 @@ public:
 	void IncreaseBlood(int blood);
 
 	void RestoreHP(int health);
+
+	j1Scene* GetDestiny();
+	bool TeleportReady();
+	void ResetTeleport();
 //Attributes
 
 public:
@@ -259,6 +265,10 @@ private:
 	list<playerParticle*>	particle_list;
 	fPoint					particle_destination;
 	bool					particle_is_casted = false;
+
+	//NOTE: Portal attributes, may be changed;
+	bool teleport = false;
+	j1Scene* scene_to_teleport = NULL;
 
 };
 

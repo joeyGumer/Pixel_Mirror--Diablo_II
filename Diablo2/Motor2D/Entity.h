@@ -16,6 +16,7 @@ enum ENTITY_TYPE
 	PROP,
 	ITEM,
 	ITEM_HEALTH,
+	PORTAL
 };
 
 class Entity

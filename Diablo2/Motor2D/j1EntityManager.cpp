@@ -8,6 +8,7 @@
 
 #include "j1Render.h"
 #include "EntItem.h"
+#include "EntPortal.h"
 
 #include "j1Textures.h"
 
@@ -45,6 +46,9 @@ bool j1EntityManager::Start()
 	boss_walk = App->tex->Load("textures/boss_walk.png");
 	boss_death = App->tex->Load("textures/boss_death.png");
 	boss_attack = App->tex->Load("textures/boss_attack.png");
+
+	//Portal
+	portal_tex = App->tex->Load("textures/portal.png");
 	return true;
 }
 
@@ -167,6 +171,8 @@ Entity* j1EntityManager::Add(iPoint &pos, ENTITY_TYPE type)
 		case (ITEM_HEALTH) :
 			entity = new itmPotionHP(pos, ++next_ID);
 			break;
+		case(PORTAL) :
+			entity = new EntPortal(pos, ++next_ID);
 		}
 
 		// We add the new entity to the map of active entities. 

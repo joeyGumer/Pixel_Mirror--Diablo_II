@@ -76,6 +76,9 @@ public:
 	SDL_Texture* boss_walk;
 	SDL_Texture* boss_attack;
 	SDL_Texture* boss_death;
+
+	//Portal texture
+	SDL_Texture* portal_tex;
 };
 
 #endif // __EntityManager_H__

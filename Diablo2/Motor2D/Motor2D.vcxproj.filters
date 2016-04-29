@@ -127,6 +127,9 @@
     <ClCompile Include="hudSkilltree.cpp">
       <Filter>Desenvolupament  ========\Modules\j1HUD\hudElements\hudSkilltree</Filter>
     </ClCompile>
+    <ClCompile Include="EntPortal.cpp">
+      <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities\EntStatic\EntPortal</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h">
@@ -288,6 +291,9 @@
     <ClInclude Include="hudSkilltree.h">
       <Filter>Desenvolupament  ========\Modules\j1HUD\hudElements\hudSkilltree</Filter>
     </ClInclude>
+    <ClInclude Include="EntPortal.h">
+      <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities\EntStatic\EntPortal</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -412,6 +418,9 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Modules\j1HUD\hudElements\hudSkilltree">
       <UniqueIdentifier>{81258b05-5d87-4ba2-a924-29796fd9192e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\j1EntityManager\Entities\EntStatic\EntPortal">
+      <UniqueIdentifier>{6de5d855-2e03-410d-bc70-9b24d4287186}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
