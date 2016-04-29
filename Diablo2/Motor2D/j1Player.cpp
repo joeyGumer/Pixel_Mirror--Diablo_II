@@ -167,7 +167,13 @@ bool j1Player::PostUpdate()
 bool j1Player::CleanUp()
 {
 
-	SDL_DestroyTexture(p_sprite);
+	App->tex->UnLoad(p_idle);
+	App->tex->UnLoad(p_walk);
+	App->tex->UnLoad(p_run);
+	App->tex->UnLoad(p_attack);
+	App->tex->UnLoad(p_casting);
+	App->tex->UnLoad(p_death);
+	
 	//Take an eye on this
 	if (sprite)
 	{
