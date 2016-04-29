@@ -66,7 +66,6 @@ public:
 	float stamina_current_w;
 
 	//Some buttons bools
-	bool run_pressed = false;
 	bool minipanel_pressed = false;
 	bool attack1_pressed = false;
 	bool attack2_pressed = false;
@@ -106,10 +105,10 @@ public:
 	GuiLabel* life_debug;
 	GuiLabel* mana_debug;
 
-	GuiInventory* inventory1;
-	GuiInventory* inventory2;
-	GuiInventory* inventory3;
-	GuiInventory* inventory4;
+	GuiInventory* inventory1 = NULL;
+	GuiInventory* inventory2 = NULL;
+	GuiInventory* inventory3 = NULL;
+	GuiInventory* inventory4 = NULL;
 	
 
 	//Strict relation with the player

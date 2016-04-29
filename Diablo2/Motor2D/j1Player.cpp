@@ -68,6 +68,7 @@ bool j1Player::Start()
 	p_pivot = { (PLAYER_SPRITE_W / 2), (PLAYER_SPRITE_H - PLAYER_PIVOT_OFFSET) };
 	movement = false;
 	attacking = false;
+	running = false;
 
 	//initial stats
 	HP_max = HP_current = 200.0f;
@@ -200,7 +201,6 @@ void j1Player::Respawn()
 	p_position = { 0, 500 };
 	movement = false;
 	attacking = false;
-	running = false;
 	enemy = NULL;
 }
 
@@ -298,14 +298,17 @@ SDL_Rect j1Player::GetPlayerRect() const
 }
 
 
-void j1Player::RunOn()
+bool j1Player::RunOn()
 {
 	running = !running;
 	if (current_action == RUNNING || current_action == WALKING)
 	{
 		SetInput(INPUT_MOVE);
 	}
+
+	return running;
 }
+
 /*
 //-------Events
 */
@@ -639,7 +642,7 @@ bool j1Player::Alive()
 void j1Player::HandleInput()
 {
 	//NOTE: provisional mana and life changers
-	/*if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
 	{
 		if (HP_current <= 0)
 		{
@@ -665,6 +668,7 @@ void j1Player::HandleInput()
 
 		PlayerEvent(HP_UP);
 	}
+	/*
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 	{
 		if (MP_current <= 0)
@@ -719,6 +723,7 @@ void j1Player::HandleInput()
 	}*/
 	//
 
+	//NOTE: has to be changed for the skill 
 	//Linear Movement activation
 	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 	{

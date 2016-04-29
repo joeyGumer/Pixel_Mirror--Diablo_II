@@ -126,7 +126,7 @@ public:
 	bool IsTargetReached();
 	void GetNewTarget();
 
-	void RunOn();
+	bool RunOn();
 	
 	//Attack
 	bool IsInRange(Entity* enemy);
@@ -183,7 +183,7 @@ public:
 //Attributes
 
 public:
-
+	bool		running = false;
 	
 private:
 
@@ -200,7 +200,6 @@ private:
 	float		target_radius = 2.5f;
 	fPoint		p_velocity;
 	float		p_speed = PLAYER_SPEED;
-	bool		running = false;
 	bool		movement;
 	bool		target_reached;
 	bool		path_on = true;

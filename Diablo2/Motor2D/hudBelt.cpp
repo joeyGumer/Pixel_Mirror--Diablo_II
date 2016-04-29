@@ -542,17 +542,14 @@ void hudBelt::SetStamina(int max_ST, int ST)
 
 void hudBelt::RunningOn()
 {
-	if (run_pressed == false)
-	{
-		run_pressed = true;
-		runbutton->SetTextureRect({ 153, 301, 18, 22 });
+	bool run = player->RunOn();
 
+	if (run)
+	{
+		runbutton->SetTextureRect({ 153, 301, 18, 22 });
 	}
 	else
 	{
-		run_pressed = false;
 		runbutton->SetTextureRect({ 153, 280, 18, 22 });
 	}
-
-	player->RunOn();
 }
