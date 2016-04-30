@@ -13,14 +13,14 @@
 using namespace std;
 
 //NOTE: player speed, put it at the config file
-#define PLAYER_SPEED 150.0f
-#define PLAYER_RUN_SPEED 200.0f
+#define PLAYER_SPEED 200.0f
+#define PLAYER_RUN_SPEED 250.0f
 #define DIRECTIONS 8
 #define PLAYER_SPRITE_W int (96)
 #define PLAYER_SPRITE_H int (92)
 #define SPRITE_MARGIN int(1)
 #define PLAYER_PIVOT_OFFSET int(10)
-#define STAMINA_SPEED 0.05f
+#define STAMINA_SPEED 0.1f
 
 
 //NOTE: provisional, this will go somewhere alse to apply to all entities, or maybe deleted because the state machine

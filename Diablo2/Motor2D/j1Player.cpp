@@ -996,7 +996,7 @@ void j1Player::SetAnimations()
 	{
 		Animation wlk;
 		wlk.SetFrames(0, (PLAYER_SPRITE_H + SPRITE_MARGIN) * i, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 8, SPRITE_MARGIN);
-		wlk.speed = 0.2f;
+		wlk.speed = 0.3f;
 
 		walk.push_back(wlk);
 	}
@@ -1006,7 +1006,7 @@ void j1Player::SetAnimations()
 	{
 		Animation rn;
 		rn.SetFrames(0, (PLAYER_SPRITE_H + SPRITE_MARGIN) * i, PLAYER_SPRITE_W, PLAYER_SPRITE_H, 8, SPRITE_MARGIN);
-		rn.speed = 0.2f;
+		rn.speed = 0.3f;
 
 		run.push_back(rn);
 	}
@@ -1016,7 +1016,7 @@ void j1Player::SetAnimations()
 	{
 		Animation atk;
 		atk.SetFrames(0, (92 + SPRITE_MARGIN) * i, 119, 92, 20, SPRITE_MARGIN);
-		atk.speed = 0.3f;
+		atk.speed = 0.4f;
 		atk.loop = false;
 
 		attack.push_back(atk);
