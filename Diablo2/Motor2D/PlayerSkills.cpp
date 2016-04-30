@@ -54,15 +54,5 @@ void sklBasicAttack::SetSkillAnimations()
 
 void sklBasicAttack::SkillInit()
 {
-	iPoint target;
-	player->objective = App->game->em->EntityOnMouse();
 
-	if (player->objective && player->objective->type == ENEMY)
-	{
-		player->enemy = (EntEnemy*)App->game->em->EntityOnMouse();
-	}
-
-	target = App->input->GetMouseWorldPosition();
-	target = App->map->WorldToMap(target.x, target.y);
-	player->SetMovement(target.x, target.y);
 }

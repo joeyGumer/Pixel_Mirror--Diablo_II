@@ -753,18 +753,22 @@ void j1Player::HandleInput()
 		{ 
 			current_input = INPUT_SKILL;
 		}
-		/*iPoint target;
-		//NOTE: this will be later changed
-		objective = App->game->em->EntityOnMouse();
-
-		if (objective && objective->type == ENEMY)
+		else
 		{
+			iPoint target;
+			//NOTE: this will be later changed
+			objective = App->game->em->EntityOnMouse();
+
+			if (objective && objective->type == ENEMY)
+			{
 			enemy = (EntEnemy*)App->game->em->EntityOnMouse();
+			}
+
+			target = App->input->GetMouseWorldPosition();
+			target = App->map->WorldToMap(target.x, target.y);
+			SetMovement(target.x, target.y);
 		}
-		
-		target = App->input->GetMouseWorldPosition();
-		target = App->map->WorldToMap(target.x, target.y);
-		SetMovement(target.x, target.y);*/
+	
 
 	}
 
@@ -788,6 +792,21 @@ void j1Player::HandleInput()
 			SetInput(INPUT_CAST);
 			input_locked = true;
 		}*/
+		else
+		{
+			iPoint target;
+			//NOTE: this will be later changed
+			objective = App->game->em->EntityOnMouse();
+
+			if (objective && objective->type == ENEMY)
+			{
+				enemy = (EntEnemy*)App->game->em->EntityOnMouse();
+			}
+
+			target = App->input->GetMouseWorldPosition();
+			target = App->map->WorldToMap(target.x, target.y);
+			SetMovement(target.x, target.y);
+		}
 	}
 	//------------
 }
