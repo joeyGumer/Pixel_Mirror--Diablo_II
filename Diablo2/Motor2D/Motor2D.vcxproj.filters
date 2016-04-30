@@ -130,6 +130,9 @@
     <ClCompile Include="EntPortal.cpp">
       <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities\EntStatic\EntPortal</Filter>
     </ClCompile>
+    <ClCompile Include="Skill.cpp">
+      <Filter>Desenvolupament  ========\Modules\j1Player\Skills</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h">
@@ -294,6 +297,9 @@
     <ClInclude Include="EntPortal.h">
       <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities\EntStatic\EntPortal</Filter>
     </ClInclude>
+    <ClInclude Include="Skill.h">
+      <Filter>Desenvolupament  ========\Modules\j1Player\Skills</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -421,6 +427,24 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Modules\j1EntityManager\Entities\EntStatic\EntPortal">
       <UniqueIdentifier>{6de5d855-2e03-410d-bc70-9b24d4287186}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\j1Player\Skills">
+      <UniqueIdentifier>{eac3edcf-fbcc-4853-9271-864fe5fc1dc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\j1Player\Skills\Melee">
+      <UniqueIdentifier>{cd18dbdc-ab03-4103-950f-35ba153c5381}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\j1Player\Skills\Ranged">
+      <UniqueIdentifier>{539a5698-9a88-49d8-bdff-6caddb48704b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\j1Player\Skills\Area">
+      <UniqueIdentifier>{38aa652a-9b42-4c7f-93eb-c57a5a548e72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\j1Player\Skills\Buff">
+      <UniqueIdentifier>{a5c54e8b-a3f4-4ebe-a074-7a5a78e9113d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\j1Player\Skills\Sumon">
+      <UniqueIdentifier>{c6b915e8-2c9d-4bb8-93de-a30ee3a49395}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

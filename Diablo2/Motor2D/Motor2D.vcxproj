@@ -105,6 +105,7 @@
     <ClCompile Include="j1Input.cpp" />
     <ClCompile Include="j1Map.cpp" />
     <ClCompile Include="playerParticle.cpp" />
+    <ClCompile Include="Skill.cpp" />
     <ClCompile Include="snDungeon1.cpp" />
     <ClCompile Include="snIntro.cpp" />
     <ClCompile Include="j1Pathfinding.cpp" />
@@ -150,6 +151,7 @@
     <ClInclude Include="j1Map.h" />
     <ClInclude Include="memleaks.h" />
     <ClInclude Include="playerParticle.h" />
+    <ClInclude Include="Skill.h" />
     <ClInclude Include="snDungeon1.h" />
     <ClInclude Include="snIntro.h" />
     <ClInclude Include="j1Pathfinding.h" />
