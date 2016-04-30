@@ -616,7 +616,7 @@ void j1Player::CheckToAttack()
 			
 			if (objective->type == ITEM_HEALTH)
 				PlayerEvent(GET_ITEM);
-			if (objective->type == PORTAL)
+			else if (objective->type == PORTAL)
 				PlayerEvent(TELEPORT);
 			objective = NULL;
 		}
