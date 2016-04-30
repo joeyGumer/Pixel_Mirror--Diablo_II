@@ -1,6 +1,12 @@
 #ifndef _SKILL_H_
 #define _SKILL_H_
 
+#include <vector>
+#include "Animation.h"
+
+struct SDL_Texture;
+class j1Player;
+
 enum SKILL_TYPE
 {
 	SKILL_MELEE,
@@ -13,16 +19,27 @@ enum SKILL_TYPE
 class Skill
 {
 public:
-	Skill(SKILL_TYPE t) : type(t)
+	Skill(SKILL_TYPE t);
+
+	virtual ~Skill()
 	{}
 
-	virtual ~Skill();
+	virtual void SkillEffect()
+	{}
 
-	virtual void Effect();
+	virtual void SkillInit()
+	{}
+	virtual void SkillUpdate()
+	{}
+	virtual void SetSkillAnimations()
+	{}
 
 public:
 
-	SKILL_TYPE type;
+	SKILL_TYPE skill_type;
+	SDL_Texture* skill_tex;
+	vector<Animation> skill_animation_set;
+	j1Player* player;
 };
 
 class sklMelee : public Skill
@@ -31,14 +48,12 @@ public:
 	sklMelee() : Skill(SKILL_MELEE)
 	{}
 
-	virtual ~sklMelee();
-
-	virtual void Effect();
+	virtual ~sklMelee()
+	{}
 
 public:
 
 	float range;
-
 };
 
 class sklRanged : public Skill
@@ -47,9 +62,8 @@ public:
 	sklRanged() : Skill(SKILL_RANGED)
 	{}
 
-	virtual ~sklRanged();
-
-	virtual void Effect();
+	virtual ~sklRanged()
+	{}
 
 public:
 
@@ -64,9 +78,9 @@ public:
 	sklArea() : Skill(SKILL_AREA)
 	{}
 
-	virtual ~sklArea();
+	virtual ~sklArea()
+	{}
 
-	virtual void Effect();
 
 public:
 
@@ -79,9 +93,9 @@ public:
 	sklBuff() : Skill(SKILL_BUFF)
 	{}
 
-	virtual ~sklBuff();
+	virtual ~sklBuff()
+	{}
 
-	virtual void Effect();
 
 public:
 
@@ -94,9 +108,10 @@ public:
 	sklSummon() :Skill(SKILL_SUMMON)
 	{}
 
-	virtual ~sklSummon();
+	virtual ~sklSummon()
+	{}
 
-	virtual void Effect();
+
 public:
 
 };

@@ -7,6 +7,7 @@
 //WARNING provisional sdl including
 #include "SDL/include/SDL.h"
 #include "j1Timer.h"
+//#include "PlayerSkills.h"
 #include <vector>
 #include <list>
 
@@ -57,8 +58,7 @@ enum ACTION_STATE
 	IDLE,
 	WALKING,
 	RUNNING,
-	ATTACKING,
-	CASTING,
+	SKILL,
 	DEATH,
 	NOTHING,
 };
@@ -68,8 +68,7 @@ enum INPUT_STATE
 	INPUT_MOVE,
 	INPUT_RUN,
 	INPUT_STOP_MOVE,
-	INPUT_ATTACK,
-	INPUT_CAST,
+	INPUT_SKILL,
 	INPUT_DEATH,
 	INPUT_NULL,
 };
@@ -80,6 +79,8 @@ class Entity;
 class Sprite;
 class playerParticle;
 class j1Scene;
+class Skill;
+class sklBasicAttack;
 
 class j1Player : public j1Module
 {
@@ -185,7 +186,7 @@ public:
 public:
 	bool		running = false;
 	
-private:
+public:
 
 	//Position
 	fPoint p_position;
@@ -268,6 +269,14 @@ private:
 	//NOTE: Portal attributes, may be changed;
 	bool teleport = false;
 	j1Scene* scene_to_teleport = NULL;
+
+	//Skills
+	Skill* left_skill = NULL;
+	Skill* right_skill = NULL;
+	Skill* current_skill = NULL;
+
+	//Those skills
+	sklBasicAttack* basic_attack;
 
 };
 

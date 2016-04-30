@@ -16,6 +16,7 @@
 #include "Entity.h"
 #include "EntEnemy.h"
 #include "EntPortal.h"
+#include "PlayerSkills.h"
 #include "SDL/include/SDL.h"
 
 //NOTE:Partciles in development, for now we will include this
@@ -42,6 +43,10 @@ bool j1Player::Awake(pugi::xml_node& conf)
 // Called the first frame
 bool j1Player::Start()
 {
+	//Create skills:
+	basic_attack = new sklBasicAttack();
+
+
 	//Debug tile
 	p_debug = App->tex->Load("maps/mini_path.png");
 	
@@ -54,6 +59,8 @@ bool j1Player::Start()
 	p_death = App->tex->Load("textures/vamp_death.png");
 	SetAnimations();
 
+
+
 	//states
 	previous_action = NOTHING;
 	input_locked = false;
@@ -62,6 +69,7 @@ bool j1Player::Start()
 	current_input = INPUT_NULL;
 	current_animation_set = idle;
 	current_animation = &current_animation_set[current_direction];
+	current_skill = right_skill = left_skill = basic_attack;
 
 	//Positioning
 	p_position = { 0, 500 };
@@ -105,7 +113,7 @@ bool j1Player::Update(float dt)
 
 	for (item = particle_list.begin(); item != particle_list.end(); item++)
 	{
-		item._Ptr->_Myval->Update(dt);
+		(*item)->Update(dt);
 	}
 
 	if (current_action != DEATH)
@@ -115,31 +123,32 @@ bool j1Player::Update(float dt)
 			HandleInput();
 		}
 
-		CheckToAttack();
+		if (current_skill->skill_type == SKILL_MELEE)
+		{
+			CheckToAttack();
+		}
 
 		//NOTE:Make this more elegant
 		switch (current_action)
 		{
 		case IDLE:
-			RecoverStamina();
 			break;
 		case WALKING:
 			UpdateMovement(dt);
-			RecoverStamina();
 			break;
 		case RUNNING:
 			UpdateMovement(dt);
 			LowerStamina();
 			break;
-		case ATTACKING:
-			UpdateAttack();
-			RecoverStamina();
-			break;
-		case CASTING:
-			UpdateMagic();
-			RecoverStamina();
+		case SKILL:
+			current_skill->SkillUpdate();
 			break;
 
+		}
+
+		if (current_action != RUNNING)
+		{
+			RecoverStamina();
 		}
 	}
 	else
@@ -174,6 +183,9 @@ bool j1Player::CleanUp()
 	App->tex->UnLoad(p_casting);
 	App->tex->UnLoad(p_death);
 	
+	//Skills deleted
+	delete basic_attack;
+
 	//Take an eye on this
 	if (sprite)
 	{
@@ -592,7 +604,7 @@ void j1Player::CheckToAttack()
 			enemy->TakeDamage(atk_damage);
 
 			movement = false;
-			current_input = INPUT_ATTACK;
+			current_input = INPUT_SKILL;
 			enemy = NULL;
 			objective = NULL;
 			attacking = true;
@@ -733,7 +745,15 @@ void j1Player::HandleInput()
 	//Linear Movement activation
 	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 	{
-		iPoint target;
+		current_skill = left_skill;
+
+		current_skill->SkillInit();
+
+		if (current_skill->skill_type != SKILL_MELEE)
+		{ 
+			current_input = INPUT_SKILL;
+		}
+		/*iPoint target;
 		//NOTE: this will be later changed
 		objective = App->game->em->EntityOnMouse();
 
@@ -744,7 +764,7 @@ void j1Player::HandleInput()
 		
 		target = App->input->GetMouseWorldPosition();
 		target = App->map->WorldToMap(target.x, target.y);
-		SetMovement(target.x, target.y);
+		SetMovement(target.x, target.y);*/
 
 	}
 
@@ -752,14 +772,22 @@ void j1Player::HandleInput()
 	//------------
 	if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN)
 	{
-		if (!input_locked)
+		current_skill = right_skill;
+
+		current_skill->SkillInit();
+
+		if (current_skill->skill_type != SKILL_MELEE)
+		{
+			current_input = INPUT_SKILL;
+		}
+		/*if (!input_locked)
 		{
 			particle_destination.x = App->input->GetMouseWorldPosition().x;
 			particle_destination.y = App->input->GetMouseWorldPosition().y;
 			SetDirection(particle_destination);
 			SetInput(INPUT_CAST);
 			input_locked = true;
-		}
+		}*/
 	}
 	//------------
 }
@@ -789,14 +817,9 @@ ACTION_STATE j1Player::UpdateAction()
 					current_action = RUNNING;
 			}
 
-			else if (current_input == INPUT_ATTACK)
+			else if (current_input == INPUT_SKILL)
 			{
-				current_action = ATTACKING;
-			}
-
-			else if (current_input == INPUT_CAST)
-			{
-				current_action = CASTING;
+				current_action = SKILL;
 			}
 
 			else if (current_input == INPUT_DEATH)
@@ -814,14 +837,9 @@ ACTION_STATE j1Player::UpdateAction()
 				current_action = IDLE;
 			}
 
-			else if (current_input == INPUT_ATTACK)
+			else if (current_input == INPUT_SKILL)
 			{
-				current_action = ATTACKING;
-			}		
-
-			else if (current_input == INPUT_CAST)
-			{
-				current_action = CASTING;
+				current_action = SKILL;
 			}
 
 			else if (current_input == INPUT_MOVE && running)
@@ -846,14 +864,12 @@ ACTION_STATE j1Player::UpdateAction()
 			{
 				current_action = WALKING;
 			}
-			else if (current_input == INPUT_ATTACK)
+			
+			else if (current_input == INPUT_SKILL)
 			{
-				current_action = ATTACKING;
+				current_action = SKILL;
 			}
-			else if (current_input == INPUT_CAST)
-			{
-				current_action = CASTING;
-			}
+
 			else if (current_input == INPUT_DEATH)
 			{
 				current_action = DEATH;
@@ -861,7 +877,7 @@ ACTION_STATE j1Player::UpdateAction()
 		}
 		break;
 
-		case ATTACKING:
+		case SKILL:
 		{
 			if (current_input == INPUT_STOP_MOVE)
 			{
@@ -872,19 +888,6 @@ ACTION_STATE j1Player::UpdateAction()
 				current_action = DEATH;
 			}
 			
-		}
-		break;
-
-		case CASTING:
-		{
-			if (current_input == INPUT_STOP_MOVE)
-			{
-				current_action = IDLE;
-			}
-			else if (current_input == INPUT_DEATH)
-			{
-				current_action = DEATH;
-			}
 		}
 		break;
 
@@ -1043,6 +1046,10 @@ void j1Player::SetAnimations()
 
 		death.push_back(dth);
 	}
+
+	//Skills animations
+
+	basic_attack->SetSkillAnimations();
 }
 
 void j1Player::SetDirection()
@@ -1137,18 +1144,15 @@ void j1Player::StateMachine()
 		current_animation_set = run;
 		p_speed = PLAYER_RUN_SPEED;
 		break;
-	case ATTACKING:
-		p_sprite = p_attack;
-		current_animation_set = attack;
-		break;
-	case CASTING:
-		p_sprite = p_casting;
-		current_animation_set = cast;
+	case SKILL:
+		p_sprite = current_skill->skill_tex;
+		current_animation_set = current_skill->skill_animation_set;
 		break;
 	case DEATH:
 		p_sprite = p_death;
 		current_animation_set = death;
 		respawn_timer.Start();
+		break;
 	}
 	current_animation = &current_animation_set[current_direction];
 }
