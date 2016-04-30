@@ -101,5 +101,7 @@ public:
 
 };
 
+//Passive skill?
+
 
 #endif _SKILL_H_
