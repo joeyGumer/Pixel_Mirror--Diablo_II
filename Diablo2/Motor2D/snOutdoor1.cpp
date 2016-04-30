@@ -61,6 +61,13 @@ bool snOutdoor1::Start()
 
 	App->game->player->SetPosition({ 0, 0 });
 
+	//NOTE: PORTAL, provisional
+	iPoint tile_pos = { -100, 282 };
+	Entity* to_add = App->game->em->Add(tile_pos, PORTAL);
+	entity_list.push_back(to_add);
+	EntPortal* portal = (EntPortal*)to_add;
+	if (portal)
+		portal->SetDestiny(portal->destiny = App->sm->dungeon1);
 
 	//NOTE: Test Sprite
 
@@ -167,7 +174,7 @@ bool snOutdoor1::Update(float dt)
 {	
 	//NOTE: Debug feature so we can test entities
 	//Add Entity
-	if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN && App->debug)
 	{
 		iPoint p;
 		p = App->input->GetMouseWorldPosition();
@@ -179,7 +186,8 @@ bool snOutdoor1::Update(float dt)
 			//App->game->em->Add(p, ENEMY);
 		//if (a == 1)
 			EntPortal* ent = (EntPortal*)App->game->em->Add(p, PORTAL);
-			ent->SetDestiny(App->sm->dungeon1);
+			if (ent)
+				ent->SetDestiny(App->sm->dungeon1);
 			
 	}
 

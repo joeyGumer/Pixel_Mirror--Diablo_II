@@ -79,29 +79,28 @@ bool snDungeon1::Update(float dt)
 	//Map
 	App->map->Draw();
 
-
-	//Entities for debug
-	if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN)
-	{
-		iPoint p;
-		p = App->input->GetMouseWorldPosition();
-		p.x += App->map->data.tile_width / 2;
-		p.y += App->map->data.tile_height / 2;
-
-		//int a = rand() % 2;
-		//if (a == 0)
-		//App->game->em->Add(p, ENEMY);
-		//App->game->em->Add(p, ENEMY_CRAWLER);
-		EntPortal* portal = (EntPortal*)App->game->em->Add(p, PORTAL);
-		portal->destiny = App->sm->outdoor1;
-
-		p = App->map->WorldToMap(p.x, p.y);
-		int i = 0;
-	}
-
 	if (App->debug)
 	{
 		//Entities for debug
+		if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN && debug)
+		{
+			iPoint p;
+			p = App->input->GetMouseWorldPosition();
+			p.x += App->map->data.tile_width / 2;
+			p.y += App->map->data.tile_height / 2;
+
+			//int a = rand() % 2;
+			//if (a == 0)
+			//App->game->em->Add(p, ENEMY);
+			//App->game->em->Add(p, ENEMY_CRAWLER);
+			EntPortal* portal = (EntPortal*)App->game->em->Add(p, PORTAL);
+			if (portal)
+				portal->destiny = App->sm->outdoor1;
+
+			p = App->map->WorldToMap(p.x, p.y);
+			int i = 0;
+		}
+
 		if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN)
 		{
 			iPoint p;
@@ -206,6 +205,13 @@ void snDungeon1::AddEnemies()
 {
 	iPoint tile_pos;
 	Entity* to_add = NULL;
+
+	tile_pos = { -140, 417 };
+	to_add = App->game->em->Add(tile_pos, PORTAL);
+	entity_list.push_back(to_add);
+	EntPortal* portal = (EntPortal*)to_add;
+	if (portal)
+		portal->SetDestiny(portal->destiny = App->sm->outdoor1);
 
 	tile_pos = { 182, 80 };
 	for (int i = 0; i < 12; i++)
