@@ -11,7 +11,8 @@
   </renderer>
 
   <font>
-    <default_font file="fonts/open_sans/DiabloII.ttf" size="12"/>
+    <default_font file="fonts/DIABLO_L.ttf" size="12"/>
+    <description_font file="fonts/DIABLO_L.ttf" size="6"/>
   </font>
 
   <gui>

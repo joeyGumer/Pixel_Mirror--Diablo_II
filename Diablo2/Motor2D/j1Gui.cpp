@@ -227,19 +227,41 @@ GuiImage* j1Gui::AddGuiImage(iPoint p, SDL_Rect r, GuiElement* par, j1Module* li
 	return image;
 }
 
-
-GuiLabel* j1Gui::AddGuiLabel(p2SString t, _TTF_Font* f, iPoint p, GuiElement* par, j1Module* list)
+GuiLabel* j1Gui::AddGuiLabel(p2SString t, _TTF_Font* f, iPoint p, GuiElement* par,TextColor color, j1Module* list)
 {
 	GuiLabel* label;
-
+	
 	if (f)
-		label = new GuiLabel(t, f, p, par, list);
+		label = new GuiLabel(t, f, p,color, par, list);
 	else
-		label = new GuiLabel(t, App->font->default, p, par, list);
+		label = new GuiLabel(t, App->font->default, p,color, par, list);
 
 	gui_elements.push_back(label);
 	if (label->parent != NULL)label->parent->AddChild(label);
 	return label;
+}
+GuiLabel* j1Gui::AddGuiLabel(p2SString t, _TTF_Font* f, iPoint p, GuiElement* par, j1Module* list)
+{
+	GuiLabel* label;
+	TextColor color = FONT_BLACK;
+	if (f)
+		label = new GuiLabel(t, f, p, color, par, list);
+	else
+		label = new GuiLabel(t, App->font->default, p, color, par, list);
+
+	gui_elements.push_back(label);
+	if (label->parent != NULL)label->parent->AddChild(label);
+	return label;
+}
+GuiImage* j1Gui::AddGuiImageWithLabel(iPoint p, SDL_Rect r, p2SString t, _TTF_Font* f, iPoint i, GuiElement* par, j1Module* list)
+{
+	GuiImage* image = new GuiImage(p, r, par, list);
+	if (image->parent != NULL)image->parent->AddChild(image);
+	gui_elements.push_back(image);
+	GuiLabel* label = AddGuiLabel(t, f, p + i, NULL, FONT_WHITE, list);
+	image->SetLabel(label);
+	gui_elements.push_back(label);
+	return image;
 }
 
 GuiInputBox* j1Gui::AddGuiInputBox(p2SString t, _TTF_Font* f, iPoint p, int width, SDL_Rect r, iPoint offset, GuiElement* par, j1Module* list)

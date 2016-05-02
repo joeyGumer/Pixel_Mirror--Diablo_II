@@ -4,6 +4,8 @@
 #include "j1Game.h"
 #include "j1Gui.h"
 
+//NOTE: PROVISIONAL 
+#include "j1Fonts.h"
 hudBlood::hudBlood()
 {
 	active = true;
@@ -19,7 +21,8 @@ bool hudBlood::Start()
 	player = App->game->player;
 	blood_current = 0;
 
-	blood_label = App->gui->AddGuiLabel("0", NULL, { 10, 5 }, NULL, this);
+	
+	blood_label = App->gui->AddGuiLabel("0", NULL, { 10, 5 }, NULL,FONT_WHITE, this);
 
 	return true;
 }

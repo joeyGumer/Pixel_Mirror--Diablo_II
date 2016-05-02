@@ -101,10 +101,12 @@ public:
 	GuiImage* skill22 = NULL;
 	GuiImage* skill23 = NULL;
 
+	
+
 	//NOTE : labels for debug:
 	GuiLabel* life_debug;
 	GuiLabel* mana_debug;
-
+	
 	GuiInventory* inventory1 = NULL;
 	GuiInventory* inventory2 = NULL;
 	GuiInventory* inventory3 = NULL;

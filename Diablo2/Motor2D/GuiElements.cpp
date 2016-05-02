@@ -35,15 +35,16 @@ GuiElement::GuiElement(iPoint p, SDL_Rect r, GUI_Type t, GuiElement* par, j1Modu
 	mask = false;
 }
 
-GuiLabel::GuiLabel(p2SString t, _TTF_Font* f, iPoint p, GuiElement* par, j1Module* list = NULL) 
+GuiLabel::GuiLabel(p2SString t, _TTF_Font* f, iPoint p, TextColor color, GuiElement* par, j1Module* list = NULL)
 	: GuiElement(p, GUI_LABEL, par, list), text(t), font(f)
 {
 	// NOTE :Have to polish the texture sistem in the label
-	tex = App->font->Print(text.GetString());
+	tex = App->font->Print(text.GetString(),color,App->font->description);
 	tex_rect = { 0, 0, 0, 0 };
 	App->font->CalcSize(text.GetString(), tex_rect.w, tex_rect.h);
-	SetLocalRect({ p.x, p.y, tex_rect.w, tex_rect.h });
+	SetLocalRect({ p.x, p.y, tex_rect.w, tex_rect.h});
 }
+
 
 GuiImage::GuiImage(iPoint p, SDL_Rect r, GuiElement* par, j1Module* list = NULL) 
 	: GuiElement(p, r, GUI_IMAGE, par, list)
@@ -51,7 +52,7 @@ GuiImage::GuiImage(iPoint p, SDL_Rect r, GuiElement* par, j1Module* list = NULL)
 
 //NOTE :I'm doing an especific constructor, have to change this
 GuiInputBox::GuiInputBox(p2SString t, _TTF_Font* f, iPoint p, int width, SDL_Rect r, iPoint offset, GuiElement* par, j1Module* list)
-	: GuiElement(p, r, GUI_INPUTBOX, par, list), text(t, f, { 0, 0 }, this), image({ offset.x, offset.y }, r, this)
+	: GuiElement(p, r, GUI_INPUTBOX, par, list), text(t, f, { 0, 0 },FONT_WHITE, this), image({ offset.x, offset.y }, r, this)
 {
 	SetLocalRect({ p.x, p.y, width, text.GetLocalRect().h});
 	
@@ -68,7 +69,7 @@ GuiInputBox::GuiInputBox(p2SString t, _TTF_Font* f, iPoint p, int width, SDL_Rec
 GuiButton::GuiButton(iPoint p, SDL_Rect idle_r1, SDL_Rect hover_r1, SDL_Rect click_r1, p2SString t, _TTF_Font* f, j1Module* list, GuiElement* parent)
 	: GuiElement(p, idle_r1, GUI_BUTTON, parent, list),
 	  button_image(p, idle_r1, this, NULL),
-	  button_label(t, f, p, this, NULL)
+	  button_label(t, f, p,FONT_BLACK, this, NULL)
 {
 	button_image.Center(true, true);
 	button_label.Center(true, true);
@@ -244,6 +245,11 @@ iPoint GuiElement::GetScreenPosition()
 	return{ local_rect.x, local_rect.y };
 }
 
+void GuiElement::SetLabel(GuiElement* label)
+{
+	descriptionlabel = label;
+	descriptionlabel->Desactivate();
+}
 SDL_Rect GuiElement::GetScreenRect()
 {
 	return{ GetScreenPosition().x, GetScreenPosition().y, local_rect.w, local_rect.h };

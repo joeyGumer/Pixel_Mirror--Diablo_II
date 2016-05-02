@@ -12,7 +12,7 @@ using namespace std;
 
 struct SDL_Texture;
 struct _TTF_Font;
-
+enum TextColor;
 enum GUI_Type
 {
 	GUI_LABEL,
@@ -74,6 +74,7 @@ public:
 	void SetSize(int w, int h){ local_rect.w = w, local_rect.h = h; }
 	void SetTextureRect(SDL_Rect r){ tex_rect = r; }
 	void SetLocalRect(SDL_Rect r){ local_rect = r; }
+	void SetLabel(GuiElement* label);
 	void AddChild(GuiElement* child);
 	void RemoveChild(GuiElement* child);
 
@@ -82,6 +83,7 @@ public:
 	GUI_Type	 type;
 	//int		 id;
 	GuiElement*  parent;
+	GuiElement* descriptionlabel;
 	list<GuiElement*> childs;
 	//not defined
 	bool         debug = false;
@@ -106,7 +108,7 @@ class GuiLabel : public GuiElement
 {
 public:
 	//TODO: Manage the font size
-	GuiLabel(p2SString t, _TTF_Font* f, iPoint p, GuiElement* par, j1Module* list);
+	GuiLabel(p2SString t, _TTF_Font* f, iPoint p, TextColor color, GuiElement* par, j1Module* list);
 	~GuiLabel(){}
 
 	void Draw();
@@ -119,6 +121,7 @@ public:
 	p2SString text;
 	_TTF_Font* font;
 	SDL_Texture* tex;
+	
 };
 
 class GuiImage : public GuiElement

@@ -34,6 +34,9 @@ bool j1Fonts::Awake(pugi::xml_node& conf)
 		const char* path = conf.child("default_font").attribute("file").as_string(DEFAULT_FONT);
 		int size = conf.child("default_font").attribute("size").as_int(DEFAULT_FONT_SIZE);
 		default = Load(path, size);
+		path = conf.child("description_font").attribute("file").as_string("");
+		size = conf.child("description_font").attribute("size").as_int();
+		description = Load(path, size);
 	}
 
 	return ret;
@@ -59,7 +62,7 @@ bool j1Fonts::CleanUp()
 TTF_Font* const j1Fonts::Load(const char* path, int size)
 {
 	TTF_Font* font = TTF_OpenFontRW(App->fs->Load(path), 1, size);
-
+	
 	if(font == NULL)
 	{
 		LOG("Could not load TTF font with path: %s. TTF_OpenFont: %s", path, TTF_GetError());
@@ -92,18 +95,18 @@ SDL_Texture* j1Fonts::Print(const char* text, SDL_Color color, TTF_Font* font)
 	return ret;
 }
 
-SDL_Texture* j1Fonts::Print(const char* text, TextColor color)
+SDL_Texture* j1Fonts::Print(const char* text, TextColor color, TTF_Font* font)
 {
 	switch (color)
 	{
-	case FONT_RED: return Print(text, { 255, 0, 0 }); break;
-	case FONT_GREEN: return Print(text, { 0, 255, 0 }); break;
-	case FONT_BLUE:return  Print(text, { 0, 0, 255 }); break;
-	case FONT_YELLOW: return Print(text, { 255, 255, 0 }); break;
-	case FONT_WHITE: return Print(text, { 255, 255, 255 }); break;
-	default: return Print(text); break;
+	case FONT_BLACK: return Print(text, { 0, 0, 0 }, font); break;
+	case FONT_RED: return Print(text, { 255, 0, 0 },font); break;
+	case FONT_GREEN: return Print(text, { 0, 255, 0 }, font); break;
+	case FONT_BLUE:return  Print(text, { 0, 0, 255 }, font); break;
+	case FONT_YELLOW: return Print(text, { 255, 255, 0 }, font); break;
+	case FONT_WHITE: return Print(text, { 255, 255, 255 }, font); break;
+	
 	}
-
 }
 
 // calculate size of a text

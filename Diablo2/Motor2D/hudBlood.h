@@ -5,7 +5,7 @@
 
 class j1Player;
 class GuiLabel;
-
+enum TextColor;
 class hudBlood : public hudElement
 {
 public:

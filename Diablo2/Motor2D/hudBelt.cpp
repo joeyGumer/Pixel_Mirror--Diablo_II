@@ -7,7 +7,8 @@
 #include "j1Player.h"
 #include "j1Input.h"
 
-
+//NOTE: PROVISIONAL 
+#include "j1Fonts.h"
 
 //Constructor
 hudBelt::hudBelt():hudElement()
@@ -31,7 +32,6 @@ bool hudBelt::Start()
 	HUD = App->gui->AddGuiImage({ 166, 430 }, { 166, 386, 408, 47 }, NULL, this);
 	hud_gui_elements.push_back(HUD);
 
-	
 	inventory1 = App->gui->AddGuiInventory({ 176, 9 }, { 342, 395, 30, 30 }, 1, 1 , 30, 30, HUD, this);
 	hud_gui_elements.push_back(inventory1);
 	inventory2 = App->gui->AddGuiInventory({ 207, 9 }, { 373, 395, 30, 30 }, 1, 1, 30, 30, HUD, this);
@@ -121,7 +121,11 @@ bool hudBelt::Start()
 	minipanel = App->gui->AddGuiImage({ 76, -25 }, { 170, 253, 152, 25 }, HUD, this);
 	hud_gui_elements.push_back(minipanel);
 
-	stats = App->gui->AddGuiImage({ 3, 3 }, { 170, 279, 20, 19 }, minipanel, this);
+	/*stats = App->gui->AddGuiImage({ 3, 3 }, { 170, 279, 20, 19 }, minipanel, this);
+	stats->interactable = true;
+	hud_gui_elements.push_back(stats);*/
+
+	stats = App->gui->AddGuiImageWithLabel({ 3, 3 }, { 170, 279, 20, 19 }, "This is the stats button", NULL, { 0, 0 }, minipanel, this);
 	stats->interactable = true;
 	hud_gui_elements.push_back(stats);
 
@@ -149,6 +153,8 @@ bool hudBelt::Start()
 	game_menu->interactable = true;
 	hud_gui_elements.push_back(game_menu);
 	
+
+
 	minipanel->Desactivate();
 
 	return true;
@@ -309,6 +315,22 @@ void hudBelt::OnEvent(GuiElement* element, GUI_Event even)
 				inventorybutton_pressed = false;
 		}
 		break;
+		}
+	}
+	if (stats == element)
+	{
+		switch (even)
+		{
+		case EVENT_MOUSE_ENTER:
+		{
+			stats->descriptionlabel->Activate();
+		}
+			break;
+		case EVENT_MOUSE_EXIT:
+		{
+			stats->descriptionlabel->Desactivate();
+		}
+			break;
 		}
 	}
 
