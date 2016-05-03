@@ -81,6 +81,7 @@ class playerParticle;
 class j1Scene;
 class Skill;
 class sklBasicAttack;
+class Collider;
 
 class j1Player : public j1Module
 {
@@ -277,6 +278,9 @@ public:
 
 	//Those skills
 	sklBasicAttack* basic_attack;
+
+	//Collider
+	Collider* p_collider;
 
 };
 

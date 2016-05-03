@@ -17,6 +17,7 @@
 #include "j1Gui.h"
 #include "j1App.h"
 #include "j1Game.h"
+#include "j1Collision.h"
 
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
@@ -35,6 +36,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	font = new j1Fonts();
 	gui = new j1Gui();
 	game = new j1Game();
+	collision = new j1Collision();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -50,6 +52,9 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 
 	// scene manager
 	AddModule(sm);
+
+	// collision
+	AddModule(collision);
 
 	// game last 
 	AddModule(game);

@@ -1,13 +1,20 @@
 #ifndef __J1Collision_H__
 #define __J1Collision_H__
 
-/*
 #include "j1Module.h"
-#include "p2List.h"
+#include <list>
+#include "SDL\include\SDL.h"
+
+using namespace std;
 
 enum COLLIDER_TYPE
 {
 	COLLIDER_NONE = -1,
+
+	COLLIDER_PLAYER,
+	COLLIDER_ENEMY,
+	COLLIDER_PARTICLE,
+
 	COLLIDER_MAX
 };
 
@@ -18,15 +25,8 @@ struct Collider
 	COLLIDER_TYPE type;
 	j1Module* callback;
 
-	p2Point<int> posLevel;
-
-	Collider(SDL_Rect rectangle, COLLIDER_TYPE type, j1Module* callback = NULL) :
-		rect(rectangle),
-		type(type),
-		callback(callback),
-		to_delete(false)
-
-	{}
+	Collider(SDL_Rect SDL_Rect, COLLIDER_TYPE type, j1Module *callback = NULL) : rect(SDL_Rect), type(type), callback(callback), to_delete(false)
+	{ }
 
 	void SetPos(int x, int y)
 	{
@@ -34,31 +34,43 @@ struct Collider
 		rect.y = y;
 	}
 
-	p2Point<int> GetPosLevel();
-
-	bool CheckCollision(SDL_Rect r) const;
+	bool CheckCollision(SDL_Rect &r) const;
 };
 
-class ModuleCollision : public Module
+class j1Collision : public j1Module
 {
-public:
-
-	ModuleCollision(Application* app, bool start_enabled = true);
-	~ModuleCollision();
-
-	bool PreUpdate();
-	bool Update();
-	bool CleanUp();
-
-	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module* callback = NULL);
-	void DrawDebug(Collider* col);
 
 private:
 
-	p2List<Collider*>	colliders;
+	list<Collider*> colliders;
+
 	bool matrix[COLLIDER_MAX][COLLIDER_MAX];
-	bool debug;
+	bool debug = false;
+
+public:
+
+	j1Collision();
+
+	//Destructor
+	~j1Collision();
+
+	// Called when before render is available
+	bool Awake(pugi::xml_node&);
+
+	// Call before first frame
+	bool Start();
+
+	// Called before all updates
+	bool PreUpdate();
+
+	// Called each loop iteration
+	bool Update(float dt);
+
+	// Called before quitting
+	bool CleanUp();
+
+	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback = NULL);
+	void DrawDebug(Collider *col);
 };
-*/
 
 #endif  __J1Collision_H__

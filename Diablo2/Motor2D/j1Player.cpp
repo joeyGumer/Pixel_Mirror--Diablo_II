@@ -22,6 +22,8 @@
 //NOTE:Partciles in development, for now we will include this
 #include "playerParticle.h"
 
+#include "j1Collision.h"
+
 
 j1Player::j1Player()
 {
@@ -77,6 +79,9 @@ bool j1Player::Start()
 	movement = false;
 	attacking = false;
 	running = false;
+
+	//Collider
+	p_collider = App->collision->AddCollider({GetPivotPosition().x-20, GetBlitPosition().y + 20, 37, GetPlayerRect().h - 20}, COLLIDER_PLAYER);
 
 	//initial stats
 	HP_max = HP_current = 200.0f;
@@ -423,6 +428,10 @@ void j1Player::Move(float dt)
 
 	p_position.x += int(vel.x);
 	p_position.y += int(vel.y);
+
+	//NOTE: Collider movement, may be changed
+	p_collider->rect.x += int(vel.x);
+	p_collider->rect.y += int(vel.y);
 }
 
 void j1Player::UpdateVelocity(float dt)

@@ -1,165 +1,140 @@
-/*
-#include "Globals.h"
-#include "Application.h"
-#include "ModuleCollision.h"
+#include "j1App.h"
+#include "j1Collision.h"
+#include "j1Input.h"
+#include "j1Render.h"
+#include "p2Log.h"
 
-ModuleCollision::ModuleCollision(Application* app, bool start_enabled) : Module(app, start_enabled)
+j1Collision::j1Collision() : j1Module()
 {
-	debug = false;
+	name.create("collision");
 
-	/*
-	Define collision interactions heres
-	
+	matrix[COLLIDER_PLAYER][COLLIDER_ENEMY] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_PARTICLE] = true;
+
+	matrix[COLLIDER_ENEMY][COLLIDER_PLAYER] = false;
+	matrix[COLLIDER_ENEMY][COLLIDER_PARTICLE] = true;
+
+	matrix[COLLIDER_PARTICLE][COLLIDER_PLAYER] = false;
+	matrix[COLLIDER_PARTICLE][COLLIDER_ENEMY] = false;
 }
 
-// Destructor
-ModuleCollision::~ModuleCollision()
+j1Collision::~j1Collision()
 {}
 
-update_status ModuleCollision::PreUpdate()
+bool j1Collision::Awake(pugi::xml_node&)
 {
-	// Remove all colliders scheduled for deletion
-	p2List_item<Collider*>* tmp = colliders.getFirst();
-	p2List_item<Collider*>* tmp2;
-
-	while(tmp != NULL)
-	{
-		tmp2 = tmp->next;
-		if(tmp->data->to_delete == true)
-		{
-			delete tmp->data;
-			colliders.del(tmp);
-		}
-		tmp = tmp2;
-	}
-
-	return UPDATE_CONTINUE;
+	return true;
 }
 
-// Called before render is available
-update_status ModuleCollision::Update()
+bool j1Collision::Start()
 {
-	p2List_item<Collider*>* tmp = colliders.getFirst();
+	return true;
+}
 
-	Collider* c1;
-	Collider* c2;
 
-	while(tmp != NULL)
+bool j1Collision::PreUpdate()
+{
+	//Remove all colliders scheduled for deletion
+	list<Collider*>::iterator tmp = colliders.begin();
+
+	while (tmp != colliders.end())
 	{
-		c1 = tmp->data;
-
-		// Debug ---
-		if(debug)
-			DrawDebug(c1);
-
-		p2List_item<Collider*>* tmp2 = tmp->next; // avoid checking collisions already checked
-		while(tmp2 != NULL)
+		if ((*tmp)->to_delete == true)
 		{
-			c2 = tmp2->data;
-
-			if(c1->CheckCollision(c2->rect) == true)
-			{
-				if(matrix[c1->type][c2->type] && c1->callback) 
-					c1->callback->OnCollision(c1, c2);
-				
-				if(matrix[c2->type][c1->type] && c2->callback) 
-					c2->callback->OnCollision(c2, c1);
-				
-			}
-			
-			tmp2 = tmp2->next;
+			RELEASE(*tmp);
+			tmp = colliders.erase(tmp);
 		}
-
-		tmp = tmp->next;
+		else
+			++tmp;
 	}
 
+	return true;
+}
 
-
+bool j1Collision::Update(float dt)
+{
 	// Debug ---
-	if(App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 		debug = !debug;
 
-	return UPDATE_CONTINUE;
+	list<Collider*>::iterator it1 = colliders.begin();
+	list<Collider*>::iterator it2;
+
+	Collider *c1;
+	Collider *c2;
+
+	while (it1 != colliders.end())
+	{
+		c1 = (*it1);
+
+		// Debug ---
+		if (debug)
+			DrawDebug(c1);
+
+		it2 = next(it1);				 //avoid checking collisions already checked
+		while (it2 != colliders.end())
+		{
+			c2 = (*it2);
+
+			if (c1->CheckCollision(c2->rect) == true)
+			{
+				if (matrix[c1->type][c2->type] && c1->callback)
+					c1->callback->OnCollision(c1, c2);
+
+				if (matrix[c2->type][c1->type] && c2->callback)
+					c2->callback->OnCollision(c2, c1);
+			}
+			++it2;
+		}
+		++it1;
+	}
+
+	return true;
 }
 
-void ModuleCollision::DrawDebug(Collider* col)
+void j1Collision::DrawDebug(Collider *col)
 {
 	Uint8 alpha = 80;
-	switch(col->type)
+	switch (col->type)
 	{
-		case COLLIDER_NONE:
-		App->renderer->DrawQuad(col->rect, 255, 255, 255, alpha);
+	case COLLIDER_NONE:
+		App->render->DrawQuad(col->rect, 255, 255, 255, alpha, false);
 		break;
-		case COLLIDER_WALL:
-		App->renderer->DrawQuad(col->rect, 0, 0, 255, alpha);
+	case COLLIDER_PLAYER:
+		App->render->DrawQuad(col->rect, 0, 255, 255, alpha, false);
 		break;
-		case COLLIDER_PLAYER:
-		App->renderer->DrawQuad(col->rect, 0, 255, 0, alpha);
+	case COLLIDER_ENEMY:
+		App->render->DrawQuad(col->rect, 255, 0, 255, alpha, false);
 		break;
-		case COLLIDER_BLOCK:
-		App->renderer->DrawQuad(col->rect, 255, 0, 0, alpha);
+	case COLLIDER_PARTICLE:
+		App->render->DrawQuad(col->rect, 0, 0, 255, alpha, false);
 		break;
-		case COLLIDER_BOMB:
-			App->renderer->DrawQuad(col->rect, 255, 255, 0, alpha);
-			break;
-		case COLLIDER_EXPLOSION:
-			App->renderer->DrawQuad(col->rect, 255, 255, 255, alpha);
-			break;
-		case COLLIDER_ENEMY:
-			App->renderer->DrawQuad(col->rect, 255, 0, 0, alpha);
-			break;
-		case COLLIDER_POWERUP:
-			App->renderer->DrawQuad(col->rect, 0, 0, 0, alpha);
-			break;
-		case COLLIDER_BOSS:
-			App->renderer->DrawQuad(col->rect, 255, 102, 0, alpha);
-			break;
-	
 	}
-	
 }
 
-// Called before quitting
-bool ModuleCollision::CleanUp()
+bool j1Collision::CleanUp()
 {
 	LOG("Freeing all colliders");
+	list<Collider*>::reverse_iterator item = colliders.rbegin();
 
-	p2List_item<Collider*>* item = colliders.getLast();
-
-	while(item != NULL)
+	while (item != colliders.rend())
 	{
-		delete item->data;
-		item = item->prev;
+		RELEASE(*item);
+		++item;
 	}
 
 	colliders.clear();
 	return true;
 }
 
-Collider* ModuleCollision::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module* callback)
+Collider* j1Collision::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback)
 {
 	Collider* ret = new Collider(rect, type, callback);
-	colliders.add(ret);
+	colliders.push_back(ret); //put the collider at the end of the list
 	return ret;
 }
 
-// -----------------------------------------------------
-
-bool Collider::CheckCollision(SDL_Rect r) const
+bool Collider::CheckCollision(SDL_Rect &r) const
 {
-	return (rect.x < r.x + r.w &&
-			rect.x + rect.w > r.x &&
-			rect.y < r.y + r.h &&
-			rect.h + rect.y > r.y);
+	return (bool)SDL_HasIntersection(&rect, &r);
 }
-
-p2Point<int> Collider::GetPosLevel()
-{
-	
-	posLevel.x = (rect.x - 24 + (rect.w/2)) / 16;
-	posLevel.y = (rect.y - 40 + (rect.h/2)) / 16;
-
-	return posLevel;
-}
-
-*/

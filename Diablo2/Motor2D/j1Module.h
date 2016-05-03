@@ -12,6 +12,7 @@
 class j1App;
 class GuiElement;
 enum  GUI_Event;
+class Collider;
 
 
 class j1Module
@@ -80,6 +81,9 @@ public:
 
 	//NOTE: provisional for the game system, maybe goes to another kind of module
 	virtual void Draw()
+	{}
+
+	virtual void OnCollision(Collider* c1, Collider* c2)
 	{}
 
 public:
