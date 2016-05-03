@@ -7,6 +7,7 @@
 #include "j1Render.h"
 #include "j1EntityManager.h"
 #include "j1SceneManager.h"
+#include "j1Collision.h"
 
 EntPortal::EntPortal(const iPoint &p, uint ID) : EntStatic(p, ID)
 {
@@ -21,6 +22,8 @@ EntPortal::EntPortal(const iPoint &p, uint ID) : EntStatic(p, ID)
 	SDL_Rect current_sprite = sprite_rect;
 	sprite = new Sprite(tex, pos, sprite_pivot, current_sprite);
 	App->render->AddSpriteToList(sprite);
+
+	collider = App->collision->AddCollider(GetPlayerRect(), COLLIDER_PLAYER, App->game->em);
 }
 
 EntPortal::~EntPortal()

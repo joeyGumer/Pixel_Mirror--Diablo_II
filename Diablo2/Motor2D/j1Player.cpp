@@ -81,7 +81,7 @@ bool j1Player::Start()
 	running = false;
 
 	//Collider
-	p_collider = App->collision->AddCollider({GetPivotPosition().x-20, GetBlitPosition().y + 20, 37, GetPlayerRect().h - 20}, COLLIDER_PLAYER);
+	p_collider = App->collision->AddCollider({GetPivotPosition().x-20, GetBlitPosition().y + 20, 37, GetPlayerRect().h - 20}, COLLIDER_PLAYER, this);
 
 	//initial stats
 	HP_max = HP_current = 200.0f;
@@ -1006,6 +1006,12 @@ void j1Player::ResetTeleport()
 	teleport = NULL;
 	scene_to_teleport = NULL;
 }
+
+void j1Player::OnCollision(Collider* c1, Collider* c2)
+{
+	int i = 0;
+}
+
 /*
 //-------Structural functions
 */

@@ -182,6 +182,10 @@ public:
 	j1Scene* GetDestiny();
 	bool TeleportReady();
 	void ResetTeleport();
+
+	//Collider
+	void OnCollision(Collider* c1, Collider* c2);
+
 //Attributes
 
 public:

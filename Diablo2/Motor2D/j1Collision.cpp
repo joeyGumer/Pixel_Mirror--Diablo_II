@@ -10,12 +10,15 @@ j1Collision::j1Collision() : j1Module()
 
 	matrix[COLLIDER_PLAYER][COLLIDER_ENEMY] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_PARTICLE] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
 
 	matrix[COLLIDER_ENEMY][COLLIDER_PLAYER] = false;
 	matrix[COLLIDER_ENEMY][COLLIDER_PARTICLE] = true;
+	matrix[COLLIDER_ENEMY][COLLIDER_ENEMY] = true;
 
 	matrix[COLLIDER_PARTICLE][COLLIDER_PLAYER] = false;
 	matrix[COLLIDER_PARTICLE][COLLIDER_ENEMY] = false;
+	matrix[COLLIDER_PARTICLE][COLLIDER_PARTICLE] = false;
 }
 
 j1Collision::~j1Collision()

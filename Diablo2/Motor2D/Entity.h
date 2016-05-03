@@ -6,6 +6,7 @@
 #include "Animation.h"
 
 struct Sprite;
+class Collider;
 
 enum ENTITY_TYPE
 {
@@ -62,6 +63,8 @@ public:
 	Sprite*			sprite;
 
 	SDL_Texture*	tex;
+
+	Collider*		collider;
 
 };
 
