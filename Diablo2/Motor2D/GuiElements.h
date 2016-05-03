@@ -97,7 +97,7 @@ public:
 	bool		 mask;
 	j1Module*    listener;
 	SDL_Rect     tex_rect;
-
+	TextColor color;
 private:
 	SDL_Rect     local_rect;
 	//For now we'll just use one listener

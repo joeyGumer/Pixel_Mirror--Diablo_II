@@ -39,7 +39,8 @@ GuiLabel::GuiLabel(p2SString t, _TTF_Font* f, iPoint p, TextColor color, GuiElem
 	: GuiElement(p, GUI_LABEL, par, list), text(t), font(f)
 {
 	// NOTE :Have to polish the texture sistem in the label
-	tex = App->font->Print(text.GetString(),color,App->font->description);
+	tex = App->font->Print(text.GetString(),color,f);
+	this->color = color;
 	tex_rect = { 0, 0, 0, 0 };
 	App->font->CalcSize(text.GetString(), tex_rect.w, tex_rect.h);
 	SetLocalRect({ p.x, p.y, tex_rect.w, tex_rect.h});
@@ -219,7 +220,7 @@ void GuiLabel::SetText(p2SString t)
 		SDL_DestroyTexture(tex);
 
 	text = t.GetString();
-	tex = App->font->Print(text.GetString());
+	tex = App->font->Print(text.GetString(),color);
 	
 	uint w, h;
 	App->tex->GetSize(tex, w, h);

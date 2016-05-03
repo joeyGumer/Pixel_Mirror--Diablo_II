@@ -258,7 +258,10 @@ GuiImage* j1Gui::AddGuiImageWithLabel(iPoint p, SDL_Rect r, p2SString t, _TTF_Fo
 	GuiImage* image = new GuiImage(p, r, par, list);
 	if (image->parent != NULL)image->parent->AddChild(image);
 	gui_elements.push_back(image);
-	GuiLabel* label = AddGuiLabel(t, f, p + i, NULL, FONT_WHITE, list);
+	i.x = i.x + image->GetScreenPosition().x;
+	i.y = i.y + image->GetScreenPosition().y - r.h;
+	GuiLabel* label = AddGuiLabel(t, f,i,  NULL, FONT_WHITE, list);
+	
 	image->SetLabel(label);
 	gui_elements.push_back(label);
 	return image;

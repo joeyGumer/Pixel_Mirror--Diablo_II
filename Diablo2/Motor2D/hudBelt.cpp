@@ -125,7 +125,7 @@ bool hudBelt::Start()
 	stats->interactable = true;
 	hud_gui_elements.push_back(stats);*/
 
-	stats = App->gui->AddGuiImageWithLabel({ 3, 3 }, { 170, 279, 20, 19 }, "This is the stats button", NULL, { 0, 0 }, minipanel, this);
+	stats = App->gui->AddGuiImageWithLabel({ 3, 3 }, { 170, 279, 20, 19 }, "This is The sTaTs buTTon", App->font->description, { 0, 0 }, minipanel, this);
 	stats->interactable = true;
 	hud_gui_elements.push_back(stats);
 
