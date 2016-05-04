@@ -71,7 +71,7 @@ bool hudBelt::Start()
 	runbutton->interactable = true;
 	hud_gui_elements.push_back(runbutton);
 
-	minipanelbutton = App->gui->AddGuiImage({ 145, 8 }, { 281, 253, 16, 27 }, HUD, this);
+	minipanelbutton = App->gui->AddGuiImage({ 145, 8 }, { 296, 253, 16, 27 }, HUD, this);
 	minipanelbutton->interactable = true;
 	hud_gui_elements.push_back(minipanelbutton);
 
@@ -125,31 +125,23 @@ bool hudBelt::Start()
 	stats->interactable = true;
 	hud_gui_elements.push_back(stats);*/
 
-	stats = App->gui->AddGuiImageWithLabel({ 3, 3 }, { 170, 279, 20, 19 }, "This is The sTaTs buTTon", App->font->description, { 0, 0 }, minipanel, this);
+	stats = App->gui->AddGuiImageWithLabel({ 3, 3 }, { 170, 279, 20, 19 }, "player", App->font->description, { -20, 0 }, minipanel, this);
 	stats->interactable = true;
 	hud_gui_elements.push_back(stats);
 
-	inventorybutton = App->gui->AddGuiImage({ 24, 3 }, { 191, 279, 20, 19 }, minipanel, this);
+	inventorybutton = App->gui->AddGuiImageWithLabel({ 24, 3 }, { 191, 279, 20, 19 }, "invenTory", App->font->description, {-20, 0}, minipanel, this);
 	inventorybutton->interactable = true;
 	hud_gui_elements.push_back(inventorybutton);
 
-	skilltree = App->gui->AddGuiImage({ 45, 3 }, { 212, 279, 20, 19 }, minipanel, this);
+	skilltree = App->gui->AddGuiImageWithLabel({ 45, 3 }, { 212, 279, 20, 19 }, "skill Tree", App->font->description, {-20, 0}, minipanel, this);
 	skilltree->interactable = true;
 	hud_gui_elements.push_back(skilltree);
 
-	map = App->gui->AddGuiImage({ 66, 3 }, { 233, 279, 20, 19 }, minipanel, this);
+	map = App->gui->AddGuiImageWithLabel({ 66, 3 }, { 233, 279, 20, 19 }, "map", App->font->description, {0, 0}, minipanel, this);
 	map->interactable = true;
 	hud_gui_elements.push_back(map);
 
-	message_log = App->gui->AddGuiImage({ 87, 3 }, { 252, 279, 20, 19 }, minipanel, this);
-	message_log->interactable = true;
-	hud_gui_elements.push_back(message_log);
-
-	search_log = App->gui->AddGuiImage({ 108, 3 }, { 275, 279, 20, 19 }, minipanel, this);
-	search_log->interactable = true;
-	hud_gui_elements.push_back(search_log);
-
-	game_menu = App->gui->AddGuiImage({ 129, 3 }, { 296, 279, 24, 19 }, minipanel, this);
+	game_menu = App->gui->AddGuiImageWithLabel({ 87, 3 }, { 254, 279, 20, 19 }, "game menu", App->font->description, {-20, 0}, minipanel, this);
 	game_menu->interactable = true;
 	hud_gui_elements.push_back(game_menu);
 	
@@ -288,13 +280,13 @@ void hudBelt::OnEvent(GuiElement* element, GUI_Event even)
 				if (minipanel_pressed == false)
 				{
 					minipanel_pressed = true;
-					minipanelbutton->SetTextureRect({ 296, 253, 16, 27 });
+					minipanelbutton->SetTextureRect({ 281, 253, 16, 27 });
 					minipanel->Activate();
 				}
 				else
 				{
 					minipanel_pressed = false;
-				    minipanelbutton->SetTextureRect({ 281, 253, 16, 27 });
+					minipanelbutton->SetTextureRect({ 296, 253, 16, 27 });
 					minipanel->Desactivate();
 				}
 			}
@@ -315,8 +307,20 @@ void hudBelt::OnEvent(GuiElement* element, GUI_Event even)
 				inventorybutton_pressed = false;
 		}
 		break;
+		case EVENT_MOUSE_ENTER:
+		{
+			inventorybutton->descriptionlabel->Activate();
+		}
+		break;
+		case EVENT_MOUSE_EXIT:
+		{
+			inventorybutton->descriptionlabel->Desactivate();
+		}
+		break;
 		}
 	}
+
+	//Stats button
 	if (stats == element)
 	{
 		switch (even)
@@ -345,6 +349,52 @@ void hudBelt::OnEvent(GuiElement* element, GUI_Event even)
 				skilltreebutton_pressed = true;
 			else
 				skilltreebutton_pressed = false;
+		}
+		break;
+		case EVENT_MOUSE_ENTER:
+		{
+			skilltree->descriptionlabel->Activate();
+		}
+		break;
+		case EVENT_MOUSE_EXIT:
+		{
+			skilltree->descriptionlabel->Desactivate();
+		}
+		break;
+		}
+	}
+
+	//Map button
+	if (map == element)
+	{
+		switch (even)
+		{
+		case EVENT_MOUSE_ENTER:
+		{
+			map->descriptionlabel->Activate();
+		}
+		break;
+		case EVENT_MOUSE_EXIT:
+		{
+			map->descriptionlabel->Desactivate();
+		}
+		break;
+		}
+	}
+
+	//Game_menu button
+	if (game_menu == element)
+	{
+		switch (even)
+		{
+		case EVENT_MOUSE_ENTER:
+		{
+			game_menu->descriptionlabel->Activate();
+		}
+		break;
+		case EVENT_MOUSE_EXIT:
+		{
+			game_menu->descriptionlabel->Desactivate();
 		}
 		break;
 		}

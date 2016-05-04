@@ -89,8 +89,6 @@ public:
 	GuiImage* skilltree = NULL;
 	GuiImage* inventorybutton = NULL;
 	GuiImage* map = NULL;
-	GuiImage* message_log = NULL;
-	GuiImage* search_log = NULL;
 	GuiImage* game_menu = NULL;
 	GuiImage* attack1 = NULL;
 	GuiImage* attack2 = NULL;
