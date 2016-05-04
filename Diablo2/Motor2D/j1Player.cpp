@@ -48,7 +48,9 @@ bool j1Player::Start()
 {
 	//Create skills:
 	basic_attack = new sklBasicAttack();
+	blood_arrow = new sklBloodArrow();
 
+	//
 	player_attack = App->audio->LoadFx("audio/fx/PlayerAttack.ogg");
 	player_death = App->audio->LoadFx("audio/fx/PlayerDeath.ogg");
 	player_gethit = App->audio->LoadFx("audio/fx/PlayerGetHit.ogg");
@@ -75,7 +77,9 @@ bool j1Player::Start()
 	current_input = INPUT_NULL;
 	current_animation_set = idle;
 	current_animation = &current_animation_set[current_direction];
-	current_skill = right_skill = left_skill = basic_attack;
+
+	current_skill = left_skill = basic_attack;
+	right_skill = blood_arrow;
 
 	//Positioning
 	p_position = { 0, 500 };
@@ -655,7 +659,6 @@ void j1Player::CheckToAttack()
 void j1Player::TakeDamage(int damage)
 {
 	//App->audio->PlayFx(player_gethit, 0);
-
 	HP_current -= damage;
 	PlayerEvent(HP_DOWN);
 
@@ -1070,17 +1073,6 @@ void j1Player::SetAnimations()
 		attack.push_back(atk);
 	}
 
-	//Casting
-	for (int i = 0; i < 12; i++)
-	{
-		Animation cst;
-		cst.SetFrames(0, (92 + SPRITE_MARGIN) * i, 119, 92, 12, SPRITE_MARGIN);
-		cst.speed = 0.3f;
-		cst.loop = false;
-
-		cast.push_back(cst);
-	}
-
 	//Death
 	for (int i = 0; i < 8; i++)
 	{
@@ -1095,6 +1087,7 @@ void j1Player::SetAnimations()
 	//Skills animations
 
 	basic_attack->SetSkillAnimations();
+	blood_arrow->SetSkillAnimations();
 }
 
 void j1Player::SetDirection()

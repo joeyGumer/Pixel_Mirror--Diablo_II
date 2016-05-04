@@ -7,6 +7,7 @@
 #include "j1Textures.h"
 #include "j1Input.h"
 #include "j1Map.h"
+#include "playerParticle.h" 
 
 /*
 //--Basic Attack
@@ -54,5 +55,57 @@ void sklBasicAttack::SetSkillAnimations()
 
 void sklBasicAttack::SkillInit()
 {
+
+}
+
+//Blood Arrow
+//NOTE: change this to be aplicable with the system particle
+sklBloodArrow::sklBloodArrow() : sklRanged()
+{
+	skill_tex = App->tex->Load("textures/vamp_cast.png");
+}
+
+sklBloodArrow::~sklBloodArrow()
+{}
+
+void sklBloodArrow::SkillEffect()
+{}
+
+void sklBloodArrow::SkillInit()
+{
+	player->particle_destination.x = App->input->GetMouseWorldPosition().x;
+	player->particle_destination.y = App->input->GetMouseWorldPosition().y;
+	player->SetDirection(player->particle_destination);
+}
+
+void sklBloodArrow::SkillUpdate()
+{
+	//NOTE: provisional
+	if (player->current_animation->CurrentFrame() >= 7 && !player->particle_is_casted)
+	{
+		playerParticle* particle = new playerParticle({ player->p_position.x, player->p_position.y - 40 }, player->particle_destination);
+		player->particle_list.push_back(particle);
+		player->particle_is_casted = true;
+	}
+
+	if (player->current_animation->Finished())
+	{
+		player->current_input = INPUT_STOP_MOVE;
+		player->input_locked = false;
+		player->particle_is_casted = false;
+	}
+}
+
+void sklBloodArrow::SetSkillAnimations()
+{
+	for (int i = 0; i < 12; i++)
+	{
+		Animation cst;
+		cst.SetFrames(0, (92 + SPRITE_MARGIN) * i, 119, 92, 12, SPRITE_MARGIN);
+		cst.speed = 0.3f;
+		cst.loop = false;
+
+		skill_animation_set.push_back(cst);
+	}
 
 }

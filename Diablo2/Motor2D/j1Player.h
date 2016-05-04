@@ -81,6 +81,7 @@ class playerParticle;
 class j1Scene;
 class Skill;
 class sklBasicAttack;
+class sklBloodArrow;
 class Collider;
 
 class j1Player : public j1Module
@@ -287,7 +288,8 @@ public:
 	Skill* current_skill = NULL;
 
 	//Those skills
-	sklBasicAttack* basic_attack;
+	sklBasicAttack* basic_attack = NULL;
+	sklBloodArrow* blood_arrow = NULL;
 
 	//Collider
 	Collider* p_collider;
