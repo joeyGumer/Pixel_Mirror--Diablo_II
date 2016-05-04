@@ -14,6 +14,8 @@ Entity::Entity(const iPoint &p, uint ID)
 	position.y = tmp.y;
 	id = ID;
 
+	collider = NULL;
+
 }
 
 //Destructor

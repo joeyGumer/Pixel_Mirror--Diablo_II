@@ -17,6 +17,7 @@
 #include "j1Gui.h"
 //Provisional
 #include "j1Fonts.h"
+#include "j1Audio.h"
 
 #include <algorithm>
 
@@ -58,6 +59,15 @@ bool j1EntityManager::Start()
 	
 	enemy_name = App->gui->AddGuiLabel(" ", NULL, { 260, 0 }, NULL, FONT_WHITE, this);
 	enemy_name->Desactivate();
+
+	//Sounds
+	crawler_attackfx = App->audio->LoadFx("audio/fx/VileChildAttack.ogg");
+	crawler_gethitfx = App->audio->LoadFx("audio/fx/VileChildGetHit.ogg");
+	crawler_deathfx = App->audio->LoadFx("audio/fx/VileChildDeath.ogg");
+
+	wolf_attackfx = App->audio->LoadFx("audio/fx/WolfAttack.ogg");
+	wolf_gethitfx = App->audio->LoadFx("audio/fx/WolfGetHit.ogg");
+	wolf_deathfx = App->audio->LoadFx("audio/fx/WolfDeath.ogg");
 
 	return true;
 }
@@ -150,7 +160,8 @@ bool j1EntityManager::CleanUp()
 	active_entities.clear();
 	inactive_entities.clear();
 
-	enemy_name->Desactivate();
+	if (enemy_name)
+		enemy_name->Desactivate();
 
 	return true;
 }

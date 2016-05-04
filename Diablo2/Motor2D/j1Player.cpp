@@ -388,7 +388,8 @@ void j1Player::PlayerEvent(PLAYER_EVENT even)
 			//NOTE: GUARRALITY
 			if (App->game->HUD->inventory->AddPotion())
 			{
-				App->game->em->Remove(objective->id);	
+				if (objective->type = ITEM)
+					App->game->em->Remove(objective->id);	
 				objective = NULL;
 			}
 		}
@@ -658,17 +659,16 @@ void j1Player::CheckToAttack()
 
 void j1Player::TakeDamage(int damage)
 {
-	//App->audio->PlayFx(player_gethit, 0);
+
 	HP_current -= damage;
 	PlayerEvent(HP_DOWN);
 
-	if (HP_current <= 0)
+	if (HP_current <= 0 && Alive())
 	{
 		HP_current = 0;
 		current_input = INPUT_DEATH;
-		//App->audio->PlayFx(player_death, 0);
+		App->audio->PlayFx(player_death, 0);
 	}
-
 }
 
 bool j1Player::Alive()
