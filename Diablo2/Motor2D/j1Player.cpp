@@ -654,7 +654,7 @@ void j1Player::CheckToAttack()
 
 void j1Player::TakeDamage(int damage)
 {
-	//App->audio->PlayFx(player_gethit, 0);
+	App->audio->PlayFx(player_gethit, 0);
 
 	HP_current -= damage;
 	PlayerEvent(HP_DOWN);
@@ -665,7 +665,6 @@ void j1Player::TakeDamage(int damage)
 		current_input = INPUT_DEATH;
 		//App->audio->PlayFx(player_death, 0);
 	}
-
 }
 
 bool j1Player::Alive()

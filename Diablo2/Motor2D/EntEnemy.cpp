@@ -93,6 +93,10 @@ void EntEnemy::TakeDamage(int damage)
 	{
 		HP_current = 0;
 		current_input = ENTITY_INPUT_DEATH;
+		if (name == "crawler")
+			App->audio->PlayFx(App->game->em->crawler_deathfx);
+		if (name == "wolf")
+			App->audio->PlayFx(App->game->em->wolf_deathfx);
 	}
 }
 
@@ -164,6 +168,10 @@ void EntEnemy::CheckToAttack()
 			movement = false;
 			current_input = ENTITY_INPUT_ATTACK;
 			attacking = true;
+			if (name == "crawler")
+				App->audio->PlayFx(App->game->em->crawler_attackfx);
+			if (name == "wolf")
+				App->audio->PlayFx(App->game->em->wolf_attackfx);
 		}
 	}
 }
