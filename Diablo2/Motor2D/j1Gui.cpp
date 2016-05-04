@@ -202,11 +202,15 @@ bool j1Gui::CleanUp()
 {
 	LOG("Freeing GUI");
 
+	/*
+	NOTE: Commenting this because crash
+
 	list<GuiElement*>::iterator item = gui_elements.begin();
 	for (; item != gui_elements.end(); item++)
 		RELEASE(*item);
 
 	gui_elements.clear();
+	*/
 
 	return true;
 }

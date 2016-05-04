@@ -11,6 +11,7 @@
 #include "EntPortal.h"
 
 #include "j1Textures.h"
+#include "j1Collision.h"
 
 #include <algorithm>
 
@@ -188,6 +189,9 @@ bool j1EntityManager::Remove(uint id)
 	//NOTE: has to delete, not do this!
 	//It's not destroyed? we'll see for later weeks
 	Entity* e = GetEntity(id);
+	if (e && e->collider)
+		e->collider->to_delete = true;
+
 	if (e && e->sprite)
 	{
 		//NOTE: here, is a beautiful memory leak, if i uncomment this all the game goes fucked

@@ -25,7 +25,7 @@ struct Collider
 	COLLIDER_TYPE type;
 	j1Module* callback;
 
-	Collider(SDL_Rect SDL_Rect, COLLIDER_TYPE type, j1Module *callback = NULL) : rect(SDL_Rect), type(type), callback(callback), to_delete(false)
+	Collider(SDL_Rect SDL_Rect, COLLIDER_TYPE type, j1Module* callback = NULL) : rect(SDL_Rect), type(type), callback(callback), to_delete(false)
 	{ }
 
 	void SetPos(int x, int y)
@@ -70,7 +70,7 @@ public:
 	bool CleanUp();
 
 	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback = NULL);
-	void DrawDebug(Collider *col);
+	void DrawDebug(Collider* col);
 };
 
 #endif  __J1Collision_H__

@@ -1158,6 +1158,8 @@ void j1Player::SetDirection(fPoint pos)
 void j1Player::SetPosition(fPoint pos)
 {
 	p_position = pos;
+	p_collider->rect.x = GetPivotPosition().x - 20;
+	p_collider->rect.y = GetBlitPosition().y + 20;
 }
 
 void j1Player::StateMachine()
