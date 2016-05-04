@@ -23,6 +23,7 @@ bool hudBlood::Start()
 
 	
 	blood_label = App->gui->AddGuiLabel("0", NULL, { 10, 5 }, NULL,FONT_WHITE, this);
+	hud_gui_elements.push_back(blood_label);
 
 	return true;
 }
@@ -44,6 +45,22 @@ bool hudBlood::PostUpdate()
 
 bool hudBlood::CleanUp()
 {
+	for (int i = 0; i < hud_gui_elements.size(); i++)
+	{
+		for (list<GuiElement*>::iterator item2 = App->gui->gui_elements.begin(); item2 != App->gui->gui_elements.end(); item2++)
+		{
+			if ((*item2) == hud_gui_elements[i])
+			{
+				RELEASE(*item2);
+				App->gui->gui_elements.erase(item2);
+				break;
+			}
+		}
+	}
+
+	hud_gui_elements.clear();
+
+	return true;
 	return true;
 }
 

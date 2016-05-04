@@ -133,6 +133,7 @@ bool hudInventory::CleanUp()
 	}
 
 	hud_gui_elements.clear();
+	inventory = NULL;
 
 	return true;
 }
