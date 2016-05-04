@@ -13,6 +13,10 @@
 #include "j1Textures.h"
 #include "j1Collision.h"
 
+#include "j1Gui.h"
+//Provisional
+#include "j1Fonts.h"
+
 #include <algorithm>
 
 
@@ -50,6 +54,10 @@ bool j1EntityManager::Start()
 
 	//Portal
 	portal_tex = App->tex->Load("textures/portal.png");
+	
+	enemy_name = App->gui->AddGuiLabel(" ", NULL, { 260, 0 }, NULL, FONT_WHITE, this);
+	enemy_name->Desactivate();
+
 	return true;
 }
 
@@ -100,6 +108,19 @@ bool j1EntityManager::Update(float dt)
 
 	}
 
+	if (Entity* ent = EntityOnMouse())
+	{
+		if (ent->type == ENEMY)
+		{
+			((EntEnemy*)ent)->DrawHPbar();
+			enemy_name->Activate();
+			enemy_name->SetText(((EntEnemy*)ent)->name);
+			enemy_name->Center(true, false);
+		}
+	}
+	else
+		enemy_name->Desactivate();
+
 	return true;
 }
 
@@ -109,13 +130,7 @@ bool j1EntityManager::PostUpdate()
 
 	//Checking if there's an entity under the mouse to do it's stuff
 	// NOTE: put it as gui
-	if (Entity* ent = EntityOnMouse())
-	{
-		if (ent->type == ENEMY)
-		{
-			((EntEnemy*)ent)->DrawHPbar();
-		}
-	}
+
 
 	return true;
 }

@@ -9,6 +9,7 @@
 
 enum ENTITY_TYPE;
 class Entity;
+class GuiLabel;
 using namespace std;
 
 class j1EntityManager : public j1Module
@@ -79,6 +80,8 @@ public:
 
 	//Portal texture
 	SDL_Texture* portal_tex;
+
+	GuiLabel* enemy_name = NULL;
 };
 
 #endif // __EntityManager_H__

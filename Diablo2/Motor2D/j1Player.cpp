@@ -18,6 +18,7 @@
 #include "EntPortal.h"
 #include "PlayerSkills.h"
 #include "SDL/include/SDL.h"
+#include "j1Audio.h"
 
 //NOTE:Partciles in development, for now we will include this
 #include "playerParticle.h"
@@ -48,6 +49,9 @@ bool j1Player::Start()
 	//Create skills:
 	basic_attack = new sklBasicAttack();
 
+	player_attack = App->audio->LoadFx("audio/fx/PlayerAttack.wav");
+	player_death = App->audio->LoadFx("audio/fx/PlayerDeath.wav");
+	player_gethit = App->audio->LoadFx("audio/fx/PlayerGetHit.wav");
 
 	//Debug tile
 	p_debug = App->tex->Load("maps/mini_path.png");
@@ -611,6 +615,7 @@ void j1Player::CheckToAttack()
 			SetDirection();
 
 			enemy->TakeDamage(atk_damage);
+			App->audio->PlayFx(player_attack, 0);
 
 			movement = false;
 			current_input = INPUT_SKILL;
@@ -646,6 +651,8 @@ void j1Player::CheckToAttack()
 
 void j1Player::TakeDamage(int damage)
 {
+	//App->audio->PlayFx(player_gethit, 0);
+
 	HP_current -= damage;
 	PlayerEvent(HP_DOWN);
 
@@ -653,6 +660,7 @@ void j1Player::TakeDamage(int damage)
 	{
 		HP_current = 0;
 		current_input = INPUT_DEATH;
+		//App->audio->PlayFx(player_death, 0);
 	}
 
 }

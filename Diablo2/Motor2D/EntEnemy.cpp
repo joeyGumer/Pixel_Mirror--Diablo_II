@@ -11,6 +11,7 @@
 #include "snWin.h"
 #include "snDungeon1.h"
 
+
 //EntEnemy
 //----------------------------
 
@@ -93,7 +94,6 @@ void EntEnemy::DrawHPbar()
 	App->render->DrawQuad({ 220, 0, total_width, height }, 0, 0, 0, 255, true, false);
 	App->render->DrawQuad({ 220, 0, current_width, height }, 255, 0, 0, 255, true, false);
 
-
 }
 
 /*
@@ -161,6 +161,7 @@ void EntEnemy::CheckToAttack()
 //Constructor
 EntEnemyWolf::EntEnemyWolf(const iPoint &p, uint ID) : EntEnemy(p, ID)
 {
+	name = "wolf";
 	tex = idle_tex = App->tex->Load("textures/wolf.png");
 	walk_tex = App->tex->Load("textures/wolf_walk.png");
 	death_tex = App->tex->Load("textures/wolf_death.png");
@@ -444,6 +445,7 @@ void EntEnemyWolf::SetAnimations()
 //Constructor
 EntEnemyCrawler::EntEnemyCrawler(const iPoint &p, uint ID) : EntEnemy(p, ID)
 {
+	name = "crawler";
 	tex = idle_tex = App->game->em->crawler_idle;
 	walk_tex = App->game->em->crawler_walk;
 	death_tex = App->game->em->crawler_death;
@@ -741,6 +743,7 @@ void EntEnemyCrawler::SetAnimations()
 //Constructor
 EntEnemyBoss::EntEnemyBoss(const iPoint &p, uint ID) : EntEnemy(p, ID)
 {
+	name = "boss";
 	tex = idle_tex = App->game->em->boss_idle;
 	walk_tex = App->game->em->boss_walk;
 	death_tex = App->game->em->boss_death;

@@ -62,6 +62,7 @@ public:
 	//Pure Blood System;
 	int		blood_drop;
 
+	const char*  name;
 
 };
 

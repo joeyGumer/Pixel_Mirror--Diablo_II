@@ -6,6 +6,7 @@
 #include "j1Fonts.h"
 #include "j1Input.h"
 #include "j1Gui.h"
+#include "j1Audio.h"
 
 
 #include "SDL/include/SDL.h"
@@ -39,11 +40,13 @@ bool j1Gui::Awake(pugi::xml_node& conf)
 // Called before the first frame
 bool j1Gui::Start()
 {
+	click = App->audio->LoadFx("audio/fx/Cursor.wav");
+	mouse_clicked == false;
 	atlas = App->tex->Load(atlas_file_name.GetString());
 	//Disables the cursor
 	SDL_ShowCursor(SDL_DISABLE);
 	//Mouse--------
-	mouse = new GuiMouseImage({ mouse_x, mouse_y }, { 189, 97, 34, 28 }, NULL, this);
+	mouse = new GuiMouseImage({ mouse_x, mouse_y }, { 189, 98, 33, 26 }, NULL, this);
 	dragged_item = NULL;
 	//-------------
 	return true;
@@ -151,7 +154,26 @@ bool j1Gui::PreUpdate()
 		if ((*item)->active)
 			(*item)->Update(hover_element, focus);
 	}
+	
 
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
+	{
+		App->audio->PlayFx(click, 0);
+		mouse_clicked = true;
+		mouse->SetTextureRect({ 222, 98, 33, 26 });
+	}
+
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
+	{
+		mouse_clicked = true;
+		mouse->SetTextureRect({ 222, 98, 33, 26 });
+	}
+	else if (mouse_clicked == true)
+	{
+		mouse_clicked = false;
+		mouse->SetTextureRect({ 189, 98, 33, 26 });
+	}
+	
 	return true;
 }
 

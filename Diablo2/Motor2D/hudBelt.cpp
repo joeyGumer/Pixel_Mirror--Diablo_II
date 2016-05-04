@@ -71,7 +71,7 @@ bool hudBelt::Start()
 	runbutton->interactable = true;
 	hud_gui_elements.push_back(runbutton);
 
-	minipanelbutton = App->gui->AddGuiImage({ 145, 8 }, { 337, 252, 16, 27 }, HUD, this);
+	minipanelbutton = App->gui->AddGuiImage({ 145, 8 }, { 281, 253, 16, 27 }, HUD, this);
 	minipanelbutton->interactable = true;
 	hud_gui_elements.push_back(minipanelbutton);
 
@@ -118,7 +118,7 @@ bool hudBelt::Start()
 
 	//Minipanel's buttons -------------------------------
 	
-	minipanel = App->gui->AddGuiImage({ 76, -25 }, { 170, 253, 152, 25 }, HUD, this);
+	minipanel = App->gui->AddGuiImage({ 98, -25 }, { 170, 253, 110, 25 }, HUD, this);
 	hud_gui_elements.push_back(minipanel);
 
 	/*stats = App->gui->AddGuiImage({ 3, 3 }, { 170, 279, 20, 19 }, minipanel, this);
@@ -288,13 +288,13 @@ void hudBelt::OnEvent(GuiElement* element, GUI_Event even)
 				if (minipanel_pressed == false)
 				{
 					minipanel_pressed = true;
-					minipanelbutton->SetTextureRect({ 322, 252, 16, 27 });
+					minipanelbutton->SetTextureRect({ 296, 253, 16, 27 });
 					minipanel->Activate();
 				}
 				else
 				{
 					minipanel_pressed = false;
-				    minipanelbutton->SetTextureRect({ 337, 252, 16, 27 });
+				    minipanelbutton->SetTextureRect({ 281, 253, 16, 27 });
 					minipanel->Desactivate();
 				}
 			}

@@ -252,6 +252,12 @@ public:
 
 	float attack_range = 65.0f;
 
+	//Fx
+
+	int player_death;
+	int player_attack;
+	int player_gethit;
+
 	//StateMachine Attributes
 	ACTION_STATE	current_action;
 	vector<Animation> current_animation_set;
