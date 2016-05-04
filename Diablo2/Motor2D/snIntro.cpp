@@ -170,15 +170,15 @@ void snIntro::OnEvent(GuiElement* element, GUI_Event even)
 
 		case EVENT_MOUSE_EXIT:
 		{
-			exit_button->button_image.SetTextureRect(exit_button->click_tex);
-			exit_button->button_label.SetLocalPosition({ 50, 8 });
+			exit_button->button_image.SetTextureRect(exit_button->idle_tex);
+			exit_button->button_label.Center(true, true);
 		}
 			break;
 
 		case EVENT_MOUSE_LEFTCLICK_UP:
 		{
-			exit_button->button_image.SetTextureRect(exit_button->click_tex);
-			exit_button->button_label.SetLocalPosition({ 50, 8 });
+			exit_button->button_image.SetTextureRect(exit_button->idle_tex);
+			exit_button->button_label.Center(true, true);
 			exit = true;
 		}
 			break;
