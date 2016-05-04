@@ -384,7 +384,8 @@ void j1Player::PlayerEvent(PLAYER_EVENT even)
 			//NOTE: GUARRALITY
 			if (App->game->HUD->inventory->AddPotion())
 			{
-				App->game->em->Remove(objective->id);	
+				if (objective->type = ITEM)
+					App->game->em->Remove(objective->id);	
 				objective = NULL;
 			}
 		}
