@@ -83,6 +83,15 @@ public:
 	//Portal texture
 	SDL_Texture* portal_tex;
 
+	//Sounds
+	int crawler_attackfx;
+	int crawler_gethitfx;
+	int crawler_deathfx;
+
+	int wolf_attackfx;
+	int wolf_gethitfx;
+	int wolf_deathfx;
+
 	GuiLabel* enemy_name = NULL;
 };
 

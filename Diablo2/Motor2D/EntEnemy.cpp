@@ -11,6 +11,8 @@
 #include "snWin.h"
 #include "snDungeon1.h"
 #include "j1Collision.h"
+//Provisional?
+#include "j1Audio.h"
 
 
 //EntEnemy
@@ -79,6 +81,14 @@ void EntEnemy::TakeDamage(int damage)
 {
 	//NOTE: this will be changed when the defense is applied
 	HP_current -= damage;
+	
+	//Sounds-------
+	if (name == "crawler")
+		App->audio->PlayFx(App->game->em->crawler_gethitfx);
+	if (name == "wolf")
+		App->audio->PlayFx(App->game->em->wolf_gethitfx);
+	//-------------
+	
 	if (HP_current <= 0)
 	{
 		HP_current = 0;
