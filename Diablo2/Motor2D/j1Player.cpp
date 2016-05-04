@@ -659,11 +659,11 @@ void j1Player::TakeDamage(int damage)
 	HP_current -= damage;
 	PlayerEvent(HP_DOWN);
 
-	if (HP_current <= 0)
+	if (HP_current <= 0 && Alive())
 	{
 		HP_current = 0;
 		current_input = INPUT_DEATH;
-		//App->audio->PlayFx(player_death, 0);
+		App->audio->PlayFx(player_death, 0);
 	}
 }
 
