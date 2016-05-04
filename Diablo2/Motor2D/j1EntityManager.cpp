@@ -150,7 +150,6 @@ bool j1EntityManager::CleanUp()
 	active_entities.clear();
 	inactive_entities.clear();
 
-	if (enemy_name)
 	enemy_name->Desactivate();
 
 	return true;
