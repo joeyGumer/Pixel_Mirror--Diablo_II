@@ -251,7 +251,7 @@ GuiImage* j1Gui::AddGuiImage(iPoint p, SDL_Rect r, GuiElement* par, j1Module* li
 	return image;
 }
 
-GuiLabel* j1Gui::AddGuiLabel(p2SString t, _TTF_Font* f, iPoint p, GuiElement* par,TextColor color, j1Module* list)
+GuiLabel* j1Gui::AddGuiLabel(p2SString t, _TTF_Font* f, iPoint p, GuiElement* par, SDL_Color color , j1Module* list)
 {
 	GuiLabel* label;
 	
@@ -267,7 +267,7 @@ GuiLabel* j1Gui::AddGuiLabel(p2SString t, _TTF_Font* f, iPoint p, GuiElement* pa
 GuiLabel* j1Gui::AddGuiLabel(p2SString t, _TTF_Font* f, iPoint p, GuiElement* par, j1Module* list)
 {
 	GuiLabel* label;
-	TextColor color = FONT_BLACK;
+	SDL_Color color = FONT_BLACK;
 	if (f)
 		label = new GuiLabel(t, f, p, color, par, list);
 	else

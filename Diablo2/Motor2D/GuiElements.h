@@ -97,7 +97,7 @@ public:
 	bool		 mask;
 	j1Module*    listener;
 	SDL_Rect     tex_rect;
-	TextColor color;
+	SDL_Color color;
 private:
 	SDL_Rect     local_rect;
 	//For now we'll just use one listener
@@ -108,7 +108,7 @@ class GuiLabel : public GuiElement
 {
 public:
 	//TODO: Manage the font size
-	GuiLabel(p2SString t, _TTF_Font* f, iPoint p, TextColor color, GuiElement* par, j1Module* list);
+	GuiLabel(p2SString t, _TTF_Font* f, iPoint p, SDL_Color color, GuiElement* par, j1Module* list);
 	~GuiLabel(){}
 
 	void Draw();

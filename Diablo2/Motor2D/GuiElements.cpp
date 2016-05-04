@@ -35,7 +35,7 @@ GuiElement::GuiElement(iPoint p, SDL_Rect r, GUI_Type t, GuiElement* par, j1Modu
 	mask = false;
 }
 
-GuiLabel::GuiLabel(p2SString t, _TTF_Font* f, iPoint p, TextColor color, GuiElement* par, j1Module* list = NULL)
+GuiLabel::GuiLabel(p2SString t, _TTF_Font* f, iPoint p, SDL_Color color, GuiElement* par, j1Module* list = NULL)
 	: GuiElement(p, GUI_LABEL, par, list), text(t), font(f)
 {
 	// NOTE :Have to polish the texture sistem in the label

@@ -4,8 +4,6 @@
 #include "j1Game.h"
 #include "j1Gui.h"
 
-//NOTE: PROVISIONAL 
-#include "j1Fonts.h"
 hudBlood::hudBlood()
 {
 	active = true;

@@ -95,20 +95,6 @@ SDL_Texture* j1Fonts::Print(const char* text, SDL_Color color, TTF_Font* font)
 	return ret;
 }
 
-SDL_Texture* j1Fonts::Print(const char* text, TextColor color, TTF_Font* font)
-{
-	switch (color)
-	{
-	case FONT_BLACK: return Print(text, { 0, 0, 0 }, font); break;
-	case FONT_RED: return Print(text, { 255, 0, 0 },font); break;
-	case FONT_GREEN: return Print(text, { 0, 255, 0 }, font); break;
-	case FONT_BLUE:return  Print(text, { 0, 0, 255 }, font); break;
-	case FONT_YELLOW: return Print(text, { 255, 255, 0 }, font); break;
-	case FONT_WHITE: return Print(text, { 255, 255, 255 }, font); break;
-	
-	}
-}
-
 // calculate size of a text
 bool j1Fonts::CalcSize(const char* text, int& width, int& height, _TTF_Font* font) const
 {
