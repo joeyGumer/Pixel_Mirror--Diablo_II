@@ -70,7 +70,6 @@ private:
 	SDL_Texture*	atlas;
 	p2SString		atlas_file_name;
 	int             mouse_x, mouse_y;
-	int             click;
 
 	GuiElement*		focus;
 	GuiMouseImage* mouse = NULL;

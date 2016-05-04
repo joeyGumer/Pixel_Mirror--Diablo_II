@@ -49,9 +49,9 @@ bool j1Player::Start()
 	//Create skills:
 	basic_attack = new sklBasicAttack();
 
-	player_attack = App->audio->LoadFx("audio/fx/PlayerAttack.wav");
-	player_death = App->audio->LoadFx("audio/fx/PlayerDeath.wav");
-	player_gethit = App->audio->LoadFx("audio/fx/PlayerGetHit.wav");
+	player_attack = App->audio->LoadFx("audio/fx/PlayerAttack.ogg");
+	player_death = App->audio->LoadFx("audio/fx/PlayerDeath.ogg");
+	player_gethit = App->audio->LoadFx("audio/fx/PlayerGetHit.ogg");
 
 	//Debug tile
 	p_debug = App->tex->Load("maps/mini_path.png");

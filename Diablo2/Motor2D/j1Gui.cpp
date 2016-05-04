@@ -40,7 +40,6 @@ bool j1Gui::Awake(pugi::xml_node& conf)
 // Called before the first frame
 bool j1Gui::Start()
 {
-	click = App->audio->LoadFx("audio/fx/Cursor.wav");
 	mouse_clicked == false;
 	atlas = App->tex->Load(atlas_file_name.GetString());
 	//Disables the cursor
@@ -158,7 +157,6 @@ bool j1Gui::PreUpdate()
 
 	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 	{
-		App->audio->PlayFx(click, 0);
 		mouse_clicked = true;
 		mouse->SetTextureRect({ 222, 98, 33, 26 });
 	}
