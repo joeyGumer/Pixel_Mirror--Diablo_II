@@ -963,8 +963,8 @@ void EntEnemyCouncil::StateMachine()
 		sprite_rect.w = sprite_dim.x = 78;
 		sprite_rect.h = sprite_dim.y = 54;
 		sprite_pivot = pivot = { collider_rect.w / 2, collider_rect.h - 20 };
-		sprite_pivot.y += 5;
-		sprite_pivot.x += 40;
+		sprite_pivot.y += 7;
+		sprite_pivot.x += 45;
 
 		break;
 
@@ -993,7 +993,7 @@ void EntEnemyCouncil::StateMachine()
 		sprite_rect.h = sprite_dim.y = 81;
 		sprite_pivot = pivot = { collider_rect.w / 2, collider_rect.h - 20 };
 		sprite_pivot.y += 5;
-		sprite_pivot.x += 40;
+		sprite_pivot.x += 30;
 
 		break;
 	}

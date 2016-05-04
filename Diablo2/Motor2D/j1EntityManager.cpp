@@ -100,8 +100,8 @@ bool j1EntityManager::Update(float dt)
 	{
 		SDL_Rect cam = App->render->camera;
 		fPoint pos = item->second->position;
-		if (pos.x + 100 > -cam.x && pos.x - 100 < -cam.x + cam.w &&
-			pos.y + 100 > -cam.y && pos.y - 100 < -cam.y + cam.h)
+		if (pos.x > -cam.x - UPDATE_MARGIN && pos.x < -cam.x + cam.w + UPDATE_MARGIN &&
+			pos.y > -cam.y - UPDATE_MARGIN && pos.y < -cam.y + cam.h + UPDATE_MARGIN)
 		{
 			item->second->Update(dt);
 		}
@@ -115,6 +115,11 @@ bool j1EntityManager::Update(float dt)
 		if (App->debug)
 		{
 			item->second->DrawDebug();
+
+			SDL_Rect cam = App->render->camera;
+			fPoint pos = item->second->position;
+
+			App->render->DrawQuad({ -cam.x - UPDATE_MARGIN, -cam.y - UPDATE_MARGIN, cam.w + UPDATE_MARGIN, cam.h + UPDATE_MARGIN }, 255, 0, 0, 255, false);
 		}
 
 	}

@@ -13,6 +13,8 @@ class Entity;
 class GuiLabel;
 using namespace std;
 
+#define UPDATE_MARGIN 75
+
 class j1EntityManager : public j1Module
 {
 
