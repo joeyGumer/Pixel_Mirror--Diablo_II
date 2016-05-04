@@ -191,6 +191,37 @@ bool snOutdoor1::Update(float dt)
 			
 	}
 
+	else if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && App->debug)
+	{
+		iPoint p;
+		p = App->input->GetMouseWorldPosition();
+		p.x += App->map->data.tile_width / 2;
+		p.y += App->map->data.tile_height / 2;
+
+		Entity* ent = App->game->em->Add(p, ENEMY);
+
+	}
+
+	else if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && App->debug)
+	{
+		iPoint p;
+		p = App->input->GetMouseWorldPosition();
+		p.x += App->map->data.tile_width / 2;
+		p.y += App->map->data.tile_height / 2;
+
+		Entity* ent = App->game->em->Add(p, ENEMY_CRAWLER);
+	}
+
+	else if (App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN && App->debug)
+	{
+		iPoint p;
+		p = App->input->GetMouseWorldPosition();
+		p.x += App->map->data.tile_width / 2;
+		p.y += App->map->data.tile_height / 2;
+
+		Entity* ent = App->game->em->Add(p, ENEMY_BOSS);
+	}
+
 	//Map
 	App->map->Draw();
 	

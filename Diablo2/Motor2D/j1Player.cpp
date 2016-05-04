@@ -193,7 +193,10 @@ bool j1Player::CleanUp()
 	App->tex->UnLoad(p_death);
 	
 	//Skills deleted
-	delete basic_attack;
+	if (basic_attack)
+	{
+		RELEASE(basic_attack);
+	}	
 
 	//Take an eye on this
 	if (sprite)

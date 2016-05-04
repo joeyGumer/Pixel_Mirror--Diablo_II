@@ -341,6 +341,7 @@ bool GuiInventory::CoordExist(iPoint& coord)
 //Deletes all items (only for this prototype)
 void GuiInventory::CleanItems()
 {
+	//NOTE: Crash here when closing after returning to Main Menu
 	list<GuiItem*>::iterator it = items.begin();
 	for (; it != items.end(); it++)
 	{

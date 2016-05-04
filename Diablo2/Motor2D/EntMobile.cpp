@@ -5,6 +5,7 @@
 #include "j1Game.h"
 #include "j1Pathfinding.h"
 #include "j1EntityManager.h"
+#include "j1Collision.h"
 
 //Constructor
 EntMobile::EntMobile(const iPoint &p, uint ID) : Entity(p, ID)
@@ -72,6 +73,9 @@ void EntMobile::Move(float dt)
 
 	position.x += int(vel.x);
 	position.y += int(vel.y);
+
+	collider->rect.x += int(vel.x);
+	collider->rect.y += int(vel.y);
 }
 
 void EntMobile::UpdateVelocity(float dt)

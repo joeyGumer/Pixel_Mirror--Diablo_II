@@ -10,6 +10,7 @@
 #include "p2Point.h"
 #include "snWin.h"
 #include "snDungeon1.h"
+#include "j1Collision.h"
 
 
 //EntEnemy
@@ -184,6 +185,8 @@ EntEnemyWolf::EntEnemyWolf(const iPoint &p, uint ID) : EntEnemy(p, ID)
 	damage = 3;
 
 	last_update = PATHFINDING_FRAMES;
+
+	collider = App->collision->AddCollider(GetPlayerRect(), COLLIDER_ENEMY, App->game->em);
 
 	//Sprite creation
 	fPoint po = GetPivotPosition();
@@ -470,6 +473,8 @@ EntEnemyCrawler::EntEnemyCrawler(const iPoint &p, uint ID) : EntEnemy(p, ID)
 	blood_drop = 50;
 
 	last_update = PATHFINDING_FRAMES;
+
+	collider = App->collision->AddCollider(GetPlayerRect(), COLLIDER_ENEMY, App->game->em);
 
 	//Sprite creation
 
@@ -766,6 +771,8 @@ EntEnemyBoss::EntEnemyBoss(const iPoint &p, uint ID) : EntEnemy(p, ID)
 	damage = 7;
 
 	last_update = PATHFINDING_FRAMES;
+
+	collider = App->collision->AddCollider(GetPlayerRect(), COLLIDER_ENEMY, App->game->em);
 
 	//Sprite creation
 
