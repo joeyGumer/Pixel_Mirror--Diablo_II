@@ -11,8 +11,6 @@ class Collider;
 enum ENTITY_TYPE
 {
 	ENEMY,
-	ENEMY_CRAWLER,
-	ENEMY_BOSS,
 	NPC,
 	PROP,
 	ITEM,

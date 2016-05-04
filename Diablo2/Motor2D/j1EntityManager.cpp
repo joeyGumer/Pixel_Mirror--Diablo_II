@@ -9,6 +9,7 @@
 #include "j1Render.h"
 #include "EntItem.h"
 #include "EntPortal.h"
+#include "EntEnemy.h"
 
 #include "j1Textures.h"
 #include "j1Collision.h"
@@ -178,19 +179,50 @@ Entity* j1EntityManager::Add(iPoint &pos, ENTITY_TYPE type)
 		case (ENEMY) :
 			entity = new EntEnemyWolf(pos, ++next_ID);
 			break;
-
-		case (ENEMY_CRAWLER) :
-			entity = new EntEnemyCrawler(pos, ++next_ID);
-			break;
-
-		case (ENEMY_BOSS) :
-			entity = new EntEnemyBoss(pos, ++next_ID);
-			break;
 		case (ITEM_HEALTH) :
 			entity = new itmPotionHP(pos, ++next_ID);
 			break;
 		case(PORTAL) :
 			entity = new EntPortal(pos, ++next_ID);
+		}
+
+		// We add the new entity to the map of active entities. 
+		active_entities.insert(pair<uint, Entity*>(next_ID, entity));
+	}
+
+	return entity;
+}
+
+Entity* j1EntityManager::AddEnemy(iPoint &pos, ENEMY_TYPE type)
+{
+	Entity* entity = NULL;
+	iPoint tile_pos = App->map->WorldToMap(pos.x, pos.y);
+
+	// Checking for another bricks already on the map_tile specified by argument pos.
+	map<uint, Entity*>::iterator item = active_entities.begin();
+
+	for (; item != active_entities.end(); item++)
+	{
+		if (EntityOnCoords(pos) != NULL)
+			return entity; // No entity is created!
+	}
+
+	if (App->pathfinding->IsWalkable(tile_pos))	// Can we add a new entity on that tile? i.e. Is that tile walkable?
+	{
+		switch (type)
+		{
+			//NOTE: to diferentiate the kinds of enemies, put ENEMY_TYPE enum, but don't use the one from the diferent kinds of entities
+		case (ENEMY_WOLF) :
+			entity = new EntEnemyWolf(pos, ++next_ID);
+			break;
+
+		case (ENEMY_CRAWLER) :
+			entity = new EntEnemyCrawler(pos, ++next_ID);
+			break;
+
+		case (ENEMY_COUNCIL) :
+			entity = new EntEnemyCouncil(pos, ++next_ID);
+			break;
 		}
 
 		// We add the new entity to the map of active entities. 
@@ -251,7 +283,7 @@ Entity* j1EntityManager::EntityOnCoords(iPoint &pos)
 	for (; item != active_entities.rend(); ++item)
 	{
 		//NOTE: Have to be specified to just Enemy....
-		if (item->second->type == ENEMY || item->second->type == ENEMY_CRAWLER || item->second->type == ENEMY_BOSS)
+		if (item->second->type == ENEMY)
 			if (((EntEnemy*)item->second)->current_action == ENTITY_DEATH)
 				continue;
 

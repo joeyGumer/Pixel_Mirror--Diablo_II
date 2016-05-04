@@ -8,6 +8,7 @@
 #include <vector>
 
 enum ENTITY_TYPE;
+enum ENEMY_TYPE;
 class Entity;
 class GuiLabel;
 using namespace std;
@@ -41,6 +42,7 @@ public:
 	bool CleanUp();
 
 	Entity* Add(iPoint &pos, ENTITY_TYPE type);
+	Entity* AddEnemy(iPoint &pos, ENEMY_TYPE type);
 	bool Remove(uint id);
 	Entity* GetEntity(uint id);
 

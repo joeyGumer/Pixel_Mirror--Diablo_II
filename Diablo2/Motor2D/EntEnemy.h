@@ -4,12 +4,12 @@
 #include "EntMobile.h"
 #include "j1Timer.h"
 
-/*enum ENEMY_TYPE
+enum ENEMY_TYPE
 {
 	ENEMY_WOLF,
 	ENEMY_CRAWLER,
-	ENEMY_BOSS,
-};*/
+	ENEMY_COUNCIL,
+};
 
 class j1Player;
 
@@ -56,7 +56,7 @@ public:
 	//Detection
 	float	agro_range;
 
-	//ENEMY_TYPE emy_type;
+	ENEMY_TYPE enemy_type;
 	int		damage;
 
 	//Pure Blood System;
@@ -109,12 +109,12 @@ public:
 };
 
 
-class EntEnemyBoss : public EntEnemy
+class EntEnemyCouncil : public EntEnemy
 {
 public:
 
 	//Constructor
-	EntEnemyBoss(const iPoint &p, uint ID);
+	EntEnemyCouncil(const iPoint &p, uint ID);
 
 	bool Update(float dt);
 

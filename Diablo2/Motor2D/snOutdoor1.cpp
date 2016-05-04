@@ -16,6 +16,7 @@
 #include "j1Game.h"
 #include "snDungeon1.h"
 #include "EntPortal.h"
+#include "EntEnemy.h"
 
 // quit log en no debug
 #include "p2Log.h"
@@ -198,7 +199,7 @@ bool snOutdoor1::Update(float dt)
 		p.x += App->map->data.tile_width / 2;
 		p.y += App->map->data.tile_height / 2;
 
-		Entity* ent = App->game->em->Add(p, ENEMY);
+		Entity* ent = App->game->em->AddEnemy(p, ENEMY_WOLF);
 
 	}
 
@@ -209,7 +210,7 @@ bool snOutdoor1::Update(float dt)
 		p.x += App->map->data.tile_width / 2;
 		p.y += App->map->data.tile_height / 2;
 
-		Entity* ent = App->game->em->Add(p, ENEMY_CRAWLER);
+		Entity* ent = App->game->em->AddEnemy(p, ENEMY_CRAWLER);
 	}
 
 	else if (App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN && App->debug)
@@ -219,7 +220,7 @@ bool snOutdoor1::Update(float dt)
 		p.x += App->map->data.tile_width / 2;
 		p.y += App->map->data.tile_height / 2;
 
-		Entity* ent = App->game->em->Add(p, ENEMY_BOSS);
+		Entity* ent = App->game->em->AddEnemy(p, ENEMY_COUNCIL);
 	}
 
 	//Map

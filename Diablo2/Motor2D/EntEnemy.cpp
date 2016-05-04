@@ -20,6 +20,7 @@
 EntEnemy::EntEnemy(const iPoint &p, uint ID) : EntMobile(p, ID)
 {
 	blood_drop = 0;
+	type = ENEMY;
 }
 
 //Drawing methods
@@ -172,12 +173,11 @@ EntEnemyWolf::EntEnemyWolf(const iPoint &p, uint ID) : EntEnemy(p, ID)
 	current_animation_set = idle;
 	current_animation = &current_animation_set[current_direction];
 
-	type = ENEMY;
-
 	HP_max = HP_current = 100;
 	speed = 100.0f;
 
 	movement = false;
+	enemy_type = ENEMY_WOLF;
 
 	attack_range = 50.0f;
 	agro_range = 150.0f;
@@ -458,7 +458,7 @@ EntEnemyCrawler::EntEnemyCrawler(const iPoint &p, uint ID) : EntEnemy(p, ID)
 	current_animation_set = idle;
 	current_animation = &current_animation_set[current_direction];
 
-	type = ENEMY;
+	enemy_type = ENEMY_CRAWLER;
 
 	HP_max = HP_current = 100;
 	speed = 100.0f;
@@ -746,9 +746,9 @@ void EntEnemyCrawler::SetAnimations()
 //----------------------------
 
 //Constructor
-EntEnemyBoss::EntEnemyBoss(const iPoint &p, uint ID) : EntEnemy(p, ID)
+EntEnemyCouncil::EntEnemyCouncil(const iPoint &p, uint ID) : EntEnemy(p, ID)
 {
-	name = "boss";
+	name = "council member";
 	tex = idle_tex = App->game->em->boss_idle;
 	walk_tex = App->game->em->boss_walk;
 	death_tex = App->game->em->boss_death;
@@ -758,7 +758,7 @@ EntEnemyBoss::EntEnemyBoss(const iPoint &p, uint ID) : EntEnemy(p, ID)
 	current_animation_set = idle;
 	current_animation = &current_animation_set[current_direction];
 
-	type = ENEMY;
+	enemy_type = ENEMY_COUNCIL;
 
 	HP_max = HP_current = 400;
 	speed = 100.0f;
@@ -785,7 +785,7 @@ EntEnemyBoss::EntEnemyBoss(const iPoint &p, uint ID) : EntEnemy(p, ID)
 }
 
 //Update
-bool EntEnemyBoss::Update(float dt)
+bool EntEnemyCouncil::Update(float dt)
 {
 	if (!dead)
 	{
@@ -845,7 +845,7 @@ bool EntEnemyBoss::Update(float dt)
 	return true;
 }
 
-ENTITY_STATE EntEnemyBoss::UpdateAction()
+ENTITY_STATE EntEnemyCouncil::UpdateAction()
 {
 	if (current_input != ENTITY_INPUT_NULL && current_input != previous_input)
 	{
@@ -907,7 +907,7 @@ ENTITY_STATE EntEnemyBoss::UpdateAction()
 	return current_action;
 }
 
-void EntEnemyBoss::EntityEvent(ENTITY_EVENT even)
+void EntEnemyCouncil::EntityEvent(ENTITY_EVENT even)
 {
 	switch (even)
 	{
@@ -918,7 +918,7 @@ void EntEnemyBoss::EntityEvent(ENTITY_EVENT even)
 	}
 }
 
-void EntEnemyBoss::StateMachine()
+void EntEnemyCouncil::StateMachine()
 {
 	//NOTE: so maaaany wrong things
 	iPoint pos(position.x - 30, position.y + 30);
@@ -981,7 +981,7 @@ void EntEnemyBoss::StateMachine()
 	}
 }
 
-void EntEnemyBoss::SetAnimations()
+void EntEnemyCouncil::SetAnimations()
 {
 	//NOTE: this should not go here
 	collider_rect.w = sprite_rect.w = sprite_dim.x = 77;

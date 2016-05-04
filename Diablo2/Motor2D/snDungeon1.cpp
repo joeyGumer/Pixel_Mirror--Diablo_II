@@ -14,7 +14,7 @@
 #include "snOutdoor1.h"
 #include "j1Player.h"
 #include "EntPortal.h"
-
+#include "EntEnemy.h"
 
 
 
@@ -112,7 +112,7 @@ bool snDungeon1::Update(float dt)
 			//if (a == 0)
 			//App->game->em->Add(p, ENEMY);
 			//App->game->em->Add(p, ENEMY_CRAWLER);
-			App->game->em->Add(p, ENEMY_CRAWLER);
+			App->game->em->AddEnemy(p, ENEMY_CRAWLER);
 			p = App->map->WorldToMap(p.x, p.y);
 			int i = 0;
 		}
@@ -220,7 +220,7 @@ void snDungeon1::AddEnemies()
 		{
 			tile_pos.x -= 4;
 		}
-		to_add = App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
+		to_add = App->game->em->AddEnemy(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
 		if (to_add != NULL)
 			entity_list.push_back(to_add);
 		tile_pos.y -= 4;
@@ -233,7 +233,7 @@ void snDungeon1::AddEnemies()
 		{
 			tile_pos.x += 3;
 		}
-		to_add = App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
+		to_add = App->game->em->AddEnemy(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
 		if (to_add != NULL)
 			entity_list.push_back(to_add);
 		tile_pos.y -= 4;
@@ -246,7 +246,7 @@ void snDungeon1::AddEnemies()
 		{
 			tile_pos.x += 3;
 		}
-		to_add = App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
+		to_add = App->game->em->AddEnemy(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
 		if (to_add != NULL)
 			entity_list.push_back(to_add);
 		tile_pos.y -= 3;
@@ -259,7 +259,7 @@ void snDungeon1::AddEnemies()
 		{
 			tile_pos.x += 2;
 		}
-		to_add = App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
+		to_add = App->game->em->AddEnemy(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
 		if (to_add != NULL)
 			entity_list.push_back(to_add);
 		tile_pos.y -= 3;
@@ -272,7 +272,7 @@ void snDungeon1::AddEnemies()
 		{
 			tile_pos.x += 3;
 		}
-		to_add = App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
+		to_add = App->game->em->AddEnemy(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
 		if (to_add != NULL)
 			entity_list.push_back(to_add);
 		tile_pos.y -= 4;
@@ -285,7 +285,7 @@ void snDungeon1::AddEnemies()
 		{
 			tile_pos.x += 1;
 		}
-		to_add = App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
+		to_add = App->game->em->AddEnemy(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
 		if (to_add != NULL)
 			entity_list.push_back(to_add);
 		tile_pos.y -= 2;
@@ -300,7 +300,7 @@ void snDungeon1::AddEnemies()
 		}
 		else
 		{
-			to_add = App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
+			to_add = App->game->em->AddEnemy(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
 			if (to_add != NULL)
 				entity_list.push_back(to_add);
 		}
@@ -317,7 +317,7 @@ void snDungeon1::AddEnemies()
 		}
 		else
 		{
-			to_add = App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
+			to_add = App->game->em->AddEnemy(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
 			if (to_add != NULL)
 				entity_list.push_back(to_add);
 		}
@@ -334,7 +334,7 @@ void snDungeon1::AddEnemies()
 		}
 		else
 		{
-			to_add = App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
+			to_add = App->game->em->AddEnemy(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
 			if (to_add != NULL)
 				entity_list.push_back(to_add);
 		}
@@ -350,7 +350,7 @@ void snDungeon1::AddEnemies()
 		}
 		else
 		{
-			to_add = App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
+			to_add = App->game->em->AddEnemy(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
 			if (to_add != NULL)
 				entity_list.push_back(to_add);
 		}
@@ -366,7 +366,7 @@ void snDungeon1::AddEnemies()
 		}
 		else
 		{
-			to_add = App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
+			to_add = App->game->em->AddEnemy(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
 			if (to_add != NULL)
 				entity_list.push_back(to_add);
 		}
@@ -380,7 +380,7 @@ void snDungeon1::AddEnemies()
 			tile_pos.x += 3;
 		}
 
-		to_add = App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
+		to_add = App->game->em->AddEnemy(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
 		if (to_add != NULL)
 			entity_list.push_back(to_add);
 		
@@ -391,7 +391,7 @@ void snDungeon1::AddEnemies()
 	for (int i = 0; i < 8; i++)
 	{
 
-		to_add = App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
+		to_add = App->game->em->AddEnemy(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
 		if (to_add != NULL)
 			entity_list.push_back(to_add);
 
@@ -408,7 +408,7 @@ void snDungeon1::AddEnemies()
 		}
 		else
 		{
-			to_add = App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
+			to_add = App->game->em->AddEnemy(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
 			if (to_add != NULL)
 				entity_list.push_back(to_add);
 		}
@@ -422,7 +422,7 @@ void snDungeon1::AddEnemies()
 			tile_pos.x += 2;
 			tile_pos.y += 2;
 		}
-		to_add = App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
+		to_add = App->game->em->AddEnemy(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
 		if (to_add != NULL)
 			entity_list.push_back(to_add);
 
@@ -431,7 +431,7 @@ void snDungeon1::AddEnemies()
 	}
 
 	tile_pos = { 93, 138 };
-	App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_BOSS);
+	App->game->em->AddEnemy(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_COUNCIL);
 
 	tile_pos = { 93, 149 };
 	for (int i = 0; i < 6; i++)
@@ -443,7 +443,7 @@ void snDungeon1::AddEnemies()
 		}
 		else
 		{
-			to_add = App->game->em->Add(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
+			to_add = App->game->em->AddEnemy(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
 			if (to_add != NULL)
 				entity_list.push_back(to_add);
 		}
