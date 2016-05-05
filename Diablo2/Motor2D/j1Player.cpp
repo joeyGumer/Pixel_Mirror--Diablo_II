@@ -792,7 +792,7 @@ void j1Player::HandleInput()
 		{ 
 			current_input = INPUT_SKILL;
 		}
-		else
+		else 
 		{
 			InitMovement();
 		}
@@ -818,7 +818,7 @@ void j1Player::HandleInput()
 			SetInput(INPUT_CAST);
 			input_locked = true;
 		}*/
-		else
+		else 
 		{
 			InitMovement();
 		}
@@ -830,7 +830,7 @@ void j1Player::HandleInput()
 		{
 			walk_frame++;
 
-			if (walk_frame >= WALK_FRAMES_COUNT)
+			if (walk_frame >= WALK_FRAMES_COUNT && App->map->IsAtTileCenter(p_position.x, p_position.y))
 			{
 				InitMovement();
 			}
@@ -845,7 +845,7 @@ void j1Player::HandleInput()
 		{
 			walk_frame++;
 
-			if (walk_frame >= WALK_FRAMES_COUNT)
+			if (walk_frame >= WALK_FRAMES_COUNT && App->map->IsAtTileCenter(p_position.x, p_position.y))
 			{
 				InitMovement();
 			}

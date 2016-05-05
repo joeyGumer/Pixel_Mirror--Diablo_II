@@ -203,6 +203,20 @@ iPoint j1Map::GetTileBlit(int x, int y)const
 
 }
 
+bool j1Map::IsAtTileCenter(int x, int y) const
+{
+	iPoint tmp(x, y);
+	iPoint center = WorldToMap(x, y);
+	center = GetTileCenter(center.x, center.y);
+
+	if (tmp == center)
+	{
+		return true;
+	}
+	
+	return false;
+}
+
 SDL_Rect TileSet::GetTileRect(int id) const
 {
 	int relative_id = id - firstgid;
@@ -213,6 +227,8 @@ SDL_Rect TileSet::GetTileRect(int id) const
 	rect.y = margin + ((rect.h + spacing) * (relative_id / num_tiles_width));
 	return rect;
 }
+
+
 
 // Called before quitting
 bool j1Map::CleanUp()
