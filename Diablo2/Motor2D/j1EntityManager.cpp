@@ -119,7 +119,7 @@ bool j1EntityManager::Update(float dt)
 			SDL_Rect cam = App->render->camera;
 			fPoint pos = item->second->position;
 
-			App->render->DrawQuad({ -cam.x - UPDATE_MARGIN, -cam.y - UPDATE_MARGIN, cam.w + UPDATE_MARGIN, cam.h + UPDATE_MARGIN }, 255, 0, 0, 255, false);
+			App->render->DrawQuad({ -cam.x - UPDATE_MARGIN, -cam.y - UPDATE_MARGIN, cam.w + UPDATE_MARGIN*2, cam.h + UPDATE_MARGIN*2 }, 255, 0, 0, 255, false);
 		}
 
 	}

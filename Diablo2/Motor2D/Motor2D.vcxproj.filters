@@ -136,6 +136,9 @@
     <ClCompile Include="PlayerSkills.cpp">
       <Filter>Desenvolupament  ========\Modules\j1Player\Skills\Player skills</Filter>
     </ClCompile>
+    <ClCompile Include="j1ParticleManager.cpp">
+      <Filter>Desenvolupament  ========\Modules\j1ParticleManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h">
@@ -306,6 +309,9 @@
     <ClInclude Include="PlayerSkills.h">
       <Filter>Desenvolupament  ========\Modules\j1Player\Skills\Player skills</Filter>
     </ClInclude>
+    <ClInclude Include="j1ParticleManager.h">
+      <Filter>Desenvolupament  ========\Modules\j1ParticleManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -439,6 +445,9 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Modules\j1Player\Skills\Player skills">
       <UniqueIdentifier>{a9f15b31-d592-4c86-a031-e9582e38013a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\j1ParticleManager">
+      <UniqueIdentifier>{11baf7ed-eff5-4741-9910-c092cbc37a59}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

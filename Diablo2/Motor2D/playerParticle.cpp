@@ -48,7 +48,7 @@ void playerParticle::Draw()
 
 void playerParticle::SetInitVelocity()
 {
-	iPoint target = App->input->GetMouseWorldPosition();
+	fPoint target = destination;
 
 	velocity.x = target.x - particle_rect.x;
 	velocity.y = target.y - particle_rect.y;
