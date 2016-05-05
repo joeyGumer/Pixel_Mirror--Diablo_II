@@ -74,6 +74,15 @@ enum INPUT_STATE
 	INPUT_NULL,
 };
 
+enum PLAYER_ATTRIBUTE
+{
+	STRENGHT,
+	DEXTERITY,
+	INTELLIGENCE,
+	VITALITY,
+	LUCK,
+};
+
 class EntEnemy;
 class EntItem;
 class Entity;
@@ -185,6 +194,8 @@ public:
 	j1Scene* GetDestiny();
 	bool TeleportReady();
 	void ResetTeleport();
+	
+	void SetAttribute(PLAYER_ATTRIBUTE attribute, float value);
 
 	//Collider
 	void OnCollision(Collider* c1, Collider* c2);
@@ -255,6 +266,14 @@ public:
 	int blood_current;
 
 	float attack_range = 65.0f;
+	
+	
+	float life;
+	float stamina;
+	float basic_damage;
+	float bonus_martial_damage;
+	float bonus_spell_damage;
+	float drop;
 
 	//Fx
 
