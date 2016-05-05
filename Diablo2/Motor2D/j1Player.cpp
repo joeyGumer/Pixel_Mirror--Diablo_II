@@ -534,6 +534,22 @@ void j1Player::SetMovement(int x, int y)
 	}
 }
 
+void j1Player::InitMovement()
+{
+	iPoint target;
+	//NOTE: this will be later changed
+	objective = App->game->em->EntityOnMouse();
+
+	if (objective && objective->type == ENEMY)
+	{
+		enemy = (EntEnemy*)App->game->em->EntityOnMouse();
+	}
+
+	target = App->input->GetMouseWorldPosition();
+	target = App->map->WorldToMap(target.x, target.y);
+	SetMovement(target.x, target.y);
+}
+
 void j1Player::SetNewPath(int x, int y)
 {
 	iPoint start = App->map->WorldToMap(p_position.x, p_position.y);
@@ -778,21 +794,8 @@ void j1Player::HandleInput()
 		}
 		else
 		{
-			iPoint target;
-			//NOTE: this will be later changed
-			objective = App->game->em->EntityOnMouse();
-
-			if (objective && objective->type == ENEMY)
-			{
-			enemy = (EntEnemy*)App->game->em->EntityOnMouse();
-			}
-
-			target = App->input->GetMouseWorldPosition();
-			target = App->map->WorldToMap(target.x, target.y);
-			SetMovement(target.x, target.y);
+			InitMovement();
 		}
-	
-
 	}
 
 	//NOTE: Debug purposes, must be changed! (Particle system)
@@ -817,18 +820,35 @@ void j1Player::HandleInput()
 		}*/
 		else
 		{
-			iPoint target;
-			//NOTE: this will be later changed
-			objective = App->game->em->EntityOnMouse();
+			InitMovement();
+		}
+	}
 
-			if (objective && objective->type == ENEMY)
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
+	{
+		if (current_skill->skill_type == SKILL_MELEE)
+		{
+			walk_frame++;
+
+			if (walk_frame >= WALK_FRAMES_COUNT)
 			{
-				enemy = (EntEnemy*)App->game->em->EntityOnMouse();
+				InitMovement();
 			}
+		}
+		
 
-			target = App->input->GetMouseWorldPosition();
-			target = App->map->WorldToMap(target.x, target.y);
-			SetMovement(target.x, target.y);
+	}
+
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_REPEAT)
+	{
+		if (current_skill->skill_type == SKILL_MELEE)
+		{
+			walk_frame++;
+
+			if (walk_frame >= WALK_FRAMES_COUNT)
+			{
+				InitMovement();
+			}
 		}
 	}
 	//------------

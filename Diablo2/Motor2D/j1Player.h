@@ -22,6 +22,7 @@ using namespace std;
 #define SPRITE_MARGIN int(1)
 #define PLAYER_PIVOT_OFFSET int(10)
 #define STAMINA_SPEED 0.1f
+#define WALK_FRAMES_COUNT 60
 
 
 //NOTE: provisional, this will go somewhere alse to apply to all entities, or maybe deleted because the state machine
@@ -126,6 +127,7 @@ public:
 	void SetNewPath(int x, int y);
 	void UpdateVelocity(float dt);
 	void UpdateMovement(float dt);
+	void InitMovement();
 	bool IsTargetReached();
 	void GetNewTarget();
 
@@ -210,6 +212,7 @@ public:
 	bool		movement;
 	bool		target_reached;
 	bool		path_on = true;
+	int			walk_frame = 0;
 
 	//Attack
 	bool		attacking;
