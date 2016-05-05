@@ -1216,3 +1216,37 @@ void j1Player::StateMachine()
 	}
 	current_animation = &current_animation_set[current_direction];
 }
+
+void j1Player::SetAttribute(PLAYER_ATTRIBUTE attribute, float value)
+{
+	switch (attribute)
+	{
+	case STRENGHT:
+	{
+		basic_damage += ( ( basic_damage ) * ((1 / 100) * value ) );
+	}
+		break;
+	case DEXTERITY:
+	{
+
+		bonus_martial_damage = value;
+	}
+		break;
+	case INTELLIGENCE:
+	{
+		bonus_spell_damage = value;
+	}
+		break;
+	case VITALITY:
+	{
+		life += (life + (value*4));
+		stamina += 1;
+	}
+		break;
+	case LUCK:
+	{
+		drop = value;
+	}
+		break;
+	}
+}
