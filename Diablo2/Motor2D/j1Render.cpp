@@ -363,36 +363,7 @@ bool j1Render::DrawSprite(Sprite* sprite, float speed, double angle, int pivot_x
 	iPoint piv = sprite->pivot;
 
 	Blit(sprite->texture, pos.x - piv.x, pos.y - piv.y, &(sprite->section_texture));
-	/*else
-	{
-		//NOTE: just do a blit, we don't need all this 
-		//Debug mode
-		uint scale = App->win->GetScale();
-
-		SDL_Rect rect;
-		rect.x = (int)(camera.x) + sprite->position_map.x * scale;
-		rect.y = (int)(camera.y) + sprite->position_map.y * scale;
-
-
-		SDL_QueryTexture(sprite->texture, NULL, NULL, &rect.w, &rect.h);
-
-
-		rect.w *= scale;
-		rect.h *= scale;
-
-		SDL_Point* p = NULL;
-		SDL_Point pivot;
-
-		pivot.x = pivot.y = INT_MAX;
-
-		if (SDL_RenderCopyEx(renderer, sprite->texture, NULL, &rect, 0, p, SDL_FLIP_NONE) != 0)
-		{
-			LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
-		}
-
-		App->render->DrawQuad({ rect.x, rect.y, rect.w, rect.h/2 }, 255, 0, 255, 255, false, false);
-		App->render->DrawQuad({ rect.x, rect.y + (rect.h / 2), rect.w, rect.h / 2 }, 0, 0, 255, 255, false, false);
-	}*/
+	
 	return ret;
 
 }
@@ -422,7 +393,7 @@ Sprite::Sprite(SDL_Texture* tex, iPoint& pMap, iPoint& piv, SDL_Rect& tex_sectio
 Sprite::~Sprite()
 {
 	//LOG("Destructor");
-	SDL_DestroyTexture(texture);
+	//SDL_DestroyTexture(texture);
 
 }
 

@@ -987,7 +987,7 @@ void j1Player::LowerStamina()
 
 	if (ST_current <= 0)
 	{
-		running = false;
+		App->game->HUD->belt->RunningOn();
 		SetInput(INPUT_MOVE);
 	}
 }

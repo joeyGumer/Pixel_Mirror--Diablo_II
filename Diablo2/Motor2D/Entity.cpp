@@ -21,7 +21,9 @@ Entity::Entity(const iPoint &p, uint ID)
 //Destructor
 Entity::~Entity()
 {
-	SDL_DestroyTexture(tex);
+	//NOTE :Not destroying the textures now because we had problems with this erasing textures that are not needed to be deleted
+	//Temporary
+	//SDL_DestroyTexture(tex);
 	//Take an eye on this
 	if (sprite)
 	{
