@@ -87,7 +87,7 @@ bool compare_sprites(const Sprite* first, const Sprite* second)
 	{
 		return true;
 	}
-	else if (first->y > second->y)
+	else if (first->y >= second->y)
 	{
 		return false;
 	}
