@@ -7,7 +7,7 @@ class j1Player;
 class EntItem : public EntStatic
 {
 public:
-	EntItem(const iPoint &p, uint ID);
+	EntItem(const iPoint &p, uint ID, SDL_Rect r);
 
 	void Draw()
 	{}
@@ -15,11 +15,12 @@ public:
 	{}
 
 public:
+	
 };
 
 
 
-class itmPotionHP : public EntItem
+/*class itmPotionHP : public EntItem
 {
 public:
 	itmPotionHP(const iPoint &p, uint ID);
@@ -27,5 +28,5 @@ public:
 	void Effect();
 	
 	int HP_points = 50;
-};
+};*/
 #endif

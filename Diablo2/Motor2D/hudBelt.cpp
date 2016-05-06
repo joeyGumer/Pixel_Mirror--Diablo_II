@@ -166,7 +166,7 @@ bool hudBelt::PreUpdate()
 		if (it != inventory1->items.end())
 		{
 			GuiItem* i = (*it);
-			i->Effect();
+			//i->Effect();
 			i->FreeSlots();
 			inventory1->items.remove(i);
 			RELEASE(i);
@@ -180,7 +180,7 @@ bool hudBelt::PreUpdate()
 		if (it != inventory2->items.end())
 		{
 			GuiItem* i = (*it);
-			i->Effect();
+			//i->Effect();
 			i->FreeSlots();
 			inventory2->items.remove(i);
 			RELEASE(i);
@@ -194,7 +194,7 @@ bool hudBelt::PreUpdate()
 		if (it != inventory3->items.end())
 		{
 			GuiItem* i = (*it);
-			i->Effect();
+			//i->Effect();
 			i->FreeSlots();
 			inventory3->items.remove(i);
 			RELEASE(i);
@@ -208,7 +208,7 @@ bool hudBelt::PreUpdate()
 		if (it != inventory4->items.end())
 		{
 			GuiItem* i = (*it);
-			i->Effect();
+			//i->Effect();
 			i->FreeSlots();
 			inventory4->items.remove(i);
 			RELEASE(i);

@@ -14,7 +14,6 @@ enum ENTITY_TYPE
 	NPC,
 	PROP,
 	ITEM,
-	ITEM_HEALTH,
 	PORTAL
 };
 

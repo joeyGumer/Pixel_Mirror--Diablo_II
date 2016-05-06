@@ -19,9 +19,6 @@ public:
 	void DrawDebug();
 	void Update(GuiElement* hover, GuiElement* focus);
 
-	//NOTE: the final GUARRADA
-	void Effect();
-
 	void Move();
 	
 	iPoint GetPivotPosition();

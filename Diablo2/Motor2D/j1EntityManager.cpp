@@ -195,8 +195,9 @@ Entity* j1EntityManager::Add(iPoint &pos, ENTITY_TYPE type)
 		case (ENEMY) :
 			entity = new EntEnemyWolf(pos, ++next_ID);
 			break;
-		case (ITEM_HEALTH) :
-			entity = new itmPotionHP(pos, ++next_ID);
+		case (ITEM) :
+			//NOTE: adding here lots of things
+			//entity = new EntItem(pos, ++next_ID);
 			break;
 		case(PORTAL) :
 			entity = new EntPortal(pos, ++next_ID);

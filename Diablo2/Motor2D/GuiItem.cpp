@@ -96,8 +96,6 @@ void GuiItem::FreeSlots()
 //Moves accordingly to the mouse
 void GuiItem::Move()
 { 
-	//TODO 4: Fill Move() function so, the item movement is exactly like the cursor (hint: not using the draggable property or mouse motion)
-	//and also make that the item is centered at the cursor (is at the middle not at the vertex)
 	iPoint tmp = App->input->GetMousePosition();
 	tmp.x -= GetLocalRect().w / 2;
 	tmp.y -= GetLocalRect().h / 2;
@@ -105,9 +103,3 @@ void GuiItem::Move()
 	SetLocalPosition(tmp);
 }
 
-//WARNING: guarrada
-void GuiItem::Effect()
-{
-	j1Player* player = App->game->player;
-	player->RestoreHP(50);
-}

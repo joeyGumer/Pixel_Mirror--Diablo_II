@@ -664,7 +664,7 @@ void j1Player::CheckToAttack()
 			movement = false;
 			current_input = INPUT_STOP_MOVE;
 			
-			if (objective->type == ITEM_HEALTH)
+			if (objective->type == ITEM)
 				PlayerEvent(GET_ITEM);
 			else if (objective->type == PORTAL)
 				PlayerEvent(TELEPORT);
