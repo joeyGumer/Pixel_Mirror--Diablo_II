@@ -41,7 +41,10 @@ bool snIntro::Start()
 	play_button = App->gui->AddGuiButton({ 181, 260 }, { 0, 0, 270, 35 }, { 0, 0, 270, 35 }, { 0, 36, 270, 35 }, "Single player", NULL, this);
 	intro_gui.push_back(play_button);
 
-	
+	//Controls button
+	controls_button = App->gui->AddGuiButton({ 181, 330 }, { 0, 0, 270, 35 }, { 0, 0, 270, 35 }, { 0, 36, 270, 35 }, "CONTROLS", NULL, this);
+	intro_gui.push_back(controls_button);
+
 	//Exit button
 	exit_button = App->gui->AddGuiButton({ 181, 400 }, { 0, 0, 270, 35 }, { 0, 0, 270, 35 }, { 0, 36, 270, 35 }, "ExiT Diablo II", NULL, this);
 	intro_gui.push_back(exit_button);
@@ -151,6 +154,33 @@ void snIntro::OnEvent(GuiElement* element, GUI_Event even)
 			play_button->button_image.SetTextureRect(play_button->idle_tex);
 			play_button->button_label.Center(true, true);
 			pass = true;
+		}
+			break;
+		}
+	}
+	if (controls_button == element)
+	{
+		switch (even)
+		{
+
+		case EVENT_MOUSE_LEFTCLICK_DOWN:
+		{
+			controls_button->button_image.SetTextureRect(controls_button->click_tex);
+			controls_button->button_label.SetLocalPosition({ 75, 8 });
+		}
+			break;
+
+		case EVENT_MOUSE_EXIT:
+		{
+			controls_button->button_image.SetTextureRect(controls_button->idle_tex);
+			controls_button->button_label.Center(true, true);
+		}
+			break;
+
+		case EVENT_MOUSE_LEFTCLICK_UP:
+		{
+			controls_button->button_image.SetTextureRect(controls_button->idle_tex);
+			controls_button->button_label.Center(true, true);
 		}
 			break;
 		}
