@@ -11,6 +11,7 @@
 #include "snWin.h"
 #include "snDungeon1.h"
 #include "j1Collision.h"
+#include "Item.h"
 //Provisional?
 #include "j1Audio.h"
 
@@ -675,9 +676,15 @@ void EntEnemyCrawler::StateMachine()
 		App->game->player->PlayerEvent(BLOOD_UP);
 
 		//Item out
-		r = rand() % 4;
-		if (r == 0)
-			App->game->em->Add(pos, ITEM);
+		//r = rand() % 4;
+		//if (r == 0)
+		//NOTE: high risk of memory leaks!
+		Item* test;
+		test = new Item(ITEM_CONSUMABLE, RARITY_COMMON, pos);
+		if (!test->ent_item)
+		{
+			RELEASE(test);
+		}
 
 		dead = true;
 		break;

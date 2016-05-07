@@ -15,6 +15,8 @@
 #include "hudBlood.h"
 #include "Entity.h"
 #include "EntEnemy.h"
+#include "EntItem.h"
+#include "Item.h"
 #include "EntPortal.h"
 #include "PlayerSkills.h"
 #include "SDL/include/SDL.h"
@@ -379,10 +381,9 @@ void j1Player::PlayerEvent(PLAYER_EVENT even)
 	case GET_ITEM:
 		{
 			//NOTE: GUARRALITY
-			if (App->game->HUD->inventory->AddPotion())
+			if (objective->type = ITEM)
 			{
-				if (objective->type = ITEM)
-					App->game->em->Remove(objective->id);	
+				((EntItem*)objective)->nexus->ConvertToGui();
 				objective = NULL;
 			}
 		}
@@ -1105,6 +1106,7 @@ void j1Player::SetAnimations()
 	blood_arrow->SetSkillAnimations();
 }
 
+//NOTE: why is this at player and not at the skill that uses this?
 void j1Player::SetParticles()
 {
 	particle_skill_1.image = App->tex->Load("particles/Burn/Building_Burn_1.png");

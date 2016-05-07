@@ -237,10 +237,6 @@ bool GuiInventory::IsPlaceable(GuiItem* item, iPoint& coord, bool exchange, GuiI
 	//Placing in case there's no need to do an exchange
 	if (exchange == false)
 	{
-		//TODO 3: fill this part of IsPlaceable() so, it returns if the item can or not be placed.
-		//To do this, you have to check all the slots, and if one of them are free (inventory_item = NULL), then
-		//check all the slots that the item would ocuppy if that first slot was it's reference slot. 
-		//If all those slots are free return true. But, if only one of them are occupied, return false.
 		for (int i = 0; i < item->size; i++)
 		{
 			GuiSlot* tmp = GetSlotFromCoord(coord + item->coords[i]);
@@ -257,13 +253,6 @@ bool GuiInventory::IsPlaceable(GuiItem* item, iPoint& coord, bool exchange, GuiI
 	//Placing in case there's permission to do an exchange
 	else
 	{
-		//TODO 7: make the IsPlaceable() function be able to check if there's an item under the dragegd item and then, they can be exchanged
-		//Remember, there can only be an exchange if there's just one item at the place where we want to put the dragged item, 
-		//if there's more than one, it can't be placed. If there's none, it can be placed. If there's just one item, it can be placed and exchanged
-		//Use the variable extra_item, to check if there's any, one, or more items where we want to place the dragged item.
-		//Hint : extra_item is a double pointer so the value of the pointer it is pointing, can be changed. because, maybe we will need this value to
-		//really exchange the items ;)
-
 		for (int i = 0; i < item->size; i++)
 		{
 			GuiSlot* tmp = GetSlotFromCoord(coord + item->coords[i]);

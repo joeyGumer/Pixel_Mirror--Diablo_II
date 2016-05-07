@@ -181,11 +181,12 @@ Entity* j1EntityManager::Add(iPoint &pos, ENTITY_TYPE type)
 	// Checking for another bricks already on the map_tile specified by argument pos.
 	map<uint, Entity*>::iterator item = active_entities.begin();
 
-	for (; item != active_entities.end(); item++)
+	//NOTE: disabled for now, because the items doesn't care if there's an entity
+	/*for (; item != active_entities.end(); item++)
 	{
 		if (EntityOnCoords(pos) != NULL)
 			return entity; // No entity is created!
-	}
+	}*/
 
 	if (App->pathfinding->IsWalkable(tile_pos))	// Can we add a new entity on that tile? i.e. Is that tile walkable?
 	{
@@ -196,8 +197,7 @@ Entity* j1EntityManager::Add(iPoint &pos, ENTITY_TYPE type)
 			entity = new EntEnemyWolf(pos, ++next_ID);
 			break;
 		case (ITEM) :
-			//NOTE: adding here lots of things
-			//entity = new EntItem(pos, ++next_ID);
+			entity = new EntItem(pos, ++next_ID);
 			break;
 		case(PORTAL) :
 			entity = new EntPortal(pos, ++next_ID);
@@ -299,7 +299,6 @@ Entity* j1EntityManager::EntityOnCoords(iPoint &pos)
 	map<uint, Entity*>::reverse_iterator item = active_entities.rbegin();
 	for (; item != active_entities.rend(); ++item)
 	{
-		//NOTE: Have to be specified to just Enemy....
 		if (item->second->type == ENEMY)
 			if (((EntEnemy*)item->second)->current_action == ENTITY_DEATH)
 				continue;

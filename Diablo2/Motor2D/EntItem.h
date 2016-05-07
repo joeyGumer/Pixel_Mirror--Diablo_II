@@ -4,18 +4,22 @@
 #include "EntStatic.h"
 
 class j1Player;
+class Item;
 class EntItem : public EntStatic
 {
 public:
-	EntItem(const iPoint &p, uint ID, SDL_Rect r);
+	EntItem(const iPoint &p, uint ID);
 
 	void Draw()
 	{}
 	void DrawDebug()
 	{}
 
+	void SetSprite(SDL_Rect r);
+
 public:
 	
+	Item* nexus = NULL;
 };
 
 

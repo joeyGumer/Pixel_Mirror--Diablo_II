@@ -6,8 +6,10 @@
 #include "GuiInventory.h"
 #include "j1App.h"
 #include "j1Game.h"
+#include "j1HUD.h"
+#include "hudInventory.h"
 
-Item::Item(ITEM_TYPE ty, ITEM_RARITY rare)
+Item::Item(ITEM_TYPE ty, ITEM_RARITY rare, iPoint p)
 {
 	type = ty;
 	rarity = rare;
@@ -15,11 +17,17 @@ Item::Item(ITEM_TYPE ty, ITEM_RARITY rare)
 	//NOTE: temporal, testing with potion
 	size = 1;
 	coord = new iPoint[size];
+	for (int i = 0; i < size; i++)
+	{
+		coord[i] = { 0, 0 };
+	}
+
 	rect = { 2285, 799, 29, 29 };
 
 	ent_item = NULL;
 	gui_item = NULL;
 
+	CreateEntItem(p);
 }
 
 Item::~Item()
@@ -34,29 +42,39 @@ Item::~Item()
 }
 
 //In charge to create the item, so it can be accesed from outside
-void Item::CreateEntItem(const iPoint &p, uint ID)
+void Item::CreateEntItem(iPoint &p)
 {
 	//NOTE: has to insert it to the entity manager! D:
-	ent_item = new EntItem(p, ID, rect);
+	//ent_item = new EntItem(p, ID, rect);
+	ent_item = ((EntItem*)App->game->em->Add(p, ITEM));
+	ent_item->SetSprite(rect);
+	ent_item->nexus = this;
 }
 
 
 //Changes from a entItem to guiItem and viceversa
-void Item::ConvertItem(uint ID, iPoint point)
+void Item::ConvertToEntity(iPoint point)
 {
+	if (gui_item)
+	{
+		CreateEntItem(point);
+
+		gui_item->inventory->items.remove(gui_item);
+		RELEASE(gui_item);
+	}
+}
+
+void Item::ConvertToGui()
+{
+	//NOTE: Change this to be accept a HUD_Element
 	if (ent_item)
 	{
 		gui_item = new GuiItem(size, coord, rect);
-		
-		App->game->em->Remove(ent_item->id);
-		RELEASE(ent_item);
-	}
-	else if (gui_item)
-	{
-		CreateEntItem(point, ID);
-
-		//NOTE: in process
-
+		if (App->game->HUD->inventory->AddItem(gui_item))
+		{
+			App->game->em->Remove(ent_item->id);
+			RELEASE(ent_item);
+		}
 	}
 }
 

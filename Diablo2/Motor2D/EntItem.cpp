@@ -6,12 +6,18 @@
 #include "j1Gui.h"
 #include "j1Render.h"
 
-EntItem::EntItem(const iPoint &p, uint ID, SDL_Rect r) : EntStatic(p, ID)
+EntItem::EntItem(const iPoint &p, uint ID) : EntStatic(p, ID)
 {
 	type = ITEM;
+}
 
+void EntItem::SetSprite(SDL_Rect r)
+{
 	tex = App->gui->GetAtlas();
-	sprite_rect = { 0, 0, r.w, r.h };
+
+	collider_rect.w = sprite_rect.w = sprite_dim.x = r.w;
+	collider_rect.h = sprite_rect.h = sprite_dim.y = r.h;
+
 	sprite_pivot = pivot = { sprite_rect.w, sprite_rect.h };
 
 	fPoint po = GetPivotPosition();

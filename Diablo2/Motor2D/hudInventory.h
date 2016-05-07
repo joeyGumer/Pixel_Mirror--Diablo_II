@@ -7,6 +7,7 @@ class j1HUD;
 class GuiElement;
 class GuiImage;
 class GuiInventory;
+class GuiItem;
 
 
 
@@ -43,7 +44,7 @@ public:
 
 	//NOTE: master of nope, but now i need it
 	//Change it for an addItem
-	bool AddPotion();
+	bool AddItem(GuiItem* item);
 
 public:
 

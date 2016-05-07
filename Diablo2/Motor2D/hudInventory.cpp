@@ -150,16 +150,13 @@ void hudInventory::Activate()
 
 }
 
-bool hudInventory::AddPotion()
+bool hudInventory::AddItem(GuiItem* item)
 {
 	bool ret = true;
 	//Potion
-	GuiItem* new_item;
-	iPoint coords[1] = { { 0, 0 } };
-	new_item = new GuiItem(1, coords, { 2285, 799, ITEM_SECTION_SIZE, ITEM_SECTION_SIZE });
-	if (!inventory->AutomaticAddItem(new_item))
+	if (!inventory->AutomaticAddItem(item))
 	{
-		delete new_item;
+		delete item;
 		ret = false;
 	}
 

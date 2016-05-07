@@ -8,6 +8,7 @@
 
 class GuiSlot;
 class GuiInventory;
+class Item;
 
 class GuiItem : public GuiElement
 {
@@ -33,6 +34,8 @@ public:
 	GuiSlot*		reference_slot;
 	GuiInventory*	inventory;
 	GuiImage		image;
+
+	Item*			nexus;
 };
 
 #endif _GUISLOT_H_
