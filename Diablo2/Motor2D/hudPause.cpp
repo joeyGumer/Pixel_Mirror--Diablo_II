@@ -46,11 +46,6 @@ bool hudPause::Start()
 //Called before each loop iteration
 bool hudPause::PreUpdate()
 {
-	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-	{
-		ActivateMenu();
-	}
-
 	if (main_menu == true)
 	{
 		ActivateMenu();

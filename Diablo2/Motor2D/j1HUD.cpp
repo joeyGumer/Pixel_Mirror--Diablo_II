@@ -31,7 +31,6 @@ j1HUD::j1HUD() : j1Module()
 	HUD_elements.push_back(pause_menu);
 	HUD_elements.push_back(blood);
 	
-	
 }
 
 j1HUD::~j1HUD()
@@ -60,15 +59,43 @@ bool j1HUD::PreUpdate()
 
 	if (App->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN || belt->inventorybutton_pressed == true)
 	{
-		belt->inventorybutton_pressed = false;
-		inventory->Activate();
-
+		if (skilltree->martialblood->active == true)
+		{
+			inventory->Activate();
+			skilltree->martialblood->Desactivate();
+			skilltree->bloodspells->Desactivate();
+			skilltree->nightsummoning->Desactivate();
+			belt->inventorybutton_pressed = false;
+			belt->skilltreebutton_pressed = false;
+		}
+		else
+		{
+			inventory->Activate();
+			belt->inventorybutton_pressed = false;
+		}
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || belt->skilltreebutton_pressed == true)
 	{
-		belt->skilltreebutton_pressed = false;
-		skilltree->Activate();
+		if (inventory->background->active == true && inventory->inventory->active == true)
+		{
+			skilltree->Activate();
+			inventory->background->Desactivate();
+			inventory->inventory->Desactivate();
+			belt->inventorybutton_pressed = false;
+			belt->skilltreebutton_pressed = false;
+		}
+		else
+		{
+			skilltree->Activate();
+			belt->skilltreebutton_pressed = false;
+		}
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || belt->menubutton_pressed == true)
+	{
+		belt->menubutton_pressed = false;
+		pause_menu->ActivateMenu();
 	}
 
 	for (int i = 0; i < HUD_elements.size(); i++)

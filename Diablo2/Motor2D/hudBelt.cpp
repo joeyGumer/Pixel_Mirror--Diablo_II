@@ -279,12 +279,14 @@ void hudBelt::OnEvent(GuiElement* element, GUI_Event even)
 			{
 				if (minipanel_pressed == false)
 				{
+					HUDornament->Desactivate();
 					minipanel_pressed = true;
 					minipanelbutton->SetTextureRect({ 281, 253, 16, 27 });
 					minipanel->Activate();
 				}
 				else
 				{
+					HUDornament->Activate();
 					minipanel_pressed = false;
 					minipanelbutton->SetTextureRect({ 296, 253, 16, 27 });
 					minipanel->Desactivate();
@@ -302,9 +304,13 @@ void hudBelt::OnEvent(GuiElement* element, GUI_Event even)
 		case EVENT_MOUSE_LEFTCLICK_DOWN:
 		{
 			if (inventorybutton_pressed == false)
+			{
 				inventorybutton_pressed = true;
+			}
 			else
+			{
 				inventorybutton_pressed = false;
+			}
 		}
 		break;
 		case EVENT_MOUSE_ENTER:
@@ -387,6 +393,14 @@ void hudBelt::OnEvent(GuiElement* element, GUI_Event even)
 	{
 		switch (even)
 		{
+		case EVENT_MOUSE_LEFTCLICK_DOWN:
+		{
+			if (menubutton_pressed == false)
+				menubutton_pressed = true;
+			else
+				menubutton_pressed = false;
+		}
+		break;
 		case EVENT_MOUSE_ENTER:
 		{
 			game_menu->descriptionlabel->Activate();
