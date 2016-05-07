@@ -21,7 +21,7 @@
 #include "j1Audio.h"
 
 //NOTE:Partciles in development, for now we will include this
-#include "playerParticle.h"
+//#include "playerParticle.h"
 
 #include "j1Collision.h"
 
@@ -66,6 +66,7 @@ bool j1Player::Start()
 	p_run = App->tex->Load("textures/vamp_run.png");
 	p_death = App->tex->Load("textures/vamp_death.png");
 	SetAnimations();
+	SetParticles();
 
 
 
@@ -121,14 +122,6 @@ bool j1Player::PreUpdate()
 //Update
 bool j1Player::Update(float dt)
 {
-	//NOTE: Debug - Particles
-	list<playerParticle*>::iterator item;
-
-	for (item = particle_list.begin(); item != particle_list.end(); item++)
-	{
-		(*item)->Update(dt);
-	}
-
 	if (current_action != DEATH)
 	{
 		if (!App->gui->mouse_hovering)
@@ -608,6 +601,7 @@ void j1Player::UpdateAttack()
 
 void j1Player::UpdateMagic()
 {
+	/*
 	//NOTE: provisional
 	if (current_animation->CurrentFrame() >= 7 && !particle_is_casted)
 	{
@@ -622,6 +616,7 @@ void j1Player::UpdateMagic()
 		input_locked = false;
 		particle_is_casted = false;
 	}
+	*/
 }
 
 void j1Player::CheckToAttack()
@@ -1108,6 +1103,26 @@ void j1Player::SetAnimations()
 
 	basic_attack->SetSkillAnimations();
 	blood_arrow->SetSkillAnimations();
+}
+
+void j1Player::SetParticles()
+{
+	particle_skill_1.image = App->tex->Load("particles/Burn/Building_Burn_1.png");
+
+	particle_skill_1.life = 5;
+	particle_skill_1.speed.x = 0;
+	particle_skill_1.speed.y = 0;
+	particle_skill_1.anim.frames.push_back({ 0, 0, 64, 64 });
+	particle_skill_1.anim.frames.push_back({ 64, 0, 64, 64 });
+	particle_skill_1.anim.frames.push_back({ 128, 0, 64, 64 });
+	particle_skill_1.anim.frames.push_back({ 192, 0, 64, 64 });
+	particle_skill_1.anim.frames.push_back({ 256, 0, 64, 64 });
+	particle_skill_1.anim.frames.push_back({ 320, 0, 64, 64 });
+	particle_skill_1.anim.frames.push_back({ 384, 0, 64, 64 });
+	particle_skill_1.anim.frames.push_back({ 448, 0, 64, 64 });
+	particle_skill_1.anim.speed = 0.5f;
+	particle_skill_1.anim.loop = true;
+	particle_skill_1.anim.Reset();
 }
 
 void j1Player::SetDirection()

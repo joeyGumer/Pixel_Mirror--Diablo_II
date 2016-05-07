@@ -7,7 +7,9 @@
 #include "j1Textures.h"
 #include "j1Input.h"
 #include "j1Map.h"
-#include "playerParticle.h" 
+//#include "playerParticle.h" 
+#include "j1ParticleManager.h"
+#include "j1Collision.h"
 
 /*
 //--Basic Attack
@@ -76,6 +78,7 @@ void sklBloodArrow::SkillInit()
 	player->particle_destination.x = App->input->GetMouseWorldPosition().x;
 	player->particle_destination.y = App->input->GetMouseWorldPosition().y;
 	player->SetDirection(player->particle_destination);
+	//player->particle_skill_1.Enable();
 }
 
 void sklBloodArrow::SkillUpdate()
@@ -83,9 +86,16 @@ void sklBloodArrow::SkillUpdate()
 	//NOTE: provisional
 	if (player->current_animation->CurrentFrame() >= 7 && !player->particle_is_casted)
 	{
-		playerParticle* particle = new playerParticle({ player->p_position.x, player->p_position.y - 40 }, player->particle_destination);
-		player->particle_list.push_back(particle);
+		skill_particle = App->pm->AddParticle(player->particle_skill_1, player->p_position.x, player->p_position.y - 40, 20, player->particle_skill_1.image);
+		skill_particle->SetPointSpeed(5, player->particle_destination);
 		player->particle_is_casted = true;
+
+		SDL_Rect collider_pos;
+		collider_pos.x = skill_particle->position.x;
+		collider_pos.y = skill_particle->position.y;
+		collider_pos.w = skill_particle->anim.PeekCurrentFrame().w;
+		collider_pos.h = skill_particle->anim.PeekCurrentFrame().h;
+		skill_particle->collider = App->collision->AddCollider(collider_pos, COLLIDER_PARTICLE, App->game->player);
 	}
 
 	if (player->current_animation->Finished())

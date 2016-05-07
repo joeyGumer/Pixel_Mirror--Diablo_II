@@ -1,5 +1,3 @@
-/*
-
 #ifndef __j1PARTICLE_MANAGER_H__
 #define __j1PARTICLE_MANAGER_H__
 
@@ -8,15 +6,16 @@
 #include "p2Point.h"
 #include <list>
 #include "j1FileSystem.h"
+#include "j1Timer.h"
 
 #define PI 3.14159265
 
 struct SDL_Texture;
-class j1Timer;
 class Particle;
 class Emisor;
 class FireEmisor;
 class BurstEmisor;
+class Collider;
 
 class j1ParticleManager : public j1Module
 {
@@ -66,11 +65,12 @@ struct Particle
 	fPoint				speed;
 	Uint32				life;	// Time the particle life
 	bool				fxPlayed;
-	j1Timer*			timer;
+	j1Timer				timer;
 	SDL_Texture*		image = NULL;
 	bool				alive;
 	bool				active = true;
 	bool			    on = false;
+	Collider*			collider = NULL;
 
 	Particle();
 	Particle(const Particle& p);
@@ -83,6 +83,7 @@ struct Particle
 	void Disable();
 
 	void SetSpeed(float velocity, float minAngle = 0.0f, float maxAngle = 360.0f);
+	void SetPointSpeed(float velocity, fPoint target);
 };
 
 
@@ -155,5 +156,3 @@ public:
 };
 
 #endif
-
-*/

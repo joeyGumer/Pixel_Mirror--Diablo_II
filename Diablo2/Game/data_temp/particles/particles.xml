@@ -1,0 +1,50 @@
+<!-- Particles file for the game -->
+
+<particles>
+
+	<fire1>
+
+		<fire_anim x = "0" y = "219" w = "119" h = "197" frames_per_row = "20" frames_per_column = "1" frame_number = "20" speed = "0.01" loop = "true"/>
+
+		<fire_speed x = " 0 " y = "0" />
+
+		<fire_file value = "Particles/Flame/flameLargeDiablo2.png" />
+
+
+		<smoke_anim x = "0" y = "119" w = "119" h = "197" frames_per_row = "20" frames_per_column = "1" frame_number = "20" speed = "0.02" loop = "false"/>
+
+		<smoke_speed x = " 0 " y = "-100" />
+
+		<smoke_frequence value = "1.0" />
+
+		<smoke_start value = "0.0" />
+
+		<smoke_offset x = "0" y = "-1" />
+
+		<smoke_life value = "2.0" />
+
+		<smoke_file value = "Particles/Flame/smokeLargeDiablo2.png" />
+
+	</fire1>
+
+	<burst>
+
+		<burst_anim x = "0" y = "0" w = "128" h = "128" frames_per_row = "8" frames_per_column = "5" frame_number = "40" speed = "0.05" loop = "false"/>
+
+		<burst_speed x = " 0 " y = "0" />
+
+		<burst_file value ="Particles/Explosion/explosion2.png"/>
+		
+		<burst_life value = " 5 "/>
+
+		<emisor_duration value = "0.1" />
+
+		<emisor_velocity value = "300.0"/>
+
+		<min_angle value = "265.0f"/>
+
+		<max_angle value = "275.0f"/>
+
+	</burst>
+
+</particles>

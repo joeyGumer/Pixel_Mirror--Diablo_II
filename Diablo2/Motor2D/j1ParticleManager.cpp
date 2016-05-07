@@ -1,5 +1,3 @@
-/*
-
 #include "j1ParticleManager.h"
 #include "j1App.h"
 #include <math.h>
@@ -9,6 +7,7 @@
 #include "p2Log.h"
 #include "j1Timer.h"
 #include "j1Audio.h"
+#include "j1Collision.h"
 
 // PARTICLE MANAGER---------------
 
@@ -165,7 +164,7 @@ bool j1ParticleManager::LoadParticlesFile(pugi::xml_document& file)
 	bool ret = true;
 
 	char* buff;
-	int size = App->fs->Load("Particles/particles.xml", &buff);
+	int size = App->fs->Load("particles/particles.xml", &buff);
 	pugi::xml_parse_result result = file.load_buffer(buff, size);
 	RELEASE(buff);
 
@@ -194,7 +193,7 @@ Particle* j1ParticleManager::AddParticle(const Particle& p, int x, int y, Uint32
 		part->image = p.image;
 
 	part->fx = sfx;
-	part->timer->Start();
+	part->timer.Start();
 
 	//TODO 3: insert the particle in the particleList
 	particleList.push_back(part);
@@ -304,7 +303,7 @@ bool Particle::Update(float dt)
 	if (life > 0)
 	{
 		// TODO 4: if timer is bigger than the life of the particle OR particle isn't alive, then return false
-		if (timer->Read() >= life * 1000 || alive == false)
+		if (timer.Read() >= life * 1000 || alive == false)
 		{
 			ret = false;
 		}
@@ -317,8 +316,15 @@ bool Particle::Update(float dt)
 
 	if (alive == true && active == true)
 	{
-		position.x += speed.x * dt / 1000;
-		position.y += speed.y * dt / 1000;
+		//NOTE: Changed, the original one didn't work as expected
+		position.x += speed.x;
+		position.y += speed.y;
+
+		if (collider)
+		{
+			collider->rect.x = position.x;
+			collider->rect.y = position.y;
+		}
 	}
 
 	return ret;
@@ -348,7 +354,7 @@ bool Particle::PostUpdate()
 void Particle::Enable()
 {
 	active = true;
-	timer->Start();
+	timer.Start();
 }
 
 void Particle::Disable()
@@ -361,6 +367,15 @@ void Particle::SetSpeed(float velocity, float minAngle, float maxAngle)
 	float angle = minAngle + (rand() % (int)(maxAngle - minAngle));
 	speed.x = velocity * cos(angle * (PI / 180));
 	speed.y = velocity * sin(angle * (PI / 180));
+}
+
+//NOTE: This wasn't in the original code
+void Particle::SetPointSpeed(float velocity, fPoint target)
+{
+	speed.x = target.x - position.x;
+	speed.y = target.y - position.y;
+
+	speed.SetModule(velocity);
 }
 //-----------------------------------------------------
 
@@ -400,7 +415,7 @@ bool Emisor::Update(float dt) // If particles are created each frame
 	if (alive && active)
 	{
 		// TODO 5: Create a new particle with the particleEmited info and set his speed with method setSpeed
-		Particle* q = App->particle->AddParticle(particleEmited, position.x, position.y, particleEmited.life);
+		Particle* q = App->pm->AddParticle(particleEmited, position.x, position.y, particleEmited.life);
 		q->SetSpeed(velocity, minAngle, maxAngle);
 
 		position.x += speed.x * dt / 1000;
@@ -451,7 +466,7 @@ FireEmisor::FireEmisor(float time) : Emisor()
 {
 	duration = time;
 
-	pugi::xml_node fire1 = App->particle->particle_file.child("particles").child("fire1");
+	pugi::xml_node fire1 = App->pm->particle_file.child("particles").child("fire1");
 
 	int fireX = fire1.child("fire_anim").attribute("x").as_int();
 	int fireY = fire1.child("fire_anim").attribute("y").as_int();
@@ -467,7 +482,10 @@ FireEmisor::FireEmisor(float time) : Emisor()
 	const char* firePath = fire1.child("fire_file").attribute("value").as_string();
 
 	//PARTICLE_NOTE: Adapt to our code
-	//fire.anim.SetFrames(fireX, fireY, fireW, fireH, fireFPR, fireFPC, fireFrames);
+	for (int i = 0; i < fireFPC; i++)
+	{
+		fire.anim.SetFrames(fireX, fireY, fireW, fireH, fireFPR);
+	}
 	fire.anim.speed = fireAnimSpeed;
 	fire.anim.loop = fireLoop;
 	fire.speed.x = fireSpeedX;
@@ -494,7 +512,10 @@ FireEmisor::FireEmisor(float time) : Emisor()
 	const char* smokePath = fire1.child("smoke_file").attribute("value").as_string();
 
 	//PARTICLE_NOTE: Adapt to our code
-	//smoke.anim.SetFrames(smokeX, smokeY, smokeW, smokeH, smokeFPR, smokeFPC, smokeFrames);
+	for (int i = 0; i < smokeFPC; i++)
+	{
+		smoke.anim.SetFrames(smokeX, smokeY, smokeW, smokeH, smokeFPR);
+	}
 	smoke.anim.speed = smokeAnimSpeed;
 	smoke.anim.loop = smokeLoop;
 	smoke.speed.x = smokeSpeedX;
@@ -525,13 +546,13 @@ bool FireEmisor::Update(float dt)
 		if (!fireStarted)
 		{
 			fireStarted = true;
-			App->particle->addParticle(fire, position.x, position.y, fire.life);
+			App->pm->AddParticle(fire, position.x, position.y, fire.life);
 		}
 		if (timer->Read() >= smokeStart * 1000)
 		{
 			if (acumulator >= smokeFrequence * 1000)
 			{
-				App->particle->addParticle(smoke, position.x + smokeOffset.x, position.y + smokeOffset.y, smoke.life);
+				App->pm->AddParticle(smoke, position.x + smokeOffset.x, position.y + smokeOffset.y, smoke.life);
 				acumulator = 0.0f;
 			}
 			acumulator += dt;
@@ -566,7 +587,7 @@ bool FireEmisor::PostUpdate()
 BurstEmisor::BurstEmisor() : Emisor()
 {
 
-	pugi::xml_node burst1 = App->particle->particle_file.child("particles").child("burst");
+	pugi::xml_node burst1 = App->pm->particle_file.child("particles").child("burst");
 
 	int burstX = burst1.child("burst_anim").attribute("x").as_int();
 	int burstY = burst1.child("burst_anim").attribute("y").as_int();
@@ -587,6 +608,10 @@ BurstEmisor::BurstEmisor() : Emisor()
 	float max_angle = burst1.child("max_angle").attribute("value").as_float();
 
 	//PARTICLE_NOTE: Adapt to our code
+	for (int i = 0; i < burstFPC; i++)
+	{
+		burst.anim.SetFrames(burstX, burstY, burstW, burstH, burstFPR);
+	}
 	//burst.anim.SetFrames(burstX, burstY, burstW, burstH, burstFPR, burstFPC, burstFrames);
 	burst.anim.speed = burstAnimSpeed;
 	burst.anim.loop = burstLoop;
@@ -618,7 +643,7 @@ bool BurstEmisor::Update(float dt)
 		if (!burstStarted)
 		{
 			burstStarted = true;
-			App->particle->addEmisor(burst, position.x, position.y, emisor_burst.duration, burst.life, emisor_burst.velocity, emisor_burst.minAngle, emisor_burst.maxAngle, burst.image);
+			App->pm->AddEmisor(burst, position.x, position.y, emisor_burst.duration, burst.life, emisor_burst.velocity, emisor_burst.minAngle, emisor_burst.maxAngle, burst.image);
 		}
 		position.x += speed.x * dt / 1000;
 		position.y += speed.y * dt / 1000;
@@ -645,5 +670,3 @@ bool BurstEmisor::PostUpdate()
 }
 
 //----------------------------------------------------------------------
-
-*/

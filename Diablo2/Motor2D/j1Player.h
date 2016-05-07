@@ -8,6 +8,7 @@
 #include "SDL/include/SDL.h"
 #include "j1Timer.h"
 //#include "PlayerSkills.h"
+#include "j1ParticleManager.h"
 #include <vector>
 #include <list>
 
@@ -87,7 +88,6 @@ class EntEnemy;
 class EntItem;
 class Entity;
 class Sprite;
-class playerParticle;
 class j1Scene;
 class Skill;
 class sklBasicAttack;
@@ -168,6 +168,7 @@ public:
 
 	//Estructuralfunctions
 	void SetAnimations();
+	void SetParticles();
 	void SetDirection();
 	void SetDirection(fPoint pos);
 	void SetPosition(fPoint pos);
@@ -296,7 +297,7 @@ public:
 	Entity*	objective = NULL;
 
 	//NOTE: this might be changed, particles in development
-	list<playerParticle*>	particle_list;
+	Particle				particle_skill_1;
 	fPoint					particle_destination;
 	bool					particle_is_casted = false;
 

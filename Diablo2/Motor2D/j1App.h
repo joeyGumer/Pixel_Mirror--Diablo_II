@@ -24,6 +24,7 @@ class j1Fonts;
 class j1Gui;
 class j1Game;
 class j1Collision;
+class j1ParticleManager;
 
 class j1App
 {
@@ -103,6 +104,7 @@ public:
 	j1Gui*				gui = NULL;
 	j1Game*             game = NULL;
 	j1Collision*		collision = NULL;
+	j1ParticleManager*	pm = NULL;
 
 	//NOTE: Now the debug mode is global form the app, ask Ric
 	bool                debug = false;
