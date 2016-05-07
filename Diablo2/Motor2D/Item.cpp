@@ -8,6 +8,7 @@
 #include "j1Game.h"
 #include "j1HUD.h"
 #include "hudInventory.h"
+#include "j1Player.h"
 
 Item::Item(ITEM_TYPE ty, ITEM_RARITY rare, iPoint p)
 {
@@ -15,19 +16,9 @@ Item::Item(ITEM_TYPE ty, ITEM_RARITY rare, iPoint p)
 	rarity = rare;
 
 	//NOTE: temporal, testing with potion
-	size = 1;
-	coord = new iPoint[size];
-	for (int i = 0; i < size; i++)
-	{
-		coord[i] = { 0, 0 };
-	}
-
-	rect = { 2285, 799, 29, 29 };
 
 	ent_item = NULL;
 	gui_item = NULL;
-
-	CreateEntItem(p);
 }
 
 Item::~Item()
@@ -70,6 +61,7 @@ void Item::ConvertToGui()
 	if (ent_item)
 	{
 		gui_item = new GuiItem(size, coord, rect);
+		gui_item->nexus = this;
 		if (App->game->HUD->inventory->AddItem(gui_item))
 		{
 			App->game->em->Remove(ent_item->id);
@@ -82,4 +74,70 @@ void Item::ConvertToGui()
 void Item::Effect()
 {
 
+}
+
+
+/*
+//-------- Stones
+*/
+
+itmStone::itmStone(ITEM_RARITY rare, iPoint p) : Item(ITEM_STONE, rare, p)
+{
+	int x, y;
+
+	switch (rare)
+	{
+	case RARITY_COMMON:
+		buff = 4;
+		buff += rand() % 8;
+		y = 947;
+		break;
+	case RARITY_RARE:
+		buff = 10;
+		buff += rand() % 10;
+		y = 977;
+		break;
+	case RARITY_LEGENDARY:
+		buff = 17;
+		buff += rand() % 10;
+		y = 1007;
+		break;
+	}
+
+	int at = rand() % 5;
+
+	switch (at)
+	{
+	case STRENGHT:
+		attribute = STRENGHT;
+		x = 2434;
+		break;
+	case DEXTERITY:
+		attribute = DEXTERITY;
+		x = 2404;
+		break;
+	case INTELLIGENCE:
+		attribute = INTELLIGENCE;
+		x = 2374;
+		break;
+	case VITALITY:
+		attribute = VITALITY;
+		x = 2344;
+		break;
+	case LUCK:
+		attribute = LUCK;
+		x = 2314;
+		break;
+	}
+
+	rect = { x, y, ITEM_SLOT_SIZE, ITEM_SLOT_SIZE };
+
+	size = 1;
+	coord = new iPoint[size];
+	for (int i = 0; i < size; i++)
+	{
+		coord[i] = { 0, 0 };
+	}
+
+	CreateEntItem(p);
 }

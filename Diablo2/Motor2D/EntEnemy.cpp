@@ -679,8 +679,8 @@ void EntEnemyCrawler::StateMachine()
 		//r = rand() % 4;
 		//if (r == 0)
 		//NOTE: high risk of memory leaks!
-		Item* test;
-		test = new Item(ITEM_CONSUMABLE, RARITY_COMMON, pos);
+		itmStone* test;
+		test = new itmStone(RARITY_COMMON, pos);
 		if (!test->ent_item)
 		{
 			RELEASE(test);

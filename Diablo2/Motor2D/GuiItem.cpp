@@ -29,7 +29,9 @@ GuiItem::GuiItem(int s, iPoint* coord, SDL_Rect r)
 
 GuiItem::~GuiItem()
 {
-	delete[] coords;
+	RELEASE(coords);
+
+	RELEASE(nexus);
 }
 
 void GuiItem::Draw()

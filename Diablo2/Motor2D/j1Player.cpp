@@ -489,7 +489,7 @@ void j1Player::GetNewTarget()
 		}
 		else
 		{
-			SetInput(INPUT_STOP_MOVE);
+			current_input = INPUT_STOP_MOVE;
 			movement = false;
 		}
 }
@@ -658,6 +658,7 @@ void j1Player::CheckToAttack()
 			SetDirection();
 
 			movement = false;
+			attacking = false;
 			current_input = INPUT_STOP_MOVE;
 			
 			if (objective->type == ITEM)

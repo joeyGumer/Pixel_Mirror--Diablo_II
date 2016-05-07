@@ -4,6 +4,8 @@
 #include "SDL/include/SDL.h"
 #include "p2Point.h"
 
+#define ITEM_SLOT_SIZE 29
+
 enum ITEM_TYPE
 {
 	ITEM_CONSUMABLE,
@@ -21,6 +23,7 @@ enum ITEM_RARITY
 	RARITY_LEGENDARY,
 };
 
+enum PLAYER_ATTRIBUTE;
 class GuiItem;
 class EntItem;
 
@@ -59,4 +62,43 @@ public:
 	EntItem* ent_item;
 };
 
+class itmConsumable : public Item
+{
+public:
+	itmConsumable();
+};
+
+class itmRing : public Item
+{
+public:
+	itmRing();
+};
+
+class itmJewel : public Item
+{
+public:
+	itmJewel();
+};
+
+class itmStone : public Item
+{
+public:
+	itmStone(ITEM_RARITY rare, iPoint p);
+
+public:
+	PLAYER_ATTRIBUTE	attribute;
+	int					buff;
+};
+
+class itmRune : public Item
+{
+public:
+	itmRune();
+};
+
+class itmArmor : public Item
+{
+public:
+	itmArmor();
+};
 #endif _ITEM_H_
