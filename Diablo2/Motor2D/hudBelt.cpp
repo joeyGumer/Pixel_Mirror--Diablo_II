@@ -331,6 +331,18 @@ void hudBelt::OnEvent(GuiElement* element, GUI_Event even)
 	{
 		switch (even)
 		{
+		case EVENT_MOUSE_LEFTCLICK_DOWN:
+		{
+			if (statsbutton_pressed == false)
+			{
+				 statsbutton_pressed = true;
+			}
+			else
+			{
+				statsbutton_pressed = false;
+			}
+		}
+			break;
 		case EVENT_MOUSE_ENTER:
 		{
 			stats->descriptionlabel->Activate();

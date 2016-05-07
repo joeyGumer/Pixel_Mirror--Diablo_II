@@ -11,20 +11,22 @@
 #include "hudInventory.h"
 #include "hudBlood.h"
 #include "hudSkilltree.h"
-
+#include "hudStats.h"
 
 //NOTE : provisional
 #include "j1Input.h"
 
 //Constructor
 j1HUD::j1HUD() : j1Module()
-{
+{	
+	stats = new hudStats();
 	belt = new hudBelt();
 	pause_menu = new hudPause();
 	inventory = new hudInventory();
 	blood = new hudBlood();
 	skilltree = new hudSkilltree();
 
+	HUD_elements.push_back(stats);
 	HUD_elements.push_back(skilltree);
 	HUD_elements.push_back(inventory);
 	HUD_elements.push_back(belt);
@@ -89,6 +91,20 @@ bool j1HUD::PreUpdate()
 		{
 			skilltree->Activate();
 			belt->skilltreebutton_pressed = false;
+		}
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN || belt->statsbutton_pressed == true)
+	{
+		if (inventory->background->active == true && inventory->inventory->active == true)
+		{
+			stats->Activate();
+			belt->statsbutton_pressed = false;
+		}
+		else
+		{
+			stats->Activate();
+			belt->statsbutton_pressed = false;
 		}
 	}
 

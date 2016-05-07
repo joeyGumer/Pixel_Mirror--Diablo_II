@@ -14,7 +14,7 @@ class hudPause;
 class hudInventory;
 class hudBlood;
 class hudSkilltree;
-
+class hudStats;
 
 class j1HUD : public j1Module
 {
@@ -49,7 +49,7 @@ public:
 	hudInventory* inventory = NULL;
 	hudBlood* blood = NULL;
 	hudSkilltree* skilltree = NULL;
-
+	hudStats* stats = NULL;
 	vector<hudElement*> HUD_elements;
 };
 

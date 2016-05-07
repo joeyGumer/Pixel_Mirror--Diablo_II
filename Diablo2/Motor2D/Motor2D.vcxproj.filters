@@ -142,6 +142,9 @@
     <ClCompile Include="Item.cpp">
       <Filter>Desenvolupament  ========\Modules\Items</Filter>
     </ClCompile>
+    <ClCompile Include="hudStats.cpp">
+      <Filter>Desenvolupament  ========\Modules\j1HUD\hudElements\hudStats</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h">
@@ -318,6 +321,9 @@
     <ClInclude Include="Item.h">
       <Filter>Desenvolupament  ========\Modules\Items</Filter>
     </ClInclude>
+    <ClInclude Include="hudStats.h">
+      <Filter>Desenvolupament  ========\Modules\j1HUD\hudElements\hudStats</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -460,6 +466,9 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Modules\Items\Items kinds">
       <UniqueIdentifier>{bd46a69b-4891-47c1-8bd5-bef95a75744c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\j1HUD\hudElements\hudStats">
+      <UniqueIdentifier>{b8f381ac-1b42-40b9-9c0d-f8c33bc9c3ab}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
