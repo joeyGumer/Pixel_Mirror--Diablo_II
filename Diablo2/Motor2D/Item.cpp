@@ -23,6 +23,7 @@ Item::Item(ITEM_TYPE ty, ITEM_RARITY rare, iPoint p)
 
 Item::~Item()
 {
+	//NOTE: we'll, we'll need to change this, a fountain for memory leaks for sure
 	RELEASE(coord);
 
 	if (ent_item)

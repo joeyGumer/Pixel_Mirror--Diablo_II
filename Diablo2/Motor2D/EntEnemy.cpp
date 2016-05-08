@@ -33,7 +33,7 @@ void EntEnemy::DropItem(iPoint pos)
 	ITEM_RARITY rarity;
 
 	//note: HAVE TO CHANGE THIS TO VARIABLES SO IT CAN BE CHANGED BY LUCK
-	if (chance < 50)
+	if (chance < 0)
 		rarity = NO_DROP;
 	else if (chance < 85)
 		rarity = RARITY_COMMON;
