@@ -50,8 +50,21 @@ public:
 
 	GuiImage* background = NULL;
 	GuiInventory* inventory = NULL;
-	
 
+	GuiInventory* armor = NULL;
+
+	GuiInventory* jewel = NULL;
+
+	GuiInventory* ring1 = NULL;
+	GuiInventory* ring2 = NULL;
+
+	GuiInventory* stone1 = NULL;
+	GuiInventory* stone2 = NULL;
+	GuiInventory* stone3 = NULL;
+
+	GuiInventory* rune1 = NULL;
+	GuiInventory* rune2 = NULL;
+	GuiInventory* rune3 = NULL;
 };
 
 

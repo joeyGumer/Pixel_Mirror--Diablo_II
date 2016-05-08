@@ -4,6 +4,7 @@
 #include "j1Input.h"
 #include "GuiItem.h"
 #include "GuiInventory.h"
+#include "Item.h"
 
 
 
@@ -34,6 +35,63 @@ bool hudInventory::Start()
 	inventory = App->gui->AddGuiInventory({ 16, 255 }, { 1144, 843, 290, 87 }, 10, 3, ITEM_SECTION_SIZE, ITEM_SECTION_SIZE, background, this);
 	inventory->active = false;
 	hud_gui_elements.push_back(inventory);
+
+	//Armor
+	armor = App->gui->AddGuiInventory({ 131, 31 }, { 1259, 619, 60, 89 }, 1, 1, 60, 89, background, this);
+	armor->active = false;
+	armor->restriction = ITEM_ARMOR;
+	hud_gui_elements.push_back(armor);
+
+	//Stones
+	stone1 = App->gui->AddGuiInventory({ 45, 31 }, { 1173, 619, 29, 30 }, 1, 1, 29, 30, background, this);
+	stone1->active = false;
+	stone1->restriction = ITEM_STONE;
+	hud_gui_elements.push_back(stone1);
+
+	stone2 = App->gui->AddGuiInventory({ 45, 79 }, { 1173, 667, 29, 30 }, 1, 1, 29, 30, background, this);
+	stone2->active = false;
+	stone2->restriction = ITEM_STONE;
+	hud_gui_elements.push_back(stone2);
+
+	stone3 = App->gui->AddGuiInventory({ 45, 129 }, { 1173, 717, 29, 30 }, 1, 1, 29, 30, background, this);
+	stone3->active = false;
+	stone3->restriction = ITEM_STONE;
+	hud_gui_elements.push_back(stone3);
+
+	//Jewel
+	jewel = App->gui->AddGuiInventory({ 248, 31 }, { 1376, 619, 29, 30 }, 1, 1, 29, 30, background, this);
+	jewel->active = false;
+	jewel->restriction = ITEM_JEWEL;
+	hud_gui_elements.push_back(jewel);
+
+	//Rings
+	ring1 = App->gui->AddGuiInventory({ 248, 79 }, { 1376, 667, 29, 30 }, 1, 1, 29, 30, background, this);
+	ring1->active = false;
+	ring1->restriction = ITEM_RING;
+	hud_gui_elements.push_back(ring1);
+
+	ring2 = App->gui->AddGuiInventory({ 248, 129 }, { 1376, 717, 29, 30 }, 1, 1, 29, 30, background, this);
+	ring2->active = false;
+	ring2->restriction = ITEM_RING;
+	hud_gui_elements.push_back(ring2);
+
+	//Runes
+	rune1 = App->gui->AddGuiInventory({ 93, 138 }, { 1221, 726, 31, 88 }, 1, 1, 31, 88, background, this);
+	rune1->active = false;
+	rune1->restriction = ITEM_RUNE;
+	hud_gui_elements.push_back(rune1);
+
+	rune2 = App->gui->AddGuiInventory({ 145, 138 }, { 1273, 726, 31, 88 }, 1, 1, 31, 88, background, this);
+	rune2->active = false;
+	rune2->restriction = ITEM_RUNE;
+	hud_gui_elements.push_back(rune2);
+
+	rune3 = App->gui->AddGuiInventory({ 197, 138 }, { 1325, 726, 31, 88 }, 1, 1, 31, 88, background, this);
+	rune3->active = false;
+	rune3->restriction = ITEM_RUNE;
+	hud_gui_elements.push_back(rune3);
+
+
 	
 	return true;
 }

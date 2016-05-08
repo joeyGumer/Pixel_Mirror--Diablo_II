@@ -14,6 +14,7 @@ enum ITEM_TYPE
 	ITEM_STONE,
 	ITEM_RUNE,
 	ITEM_ARMOR,
+	ITEM_GENERAL,
 };
 
 enum ITEM_RARITY
@@ -67,18 +68,28 @@ class itmConsumable : public Item
 {
 public:
 	itmConsumable();
+public:
+
+	PLAYER_ATTRIBUTE attribute;
+	//NOTE: one effect
 };
 
 class itmRing : public Item
 {
 public:
 	itmRing();
+public:
+	//NOTE: 2 effects
 };
 
 class itmJewel : public Item
 {
 public:
 	itmJewel();
+public:
+	PLAYER_ATTRIBUTE* attributes;
+	int buff;
+	//NOTE: Also an effect
 };
 
 class itmStone : public Item
@@ -95,11 +106,16 @@ class itmRune : public Item
 {
 public:
 	itmRune();
+public:
+	PLAYER_ATTRIBUTE	positive_attribute;
+	PLAYER_ATTRIBUTE	negative_attribute;
 };
 
 class itmArmor : public Item
 {
 public:
 	itmArmor();
+public:
+	int buff;
 };
 #endif _ITEM_H_

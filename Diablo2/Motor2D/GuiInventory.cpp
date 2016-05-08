@@ -3,6 +3,7 @@
 #include "j1Render.h"
 #include "j1Input.h"
 #include "j1Gui.h"
+#include "Item.h"
 
 
 //Constructor
@@ -19,11 +20,13 @@ GuiInventory::GuiInventory(iPoint p, SDL_Rect r,int col, int row, int slot_w, in
 			//TODO 1: create each slot from the inventory and add the to vector slots:
 			iPoint pos = { j, i };
 			pos = SlotToInventory(pos);
-			SDL_Rect rect = { pos.x, pos.y, slot_w, slot_w };
+			SDL_Rect rect = { pos.x, pos.y, slot_w, slot_h };
 			GuiSlot tmp({ j, i }, rect, this, list);
 			slots.push_back(tmp);
 		}
 	}
+
+	restriction = ITEM_GENERAL;
 }
 
 //Destructor
@@ -233,6 +236,16 @@ void GuiInventory::AssignItemToSlots(GuiItem* item, iPoint& coord)
 bool GuiInventory::IsPlaceable(GuiItem* item, iPoint& coord, bool exchange, GuiItem** extra_item)
 {
 	//The way to check if a space is placeable is different according to the permission to do or not an exchange:
+
+	//Checks is in the inventory restriction
+	if (restriction != ITEM_GENERAL)
+	{
+		if (item->nexus->type != restriction)
+		{
+			SetSlotsState(item, RED);
+			return false;
+		}
+	}
 
 	//Placing in case there's no need to do an exchange
 	if (exchange == false)

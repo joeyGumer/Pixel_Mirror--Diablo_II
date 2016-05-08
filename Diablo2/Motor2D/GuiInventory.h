@@ -9,6 +9,7 @@
 #include <list>
 
 using namespace std;
+enum ITEM_TYPE;
 
 
 class GuiInventory : public GuiElement
@@ -109,6 +110,7 @@ public:
 
 	//List of items (list and not a vector, because if there are more than one inventory, the items will be spliced)
 	list<GuiItem*> items;
+	ITEM_TYPE restriction;
 };
 
 #endif _GUIINVENTORY_H_

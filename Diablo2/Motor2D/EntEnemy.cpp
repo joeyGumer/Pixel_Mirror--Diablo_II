@@ -29,6 +29,7 @@ EntEnemy::EntEnemy(const iPoint &p, uint ID) : EntMobile(p, ID)
 void EntEnemy::DropItem(iPoint pos)
 {
 	//NOTE: thinking of using srand for more equally distributed random generation
+	//NOTE: have to change this, the random isn't equal at all. Even when there's a 60% to have no item, it almost always drops items
 	int chance = rand() % 100;
 	ITEM_RARITY rarity;
 
