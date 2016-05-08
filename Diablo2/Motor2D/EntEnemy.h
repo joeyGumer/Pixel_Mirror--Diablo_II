@@ -38,6 +38,9 @@ public:
 	void UpdateAttack();
 	void CheckToAttack();
 
+	//Item droping Algorithm
+	void DropItem(iPoint pos);
+
 	
 public:
 

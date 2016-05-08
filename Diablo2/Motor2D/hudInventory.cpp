@@ -31,7 +31,7 @@ bool hudInventory::Start()
 	hud_gui_elements.push_back(background);
 	
 	//Creation of the inventory
-	inventory = App->gui->AddGuiInventory({ 16, 255 }, { 1144, 843, 290, 116 }, 10, 4, ITEM_SECTION_SIZE, ITEM_SECTION_SIZE, background, this);
+	inventory = App->gui->AddGuiInventory({ 16, 255 }, { 1144, 843, 290, 87 }, 10, 3, ITEM_SECTION_SIZE, ITEM_SECTION_SIZE, background, this);
 	inventory->active = false;
 	hud_gui_elements.push_back(inventory);
 	

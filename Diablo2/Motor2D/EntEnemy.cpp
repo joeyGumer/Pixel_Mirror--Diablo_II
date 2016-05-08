@@ -26,6 +26,36 @@ EntEnemy::EntEnemy(const iPoint &p, uint ID) : EntMobile(p, ID)
 	type = ENEMY;
 }
 
+void EntEnemy::DropItem(iPoint pos)
+{
+	//NOTE: thinking of using srand for more equally distributed random generation
+	int chance = rand() % 100;
+	ITEM_RARITY rarity;
+
+	//note: HAVE TO CHANGE THIS TO VARIABLES SO IT CAN BE CHANGED BY LUCK
+	if (chance < 60)
+		rarity = NO_DROP;
+	else if (chance >= 60 && chance < 85)
+		rarity = RARITY_COMMON;
+	else if (chance >= 85 && chance < 95)
+		rarity = RARITY_RARE;
+	else if (chance >= 95)
+		rarity = RARITY_LEGENDARY;
+
+
+
+	if (rarity != NO_DROP)
+	{
+		itmStone* test;
+		test = new itmStone(rarity, pos);
+		if (!test->ent_item)
+		{
+			RELEASE(test);
+		}
+	}
+
+}
+
 //Drawing methods
 void EntEnemy::Draw()
 {
@@ -679,12 +709,7 @@ void EntEnemyCrawler::StateMachine()
 		//r = rand() % 4;
 		//if (r == 0)
 		//NOTE: high risk of memory leaks!
-		itmStone* test;
-		test = new itmStone(RARITY_COMMON, pos);
-		if (!test->ent_item)
-		{
-			RELEASE(test);
-		}
+		DropItem(pos);
 
 		dead = true;
 		break;
