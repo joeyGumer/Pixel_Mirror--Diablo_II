@@ -67,17 +67,18 @@ public:
 class itmConsumable : public Item
 {
 public:
-	itmConsumable();
+	itmConsumable(ITEM_RARITY rarity, iPoint p);
 public:
 
 	PLAYER_ATTRIBUTE attribute;
 	//NOTE: one effect
+	float buff;
 };
 
 class itmRing : public Item
 {
 public:
-	itmRing();
+	itmRing(ITEM_RARITY rarity, iPoint p);
 public:
 	//NOTE: 2 effects
 };
@@ -85,7 +86,7 @@ public:
 class itmJewel : public Item
 {
 public:
-	itmJewel();
+	itmJewel(ITEM_RARITY rarity, iPoint p);
 public:
 	PLAYER_ATTRIBUTE* attributes;
 	int buff;
@@ -105,7 +106,7 @@ public:
 class itmRune : public Item
 {
 public:
-	itmRune();
+	itmRune(ITEM_RARITY rarity, iPoint p);
 public:
 	PLAYER_ATTRIBUTE	positive_attribute;
 	PLAYER_ATTRIBUTE	negative_attribute;
@@ -114,7 +115,7 @@ public:
 class itmArmor : public Item
 {
 public:
-	itmArmor();
+	itmArmor(ITEM_RARITY rarity, iPoint p);
 public:
 	int buff;
 };

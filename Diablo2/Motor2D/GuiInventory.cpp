@@ -250,16 +250,29 @@ bool GuiInventory::IsPlaceable(GuiItem* item, iPoint& coord, bool exchange, GuiI
 	//Placing in case there's no need to do an exchange
 	if (exchange == false)
 	{
-		for (int i = 0; i < item->size; i++)
+		if (slot_restriction)
 		{
-			GuiSlot* tmp = GetSlotFromCoord(coord + item->coords[i]);
+			for (int i = 0; i < item->size; i++)
+			{
+				GuiSlot* tmp = GetSlotFromCoord(coord + item->coords[i]);
+				if (tmp == NULL || tmp->inventory_item)
+				{
+					return false;
+				}
+			}
+
+			return true;
+		}
+		else
+		{
+			GuiSlot* tmp = GetSlotFromCoord(coord);
 			if (tmp == NULL || tmp->inventory_item)
 			{
 				return false;
 			}
+			
+			return true;
 		}
-		
-		return true;
 	}
 	//-----
 
@@ -277,6 +290,8 @@ bool GuiInventory::IsPlaceable(GuiItem* item, iPoint& coord, bool exchange, GuiI
 					if ((*extra_item) == NULL)
 					{
 						*extra_item = tmp->inventory_item;
+						if (!slot_restriction)
+							return true;
 					}
 					else if (*extra_item != tmp->inventory_item)
 					{
@@ -289,9 +304,14 @@ bool GuiInventory::IsPlaceable(GuiItem* item, iPoint& coord, bool exchange, GuiI
 					return false;
 				}
 			}
+			if (!slot_restriction)
+			{
+				return true;
+			}
 		}
 
 		return true;
+
 	}
 	//--------------
 

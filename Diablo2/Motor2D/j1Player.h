@@ -82,6 +82,8 @@ enum PLAYER_ATTRIBUTE
 	INTELLIGENCE,
 	VITALITY,
 	LUCK,
+	HP, //Not vitality
+	BLOOD,
 };
 
 class EntEnemy;

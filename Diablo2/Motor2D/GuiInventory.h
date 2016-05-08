@@ -111,6 +111,7 @@ public:
 	//List of items (list and not a vector, because if there are more than one inventory, the items will be spliced)
 	list<GuiItem*> items;
 	ITEM_TYPE restriction;
+	bool slot_restriction = true;
 };
 
 #endif _GUIINVENTORY_H_

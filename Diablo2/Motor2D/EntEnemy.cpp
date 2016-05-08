@@ -34,11 +34,11 @@ void EntEnemy::DropItem(iPoint pos)
 	ITEM_RARITY rarity;
 
 	//note: HAVE TO CHANGE THIS TO VARIABLES SO IT CAN BE CHANGED BY LUCK
-	if (chance < 60)
+	if (chance < 50)
 		rarity = NO_DROP;
-	else if (chance >= 60 && chance < 85)
+	else if (chance < 85)
 		rarity = RARITY_COMMON;
-	else if (chance >= 85 && chance < 95)
+	else if (chance < 95)
 		rarity = RARITY_RARE;
 	else if (chance >= 95)
 		rarity = RARITY_LEGENDARY;
@@ -47,8 +47,8 @@ void EntEnemy::DropItem(iPoint pos)
 
 	if (rarity != NO_DROP)
 	{
-		itmStone* test;
-		test = new itmStone(rarity, pos);
+		itmRing* test;
+		test = new itmRing(rarity, pos);
 		if (!test->ent_item)
 		{
 			RELEASE(test);

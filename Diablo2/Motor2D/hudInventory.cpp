@@ -78,16 +78,19 @@ bool hudInventory::Start()
 	//Runes
 	rune1 = App->gui->AddGuiInventory({ 93, 138 }, { 1221, 726, 31, 88 }, 1, 1, 31, 88, background, this);
 	rune1->active = false;
+	rune1->slot_restriction = false;
 	rune1->restriction = ITEM_RUNE;
 	hud_gui_elements.push_back(rune1);
 
 	rune2 = App->gui->AddGuiInventory({ 145, 138 }, { 1273, 726, 31, 88 }, 1, 1, 31, 88, background, this);
 	rune2->active = false;
+	rune2->slot_restriction = false;
 	rune2->restriction = ITEM_RUNE;
 	hud_gui_elements.push_back(rune2);
 
 	rune3 = App->gui->AddGuiInventory({ 197, 138 }, { 1325, 726, 31, 88 }, 1, 1, 31, 88, background, this);
 	rune3->active = false;
+	rune3->slot_restriction = false;
 	rune3->restriction = ITEM_RUNE;
 	hud_gui_elements.push_back(rune3);
 

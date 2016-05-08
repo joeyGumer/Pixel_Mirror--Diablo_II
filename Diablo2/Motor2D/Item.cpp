@@ -141,3 +141,209 @@ itmStone::itmStone(ITEM_RARITY rare, iPoint p) : Item(ITEM_STONE, rare, p)
 
 	CreateEntItem(p);
 }
+
+/*
+//---------Consumables
+*/
+
+itmConsumable::itmConsumable(ITEM_RARITY rarity, iPoint p) : Item(ITEM_CONSUMABLE, rarity, p)
+{
+	//NOTE: Have to apply %
+	int at = rand() % 2;
+
+	int x = 2464;
+	int y;
+
+	switch (at)
+	{
+	case 0:
+		attribute = HP;
+		switch (rarity)
+		{
+		case RARITY_COMMON:
+			buff = 5; //%
+			y = 797;
+			break;
+		case RARITY_RARE:
+			buff = 7.5;
+			y = 827;
+			break;
+		case RARITY_LEGENDARY:
+			buff = 10;
+			y = 857;
+			break;
+		}
+		break;
+	case 1:
+		at = rand() % 5;
+		buff = 15; //%
+
+		switch (at)
+		{
+		case 0:
+			attribute = BLOOD;
+			y = 887;
+			break;
+		case 1:
+			attribute = INTELLIGENCE;
+			y = 917;
+			break;
+		case 2:
+			attribute = DEXTERITY;
+			y = 947;
+			break;
+		case 3:
+			attribute = STRENGHT;
+			y = 977;
+			break;
+		case 4:
+			attribute = VITALITY;
+			y = 1007;
+			break;
+		}
+		
+	}
+
+
+	rect = { x, y, ITEM_SLOT_SIZE, ITEM_SLOT_SIZE };
+
+	size = 1;
+	coord = new iPoint[size];
+	for (int i = 0; i < size; i++)
+	{
+		coord[i] = { 0, 0 };
+	}
+
+	CreateEntItem(p);
+}
+
+
+
+/*
+//---------Ring
+*/
+
+itmRing::itmRing(ITEM_RARITY rarity, iPoint p) : Item(ITEM_RING, rarity, p)
+{
+	int x;
+	int y = 887;
+	int at;
+
+	switch (rarity)
+	{
+	case RARITY_COMMON:
+		at = rand() % 2;
+
+		switch (at)
+		{
+		case 0:
+			x = 2374;
+			break;
+		case 1:
+			x = 2404;
+			break;
+		}
+
+		break;
+
+	case RARITY_RARE:
+		at = rand() % 2;
+
+		switch (at)
+		{
+		case 0:
+			x = 2344;
+			break;
+		case 1:
+			x = 2434;
+			break;
+		}
+		break;
+
+	case RARITY_LEGENDARY:
+		x = 2314;
+		break;
+	}
+
+
+	rect = { x, y, ITEM_SLOT_SIZE, ITEM_SLOT_SIZE };
+
+	size = 1;
+	coord = new iPoint[size];
+	for (int i = 0; i < size; i++)
+	{
+		coord[i] = { 0, 0 };
+	}
+
+	CreateEntItem(p);
+}
+
+/*
+//---------Jewel
+*/
+
+itmJewel::itmJewel(ITEM_RARITY rarity, iPoint p) : Item(ITEM_JEWEL, rarity, p)
+{
+	int x;
+	int y = 917;
+
+	switch (rarity)
+	{
+	case RARITY_COMMON:
+		x = 2374;
+		break;
+	case RARITY_RARE:
+		x = 2404;
+		break;
+	case RARITY_LEGENDARY:
+		x = 2434;
+		break;
+	}
+
+	rect = { x, y, ITEM_SLOT_SIZE, ITEM_SLOT_SIZE };
+
+	size = 1;
+	coord = new iPoint[size];
+	for (int i = 0; i < size; i++)
+	{
+		coord[i] = { 0, 0 };
+	}
+
+	CreateEntItem(p);
+}
+
+
+/*
+//----------Rune
+*/
+itmRune::itmRune(ITEM_RARITY rarity, iPoint p) : Item(ITEM_RUNE, rarity, p)
+{
+	int y = 799;
+	int x;
+
+	switch (rarity)
+	{
+	case RARITY_COMMON:
+		x = 2374;
+		break;
+	case RARITY_RARE:
+		x = 2404;
+		break;
+	case RARITY_LEGENDARY:
+		x = 2434;
+		break;
+	}
+
+	rect = { x, y, ITEM_SLOT_SIZE, ITEM_SLOT_SIZE * 3 };
+
+	size = 3;
+	coord = new iPoint[size];
+	iPoint tmp[3] = { { 0, 0 }, { 0, 1 }, { 0, 2 } };
+
+	for (int i = 0; i < size; i++)
+	{
+		coord[i] = tmp[i];
+	}
+
+	CreateEntItem(p);
+}
