@@ -41,6 +41,7 @@ public:
 	list<_TTF_Font*>	fonts;
 	_TTF_Font*			default;
 	_TTF_Font*			description;
+	_TTF_Font*			stats;
 };
 
 

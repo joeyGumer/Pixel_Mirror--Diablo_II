@@ -37,6 +37,9 @@ bool j1Fonts::Awake(pugi::xml_node& conf)
 		path = conf.child("description_font").attribute("file").as_string();
 		size = conf.child("description_font").attribute("size").as_int();
 		description = Load(path, size);
+		path = conf.child("stats_font").attribute("file").as_string();
+		size = conf.child("stats_font").attribute("size").as_int();
+		stats = Load(path, size);
 	}
 
 	return ret;

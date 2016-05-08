@@ -220,7 +220,7 @@ void GuiLabel::SetText(p2SString t)
 		SDL_DestroyTexture(tex);
 
 	text = t.GetString();
-	tex = App->font->Print(text.GetString(),color);
+	tex = App->font->Print(text.GetString(),color,font);
 	
 	uint w, h;
 	App->tex->GetSize(tex, w, h);

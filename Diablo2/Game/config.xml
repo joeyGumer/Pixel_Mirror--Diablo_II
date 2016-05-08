@@ -13,6 +13,7 @@
   <fonts>
     <default_font file="fonts/open_sans/DiabloII.TTF" size="19"/>
     <description_font file="fonts/DIABLO_L.TTF" size="12"/>
+    <stats_font file="fonts/formal.ttf" size="10"/>
   </fonts>
 
   <gui>
