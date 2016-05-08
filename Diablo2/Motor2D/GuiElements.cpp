@@ -35,12 +35,13 @@ GuiElement::GuiElement(iPoint p, SDL_Rect r, GUI_Type t, GuiElement* par, j1Modu
 	mask = false;
 }
 
-GuiLabel::GuiLabel(p2SString t, _TTF_Font* f, iPoint p, SDL_Color color, GuiElement* par, j1Module* list = NULL)
+GuiLabel::GuiLabel(p2SString t, _TTF_Font* f, iPoint p, SDL_Color color, GuiElement* par, j1Module* list = NULL, SDL_Color backgroundColor)
 	: GuiElement(p, GUI_LABEL, par, list), text(t), font(f)
 {
 	// NOTE :Have to polish the texture sistem in the label
 	tex = App->font->Print(text.GetString(),color,f);
 	this->color = color;
+	rectColor = backgroundColor;
 	tex_rect = { 0, 0, 0, 0 };
 	App->font->CalcSize(text.GetString(), tex_rect.w, tex_rect.h);
 	SetLocalRect({ p.x, p.y, tex_rect.w, tex_rect.h});
@@ -111,7 +112,11 @@ void GuiImage::Draw()
 
 void GuiLabel::Draw()
 {
-	App->render->Blit(tex, GetScreenPosition().x - App->render->camera.x, GetScreenPosition().y - App->render->camera.y, NULL);
+	if (rectColor.a != 0)
+	{
+		App->render->DrawQuad({ (GetScreenPosition().x - App->render->camera.x) - (tex_rect.w / 8), (GetScreenPosition().y - App->render->camera.y) - (tex_rect.h / 8), tex_rect.w - (tex_rect.w / 5), tex_rect.h - (tex_rect.h / 5) }, rectColor.r, rectColor.g, rectColor.b, rectColor.a);
+	}
+	App->render->Blit(tex, GetScreenPosition().x - App->render->camera.x, GetScreenPosition().y - App->render->camera.y, NULL);	
 }
 
 void GuiInputBox::Draw()

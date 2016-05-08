@@ -108,7 +108,7 @@ class GuiLabel : public GuiElement
 {
 public:
 	//TODO: Manage the font size
-	GuiLabel(p2SString t, _TTF_Font* f, iPoint p, SDL_Color color, GuiElement* par, j1Module* list);
+	GuiLabel(p2SString t, _TTF_Font* f, iPoint p, SDL_Color color, GuiElement* par, j1Module* list ,SDL_Color backgroundColor = { 0, 0, 0, 0 } );
 	~GuiLabel(){}
 
 	void Draw();
@@ -121,6 +121,7 @@ public:
 	p2SString text;
 	_TTF_Font* font;
 	SDL_Texture* tex;
+	SDL_Color rectColor;
 	
 };
 

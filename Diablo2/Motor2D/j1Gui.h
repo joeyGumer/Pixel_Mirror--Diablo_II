@@ -42,6 +42,7 @@ public:
 	// Gui creation functions
 	GuiImage* AddGuiImage(iPoint p, SDL_Rect r, GuiElement* par, j1Module* list);
 	GuiImage* AddGuiImageWithLabel(iPoint p, SDL_Rect r, p2SString t, _TTF_Font* f, iPoint i, GuiElement* par, j1Module* list);
+	GuiLabel* AddGuiLabel(p2SString t, _TTF_Font* f, iPoint p, GuiElement* par, SDL_Color color, SDL_Color background, j1Module* list);
 	GuiLabel* AddGuiLabel(p2SString t, _TTF_Font* f, iPoint p, GuiElement* par, SDL_Color color, j1Module* list);
 	GuiLabel* AddGuiLabel(p2SString t, _TTF_Font* f, iPoint p, GuiElement* par, j1Module* list);
 	GuiInputBox* AddGuiInputBox(p2SString t, _TTF_Font* f, iPoint p, int width, SDL_Rect r, iPoint offset, GuiElement* par, j1Module* list);
