@@ -61,14 +61,11 @@ bool j1HUD::PreUpdate()
 
 	if (App->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN || belt->inventorybutton_pressed == true)
 	{
-		if (skilltree->martialblood->active == true)
+		if (skilltree->active == true)
 		{
 			inventory->Activate();
-			skilltree->martialblood->Desactivate();
-			skilltree->bloodspells->Desactivate();
-			skilltree->nightsummoning->Desactivate();
+			skilltree->Activate();
 			belt->inventorybutton_pressed = false;
-			belt->skilltreebutton_pressed = false;
 		}
 		else
 		{
@@ -79,12 +76,10 @@ bool j1HUD::PreUpdate()
 
 	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || belt->skilltreebutton_pressed == true)
 	{
-		if (inventory->background->active == true && inventory->inventory->active == true)
+		if (inventory->active == true)
 		{
 			skilltree->Activate();
-			inventory->background->Desactivate();
-			inventory->inventory->Desactivate();
-			belt->inventorybutton_pressed = false;
+			inventory->Activate();
 			belt->skilltreebutton_pressed = false;
 		}
 		else
