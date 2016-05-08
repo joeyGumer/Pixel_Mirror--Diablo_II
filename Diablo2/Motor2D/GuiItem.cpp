@@ -30,8 +30,6 @@ GuiItem::GuiItem(int s, iPoint* coord, SDL_Rect r)
 GuiItem::~GuiItem()
 {
 	RELEASE(coords);
-
-	RELEASE(nexus);
 }
 
 void GuiItem::Draw()

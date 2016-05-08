@@ -217,7 +217,7 @@ bool hudInventory::AddItem(GuiItem* item)
 	//Potion
 	if (!inventory->AutomaticAddItem(item))
 	{
-		delete item;
+		RELEASE(item);
 		ret = false;
 	}
 

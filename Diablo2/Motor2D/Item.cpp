@@ -65,6 +65,7 @@ void Item::ConvertToGui()
 		gui_item->nexus = this;
 		if (App->game->HUD->inventory->AddItem(gui_item))
 		{
+			gui_item = NULL;
 			App->game->em->Remove(ent_item->id);
 			RELEASE(ent_item);
 		}
