@@ -12,7 +12,6 @@
 #include "snDungeon1.h"
 #include "j1Collision.h"
 #include "Item.h"
-//Provisional?
 #include "j1Audio.h"
 
 
@@ -47,11 +46,61 @@ void EntEnemy::DropItem(iPoint pos)
 
 	if (rarity != NO_DROP)
 	{
-		itmRing* test;
-		test = new itmRing(rarity, pos);
-		if (!test->ent_item)
+		chance = rand() % 100;
+
+		if (chance < 65)
+		{ 
+			chance = rand() % 100;
+
+			if (chance < 35)
+			{
+				itmStone* item;
+				item = new itmStone(rarity, pos);
+				if (!item->ent_item)
+				{
+					RELEASE(item);
+				}
+			}
+			else if (chance < 55)
+			{
+				itmRing* item;
+				item = new itmRing(rarity, pos);
+				if (!item->ent_item)
+				{
+					RELEASE(item);
+				}
+			}
+			else if (chance < 65)
+			{
+				itmJewel* item;
+				item = new itmJewel(rarity, pos);
+				if (!item->ent_item)
+				{
+					RELEASE(item);
+				}
+			}
+			else if (chance < 90)
+			{
+				itmRune* item;
+				item = new itmRune(rarity, pos);
+				if (!item->ent_item)
+				{
+					RELEASE(item);
+				}
+			}
+			else if (chance >= 90)
+			{
+				//Here goes the armor
+			}
+		}
+		else if (chance >= 65)
 		{
-			RELEASE(test);
+			itmConsumable* item;
+			item = new itmConsumable(rarity, pos);
+			if (!item->ent_item)
+			{
+				RELEASE(item);
+			}
 		}
 	}
 
