@@ -72,6 +72,10 @@ private:
 
 public:
 	//Wolf textures
+	SDL_Texture* wolf_idle;
+	SDL_Texture* wolf_walk;
+	SDL_Texture* wolf_attack;
+	SDL_Texture* wolf_death;
 
 	//Crawler textures
 	SDL_Texture* crawler_idle;

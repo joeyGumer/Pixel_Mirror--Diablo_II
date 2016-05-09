@@ -267,10 +267,10 @@ void EntEnemy::CheckToAttack()
 EntEnemyWolf::EntEnemyWolf(const iPoint &p, uint ID) : EntEnemy(p, ID)
 {
 	name = "wolf";
-	tex = idle_tex = App->tex->Load("textures/wolf.png");
-	walk_tex = App->tex->Load("textures/wolf_walk.png");
-	death_tex = App->tex->Load("textures/wolf_death.png");
-	attack_tex = App->tex->Load("textures/wolf_attack.png");
+	tex = idle_tex = App->game->em->wolf_idle;
+	walk_tex = App->game->em->wolf_walk;
+	death_tex = App->game->em->wolf_death;
+	attack_tex = App->game->em->wolf_attack;
 
 	SetAnimations();
 	current_animation_set = idle;

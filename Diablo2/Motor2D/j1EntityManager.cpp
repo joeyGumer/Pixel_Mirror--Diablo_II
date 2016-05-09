@@ -42,6 +42,13 @@ bool j1EntityManager::Awake(pugi::xml_node &node)
 // Called before the first frame
 bool j1EntityManager::Start()
 {
+	//Wolf
+	wolf_idle = App->tex->Load("textures/wolf.png");
+	wolf_walk = App->tex->Load("textures/wolf_walk.png");
+	wolf_death = App->tex->Load("textures/wolf_death.png");
+	wolf_attack = App->tex->Load("textures/wolf_attack.png");
+
+
 	//Crawler
 	crawler_idle = App->tex->Load("textures/crawler_idle.png");
 	crawler_walk = App->tex->Load("textures/crawler_walk.png");
