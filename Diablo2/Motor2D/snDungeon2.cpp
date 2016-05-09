@@ -254,7 +254,7 @@ void snDungeon2::SpawnPlayer()
 		entity_list.push_back(to_add);
 	}
 	
-	//Add Enemies
+	//Add Enemies 1
 	if (random != 0 && random2 != 0)
 	{
 		pos = { 109, 40 };
@@ -315,5 +315,107 @@ void snDungeon2::SpawnPlayer()
 			pos.x += 2;
 			pos.y = 153;
 		}
+	}
+
+	//Add Enemies 2
+	pos = { 109, 123 };
+	for (int i = 0; i < 2; i++)
+	{
+		for (int i = 0; i < 2; i++)
+		{
+			to_add = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF);
+			entity_list.push_back(to_add);
+			pos.y += 4;
+		}
+		pos.x += 3;
+		pos.y = 123;
+	}
+
+	pos = { 117, 153 };
+	for (int i = 0; i < 2; i++)
+	{
+		for (int i = 0; i < 2; i++)
+		{
+			to_add = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF);
+			entity_list.push_back(to_add);
+			pos.y += 4;
+		}
+		pos.x += 3;
+		pos.y = 153;
+	}
+
+	pos = { 62, 182 };
+	for (int i = 0; i < 2; i++)
+	{
+		for (int i = 0; i < 2; i++)
+		{
+			to_add = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF);
+			entity_list.push_back(to_add);
+			pos.y += 4;
+		}
+		pos.x += 3;
+		pos.y = 182;
+	}
+
+	pos = { 178, 46 };
+	for (int i = 0; i < 2; i++)
+	{
+		for (int i = 0; i < 2; i++)
+		{
+			to_add = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF);
+			entity_list.push_back(to_add);
+			pos.y += 4;
+		}
+		pos.x += 3;
+		pos.y = 46;
+	}
+
+	//Add Enemies 3
+	pos = { 109, 67 };
+	for (int i = 0; i < 3; i++)
+	{
+		to_add = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF);
+		entity_list.push_back(to_add);
+		pos.y += 4;
+	}
+
+	pos = { 61, 142 };
+	for (int i = 0; i < 3; i++)
+	{
+		to_add = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF);
+		entity_list.push_back(to_add);
+		pos.y += 4;
+	}
+
+	pos = { 185, 70 };
+	for (int i = 0; i < 3; i++)
+	{
+		to_add = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF);
+		entity_list.push_back(to_add);
+		pos.y += 4;
+	}
+
+	pos = { 87, 177 };
+	for (int i = 0; i < 3; i++)
+	{
+		to_add = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF);
+		entity_list.push_back(to_add);
+		pos.x += 3;
+	}
+
+	pos = { 191, 125 };
+	for (int i = 0; i < 3; i++)
+	{
+		to_add = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF);
+		entity_list.push_back(to_add);
+		pos.x += 3;
+	}
+
+	pos = { 144, 33 };
+	for (int i = 0; i < 3; i++)
+	{
+		to_add = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF);
+		entity_list.push_back(to_add);
+		pos.x += 3;
 	}
 }
