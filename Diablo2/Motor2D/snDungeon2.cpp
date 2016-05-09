@@ -253,5 +253,67 @@ void snDungeon2::SpawnPlayer()
 		to_add = App->game->em->AddEnemy(pos, ENEMY_COUNCIL);
 		entity_list.push_back(to_add);
 	}
+	
+	//Add Enemies
+	if (random != 0 && random2 != 0)
+	{
+		pos = { 109, 40 };
+		for (int i = 0; i < 3; i++)
+		{
+			for (int i = 0; i < 2; i++)
+			{
+				to_add = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_CRAWLER);
+				entity_list.push_back(to_add);
+				pos.y += 3;
+			}
+			pos.x += 2;
+			pos.y = 40;
+		}
+	}
+	if (random != 1 && random2 != 1)
+	{
+		pos = { 105, 102 };
+		for (int i = 0; i < 3; i++)
+		{
+			for (int i = 0; i < 2; i++)
+			{
+				to_add = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_CRAWLER);
+				entity_list.push_back(to_add);
+				pos.y += 3;
+			}
+			pos.x += 2;
+			pos.y = 102;
+		}
+	}
 		
+	if (random != 2 && random2 != 2)
+	{
+		pos = { 120, 182 };
+		for (int i = 0; i < 3; i++)
+		{
+			for (int i = 0; i < 2; i++)
+			{
+				to_add = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_CRAWLER);
+				entity_list.push_back(to_add);
+				pos.y += 3;
+			}
+			pos.x += 2;
+			pos.y = 182;
+		}
+	}
+	if (random != 3 && random2 != 3)
+	{
+		pos = { 35, 153 };
+		for (int i = 0; i < 3; i++)
+		{
+			for (int i = 0; i < 2; i++)
+			{
+				to_add = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_CRAWLER);
+				entity_list.push_back(to_add);
+				pos.y += 3;
+			}
+			pos.x += 2;
+			pos.y = 153;
+		}
+	}
 }

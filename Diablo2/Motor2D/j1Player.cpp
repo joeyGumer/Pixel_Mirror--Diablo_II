@@ -184,7 +184,7 @@ bool j1Player::PostUpdate()
 // Called before quitting
 bool j1Player::CleanUp()
 {
-
+	p_collider->to_delete = true;
 	App->tex->UnLoad(p_idle);
 	App->tex->UnLoad(p_walk);
 	App->tex->UnLoad(p_run);
