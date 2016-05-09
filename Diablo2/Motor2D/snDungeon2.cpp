@@ -58,7 +58,8 @@ bool snDungeon2::Start()
 		RELEASE_ARRAY(data);
 	}
 
-	App->game->player->SetPosition({ 0, 500 });
+	//Spawns
+	SpawnPlayer();
 
 	AddEnemies();
 
@@ -203,251 +204,54 @@ bool snDungeon2::UnLoad()
 //Adding Enemies
 void snDungeon2::AddEnemies()
 {
-	/*
-	iPoint tile_pos;
+	
+}
+
+//Spawn Player
+void snDungeon2::SpawnPlayer()
+{
+	//Add Player
+	int random = rand() % 4;
+	if (random == 0)
+		App->game->player->SetPosition({ 1442, 1530 });
+	else if (random == 1)
+		App->game->player->SetPosition({ 120, 2169 });
+	else if (random == 2)
+		App->game->player->SetPosition({ -1262, 3101 });
+	else if (random == 3)
+		App->game->player->SetPosition({ -2340, 1961 });
+
+	//Add Boss
+	int random2 = rand() % 4;
+	while (random2 == random)
+	{
+		random2 = rand() % 4;
+	}
 	Entity* to_add = NULL;
-
-	tile_pos = { -140, 417 };
-	to_add = App->game->em->Add(tile_pos, PORTAL);
-	entity_list.push_back(to_add);
-	EntPortal* portal = (EntPortal*)to_add;
-	if (portal)
-		portal->SetDestiny(portal->destiny = App->sm->outdoor1);
-
-	tile_pos = { 182, 80 };
-	for (int i = 0; i < 12; i++)
+	iPoint pos;
+	if (random2 == 0)
 	{
-		if (i % 2 == 1)
-		{
-			tile_pos.x -= 4;
-		}
-		to_add = App->game->em->AddEnemy(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
-		if (to_add != NULL)
-			entity_list.push_back(to_add);
-		tile_pos.y -= 4;
-	}
-
-	tile_pos = { 159, 92 };
-	for (int i = 0; i < 6; i++)
+		pos = { 1442, 1530 };
+		to_add = App->game->em->AddEnemy(pos, ENEMY_COUNCIL);
+		entity_list.push_back(to_add);
+	}	
+	else if (random2 == 1)
 	{
-		if (i % 2 == 1)
-		{
-			tile_pos.x += 3;
-		}
-		to_add = App->game->em->AddEnemy(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
-		if (to_add != NULL)
-			entity_list.push_back(to_add);
-		tile_pos.y -= 4;
-	}
-
-	tile_pos = { 105, 82 };
-	for (int i = 0; i < 6; i++)
+		pos = { 120, 2169 };
+		to_add = App->game->em->AddEnemy(pos, ENEMY_COUNCIL);
+		entity_list.push_back(to_add);
+	}	
+	else if (random2 == 2)
 	{
-		if (i % 2 == 1)
-		{
-			tile_pos.x += 3;
-		}
-		to_add = App->game->em->AddEnemy(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
-		if (to_add != NULL)
-			entity_list.push_back(to_add);
-		tile_pos.y -= 3;
-	}
-
-	tile_pos = { 204, 47 };
-	for (int i = 0; i < 7; i++)
+		pos = { -1262, 3101 };
+		to_add = App->game->em->AddEnemy(pos, ENEMY_COUNCIL);
+		entity_list.push_back(to_add);
+	}	
+	else if (random2 == 3)
 	{
-		if (i % 2 == 1)
-		{
-			tile_pos.x += 2;
-		}
-		to_add = App->game->em->AddEnemy(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
-		if (to_add != NULL)
-			entity_list.push_back(to_add);
-		tile_pos.y -= 3;
+		pos = { -2340, 1961 };
+		to_add = App->game->em->AddEnemy(pos, ENEMY_COUNCIL);
+		entity_list.push_back(to_add);
 	}
-
-	tile_pos = { 52, 108 };
-	for (int i = 0; i < 4; i++)
-	{
-		if (i % 2 == 1)
-		{
-			tile_pos.x += 3;
-		}
-		to_add = App->game->em->AddEnemy(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
-		if (to_add != NULL)
-			entity_list.push_back(to_add);
-		tile_pos.y -= 4;
-	}
-
-	tile_pos = { 131, 35 };
-	for (int i = 0; i < 13; i++)
-	{
-		if (i % 2 == 1)
-		{
-			tile_pos.x += 1;
-		}
-		to_add = App->game->em->AddEnemy(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
-		if (to_add != NULL)
-			entity_list.push_back(to_add);
-		tile_pos.y -= 2;
-	}
-
-	tile_pos = { 127, 160 };
-	for (int i = 0; i < 13; i++)
-	{
-		if (i % 2 == 1)
-		{
-			tile_pos.x += 2;
-		}
-		else
-		{
-			to_add = App->game->em->AddEnemy(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
-			if (to_add != NULL)
-				entity_list.push_back(to_add);
-		}
-
-		tile_pos.y -= 3;
-	}
-
-	tile_pos = { 204, 141 };
-	for (int i = 0; i < 8; i++)
-	{
-		if (i % 2 == 1)
-		{
-			tile_pos.x += 1;
-		}
-		else
-		{
-			to_add = App->game->em->AddEnemy(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
-			if (to_add != NULL)
-				entity_list.push_back(to_add);
-		}
-		tile_pos.y -= 2;
-	}
-
-	tile_pos = { 204, 222 };
-	for (int i = 0; i < 10; i++)
-	{
-		if (i % 2 == 1)
-		{
-			tile_pos.x += 3;
-			tile_pos.y -= 3;
-		}
-		else
-		{
-			to_add = App->game->em->AddEnemy(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
-			if (to_add != NULL)
-				entity_list.push_back(to_add);
-		}
-	}
-
-	tile_pos = { 96, 222 };
-	for (int i = 0; i < 8; i++)
-	{
-		if (i % 2 == 1)
-		{
-			tile_pos.x += 3;
-			tile_pos.y -= 3;
-		}
-		else
-		{
-			to_add = App->game->em->AddEnemy(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
-			if (to_add != NULL)
-				entity_list.push_back(to_add);
-		}
-	}
-
-	tile_pos = { 100, 205 };
-	for (int i = 0; i < 8; i++)
-	{
-		if (i % 2 == 1)
-		{
-			tile_pos.x += 3;
-			tile_pos.y += 3;
-		}
-		else
-		{
-			to_add = App->game->em->AddEnemy(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
-			if (to_add != NULL)
-				entity_list.push_back(to_add);
-		}
-	}
-
-	tile_pos = { 18, 94 };
-	for (int i = 0; i < 10; i++)
-	{
-		if (i % 2 == 1)
-		{
-			tile_pos.x += 3;
-		}
-
-		to_add = App->game->em->AddEnemy(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
-		if (to_add != NULL)
-			entity_list.push_back(to_add);
-
-		tile_pos.y += 2;
-	}
-
-	tile_pos = { 19, 120 };
-	for (int i = 0; i < 8; i++)
-	{
-
-		to_add = App->game->em->AddEnemy(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
-		if (to_add != NULL)
-			entity_list.push_back(to_add);
-
-		tile_pos.y += 2;
-	}
-
-	tile_pos = { 69, 22 };
-	for (int i = 0; i < 10; i++)
-	{
-		if (i % 2 == 1)
-		{
-			tile_pos.x += 3;
-			tile_pos.y += 3;
-		}
-		else
-		{
-			to_add = App->game->em->AddEnemy(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
-			if (to_add != NULL)
-				entity_list.push_back(to_add);
-		}
-	}
-
-	tile_pos = { 19, 216 };
-	for (int i = 0; i < 12; i++)
-	{
-		if (i % 2 == 1)
-		{
-			tile_pos.x += 2;
-			tile_pos.y += 2;
-		}
-		to_add = App->game->em->AddEnemy(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
-		if (to_add != NULL)
-			entity_list.push_back(to_add);
-
-		tile_pos.x -= 1;
-		tile_pos.y -= 3;
-	}
-
-	tile_pos = { 93, 138 };
-	App->game->em->AddEnemy(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_COUNCIL);
-
-	tile_pos = { 93, 149 };
-	for (int i = 0; i < 6; i++)
-	{
-		if (i % 2 == 1)
-		{
-			tile_pos.x += 3;
-			tile_pos.y -= 3;
-		}
-		else
-		{
-			to_add = App->game->em->AddEnemy(App->map->MapToWorld(tile_pos.x, tile_pos.y), ENEMY_CRAWLER);
-			if (to_add != NULL)
-				entity_list.push_back(to_add);
-		}
-	}
-	*/
+		
 }

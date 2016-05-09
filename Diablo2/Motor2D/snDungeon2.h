@@ -52,6 +52,9 @@ public:
 	//Adding Enemies
 	void AddEnemies();
 
+	//Spawn player
+	void SpawnPlayer();
+
 private:
 
 

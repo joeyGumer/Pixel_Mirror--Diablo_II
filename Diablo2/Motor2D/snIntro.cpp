@@ -85,7 +85,7 @@ bool snIntro::Update(float dt)
 	*/
 	if (pass == true)
 	{
-		App->sm->ChangeScene(App->sm->dungeon1);
+		App->sm->ChangeScene(App->sm->dungeon2);
 	}
 
 	else if (exit == true)

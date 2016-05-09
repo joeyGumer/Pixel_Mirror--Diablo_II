@@ -167,7 +167,8 @@ bool j1Player::Update(float dt)
 		}
 	}
 
-	App->render->CenterCamera(p_position.x, p_position.y);
+	if (App->debug == false)
+		App->render->CenterCamera(p_position.x, p_position.y);
 
 		
 
