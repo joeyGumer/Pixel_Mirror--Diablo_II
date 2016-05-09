@@ -9,7 +9,7 @@ j1Collision::j1Collision() : j1Module()
 	name.create("collision");
 
 	matrix[COLLIDER_PLAYER][COLLIDER_ENEMY] = true;
-	matrix[COLLIDER_PLAYER][COLLIDER_PARTICLE] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_PARTICLE] = false;
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
 
 	matrix[COLLIDER_ENEMY][COLLIDER_PLAYER] = false;

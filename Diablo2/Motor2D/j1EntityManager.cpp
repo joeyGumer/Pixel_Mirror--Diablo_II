@@ -171,6 +171,24 @@ bool j1EntityManager::CleanUp()
 	return true;
 }
 
+//Collision
+void j1EntityManager::OnCollision(Collider* c1, Collider* c2)
+{
+	if (c2->type == COLLIDER_PARTICLE)
+	{
+		map<uint, Entity*>::iterator item = active_entities.begin();
+		for (; item != active_entities.end(); item++)
+		{
+			if (item->second->collider == c1)
+			{
+				EntEnemy* en = (EntEnemy*)item->second;
+				if (en->dead == false)
+					en->TakeDamage(5);
+			}
+		}
+	}
+}
+
 // Add method
 
 Entity* j1EntityManager::Add(iPoint &pos, ENTITY_TYPE type)

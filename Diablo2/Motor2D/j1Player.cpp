@@ -1126,6 +1126,9 @@ void j1Player::SetParticles()
 	particle_skill_1.anim.speed = 0.5f;
 	particle_skill_1.anim.loop = true;
 	particle_skill_1.anim.Reset();
+
+	particle_skill_1.collider_margin.x = particle_skill_1.anim.GetCurrentFrame().w / 3;
+	particle_skill_1.collider_margin.y = particle_skill_1.anim.GetCurrentFrame().h / 4;
 }
 
 void j1Player::SetDirection()

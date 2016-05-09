@@ -53,6 +53,7 @@ bool j1ParticleManager::Update(float dt)
 	{
 		if ((*tmp)->Update(dt) == false)
 		{
+			tmp._Ptr->_Myval->collider->to_delete = true;
 			RELEASE((*tmp));
 			tmp = particleList.erase(tmp);
 		}
@@ -193,7 +194,15 @@ Particle* j1ParticleManager::AddParticle(const Particle& p, int x, int y, Uint32
 		part->image = p.image;
 
 	part->fx = sfx;
+	part->collider_margin = p.collider_margin;
 	part->timer.Start();
+
+	SDL_Rect collider_pos;
+	collider_pos.x = part->position.x + part->collider_margin.x;
+	collider_pos.y = part->position.y + part->collider_margin.y;
+	collider_pos.w = part->anim.PeekCurrentFrame().w - part->collider_margin.x * 2;
+	collider_pos.h = part->anim.PeekCurrentFrame().h - part->collider_margin.y * 2;
+	part->collider = App->collision->AddCollider(collider_pos, COLLIDER_PARTICLE);
 
 	//TODO 3: insert the particle in the particleList
 	particleList.push_back(part);
@@ -317,13 +326,15 @@ bool Particle::Update(float dt)
 	if (alive == true && active == true)
 	{
 		//NOTE: Changed, the original one didn't work as expected
-		position.x += speed.x;
-		position.y += speed.y;
+		fPoint vel = speed * dt;
+
+		position.x += vel.x;
+		position.y += vel.y;
 
 		if (collider)
 		{
-			collider->rect.x = position.x;
-			collider->rect.y = position.y;
+			collider->rect.x = position.x + collider_margin.x;
+			collider->rect.y = position.y + collider_margin.y;
 		}
 	}
 
@@ -372,8 +383,11 @@ void Particle::SetSpeed(float velocity, float minAngle, float maxAngle)
 //NOTE: This wasn't in the original code
 void Particle::SetPointSpeed(float velocity, fPoint target)
 {
-	speed.x = target.x - position.x;
-	speed.y = target.y - position.y;
+	fPoint _target;
+	_target.x = target.x - anim.PeekCurrentFrame().w / 2;
+	_target.y = target.y - anim.PeekCurrentFrame().h / 2;
+	speed.x = _target.x - position.x;
+	speed.y = _target.y - position.y;
 
 	speed.SetModule(velocity);
 }

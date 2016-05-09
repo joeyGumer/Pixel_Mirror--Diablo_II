@@ -43,6 +43,9 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	//Collision
+	void OnCollision(Collider* c1, Collider* c2);
+
 	Entity* Add(iPoint &pos, ENTITY_TYPE type);
 	Entity* AddEnemy(iPoint &pos, ENEMY_TYPE type);
 	bool Remove(uint id);

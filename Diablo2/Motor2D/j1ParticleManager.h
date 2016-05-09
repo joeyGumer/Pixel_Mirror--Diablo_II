@@ -71,6 +71,7 @@ struct Particle
 	bool				active = true;
 	bool			    on = false;
 	Collider*			collider = NULL;
+	fPoint				collider_margin;
 
 	Particle();
 	Particle(const Particle& p);
