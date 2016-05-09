@@ -27,7 +27,7 @@ bool hudStats::Start()
 	window = App->gui->AddGuiImage({ 0, 0 }, { 486, 434, 320, 430 }, NULL, this);
 	hud_gui_elements.push_back(window);
 
-	closebutton = App->gui->AddGuiImage({ 270, 359 }, { 285, 192, 38, 38 }, window, this);
+	closebutton = App->gui->AddGuiImage({ 275, 364 }, { 285, 192, 38, 38 }, window, this);
 	closebutton->active = false;
 	hud_gui_elements.push_back(closebutton);
 
@@ -167,10 +167,10 @@ bool hudStats::Start()
 	hud_gui_elements.push_back(player_basicAttack);
 
 	//Resistance Stat
-	resistance = App->gui->AddGuiImage({ 174, 396 }, { 779, 960, 100, 20 }, window, this);
+	resistance = App->gui->AddGuiImage({ 174, 338 }, { 779, 960, 100, 20 }, window, this);
 	resistance_name = App->gui->AddGuiLabel("Resistance", App->font->stats, { 4, 2 }, resistance, FONT_WHITE, backgroundColor, this);
 	resistance_name->Center(true, true);
-	resistance_value = App->gui->AddGuiImage({ 272, 396 }, { 779, 960, 48, 20 }, window, this);
+	resistance_value = App->gui->AddGuiImage({ 272, 338 }, { 779, 960, 48, 20 }, window, this);
 	text.create("%i", App->game->player->basic_damage);
 	player_resistance = App->gui->AddGuiLabel(text, App->font->description, { 13, 2 }, resistance_value, FONT_WHITE, backgroundColor, this);
 	player_resistance->Center(true, true);
