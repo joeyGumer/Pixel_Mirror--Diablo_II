@@ -39,6 +39,16 @@ public:
 	//Utils
 	void Activate();
 
+	void SetBloodLabel(int blood);
+	void SetStrengthLabel(int strenght);
+	void SetDexterityLabel(int dexterity);
+	void SetVitalityLabel(int vitality);
+	void SetIntelligenceLabel(int intelligence);
+	void SetLuckLabel(int luck);
+	void SetLifeLabel(int current, int max);
+	void SetStaminaLabel(int current, int max);
+	void SetBasicAttackLabel(int basicAttack);
+	void SetResistenceLabel(int resistence);
 
 public:
 	//Images

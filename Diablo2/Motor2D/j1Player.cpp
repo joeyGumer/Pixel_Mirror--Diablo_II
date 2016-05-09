@@ -21,7 +21,7 @@
 #include "PlayerSkills.h"
 #include "SDL/include/SDL.h"
 #include "j1Audio.h"
-
+#include "hudStats.h"-
 //NOTE:Partciles in development, for now we will include this
 //#include "playerParticle.h"
 
@@ -352,11 +352,13 @@ void j1Player::PlayerEvent(PLAYER_EVENT even)
 	case HP_DOWN:
 		{
 			App->game->HUD->belt->SetLife(HP_max, HP_current);
+			App->game->HUD->stats->SetLifeLabel(HP_current,HP_max);
 		}
 		break;
 	case HP_UP:
 		{
 			App->game->HUD->belt->SetLife(HP_max, HP_current);
+			App->game->HUD->stats->SetLifeLabel(HP_current, HP_max);
 		}
 		break;
 	case MP_DOWN:
@@ -372,11 +374,13 @@ void j1Player::PlayerEvent(PLAYER_EVENT even)
 	case ST_DOWN:
 		{
 			App->game->HUD->belt->SetStamina(ST_max, ST_current);
+			App->game->HUD->stats->SetStaminaLabel(ST_current, ST_max);
 		}
 		break;
 	case ST_UP:
 		{
 			App->game->HUD->belt->SetStamina(ST_max, ST_current);
+			App->game->HUD->stats->SetStaminaLabel(ST_current, ST_max);
 		}
 		break;
 	case GET_ITEM:
@@ -392,6 +396,7 @@ void j1Player::PlayerEvent(PLAYER_EVENT even)
 	case BLOOD_UP:
 		{
 			App->game->HUD->blood->SetBlood(blood_current);
+			App->game->HUD->stats->SetBloodLabel(blood_current);
 		}
 		break;
 	case BLOOD_DOWN:
@@ -410,6 +415,41 @@ void j1Player::PlayerEvent(PLAYER_EVENT even)
 	case STATE_CHANGE:
 		{
 			StateMachine();
+		}
+		break;
+	case CHANGE_STRENGTH:
+		{
+			App->game->HUD->stats->SetStrengthLabel(strength);
+		}
+		break;
+	case CHANGE_VITALITY:
+		{
+			App->game->HUD->stats->SetVitalityLabel(vitality);
+		}
+		break;
+	case CHANGE_DEXTERITY:
+		{
+			App->game->HUD->stats->SetDexterityLabel(dexterity);
+		}
+		break;
+	case CHANGE_INTELLIGENCE:
+		{
+			App->game->HUD->stats->SetIntelligenceLabel(intelligence);
+		}
+		break;
+	case CHANGE_LUCK:
+		{
+			App->game->HUD->stats->SetLuckLabel(luck);
+		}
+		break;
+	case CHANGE_BASICATTACK:
+		{
+			App->game->HUD->stats->SetBasicAttackLabel(basic_damage);
+		}
+		break;
+	case CHANGE_RESISTENCE:
+		{
+			App->game->HUD->stats->SetResistenceLabel(vitality);
 		}
 		break;
 	}
@@ -1246,28 +1286,34 @@ void j1Player::SetAttribute(PLAYER_ATTRIBUTE attribute, float value)
 	case STRENGHT:
 	{
 		basic_damage += ( ( basic_damage ) * ((1 / 100) * value ) );
+		strength = ((basic_damage)* ((1 / 100) * value));
+		PLAYER_EVENT(CHANGE_BASICATTACK);
+		PLAYER_EVENT(CHANGE_STRENGTH);
 	}
 		break;
 	case DEXTERITY:
 	{
-
-		bonus_martial_damage = value;
+		bonus_martial_damage = dexterity += value;
+		PLAYER_EVENT(CHANGE_DEXTERITY);
 	}
 		break;
 	case INTELLIGENCE:
 	{
-		bonus_spell_damage = value;
+		bonus_spell_damage = intelligence +=  value;
+		PLAYER_EVENT(CHANGE_INTELLIGENCE);
 	}
 		break;
 	case VITALITY:
 	{
 		life += (life + (value*4));
 		stamina += 1;
+		PLAYER_EVENT(CHANGE_VITALITY);
 	}
 		break;
 	case LUCK:
 	{
 		drop = value;
+		PLAYER_EVENT(CHANGE_LUCK);
 	}
 		break;
 	}

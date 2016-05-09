@@ -52,7 +52,14 @@ enum PLAYER_EVENT
 	GET_ITEM,
 	BLOOD_UP,
 	BLOOD_DOWN,
-	TELEPORT
+	TELEPORT,
+	CHANGE_STRENGTH,
+	CHANGE_VITALITY,
+	CHANGE_DEXTERITY,
+	CHANGE_INTELLIGENCE,
+	CHANGE_LUCK,
+	CHANGE_BASICATTACK,
+	CHANGE_RESISTENCE
 };
 
 enum ACTION_STATE
@@ -269,7 +276,13 @@ public:
 	int blood_current;
 
 	float attack_range = 65.0f;
-	
+	//THIS IS NOT USED RIGHT NOW BUT HAS  TO BE USED IN ORDER TO WORK WITH THE STATS PANEL
+	int strength;
+	int dexterity;
+	int vitality;
+	int intelligence; 
+	int luck;
+
 	
 	float life;
 	float stamina;

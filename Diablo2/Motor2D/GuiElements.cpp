@@ -43,7 +43,7 @@ GuiLabel::GuiLabel(p2SString t, _TTF_Font* f, iPoint p, SDL_Color color, GuiElem
 	this->color = color;
 	rectColor = backgroundColor;
 	tex_rect = { 0, 0, 0, 0 };
-	App->font->CalcSize(text.GetString(), tex_rect.w, tex_rect.h);
+	App->font->CalcSize(text.GetString(), tex_rect.w, tex_rect.h,f);
 	SetLocalRect({ p.x, p.y, tex_rect.w, tex_rect.h});
 }
 
@@ -114,7 +114,7 @@ void GuiLabel::Draw()
 {
 	if (rectColor.a != 0)
 	{
-		App->render->DrawQuad({ (GetScreenPosition().x - App->render->camera.x) - (tex_rect.w / 8), (GetScreenPosition().y - App->render->camera.y) - (tex_rect.h / 8), tex_rect.w - (tex_rect.w / 5), tex_rect.h - (tex_rect.h / 5) }, rectColor.r, rectColor.g, rectColor.b, rectColor.a);
+		App->render->DrawQuad({ (GetScreenPosition().x - App->render->camera.x), (GetScreenPosition().y - App->render->camera.y), tex_rect.w , tex_rect.h }, rectColor.r, rectColor.g, rectColor.b, rectColor.a);
 	}
 	App->render->Blit(tex, GetScreenPosition().x - App->render->camera.x, GetScreenPosition().y - App->render->camera.y, NULL);	
 }
