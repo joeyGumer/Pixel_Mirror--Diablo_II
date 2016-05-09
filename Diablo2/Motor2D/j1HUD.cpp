@@ -75,6 +75,12 @@ bool j1HUD::PreUpdate()
 		}
 	}
 
+	if (inventory->closebutton_pressed == true)
+	{
+		inventory->Activate();
+		inventory->closebutton_pressed = false;
+	}
+
 	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || belt->skilltreebutton_pressed == true)
 	{
 		if (inventory->active == true)
@@ -90,6 +96,12 @@ bool j1HUD::PreUpdate()
 		}
 	}
 
+	if (skilltree->martialdeletebutton_pressed == true)
+	{
+		skilltree->Activate();
+		skilltree->martialdeletebutton_pressed = false;
+	}
+
 	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN || belt->statsbutton_pressed == true)
 	{
 		if (inventory->background->active == true && inventory->inventory->active == true)
@@ -102,6 +114,12 @@ bool j1HUD::PreUpdate()
 			stats->Activate();
 			belt->statsbutton_pressed = false;
 		}
+	}
+
+	if (stats->closebutton_pressed == true)
+	{
+		stats->Activate();
+		stats->closebutton_pressed = false;
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || belt->menubutton_pressed == true)

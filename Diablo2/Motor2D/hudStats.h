@@ -51,7 +51,11 @@ public:
 	void SetResistenceLabel(int resistence);
 
 public:
+
+	bool closebutton_pressed = false;
+
 	//Images
+	GuiImage* closebutton = NULL;
 	GuiImage* window = NULL;
 	GuiImage* name = NULL;
 	GuiImage* experience = NULL;

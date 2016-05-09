@@ -26,6 +26,11 @@ bool hudStats::Start()
 	SDL_Color backgroundColor = { 0, 0, 0, 0 };
 	window = App->gui->AddGuiImage({ 0, 0 }, { 486, 434, 320, 430 }, NULL, this);
 	hud_gui_elements.push_back(window);
+
+	closebutton = App->gui->AddGuiImage({ 270, 359 }, { 285, 192, 38, 38 }, window, this);
+	closebutton->active = false;
+	hud_gui_elements.push_back(closebutton);
+
 	//Name Player Stat
 	name = App->gui->AddGuiImage({ 8, 8 }, { 779, 960, 175, 20 }, window, this);
 	player_name = App->gui->AddGuiLabel("Vampire", NULL, { 40, 2 }, name, FONT_WHITE, backgroundColor, this);
@@ -299,5 +304,16 @@ void hudStats::SetResistenceLabel(int resistence)
 //Called when there's a gui event
 void hudStats::OnEvent(GuiElement* element, GUI_Event even)
 {
-
+	if (closebutton == element)
+	{
+		switch (even)
+		{
+		case EVENT_MOUSE_LEFTCLICK_DOWN:
+		{
+			closebutton->SetTextureRect({ 324, 192, 38, 38 });
+			closebutton_pressed = true;
+		}
+		break;
+		}
+	}
 }

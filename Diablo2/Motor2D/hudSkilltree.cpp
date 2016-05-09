@@ -64,9 +64,6 @@ bool hudSkilltree::Start()
 	blood_golem->skill_parents.push_back(raise_wolf->skill);
 	hud_gui_elements.push_back(blood_golem);
 
-	nightdeletebutton = App->gui->AddGuiImage({ 20, 165 }, { 285, 192, 38, 38 }, nightsummoning, this);
-	nightdeletebutton->active = false;
-	hud_gui_elements.push_back(nightdeletebutton);
 	//--------------------------------------------------------------------------------------------
 
 
@@ -141,11 +138,6 @@ bool hudSkilltree::Start()
 	heard_of_bats = App->gui->AddGuiSkill({ 152, 70 }, { 439, 969, 48, 48 }, NULL, bloodspells, this);
 	heard_of_bats->active = false;
 	hud_gui_elements.push_back(heard_of_bats);
-
-	//Delete button
-	blooddeletebutton = App->gui->AddGuiImage({ 167, 165 }, { 285, 192, 38, 38 }, bloodspells, this);
-	blooddeletebutton->active = false;
-	hud_gui_elements.push_back(blooddeletebutton);
 	
 	return true;
 }
@@ -239,33 +231,19 @@ void hudSkilltree::OnEvent(GuiElement* element, GUI_Event even)
 	}
 
 	//Martial delete button
-	/*if (martialdeletebutton == element)
+	if (martialdeletebutton == element)
 	{
 		switch (even)
 		{
 		case EVENT_MOUSE_LEFTCLICK_DOWN:
 		{
-			martialdeletebutton->SetTextureRect({324, 192, 38, 38});
-			skillpoints = skillpoints + lionpoints + clawpoints + swordspoints + handpoints + starpoints;
-			lionpoints = clawpoints = swordspoints = handpoints = starpoints = 0;
-
-			lion_pressed = claw_pressed = swords_pressed = hand_pressed = star_pressed = false;
-			lion->SetTextureRect({ 439, 871, 48, 48 });
-			claw->SetTextureRect({ 488, 871, 48, 48 });
-			swords->SetTextureRect({ 537, 871, 48, 48 });
-			hand->SetTextureRect({ 586, 871, 48, 48 });
-			star->SetTextureRect({ 635, 871, 48, 48 });
-		}
-		break;
-
-		case EVENT_MOUSE_LEFTCLICK_UP:
-		{
-			martialdeletebutton->SetTextureRect({ 285, 192, 38, 38 });
+				martialdeletebutton->SetTextureRect({ 324, 192, 38, 38 });
+				martialdeletebutton_pressed = true;
 		}
 		break;
 		}
 	}
-
+	/*
 	//Blood spells delete button
 	if (blooddeletebutton == element)
 	{

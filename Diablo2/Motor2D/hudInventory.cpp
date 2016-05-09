@@ -31,6 +31,10 @@ bool hudInventory::Start()
 	background->active = false;
 	hud_gui_elements.push_back(background);
 	
+	closebutton = App->gui->AddGuiImage({ 12, 352 }, { 285, 192, 38, 38 }, background, this);
+	closebutton->active = false;
+	hud_gui_elements.push_back(closebutton);
+
 	//Creation of the inventory
 	inventory = App->gui->AddGuiInventory({ 16, 255 }, { 1144, 843, 290, 87 }, 10, 3, ITEM_SECTION_SIZE, ITEM_SECTION_SIZE, background, this);
 	inventory->active = false;
@@ -228,5 +232,16 @@ bool hudInventory::AddItem(GuiItem* item)
 //Called when there's a gui event
 void hudInventory::OnEvent(GuiElement* element, GUI_Event even)
 {
-
+	if (closebutton == element)
+	{
+		switch (even)
+		{
+		case EVENT_MOUSE_LEFTCLICK_DOWN:
+		{
+			closebutton->SetTextureRect({ 324, 192, 38, 38 });
+			closebutton_pressed = true;
+		}
+		break;
+		}
+	}
 }

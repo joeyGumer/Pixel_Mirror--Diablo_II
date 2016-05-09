@@ -48,6 +48,8 @@ public:
 	j1Player* player = NULL;
 
 	int skillpoints;
+
+	bool martialdeletebutton_pressed = false;
 	/*int lionpoints;
 	int clawpoints;
 	int swordspoints;

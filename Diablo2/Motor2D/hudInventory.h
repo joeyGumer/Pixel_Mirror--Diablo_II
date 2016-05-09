@@ -48,7 +48,10 @@ public:
 
 public:
 
+	bool closebutton_pressed = false;
+
 	GuiImage* background = NULL;
+	GuiImage* closebutton = NULL;
 	GuiInventory* inventory = NULL;
 
 	GuiInventory* armor = NULL;
