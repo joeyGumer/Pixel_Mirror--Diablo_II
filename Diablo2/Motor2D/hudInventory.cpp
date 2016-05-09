@@ -39,6 +39,7 @@ bool hudInventory::Start()
 	//Armor
 	armor = App->gui->AddGuiInventory({ 131, 31 }, { 1259, 619, 60, 89 }, 1, 1, 60, 89, background, this);
 	armor->active = false;
+	armor->slot_restriction = false;
 	armor->restriction = ITEM_ARMOR;
 	hud_gui_elements.push_back(armor);
 

@@ -349,3 +349,40 @@ itmRune::itmRune(ITEM_RARITY rarity, iPoint p) : Item(ITEM_RUNE, rarity, p)
 
 	CreateEntItem(p);
 }
+
+/*
+//----------Armor
+*/
+
+itmArmor::itmArmor(ITEM_RARITY rarity, iPoint p) : Item(ITEM_ARMOR, rarity, p)
+{
+	int y = 799;
+	int x;
+
+	switch (rarity)
+	{
+	case RARITY_COMMON:
+		x = 2315;
+		break;
+	case RARITY_RARE:
+		x = 2256;
+		break;
+	case RARITY_LEGENDARY:
+		x = 2197;
+		break;
+	}
+
+	rect = { x, y, ITEM_SLOT_SIZE * 2, ITEM_SLOT_SIZE * 3 };
+
+	size = 6;
+	coord = new iPoint[size];
+	iPoint tmp[6] = { { 0, 0 }, { 0, 1 }, { 0, 2 }, { 1, 0 }, { 1, 1 }, { 1, 2 } };
+
+	for (int i = 0; i < size; i++)
+	{
+		coord[i] = tmp[i];
+	}
+
+	CreateEntItem(p);
+}
+
