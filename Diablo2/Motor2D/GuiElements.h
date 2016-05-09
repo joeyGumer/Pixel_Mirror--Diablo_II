@@ -23,7 +23,8 @@ enum GUI_Type
 	GUI_MOUSE_IMAGE,
 	GUI_ITEM,
 	GUI_INVENTORY,
-	GUI_SLOT
+	GUI_SLOT,
+	GUI_SKILL,
 };
 
 enum GUI_Event

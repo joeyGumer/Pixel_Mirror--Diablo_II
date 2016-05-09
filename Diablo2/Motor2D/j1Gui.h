@@ -6,6 +6,7 @@
 //So i can take this out i have to change the constructors..., i'll do it later
 #include "GuiElements.h"
 #include "GuiInventory.h"
+#include "GuiSkill.h"
 #include <list>
 
 
@@ -48,6 +49,7 @@ public:
 	GuiInputBox* AddGuiInputBox(p2SString t, _TTF_Font* f, iPoint p, int width, SDL_Rect r, iPoint offset, GuiElement* par, j1Module* list);
 	GuiButton* AddGuiButton(iPoint p, SDL_Rect idle_r1, SDL_Rect hover_r1, SDL_Rect click_r1, p2SString t = "", _TTF_Font* f = NULL, j1Module* list = NULL, GuiElement* parent = NULL);
 	GuiSlider* AddGuiSlider(iPoint p, SDL_Rect tex_1, SDL_Rect tex_2, int width, int thumb_h, iPoint offset, float value, GuiElement* par, j1Module* list);
+	GuiSkill* AddGuiSkill(iPoint p, SDL_Rect r, Skill* s, GuiElement* par, j1Module* list);
 	GuiLabel* SetLabel();
 	GuiMouseImage* AddGuiMouseImage(iPoint p, SDL_Rect r, GuiElement* par, j1Module* list);
 

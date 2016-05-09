@@ -2,6 +2,10 @@
 #include "j1Gui.h"
 #include "j1Input.h"
 #include "hudSkilltree.h"
+#include "j1Game.h"
+#include "j1Player.h"
+#include "PlayerSkills.h"
+
 
 
 hudSkilltree::hudSkilltree()
@@ -20,8 +24,10 @@ bool hudSkilltree::Start()
 {
 	active = false;
 
+	player = App->game->player;
+
 	skillpoints = 15;
-	lionpoints = clawpoints = swordspoints = handpoints = starpoints = fireballpoints = projectilespoints = manpoints = cogpoints = heartjawpoints = batwingpoints = wolfpoints = fangspoints = bigjawpoints = bloodmanpoints = 0;
+	//lionpoints = clawpoints = swordspoints = handpoints = starpoints = fireballpoints = projectilespoints = manpoints = cogpoints = heartjawpoints = batwingpoints = wolfpoints = fangspoints = bigjawpoints = bloodmanpoints = 0;
 	
 
 	//Night summoning ---------------------------------------------------------------------------
@@ -33,7 +39,7 @@ bool hudSkilltree::Start()
 	bloodbutton->active = false;
 	hud_gui_elements.push_back(bloodbutton);
 
-	batwing = App->gui->AddGuiImage({ 82, 9 }, { 439, 969, 48, 48 }, nightsummoning, this);
+	/*batwing = App->gui->AddGuiImage({ 82, 9 }, { 439, 969, 48, 48 }, nightsummoning, this);
 	batwing->active = false;
 	hud_gui_elements.push_back(batwing);
 
@@ -51,7 +57,8 @@ bool hudSkilltree::Start()
 
 	bloodman = App->gui->AddGuiImage({ 0, 136 }, { 635, 969, 48, 48 }, wolf, this);
 	bloodman->active = false;
-	hud_gui_elements.push_back(bloodman);
+	hud_gui_elements.push_back(bloodman);*/
+	//Skills
 
 	nightdeletebutton = App->gui->AddGuiImage({ 20, 165 }, { 285, 192, 38, 38 }, nightsummoning, this);
 	nightdeletebutton->active = false;
@@ -68,7 +75,19 @@ bool hudSkilltree::Start()
 	skillpoints_label->active = false;
 	hud_gui_elements.push_back(skillpoints_label);
 
-	lion = App->gui->AddGuiImage({ 84, 14 }, { 439, 871, 48, 48 }, martialblood, this);
+	//Skills
+
+	striking_strike = App->gui->AddGuiSkill({ 154, 14 }, { 488, 871, 48, 48 },NULL, martialblood, this);
+	striking_strike->active = false;
+	hud_gui_elements.push_back(striking_strike);
+
+	wild_talon = App->gui->AddGuiSkill({ 84, 14 }, { 439, 871, 48, 48 },NULL, martialblood, this);
+	wild_talon->active = false;
+	hud_gui_elements.push_back(wild_talon);
+	//GuiSkill* bat_strike = App->gui->AddGuiSkill({ 0, 68 }, { 586, 871, 48, 48 }, NULL, martialblood, this);
+	soul_of_ice = NULL;
+	krobus_arts = NULL;
+	/*lion = App->gui->AddGuiImage({ 84, 14 }, { 439, 871, 48, 48 }, martialblood, this);
 	lion->active = false;
 	hud_gui_elements.push_back(lion);
 
@@ -86,8 +105,9 @@ bool hudSkilltree::Start()
 
 	star = App->gui->AddGuiImage({ 0, 136 }, { 635, 871, 48, 48 }, lion, this);
 	star->active = false;
-	hud_gui_elements.push_back(star);
+	hud_gui_elements.push_back(star);*/
 
+	//Delete button
 	martialdeletebutton = App->gui->AddGuiImage({ 20, 165 }, { 285, 192, 38, 38 }, martialblood, this);
 	martialdeletebutton->active = false;
 	hud_gui_elements.push_back(martialdeletebutton);
@@ -103,26 +123,31 @@ bool hudSkilltree::Start()
 	nightbutton->active = false;
 	hud_gui_elements.push_back(nightbutton);
 
-	fireball = App->gui->AddGuiImage({ 14, 16 }, { 439, 920, 48, 48 }, bloodspells, this);
-	fireball->active = false;
-	hud_gui_elements.push_back(fireball);
+	//Skills
+	blood_arrow = App->gui->AddGuiSkill({ 14, 16 }, { 439, 920, 48, 48 }, player->blood_arrow, bloodspells, this);
+	blood_arrow->active = false;
+	hud_gui_elements.push_back(blood_arrow);
 
-	projectiles = App->gui->AddGuiImage({ 84, 16 }, { 488, 920, 48, 48 }, bloodspells, this);
-	projectiles->active = false;
-	hud_gui_elements.push_back(projectiles);
+	vampire_breath = App->gui->AddGuiSkill({ 84, 16 }, { 488, 920, 48, 48 }, NULL, bloodspells, this);
+	vampire_breath->active = false;
+	hud_gui_elements.push_back(vampire_breath);
 
-	man = App->gui->AddGuiImage({ 152, 70 }, { 537, 920, 48, 48 }, bloodspells, this);
-	man->active = false;
-	hud_gui_elements.push_back(man);
+	blood_bomb = App->gui->AddGuiSkill({ 14, 138 }, { 586, 920, 48, 48 }, NULL, bloodspells, this);
+	blood_bomb->active = false;
+	blood_bomb->skill_parents.push_back(blood_arrow->skill);
+	hud_gui_elements.push_back(blood_bomb);
 
-	cog = App->gui->AddGuiImage({ 0, 121 }, { 586, 920, 48, 48 }, fireball, this);
-	cog->active = false;
-	hud_gui_elements.push_back(cog);
+	red_feast = App->gui->AddGuiSkill({ 83, 138 }, { 635, 920, 48, 48 },NULL, bloodspells, this);
+	red_feast->active = false;
+	red_feast->skill_parents.push_back(blood_arrow->skill);
+	red_feast->skill_parents.push_back(vampire_breath->skill);
+	hud_gui_elements.push_back(red_feast);
 
-	heartjaw = App->gui->AddGuiImage({ 0, 121 }, { 635, 920, 48, 48 }, projectiles, this);
-	heartjaw->active = false;
-	hud_gui_elements.push_back(heartjaw);
+	heard_of_bats = App->gui->AddGuiSkill({ 152, 70 }, { 439, 969, 48, 48 }, NULL, bloodspells, this);
+	heard_of_bats->active = false;
+	hud_gui_elements.push_back(heard_of_bats);
 
+	//Delete button
 	blooddeletebutton = App->gui->AddGuiImage({ 167, 165 }, { 285, 192, 38, 38 }, bloodspells, this);
 	blooddeletebutton->active = false;
 	hud_gui_elements.push_back(blooddeletebutton);
@@ -219,7 +244,7 @@ void hudSkilltree::OnEvent(GuiElement* element, GUI_Event even)
 	}
 
 	//Martial delete button
-	if (martialdeletebutton == element)
+	/*if (martialdeletebutton == element)
 	{
 		switch (even)
 		{
@@ -1046,5 +1071,5 @@ void hudSkilltree::OnEvent(GuiElement* element, GUI_Event even)
 		break;
 
 		}
-	}
+	}*/
 }

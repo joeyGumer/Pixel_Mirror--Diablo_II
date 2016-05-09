@@ -3,9 +3,12 @@
 
 #include "hudElement.h"
 
+
 class j1HUD;
 class GuiElement;
 class GuiImage;
+class GuiSkill;
+class j1Player;
 
 
 class hudSkilltree : public hudElement
@@ -42,8 +45,10 @@ public:
 
 public:
 
+	j1Player* player = NULL;
+
 	int skillpoints;
-	int lionpoints;
+	/*int lionpoints;
 	int clawpoints;
 	int swordspoints;
 	int handpoints;
@@ -73,7 +78,7 @@ public:
 	bool wolf_pressed = false;
 	bool fangs_pressed = false;
 	bool bigjaw_pressed = false;
-	bool bloodman_pressed = false;
+	bool bloodman_pressed = false;*/
 
 	GuiImage* martialblood = NULL;
 	GuiImage* bloodspells = NULL;
@@ -83,7 +88,7 @@ public:
 	GuiImage* martialdeletebutton = NULL;
 	GuiImage* blooddeletebutton = NULL;
 	GuiImage* nightdeletebutton = NULL;
-	GuiImage* lion = NULL;
+	/*GuiImage* lion = NULL;
 	GuiImage* claw = NULL;
 	GuiImage* swords = NULL;
 	GuiImage* hand = NULL;
@@ -97,7 +102,33 @@ public:
 	GuiImage* wolf = NULL;
 	GuiImage* fangs = NULL;
 	GuiImage* bigjaw = NULL;
-	GuiImage* bloodman = NULL;
+	GuiImage* bloodman = NULL;*/
+
+	//Blood spells
+	GuiSkill* blood_arrow = NULL;
+	GuiSkill* vampire_breath = NULL;
+	GuiSkill* blood_bomb = NULL;
+	GuiSkill* red_feast = NULL;
+	GuiSkill* heard_of_bats = NULL;
+
+	//Martial blood
+	GuiSkill* striking_strike = NULL;
+	GuiSkill* wild_talon = NULL;
+	GuiSkill* bat_strike = NULL;
+	GuiSkill* soul_of_ice = NULL;
+	GuiSkill* krobus_arts = NULL;
+	//GuiSkill* heard_of_bats = NULL;
+
+	//Night Passives
+	GuiSkill* clotted_blood_skin = NULL;
+	GuiSkill* raise_wolf = NULL;
+	GuiSkill* raise_blood_hawk = NULL;
+	GuiSkill* blood_golem = NULL;
+	GuiSkill* bat_girl = NULL;
+	
+
+	//GuiSkill* vampire_breath = NULL;
+	//GuiSkill*
 
 	GuiLabel* skillpoints_label;
 };

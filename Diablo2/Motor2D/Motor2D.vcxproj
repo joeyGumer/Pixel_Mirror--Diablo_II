@@ -86,6 +86,7 @@
     <ClCompile Include="EntStatic.cpp" />
     <ClCompile Include="GuiInventory.cpp" />
     <ClCompile Include="GuiItem.cpp" />
+    <ClCompile Include="GuiSkill.cpp" />
     <ClCompile Include="GuiSlot.cpp" />
     <ClCompile Include="hudBelt.cpp" />
     <ClCompile Include="hudBlood.cpp" />
@@ -139,6 +140,7 @@
     <ClInclude Include="GuiElements.h" />
     <ClInclude Include="GuiInventory.h" />
     <ClInclude Include="GuiItem.h" />
+    <ClInclude Include="GuiSkill.h" />
     <ClInclude Include="GuiSlot.h" />
     <ClInclude Include="hudBelt.h" />
     <ClInclude Include="hudBlood.h" />

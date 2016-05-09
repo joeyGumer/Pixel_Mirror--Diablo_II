@@ -40,6 +40,7 @@ public:
 	SDL_Texture* skill_tex;
 	vector<Animation> skill_animation_set;
 	j1Player* player;
+	bool unlocked = false;
 };
 
 class sklMelee : public Skill

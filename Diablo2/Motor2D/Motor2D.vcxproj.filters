@@ -148,6 +148,9 @@
     <ClCompile Include="snDungeon2.cpp">
       <Filter>Desenvolupament  ========\Scenes\snDungeon2</Filter>
     </ClCompile>
+    <ClCompile Include="GuiSkill.cpp">
+      <Filter>Desenvolupament  ========\Modules\j1Gui\GuiElements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h">
@@ -329,6 +332,9 @@
     </ClInclude>
     <ClInclude Include="snDungeon2.h">
       <Filter>Desenvolupament  ========\Scenes\snDungeon2</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiSkill.h">
+      <Filter>Desenvolupament  ========\Modules\j1Gui\GuiElements</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
