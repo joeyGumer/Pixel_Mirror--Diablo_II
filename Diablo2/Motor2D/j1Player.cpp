@@ -167,8 +167,7 @@ bool j1Player::Update(float dt)
 		}
 	}
 
-	if (App->debug == false)
-		App->render->CenterCamera(p_position.x, p_position.y);
+	App->render->CenterCamera(p_position.x, p_position.y);
 
 		
 
@@ -780,15 +779,15 @@ void j1Player::HandleInput()
 
 	//NOTE: has to be changed for the skill 
 	//Linear Movement activation
-	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && !input_locked)
 	{
 		current_skill = left_skill;
 
-		current_skill->SkillInit();
-
-		if (current_skill->skill_type != SKILL_MELEE)
+		if (current_skill->skill_type != SKILL_MELEE && current_action != SKILL)
 		{ 
+			current_skill->SkillInit();
 			current_input = INPUT_SKILL;
+			input_locked = true;
 		}
 		else 
 		{
@@ -798,15 +797,15 @@ void j1Player::HandleInput()
 
 	//NOTE: Debug purposes, must be changed! (Particle system)
 	//------------
-	if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN)
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && !input_locked)
 	{
 		current_skill = right_skill;
 
-		current_skill->SkillInit();
-
-		if (current_skill->skill_type != SKILL_MELEE)
+		if (current_skill->skill_type != SKILL_MELEE && current_action != SKILL)
 		{
+			current_skill->SkillInit();
 			current_input = INPUT_SKILL;
+			input_locked = true;
 		}
 		/*if (!input_locked)
 		{

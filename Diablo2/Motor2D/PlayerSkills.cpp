@@ -96,6 +96,7 @@ void sklBloodArrow::SkillUpdate()
 		player->input_locked = false;
 		player->particle_is_casted = false;
 	}
+
 }
 
 void sklBloodArrow::SetSkillAnimations()

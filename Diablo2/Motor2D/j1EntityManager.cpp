@@ -183,7 +183,10 @@ void j1EntityManager::OnCollision(Collider* c1, Collider* c2)
 			{
 				EntEnemy* en = (EntEnemy*)item->second;
 				if (en->dead == false)
-					en->TakeDamage(5);
+				{
+					en->TakeDamage(50);
+					en->agro_range += 100.0f;
+				}	
 			}
 		}
 	}
