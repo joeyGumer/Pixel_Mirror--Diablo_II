@@ -43,13 +43,7 @@ void EntEnemy::DropItem(iPoint pos)
 		rarity = RARITY_LEGENDARY;
 
 
-	itmArmor* item;
-	item = new itmArmor(rarity, pos);
-	if (!item->ent_item)
-	{
-		RELEASE(item);
-	}
-	/*if (rarity != NO_DROP)
+	if (rarity != NO_DROP)
 	{
 		chance = rand() % 100;
 
@@ -112,7 +106,7 @@ void EntEnemy::DropItem(iPoint pos)
 				RELEASE(item);
 			}
 		}
-	}*/
+	}
 
 }
 
