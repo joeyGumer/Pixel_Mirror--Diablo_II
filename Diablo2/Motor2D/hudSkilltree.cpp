@@ -39,26 +39,30 @@ bool hudSkilltree::Start()
 	bloodbutton->active = false;
 	hud_gui_elements.push_back(bloodbutton);
 
-	/*batwing = App->gui->AddGuiImage({ 82, 9 }, { 439, 969, 48, 48 }, nightsummoning, this);
-	batwing->active = false;
-	hud_gui_elements.push_back(batwing);
 
-	wolf = App->gui->AddGuiImage({ 152, 9 }, { 488, 969, 48, 48 }, nightsummoning, this);
-	wolf->active = false;
-	hud_gui_elements.push_back(wolf);
-
-	fangs = App->gui->AddGuiImage({ 15, 77 }, { 537, 969, 48, 48 }, nightsummoning, this);
-	fangs->active = false;
-	hud_gui_elements.push_back(fangs);
-
-	bigjaw = App->gui->AddGuiImage({ 0, 68 }, { 586, 969, 48, 48 }, batwing, this);
-	bigjaw->active = false;
-	hud_gui_elements.push_back(bigjaw);
-
-	bloodman = App->gui->AddGuiImage({ 0, 136 }, { 635, 969, 48, 48 }, wolf, this);
-	bloodman->active = false;
-	hud_gui_elements.push_back(bloodman);*/
 	//Skills
+	clotted_blood_skin = App->gui->AddGuiSkill({ 82, 9 }, { 537, 920, 48, 48 }, NULL, nightsummoning, this);
+	clotted_blood_skin->active = false;
+	hud_gui_elements.push_back(clotted_blood_skin);
+
+	raise_wolf = App->gui->AddGuiSkill({ 152, 9 }, { 488, 969, 48, 48 }, NULL, nightsummoning, this);
+	raise_wolf->active = false;
+	hud_gui_elements.push_back(raise_wolf);
+
+	bat_girl = App->gui->AddGuiSkill({ 15, 77 }, { 537, 969, 48, 48 }, NULL, nightsummoning, this);
+	bat_girl->active = false;
+	hud_gui_elements.push_back(bat_girl);
+
+	raise_blood_hawk = App->gui->AddGuiSkill({ 82, 77 }, { 586, 969, 48, 48 }, NULL, nightsummoning, this);
+	raise_blood_hawk->active = false;
+	raise_blood_hawk->skill_parents.push_back(clotted_blood_skin->skill);
+	hud_gui_elements.push_back(raise_blood_hawk);
+
+	blood_golem = App->gui->AddGuiSkill({ 152, 145 }, { 635, 969, 48, 48 }, NULL, nightsummoning, this);
+	blood_golem->active = false;
+	blood_golem->skill_parents.push_back(raise_blood_hawk->skill);
+	blood_golem->skill_parents.push_back(raise_wolf->skill);
+	hud_gui_elements.push_back(blood_golem);
 
 	nightdeletebutton = App->gui->AddGuiImage({ 20, 165 }, { 285, 192, 38, 38 }, nightsummoning, this);
 	nightdeletebutton->active = false;
@@ -76,7 +80,6 @@ bool hudSkilltree::Start()
 	hud_gui_elements.push_back(skillpoints_label);
 
 	//Skills
-
 	striking_strike = App->gui->AddGuiSkill({ 154, 14 }, { 488, 871, 48, 48 },NULL, martialblood, this);
 	striking_strike->active = false;
 	hud_gui_elements.push_back(striking_strike);
@@ -84,28 +87,20 @@ bool hudSkilltree::Start()
 	wild_talon = App->gui->AddGuiSkill({ 84, 14 }, { 439, 871, 48, 48 },NULL, martialblood, this);
 	wild_talon->active = false;
 	hud_gui_elements.push_back(wild_talon);
-	//GuiSkill* bat_strike = App->gui->AddGuiSkill({ 0, 68 }, { 586, 871, 48, 48 }, NULL, martialblood, this);
-	soul_of_ice = NULL;
-	krobus_arts = NULL;
-	/*lion = App->gui->AddGuiImage({ 84, 14 }, { 439, 871, 48, 48 }, martialblood, this);
-	lion->active = false;
-	hud_gui_elements.push_back(lion);
 
-	claw = App->gui->AddGuiImage({ 154, 14 }, { 488, 871, 48, 48 }, martialblood, this);
-	claw->active = false;
-	hud_gui_elements.push_back(claw);
+	bat_strike = App->gui->AddGuiSkill({ 154, 82}, { 586, 871, 48, 48 }, NULL, martialblood, this);
+	bat_strike->active = false;
+	bat_strike->skill_parents.push_back(striking_strike->skill);
+	hud_gui_elements.push_back(bat_strike);
+	
+	soul_of_ice = App->gui->AddGuiSkill({ 84, 150 }, { 635, 871, 48, 48 }, NULL, martialblood, this);
+	soul_of_ice->active = false;
+	soul_of_ice->skill_parents.push_back(wild_talon->skill);
+	hud_gui_elements.push_back(soul_of_ice);
 
-	swords = App->gui->AddGuiImage({ 15, 82 }, { 537, 871, 48, 48 }, martialblood, this);
-	swords->active = false;
-	hud_gui_elements.push_back(swords);
-
-	hand = App->gui->AddGuiImage({ 0, 68 }, { 586, 871, 48, 48 }, claw, this);
-	hand->active = false;
-	hud_gui_elements.push_back(hand);
-
-	star = App->gui->AddGuiImage({ 0, 136 }, { 635, 871, 48, 48 }, lion, this);
-	star->active = false;
-	hud_gui_elements.push_back(star);*/
+	krobus_arts = App->gui->AddGuiSkill({ 15, 82 }, { 537, 871, 48, 48 }, NULL, martialblood, this);
+	krobus_arts->active = false;
+	hud_gui_elements.push_back(krobus_arts);
 
 	//Delete button
 	martialdeletebutton = App->gui->AddGuiImage({ 20, 165 }, { 285, 192, 38, 38 }, martialblood, this);
