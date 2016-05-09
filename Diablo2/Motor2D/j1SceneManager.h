@@ -10,6 +10,7 @@ class j1Scene;
 class snIntro;
 class snOutdoor1;
 class snDungeon1;
+class snDungeon2;
 class snWin;
 
 class j1SceneManager : public j1Module
@@ -46,6 +47,7 @@ public:
 	snIntro*	intro = NULL;
 	snOutdoor1*	outdoor1 = NULL;
 	snDungeon1* dungeon1 = NULL;
+	snDungeon2* dungeon2 = NULL;
 	snWin*		win = NULL;
 
 private:

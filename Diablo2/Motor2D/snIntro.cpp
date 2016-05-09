@@ -5,6 +5,7 @@
 #include "j1Input.h"
 #include "snOutdoor1.h"
 #include "snDungeon1.h"
+#include "snDungeon2.h"
 #include "j1Gui.h"
 #include "j1Audio.h"
 

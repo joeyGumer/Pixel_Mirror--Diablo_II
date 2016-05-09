@@ -145,6 +145,9 @@
     <ClCompile Include="hudStats.cpp">
       <Filter>Desenvolupament  ========\Modules\j1HUD\hudElements\hudStats</Filter>
     </ClCompile>
+    <ClCompile Include="snDungeon2.cpp">
+      <Filter>Desenvolupament  ========\Scenes\snDungeon2</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h">
@@ -324,6 +327,9 @@
     <ClInclude Include="hudStats.h">
       <Filter>Desenvolupament  ========\Modules\j1HUD\hudElements\hudStats</Filter>
     </ClInclude>
+    <ClInclude Include="snDungeon2.h">
+      <Filter>Desenvolupament  ========\Scenes\snDungeon2</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -469,6 +475,9 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Modules\j1HUD\hudElements\hudStats">
       <UniqueIdentifier>{b8f381ac-1b42-40b9-9c0d-f8c33bc9c3ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Scenes\snDungeon2">
+      <UniqueIdentifier>{517116e4-eace-4279-9abe-5143e4706839}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
