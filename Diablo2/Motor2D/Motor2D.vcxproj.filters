@@ -163,6 +163,9 @@
     <ClCompile Include="EntEnemyShaman.cpp">
       <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile\EntEnemy\EntEnemyShaman</Filter>
     </ClCompile>
+    <ClCompile Include="EntEnemySummoner.cpp">
+      <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile\EntEnemy\EntEnemySummoner</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h">
@@ -360,6 +363,9 @@
     <ClInclude Include="EntEnemyShaman.h">
       <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile\EntEnemy\EntEnemyShaman</Filter>
     </ClInclude>
+    <ClInclude Include="EntEnemySummoner.h">
+      <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile\EntEnemy\EntEnemySummoner</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -520,6 +526,9 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile\EntEnemy\EntEnemyShaman">
       <UniqueIdentifier>{0b8df890-c7dc-41cf-8386-33dc7f681403}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile\EntEnemy\EntEnemySummoner">
+      <UniqueIdentifier>{927e8b5e-5459-4de1-b661-6fb27fa07f57}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

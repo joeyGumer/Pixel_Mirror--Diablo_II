@@ -98,6 +98,15 @@ public:
 	//Shaman particles
 	SDL_Texture* shaman_particle;
 
+	//Summoner textures
+	SDL_Texture* summoner_idle;
+	SDL_Texture* summoner_walk;
+	SDL_Texture* summoner_attack;
+	SDL_Texture* summoner_death;
+
+	//Summoner particles
+	SDL_Texture* summoner_particle;
+
 	//Portal texture
 	SDL_Texture* portal_tex;
 

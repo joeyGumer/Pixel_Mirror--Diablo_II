@@ -23,6 +23,7 @@
 #include "EntEnemyCrawler.h"
 #include "EntEnemyWolf.h"
 #include "EntEnemyShaman.h"
+#include "EntEnemySummoner.h"
 
 #include "j1ParticleManager.h"
 
@@ -76,6 +77,15 @@ bool j1EntityManager::Start()
 
 	//Shaman Particles
 	shaman_particle = App->tex->Load("particles/Burn/Building_Burn_1.png");
+
+	//Summoner
+	summoner_idle = App->tex->Load("textures/summoner_idle.png");
+	summoner_walk = App->tex->Load("textures/summoner_walk.png");
+	summoner_death = App->tex->Load("textures/summoner_death.png");
+	summoner_attack = App->tex->Load("textures/summoner_attack.png");
+
+	//Summoner Particles
+	summoner_particle = App->tex->Load("particles/Burn/Building_Burn_1.png");
 
 	//Portal
 	portal_tex = App->tex->Load("textures/portal.png");
@@ -296,6 +306,9 @@ Entity* j1EntityManager::AddEnemy(iPoint &pos, ENEMY_TYPE type)
 			break;
 		case (ENEMY_SHAMAN) :
 			entity = new EntEnemyShaman(pos, ++next_ID);
+			break;
+		case (ENEMY_SUMMONER) :
+			entity = new EntEnemySummoner(pos, ++next_ID);
 			break;
 		}
 

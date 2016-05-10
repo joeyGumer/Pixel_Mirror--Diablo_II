@@ -20,16 +20,19 @@ EntEnemyWolf::EntEnemyWolf(const iPoint &p, uint ID) : EntEnemy(p, ID)
 	current_animation_set = idle;
 	current_animation = &current_animation_set[current_direction];
 
-	HP_max = HP_current = 100;
-	speed = 100.0f;
+	int random = rand() % 31;
+	HP_max = HP_current = 70 + random;
+	speed = 150.0f;
 
 	movement = false;
 	enemy_type = ENEMY_WOLF;
 
 	attack_range = 50.0f;
-	agro_range = 150.0f;
+	agro_range = 200.0f;
 
-	damage = 3;
+	damage = 5;
+
+	blood_drop = 150;
 
 	last_update = PATHFINDING_FRAMES;
 
@@ -268,7 +271,7 @@ void EntEnemyWolf::SetAnimations()
 	{
 		Animation tmp;
 		tmp.SetFrames(0, (73 + 1) * i, 94, 73, 12, 1);
-		tmp.speed = 0.2f;
+		tmp.speed = 0.4f;
 
 		walk.push_back(tmp);
 	}

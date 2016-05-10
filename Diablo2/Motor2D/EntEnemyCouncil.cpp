@@ -25,7 +25,8 @@ EntEnemyCouncil::EntEnemyCouncil(const iPoint &p, uint ID) : EntEnemy(p, ID)
 
 	enemy_type = ENEMY_COUNCIL;
 
-	HP_max = HP_current = 400;
+	int random = rand() % 326;
+	HP_max = HP_current = 75;
 	speed = 100.0f;
 
 	movement = false;
@@ -34,6 +35,8 @@ EntEnemyCouncil::EntEnemyCouncil(const iPoint &p, uint ID) : EntEnemy(p, ID)
 	agro_range = 150.0f;
 
 	damage = 7;
+
+	blood_drop = 150;
 
 	last_update = PATHFINDING_FRAMES;
 

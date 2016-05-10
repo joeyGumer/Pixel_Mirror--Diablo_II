@@ -22,17 +22,18 @@ EntEnemyCrawler::EntEnemyCrawler(const iPoint &p, uint ID) : EntEnemy(p, ID)
 
 	enemy_type = ENEMY_CRAWLER;
 
-	HP_max = HP_current = 100;
+	int random = rand() % 36;
+	HP_max = HP_current = 75;
 	speed = 100.0f;
 
 	movement = false;
 
-	attack_range = 50.0f;
-	agro_range = 190.0f;
+	attack_range = 40.0f;
+	agro_range = 150.0f;
 
-	damage = 5;
+	damage = 7;
 
-	blood_drop = 50;
+	blood_drop = 150;
 
 	last_update = PATHFINDING_FRAMES;
 
