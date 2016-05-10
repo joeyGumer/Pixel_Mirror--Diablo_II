@@ -188,10 +188,9 @@ void EntEnemyShaman::StateMachine()
 		tex = idle_tex;
 		current_animation_set = idle;
 
-		sprite_rect.w = sprite_dim.x = 78;
-		sprite_rect.h = sprite_dim.y = 51;
-		sprite_pivot = sprite_dim / 2;
-		sprite_pivot.y += 5;
+		sprite_rect.w = sprite_dim.x = 93;
+		sprite_rect.h = sprite_dim.y = 92;
+		sprite_pivot = { sprite_rect.w / 2, sprite_rect.h - 20 };
 
 		break;
 
@@ -199,10 +198,9 @@ void EntEnemyShaman::StateMachine()
 		tex = walk_tex;
 		current_animation_set = walk;
 
-		sprite_rect.w = sprite_dim.x = 78;
-		sprite_rect.h = sprite_dim.y = 54;
-		sprite_pivot = sprite_dim / 2;
-		sprite_pivot.y += 5;
+		sprite_rect.w = sprite_dim.x = 123;
+		sprite_rect.h = sprite_dim.y = 111;
+		sprite_pivot = { sprite_rect.w / 2, sprite_rect.h - 22 };
 
 		break;
 
@@ -210,10 +208,9 @@ void EntEnemyShaman::StateMachine()
 		tex = death_tex;
 		current_animation_set = death;
 
-		sprite_rect.w = sprite_dim.x = 90;
-		sprite_rect.h = sprite_dim.y = 56;
-		sprite_pivot = sprite_dim / 2;
-		sprite_pivot.y += 5;
+		sprite_rect.w = sprite_dim.x = 152;
+		sprite_rect.h = sprite_dim.y = 117;
+		sprite_pivot = { sprite_rect.w / 2, sprite_rect.h - 40 };
 
 		App->game->player->IncreaseBlood(blood_drop);
 		App->game->player->PlayerEvent(BLOOD_UP);
@@ -232,10 +229,9 @@ void EntEnemyShaman::StateMachine()
 		tex = attack_tex;
 		current_animation_set = attack;
 
-		sprite_rect.w = sprite_dim.x = 170;
-		sprite_rect.h = sprite_dim.y = 81;
-		sprite_pivot = sprite_dim / 2;
-		sprite_pivot.y += 17;
+		sprite_rect.w = sprite_dim.x = 96;
+		sprite_rect.h = sprite_dim.y = 112;
+		sprite_pivot = { sprite_rect.w / 2, sprite_rect.h - 22 };
 
 		break;
 	}
@@ -267,7 +263,7 @@ void EntEnemyShaman::SetAnimations()
 	for (int i = 0; i < 8; i++)
 	{
 		Animation tmp;
-		tmp.SetFrames(0, (54 + 0) * i, 78, 54, 9, 0);
+		tmp.SetFrames(0, (111 + 0) * i, 123, 111, 14, 0);
 		tmp.speed = 0.2f;
 
 		walk.push_back(tmp);
@@ -277,10 +273,10 @@ void EntEnemyShaman::SetAnimations()
 	for (int i = 0; i < 8; i++)
 	{
 		Animation tmp;
-		int width = 90;
-		int height = 56;
+		int width = 152;
+		int height = 117;
 		int margin = 0;
-		tmp.SetFrames(0, (height + margin) * i, width, height, 12, margin);
+		tmp.SetFrames(0, (height + margin) * i, width, height, 21, margin);
 		tmp.loop = false;
 		tmp.speed = 0.2f;
 
@@ -291,10 +287,10 @@ void EntEnemyShaman::SetAnimations()
 	for (int i = 0; i < 8; i++)
 	{
 		Animation tmp;
-		int width = 170;
-		int height = 81;
+		int width = 96;
+		int height = 112;
 		int margin = 0;
-		tmp.SetFrames(0, (height + margin) * i, width, height, 10, margin);
+		tmp.SetFrames(0, (height + margin) * i, width, height, 17, margin);
 		tmp.loop = false;
 		tmp.speed = 0.2f;
 
