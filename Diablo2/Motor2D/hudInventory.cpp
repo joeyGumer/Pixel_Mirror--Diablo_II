@@ -240,12 +240,25 @@ void hudInventory::OnEvent(GuiElement* element, GUI_Event even)
 		if (even == EVENT_ITEM_OUT)
 		{
 			//Danger using the remove here
-			player->buffs.remove(&(((GuiInventory*)element)->last_item_out->nexus->buff));
+			Item* it = (((GuiInventory*)element)->last_item_out->nexus);
+
+			for (int i = 0; i < it->item_buffs.size(); i++)
+			{
+				player->buffs.remove(&(it->item_buffs[i]));
+			}
+			
 			player->PlayerEvent(CHANGE_ATTRIBUTE);
 		}
 		else if (even == EVENT_ITEM_IN)
 		{
-			player->buffs.push_back(&(((GuiInventory*)element)->last_item_in->nexus->buff));
+			
+
+			Item* it = (((GuiInventory*)element)->last_item_in->nexus);
+
+			for (int i = 0; i < it->item_buffs.size(); i++)
+			{
+				player->buffs.push_back(&(it->item_buffs[i]));
+			}
 			player->PlayerEvent(CHANGE_ATTRIBUTE);
 		}
 	}

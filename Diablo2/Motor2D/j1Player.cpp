@@ -1303,6 +1303,8 @@ void j1Player::SetAttribute(PLAYER_ATTRIBUTE attribute, float value)
 		//basic_damage += ( ( basic_damage ) * ((1 / 100) * value ) );
 		//strength = ((basic_damage)* ((1 / 100) * value));
 		//PLAYER_EVENT(CHANGE_BASICATTACK);
+		if (str_final < 0)
+			str_final = 0;
 		
 	}
 		break;
@@ -1310,6 +1312,8 @@ void j1Player::SetAttribute(PLAYER_ATTRIBUTE attribute, float value)
 	{
 		dex_final += value;
 		//bonus_martial_damage = dexterity += value;
+		if (dex_final < 0)
+			dex_final = 0;
 	
 	}
 		break;
@@ -1317,6 +1321,8 @@ void j1Player::SetAttribute(PLAYER_ATTRIBUTE attribute, float value)
 	{
 		int_final += value;
 		//bonus_spell_damage = intelligence +=  value;
+		if (int_final < 0)
+			int_final = 0;
 
 	}
 		break;
@@ -1325,6 +1331,8 @@ void j1Player::SetAttribute(PLAYER_ATTRIBUTE attribute, float value)
 		vit_final += value;
 		//life += (life + (value*4));
 		//stamina += 1;
+		if (vit_final < 0)
+			vit_final = 0;
 		
 	}
 		break;
@@ -1332,6 +1340,9 @@ void j1Player::SetAttribute(PLAYER_ATTRIBUTE attribute, float value)
 	{
 		luck_final += value;
 		//drop = value;
+
+		if (luck_final < 0)
+			luck_final = 0;
 	}
 		break;
 	}
@@ -1360,6 +1371,4 @@ void j1Player::CalculateFinalStats()
 	App->game->HUD->stats->SetIntelligenceLabel(int_final);
 	App->game->HUD->stats->SetLuckLabel(luck_final);
 	App->game->HUD->stats->SetBasicAttackLabel(basic_damage);
-
-
 }

@@ -133,7 +133,9 @@ itmStone::itmStone(ITEM_RARITY rare, iPoint p) : Item(ITEM_STONE, rare, p)
 		break;
 	}
 
-	buff = Buff(attribute, value);
+	Buff buff(attribute, value);
+
+	item_buffs.push_back(buff);
 
 	rect = { x, y, ITEM_SLOT_SIZE, ITEM_SLOT_SIZE };
 
@@ -325,19 +327,65 @@ itmRune::itmRune(ITEM_RARITY rarity, iPoint p) : Item(ITEM_RUNE, rarity, p)
 {
 	int y = 799;
 	int x;
+	int positive_buff, negative_buff;
+	PLAYER_ATTRIBUTE positive_attribute, negative_attribute;
+	int r;
 
 	switch (rarity)
 	{
 	case RARITY_COMMON:
+	{
 		x = 2374;
+
+		positive_buff = 10;
+		positive_buff += rand() % 11;
+
+		negative_buff = 1;
+		negative_buff += rand() % 10;
+		negative_buff = -negative_buff;
+	}
 		break;
 	case RARITY_RARE:
+	{
 		x = 2404;
+
+
+		positive_buff = 20;
+		positive_buff += rand() % 11;
+
+		negative_buff = 1;
+		negative_buff += rand() % 15;
+		negative_buff = -negative_buff;
+	}
 		break;
 	case RARITY_LEGENDARY:
+	{
 		x = 2434;
+
+		positive_buff = 30;
+		positive_buff += rand() % 11;
+
+		negative_buff = 1;
+		negative_buff += rand() % 20;
+		negative_buff = -negative_buff;
+	}
 		break;
 	}
+
+	positive_attribute = (PLAYER_ATTRIBUTE)(rand() % 5);
+	negative_attribute = (PLAYER_ATTRIBUTE)(rand() % 5);
+
+	while (positive_attribute == negative_attribute)
+	{
+		negative_attribute = (PLAYER_ATTRIBUTE)(rand() % 5);
+	}
+
+	//Buffs
+	Buff buff1(positive_attribute, positive_buff);
+	item_buffs.push_back(buff1);
+
+	Buff buff2(negative_attribute, negative_buff);
+	item_buffs.push_back(buff2);
 
 	rect = { x, y, ITEM_SLOT_SIZE, ITEM_SLOT_SIZE * 3 };
 

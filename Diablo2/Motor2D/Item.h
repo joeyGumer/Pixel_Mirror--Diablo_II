@@ -5,6 +5,8 @@
 #include "p2Point.h"
 #include "Buff.h"
 
+#include <vector>
+
 #define ITEM_SLOT_SIZE 29
 
 
@@ -64,7 +66,7 @@ public:
 	SDL_Rect rect;
 
 	//Buff
-	Buff buff;
+	vector<Buff> item_buffs;
 
 	//Both representations
 	GuiItem* gui_item;
@@ -114,8 +116,6 @@ class itmRune : public Item
 public:
 	itmRune(ITEM_RARITY rarity, iPoint p);
 public:
-	PLAYER_ATTRIBUTE	positive_attribute;
-	PLAYER_ATTRIBUTE	negative_attribute;
 };
 
 class itmArmor : public Item
