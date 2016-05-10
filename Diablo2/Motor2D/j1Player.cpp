@@ -231,6 +231,8 @@ void j1Player::Respawn()
 
 	//Init position and booleans
 	p_position = { 0, 500 };
+	p_collider->rect.x = GetPivotPosition().x - 20;
+	p_collider->rect.y = GetBlitPosition().y + 20;
 	movement = false;
 	attacking = false;
 	enemy = NULL;
@@ -1083,7 +1085,10 @@ void j1Player::ResetTeleport()
 
 void j1Player::OnCollision(Collider* c1, Collider* c2)
 {
-	int i = 0;
+	if (c2->type == COLLIDER_ENEMY_PARTICLE)
+	{
+		TakeDamage(20);
+	}
 }
 
 /*
