@@ -36,7 +36,13 @@ EntEnemyCrawler::EntEnemyCrawler(const iPoint &p, uint ID) : EntEnemy(p, ID)
 
 	last_update = PATHFINDING_FRAMES;
 
-	collider = App->collision->AddCollider(GetPlayerRect(), COLLIDER_ENEMY, App->game->em);
+	SDL_Rect col_rect;
+	col_rect.x = GetPlayerRect().x + 16;
+	col_rect.y = GetPlayerRect().y + 5;
+	col_rect.w = GetPlayerRect().w - 32;
+	col_rect.h = GetPlayerRect().h - 10;
+
+	collider = App->collision->AddCollider(col_rect, COLLIDER_ENEMY, App->game->em);
 
 	//Sprite creation
 

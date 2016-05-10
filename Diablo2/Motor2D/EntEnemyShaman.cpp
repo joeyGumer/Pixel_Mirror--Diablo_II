@@ -36,7 +36,22 @@ EntEnemyShaman::EntEnemyShaman(const iPoint &p, uint ID) : EntEnemy(p, ID)
 
 	last_update = PATHFINDING_FRAMES;
 
-	collider = App->collision->AddCollider(GetPlayerRect(), COLLIDER_ENEMY, App->game->em);
+	SDL_Rect col_rect;
+
+	iPoint col_margin;
+	col_margin.x = 20;
+	col_margin.y = 20;
+
+	iPoint col_pivot;
+	col_pivot.x = 0;
+	col_pivot.y = 0;
+
+	col_rect.x = GetPlayerRect().x + col_margin.x + col_pivot.x;
+	col_rect.y = GetPlayerRect().y + col_margin.y + col_pivot.y;
+	col_rect.w = GetPlayerRect().w - col_margin.x * 2;
+	col_rect.h = GetPlayerRect().h - col_margin.y * 2;
+
+	collider = App->collision->AddCollider(col_rect, COLLIDER_ENEMY, App->game->em);
 
 	//Sprite creation
 

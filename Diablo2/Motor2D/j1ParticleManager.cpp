@@ -194,7 +194,6 @@ Particle* j1ParticleManager::AddParticle(const Particle& p, int x, int y, Uint32
 		part->image = p.image;
 
 	part->fx = sfx;
-	part->collider_margin = p.collider_margin;
 	part->timer.Start();
 
 	SDL_Rect collider_pos;
@@ -287,6 +286,7 @@ Particle::Particle(const Particle& p)
 	alive = p.alive;
 	anim = p.anim;
 	image = p.image;
+	collider_margin = p.collider_margin;
 }
 
 Particle::~Particle()
