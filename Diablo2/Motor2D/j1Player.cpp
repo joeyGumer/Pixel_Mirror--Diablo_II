@@ -1087,7 +1087,21 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 {
 	if (c2->type == COLLIDER_ENEMY_PARTICLE)
 	{
-		TakeDamage(20);
+		Particle* part = NULL;
+		list<Particle*>::iterator item = App->pm->particleList.begin();
+		for (; item != App->pm->particleList.end(); item++)
+		{
+			if (item._Ptr->_Myval->collider == c2)
+			{
+				part = item._Ptr->_Myval;
+			}
+		}
+
+		if (part != NULL)
+		{
+			TakeDamage(part->damage);
+			part->DestroyParticle();
+		}
 	}
 }
 
@@ -1162,7 +1176,7 @@ void j1Player::SetParticles()
 
 	particle_skill_1.life = 5;
 	particle_skill_1.type = PARTICLE_PLAYER_CAST;
-	particle_skill_1.damage = 1;
+	particle_skill_1.damage = 20;
 	particle_skill_1.speed.x = 0;
 	particle_skill_1.speed.y = 0;
 	particle_skill_1.anim.frames.push_back({ 0, 0, 64, 64 });

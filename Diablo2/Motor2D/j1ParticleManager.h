@@ -39,6 +39,8 @@ public:
 	bool CleanActiveParticles();
 	bool CleanActiveEmisors();
 
+	void OnCollision(Collider* c1, Collider* c2);
+
 	Particle* AddParticle(const Particle& p, int x, int y, Uint32 secLife = INT_MAX, SDL_Texture* texture = NULL,
 		unsigned int sfx = 0, uint32 delay = 0);
 
@@ -53,12 +55,12 @@ private:
 	std::string textureFile;
 
 	//TODO 1: Create two list, one with particles and another one with emisors. Call the particle list "particleList" and the emisor list "emisorList"
-	std::list<Particle*> particleList;
 	std::list<Emisor*> emisorList;
 
 	bool LoadParticlesFile(pugi::xml_document& file);
 
 public:
+	std::list<Particle*> particleList;
 	pugi::xml_document particle_file;
 
 };

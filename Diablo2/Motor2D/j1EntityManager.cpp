@@ -199,16 +199,26 @@ void j1EntityManager::OnCollision(Collider* c1, Collider* c2)
 {
 	if (c2->type == COLLIDER_PLAYER_PARTICLE)
 	{
-		map<uint, Entity*>::iterator item = active_entities.begin();
-		for (; item != active_entities.end(); item++)
+		Particle* part = NULL;
+		list<Particle*>::iterator item = App->pm->particleList.begin();
+		for (; item != App->pm->particleList.end(); item++)
 		{
-			if (item->second->collider == c1)
+			if (item._Ptr->_Myval->collider == c2)
 			{
-				EntEnemy* en = (EntEnemy*)item->second;
-				if (en->dead == false)
+				part = item._Ptr->_Myval;
+			}
+		}
+		map<uint, Entity*>::iterator item2 = active_entities.begin();
+		for (; item2 != active_entities.end(); item2++)
+		{
+			if (item2->second->collider == c1)
+			{
+				EntEnemy* en = (EntEnemy*)item2->second;
+				if (en->dead == false && part != NULL)
 				{
-					en->TakeDamage(5);
+					en->TakeDamage(part->damage);
 					en->agro_range += 100.0f;
+					part->DestroyParticle();
 				}	
 			}
 		}

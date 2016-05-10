@@ -323,7 +323,7 @@ void EntEnemyShaman::SetParticles()
 
 	particle_shaman.life = 5;
 	particle_shaman.type = PARTICLE_ENEMY_CAST;
-	particle_shaman.damage = 1;
+	particle_shaman.damage = 20;
 	particle_shaman.speed.x = 0;
 	particle_shaman.speed.y = 0;
 	particle_shaman.anim.frames.push_back({ 0, 0, 64, 64 });
@@ -357,7 +357,7 @@ void EntEnemyShaman::CheckToCast()
 			SetDirection();
 
 			particle_destination.x = enemy->p_position.x;
-			particle_destination.y = enemy->p_position.y;
+			particle_destination.y = enemy->p_position.y - 40;
 
 			movement = false;
 			current_input = ENTITY_INPUT_ATTACK;
