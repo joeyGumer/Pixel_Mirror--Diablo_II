@@ -2,6 +2,7 @@
 #define __ENT_ENEMY_SHAMAN_H__
 
 #include "EntEnemy.h"
+#include "j1ParticleManager.h"
 
 class EntEnemyShaman : public EntEnemy
 {
@@ -17,10 +18,18 @@ public:
 	void StateMachine();
 
 	void SetAnimations();
+	void SetParticles();
+
+	void CheckToCast();
+	void UpdateRangedAttack();
 
 public:
 	uint last_update;
 
+	//Particles
+	Particle	particle_shaman;
+	fPoint		particle_destination;
+	bool		particle_is_casted = false;
 };
 
 #endif

@@ -184,7 +184,9 @@ bool j1Player::PostUpdate()
 // Called before quitting
 bool j1Player::CleanUp()
 {
-	p_collider->to_delete = true;
+	if (p_collider)
+		p_collider->to_delete = true;
+
 	App->tex->UnLoad(p_idle);
 	App->tex->UnLoad(p_walk);
 	App->tex->UnLoad(p_run);
@@ -1154,6 +1156,8 @@ void j1Player::SetParticles()
 	particle_skill_1.image = App->tex->Load("particles/Burn/Building_Burn_1.png");
 
 	particle_skill_1.life = 5;
+	particle_skill_1.type = PARTICLE_PLAYER_CAST;
+	particle_skill_1.damage = 1;
 	particle_skill_1.speed.x = 0;
 	particle_skill_1.speed.y = 0;
 	particle_skill_1.anim.frames.push_back({ 0, 0, 64, 64 });

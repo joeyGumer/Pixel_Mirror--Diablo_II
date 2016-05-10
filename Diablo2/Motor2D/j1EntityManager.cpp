@@ -24,6 +24,8 @@
 #include "EntEnemyWolf.h"
 #include "EntEnemyShaman.h"
 
+#include "j1ParticleManager.h"
+
 #include <algorithm>
 
 
@@ -71,6 +73,9 @@ bool j1EntityManager::Start()
 	shaman_walk = App->tex->Load("textures/shaman_walk.png");
 	shaman_death = App->tex->Load("textures/shaman_death.png");
 	shaman_attack = App->tex->Load("textures/shaman_attack.png");
+
+	//Shaman Particles
+	shaman_particle = App->tex->Load("particles/Burn/Building_Burn_1.png");
 
 	//Portal
 	portal_tex = App->tex->Load("textures/portal.png");
@@ -192,7 +197,7 @@ bool j1EntityManager::CleanUp()
 //Collision
 void j1EntityManager::OnCollision(Collider* c1, Collider* c2)
 {
-	if (c2->type == COLLIDER_PARTICLE)
+	if (c2->type == COLLIDER_PLAYER_PARTICLE)
 	{
 		map<uint, Entity*>::iterator item = active_entities.begin();
 		for (; item != active_entities.end(); item++)
@@ -202,7 +207,7 @@ void j1EntityManager::OnCollision(Collider* c1, Collider* c2)
 				EntEnemy* en = (EntEnemy*)item->second;
 				if (en->dead == false)
 				{
-					en->TakeDamage(50);
+					en->TakeDamage(5);
 					en->agro_range += 100.0f;
 				}	
 			}

@@ -201,7 +201,14 @@ Particle* j1ParticleManager::AddParticle(const Particle& p, int x, int y, Uint32
 	collider_pos.y = part->position.y + part->collider_margin.y;
 	collider_pos.w = part->anim.PeekCurrentFrame().w - part->collider_margin.x * 2;
 	collider_pos.h = part->anim.PeekCurrentFrame().h - part->collider_margin.y * 2;
-	part->collider = App->collision->AddCollider(collider_pos, COLLIDER_PARTICLE);
+	if (part->type == PARTICLE_PLAYER_CAST)
+	{
+		part->collider = App->collision->AddCollider(collider_pos, COLLIDER_PLAYER_PARTICLE);
+	}
+	else if (part->type == PARTICLE_ENEMY_CAST)
+	{
+		part->collider = App->collision->AddCollider(collider_pos, COLLIDER_ENEMY_PARTICLE);
+	}
 
 	//TODO 3: insert the particle in the particleList
 	particleList.push_back(part);
@@ -287,6 +294,8 @@ Particle::Particle(const Particle& p)
 	anim = p.anim;
 	image = p.image;
 	collider_margin = p.collider_margin;
+	type = p.type;
+	damage = p.damage;
 }
 
 Particle::~Particle()

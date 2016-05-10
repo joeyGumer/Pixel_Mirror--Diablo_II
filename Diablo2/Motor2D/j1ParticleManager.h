@@ -17,6 +17,13 @@ class FireEmisor;
 class BurstEmisor;
 class Collider;
 
+enum PARTICLE_TYPE
+{
+	PARTICLE_PLAYER_CAST,
+	PARTICLE_ENEMY_CAST,
+	PARTICLE_BUFF
+};
+
 class j1ParticleManager : public j1Module
 {
 public:
@@ -72,6 +79,8 @@ struct Particle
 	bool			    on = false;
 	Collider*			collider = NULL;
 	fPoint				collider_margin;
+	PARTICLE_TYPE		type;
+	int					damage = 0;
 
 	Particle();
 	Particle(const Particle& p);
