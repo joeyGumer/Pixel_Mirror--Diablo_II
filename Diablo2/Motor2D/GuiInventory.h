@@ -112,6 +112,9 @@ public:
 	list<GuiItem*> items;
 	ITEM_TYPE restriction;
 	bool slot_restriction = true;
+
+	GuiItem* last_item_in;
+	GuiItem* last_item_out;
 };
 
 #endif _GUIINVENTORY_H_

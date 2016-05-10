@@ -53,6 +53,7 @@ enum PLAYER_EVENT
 	BLOOD_UP,
 	BLOOD_DOWN,
 	TELEPORT,
+	CHANGE_ATTRIBUTE,
 	CHANGE_STRENGTH,
 	CHANGE_VITALITY,
 	CHANGE_DEXTERITY,
@@ -102,6 +103,7 @@ class Skill;
 class sklBasicAttack;
 class sklBloodArrow;
 class Collider;
+struct Buff;
 
 class j1Player : public j1Module
 {
@@ -157,9 +159,6 @@ public:
 	void CheckToAttack();
 	void TakeDamage(int damage);
 
-	//Casting
-	void UpdateMagic();
-
 	//Pure Blood System
 	void ReceiveBlood(int blood);
 
@@ -196,16 +195,17 @@ public:
 	//Stats realted
 	void LowerStamina();
 	void RecoverStamina();
-
 	void IncreaseBlood(int blood);
-
 	void RestoreHP(int health);
 
+	void SetAttribute(PLAYER_ATTRIBUTE attribute, float value);
+	void CalculateFinalStats();
+
+	//Portals
 	j1Scene* GetDestiny();
 	bool TeleportReady();
 	void ResetTeleport();
 	
-	void SetAttribute(PLAYER_ATTRIBUTE attribute, float value);
 
 	//Collider
 	void OnCollision(Collider* c1, Collider* c2);
@@ -238,6 +238,7 @@ public:
 	//Attack
 	bool		attacking;
 	int			atk_damage = 50;
+	float attack_range = 65.0f;
 
 	//Textures
 	Sprite* sprite = NULL;
@@ -250,7 +251,7 @@ public:
 	SDL_Texture* p_casting = NULL;
 	SDL_Texture* p_death = NULL;
 
-	//Rects for each state and direction
+	
 	//--------------------
 	Animation* current_animation;
 	//Idle
@@ -263,25 +264,47 @@ public:
 	vector<Animation> death;
 	//--------------------
 
-	//Attributes
+	/*
+	//-----Attributes
+	*/
+
+	//HP
 	int HP_max;
 	int HP_current;
+	int HP_base;
 
+	//MP
 	int MP_max;
 	int MP_current;
+	int MP_base;
 
+	//ST
 	float ST_max;
 	float ST_current;
+	float ST_base;
 
+	//This is mana basically...?
 	int blood_current;
 
-	float attack_range = 65.0f;
-	//THIS IS NOT USED RIGHT NOW BUT HAS  TO BE USED IN ORDER TO WORK WITH THE STATS PANEL
-	int strength;
-	int dexterity;
-	int vitality;
-	int intelligence; 
-	int luck;
+	//Strength
+	int str_base = 0;
+	int str_final;
+
+	//Dexterity
+	int dex_base = 0;
+	int dex_final;
+
+	//Vitality
+	int vit_base = 0;
+	int vit_final;
+
+	//Intelligence
+	int int_base = 0;
+	int int_final;
+
+	//Luck
+	int luck_base = 0;
+	int luck_final;
 
 	
 	float life;
@@ -291,8 +314,10 @@ public:
 	float bonus_spell_damage;
 	float drop;
 
+	//Buffs list
+	list<Buff*> buffs;
+	//---------
 	//Fx
-
 	int player_death;
 	int player_attack;
 	int player_gethit;

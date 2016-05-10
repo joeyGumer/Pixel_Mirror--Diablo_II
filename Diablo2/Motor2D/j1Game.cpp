@@ -3,6 +3,8 @@
 #include "j1Player.h"
 #include "j1HUD.h"
 #include "j1EntityManager.h"
+#include "Item.h"
+#include "j1Input.h"
 
 
 j1Game::j1Game() : j1Module()
@@ -59,6 +61,12 @@ bool j1Game::PreUpdate()
 	for (; item != game_modules.end(); item++)
 	{
 		(*item)->PreUpdate();
+	}
+
+	//NOTE: DEBUG mode for items
+	if (App->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN)
+	{
+		DropItem(App->input->GetMouseWorldPosition());
 	}
 
 	return true;
@@ -121,4 +129,89 @@ void j1Game::AddModule(j1Module* module)
 {
 	module->Init();
 	game_modules.push_back(module);
+}
+
+void j1Game::DropItem(iPoint pos)
+{
+	//NOTE: thinking of using srand for more equally distributed random generation
+	//NOTE: have to change this, the random isn't equal at all. Even when there's a 60% to have no item, it almost always drops items
+	int chance = rand() % 100;
+	ITEM_RARITY rarity;
+
+	//note: HAVE TO CHANGE THIS TO VARIABLES SO IT CAN BE CHANGED BY LUCK
+	if (chance < 0)
+		rarity = NO_DROP;
+	else if (chance < 85)
+		rarity = RARITY_COMMON;
+	else if (chance < 95)
+		rarity = RARITY_RARE;
+	else if (chance >= 95)
+		rarity = RARITY_LEGENDARY;
+
+
+	if (rarity != NO_DROP)
+	{
+		chance = rand() % 100;
+
+		if (chance < 65)
+		{
+			chance = rand() % 100;
+
+			if (chance < 35)
+			{
+				itmStone* item;
+				item = new itmStone(rarity, pos);
+				if (!item->ent_item)
+				{
+					RELEASE(item);
+				}
+			}
+			else if (chance < 55)
+			{
+				itmRing* item;
+				item = new itmRing(rarity, pos);
+				if (!item->ent_item)
+				{
+					RELEASE(item);
+				}
+			}
+			else if (chance < 65)
+			{
+				itmJewel* item;
+				item = new itmJewel(rarity, pos);
+				if (!item->ent_item)
+				{
+					RELEASE(item);
+				}
+			}
+			else if (chance < 90)
+			{
+				itmRune* item;
+				item = new itmRune(rarity, pos);
+				if (!item->ent_item)
+				{
+					RELEASE(item);
+				}
+			}
+			else if (chance >= 90)
+			{
+				itmArmor* item;
+				item = new itmArmor(rarity, pos);
+				if (!item->ent_item)
+				{
+					RELEASE(item);
+				}
+			}
+		}
+		else if (chance >= 65)
+		{
+			itmConsumable* item;
+			item = new itmConsumable(rarity, pos);
+			if (!item->ent_item)
+			{
+				RELEASE(item);
+			}
+		}
+	}
+
 }

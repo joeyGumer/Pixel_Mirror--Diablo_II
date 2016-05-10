@@ -1,9 +1,11 @@
 #include "hudInventory.h"
 #include "j1App.h"
+#include "j1Game.h"
 #include "j1Gui.h"
 #include "j1Input.h"
 #include "GuiItem.h"
 #include "GuiInventory.h"
+#include "j1Player.h"
 #include "Item.h"
 
 
@@ -25,6 +27,7 @@ hudInventory::~hudInventory()
 //Called before fist frame
 bool hudInventory::Start()
 {
+	player = App->game->player;
 	active = false;
 	
 	background = App->gui->AddGuiImage({ 321, 0 }, { 1128, 588, 319, 430 }, NULL, this);
@@ -232,7 +235,21 @@ bool hudInventory::AddItem(GuiItem* item)
 //Called when there's a gui event
 void hudInventory::OnEvent(GuiElement* element, GUI_Event even)
 {
-	if (closebutton == element)
+	if (element->type == GUI_INVENTORY && element != inventory)
+	{
+		if (even == EVENT_ITEM_OUT)
+		{
+			//Danger using the remove here
+			player->buffs.remove(&(((GuiInventory*)element)->last_item_out->nexus->buff));
+			player->PlayerEvent(CHANGE_ATTRIBUTE);
+		}
+		else if (even == EVENT_ITEM_IN)
+		{
+			player->buffs.push_back(&(((GuiInventory*)element)->last_item_in->nexus->buff));
+			player->PlayerEvent(CHANGE_ATTRIBUTE);
+		}
+	}
+	else if (closebutton == element)
 	{
 		switch (even)
 		{
@@ -244,4 +261,5 @@ void hudInventory::OnEvent(GuiElement* element, GUI_Event even)
 		break;
 		}
 	}
+	
 }

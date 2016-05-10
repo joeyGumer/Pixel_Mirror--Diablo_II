@@ -360,6 +360,9 @@
     <ClInclude Include="EntEnemyShaman.h">
       <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile\EntEnemy\EntEnemyShaman</Filter>
     </ClInclude>
+    <ClInclude Include="Buff.h">
+      <Filter>Desenvolupament  ========\Modules\Items\Buff</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -520,6 +523,9 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile\EntEnemy\EntEnemyShaman">
       <UniqueIdentifier>{0b8df890-c7dc-41cf-8386-33dc7f681403}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\Items\Buff">
+      <UniqueIdentifier>{fc3f8c0a-0165-4dd1-b5ea-9059345e62e8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

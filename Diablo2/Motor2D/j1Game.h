@@ -2,6 +2,7 @@
 #define __j1GAME_H__
 
 #include "j1Module.h"
+#include "p2Point.h"
 #include <list>
 
 using namespace std;
@@ -40,6 +41,9 @@ public:
 
 	//Utils
 	void AddModule(j1Module* module);
+
+	//Drops an item
+	void DropItem(iPoint pos);
 
 public:
 	//Modules

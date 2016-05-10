@@ -8,6 +8,7 @@ class GuiElement;
 class GuiImage;
 class GuiInventory;
 class GuiItem;
+class j1Player;
 
 
 
@@ -47,6 +48,8 @@ public:
 	bool AddItem(GuiItem* item);
 
 public:
+
+	j1Player* player;
 
 	bool closebutton_pressed = false;
 

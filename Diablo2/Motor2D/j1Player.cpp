@@ -21,7 +21,8 @@
 #include "PlayerSkills.h"
 #include "SDL/include/SDL.h"
 #include "j1Audio.h"
-#include "hudStats.h"-
+#include "hudStats.h"
+#include "Buff.h"
 //NOTE:Partciles in development, for now we will include this
 //#include "playerParticle.h"
 
@@ -385,7 +386,6 @@ void j1Player::PlayerEvent(PLAYER_EVENT even)
 		break;
 	case GET_ITEM:
 		{
-			//NOTE: GUARRALITY
 			if (objective->type = ITEM)
 			{
 				((EntItem*)objective)->nexus->ConvertToGui();
@@ -402,6 +402,8 @@ void j1Player::PlayerEvent(PLAYER_EVENT even)
 	case BLOOD_DOWN:
 		{
 			//Code here
+			//NOTE: why there's blood up and blood down? Don't copy me if you don't know what i'm doing this xD
+			//I put HP_UP and HP_DOWN because the HP recovery is over time and the Hp decrease is instant.
 		}
 		break;
 	case TELEPORT:
@@ -419,27 +421,27 @@ void j1Player::PlayerEvent(PLAYER_EVENT even)
 		break;
 	case CHANGE_STRENGTH:
 		{
-			App->game->HUD->stats->SetStrengthLabel(strength);
+			App->game->HUD->stats->SetStrengthLabel(str_final);
 		}
 		break;
 	case CHANGE_VITALITY:
 		{
-			App->game->HUD->stats->SetVitalityLabel(vitality);
+			App->game->HUD->stats->SetVitalityLabel(vit_final);
 		}
 		break;
 	case CHANGE_DEXTERITY:
 		{
-			App->game->HUD->stats->SetDexterityLabel(dexterity);
+			App->game->HUD->stats->SetDexterityLabel(dex_final);
 		}
 		break;
 	case CHANGE_INTELLIGENCE:
 		{
-			App->game->HUD->stats->SetIntelligenceLabel(intelligence);
+			App->game->HUD->stats->SetIntelligenceLabel(int_final);
 		}
 		break;
 	case CHANGE_LUCK:
 		{
-			App->game->HUD->stats->SetLuckLabel(luck);
+			App->game->HUD->stats->SetLuckLabel(luck_final);
 		}
 		break;
 	case CHANGE_BASICATTACK:
@@ -449,7 +451,12 @@ void j1Player::PlayerEvent(PLAYER_EVENT even)
 		break;
 	case CHANGE_RESISTENCE:
 		{
-			App->game->HUD->stats->SetResistenceLabel(vitality);
+			//App->game->HUD->stats->SetResistenceLabel(vitality);
+		}
+		break;
+	case CHANGE_ATTRIBUTE:
+		{
+			CalculateFinalStats();
 		}
 		break;
 	}
@@ -639,26 +646,6 @@ void j1Player::UpdateAttack()
 			input_locked = false;
 		}
 	
-}
-
-void j1Player::UpdateMagic()
-{
-	/*
-	//NOTE: provisional
-	if (current_animation->CurrentFrame() >= 7 && !particle_is_casted)
-	{
-		playerParticle* particle = new playerParticle({ p_position.x, p_position.y - 40 }, particle_destination);
-		particle_list.push_back(particle);
-		particle_is_casted = true;
-	}
-
-	if (current_animation->Finished())
-	{
-		current_input = INPUT_STOP_MOVE;
-		input_locked = false;
-		particle_is_casted = false;
-	}
-	*/
 }
 
 void j1Player::CheckToAttack()
@@ -1279,42 +1266,76 @@ void j1Player::StateMachine()
 	current_animation = &current_animation_set[current_direction];
 }
 
+/*
+//Player attributes
+*/
 void j1Player::SetAttribute(PLAYER_ATTRIBUTE attribute, float value)
 {
+	//NOTE: make the labels to be changed only at the end of all the calculation
 	switch (attribute)
 	{
 	case STRENGHT:
 	{
-		basic_damage += ( ( basic_damage ) * ((1 / 100) * value ) );
-		strength = ((basic_damage)* ((1 / 100) * value));
-		PLAYER_EVENT(CHANGE_BASICATTACK);
-		PLAYER_EVENT(CHANGE_STRENGTH);
+		str_final += value;
+		//basic_damage += ( ( basic_damage ) * ((1 / 100) * value ) );
+		//strength = ((basic_damage)* ((1 / 100) * value));
+		//PLAYER_EVENT(CHANGE_BASICATTACK);
+		PlayerEvent(CHANGE_STRENGTH);
 	}
 		break;
 	case DEXTERITY:
 	{
-		bonus_martial_damage = dexterity += value;
-		PLAYER_EVENT(CHANGE_DEXTERITY);
+		dex_final += value;
+		//bonus_martial_damage = dexterity += value;
+		PlayerEvent(CHANGE_DEXTERITY);
 	}
 		break;
 	case INTELLIGENCE:
 	{
-		bonus_spell_damage = intelligence +=  value;
-		PLAYER_EVENT(CHANGE_INTELLIGENCE);
+		int_final += value;
+		//bonus_spell_damage = intelligence +=  value;
+		PlayerEvent(CHANGE_INTELLIGENCE);
 	}
 		break;
 	case VITALITY:
 	{
-		life += (life + (value*4));
-		stamina += 1;
-		PLAYER_EVENT(CHANGE_VITALITY);
+		vit_final += value;
+		//life += (life + (value*4));
+		//stamina += 1;
+		PlayerEvent(CHANGE_VITALITY);
 	}
 		break;
 	case LUCK:
 	{
-		drop = value;
-		PLAYER_EVENT(CHANGE_LUCK);
+		luck_final += value;
+		//drop = value;
+		PlayerEvent(CHANGE_LUCK);
 	}
 		break;
 	}
+}
+
+void j1Player::CalculateFinalStats()
+{
+
+	str_final = str_base;
+	dex_final = dex_base;
+	vit_final = vit_base;
+	int_final = int_base;
+	luck_final = luck_base;
+
+	list<Buff*>::iterator item = buffs.begin();
+
+	for (; item != buffs.end(); item++)
+	{
+		SetAttribute((*item)->attribute, (*item)->value);
+	}
+
+	App->game->HUD->stats->SetStrengthLabel(str_final);
+	App->game->HUD->stats->SetVitalityLabel(vit_final);
+	App->game->HUD->stats->SetDexterityLabel(dex_final);
+	App->game->HUD->stats->SetIntelligenceLabel(int_final);
+	App->game->HUD->stats->SetLuckLabel(luck_final);
+	App->game->HUD->stats->SetBasicAttackLabel(basic_damage);
+
 }

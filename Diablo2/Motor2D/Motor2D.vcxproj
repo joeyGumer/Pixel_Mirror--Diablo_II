@@ -134,6 +134,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="Buff.h" />
     <ClInclude Include="EntEnemy.h" />
     <ClInclude Include="EntEnemyCouncil.h" />
     <ClInclude Include="EntEnemyCrawler.h" />

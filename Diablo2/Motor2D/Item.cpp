@@ -85,23 +85,24 @@ void Item::Effect()
 
 itmStone::itmStone(ITEM_RARITY rare, iPoint p) : Item(ITEM_STONE, rare, p)
 {
-	int x, y;
+	int x, y, value;
+	PLAYER_ATTRIBUTE attribute;
 
 	switch (rare)
 	{
 	case RARITY_COMMON:
-		buff = 4;
-		buff += rand() % 8;
+		value = 4;
+		value += rand() % 8;
 		y = 947;
 		break;
 	case RARITY_RARE:
-		buff = 10;
-		buff += rand() % 10;
+		value = 10;
+		value += rand() % 10;
 		y = 977;
 		break;
 	case RARITY_LEGENDARY:
-		buff = 17;
-		buff += rand() % 10;
+		value = 17;
+		value += rand() % 10;
 		y = 1007;
 		break;
 	}
@@ -131,6 +132,8 @@ itmStone::itmStone(ITEM_RARITY rare, iPoint p) : Item(ITEM_STONE, rare, p)
 		x = 2314;
 		break;
 	}
+
+	buff = Buff(attribute, value);
 
 	rect = { x, y, ITEM_SLOT_SIZE, ITEM_SLOT_SIZE };
 

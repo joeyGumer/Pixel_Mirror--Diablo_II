@@ -3,8 +3,11 @@
 
 #include "SDL/include/SDL.h"
 #include "p2Point.h"
+#include "Buff.h"
 
 #define ITEM_SLOT_SIZE 29
+
+
 
 enum ITEM_TYPE
 {
@@ -28,6 +31,7 @@ enum ITEM_RARITY
 enum PLAYER_ATTRIBUTE;
 class GuiItem;
 class EntItem;
+struct buff;
 
 class Item
 {
@@ -58,6 +62,9 @@ public:
 	iPoint* coord;
 	//NOTE: May be changed because now, we are using the same sprite for GuiItem and EntItem
 	SDL_Rect rect;
+
+	//Buff
+	Buff buff;
 
 	//Both representations
 	GuiItem* gui_item;
@@ -99,8 +106,7 @@ public:
 	itmStone(ITEM_RARITY rare, iPoint p);
 
 public:
-	PLAYER_ATTRIBUTE	attribute;
-	int					buff;
+	//Buff buff;
 };
 
 class itmRune : public Item
