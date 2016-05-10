@@ -1345,6 +1345,9 @@ void j1Player::SetAttribute(PLAYER_ATTRIBUTE attribute, float value)
 			luck_final = 0;
 	}
 		break;
+
+	default:
+		break;
 	}
 
 }

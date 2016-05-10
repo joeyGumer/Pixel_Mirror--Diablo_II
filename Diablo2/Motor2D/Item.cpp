@@ -156,61 +156,81 @@ itmStone::itmStone(ITEM_RARITY rare, iPoint p) : Item(ITEM_STONE, rare, p)
 itmConsumable::itmConsumable(ITEM_RARITY rarity, iPoint p) : Item(ITEM_CONSUMABLE, rarity, p)
 {
 	//NOTE: Have to apply %
-	int at = rand() % 2;
+	int a = rand() % 2;
 
 	int x = 2464;
 	int y;
+	int value;
+	PLAYER_ATTRIBUTE at;
 
-	switch (at)
+	switch (a)
 	{
 	case 0:
-		attribute = HP;
+	{
+		at = HP;
 		switch (rarity)
 		{
 		case RARITY_COMMON:
-			buff = 5; //%
+			value = 5; //%
 			y = 797;
 			break;
 		case RARITY_RARE:
-			buff = 7.5;
+			value = 7.5;
 			y = 827;
 			break;
 		case RARITY_LEGENDARY:
-			buff = 10;
+			value = 10;
 			y = 857;
 			break;
 		}
-		break;
-	case 1:
-		at = rand() % 5;
-		buff = 15; //%
+	}
+	break;
 
-		switch (at)
+	case 1:
+	{
+		a = rand() % 5;
+		value = 15; //%
+
+		switch (a)
 		{
 		case 0:
-			attribute = BLOOD;
+		{
+			at = BLOOD;
 			y = 887;
-			break;
-		case 1:
-			attribute = INTELLIGENCE;
-			y = 917;
-			break;
-		case 2:
-			attribute = DEXTERITY;
-			y = 947;
-			break;
-		case 3:
-			attribute = STRENGHT;
-			y = 977;
-			break;
-		case 4:
-			attribute = VITALITY;
-			y = 1007;
-			break;
 		}
-		
+		break;
+		case 1:
+		{
+			at = INTELLIGENCE;
+			y = 917;
+		}
+		break;
+		case 2:
+		{
+			at = DEXTERITY;
+			y = 947;
+		}
+		break;
+		case 3:
+		{
+			at = STRENGHT;
+			y = 977;
+		}
+		break;
+		case 4:
+		{
+			at = VITALITY;
+			y = 1007;
+		}
+		break;
+		}
+
+	}
+	break;
 	}
 
+	Buff buff1(at, value);
+	item_buffs.push_back(buff1);
 
 	rect = { x, y, ITEM_SLOT_SIZE, ITEM_SLOT_SIZE };
 

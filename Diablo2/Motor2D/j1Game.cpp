@@ -148,6 +148,12 @@ void j1Game::DropItem(iPoint pos)
 	else if (chance >= 95)
 		rarity = RARITY_LEGENDARY;
 
+	/*itmConsumable* item;
+	item = new itmConsumable(rarity, pos);
+	if (!item->ent_item)
+	{
+		RELEASE(item);
+	}*/
 
 	if (rarity != NO_DROP)
 	{
