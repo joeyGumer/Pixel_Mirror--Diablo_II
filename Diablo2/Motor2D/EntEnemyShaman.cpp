@@ -11,10 +11,10 @@
 EntEnemyShaman::EntEnemyShaman(const iPoint &p, uint ID) : EntEnemy(p, ID)
 {
 	name = "shaman";
-	tex = idle_tex = App->game->em->crawler_idle;
-	walk_tex = App->game->em->crawler_walk;
-	death_tex = App->game->em->crawler_death;
-	attack_tex = App->game->em->crawler_attack;
+	tex = idle_tex = App->game->em->shaman_idle;
+	walk_tex = App->game->em->shaman_walk;
+	death_tex = App->game->em->shaman_death;
+	attack_tex = App->game->em->shaman_attack;
 
 	SetAnimations();
 	current_animation_set = idle;
@@ -244,11 +244,10 @@ void EntEnemyShaman::StateMachine()
 void EntEnemyShaman::SetAnimations()
 {
 	//NOTE: this should not go here
-	collider_rect.w = sprite_rect.w = sprite_dim.x = 78;
-	collider_rect.h = sprite_rect.h = sprite_dim.y = 51;
+	collider_rect.w = sprite_rect.w = sprite_dim.x = 93;
+	collider_rect.h = sprite_rect.h = sprite_dim.y = 92;
 
 	sprite_pivot = pivot = { collider_rect.w / 2, collider_rect.h - 20 };
-	sprite_pivot.y += 5;
 
 
 
@@ -257,7 +256,7 @@ void EntEnemyShaman::SetAnimations()
 	for (int i = 0; i < 8; i++)
 	{
 		Animation tmp;
-		tmp.SetFrames(0, (51 + 0) * i, 78, 51, 4, 0);
+		tmp.SetFrames(0, (92 + 0) * i, 93, 92, 12, 0);
 		tmp.speed = 0.2f;
 
 		idle.push_back(tmp);

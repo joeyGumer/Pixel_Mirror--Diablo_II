@@ -22,6 +22,7 @@
 #include "EntEnemyCouncil.h"
 #include "EntEnemyCrawler.h"
 #include "EntEnemyWolf.h"
+#include "EntEnemyShaman.h"
 
 #include <algorithm>
 
@@ -64,6 +65,12 @@ bool j1EntityManager::Start()
 	boss_walk = App->tex->Load("textures/boss_walk.png");
 	boss_death = App->tex->Load("textures/boss_death.png");
 	boss_attack = App->tex->Load("textures/boss_attack.png");
+
+	//Shaman
+	shaman_idle = App->tex->Load("textures/shaman_idle.png");
+	shaman_walk = App->tex->Load("textures/shaman_walk.png");
+	shaman_death = App->tex->Load("textures/shaman_death.png");
+	shaman_attack = App->tex->Load("textures/shaman_attack.png");
 
 	//Portal
 	portal_tex = App->tex->Load("textures/portal.png");
@@ -271,6 +278,9 @@ Entity* j1EntityManager::AddEnemy(iPoint &pos, ENEMY_TYPE type)
 
 		case (ENEMY_COUNCIL) :
 			entity = new EntEnemyCouncil(pos, ++next_ID);
+			break;
+		case (ENEMY_SHAMAN) :
+			entity = new EntEnemyShaman(pos, ++next_ID);
 			break;
 		}
 

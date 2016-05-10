@@ -223,6 +223,16 @@ bool snOutdoor1::Update(float dt)
 		Entity* ent = App->game->em->AddEnemy(p, ENEMY_COUNCIL);
 	}
 
+	else if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN && App->debug)
+	{
+		iPoint p;
+		p = App->input->GetMouseWorldPosition();
+		p.x += App->map->data.tile_width / 2;
+		p.y += App->map->data.tile_height / 2;
+
+		Entity* ent = App->game->em->AddEnemy(p, ENEMY_SHAMAN);
+	}
+
 	//Map
 	App->map->Draw();
 	

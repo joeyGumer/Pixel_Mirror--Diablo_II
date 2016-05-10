@@ -89,6 +89,12 @@ public:
 	SDL_Texture* boss_attack;
 	SDL_Texture* boss_death;
 
+	//Shaman textures
+	SDL_Texture* shaman_idle;
+	SDL_Texture* shaman_walk;
+	SDL_Texture* shaman_attack;
+	SDL_Texture* shaman_death;
+
 	//Portal texture
 	SDL_Texture* portal_tex;
 
