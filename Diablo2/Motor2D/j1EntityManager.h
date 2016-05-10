@@ -95,6 +95,9 @@ public:
 	SDL_Texture* shaman_attack;
 	SDL_Texture* shaman_death;
 
+	//Shaman particles
+	SDL_Texture* shaman_particle;
+
 	//Portal texture
 	SDL_Texture* portal_tex;
 

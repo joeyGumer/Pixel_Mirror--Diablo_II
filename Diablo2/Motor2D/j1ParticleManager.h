@@ -17,6 +17,13 @@ class FireEmisor;
 class BurstEmisor;
 class Collider;
 
+enum PARTICLE_TYPE
+{
+	PARTICLE_PLAYER_CAST,
+	PARTICLE_ENEMY_CAST,
+	PARTICLE_BUFF
+};
+
 class j1ParticleManager : public j1Module
 {
 public:
@@ -46,12 +53,12 @@ private:
 	std::string textureFile;
 
 	//TODO 1: Create two list, one with particles and another one with emisors. Call the particle list "particleList" and the emisor list "emisorList"
-	std::list<Particle*> particleList;
 	std::list<Emisor*> emisorList;
 
 	bool LoadParticlesFile(pugi::xml_document& file);
 
 public:
+	std::list<Particle*> particleList;
 	pugi::xml_document particle_file;
 
 };
@@ -72,6 +79,8 @@ struct Particle
 	bool			    on = false;
 	Collider*			collider = NULL;
 	fPoint				collider_margin;
+	PARTICLE_TYPE		type;
+	int					damage = 0;
 
 	Particle();
 	Particle(const Particle& p);

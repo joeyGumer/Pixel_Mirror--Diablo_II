@@ -185,7 +185,9 @@ bool j1Player::PostUpdate()
 // Called before quitting
 bool j1Player::CleanUp()
 {
-	p_collider->to_delete = true;
+	if (p_collider)
+		p_collider->to_delete = true;
+
 	App->tex->UnLoad(p_idle);
 	App->tex->UnLoad(p_walk);
 	App->tex->UnLoad(p_run);
@@ -230,6 +232,8 @@ void j1Player::Respawn()
 
 	//Init position and booleans
 	p_position = { 0, 500 };
+	p_collider->rect.x = GetPivotPosition().x - 20;
+	p_collider->rect.y = GetBlitPosition().y + 20;
 	movement = false;
 	attacking = false;
 	enemy = NULL;
@@ -1068,7 +1072,24 @@ void j1Player::ResetTeleport()
 
 void j1Player::OnCollision(Collider* c1, Collider* c2)
 {
-	int i = 0;
+	if (c2->type == COLLIDER_ENEMY_PARTICLE)
+	{
+		Particle* part = NULL;
+		list<Particle*>::iterator item = App->pm->particleList.begin();
+		for (; item != App->pm->particleList.end(); item++)
+		{
+			if (item._Ptr->_Myval->collider == c2)
+			{
+				part = item._Ptr->_Myval;
+			}
+		}
+
+		if (part != NULL)
+		{
+			TakeDamage(part->damage);
+			part->DestroyParticle();
+		}
+	}
 }
 
 /*
@@ -1141,6 +1162,8 @@ void j1Player::SetParticles()
 	particle_skill_1.image = App->tex->Load("particles/Burn/Building_Burn_1.png");
 
 	particle_skill_1.life = 5;
+	particle_skill_1.type = PARTICLE_PLAYER_CAST;
+	particle_skill_1.damage = 20;
 	particle_skill_1.speed.x = 0;
 	particle_skill_1.speed.y = 0;
 	particle_skill_1.anim.frames.push_back({ 0, 0, 64, 64 });
@@ -1280,21 +1303,21 @@ void j1Player::SetAttribute(PLAYER_ATTRIBUTE attribute, float value)
 		//basic_damage += ( ( basic_damage ) * ((1 / 100) * value ) );
 		//strength = ((basic_damage)* ((1 / 100) * value));
 		//PLAYER_EVENT(CHANGE_BASICATTACK);
-		PlayerEvent(CHANGE_STRENGTH);
+		
 	}
 		break;
 	case DEXTERITY:
 	{
 		dex_final += value;
 		//bonus_martial_damage = dexterity += value;
-		PlayerEvent(CHANGE_DEXTERITY);
+	
 	}
 		break;
 	case INTELLIGENCE:
 	{
 		int_final += value;
 		//bonus_spell_damage = intelligence +=  value;
-		PlayerEvent(CHANGE_INTELLIGENCE);
+
 	}
 		break;
 	case VITALITY:
@@ -1302,17 +1325,17 @@ void j1Player::SetAttribute(PLAYER_ATTRIBUTE attribute, float value)
 		vit_final += value;
 		//life += (life + (value*4));
 		//stamina += 1;
-		PlayerEvent(CHANGE_VITALITY);
+		
 	}
 		break;
 	case LUCK:
 	{
 		luck_final += value;
 		//drop = value;
-		PlayerEvent(CHANGE_LUCK);
 	}
 		break;
 	}
+
 }
 
 void j1Player::CalculateFinalStats()
@@ -1337,5 +1360,6 @@ void j1Player::CalculateFinalStats()
 	App->game->HUD->stats->SetIntelligenceLabel(int_final);
 	App->game->HUD->stats->SetLuckLabel(luck_final);
 	App->game->HUD->stats->SetBasicAttackLabel(basic_damage);
+
 
 }

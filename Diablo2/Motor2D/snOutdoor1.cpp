@@ -243,7 +243,7 @@ bool snOutdoor1::Update(float dt)
 	//Camera
 	//Free movement only avaliable on debug mode
 	
-	/*if (App->debug)
+	if (App->debug)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		{
@@ -264,7 +264,7 @@ bool snOutdoor1::Update(float dt)
 		{
 			App->render->camera.y += floor(CAM_SPEED*dt);
 		}
-	}*/
+	}
 
 	//Pathfinding debug
 	//NOTE: uncomment for testing pathfinding

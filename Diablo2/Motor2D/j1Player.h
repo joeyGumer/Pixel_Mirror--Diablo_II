@@ -139,6 +139,9 @@ public:
 	//Debug mode
 	void DrawDebug() const ;
 
+	//Collision
+	void OnCollision(Collider* c1, Collider* c2);
+
 	//Movement
 	void Move(float dt);
 	void SetMovement(int x, int y);
@@ -206,9 +209,6 @@ public:
 	bool TeleportReady();
 	void ResetTeleport();
 	
-
-	//Collider
-	void OnCollision(Collider* c1, Collider* c2);
 
 //Attributes
 

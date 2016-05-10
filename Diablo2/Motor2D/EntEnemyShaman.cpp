@@ -6,6 +6,8 @@
 #include "j1Collision.h"
 #include "j1Player.h"
 #include "j1Map.h"
+#include "Animation.h"
+
 
 //Constructor
 EntEnemyShaman::EntEnemyShaman(const iPoint &p, uint ID) : EntEnemy(p, ID)
@@ -17,6 +19,8 @@ EntEnemyShaman::EntEnemyShaman(const iPoint &p, uint ID) : EntEnemy(p, ID)
 	attack_tex = App->game->em->shaman_attack;
 
 	SetAnimations();
+	SetParticles();
+
 	current_animation_set = idle;
 	current_animation = &current_animation_set[current_direction];
 
@@ -27,8 +31,8 @@ EntEnemyShaman::EntEnemyShaman(const iPoint &p, uint ID) : EntEnemy(p, ID)
 
 	movement = false;
 
-	attack_range = 50.0f;
-	agro_range = 190.0f;
+	attack_range = 180.0f;
+	agro_range = 270.0f;
 
 	damage = 5;
 
@@ -36,7 +40,22 @@ EntEnemyShaman::EntEnemyShaman(const iPoint &p, uint ID) : EntEnemy(p, ID)
 
 	last_update = PATHFINDING_FRAMES;
 
-	collider = App->collision->AddCollider(GetPlayerRect(), COLLIDER_ENEMY, App->game->em);
+	SDL_Rect col_rect;
+
+	iPoint col_margin;
+	col_margin.x = 20;
+	col_margin.y = 20;
+
+	iPoint col_pivot;
+	col_pivot.x = 0;
+	col_pivot.y = 0;
+
+	col_rect.x = GetPlayerRect().x + col_margin.x + col_pivot.x;
+	col_rect.y = GetPlayerRect().y + col_margin.y + col_pivot.y;
+	col_rect.w = GetPlayerRect().w - col_margin.x * 2;
+	col_rect.h = GetPlayerRect().h - col_margin.y * 2;
+
+	collider = App->collision->AddCollider(col_rect, COLLIDER_ENEMY, App->game->em);
 
 	//Sprite creation
 
@@ -86,12 +105,12 @@ bool EntEnemyShaman::Update(float dt)
 
 		}
 
-		CheckToAttack();
+		CheckToCast();
 
 		switch (current_action)
 		{
 		case ENTITY_ATTACKING:
-			UpdateAttack();
+			UpdateRangedAttack();
 		case ENTITY_WALKING:
 			UpdateMovement(dt);
 		}
@@ -292,8 +311,81 @@ void EntEnemyShaman::SetAnimations()
 		int margin = 0;
 		tmp.SetFrames(0, (height + margin) * i, width, height, 17, margin);
 		tmp.loop = false;
-		tmp.speed = 0.2f;
+		tmp.speed = 0.3f;
 
 		attack.push_back(tmp);
+	}
+}
+
+void EntEnemyShaman::SetParticles()
+{
+	particle_shaman.image = App->game->em->shaman_particle;
+
+	particle_shaman.life = 5;
+	particle_shaman.type = PARTICLE_ENEMY_CAST;
+	particle_shaman.damage = 20;
+	particle_shaman.speed.x = 0;
+	particle_shaman.speed.y = 0;
+	particle_shaman.anim.frames.push_back({ 0, 0, 64, 64 });
+	particle_shaman.anim.frames.push_back({ 64, 0, 64, 64 });
+	particle_shaman.anim.frames.push_back({ 128, 0, 64, 64 });
+	particle_shaman.anim.frames.push_back({ 192, 0, 64, 64 });
+	particle_shaman.anim.frames.push_back({ 256, 0, 64, 64 });
+	particle_shaman.anim.frames.push_back({ 320, 0, 64, 64 });
+	particle_shaman.anim.frames.push_back({ 384, 0, 64, 64 });
+	particle_shaman.anim.frames.push_back({ 448, 0, 64, 64 });
+	particle_shaman.anim.speed = 0.5f;
+	particle_shaman.anim.loop = true;
+	particle_shaman.anim.Reset();
+
+	particle_shaman.collider_margin.x = particle_shaman.anim.GetCurrentFrame().w / 3;
+	particle_shaman.collider_margin.y = particle_shaman.anim.GetCurrentFrame().h / 4;
+
+}
+
+void EntEnemyShaman::CheckToCast()
+{
+	if (enemy && !attacking)
+	{
+		if (PlayerInAttackRange())
+		{
+			fPoint target = enemy->GetPivotPosition();
+
+			fPoint dist = { target - position };
+			velocity = dist;
+
+			SetDirection();
+
+			particle_destination.x = enemy->p_position.x;
+			particle_destination.y = enemy->p_position.y - 40;
+
+			movement = false;
+			current_input = ENTITY_INPUT_ATTACK;
+			attacking = true;
+			//NOTE: Insert attack sound here
+		}
+	}
+}
+
+void EntEnemyShaman::UpdateRangedAttack()
+{
+	if (current_animation->CurrentFrame() >= 7 && !particle_is_casted)
+	{
+		Particle* skill_particle = App->pm->AddParticle(particle_shaman, position.x, position.y - 40, 2, particle_shaman.image);
+		particle_is_casted = true;
+		skill_particle->SetPointSpeed(150, particle_destination);
+	}
+
+	if (current_animation->Finished())
+	{
+		particle_is_casted = false;
+		attacking = false;
+		current_animation->Reset();
+		//input_locked = false;
+
+		if (!enemy->Alive() || !PlayerInAttackRange())
+		{
+			current_input = ENTITY_INPUT_STOP_MOVE;
+		}
 	}
 }
