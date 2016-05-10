@@ -151,6 +151,15 @@
     <ClCompile Include="GuiSkill.cpp">
       <Filter>Desenvolupament  ========\Modules\j1Gui\GuiElements</Filter>
     </ClCompile>
+    <ClCompile Include="EntEnemyWolf.cpp">
+      <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile\EntEnemy\EntEnemyWolf</Filter>
+    </ClCompile>
+    <ClCompile Include="EntEnemyCrawler.cpp">
+      <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile\EntEnemy\EntEnemyCrawler</Filter>
+    </ClCompile>
+    <ClCompile Include="EntEnemyCouncil.cpp">
+      <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile\EntEnemy\EntEnemyCouncil</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h">
@@ -336,6 +345,15 @@
     <ClInclude Include="GuiSkill.h">
       <Filter>Desenvolupament  ========\Modules\j1Gui\GuiElements</Filter>
     </ClInclude>
+    <ClInclude Include="EntEnemyWolf.h">
+      <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile\EntEnemy\EntEnemyWolf</Filter>
+    </ClInclude>
+    <ClInclude Include="EntEnemyCrawler.h">
+      <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile\EntEnemy\EntEnemyCrawler</Filter>
+    </ClInclude>
+    <ClInclude Include="EntEnemyCouncil.h">
+      <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile\EntEnemy\EntEnemyCouncil</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -484,6 +502,15 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Scenes\snDungeon2">
       <UniqueIdentifier>{517116e4-eace-4279-9abe-5143e4706839}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile\EntEnemy\EntEnemyWolf">
+      <UniqueIdentifier>{53c101a8-1be1-49a4-9319-6d543b6549eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile\EntEnemy\EntEnemyCrawler">
+      <UniqueIdentifier>{51ad1034-8831-42bb-a0b0-90ad85fce101}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile\EntEnemy\EntEnemyCouncil">
+      <UniqueIdentifier>{bd4edd4d-4b47-465c-b3cc-8aa36f08acc8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -78,6 +78,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="EntEnemy.cpp" />
+    <ClCompile Include="EntEnemyCouncil.cpp" />
+    <ClCompile Include="EntEnemyCrawler.cpp" />
+    <ClCompile Include="EntEnemyWolf.cpp" />
     <ClCompile Include="EntItem.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntMobile.cpp" />
@@ -131,6 +134,9 @@
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="EntEnemy.h" />
+    <ClInclude Include="EntEnemyCouncil.h" />
+    <ClInclude Include="EntEnemyCrawler.h" />
+    <ClInclude Include="EntEnemyWolf.h" />
     <ClInclude Include="EntItem.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntMobile.h" />

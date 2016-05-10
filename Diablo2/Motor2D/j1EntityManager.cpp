@@ -19,6 +19,10 @@
 #include "j1Fonts.h"
 #include "j1Audio.h"
 
+#include "EntEnemyCouncil.h"
+#include "EntEnemyCrawler.h"
+#include "EntEnemyWolf.h"
+
 #include <algorithm>
 
 
