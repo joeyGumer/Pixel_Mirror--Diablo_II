@@ -92,6 +92,8 @@ enum PLAYER_ATTRIBUTE
 	LUCK,
 	HP, //Not vitality
 	BLOOD,
+	ARMOR,
+	COOLDOWN,
 };
 
 class EntEnemy;

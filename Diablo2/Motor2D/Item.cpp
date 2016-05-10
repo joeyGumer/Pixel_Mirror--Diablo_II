@@ -293,17 +293,97 @@ itmJewel::itmJewel(ITEM_RARITY rarity, iPoint p) : Item(ITEM_JEWEL, rarity, p)
 {
 	int x;
 	int y = 917;
+	
 
 	switch (rarity)
 	{
 	case RARITY_COMMON:
+	{
 		x = 2374;
+		
+		int value1 = 1 + (rand() % 10);
+		int value2 = 1 + (rand() % 10);
+
+		PLAYER_ATTRIBUTE attribute1 = (PLAYER_ATTRIBUTE)(rand() % 5);
+		PLAYER_ATTRIBUTE attribute2 = (PLAYER_ATTRIBUTE)(rand() % 5);
+
+		while (attribute2 == attribute1)
+		{
+			PLAYER_ATTRIBUTE attribute2 = (PLAYER_ATTRIBUTE)(rand() % 5);
+		}
+
+		Buff buff1(attribute1, value1);
+		item_buffs.push_back(buff1);
+
+		Buff buff2(attribute2, value2);
+		item_buffs.push_back(buff2);
+
+		int special1 = 4 + (rand() % 4);
+		Buff buff3(COOLDOWN, special1);
+		item_buffs.push_back(buff3);
+	}
 		break;
 	case RARITY_RARE:
+	{
 		x = 2404;
+
+		int value1 = 5 + (rand() % 11);
+		int value2 = 5 + (rand() % 11);
+
+		PLAYER_ATTRIBUTE attribute1 = (PLAYER_ATTRIBUTE)(rand() % 5);
+		PLAYER_ATTRIBUTE attribute2 = (PLAYER_ATTRIBUTE)(rand() % 5);
+
+		while (attribute2 == attribute1)
+		{
+			PLAYER_ATTRIBUTE attribute2 = (PLAYER_ATTRIBUTE)(rand() % 5);
+		}
+
+		Buff buff1(attribute1, value1);
+		item_buffs.push_back(buff1);
+
+		Buff buff2(attribute2, value2);
+		item_buffs.push_back(buff2);
+
+		int special1 = 5 + (rand() % 11);
+		Buff buff3(BLOOD, special1);
+		item_buffs.push_back(buff3);
+
+	}
 		break;
 	case RARITY_LEGENDARY:
+	{
 		x = 2434;
+
+		int value1 = 5 + (rand() % 16);
+		int value2 = 5 + (rand() % 16);
+		int value3 = 5 + (rand() % 16);
+
+		PLAYER_ATTRIBUTE attribute1 = (PLAYER_ATTRIBUTE)(rand() % 5);
+		PLAYER_ATTRIBUTE attribute2 = (PLAYER_ATTRIBUTE)(rand() % 5);
+		PLAYER_ATTRIBUTE attribute3 = (PLAYER_ATTRIBUTE)(rand() % 5);
+
+		while (attribute2 == attribute1)
+		{
+			PLAYER_ATTRIBUTE attribute2 = (PLAYER_ATTRIBUTE)(rand() % 5);
+		}
+		while (attribute2 == attribute3 || attribute1 == attribute3)
+		{
+			PLAYER_ATTRIBUTE attribute3 = (PLAYER_ATTRIBUTE)(rand() % 5);
+		}
+
+		Buff buff1(attribute1, value1);
+		item_buffs.push_back(buff1);
+
+		Buff buff2(attribute2, value2);
+		item_buffs.push_back(buff2);
+
+		Buff buff3(attribute3, value3);
+		item_buffs.push_back(buff3);
+
+		int special1 = 1 + (rand() % 8);
+		Buff buff4(ARMOR, special1);
+		item_buffs.push_back(buff4);
+	}
 		break;
 	}
 
@@ -409,19 +489,29 @@ itmArmor::itmArmor(ITEM_RARITY rarity, iPoint p) : Item(ITEM_ARMOR, rarity, p)
 {
 	int y = 799;
 	int x;
+	int value;
 
 	switch (rarity)
 	{
 	case RARITY_COMMON:
 		x = 2315;
+		value = 7;
+		value += rand() % 4;
 		break;
 	case RARITY_RARE:
 		x = 2256;
+		value = 10;
+		value += rand() % 6;
 		break;
 	case RARITY_LEGENDARY:
 		x = 2197;
+		value = 17;
+		value += rand() % 9;
 		break;
 	}
+
+	Buff buff(ARMOR, value);
+	item_buffs.push_back(buff);
 
 	rect = { x, y, ITEM_SLOT_SIZE * 2, ITEM_SLOT_SIZE * 3 };
 

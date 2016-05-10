@@ -251,8 +251,6 @@ void hudInventory::OnEvent(GuiElement* element, GUI_Event even)
 		}
 		else if (even == EVENT_ITEM_IN)
 		{
-			
-
 			Item* it = (((GuiInventory*)element)->last_item_in->nexus);
 
 			for (int i = 0; i < it->item_buffs.size(); i++)
