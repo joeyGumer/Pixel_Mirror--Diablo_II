@@ -1,4 +1,4 @@
-#include "EntEnemyCouncil.h"
+#include "EntEnemyShaman.h"
 #include "j1App.h"
 #include "j1Game.h"
 #include "j1EntityManager.h"
@@ -6,34 +6,33 @@
 #include "j1Collision.h"
 #include "j1Player.h"
 #include "j1Map.h"
-#include "snDungeon1.h"
-#include "snDungeon2.h"
-#include "j1SceneManager.h"
 
 //Constructor
-EntEnemyCouncil::EntEnemyCouncil(const iPoint &p, uint ID) : EntEnemy(p, ID)
+EntEnemyShaman::EntEnemyShaman(const iPoint &p, uint ID) : EntEnemy(p, ID)
 {
-	name = "council member";
-	tex = idle_tex = App->game->em->boss_idle;
-	walk_tex = App->game->em->boss_walk;
-	death_tex = App->game->em->boss_death;
-	attack_tex = App->game->em->boss_attack;
+	name = "shaman";
+	tex = idle_tex = App->game->em->crawler_idle;
+	walk_tex = App->game->em->crawler_walk;
+	death_tex = App->game->em->crawler_death;
+	attack_tex = App->game->em->crawler_attack;
 
 	SetAnimations();
 	current_animation_set = idle;
 	current_animation = &current_animation_set[current_direction];
 
-	enemy_type = ENEMY_COUNCIL;
+	enemy_type = ENEMY_SHAMAN;
 
-	HP_max = HP_current = 400;
+	HP_max = HP_current = 100;
 	speed = 100.0f;
 
 	movement = false;
 
 	attack_range = 50.0f;
-	agro_range = 150.0f;
+	agro_range = 190.0f;
 
-	damage = 7;
+	damage = 5;
+
+	blood_drop = 50;
 
 	last_update = PATHFINDING_FRAMES;
 
@@ -50,7 +49,7 @@ EntEnemyCouncil::EntEnemyCouncil(const iPoint &p, uint ID) : EntEnemy(p, ID)
 }
 
 //Update
-bool EntEnemyCouncil::Update(float dt)
+bool EntEnemyShaman::Update(float dt)
 {
 	if (!dead)
 	{
@@ -59,7 +58,7 @@ bool EntEnemyCouncil::Update(float dt)
 		fPoint player_pos = App->game->player->GetPivotPosition();
 
 		//NOTE: The enemy is for following the player one it has been founded, but for now, better not, because of the low framerate
-		if ((PlayerInRange()) && !attacking && last_update >= PATHFINDING_FRAMES)
+		if ((PlayerInRange() /*|| enemy*/) && !attacking && last_update >= PATHFINDING_FRAMES)
 		{
 			last_update = 0;
 			int target_x = player_pos.x;
@@ -99,19 +98,11 @@ bool EntEnemyCouncil::Update(float dt)
 
 		last_update++;
 	}
-	else
-	{
-		if (win.ReadSec() > 5)
-		{
-			App->sm->dungeon1->win = true;
-			App->sm->dungeon2->win = true;
-		}
-	}
 
 	return true;
 }
 
-ENTITY_STATE EntEnemyCouncil::UpdateAction()
+ENTITY_STATE EntEnemyShaman::UpdateAction()
 {
 	if (current_input != ENTITY_INPUT_NULL && current_input != previous_input)
 	{
@@ -140,7 +131,7 @@ ENTITY_STATE EntEnemyCouncil::UpdateAction()
 			{
 				current_action = ENTITY_IDLE;
 			}
-			if (current_input == ENTITY_INPUT_DEATH)
+			if (current_input == INPUT_DEATH)
 			{
 				current_action = ENTITY_DEATH;
 			}
@@ -173,7 +164,7 @@ ENTITY_STATE EntEnemyCouncil::UpdateAction()
 	return current_action;
 }
 
-void EntEnemyCouncil::EntityEvent(ENTITY_EVENT even)
+void EntEnemyShaman::EntityEvent(ENTITY_EVENT even)
 {
 	switch (even)
 	{
@@ -184,13 +175,13 @@ void EntEnemyCouncil::EntityEvent(ENTITY_EVENT even)
 	}
 }
 
-void EntEnemyCouncil::StateMachine()
+void EntEnemyShaman::StateMachine()
 {
-	//NOTE: so maaaany wrong things
 	iPoint pos(position.x - 30, position.y + 30);
+	int r;
+
 	switch (current_action)
 	{
-		//NOTE: so maaaany wrong things
 		//PIVOT DOESN'T CHANGE!
 		//Related to the collider rect, not the sprite
 	case ENTITY_IDLE:
@@ -199,7 +190,7 @@ void EntEnemyCouncil::StateMachine()
 
 		sprite_rect.w = sprite_dim.x = 78;
 		sprite_rect.h = sprite_dim.y = 51;
-		sprite_pivot = pivot = { collider_rect.w / 2, collider_rect.h - 20 };
+		sprite_pivot = sprite_dim / 2;
 		sprite_pivot.y += 5;
 
 		break;
@@ -210,9 +201,8 @@ void EntEnemyCouncil::StateMachine()
 
 		sprite_rect.w = sprite_dim.x = 78;
 		sprite_rect.h = sprite_dim.y = 54;
-		sprite_pivot = pivot = { collider_rect.w / 2, collider_rect.h - 20 };
-		sprite_pivot.y += 7;
-		sprite_pivot.x += 45;
+		sprite_pivot = sprite_dim / 2;
+		sprite_pivot.y += 5;
 
 		break;
 
@@ -220,16 +210,21 @@ void EntEnemyCouncil::StateMachine()
 		tex = death_tex;
 		current_animation_set = death;
 
-		sprite_rect.w = sprite_dim.x = 190;
-		sprite_rect.h = sprite_dim.y = 129;
-		sprite_pivot = pivot = { collider_rect.w / 2, collider_rect.h - 20 };
+		sprite_rect.w = sprite_dim.x = 90;
+		sprite_rect.h = sprite_dim.y = 56;
+		sprite_pivot = sprite_dim / 2;
 		sprite_pivot.y += 5;
-		sprite_pivot.x += 40;
 
-		win.Start();
+		App->game->player->IncreaseBlood(blood_drop);
+		App->game->player->PlayerEvent(BLOOD_UP);
+
+		//Item out
+		//r = rand() % 4;
+		//if (r == 0)
+		//NOTE: high risk of memory leaks!
+		DropItem(pos);
 
 		dead = true;
-
 		break;
 
 
@@ -239,19 +234,18 @@ void EntEnemyCouncil::StateMachine()
 
 		sprite_rect.w = sprite_dim.x = 170;
 		sprite_rect.h = sprite_dim.y = 81;
-		sprite_pivot = pivot = { collider_rect.w / 2, collider_rect.h - 20 };
-		sprite_pivot.y += 5;
-		sprite_pivot.x += 30;
+		sprite_pivot = sprite_dim / 2;
+		sprite_pivot.y += 17;
 
 		break;
 	}
 }
 
-void EntEnemyCouncil::SetAnimations()
+void EntEnemyShaman::SetAnimations()
 {
 	//NOTE: this should not go here
-	collider_rect.w = sprite_rect.w = sprite_dim.x = 77;
-	collider_rect.h = sprite_rect.h = sprite_dim.y = 97;
+	collider_rect.w = sprite_rect.w = sprite_dim.x = 78;
+	collider_rect.h = sprite_rect.h = sprite_dim.y = 51;
 
 	sprite_pivot = pivot = { collider_rect.w / 2, collider_rect.h - 20 };
 	sprite_pivot.y += 5;
@@ -263,7 +257,7 @@ void EntEnemyCouncil::SetAnimations()
 	for (int i = 0; i < 8; i++)
 	{
 		Animation tmp;
-		tmp.SetFrames(0, (97 + 0) * i, 77, 97, 7, 0);
+		tmp.SetFrames(0, (51 + 0) * i, 78, 51, 4, 0);
 		tmp.speed = 0.2f;
 
 		idle.push_back(tmp);
@@ -274,7 +268,7 @@ void EntEnemyCouncil::SetAnimations()
 	for (int i = 0; i < 8; i++)
 	{
 		Animation tmp;
-		tmp.SetFrames(0, (117 + 0) * i, 140, 117, 11, 0);
+		tmp.SetFrames(0, (54 + 0) * i, 78, 54, 9, 0);
 		tmp.speed = 0.2f;
 
 		walk.push_back(tmp);
@@ -284,10 +278,10 @@ void EntEnemyCouncil::SetAnimations()
 	for (int i = 0; i < 8; i++)
 	{
 		Animation tmp;
-		int width = 190;
-		int height = 129;
+		int width = 90;
+		int height = 56;
 		int margin = 0;
-		tmp.SetFrames(0, (height + margin) * i, width, height, 19, margin);
+		tmp.SetFrames(0, (height + margin) * i, width, height, 12, margin);
 		tmp.loop = false;
 		tmp.speed = 0.2f;
 
@@ -298,8 +292,8 @@ void EntEnemyCouncil::SetAnimations()
 	for (int i = 0; i < 8; i++)
 	{
 		Animation tmp;
-		int width = 150;
-		int height = 105;
+		int width = 170;
+		int height = 81;
 		int margin = 0;
 		tmp.SetFrames(0, (height + margin) * i, width, height, 10, margin);
 		tmp.loop = false;

@@ -168,9 +168,9 @@ void EntEnemy::TakeDamage(int damage)
 	HP_current -= damage;
 	
 	//Sounds-------
-	if (name == "crawler")
+	if (enemy_type == ENEMY_CRAWLER)
 		App->audio->PlayFx(App->game->em->crawler_gethitfx);
-	if (name == "wolf")
+	if (enemy_type == ENEMY_WOLF)
 		App->audio->PlayFx(App->game->em->wolf_gethitfx);
 	//-------------
 	
@@ -178,9 +178,9 @@ void EntEnemy::TakeDamage(int damage)
 	{
 		HP_current = 0;
 		current_input = ENTITY_INPUT_DEATH;
-		if (name == "crawler")
+		if (enemy_type == ENEMY_CRAWLER)
 			App->audio->PlayFx(App->game->em->crawler_deathfx);
-		if (name == "wolf")
+		if (enemy_type == ENEMY_WOLF)
 			App->audio->PlayFx(App->game->em->wolf_deathfx);
 	}
 }
@@ -253,9 +253,9 @@ void EntEnemy::CheckToAttack()
 			movement = false;
 			current_input = ENTITY_INPUT_ATTACK;
 			attacking = true;
-			if (name == "crawler")
+			if (enemy_type == ENEMY_CRAWLER)
 				App->audio->PlayFx(App->game->em->crawler_attackfx);
-			if (name == "wolf")
+			if (enemy_type == ENEMY_WOLF)
 				App->audio->PlayFx(App->game->em->wolf_attackfx);
 		}
 	}
