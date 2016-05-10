@@ -365,6 +365,9 @@
     </ClInclude>
     <ClInclude Include="EntEnemySummoner.h">
       <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile\EntEnemy\EntEnemySummoner</Filter>
+	</ClInclude>
+    <ClInclude Include="Buff.h">
+      <Filter>Desenvolupament  ========\Modules\Items\Buff</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -529,6 +532,9 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile\EntEnemy\EntEnemySummoner">
       <UniqueIdentifier>{927e8b5e-5459-4de1-b661-6fb27fa07f57}</UniqueIdentifier>
+	</Filter>
+    <Filter Include="Desenvolupament  ========\Modules\Items\Buff">
+      <UniqueIdentifier>{fc3f8c0a-0165-4dd1-b5ea-9059345e62e8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

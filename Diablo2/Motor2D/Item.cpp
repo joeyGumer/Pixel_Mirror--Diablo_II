@@ -85,23 +85,24 @@ void Item::Effect()
 
 itmStone::itmStone(ITEM_RARITY rare, iPoint p) : Item(ITEM_STONE, rare, p)
 {
-	int x, y;
+	int x, y, value;
+	PLAYER_ATTRIBUTE attribute;
 
 	switch (rare)
 	{
 	case RARITY_COMMON:
-		buff = 4;
-		buff += rand() % 8;
+		value = 4;
+		value += rand() % 8;
 		y = 947;
 		break;
 	case RARITY_RARE:
-		buff = 10;
-		buff += rand() % 10;
+		value = 10;
+		value += rand() % 10;
 		y = 977;
 		break;
 	case RARITY_LEGENDARY:
-		buff = 17;
-		buff += rand() % 10;
+		value = 17;
+		value += rand() % 10;
 		y = 1007;
 		break;
 	}
@@ -131,6 +132,10 @@ itmStone::itmStone(ITEM_RARITY rare, iPoint p) : Item(ITEM_STONE, rare, p)
 		x = 2314;
 		break;
 	}
+
+	Buff buff(attribute, value);
+
+	item_buffs.push_back(buff);
 
 	rect = { x, y, ITEM_SLOT_SIZE, ITEM_SLOT_SIZE };
 
@@ -322,19 +327,65 @@ itmRune::itmRune(ITEM_RARITY rarity, iPoint p) : Item(ITEM_RUNE, rarity, p)
 {
 	int y = 799;
 	int x;
+	int positive_buff, negative_buff;
+	PLAYER_ATTRIBUTE positive_attribute, negative_attribute;
+	int r;
 
 	switch (rarity)
 	{
 	case RARITY_COMMON:
+	{
 		x = 2374;
+
+		positive_buff = 10;
+		positive_buff += rand() % 11;
+
+		negative_buff = 1;
+		negative_buff += rand() % 10;
+		negative_buff = -negative_buff;
+	}
 		break;
 	case RARITY_RARE:
+	{
 		x = 2404;
+
+
+		positive_buff = 20;
+		positive_buff += rand() % 11;
+
+		negative_buff = 1;
+		negative_buff += rand() % 15;
+		negative_buff = -negative_buff;
+	}
 		break;
 	case RARITY_LEGENDARY:
+	{
 		x = 2434;
+
+		positive_buff = 30;
+		positive_buff += rand() % 11;
+
+		negative_buff = 1;
+		negative_buff += rand() % 20;
+		negative_buff = -negative_buff;
+	}
 		break;
 	}
+
+	positive_attribute = (PLAYER_ATTRIBUTE)(rand() % 5);
+	negative_attribute = (PLAYER_ATTRIBUTE)(rand() % 5);
+
+	while (positive_attribute == negative_attribute)
+	{
+		negative_attribute = (PLAYER_ATTRIBUTE)(rand() % 5);
+	}
+
+	//Buffs
+	Buff buff1(positive_attribute, positive_buff);
+	item_buffs.push_back(buff1);
+
+	Buff buff2(negative_attribute, negative_buff);
+	item_buffs.push_back(buff2);
 
 	rect = { x, y, ITEM_SLOT_SIZE, ITEM_SLOT_SIZE * 3 };
 

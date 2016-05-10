@@ -186,6 +186,10 @@ void GuiInventory::AddItem(GuiItem* item, GuiSlot* new_slot)
 		App->gui->dragged_item = NULL;
 	}
 
+	last_item_in = item;
+
+	listener->OnEvent(this, EVENT_ITEM_IN);
+
 }
 
 //Checks if there's space for an item and then adds it
@@ -208,6 +212,9 @@ void GuiInventory::FreeItem(GuiItem* item)
 {
 	item->FreeSlots();
 	App->gui->dragged_item = item;
+	last_item_out = item;
+
+	listener->OnEvent(this, EVENT_ITEM_OUT);
 }
 
 //Places an item in exchange of another

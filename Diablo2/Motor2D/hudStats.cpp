@@ -52,7 +52,7 @@ bool hudStats::Start()
 	player_vitality_name = App->gui->AddGuiLabel("Vitality", App->font->stats, { 2, 2 }, vitality, FONT_WHITE, backgroundColor, this);
 	player_vitality_name->Center(true, true);
 	vitality_value = App->gui->AddGuiImage({ 76, 82 }, { 779, 960, 40, 20 }, window, this);
-	text.create("%i", App->game->player->vitality);
+	text.create("%i", App->game->player->vit_final);
 	player_vitality = App->gui->AddGuiLabel(text, App->font->description, { 13, 3 }, vitality_value, FONT_BLUE, backgroundColor, this);
 	player_vitality->Center(true, true);
 
@@ -66,7 +66,7 @@ bool hudStats::Start()
 	player_strength_name = App->gui->AddGuiLabel("Strength", App->font->stats, { 2, 2 }, strength, FONT_WHITE, backgroundColor, this);
 	player_strength_name->Center(true, true);
 	strength_value = App->gui->AddGuiImage({ 76, 136 }, { 779, 960, 40, 20 }, window, this);
-	text.create("%i", App->game->player->strength);
+	text.create("%i", App->game->player->str_final);
 	player_strength = App->gui->AddGuiLabel(text, App->font->description, { 13, 2 }, strength_value, FONT_BLUE, backgroundColor, this);
 	player_strength->Center(true, true);
 	hud_gui_elements.push_back(strength);
@@ -79,7 +79,7 @@ bool hudStats::Start()
 	player_dexterity_name = App->gui->AddGuiLabel("Dexterity", App->font->stats, { 4, 2 }, dexterity, FONT_WHITE, backgroundColor, this);
 	player_dexterity_name->Center(true, true);
 	dexterity_value = App->gui->AddGuiImage({ 76, 190 }, { 779, 960, 40, 20 }, window, this);
-	text.create("%i", App->game->player->dexterity);
+	text.create("%i", App->game->player->dex_final);
 	player_dexterity = App->gui->AddGuiLabel(text, App->font->description, { 13, 2 }, dexterity_value, FONT_BLUE, backgroundColor, this);
 	player_dexterity->Center(true, true);
 	hud_gui_elements.push_back(dexterity);
@@ -92,7 +92,7 @@ bool hudStats::Start()
 	player_intelligence_name = App->gui->AddGuiLabel("Intelligence", App->font->stats, { 4, 2 }, intelligence, FONT_WHITE, backgroundColor, this);
 	player_intelligence_name->Center(true, true);
 	intelligence_value = App->gui->AddGuiImage({ 76, 242 }, { 779, 960, 40, 20 }, window, this);
-	text.create("%i", App->game->player->intelligence);
+	text.create("%i", App->game->player->int_final);
 	player_intelligence = App->gui->AddGuiLabel(text, App->font->description, { 13, 2 }, intelligence_value, FONT_BLUE, backgroundColor, this);
 	player_intelligence->Center(true, true);
 	
@@ -106,7 +106,7 @@ bool hudStats::Start()
 	player_luck_name = App->gui->AddGuiLabel("Luck", App->font->stats, { 4, 2 }, luck, FONT_WHITE, backgroundColor, this);
 	player_luck_name->Center(true, true);
 	luck_value = App->gui->AddGuiImage({ 76, 296 }, { 779, 960, 40, 20 }, window, this);
-	text.create("%i", App->game->player->luck);
+	text.create("%i", App->game->player->luck_final);
 	player_luck = App->gui->AddGuiLabel(text, App->font->description, { 13, 2 }, luck_value, FONT_BLUE, backgroundColor, this);
 	player_luck->Center(true, true);
 	hud_gui_elements.push_back(luck);
@@ -237,31 +237,37 @@ void hudStats::SetBloodLabel(int blood)
 {
 	text.create("%i",blood);
 	player_experience->SetText(text);
+	player_experience->Center(true, true);
 }
 void hudStats::SetStrengthLabel(int strenght)
 {
 	text.create("%i", strenght);
-	player_vitality->SetText(text);
+	player_strength->SetText(text);
+	player_strength->Center(true, true);
 }
 void hudStats::SetDexterityLabel(int dexterity)
 {
 	text.create("%i", dexterity);
-	player_strength->SetText(text);
+	player_dexterity->SetText(text);
+	player_dexterity->Center(true, true);
 }
 void hudStats::SetVitalityLabel(int vitality)
 {
 	text.create("%i", vitality);
-	player_dexterity->SetText(text);
+	player_vitality->SetText(text);
+	player_vitality->Center(true, true);
 }
 void hudStats::SetIntelligenceLabel(int intelligence)
 {
 	text.create("%i", intelligence);
 	player_intelligence->SetText(text);
+	player_intelligence->Center(true, true);
 }
 void hudStats::SetLuckLabel(int luck)
 {
 	text.create("%i", luck);
 	player_luck->SetText(text);
+	player_luck->Center(true, true);
 }
 void hudStats::SetLifeLabel(int current, int max)
 {
