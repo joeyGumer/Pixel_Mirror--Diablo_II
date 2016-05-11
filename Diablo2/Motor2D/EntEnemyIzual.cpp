@@ -7,6 +7,9 @@
 #include "j1Player.h"
 #include "j1Map.h"
 #include "Animation.h"
+#include "snDungeon2.h"
+#include "snOutdoor2.h"
+#include "j1SceneManager.h"
 
 
 //Constructor
@@ -119,6 +122,15 @@ bool EntEnemyIzual::Update(float dt)
 		}
 
 		last_update++;
+	}
+
+	else
+	{
+		if (win.ReadSec() > 5)
+		{
+			App->sm->outdoor2->win = true;
+			App->sm->dungeon2->win = true;
+		}
 	}
 
 	return true;
@@ -261,6 +273,8 @@ void EntEnemyIzual::StateMachine()
 		//if (r == 0)
 		//NOTE: high risk of memory leaks!
 		DropItem(pos);
+
+		win.Start();
 
 		dead = true;
 		break;

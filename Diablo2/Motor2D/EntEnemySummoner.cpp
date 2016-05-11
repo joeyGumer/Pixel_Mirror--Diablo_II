@@ -68,7 +68,7 @@ EntEnemySummoner::EntEnemySummoner(const iPoint &p, uint ID) : EntEnemy(p, ID)
 	attack_range = 200.0f;
 
 	//Spell Range
-	summon_range = 70.0f;
+	summon_range = 100.0f;
 
 	//Spell Cooldown
 	summon_cooldown = 4;
@@ -134,7 +134,10 @@ EntEnemySummoner::EntEnemySummoner(const iPoint &p, uint ID) : EntEnemy(p, ID)
 
 EntEnemySummoner::~EntEnemySummoner()
 {
-
+	for (list<Entity*>::iterator item = summon_list.begin(); item != summon_list.end(); item++)
+	{
+		delete item._Ptr;
+	}
 }
 
 //Update

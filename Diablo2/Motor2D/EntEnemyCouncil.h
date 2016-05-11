@@ -21,7 +21,6 @@ public:
 
 public:
 	uint last_update;
-	j1Timer win;
 
 	int magic_damage;
 	float magic_range;

@@ -54,9 +54,9 @@ public:
 	snDungeon2* dungeon2 = NULL;
 	snWin*		win = NULL;
 
-	j1Scene* level1;
-	j1Scene* level2;
-	j1Scene* level3;
+	j1Scene* level1 = NULL;
+	j1Scene* level2 = NULL;
+	j1Scene* level3 = NULL;
 
 private:
 	list<j1Scene*>	scenes;

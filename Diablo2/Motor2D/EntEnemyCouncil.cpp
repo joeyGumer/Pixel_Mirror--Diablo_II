@@ -187,14 +187,6 @@ bool EntEnemyCouncil::Update(float dt)
 
 		last_update++;
 	}
-	else
-	{
-		if (win.ReadSec() > 5)
-		{
-			App->sm->dungeon1->win = true;
-			App->sm->dungeon2->win = true;
-		}
-	}
 
 	return true;
 }
@@ -313,8 +305,6 @@ void EntEnemyCouncil::StateMachine()
 		sprite_pivot = pivot = { collider_rect.w / 2, collider_rect.h - 20 };
 		sprite_pivot.y += 5;
 		sprite_pivot.x += 40;
-
-		win.Start();
 
 		App->game->player->IncreaseBlood(blood_drop);
 		App->game->player->PlayerEvent(BLOOD_UP);

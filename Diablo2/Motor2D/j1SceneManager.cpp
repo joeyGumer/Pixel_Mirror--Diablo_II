@@ -150,7 +150,12 @@ bool j1SceneManager::RandomLevel()
 			ChangeScene(outdoor2);
 		}
 	}
-
+	else
+	{
+		level1 = NULL;
+		level2 = NULL;
+		level3 = NULL;
+	}
 
 	return true;
 }

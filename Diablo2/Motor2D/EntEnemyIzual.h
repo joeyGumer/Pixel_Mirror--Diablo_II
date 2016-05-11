@@ -33,6 +33,8 @@ public:
 
 	SDL_Texture*		cast_tex;
 	vector<Animation>	cast;
+
+	j1Timer win;
 };
 
 #endif
