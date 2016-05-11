@@ -100,9 +100,13 @@ bool j1Player::Start()
 	MP_max = MP_current = MP_base = 100;
 	ST_max = ST_current = ST_base = 79.0f;
 	blood_current = 0;
+
 	//Attack
 	atk_damage_final = atk_damage_base = 38;
 	dAtk = (float)atk_damage_base / 100;
+
+	//Armor
+	armor_final = armor_base = 0;
 
 	
 
@@ -1353,7 +1357,14 @@ void j1Player::SetAttribute(PLAYER_ATTRIBUTE attribute, float value)
 			luck_final = 0;
 	}
 		break;
+	case ARMOR:
+	{
+		armor_final += value;
 
+		if (armor_final < 0)
+			armor_final = 0;
+	}
+	break;
 	default:
 		break;
 	}
@@ -1371,12 +1382,10 @@ void j1Player::CalculateFinalStats()
 	atk_damage_final = atk_damage_base;
 
 	HP_max = HP_base;
-	if (HP_current > HP_max)
-		HP_current = HP_max;
+	
 
 	ST_max = ST_base;
-	if (ST_current > ST_max)
-		ST_current = ST_max;
+
 
 	list<Buff*>::iterator item = buffs.begin();
 
@@ -1389,6 +1398,12 @@ void j1Player::CalculateFinalStats()
 	//vitality
 	HP_max += HP_dt * vit_final;
 	ST_max += ST_dt * vit_final;
+
+	if (HP_current > HP_max)
+		HP_current = HP_max;
+
+	if (ST_current > ST_max)
+		ST_current = ST_max;
 
 	//Label actualization
 	App->game->HUD->stats->SetStrengthLabel(str_final);

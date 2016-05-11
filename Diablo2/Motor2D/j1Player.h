@@ -312,6 +312,10 @@ public:
 	int luck_base = 0;
 	int luck_final;
 
+	//Armor
+	int armor_base = 0;
+	int armor_final;
+
 	
 	float life;
 	float stamina;
