@@ -39,8 +39,11 @@ void Item::CreateEntItem(iPoint &p)
 	//NOTE: has to insert it to the entity manager! D:
 	//ent_item = new EntItem(p, ID, rect);
 	ent_item = ((EntItem*)App->game->em->Add(p, ITEM));
-	ent_item->SetSprite(rect);
-	ent_item->nexus = this;
+	if (ent_item)
+	{
+		ent_item->SetSprite(rect);
+		ent_item->nexus = this;
+	}
 }
 
 
