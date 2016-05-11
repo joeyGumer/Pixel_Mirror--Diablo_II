@@ -50,7 +50,7 @@ public:
 	bool UnLoad();
 
 	//Adding Enemies
-	void AddEnemies();
+	Entity* AddEnemy(iPoint pos);
 
 	//Spawn player
 	void SpawnPlayer();

@@ -61,8 +61,6 @@ bool snOutdoor2::Start()
 	//Spawns
 	SpawnPlayer();
 
-	AddEnemies();
-
 	return true;
 }
 
@@ -106,6 +104,8 @@ bool snOutdoor2::Update(float dt)
 			p.y += App->map->data.tile_height / 2;
 
 			Entity* ent = App->game->em->AddEnemy(p, ENEMY_WOLF);
+			p = App->map->WorldToMap(p.x, p.y);
+			int i = 0;
 
 		}
 
@@ -243,9 +243,22 @@ bool snOutdoor2::UnLoad()
 }
 
 //Adding Enemies
-void snOutdoor2::AddEnemies()
+Entity* snOutdoor2::AddEnemy(iPoint pos)
 {
+	Entity* ret = NULL;
+	int random = rand() % 5;
+	if (random == 0)
+		ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_CRAWLER);
+	if (random == 1)
+		ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF);
+	if (random == 2)
+		ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_COUNCIL);
+	if (random == 3)
+		ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_SUMMONER);
+	if (random == 4)
+		ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_SHAMAN);
 
+	return ret;
 }
 
 //Spawn Player
@@ -274,294 +287,296 @@ void snOutdoor2::SpawnPlayer()
 	if (random2 == 0)
 	{
 		pos = { -140, 796 };
-		to_add = App->game->em->AddEnemy(pos, ENEMY_COUNCIL);
+		to_add = App->game->em->AddEnemy(pos, ENEMY_IZUAL);
 		entity_list.push_back(to_add);
 	}
 	else if (random2 == 1)
 	{
 		pos = { -3041, 2106 };
-		to_add = App->game->em->AddEnemy(pos, ENEMY_COUNCIL);
+		to_add = App->game->em->AddEnemy(pos, ENEMY_IZUAL);
 		entity_list.push_back(to_add);
 	}
 	else if (random2 == 2)
 	{
 		pos = { -224, 4200 };
-		to_add = App->game->em->AddEnemy(pos, ENEMY_COUNCIL);
+		to_add = App->game->em->AddEnemy(pos, ENEMY_IZUAL);
 		entity_list.push_back(to_add);
 	}
 	else if (random2 == 3)
 	{
 		pos = { 2815, 2839 };
-		to_add = App->game->em->AddEnemy(pos, ENEMY_COUNCIL);
+		to_add = App->game->em->AddEnemy(pos, ENEMY_IZUAL);
 		entity_list.push_back(to_add);
 	}
 
-	/*
 	//Add Enemies 1
 	if (random != 0 && random2 != 0)
 	{
-		pos = { 109, 40 };
+		pos = { 34, 42 };
 		for (int i = 0; i < 3; i++)
 		{
 			for (int i = 0; i < 2; i++)
 			{
-				to_add = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_CRAWLER);
+				to_add = AddEnemy(pos);
 				entity_list.push_back(to_add);
 				pos.y += 3;
 			}
 			pos.x += 2;
-			pos.y = 40;
+			pos.y = 42;
 		}
 	}
 	if (random != 1 && random2 != 1)
 	{
-		pos = { 105, 102 };
+		pos = { 28, 181 };
 		for (int i = 0; i < 3; i++)
 		{
 			for (int i = 0; i < 2; i++)
 			{
-				to_add = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_CRAWLER);
+				to_add = AddEnemy(pos);
 				entity_list.push_back(to_add);
 				pos.y += 3;
 			}
 			pos.x += 2;
-			pos.y = 102;
+			pos.y = 181;
 		}
 	}
 
 	if (random != 2 && random2 != 2)
 	{
-		pos = { 120, 182 };
+		pos = { 202, 213 };
 		for (int i = 0; i < 3; i++)
 		{
 			for (int i = 0; i < 2; i++)
 			{
-				to_add = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_CRAWLER);
+				to_add = AddEnemy(pos);
 				entity_list.push_back(to_add);
 				pos.y += 3;
 			}
 			pos.x += 2;
-			pos.y = 182;
+			pos.y = 213;
 		}
 	}
 	if (random != 3 && random2 != 3)
 	{
-		pos = { 35, 153 };
+		pos = { 209, 69 };
 		for (int i = 0; i < 3; i++)
 		{
 			for (int i = 0; i < 2; i++)
 			{
-				to_add = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_CRAWLER);
+				to_add = AddEnemy(pos);
 				entity_list.push_back(to_add);
 				pos.y += 3;
 			}
 			pos.x += 2;
-			pos.y = 153;
+			pos.y = 69;
 		}
 	}
 
 	//Add Enemies 2
-	pos = { 109, 123 };
+	pos = { 93, 176 };
 	for (int i = 0; i < 2; i++)
 	{
 		for (int i = 0; i < 2; i++)
 		{
-			to_add = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF);
+			to_add = AddEnemy(pos);
 			entity_list.push_back(to_add);
 			pos.y += 4;
 		}
 		pos.x += 3;
-		pos.y = 123;
+		pos.y = 176;
 	}
 
-	pos = { 117, 153 };
+	pos = { 166, 190 };
 	for (int i = 0; i < 2; i++)
 	{
 		for (int i = 0; i < 2; i++)
 		{
-			to_add = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF);
+			to_add = AddEnemy(pos);
 			entity_list.push_back(to_add);
 			pos.y += 4;
 		}
 		pos.x += 3;
-		pos.y = 153;
+		pos.y = 190;
 	}
 
-	pos = { 62, 182 };
+	pos = { 204, 94 };
 	for (int i = 0; i < 2; i++)
 	{
 		for (int i = 0; i < 2; i++)
 		{
-			to_add = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF);
+			to_add = AddEnemy(pos);
 			entity_list.push_back(to_add);
 			pos.y += 4;
 		}
 		pos.x += 3;
-		pos.y = 182;
+		pos.y = 94;
 	}
 
-	pos = { 178, 46 };
+	pos = { 137, 65 };
 	for (int i = 0; i < 2; i++)
 	{
 		for (int i = 0; i < 2; i++)
 		{
-			to_add = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF);
+			to_add = AddEnemy(pos);
 			entity_list.push_back(to_add);
 			pos.y += 4;
 		}
 		pos.x += 3;
-		pos.y = 46;
+		pos.y = 65;
+	}
+
+	pos = { 46, 74 };
+	for (int i = 0; i < 2; i++)
+	{
+		for (int i = 0; i < 2; i++)
+		{
+			to_add = AddEnemy(pos);
+			entity_list.push_back(to_add);
+			pos.y += 4;
+		}
+		pos.x += 3;
+		pos.y = 74;
+	}
+
+	pos = { 39, 114 };
+	for (int i = 0; i < 2; i++)
+	{
+		for (int i = 0; i < 2; i++)
+		{
+			to_add = AddEnemy(pos);
+			entity_list.push_back(to_add);
+			pos.y += 4;
+		}
+		pos.x += 3;
+		pos.y = 114;
 	}
 
 	//Add Enemies 3
 	//Y lines
-	pos = { 109, 67 };
+	pos = { 73, 89 };
 	for (int i = 0; i < 3; i++)
 	{
-		to_add = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF);
+		to_add = AddEnemy(pos);
 		entity_list.push_back(to_add);
 		pos.y += 4;
 	}
 
-	pos = { 61, 142 };
+	pos = { 147, 109 };
 	for (int i = 0; i < 3; i++)
 	{
-		to_add = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF);
+		to_add = AddEnemy(pos);
 		entity_list.push_back(to_add);
 		pos.y += 4;
 	}
 
-	pos = { 185, 70 };
+	pos = { 64, 158 };
 	for (int i = 0; i < 3; i++)
 	{
-		to_add = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF);
+		to_add = AddEnemy(pos);
 		entity_list.push_back(to_add);
 		pos.y += 4;
 	}
 
 	//X lines
-	pos = { 87, 177 };
+	pos = { 163, 209 };
 	for (int i = 0; i < 3; i++)
 	{
-		to_add = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF);
+		to_add = AddEnemy(pos);
 		entity_list.push_back(to_add);
 		pos.x += 3;
 	}
 
-	pos = { 191, 125 };
+	pos = { 156, 39 };
 	for (int i = 0; i < 3; i++)
 	{
-		to_add = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF);
+		to_add = AddEnemy(pos);
 		entity_list.push_back(to_add);
 		pos.x += 3;
 	}
 
-	pos = { 144, 33 };
+	pos = { 73, 41 };
 	for (int i = 0; i < 3; i++)
 	{
-		to_add = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF);
+		to_add = AddEnemy(pos);
 		entity_list.push_back(to_add);
 		pos.x += 3;
 	}
-
+	
 	//Add Enemies 4
-	pos = { 77, 121 };
+	pos = { 91, 55 };
 	for (int i = 0; i < 2; i++)
 	{
-		to_add = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF);
+		to_add = AddEnemy(pos);
 		entity_list.push_back(to_add);
 		pos.x += 3;
 	}
-	pos = { 79, 124 };
-	to_add = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF);
+	pos = { 93, 58 };
+	to_add = AddEnemy(pos);
 	entity_list.push_back(to_add);
-
-	pos = { 95, 155 };
+	
+	pos = { 99, 130 };
 	for (int i = 0; i < 2; i++)
 	{
-		to_add = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF);
+		to_add = AddEnemy(pos);
 		entity_list.push_back(to_add);
 		pos.x += 3;
 	}
-	pos = { 97, 158 };
-	to_add = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF);
+	pos = { 101, 133 };
+	to_add = AddEnemy(pos);
 	entity_list.push_back(to_add);
-
-	pos = { 142, 155 };
+	
+	pos = { 62, 199 };
 	for (int i = 0; i < 2; i++)
 	{
-		to_add = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF);
+		to_add = AddEnemy(pos);
 		entity_list.push_back(to_add);
 		pos.x += 3;
 	}
-	pos = { 144, 158 };
-	to_add = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF);
+	pos = { 64, 202 };
+	to_add = AddEnemy(pos);
 	entity_list.push_back(to_add);
-
-	pos = { 166, 141 };
+	
+	pos = { 191, 128 };
 	for (int i = 0; i < 2; i++)
 	{
-		to_add = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF);
+		to_add = AddEnemy(pos);
 		entity_list.push_back(to_add);
 		pos.x += 3;
 	}
-	pos = { 168, 144 };
-	to_add = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF);
+	pos = { 193, 131 };
+	to_add = AddEnemy(pos);
 	entity_list.push_back(to_add);
-
-	pos = { 153, 105 };
+	
+	pos = { 208, 166 };
 	for (int i = 0; i < 2; i++)
 	{
-		to_add = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF);
+		to_add = AddEnemy(pos);
 		entity_list.push_back(to_add);
 		pos.x += 3;
 	}
-	pos = { 155, 108 };
-	to_add = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF);
+	pos = { 210, 169 };
+	to_add = AddEnemy(pos);
 	entity_list.push_back(to_add);
-
-	pos = { 178, 105 };
+	
+	pos = { 167, 156 };
 	for (int i = 0; i < 2; i++)
 	{
-		to_add = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF);
+		to_add = AddEnemy(pos);
 		entity_list.push_back(to_add);
 		pos.x += 3;
 	}
-	pos = { 180, 108 };
-	to_add = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF);
+	pos = { 169, 159 };
+	to_add = AddEnemy(pos);
 	entity_list.push_back(to_add);
-
-	pos = { 150, 73 };
+	
+	pos = { 200, 36 };
 	for (int i = 0; i < 2; i++)
 	{
-		to_add = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF);
+		to_add = AddEnemy(pos);
 		entity_list.push_back(to_add);
 		pos.x += 3;
 	}
-	pos = { 152, 76 };
-	to_add = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF);
+	pos = { 202, 39 };
+	to_add = AddEnemy(pos);
 	entity_list.push_back(to_add);
-
-	pos = { 68, 57 };
-	for (int i = 0; i < 2; i++)
-	{
-		to_add = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF);
-		entity_list.push_back(to_add);
-		pos.x += 3;
-	}
-	pos = { 70, 60 };
-	to_add = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF);
-	entity_list.push_back(to_add);
-
-	pos = { 89, 35 };
-	for (int i = 0; i < 2; i++)
-	{
-		to_add = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF);
-		entity_list.push_back(to_add);
-		pos.x += 3;
-	}
-	pos = { 91, 38 };
-	to_add = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF);
-	entity_list.push_back(to_add);
-	*/
 }
