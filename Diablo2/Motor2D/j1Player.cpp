@@ -27,6 +27,8 @@
 //#include "playerParticle.h"
 
 #include "j1Collision.h"
+#include "j1SceneManager.h"
+#include "snIntro.h"
 
 
 j1Player::j1Player()
@@ -226,6 +228,7 @@ bool j1Player::CleanUp()
 
 void j1Player::Respawn()
 {
+	/*
 	//Cosnumable attributes restablished
 	HP_current = HP_max;
 	MP_current = MP_max;
@@ -250,6 +253,9 @@ void j1Player::Respawn()
 	movement = false;
 	attacking = false;
 	enemy = NULL;
+	*/
+
+	App->sm->ChangeScene(App->sm->intro);
 }
 
 //Draws the player sprite to the scene
