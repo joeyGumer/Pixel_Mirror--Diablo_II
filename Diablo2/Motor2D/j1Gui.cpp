@@ -7,6 +7,7 @@
 #include "j1Input.h"
 #include "j1Gui.h"
 #include "j1Audio.h"
+#include "Item.h"
 
 
 #include "SDL/include/SDL.h"
@@ -74,8 +75,10 @@ bool j1Gui::PreUpdate()
 		dragged_item->Move();
 		if (hover_element == NULL && App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 		{
-			dragged_item->inventory->items.remove(dragged_item);
-			RELEASE(dragged_item);
+			//dragged_item->inventory->items.remove(dragged_item);
+			//RELEASE(dragged_item);
+			dragged_item->nexus->ConvertToEntity(App->input->GetMouseWorldPosition());
+			dragged_item = NULL;
 			mouse_hovering = true;
 		}
 	}

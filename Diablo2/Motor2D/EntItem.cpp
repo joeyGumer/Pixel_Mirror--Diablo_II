@@ -11,6 +11,12 @@ EntItem::EntItem(const iPoint &p, uint ID) : EntStatic(p, ID)
 	type = ITEM;
 }
 
+EntItem::~EntItem()
+{
+	if (!convert)
+		RELEASE(nexus);
+}
+
 void EntItem::SetSprite(SDL_Rect r)
 {
 	tex = App->gui->GetAtlas();

@@ -34,11 +34,11 @@ Item::~Item()
 		}
 	}
 
-	if (ent_item)
+	/*if (ent_item)
 		RELEASE(ent_item);
 
 	if (gui_item)
-		RELEASE(gui_item);
+		RELEASE(gui_item);*/
 
 
 }
@@ -65,6 +65,7 @@ void Item::ConvertToEntity(iPoint point)
 		CreateEntItem(point);
 
 		gui_item->inventory->items.remove(gui_item);
+		gui_item->convert = true;
 		RELEASE(gui_item);
 	}
 }
@@ -78,9 +79,13 @@ void Item::ConvertToGui()
 		gui_item->nexus = this;
 		if (App->game->HUD->inventory->AddItem(gui_item))
 		{
-			gui_item = NULL;
+			ent_item->convert = true;
 			App->game->em->Remove(ent_item->id);
 			RELEASE(ent_item);
+		}
+		else
+		{
+			gui_item = NULL;
 		}
 	}
 }

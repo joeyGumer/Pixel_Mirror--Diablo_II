@@ -9,6 +9,7 @@ class EntItem : public EntStatic
 {
 public:
 	EntItem(const iPoint &p, uint ID);
+	~EntItem();
 
 	void Draw()
 	{}
@@ -20,6 +21,7 @@ public:
 public:
 	
 	Item* nexus = NULL;
+	bool convert = false;
 };
 
 

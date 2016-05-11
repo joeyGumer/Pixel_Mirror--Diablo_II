@@ -36,6 +36,7 @@ public:
 	GuiImage		image;
 
 	Item*			nexus;
+	bool			convert = false;
 };
 
 #endif _GUISLOT_H_
