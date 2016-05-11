@@ -36,19 +36,19 @@ bool snIntro::Start()
 	//Gui Elements
 
 	//Background
-	background = App->gui->AddGuiImage({ -83, 0 }, {1829, 82, 800, 600}, NULL, this);
+	background = App->gui->AddGuiImage({ -83, -25 }, {1829, 82, 800, 600}, NULL, this);
 	intro_gui.push_back(background);
 	
 	//Play button
-	play_button = App->gui->AddGuiButton({ 181, 260 }, { 0, 0, 270, 35 }, { 0, 0, 270, 35 }, { 0, 36, 270, 35 }, "Single player", NULL, this);
+	play_button = App->gui->AddGuiButton({ 181, 280 }, { 0, 0, 270, 35 }, { 0, 0, 270, 35 }, { 0, 36, 270, 35 }, "Single player", NULL, this);
 	intro_gui.push_back(play_button);
 
 	//Controls button
-	controls_button = App->gui->AddGuiButton({ 181, 330 }, { 0, 0, 270, 35 }, { 0, 0, 270, 35 }, { 0, 36, 270, 35 }, "CONTROLS", NULL, this);
+	controls_button = App->gui->AddGuiButton({ 181, 350 }, { 0, 0, 270, 35 }, { 0, 0, 270, 35 }, { 0, 36, 270, 35 }, "CONTROLS", NULL, this);
 	intro_gui.push_back(controls_button);
 
 	//Exit button
-	exit_button = App->gui->AddGuiButton({ 181, 400 }, { 0, 0, 270, 35 }, { 0, 0, 270, 35 }, { 0, 36, 270, 35 }, "ExiT Diablo II", NULL, this);
+	exit_button = App->gui->AddGuiButton({ 181, 420 }, { 0, 0, 270, 35 }, { 0, 0, 270, 35 }, { 0, 36, 270, 35 }, "ExiT Diablo II", NULL, this);
 	intro_gui.push_back(exit_button);
 
 	//-----------
