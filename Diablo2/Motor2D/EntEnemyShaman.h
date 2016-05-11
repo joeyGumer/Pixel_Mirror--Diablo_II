@@ -30,6 +30,11 @@ public:
 	Particle	particle_shaman;
 	fPoint		particle_destination;
 	bool		particle_is_casted = false;
+	int			particle_speed;
+
+	int heal_effect;
+	float heal_range;
+	int heal_cooldown;
 };
 
 #endif

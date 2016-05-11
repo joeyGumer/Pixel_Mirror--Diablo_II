@@ -19,25 +19,85 @@ EntEnemySummoner::EntEnemySummoner(const iPoint &p, uint ID) : EntEnemy(p, ID)
 	attack_tex = App->game->em->summoner_attack;
 
 	SetAnimations();
-	SetParticles();
 
 	current_animation_set = idle;
 	current_animation = &current_animation_set[current_direction];
 
 	enemy_type = ENEMY_SUMMONER;
 
-	HP_max = HP_current = 100;
-	speed = 100.0f;
+	//Attirbutes
+	//------------------------------------
+	//Life
+	int random_range = 11;
+	HP_max = HP_current = 10;
 
-	movement = false;
+	for (int i = 0; i < level; i++)
+	{
+		if (i > 0)
+		{
+			HP_max *= 2;
+			HP_current *= 2;
+			random_range *= 2;
+		}
+	}
+	int random = rand() % random_range;
+	HP_max += random;
+	HP_current = HP_max;
 
-	attack_range = 180.0f;
-	agro_range = 270.0f;
+	//Speed
+	speed = 90.0f;
 
-	damage = 5;
+	//Attack
+	random_range = 5;
+	damage = 1;
 
-	blood_drop = 150;
+	for (int i = 0; i < level; i++)
+	{
+		if (i > 0)
+		{
+			damage *= 2;
+			random_range *= 2;
+		}
+	}
+	random = rand() % random_range;
+	damage += random;
 
+	//Attack Range
+	attack_range = 200.0f;
+
+	//Spell Range
+	summon_range = 70.0f;
+
+	//Spell Cooldown
+	summon_cooldown = 4;
+	for (int i = 0; i < level; i++)
+	{
+		if (i > 0)
+		{
+			summon_cooldown--;
+		}
+	}
+
+	//Agro Range
+	agro_range = 300.0f;
+
+	//Pure Blood Drop
+	blood_drop = 200;
+
+	for (int i = 0; i < level; i++)
+	{
+		if (i > 0)
+		{
+			blood_drop += blood_drop / 2;
+		}
+	}
+
+	//Particle Speed
+	particle_speed = 250;
+
+	//------------------------------------
+
+	SetParticles();
 	last_update = PATHFINDING_FRAMES;
 
 	SDL_Rect col_rect;
@@ -323,7 +383,7 @@ void EntEnemySummoner::SetParticles()
 
 	particle_summoner.life = 5;
 	particle_summoner.type = PARTICLE_ENEMY_CAST;
-	particle_summoner.damage = 20;
+	particle_summoner.damage = damage;
 	particle_summoner.speed.x = 0;
 	particle_summoner.speed.y = 0;
 	particle_summoner.anim.frames.push_back({ 0, 0, 64, 64 });
@@ -373,7 +433,7 @@ void EntEnemySummoner::UpdateRangedAttack()
 	{
 		Particle* skill_particle = App->pm->AddParticle(particle_summoner, position.x, position.y - 40, 2, particle_summoner.image);
 		particle_is_casted = true;
-		skill_particle->SetPointSpeed(150, particle_destination);
+		skill_particle->SetPointSpeed(particle_speed, particle_destination);
 	}
 
 	if (current_animation->Finished())

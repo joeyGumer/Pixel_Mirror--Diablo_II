@@ -90,7 +90,7 @@ public:
 	float				target_radius = 2.5f;
 	fPoint				velocity;
 	float				speed;
-	bool				movement;
+	bool				movement = false;
 	bool				target_reached;
 	bool				path_on = true;
 	bool				dead = false;

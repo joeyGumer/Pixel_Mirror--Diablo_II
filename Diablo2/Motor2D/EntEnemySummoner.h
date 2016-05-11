@@ -30,6 +30,10 @@ public:
 	Particle	particle_summoner;
 	fPoint		particle_destination;
 	bool		particle_is_casted = false;
+	int			particle_speed;
+
+	float summon_range;
+	int summon_cooldown;
 };
 
 #endif

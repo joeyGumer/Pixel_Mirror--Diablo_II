@@ -22,18 +22,60 @@ EntEnemyCrawler::EntEnemyCrawler(const iPoint &p, uint ID) : EntEnemy(p, ID)
 
 	enemy_type = ENEMY_CRAWLER;
 
-	int random = rand() % 36;
-	HP_max = HP_current = 75 + random;
-	speed = 100.0f;
+	//Attirbutes
+	//------------------------------------
+	//Life
+	int random_range = 16;
+	HP_max = HP_current = 20;
 
-	movement = false;
+	for (int i = 0; i < level; i++)
+	{
+		if (i > 0)
+		{
+			HP_max *= 2;
+			HP_current *= 2;
+			random_range *= 2;
+		}
+	}
+	int random = rand() % random_range;
+	HP_max += random;
+	HP_current = HP_max;
 
-	attack_range = 40.0f;
-	agro_range = 150.0f;
+	//Speed
+	speed = 90.0f;
 
-	damage = 7;
+	//Melee Attack
+	random_range = 5;
+	damage = 5;
 
+	for (int i = 0; i < level; i++)
+	{
+		if (i > 0)
+		{
+			damage *= 2;
+			random_range *= 2;
+		}
+	}
+	random = rand() % random_range;
+	damage += random;
+
+	//Melee Attack Range
+	attack_range = 60.0f;
+
+	//Agro Range
+	agro_range = 200.0f;
+
+	//Pure Blood Drop
 	blood_drop = 150;
+
+	for (int i = 0; i < level; i++)
+	{
+		if (i > 0)
+		{
+			blood_drop += blood_drop / 2;
+		}
+	}
+	//------------------------------------
 
 	last_update = PATHFINDING_FRAMES;
 
@@ -138,7 +180,7 @@ ENTITY_STATE EntEnemyCrawler::UpdateAction()
 			{
 				current_action = ENTITY_IDLE;
 			}
-			if (current_input == INPUT_DEATH)
+			if (current_input == ENTITY_INPUT_DEATH)
 			{
 				current_action = ENTITY_DEATH;
 			}

@@ -19,25 +19,99 @@ EntEnemyShaman::EntEnemyShaman(const iPoint &p, uint ID) : EntEnemy(p, ID)
 	attack_tex = App->game->em->shaman_attack;
 
 	SetAnimations();
-	SetParticles();
 
 	current_animation_set = idle;
 	current_animation = &current_animation_set[current_direction];
 
 	enemy_type = ENEMY_SHAMAN;
 
-	HP_max = HP_current = 100;
-	speed = 100.0f;
+	//Attirbutes
+	//------------------------------------
+	//Life
+	int random_range = 11;
+	HP_max = HP_current = 10;
 
-	movement = false;
+	for (int i = 0; i < level; i++)
+	{
+		if (i > 0)
+		{
+			HP_max *= 2;
+			HP_current *= 2;
+			random_range *= 2;
+		}
+	}
+	int random = rand() % random_range;
+	HP_max += random;
+	HP_current = HP_max;
 
-	attack_range = 180.0f;
-	agro_range = 270.0f;
+	//Speed
+	speed = 90.0f;
 
-	damage = 5;
+	//Attack
+	random_range = 5;
+	damage = 3;
 
-	blood_drop = 150;
+	for (int i = 0; i < level; i++)
+	{
+		if (i > 0)
+		{
+			damage *= 2;
+			random_range *= 2;
+		}
+	}
+	random = rand() % random_range;
+	damage += random;
 
+	//Attack Range
+	attack_range = 200.0f;
+
+	//Heal Effect
+	random_range = 6;
+	heal_effect = 5;
+	for (int i = 0; i < level; i++)
+	{
+		if (i > 0)
+		{
+			heal_effect *= 2;
+			random_range *= 2;
+		}
+	}
+	random = rand() % random_range;
+	heal_effect += random;
+
+	//Heal Range
+	heal_range = 70.0f;
+
+	//Heal Cooldown
+	heal_cooldown = 4;
+	for (int i = 0; i < level; i++)
+	{
+		if (i > 0)
+		{
+			heal_cooldown--;
+		}
+	}
+
+	//Agro Range
+	agro_range = 300.0f;
+
+	//Pure Blood Drop
+	blood_drop = 200;
+
+	for (int i = 0; i < level; i++)
+	{
+		if (i > 0)
+		{
+			blood_drop += blood_drop / 2;
+		}
+	}
+
+	//Particle Speed
+	particle_speed = 200;
+
+	//------------------------------------
+
+	SetParticles();
 	last_update = PATHFINDING_FRAMES;
 
 	SDL_Rect col_rect;
@@ -323,7 +397,7 @@ void EntEnemyShaman::SetParticles()
 
 	particle_shaman.life = 5;
 	particle_shaman.type = PARTICLE_ENEMY_CAST;
-	particle_shaman.damage = 20;
+	particle_shaman.damage = damage;
 	particle_shaman.speed.x = 0;
 	particle_shaman.speed.y = 0;
 	particle_shaman.anim.frames.push_back({ 0, 0, 64, 64 });
@@ -373,7 +447,7 @@ void EntEnemyShaman::UpdateRangedAttack()
 	{
 		Particle* skill_particle = App->pm->AddParticle(particle_shaman, position.x, position.y - 40, 2, particle_shaman.image);
 		particle_is_casted = true;
-		skill_particle->SetPointSpeed(150, particle_destination);
+		skill_particle->SetPointSpeed(particle_speed, particle_destination);
 	}
 
 	if (current_animation->Finished())

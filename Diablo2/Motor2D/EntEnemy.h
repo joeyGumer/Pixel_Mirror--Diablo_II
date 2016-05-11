@@ -53,6 +53,9 @@ public:
 	int		HP_max;
 	int		HP_current;
 
+	//Level
+	int level = 1;
+
 	//Attack
 	float	attack_range;
 	bool	attacking = false;

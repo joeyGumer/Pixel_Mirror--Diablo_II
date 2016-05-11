@@ -20,19 +20,62 @@ EntEnemyWolf::EntEnemyWolf(const iPoint &p, uint ID) : EntEnemy(p, ID)
 	current_animation_set = idle;
 	current_animation = &current_animation_set[current_direction];
 
-	int random = rand() % 31;
-	HP_max = HP_current = 70 + random;
-	speed = 150.0f;
-
-	movement = false;
 	enemy_type = ENEMY_WOLF;
 
-	attack_range = 50.0f;
-	agro_range = 200.0f;
+	//Attirbutes
+	//------------------------------------
+	//Life
+	int random_range = 11;
+	HP_max = HP_current = 15;
 
-	damage = 5;
+	for (int i = 0; i < level; i++)
+	{
+		if (i > 0)
+		{
+			HP_max *= 2;
+			HP_current *= 2;
+			random_range *= 2;
+		}
+	}
+	int random = rand() % random_range;
+	HP_max += random;
+	HP_current = HP_max;
 
+	//Speed
+	speed = 200.0f;
+
+	//Melee Attack
+	random_range = 5;
+	damage = 2;
+
+	for (int i = 0; i < level; i++)
+	{
+		if (i > 0)
+		{
+			damage *= 2;
+			random_range *= 2;
+		}
+	}
+	random = rand() % random_range;
+	damage += random;
+
+	//Melee Attack Range
+	attack_range = 40.0f;
+
+	//Agro Range
+	agro_range = 230.0f;
+
+	//Pure Blood Drop
 	blood_drop = 150;
+
+	for (int i = 0; i < level; i++)
+	{
+		if (i > 0)
+		{
+			blood_drop += blood_drop / 2;
+		}
+	}
+	//------------------------------------
 
 	last_update = PATHFINDING_FRAMES;
 
