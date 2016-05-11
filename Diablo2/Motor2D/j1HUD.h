@@ -15,6 +15,7 @@ class hudInventory;
 class hudBlood;
 class hudSkilltree;
 class hudStats;
+class hudMiniMap;
 
 class j1HUD : public j1Module
 {
@@ -50,6 +51,7 @@ public:
 	hudBlood* blood = NULL;
 	hudSkilltree* skilltree = NULL;
 	hudStats* stats = NULL;
+	hudMiniMap* minimap = NULL;
 	vector<hudElement*> HUD_elements;
 };
 

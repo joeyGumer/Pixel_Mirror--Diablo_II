@@ -363,4 +363,15 @@ GuiSkill* j1Gui::AddGuiSkill(iPoint p, SDL_Rect r, Skill* s, GuiElement* par, j1
 	if (par != NULL)par->AddChild(skill);
 	return skill;
 }
+
+GuiMiniMap* j1Gui::AddGuiMiniMap(iPoint p, SDL_Rect r, GuiElement* par, j1Module* list)
+{
+	
+	GuiMiniMap* minimap = new GuiMiniMap(p, r, par, list);
+	gui_elements.push_back(minimap);
+
+	if (par != NULL)par->AddChild(minimap);
+
+	return minimap;
+}
 // class Gui ---------------------------------------------------*/

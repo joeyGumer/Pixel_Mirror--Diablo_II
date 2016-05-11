@@ -12,6 +12,7 @@
 #include "hudBlood.h"
 #include "hudSkilltree.h"
 #include "hudStats.h"
+#include "hudMiniMap.h"
 
 //NOTE : provisional
 #include "j1Input.h"
@@ -25,13 +26,17 @@ j1HUD::j1HUD() : j1Module()
 	inventory = new hudInventory();
 	blood = new hudBlood();
 	skilltree = new hudSkilltree();
+	minimap = new hudMiniMap();
+
 
 	HUD_elements.push_back(blood);
 	HUD_elements.push_back(stats);
 	HUD_elements.push_back(skilltree);
 	HUD_elements.push_back(inventory);
 	HUD_elements.push_back(belt);
+	HUD_elements.push_back(minimap);
 	HUD_elements.push_back(pause_menu);
+	
 	
 	
 }
@@ -127,6 +132,14 @@ bool j1HUD::PreUpdate()
 		belt->menubutton_pressed = false;
 		pause_menu->ActivateMenu();
 	}
+
+	if (App->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN || belt->minimapbutton_pressed == true)
+	{
+		belt->minimapbutton_pressed = false;
+		minimap->Activate();
+		
+	}
+
 
 	for (int i = 0; i < HUD_elements.size(); i++)
 	{

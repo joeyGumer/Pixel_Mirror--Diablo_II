@@ -73,6 +73,7 @@ public:
 	bool skilltreebutton_pressed = false;
 	bool statsbutton_pressed = false;
 	bool menubutton_pressed = false;
+	bool minimapbutton_pressed = false;
 
 	//Belt Gui Elements
 	GuiImage* HUD = NULL;
@@ -90,7 +91,7 @@ public:
 	GuiImage* stats = NULL;
 	GuiImage* skilltree = NULL;
 	GuiImage* inventorybutton = NULL;
-	GuiImage* map = NULL;
+	GuiImage* minimapbutton = NULL;
 	GuiImage* game_menu = NULL;
 	GuiImage* attack1 = NULL;
 	GuiImage* attack2 = NULL;

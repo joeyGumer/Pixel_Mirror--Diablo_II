@@ -25,6 +25,7 @@ enum GUI_Type
 	GUI_INVENTORY,
 	GUI_SLOT,
 	GUI_SKILL,
+	GUI_MINIMAP,
 };
 
 enum GUI_Event

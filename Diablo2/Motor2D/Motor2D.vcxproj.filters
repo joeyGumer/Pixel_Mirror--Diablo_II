@@ -169,6 +169,12 @@
     <ClCompile Include="snOutdoor2.cpp">
       <Filter>Desenvolupament  ========\Scenes\snOutdoor2</Filter>
     </ClCompile>
+    <ClCompile Include="GuiMiniMap.cpp">
+      <Filter>Desenvolupament  ========\Modules\j1Gui\GuiElements</Filter>
+    </ClCompile>
+    <ClCompile Include="hudMiniMap.cpp">
+      <Filter>Desenvolupament  ========\Modules\j1HUD\hudElements\hudMiniMap</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h">
@@ -375,6 +381,12 @@
     <ClInclude Include="snOutdoor2.h">
       <Filter>Desenvolupament  ========\Scenes\snOutdoor2</Filter>
     </ClInclude>
+    <ClInclude Include="GuiMiniMap.h">
+      <Filter>Desenvolupament  ========\Modules\j1Gui\GuiElements</Filter>
+    </ClInclude>
+    <ClInclude Include="hudMiniMap.h">
+      <Filter>Desenvolupament  ========\Modules\j1HUD\hudElements\hudMiniMap</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -544,6 +556,9 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Scenes\snOutdoor2">
       <UniqueIdentifier>{9bbe3fe5-fd3b-49e1-a670-27c7ac2bea10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\j1HUD\hudElements\hudMiniMap">
+      <UniqueIdentifier>{c2e1419c-55ff-4fcf-9c7f-921ad52cdcb6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

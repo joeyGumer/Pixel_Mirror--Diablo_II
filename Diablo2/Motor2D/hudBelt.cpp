@@ -143,9 +143,9 @@ bool hudBelt::Start()
 	skilltree->interactable = true;
 	hud_gui_elements.push_back(skilltree);
 
-	map = App->gui->AddGuiImageWithLabel({ 66, 3 }, { 233, 279, 20, 19 }, "map", App->font->description, {0, 0}, minipanel, this);
-	map->interactable = true;
-	hud_gui_elements.push_back(map);
+	minimapbutton = App->gui->AddGuiImageWithLabel({ 66, 3 }, { 233, 279, 20, 19 }, "mini map", App->font->description, { 0, 0 }, minipanel, this);
+	minimapbutton->interactable = true;
+	hud_gui_elements.push_back(minimapbutton);
 
 	game_menu = App->gui->AddGuiImageWithLabel({ 87, 3 }, { 254, 279, 20, 19 }, "game menu", App->font->description, {-20, 0}, minipanel, this);
 	game_menu->interactable = true;
@@ -388,23 +388,42 @@ void hudBelt::OnEvent(GuiElement* element, GUI_Event even)
 		}
 	}
 
-	//Map button
-	if (map == element)
+	//MiniMap button
+	if (minimapbutton == element)
 	{
 		switch (even)
 		{
+		case EVENT_MOUSE_LEFTCLICK_DOWN:
+		{
+			if (minimapbutton_pressed == false)
+			{
+				minimapbutton_pressed = true;
+			}
+			else
+			{
+				minimapbutton_pressed = false;
+			}
+		}
+		break;
 		case EVENT_MOUSE_ENTER:
 		{
-			map->descriptionlabel->Activate();
+			minimapbutton->descriptionlabel->Activate();
 		}
 		break;
 		case EVENT_MOUSE_EXIT:
 		{
-			map->descriptionlabel->Desactivate();
+			minimapbutton->descriptionlabel->Desactivate();
 		}
 		break;
 		}
 	}
+
+
+
+
+
+
+
 
 	//Game_menu button
 	if (game_menu == element)
