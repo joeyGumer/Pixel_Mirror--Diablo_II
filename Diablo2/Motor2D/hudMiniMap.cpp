@@ -2,6 +2,7 @@
 #include "j1App.h"
 #include "j1Gui.h"
 #include "j1Input.h"
+#include "j1Textures.h"
 #include "GuiMiniMap.h"
 
 
@@ -29,9 +30,9 @@ bool hudMiniMap::Start()
 	background = App->gui->AddGuiImage({ 150, 0 }, { 1128, 588, 300, 100 }, NULL, this);
 	background->active = false;
 	hud_gui_elements.push_back(background);
-
+	SDL_Texture* mapa = App->tex->Load("maps/mini_path.png");
 	//Creation of the minimap
-	minimap = App->gui->AddGuiMiniMap({ 16, 100 }, { 1144, 843, 290, 87 }, background, this);
+	minimap = App->gui->AddGuiMiniMap({ 16, 100 }, { 1144, 843, 290, 87 }, background, this,mapa);
 	minimap->active = false;
 	hud_gui_elements.push_back(minimap);
 
@@ -64,12 +65,6 @@ bool hudMiniMap::PostUpdate()
 //Called before quitting
 bool hudMiniMap::CleanUp()
 {
-	/*
-	//WARNING: can't do this plox
-	App->gui->dragged_item = NULL;
-	if (inventory)
-		inventory->CleanItems();
-
 	for (int i = 0; i < hud_gui_elements.size(); i++)
 	{
 		for (list<GuiElement*>::iterator item2 = App->gui->gui_elements.begin(); item2 != App->gui->gui_elements.end(); item2++)
@@ -84,8 +79,8 @@ bool hudMiniMap::CleanUp()
 	}
 
 	hud_gui_elements.clear();
-	inventory = NULL;
-	*/
+	minimap = NULL;
+	
 
 	return true;
 }
