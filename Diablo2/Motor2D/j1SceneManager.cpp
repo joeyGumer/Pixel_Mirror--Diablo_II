@@ -3,6 +3,7 @@
 #include "j1App.h"
 #include "snIntro.h"
 #include "snOutdoor1.h"
+#include "snOutdoor2.h"
 #include "snDungeon1.h"
 #include "snDungeon2.h"
 #include "snWin.h"
@@ -14,6 +15,7 @@ j1SceneManager::j1SceneManager() : j1Module()
 {
 	intro = new snIntro();
 	outdoor1 = new snOutdoor1();
+	outdoor2 = new snOutdoor2();
 	dungeon1 = new snDungeon1();
 	dungeon2 = new snDungeon2();
 	win = new snWin();
@@ -21,6 +23,7 @@ j1SceneManager::j1SceneManager() : j1Module()
 	AddScene(win);
 	AddScene(intro);
 	AddScene(outdoor1);
+	AddScene(outdoor2);
 	AddScene(dungeon1);
 	AddScene(dungeon2);
 }

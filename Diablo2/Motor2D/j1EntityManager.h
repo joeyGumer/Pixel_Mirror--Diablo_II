@@ -110,6 +110,9 @@ public:
 	//Portal texture
 	SDL_Texture* portal_tex;
 
+	//Texture list
+	list<SDL_Texture*> texture_list;
+
 	//Sounds
 	int crawler_attackfx;
 	int crawler_gethitfx;

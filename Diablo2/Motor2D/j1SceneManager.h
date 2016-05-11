@@ -9,6 +9,7 @@ using namespace std;
 class j1Scene;
 class snIntro;
 class snOutdoor1;
+class snOutdoor2;
 class snDungeon1;
 class snDungeon2;
 class snWin;
@@ -46,6 +47,7 @@ public:
 public:
 	snIntro*	intro = NULL;
 	snOutdoor1*	outdoor1 = NULL;
+	snOutdoor2*	outdoor2 = NULL;
 	snDungeon1* dungeon1 = NULL;
 	snDungeon2* dungeon2 = NULL;
 	snWin*		win = NULL;

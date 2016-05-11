@@ -242,7 +242,7 @@ bool j1Map::CleanUp()
 
 	while(item != data.tilesets.end())
 	{
-		SDL_DestroyTexture(item._Ptr->_Myval->texture);
+		App->tex->UnLoad(item._Ptr->_Myval->texture);
 		RELEASE(*item);
 		item++;
 	}

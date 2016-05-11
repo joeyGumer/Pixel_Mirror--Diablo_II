@@ -4,6 +4,7 @@
 #include "j1SceneManager.h"
 #include "j1Input.h"
 #include "snOutdoor1.h"
+#include "snOutdoor2.h"
 #include "snDungeon1.h"
 #include "snDungeon2.h"
 #include "j1Gui.h"
@@ -85,7 +86,11 @@ bool snIntro::Update(float dt)
 	*/
 	if (pass == true)
 	{
-		App->sm->ChangeScene(App->sm->dungeon2);
+		int random = rand() % 2;
+		if (random == 0)
+			App->sm->ChangeScene(App->sm->outdoor2);
+		else if (random == 1)
+			App->sm->ChangeScene(App->sm->dungeon2);
 	}
 
 	else if (exit == true)

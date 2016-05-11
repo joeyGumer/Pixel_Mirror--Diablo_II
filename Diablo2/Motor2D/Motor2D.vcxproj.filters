@@ -166,6 +166,9 @@
     <ClCompile Include="EntEnemySummoner.cpp">
       <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile\EntEnemy\EntEnemySummoner</Filter>
     </ClCompile>
+    <ClCompile Include="snOutdoor2.cpp">
+      <Filter>Desenvolupament  ========\Scenes\snOutdoor2</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h">
@@ -365,9 +368,12 @@
     </ClInclude>
     <ClInclude Include="EntEnemySummoner.h">
       <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile\EntEnemy\EntEnemySummoner</Filter>
-	</ClInclude>
+    </ClInclude>
     <ClInclude Include="Buff.h">
       <Filter>Desenvolupament  ========\Modules\Items\Buff</Filter>
+    </ClInclude>
+    <ClInclude Include="snOutdoor2.h">
+      <Filter>Desenvolupament  ========\Scenes\snOutdoor2</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -532,9 +538,12 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile\EntEnemy\EntEnemySummoner">
       <UniqueIdentifier>{927e8b5e-5459-4de1-b661-6fb27fa07f57}</UniqueIdentifier>
-	</Filter>
+    </Filter>
     <Filter Include="Desenvolupament  ========\Modules\Items\Buff">
       <UniqueIdentifier>{fc3f8c0a-0165-4dd1-b5ea-9059345e62e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Scenes\snOutdoor2">
+      <UniqueIdentifier>{9bbe3fe5-fd3b-49e1-a670-27c7ac2bea10}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

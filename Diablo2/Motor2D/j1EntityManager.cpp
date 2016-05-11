@@ -52,43 +52,66 @@ bool j1EntityManager::Start()
 {
 	//Wolf
 	wolf_idle = App->tex->Load("textures/wolf.png");
+	texture_list.push_back(wolf_idle);
 	wolf_walk = App->tex->Load("textures/wolf_walk.png");
+	texture_list.push_back(wolf_walk);
 	wolf_death = App->tex->Load("textures/wolf_death.png");
+	texture_list.push_back(wolf_death);
 	wolf_attack = App->tex->Load("textures/wolf_attack.png");
+	texture_list.push_back(wolf_attack);
 
 
 	//Crawler
 	crawler_idle = App->tex->Load("textures/crawler_idle.png");
+	texture_list.push_back(crawler_idle);
 	crawler_walk = App->tex->Load("textures/crawler_walk.png");
+	texture_list.push_back(crawler_walk);
 	crawler_death = App->tex->Load("textures/crawler_death.png");
+	texture_list.push_back(crawler_death);
 	crawler_attack = App->tex->Load("textures/crawler_attack.png");
+	texture_list.push_back(crawler_attack);
 
 	//Boss
 	boss_idle = App->tex->Load("textures/boss_idle.png");
+	texture_list.push_back(boss_idle);
 	boss_walk = App->tex->Load("textures/boss_walk.png");
+	texture_list.push_back(boss_walk);
 	boss_death = App->tex->Load("textures/boss_death.png");
+	texture_list.push_back(boss_death);
 	boss_attack = App->tex->Load("textures/boss_attack.png");
+	texture_list.push_back(boss_attack);
 
 	//Shaman
 	shaman_idle = App->tex->Load("textures/shaman_idle.png");
+	texture_list.push_back(shaman_idle);
 	shaman_walk = App->tex->Load("textures/shaman_walk.png");
+	texture_list.push_back(shaman_walk);
 	shaman_death = App->tex->Load("textures/shaman_death.png");
+	texture_list.push_back(shaman_death);
 	shaman_attack = App->tex->Load("textures/shaman_attack.png");
+	texture_list.push_back(shaman_attack);
 
 	//Shaman Particles
 	shaman_particle = App->tex->Load("particles/Burn/Building_Burn_1.png");
+	texture_list.push_back(shaman_particle);
 
 	//Summoner
 	summoner_idle = App->tex->Load("textures/summoner_idle.png");
+	texture_list.push_back(summoner_idle);
 	summoner_walk = App->tex->Load("textures/summoner_walk.png");
+	texture_list.push_back(summoner_walk);
 	summoner_death = App->tex->Load("textures/summoner_death.png");
+	texture_list.push_back(summoner_death);
 	summoner_attack = App->tex->Load("textures/summoner_attack.png");
+	texture_list.push_back(summoner_attack);
 
 	//Summoner Particles
 	summoner_particle = App->tex->Load("particles/Burn/Building_Burn_1.png");
+	texture_list.push_back(summoner_particle);
 
 	//Portal
 	portal_tex = App->tex->Load("textures/portal.png");
+	texture_list.push_back(portal_tex);
 	
 	enemy_name = App->gui->AddGuiLabel(" ", NULL, { 260, 0 }, NULL, FONT_WHITE, this);
 	enemy_name->Desactivate();
@@ -200,6 +223,10 @@ bool j1EntityManager::CleanUp()
 
 	if (enemy_name)
 		enemy_name->Desactivate();
+
+	list<SDL_Texture*>::iterator item2 = texture_list.begin();
+	for (; item2 != texture_list.end(); item2++)
+		App->tex->UnLoad(item2._Ptr->_Myval);
 
 	return true;
 }
