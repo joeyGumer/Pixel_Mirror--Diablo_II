@@ -72,14 +72,21 @@ bool hudBelt::Start()
 
 	mana_holder = App->gui->AddGuiImage({ 358, -55 }, { 524, 331, 116, 102 }, HUD, this);
 	hud_gui_elements.push_back(mana_holder);
-
+	/*
 	runbutton = App->gui->AddGuiImage({ 9, 19 }, { 153, 280, 18, 22 }, HUD, this);
 	runbutton->interactable = true;
 	hud_gui_elements.push_back(runbutton);
+	*/
+	runbutton = App->gui->AddGuiImageWithLabel({ 9, 19 }, { 153, 280, 18, 22 }, "run (R)", App->font->description, { -10, -10 }, HUD, this);
+	runbutton->interactable = true;
+	hud_gui_elements.push_back(runbutton);
 
+	/*
 	minipanelbutton = App->gui->AddGuiImage({ 146, 9 }, { 296, 253, 16, 27 }, HUD, this);
 	minipanelbutton->interactable = true;
 	hud_gui_elements.push_back(minipanelbutton);
+	*/
+
 
 	/*attack1 = App->gui->AddGuiImage({ -50, 0 }, { 102, 280, 50, 47 }, HUD, this);
 	attack1->interactable = true;
@@ -131,27 +138,29 @@ bool hudBelt::Start()
 	stats->interactable = true;
 	hud_gui_elements.push_back(stats);*/
 
-	stats = App->gui->AddGuiImageWithLabel({ 3, 3 }, { 170, 279, 20, 19 }, "player", App->font->description, { -20, 0 }, minipanel, this);
+	stats = App->gui->AddGuiImageWithLabel({ 3, 3 }, { 170, 279, 20, 19 }, "player (C)", App->font->description, { -30, 0 }, minipanel, this);
 	stats->interactable = true;
 	hud_gui_elements.push_back(stats);
 
-	inventorybutton = App->gui->AddGuiImageWithLabel({ 24, 3 }, { 191, 279, 20, 19 }, "invenTory", App->font->description, {-20, 0}, minipanel, this);
+	inventorybutton = App->gui->AddGuiImageWithLabel({ 24, 3 }, { 191, 279, 20, 19 }, "invenTory (I)", App->font->description, {-30, 0}, minipanel, this);
 	inventorybutton->interactable = true;
 	hud_gui_elements.push_back(inventorybutton);
 
-	skilltree = App->gui->AddGuiImageWithLabel({ 45, 3 }, { 212, 279, 20, 19 }, "skill Tree", App->font->description, {-20, 0}, minipanel, this);
+	skilltree = App->gui->AddGuiImageWithLabel({ 45, 3 }, { 212, 279, 20, 19 }, "skill Tree (S)", App->font->description, {-30, 0}, minipanel, this);
 	skilltree->interactable = true;
 	hud_gui_elements.push_back(skilltree);
 
-	minimapbutton = App->gui->AddGuiImageWithLabel({ 66, 3 }, { 233, 279, 20, 19 }, "mini map", App->font->description, { 0, 0 }, minipanel, this);
+	minimapbutton = App->gui->AddGuiImageWithLabel({ 66, 3 }, { 233, 279, 20, 19 }, "mini map (M)", App->font->description, { -40, 0 }, minipanel, this);
 	minimapbutton->interactable = true;
 	hud_gui_elements.push_back(minimapbutton);
 
-	game_menu = App->gui->AddGuiImageWithLabel({ 87, 3 }, { 254, 279, 20, 19 }, "game menu", App->font->description, {-20, 0}, minipanel, this);
+	game_menu = App->gui->AddGuiImageWithLabel({ 87, 3 }, { 254, 279, 20, 19 }, "game menu (ESC)", App->font->description, {-30, 0}, minipanel, this);
 	game_menu->interactable = true;
 	hud_gui_elements.push_back(game_menu);
 	
-
+	minipanelbutton = App->gui->AddGuiImageWithLabel({ 146, 9 }, { 296, 253, 16, 27 }, "open/close minipanel", App->font->description, { -60, 0 }, HUD, this);
+	minipanelbutton->interactable = true;
+	hud_gui_elements.push_back(minipanelbutton);
 
 	minipanel->Desactivate();
 
@@ -273,6 +282,16 @@ void hudBelt::OnEvent(GuiElement* element, GUI_Event even)
 				RunningOn();
 			}
 			break;
+			case EVENT_MOUSE_ENTER:
+			{
+				runbutton->descriptionlabel->Activate();
+			}
+			break;
+			case EVENT_MOUSE_EXIT:
+			{
+				runbutton->descriptionlabel->Desactivate();
+			}
+			break;
 		}
 	}
 
@@ -297,6 +316,16 @@ void hudBelt::OnEvent(GuiElement* element, GUI_Event even)
 					minipanelbutton->SetTextureRect({ 296, 253, 16, 27 });
 					minipanel->Desactivate();
 				}
+			}
+			break;
+			case EVENT_MOUSE_ENTER:
+			{
+				minipanelbutton->descriptionlabel->Activate();
+			}
+			break;
+			case EVENT_MOUSE_EXIT:
+			{
+				minipanelbutton->descriptionlabel->Desactivate();
 			}
 			break;
 		}
