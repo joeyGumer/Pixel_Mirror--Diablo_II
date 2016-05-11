@@ -3,6 +3,7 @@
 
 #include "j1Scene.h"
 #include <list>
+#include "Animation.h"
 
 using namespace std;
 
@@ -55,6 +56,9 @@ private:
 	GuiButton* controls_button = NULL;
 	GuiButton* exit_button = NULL;
 	GuiImage* background = NULL;
+	
+	SDL_Texture* title = NULL;
+	Animation logo;
 
 	//NOTE : added this list to iterate easily the gui_elements of the scene. Ask ric about a more optimal way to control the UI
 	//NOTE: do the button class so it can have the diferent images and even a label, so it doesn?t interfere with the rest of the ui
