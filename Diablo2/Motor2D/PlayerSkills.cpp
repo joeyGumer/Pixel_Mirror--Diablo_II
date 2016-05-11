@@ -83,6 +83,8 @@ void sklBloodArrow::SkillInit()
 void sklBloodArrow::SkillUpdate()
 {
 	//NOTE: provisional
+	player->SetDirection(player->particle_destination);
+
 	if (player->current_animation->CurrentFrame() >= 7 && !player->particle_is_casted)
 	{
 		skill_particle = App->pm->AddParticle(player->particle_skill_1, player->p_position.x, player->p_position.y - 40, 2, player->particle_skill_1.image);
