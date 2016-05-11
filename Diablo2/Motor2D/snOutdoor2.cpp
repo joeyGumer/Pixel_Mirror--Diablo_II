@@ -149,6 +149,16 @@ bool snOutdoor2::Update(float dt)
 			Entity* ent = App->game->em->AddEnemy(p, ENEMY_SUMMONER);
 		}
 
+		else if (App->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN)
+		{
+			iPoint p;
+			p = App->input->GetMouseWorldPosition();
+			p.x += App->map->data.tile_width / 2;
+			p.y += App->map->data.tile_height / 2;
+
+			Entity* ent = App->game->em->AddEnemy(p, ENEMY_IZUAL);
+		}
+
 		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		{
 			App->render->camera.x -= floor(CAM_SPEED * 5 * dt);

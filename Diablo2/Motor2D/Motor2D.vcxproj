@@ -80,6 +80,7 @@
     <ClCompile Include="EntEnemy.cpp" />
     <ClCompile Include="EntEnemyCouncil.cpp" />
     <ClCompile Include="EntEnemyCrawler.cpp" />
+    <ClCompile Include="EntEnemyIzual.cpp" />
     <ClCompile Include="EntEnemyShaman.cpp" />
     <ClCompile Include="EntEnemySummoner.cpp" />
     <ClCompile Include="EntEnemyWolf.cpp" />
@@ -142,6 +143,7 @@
     <ClInclude Include="EntEnemy.h" />
     <ClInclude Include="EntEnemyCouncil.h" />
     <ClInclude Include="EntEnemyCrawler.h" />
+    <ClInclude Include="EntEnemyIzual.h" />
     <ClInclude Include="EntEnemyShaman.h" />
     <ClInclude Include="EntEnemySummoner.h" />
     <ClInclude Include="EntEnemyWolf.h" />

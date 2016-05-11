@@ -24,6 +24,7 @@
 #include "EntEnemyWolf.h"
 #include "EntEnemyShaman.h"
 #include "EntEnemySummoner.h"
+#include "EntEnemyIzual.h"
 
 #include "j1ParticleManager.h"
 
@@ -108,6 +109,22 @@ bool j1EntityManager::Start()
 	//Summoner Particles
 	summoner_particle = App->tex->Load("particles/Burn/Building_Burn_1.png");
 	texture_list.push_back(summoner_particle);
+
+	//Izual textures
+	izual_idle = App->tex->Load("textures/izual_idle.png");
+	texture_list.push_back(izual_idle);
+	izual_walk = App->tex->Load("textures/izual_walk.png");
+	texture_list.push_back(izual_walk);
+	izual_attack = App->tex->Load("textures/izual_attack.png");
+	texture_list.push_back(izual_attack);
+	izual_cast = App->tex->Load("textures/izual_cast.png");
+	texture_list.push_back(izual_cast);
+	izual_death = App->tex->Load("textures/izual_death.png");
+	texture_list.push_back(izual_death);
+
+	//Izual particles
+	izual_particle = App->tex->Load("particles/Burn/Building_Burn_1.png");
+	texture_list.push_back(izual_particle);
 
 	//Portal
 	portal_tex = App->tex->Load("textures/portal.png");
@@ -338,6 +355,9 @@ Entity* j1EntityManager::AddEnemy(iPoint &pos, ENEMY_TYPE type)
 			break;
 		case (ENEMY_SUMMONER) :
 			entity = new EntEnemySummoner(pos, ++next_ID);
+			break;
+		case (ENEMY_IZUAL) :
+			entity = new EntEnemyIzual(pos, ++next_ID);
 			break;
 		}
 

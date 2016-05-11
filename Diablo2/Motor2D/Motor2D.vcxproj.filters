@@ -175,6 +175,9 @@
     <ClCompile Include="hudMiniMap.cpp">
       <Filter>Desenvolupament  ========\Modules\j1HUD\hudElements\hudMiniMap</Filter>
     </ClCompile>
+    <ClCompile Include="EntEnemyIzual.cpp">
+      <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile\EntEnemy\EntEnemyIzual</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h">
@@ -387,6 +390,9 @@
     <ClInclude Include="hudMiniMap.h">
       <Filter>Desenvolupament  ========\Modules\j1HUD\hudElements\hudMiniMap</Filter>
     </ClInclude>
+    <ClInclude Include="EntEnemyIzual.h">
+      <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile\EntEnemy\EntEnemyIzual</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -559,6 +565,9 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Modules\j1HUD\hudElements\hudMiniMap">
       <UniqueIdentifier>{c2e1419c-55ff-4fcf-9c7f-921ad52cdcb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile\EntEnemy\EntEnemyIzual">
+      <UniqueIdentifier>{9aa4bbe3-2727-4917-ae87-00bf2dd38bc3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

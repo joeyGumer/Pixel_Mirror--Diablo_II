@@ -107,6 +107,16 @@ public:
 	//Summoner particles
 	SDL_Texture* summoner_particle;
 
+	//Izual textures
+	SDL_Texture* izual_idle;
+	SDL_Texture* izual_walk;
+	SDL_Texture* izual_attack;
+	SDL_Texture* izual_cast;
+	SDL_Texture* izual_death;
+
+	//Izual particles
+	SDL_Texture* izual_particle;
+
 	//Portal texture
 	SDL_Texture* portal_tex;
 
