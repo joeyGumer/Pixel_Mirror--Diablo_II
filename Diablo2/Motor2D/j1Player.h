@@ -201,7 +201,8 @@ public:
 	void LowerStamina();
 	void RecoverStamina();
 	void IncreaseBlood(int blood);
-	void RestoreHP(int health);
+	void RecoverHP(float dt);
+	void StartRecoverHP(int recovered_HP);
 
 	void SetAttribute(PLAYER_ATTRIBUTE attribute, float value);
 	void CalculateFinalStats();
@@ -277,6 +278,10 @@ public:
 	float HP_current;
 	float HP_base;
 	float HP_dt = 4;
+	float HP_recover_dt = 0.2f;
+	float HP_recover_base = 1;
+	float HP_recover_final;
+	bool HP_potion;
 
 	//MP
 	float MP_max;

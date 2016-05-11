@@ -174,15 +174,15 @@ itmConsumable::itmConsumable(ITEM_RARITY rarity, iPoint p) : Item(ITEM_CONSUMABL
 		switch (rarity)
 		{
 		case RARITY_COMMON:
-			value = 5; //%
+			value = 30; //%
 			y = 797;
 			break;
 		case RARITY_RARE:
-			value = 7.5;
+			value = 60;
 			y = 827;
 			break;
 		case RARITY_LEGENDARY:
-			value = 10;
+			value = 120;
 			y = 857;
 			break;
 		}
@@ -245,6 +245,18 @@ itmConsumable::itmConsumable(ITEM_RARITY rarity, iPoint p) : Item(ITEM_CONSUMABL
 	}
 
 	CreateEntItem(p);
+}
+
+void itmConsumable::Effect()
+{
+	/*if (item_buffs[1].attribute == HP)
+	{
+		App->game->player->
+	}
+	else
+	{
+
+	}*/
 }
 
 

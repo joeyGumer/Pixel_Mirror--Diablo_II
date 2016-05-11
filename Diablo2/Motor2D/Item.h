@@ -77,6 +77,9 @@ class itmConsumable : public Item
 {
 public:
 	itmConsumable(ITEM_RARITY rarity, iPoint p);
+
+	void Effect();
+
 public:
 };
 

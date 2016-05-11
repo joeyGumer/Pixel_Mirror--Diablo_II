@@ -97,6 +97,7 @@ bool j1Player::Start()
 
 	//initial stats
 	HP_max = HP_current = HP_base = 65.0f;
+	HP_recover_final = HP_recover_base;
 	MP_max = MP_current = MP_base = 100;
 	ST_max = ST_current = ST_base = 79.0f;
 	blood_current = 0;
@@ -168,6 +169,8 @@ bool j1Player::Update(float dt)
 		{
 			RecoverStamina();
 		}
+
+		RecoverHP(dt);
 	}
 	else
 	{
@@ -1052,13 +1055,13 @@ void j1Player::IncreaseBlood(int blood)
 	blood_current += blood;
 }
 
-void j1Player::RestoreHP(int health)
+void j1Player::RecoverHP(float dt)
 {
 	
-	HP_current += health;
+	HP_current += HP_recover_final * dt;
 	if (HP_current >= HP_max)
 	{
-		HP_max = HP_current;
+		HP_current = HP_max;
 	}
 
 	PlayerEvent(HP_UP);
@@ -1384,6 +1387,7 @@ void j1Player::CalculateFinalStats()
 	armor_final = armor_base;
 
 	HP_max = HP_base;
+	HP_recover_final = HP_recover_base;
 	ST_max = ST_base;
 
 
@@ -1397,6 +1401,7 @@ void j1Player::CalculateFinalStats()
 	//Stats that varies dependieng on main attributes:
 	//vitality
 	HP_max += HP_dt * vit_final;
+	HP_recover_final += HP_recover_dt * vit_final;
 	ST_max += ST_dt * vit_final;
 
 	if (HP_current > HP_max)
