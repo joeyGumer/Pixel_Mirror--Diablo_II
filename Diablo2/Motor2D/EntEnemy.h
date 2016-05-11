@@ -69,6 +69,10 @@ public:
 
 	const char*  name;
 
+	//HP bar
+	float   total_width;
+	float   xpos;
+
 };
 
 #endif

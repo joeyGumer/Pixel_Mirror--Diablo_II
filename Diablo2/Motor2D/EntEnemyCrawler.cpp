@@ -23,7 +23,7 @@ EntEnemyCrawler::EntEnemyCrawler(const iPoint &p, uint ID) : EntEnemy(p, ID)
 	enemy_type = ENEMY_CRAWLER;
 
 	int random = rand() % 36;
-	HP_max = HP_current = 75;
+	HP_max = HP_current = 75 + random;
 	speed = 100.0f;
 
 	movement = false;

@@ -188,13 +188,13 @@ void EntEnemy::TakeDamage(int damage)
 void EntEnemy::DrawHPbar()
 {
 	//NOTE: make this to GUI so it can put the enemy's name
-	float total_width = 200;
+	//total_width = 220;
 	int height = 20;
 	int current_width = (total_width/HP_max)* HP_current;
 
-	App->render->DrawQuad({ 220, 0, total_width, height }, 0, 0, 0, 255, true, false);
-	App->render->DrawQuad({ 220, 0, current_width, height }, 255, 0, 0, 255, true, false);
-
+	App->render->DrawQuad({ xpos/*220*/, 0, total_width, height }, 0, 0, 0, 255, true, false);
+	App->render->DrawQuad({ xpos, 0, current_width, height }, 255, 0, 0, 255, true, false);
+	
 }
 
 /*

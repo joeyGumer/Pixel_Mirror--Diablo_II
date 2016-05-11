@@ -26,7 +26,7 @@ EntEnemyCouncil::EntEnemyCouncil(const iPoint &p, uint ID) : EntEnemy(p, ID)
 	enemy_type = ENEMY_COUNCIL;
 
 	int random = rand() % 326;
-	HP_max = HP_current = 75;
+	HP_max = HP_current = 75 + random;
 	speed = 100.0f;
 
 	movement = false;
