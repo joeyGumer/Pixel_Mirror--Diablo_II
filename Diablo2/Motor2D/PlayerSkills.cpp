@@ -39,7 +39,7 @@ void sklBasicAttack::SkillUpdate()
 
 void sklBasicAttack::SkillEffect()
 {
-	player->enemy->TakeDamage(player->atk_damage);
+	player->enemy->TakeDamage(player->atk_damage_final);
 }
 
 void sklBasicAttack::SetSkillAnimations()

@@ -96,10 +96,15 @@ bool j1Player::Start()
 	p_collider = App->collision->AddCollider({GetPivotPosition().x-20, GetBlitPosition().y + 20, 37, GetPlayerRect().h - 20}, COLLIDER_PLAYER, this);
 
 	//initial stats
-	HP_max = HP_current = 200.0f;
-	MP_max = MP_current = 100;
-	ST_max = ST_current = 200.0f;
+	HP_max = HP_current = HP_base = 65.0f;
+	MP_max = MP_current = MP_base = 100;
+	ST_max = ST_current = ST_base = 79.0f;
 	blood_current = 0;
+	//Attack
+	atk_damage_final = atk_damage_base = 38;
+	dAtk = (float)atk_damage_base / 100;
+
+	
 
 
 
@@ -666,7 +671,7 @@ void j1Player::CheckToAttack()
 
 			SetDirection();
 
-			enemy->TakeDamage(atk_damage);
+			enemy->TakeDamage(atk_damage_final);
 			App->audio->PlayFx(player_attack, 0);
 
 			movement = false;
@@ -1303,12 +1308,12 @@ void j1Player::SetAttribute(PLAYER_ATTRIBUTE attribute, float value)
 	case STRENGHT:
 	{
 		str_final += value;
-		//basic_damage += ( ( basic_damage ) * ((1 / 100) * value ) );
-		//strength = ((basic_damage)* ((1 / 100) * value));
-		//PLAYER_EVENT(CHANGE_BASICATTACK);
+	
 		if (str_final < 0)
 			str_final = 0;
-		
+
+		atk_damage_final += dAtk * str_final;
+
 	}
 		break;
 	case DEXTERITY:
@@ -1363,6 +1368,15 @@ void j1Player::CalculateFinalStats()
 	vit_final = vit_base;
 	int_final = int_base;
 	luck_final = luck_base;
+	atk_damage_final = atk_damage_base;
+
+	HP_max = HP_base;
+	if (HP_current > HP_max)
+		HP_current = HP_max;
+
+	ST_max = ST_base;
+	if (ST_current > ST_max)
+		ST_current = ST_max;
 
 	list<Buff*>::iterator item = buffs.begin();
 
@@ -1371,10 +1385,21 @@ void j1Player::CalculateFinalStats()
 		SetAttribute((*item)->attribute, (*item)->value);
 	}
 
+	//Stats that varies dependieng on main attributes:
+	//vitality
+	HP_max += HP_dt * vit_final;
+	ST_max += ST_dt * vit_final;
+
+	//Label actualization
 	App->game->HUD->stats->SetStrengthLabel(str_final);
 	App->game->HUD->stats->SetVitalityLabel(vit_final);
 	App->game->HUD->stats->SetDexterityLabel(dex_final);
 	App->game->HUD->stats->SetIntelligenceLabel(int_final);
 	App->game->HUD->stats->SetLuckLabel(luck_final);
-	App->game->HUD->stats->SetBasicAttackLabel(basic_damage);
+	App->game->HUD->stats->SetBasicAttackLabel(atk_damage_final);
+
+	//HUD related
+	PlayerEvent(HP_DOWN);
+	PlayerEvent(ST_DOWN);
+
 }

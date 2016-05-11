@@ -239,7 +239,9 @@ public:
 
 	//Attack
 	bool		attacking;
-	int			atk_damage = 50;
+	int			atk_damage_base = 38;
+	int			atk_damage_final;
+	float		dAtk;
 	float attack_range = 65.0f;
 
 	//Textures
@@ -274,6 +276,7 @@ public:
 	int HP_max;
 	int HP_current;
 	int HP_base;
+	int HP_dt = 4;
 
 	//MP
 	int MP_max;
@@ -284,6 +287,7 @@ public:
 	float ST_max;
 	float ST_current;
 	float ST_base;
+	int		ST_dt = 1;
 
 	//This is mana basically...?
 	int blood_current;

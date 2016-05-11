@@ -138,11 +138,11 @@ bool hudStats::Start()
 	stamina_name = App->gui->AddGuiLabel("Stamina", App->font->stats, { 4, 2 }, stamina, FONT_WHITE, backgroundColor, this);
 	stamina_name->Center(true, true);
 	stamina_1 = App->gui->AddGuiImage({ 230, 108 }, { 779, 960, 40, 20 }, window, this);
-	text.create("%i", App->game->player->ST_current);
+	text.create("%i", (int)App->game->player->ST_current);
 	current_stamina = App->gui->AddGuiLabel(text, App->font->description, { 13, 2 }, stamina_1, FONT_WHITE, backgroundColor, this);
 	current_stamina->Center(true, true);
 	stamina_2 = App->gui->AddGuiImage({ 272, 108 }, { 779, 960, 40, 20 }, window, this);
-	text.create("%i", App->game->player->ST_max);
+	text.create("%i", (int)App->game->player->ST_max);
 	stamina_max = App->gui->AddGuiLabel(text, App->font->description, { 13, 2 }, stamina_2, FONT_WHITE, backgroundColor, this);
 	stamina_max->Center(true, true);
 
@@ -158,7 +158,7 @@ bool hudStats::Start()
 	basicAttack_name = App->gui->AddGuiLabel("Basic Attack", App->font->stats, { 4, 2 }, basicAttack, FONT_WHITE, backgroundColor, this);
 	basicAttack_name->Center(true, true);
 	basicAttack_value = App->gui->AddGuiImage({ 260, 136 }, { 779, 960, 48, 20 }, window, this);
-	text.create("%i", App->game->player->basic_damage);
+	text.create("%i", App->game->player->atk_damage_base);
 	player_basicAttack = App->gui->AddGuiLabel(text, App->font->description, { 13, 2 }, basicAttack_value, FONT_WHITE, backgroundColor, this);
 	player_basicAttack->Center(true, true);
 	hud_gui_elements.push_back(basicAttack);
@@ -167,6 +167,7 @@ bool hudStats::Start()
 	hud_gui_elements.push_back(player_basicAttack);
 
 	//Resistance Stat
+	//NOTE: is initializing basic damage
 	resistance = App->gui->AddGuiImage({ 174, 338 }, { 779, 960, 100, 20 }, window, this);
 	resistance_name = App->gui->AddGuiLabel("Resistance", App->font->stats, { 4, 2 }, resistance, FONT_WHITE, backgroundColor, this);
 	resistance_name->Center(true, true);
@@ -179,6 +180,8 @@ bool hudStats::Start()
 	hud_gui_elements.push_back(resistance_value);
 	hud_gui_elements.push_back(player_resistance);
 	window->Desactivate();
+
+
 
 	return true;
 }
@@ -297,6 +300,7 @@ void hudStats::SetResistenceLabel(int resistence)
 	text.create("%i", resistence);
 	player_resistance->SetText(text);
 }
+
 
 
 
