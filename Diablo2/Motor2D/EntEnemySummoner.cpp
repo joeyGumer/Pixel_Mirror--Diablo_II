@@ -7,6 +7,8 @@
 #include "j1Player.h"
 #include "j1Map.h"
 #include "Animation.h"
+#include "j1SceneManager.h"
+#include "j1Scene.h"
 
 
 //Constructor
@@ -95,6 +97,9 @@ EntEnemySummoner::EntEnemySummoner(const iPoint &p, uint ID) : EntEnemy(p, ID)
 	//Particle Speed
 	particle_speed = 250;
 
+	//Timer Start
+	summon_timer.Start();
+
 	//------------------------------------
 
 	SetParticles();
@@ -127,6 +132,11 @@ EntEnemySummoner::EntEnemySummoner(const iPoint &p, uint ID) : EntEnemy(p, ID)
 
 }
 
+EntEnemySummoner::~EntEnemySummoner()
+{
+
+}
+
 //Update
 bool EntEnemySummoner::Update(float dt)
 {
@@ -136,8 +146,15 @@ bool EntEnemySummoner::Update(float dt)
 
 		fPoint player_pos = App->game->player->GetPivotPosition();
 
+		if (ReadyToSummon())
+		{
+			attacking = true;
+			current_input = ENTITY_INPUT_CAST;
+			summon_timer.Start();
+		}
+
 		//NOTE: The enemy is for following the player one it has been founded, but for now, better not, because of the low framerate
-		if ((PlayerInRange() /*|| enemy*/) && !attacking && last_update >= PATHFINDING_FRAMES)
+		else if ((PlayerInRange()) && !attacking && last_update >= PATHFINDING_FRAMES)
 		{
 			last_update = 0;
 			int target_x = player_pos.x;
@@ -162,13 +179,16 @@ bool EntEnemySummoner::Update(float dt)
 			iPoint _target = { target_x, target_y };
 			_target = App->map->WorldToMap(_target.x, _target.y);
 			SetMovement(_target.x, _target.y);
-
 		}
 
 		CheckToCast();
+	
 
 		switch (current_action)
 		{
+		case ENTITY_CASTING:
+			UpdateSummon();
+			break;
 		case ENTITY_ATTACKING:
 			UpdateRangedAttack();
 		case ENTITY_WALKING:
@@ -201,6 +221,10 @@ ENTITY_STATE EntEnemySummoner::UpdateAction()
 			{
 				current_action = ENTITY_ATTACKING;
 			}
+			if (current_input == ENTITY_INPUT_CAST)
+			{
+				current_action = ENTITY_CASTING;
+			}
 		}
 		break;
 
@@ -218,10 +242,25 @@ ENTITY_STATE EntEnemySummoner::UpdateAction()
 			{
 				current_action = ENTITY_ATTACKING;
 			}
+			if (current_input == ENTITY_INPUT_CAST)
+			{
+				current_action = ENTITY_CASTING;
+			}
 		}
 		break;
 
 		case ENTITY_ATTACKING:
+		{
+			if (current_input == ENTITY_INPUT_STOP_MOVE)
+			{
+				current_action = ENTITY_IDLE;
+			}
+			if (current_input == ENTITY_INPUT_DEATH)
+			{
+				current_action = ENTITY_DEATH;
+			}
+		}
+		case ENTITY_CASTING:
 		{
 			if (current_input == ENTITY_INPUT_STOP_MOVE)
 			{
@@ -305,6 +344,16 @@ void EntEnemySummoner::StateMachine()
 
 
 	case ENTITY_ATTACKING:
+		tex = attack_tex;
+		current_animation_set = attack;
+
+		sprite_rect.w = sprite_dim.x = 78;
+		sprite_rect.h = sprite_dim.y = 125;
+		sprite_pivot = { sprite_rect.w / 2, sprite_rect.h - 22 };
+
+		break;
+
+	case ENTITY_CASTING:
 		tex = attack_tex;
 		current_animation_set = attack;
 
@@ -443,9 +492,75 @@ void EntEnemySummoner::UpdateRangedAttack()
 		current_animation->Reset();
 		//input_locked = false;
 
-		if (!enemy->Alive() || !PlayerInAttackRange())
+		if (!enemy->Alive() || !PlayerInAttackRange() || ReadyToSummon())
 		{
 			current_input = ENTITY_INPUT_STOP_MOVE;
 		}
 	}
+}
+
+void EntEnemySummoner::UpdateSummon()
+{
+	if (current_animation->CurrentFrame() >= 7 && !summoned)
+	{
+		Entity* to_summon = NULL;
+		iPoint pos = GetMapPosition();
+		int random = rand() % 4;
+		if (random == 0)
+		{
+			pos.x += 3;
+		}
+		if (random == 1)
+		{
+			pos.y += 3;
+		}
+		if (random == 2)
+		{
+			pos.x -= 3;
+		}
+		if (random == 3)
+		{
+			pos.y -= 3;
+		}
+		to_summon = App->game->em->AddEnemyMap(pos, ENEMY_WOLF);
+		if (to_summon != NULL)
+		{
+			summon_list.push_back(to_summon);
+			summoned = true;
+		}
+	}
+
+	if (current_animation->Finished())
+	{
+		attacking = false;
+		summoned = false;
+		current_animation->Reset();
+
+		current_input = ENTITY_INPUT_STOP_MOVE;
+	}
+}
+
+bool EntEnemySummoner::PlayerInSummonRange()
+{
+	fPoint target_enemy = App->game->player->GetPivotPosition();
+
+	fPoint dist;
+
+	dist.x = target_enemy.x - position.x;
+	dist.y = target_enemy.y - position.y;
+
+	float ret = dist.GetModule();
+	ret = ret;
+
+	if (summon_range > ret)
+	{
+		return true;
+	}
+
+	return false;
+}
+
+bool EntEnemySummoner::ReadyToSummon()
+{
+	return PlayerInSummonRange() && !attacking && last_update >= PATHFINDING_FRAMES && summon_timer.ReadSec() >= summon_cooldown;
 }

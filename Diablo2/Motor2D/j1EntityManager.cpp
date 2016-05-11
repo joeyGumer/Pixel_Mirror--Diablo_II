@@ -368,6 +368,54 @@ Entity* j1EntityManager::AddEnemy(iPoint &pos, ENEMY_TYPE type)
 	return entity;
 }
 
+Entity* j1EntityManager::AddEnemyMap(iPoint &pos, ENEMY_TYPE type)
+{
+	Entity* entity = NULL;
+	iPoint tile_pos = pos;
+
+	// Checking for another bricks already on the map_tile specified by argument pos.
+	map<uint, Entity*>::iterator item = active_entities.begin();
+
+	for (; item != active_entities.end(); item++)
+	{
+		if (EntityOnCoords(pos) != NULL)
+			return entity; // No entity is created!
+	}
+
+	if (App->pathfinding->IsWalkable(tile_pos))	// Can we add a new entity on that tile? i.e. Is that tile walkable?
+	{
+		switch (type)
+		{
+			//NOTE: to diferentiate the kinds of enemies, put ENEMY_TYPE enum, but don't use the one from the diferent kinds of entities
+		case (ENEMY_WOLF) :
+			entity = new EntEnemyWolf(App->map->MapToWorld(pos.x, pos.y), ++next_ID);
+			break;
+
+		case (ENEMY_CRAWLER) :
+			entity = new EntEnemyCrawler(App->map->MapToWorld(pos.x, pos.y), ++next_ID);
+			break;
+
+		case (ENEMY_COUNCIL) :
+			entity = new EntEnemyCouncil(App->map->MapToWorld(pos.x, pos.y), ++next_ID);
+			break;
+		case (ENEMY_SHAMAN) :
+			entity = new EntEnemyShaman(App->map->MapToWorld(pos.x, pos.y), ++next_ID);
+			break;
+		case (ENEMY_SUMMONER) :
+			entity = new EntEnemySummoner(App->map->MapToWorld(pos.x, pos.y), ++next_ID);
+			break;
+		case (ENEMY_IZUAL) :
+			entity = new EntEnemyIzual(App->map->MapToWorld(pos.x, pos.y), ++next_ID);
+			break;
+		}
+
+		// We add the new entity to the map of active entities. 
+		active_entities.insert(pair<uint, Entity*>(next_ID, entity));
+	}
+
+	return entity;
+}
+
 // Remove an entity using its ID
 bool j1EntityManager::Remove(uint id)
 {

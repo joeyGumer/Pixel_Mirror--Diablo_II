@@ -48,6 +48,7 @@ public:
 
 	Entity* Add(iPoint &pos, ENTITY_TYPE type);
 	Entity* AddEnemy(iPoint &pos, ENEMY_TYPE type);
+	Entity* AddEnemyMap(iPoint &pos, ENEMY_TYPE type);
 	bool Remove(uint id);
 	Entity* GetEntity(uint id);
 

@@ -10,6 +10,7 @@ public:
 
 	//Constructor
 	EntEnemySummoner(const iPoint &p, uint ID);
+	~EntEnemySummoner();
 
 	bool Update(float dt);
 
@@ -23,6 +24,10 @@ public:
 	void CheckToCast();
 	void UpdateRangedAttack();
 
+	bool PlayerInSummonRange();
+	bool ReadyToSummon();
+	void UpdateSummon();
+
 public:
 	uint last_update;
 
@@ -34,6 +39,9 @@ public:
 
 	float summon_range;
 	int summon_cooldown;
+	j1Timer summon_timer;
+	list<Entity*> summon_list;
+	bool summoned = false;
 };
 
 #endif
