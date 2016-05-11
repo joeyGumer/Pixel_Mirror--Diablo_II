@@ -202,6 +202,7 @@ public:
 	void RecoverStamina();
 	void IncreaseBlood(int blood);
 	void RecoverHP(float dt);
+	void RestoreHP(int hp);
 	void StartRecoverHP(int recovered_HP);
 
 	void SetAttribute(PLAYER_ATTRIBUTE attribute, float value);

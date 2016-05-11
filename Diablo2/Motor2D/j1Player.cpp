@@ -1068,6 +1068,17 @@ void j1Player::RecoverHP(float dt)
 	PlayerEvent(HP_UP);
 }
 
+void j1Player::RestoreHP(int hp)
+{
+	HP_current += hp;
+	if (HP_current >= HP_max)
+	{
+		HP_current = HP_max;
+	}
+
+	PlayerEvent(HP_UP);
+}
+
 bool j1Player::TeleportReady()
 {
 	return teleport;
@@ -1317,11 +1328,6 @@ void j1Player::SetAttribute(PLAYER_ATTRIBUTE attribute, float value)
 	case STRENGHT:
 	{
 		str_final += value;
-	
-		if (str_final < 0)
-			str_final = 0;
-
-		atk_damage_final += dAtk * str_final;
 
 	}
 		break;
@@ -1329,17 +1335,13 @@ void j1Player::SetAttribute(PLAYER_ATTRIBUTE attribute, float value)
 	{
 		dex_final += value;
 		//bonus_martial_damage = dexterity += value;
-		if (dex_final < 0)
-			dex_final = 0;
 	
 	}
 		break;
 	case INTELLIGENCE:
 	{
 		int_final += value;
-		//bonus_spell_damage = intelligence +=  value;
-		if (int_final < 0)
-			int_final = 0;
+		//bonus_spell_damage = intelligence +=  value
 
 	}
 		break;
@@ -1348,8 +1350,6 @@ void j1Player::SetAttribute(PLAYER_ATTRIBUTE attribute, float value)
 		vit_final += value;
 		//life += (life + (value*4));
 		//stamina += 1;
-		if (vit_final < 0)
-			vit_final = 0;
 		
 	}
 		break;
@@ -1357,17 +1357,11 @@ void j1Player::SetAttribute(PLAYER_ATTRIBUTE attribute, float value)
 	{
 		luck_final += value;
 		//drop = value;
-
-		if (luck_final < 0)
-			luck_final = 0;
 	}
 		break;
 	case ARMOR:
 	{
 		armor_final += value;
-
-		if (armor_final < 0)
-			armor_final = 0;
 	}
 	break;
 	default:
@@ -1400,7 +1394,26 @@ void j1Player::CalculateFinalStats()
 	}
 
 	//Stats that varies dependieng on main attributes:
-	//vitality
+
+	//Security
+	//Strength
+	if (str_final < 0)
+		str_final = 0;
+
+	atk_damage_final += dAtk * str_final;
+
+	//Dexterity
+	if (dex_final < 0)
+		dex_final = 0;
+
+	//Intelligence 
+	if (int_final < 0)
+		int_final = 0;
+
+	//Vitality
+	if (vit_final < 0)
+		vit_final = 0;
+
 	HP_max += HP_dt * vit_final;
 	HP_recover_final += HP_recover_dt * vit_final;
 	ST_max += ST_dt * vit_final;
@@ -1410,6 +1423,14 @@ void j1Player::CalculateFinalStats()
 
 	if (ST_current > ST_max)
 		ST_current = ST_max;
+
+	//Luck
+	if (luck_final < 0)
+		luck_final = 0;
+
+	//Armor
+	if (armor_final < 0)
+		armor_final = 0;
 
 	//Label actualization
 	App->game->HUD->stats->SetStrengthLabel(str_final);

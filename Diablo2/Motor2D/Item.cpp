@@ -262,7 +262,7 @@ void itmConsumable::Effect()
 {
 	if (item_buffs[0]->attribute == HP)
 	{
-		//App->game->player->
+		App->game->player->RestoreHP(item_buffs[0]->value);
 	}
 	else
 	{
