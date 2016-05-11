@@ -54,7 +54,7 @@ public:
 
 	//Attack
 	float	attack_range;
-	bool attacking;
+	bool	attacking = false;
 	//NOTE: in the future it will be an entity
 	j1Player* enemy;
 
