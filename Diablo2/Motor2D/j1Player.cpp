@@ -365,8 +365,8 @@ void j1Player::PlayerEvent(PLAYER_EVENT even)
 	{
 	case HP_DOWN:
 		{
-			App->game->HUD->belt->SetLife(HP_max, HP_current);
-			App->game->HUD->stats->SetLifeLabel(HP_current,HP_max);
+			App->game->HUD->belt->SetLife(int(HP_max), int(HP_current));
+			App->game->HUD->stats->SetLifeLabel(int(HP_current),int(HP_max));
 		}
 		break;
 	case HP_UP:
@@ -711,10 +711,11 @@ void j1Player::CheckToAttack()
 	}
 }
 
-void j1Player::TakeDamage(int damage)
+void j1Player::TakeDamage(float damage)
 {
+	float reduction = (float)damage / 100 * armor_final;
+	HP_current -= damage - reduction;
 
-	HP_current -= damage;
 	PlayerEvent(HP_DOWN);
 
 	if (HP_current <= 0 && Alive())
@@ -1380,10 +1381,9 @@ void j1Player::CalculateFinalStats()
 	int_final = int_base;
 	luck_final = luck_base;
 	atk_damage_final = atk_damage_base;
+	armor_final = armor_base;
 
 	HP_max = HP_base;
-	
-
 	ST_max = ST_base;
 
 
@@ -1412,6 +1412,7 @@ void j1Player::CalculateFinalStats()
 	App->game->HUD->stats->SetIntelligenceLabel(int_final);
 	App->game->HUD->stats->SetLuckLabel(luck_final);
 	App->game->HUD->stats->SetBasicAttackLabel(atk_damage_final);
+	App->game->HUD->stats->SetResistenceLabel(armor_final);
 
 	//HUD related
 	PlayerEvent(HP_DOWN);

@@ -119,11 +119,11 @@ bool hudStats::Start()
 	life_name = App->gui->AddGuiLabel("Life", App->font->stats, { 4, 2 }, life, FONT_WHITE, backgroundColor, this);
 	life_name->Center(true, true);
 	life_1 = App->gui->AddGuiImage({ 230, 82 }, { 779, 960, 40, 20 }, window, this);
-	text.create("%i", App->game->player->HP_current);
+	text.create("%i", int(App->game->player->HP_current));
 	current_life = App->gui->AddGuiLabel(text, App->font->description, { 8, 2 }, life_1, FONT_WHITE, backgroundColor, this);
 	current_life->Center(true, true);
 	life_2 = App->gui->AddGuiImage({ 272, 82 }, { 779, 960, 40, 20 }, window, this);
-	text.create("%i", App->game->player->HP_max);
+	text.create("%i", int(App->game->player->HP_max));
 	life_max = App->gui->AddGuiLabel(text, App->font->description, { 8, 2 }, life_2, FONT_WHITE, backgroundColor, this);
 	life_max->Center(true, true);
 	hud_gui_elements.push_back(life);

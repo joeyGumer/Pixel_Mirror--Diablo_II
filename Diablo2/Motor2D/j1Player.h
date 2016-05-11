@@ -162,7 +162,7 @@ public:
 	bool IsInRange(Entity* enemy);
 	void UpdateAttack();
 	void CheckToAttack();
-	void TakeDamage(int damage);
+	void TakeDamage(float damage);
 
 	//Pure Blood System
 	void ReceiveBlood(int blood);
@@ -242,7 +242,7 @@ public:
 	int			atk_damage_base = 38;
 	int			atk_damage_final;
 	float		dAtk;
-	float attack_range = 65.0f;
+	float		attack_range = 65.0f;
 
 	//Textures
 	Sprite* sprite = NULL;
@@ -273,15 +273,15 @@ public:
 	*/
 
 	//HP
-	int HP_max;
-	int HP_current;
-	int HP_base;
-	int HP_dt = 4;
+	float HP_max;
+	float HP_current;
+	float HP_base;
+	float HP_dt = 4;
 
 	//MP
-	int MP_max;
-	int MP_current;
-	int MP_base;
+	float MP_max;
+	float MP_current;
+	float MP_base;
 
 	//ST
 	float ST_max;
