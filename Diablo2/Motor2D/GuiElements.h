@@ -134,10 +134,13 @@ class GuiImage : public GuiElement
 {
 public:
 	GuiImage(iPoint p, SDL_Rect r, GuiElement* par, j1Module* list);
+	GuiImage(iPoint p, SDL_Rect r, SDL_Texture* tex, GuiElement* par, j1Module* list);
 	~GuiImage(){};
 
 	void Draw();
 	void Update(GuiElement* hover, GuiElement* focus);
+
+	SDL_Texture* outside_tex = NULL;
 };
 
 class GuiInputBox : public GuiElement

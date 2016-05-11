@@ -52,6 +52,12 @@ GuiImage::GuiImage(iPoint p, SDL_Rect r, GuiElement* par, j1Module* list = NULL)
 	: GuiElement(p, r, GUI_IMAGE, par, list)
 {}
 
+GuiImage::GuiImage(iPoint p, SDL_Rect r, SDL_Texture* tex, GuiElement* par, j1Module* list)
+	: GuiElement(p, r, GUI_IMAGE, par, list)
+{
+	outside_tex = tex;
+}
+
 //NOTE :I'm doing an especific constructor, have to change this
 GuiInputBox::GuiInputBox(p2SString t, _TTF_Font* f, iPoint p, int width, SDL_Rect r, iPoint offset, GuiElement* par, j1Module* list)
 	: GuiElement(p, r, GUI_INPUTBOX, par, list), text(t, f, { 0, 0 },FONT_WHITE, this), image({ offset.x, offset.y }, r, this)
@@ -130,10 +136,20 @@ void GuiImage::Draw()
 {
 	iPoint p = GetScreenPosition();
 	
-	App->render->Blit(App->gui->GetAtlas(),
-		p.x - App->render->camera.x,
-		p.y - App->render->camera.y,
-		&tex_rect);
+	if (!outside_tex)
+	{
+		App->render->Blit(App->gui->GetAtlas(),
+			p.x - App->render->camera.x,
+			p.y - App->render->camera.y,
+			&tex_rect);
+	}
+	else
+	{
+		App->render->Blit(outside_tex,
+			p.x - App->render->camera.x,
+			p.y - App->render->camera.y,
+			&tex_rect);
+	}
 }
 
 void GuiLabel::Draw()

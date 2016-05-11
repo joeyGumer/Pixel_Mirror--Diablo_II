@@ -17,12 +17,12 @@ using namespace std;
 
 //class Skill;
 class j1Player;
-
+class SDL_Texture;
 
 class GuiMiniMap : public GuiElement
 {
 public:
-	GuiMiniMap(iPoint p, SDL_Rect r, GuiElement* par, j1Module* list, SDL_Texture* texMapa);
+	GuiMiniMap(iPoint p, SDL_Rect r,SDL_Texture* tex, GuiElement* par, j1Module* list);
 	~GuiMiniMap();
 
 	void Draw();
@@ -54,6 +54,8 @@ public:
 	void		calculateScale();
 	iPoint		minimapToWorld(const iPoint &mini_map_pos) const;
 	iPoint		worldToMinimap(const iPoint &world_pos) const;
+
+	GuiImage image;
 }
 
 

@@ -48,7 +48,6 @@ public:
 
 public:
 
-	GuiImage* background = NULL;
 	GuiMiniMap* minimap = NULL;
 
 };

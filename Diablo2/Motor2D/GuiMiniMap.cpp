@@ -10,10 +10,10 @@
 #include "j1Game.h"
 #include "j1Textures.h"
 ;
-GuiMiniMap::GuiMiniMap(iPoint p, SDL_Rect r, GuiElement* par, j1Module* list, SDL_Texture* texMapa) : GuiElement(p, r, GUI_MINIMAP, par, list)
+GuiMiniMap::GuiMiniMap(iPoint p, SDL_Rect r, SDL_Texture* tex, GuiElement* par, j1Module* list) : GuiElement(p, r, GUI_MINIMAP, par, list), 
+			image(p,r,tex,par,list)
 {
-	texMapa = App->tex->Load("maps/mini_path.png");
-	
+
 }
 
 GuiMiniMap::~GuiMiniMap()
@@ -27,11 +27,11 @@ void GuiMiniMap::Draw()
 	//image.Draw();
 
 	//print map
-	if (tex != NULL)
-		App->render->Blit(tex, rect.x - App->render->camera.x, rect.y - App->render->camera.y);
+	//App->render->Blit(tex, rect.x - App->render->camera.x, rect.y - App->render->camera.y);
+	image.Draw();
 
 	//print units
-	if (active_entities != NULL)
+	/*if (active_entities != NULL)
 	{
 		for (std::map<uint, Entity*>::iterator it = active_entities->begin(); it != active_entities->end(); ++it)
 		{
@@ -59,12 +59,12 @@ void GuiMiniMap::Draw()
 			// send to render
 			//iPoint quad_pos = worldToMinimap({ (int)entity->center.x, (int)entity->center.y });
 			//app->render->DrawQuad({ quad_pos.x, quad_pos.y, 1, 1 }, r, g, b);
-		}
+	/*	}
 	}
 
 	// print area
 	iPoint pos = worldToMinimap({ -App->render->camera.x, -App->render->camera.y });
-	App->render->DrawQuad({ pos.x, pos.y, area.w, area.h }, 255, 255, 255, 255, false);
+	App->render->DrawQuad({ pos.x, pos.y, area.w, area.h }, 255, 255, 255, 255, false);*/
 
 
 }
@@ -76,10 +76,8 @@ void GuiMiniMap::Update(GuiElement* hover, GuiElement* focus)
 	{
 		iPoint mouse_pos;
 		mouse_pos = App->input->GetMousePosition();
-		LOG("click mouse capturada la posicio del ratoli. ");
 		if (mouse_pos.x < rect.x + rect.w && mouse_pos.x > rect.x && mouse_pos.y < rect.y + rect.h && mouse_pos.y > rect.y)
 			App->render->CenterCamera(mouse_pos.x, mouse_pos.y);
-		LOG("entra al segon if centre la camera al update. ");
 	}
 }
 

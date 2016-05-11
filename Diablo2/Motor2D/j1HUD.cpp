@@ -30,11 +30,11 @@ j1HUD::j1HUD() : j1Module()
 
 
 	HUD_elements.push_back(blood);
+	HUD_elements.push_back(minimap);
 	HUD_elements.push_back(stats);
 	HUD_elements.push_back(skilltree);
 	HUD_elements.push_back(inventory);
 	HUD_elements.push_back(belt);
-	HUD_elements.push_back(minimap);
 	HUD_elements.push_back(pause_menu);
 	
 	

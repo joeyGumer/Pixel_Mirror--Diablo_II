@@ -27,12 +27,10 @@ bool hudMiniMap::Start()
 {
 	active = false;
 
-	background = App->gui->AddGuiImage({ 150, 0 }, { 1128, 588, 300, 100 }, NULL, this);
-	background->active = false;
-	hud_gui_elements.push_back(background);
+	
 	SDL_Texture* mapa = App->tex->Load("maps/mini_path.png");
 	//Creation of the minimap
-	minimap = App->gui->AddGuiMiniMap({ 16, 100 }, { 1144, 843, 290, 87 }, background, this,mapa);
+	minimap = App->gui->AddGuiMiniMap({ 0, 0 }, { 0, 0, 40, 20 }, mapa, NULL, this);
 	minimap->active = false;
 	hud_gui_elements.push_back(minimap);
 
