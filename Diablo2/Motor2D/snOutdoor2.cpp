@@ -90,10 +90,6 @@ bool snOutdoor2::Update(float dt)
 			p.x += App->map->data.tile_width / 2;
 			p.y += App->map->data.tile_height / 2;
 
-			//int a = rand() % 2;
-			//if (a == 0)
-			//App->game->em->Add(p, ENEMY);
-			//App->game->em->Add(p, ENEMY_CRAWLER);
 			EntPortal* portal = (EntPortal*)App->game->em->Add(p, PORTAL);
 			if (portal)
 				portal->destiny = App->sm->outdoor1;
@@ -102,20 +98,55 @@ bool snOutdoor2::Update(float dt)
 			int i = 0;
 		}
 
-		if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN)
+		else if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN)
 		{
 			iPoint p;
 			p = App->input->GetMouseWorldPosition();
 			p.x += App->map->data.tile_width / 2;
 			p.y += App->map->data.tile_height / 2;
 
-			//int a = rand() % 2;
-			//if (a == 0)
-			//App->game->em->Add(p, ENEMY);
-			//App->game->em->Add(p, ENEMY_CRAWLER);
-			App->game->em->AddEnemy(p, ENEMY_CRAWLER);
-			p = App->map->WorldToMap(p.x, p.y);
-			int i = 0;
+			Entity* ent = App->game->em->AddEnemy(p, ENEMY_WOLF);
+
+		}
+
+		else if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+		{
+			iPoint p;
+			p = App->input->GetMouseWorldPosition();
+			p.x += App->map->data.tile_width / 2;
+			p.y += App->map->data.tile_height / 2;
+
+			Entity* ent = App->game->em->AddEnemy(p, ENEMY_CRAWLER);
+		}
+
+		else if (App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+		{
+			iPoint p;
+			p = App->input->GetMouseWorldPosition();
+			p.x += App->map->data.tile_width / 2;
+			p.y += App->map->data.tile_height / 2;
+
+			Entity* ent = App->game->em->AddEnemy(p, ENEMY_COUNCIL);
+		}
+
+		else if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
+		{
+			iPoint p;
+			p = App->input->GetMouseWorldPosition();
+			p.x += App->map->data.tile_width / 2;
+			p.y += App->map->data.tile_height / 2;
+
+			Entity* ent = App->game->em->AddEnemy(p, ENEMY_SHAMAN);
+		}
+
+		else if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
+		{
+			iPoint p;
+			p = App->input->GetMouseWorldPosition();
+			p.x += App->map->data.tile_width / 2;
+			p.y += App->map->data.tile_height / 2;
+
+			Entity* ent = App->game->em->AddEnemy(p, ENEMY_SUMMONER);
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)

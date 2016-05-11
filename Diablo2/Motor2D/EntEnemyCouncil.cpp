@@ -246,6 +246,11 @@ void EntEnemyCouncil::StateMachine()
 
 		win.Start();
 
+		App->game->player->IncreaseBlood(blood_drop);
+		App->game->player->PlayerEvent(BLOOD_UP);
+
+		DropItem(pos);
+
 		dead = true;
 
 		break;

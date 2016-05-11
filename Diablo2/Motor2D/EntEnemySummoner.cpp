@@ -36,7 +36,7 @@ EntEnemySummoner::EntEnemySummoner(const iPoint &p, uint ID) : EntEnemy(p, ID)
 
 	damage = 5;
 
-	blood_drop = 50;
+	blood_drop = 150;
 
 	last_update = PATHFINDING_FRAMES;
 

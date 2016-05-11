@@ -191,6 +191,7 @@ void EntEnemyWolf::EntityEvent(ENTITY_EVENT even)
 
 void EntEnemyWolf::StateMachine()
 {
+	iPoint pos(position.x - 30, position.y + 30);
 	switch (current_action)
 	{
 		//PIVOT DOESN'T CHANGE!
@@ -225,6 +226,11 @@ void EntEnemyWolf::StateMachine()
 		sprite_rect.h = sprite_dim.y = 103;
 		sprite_pivot = sprite_dim / 2;
 		sprite_pivot.y += 5;
+
+		App->game->player->IncreaseBlood(blood_drop);
+		App->game->player->PlayerEvent(BLOOD_UP);
+
+		DropItem(pos);
 
 		dead = true;
 		break;
