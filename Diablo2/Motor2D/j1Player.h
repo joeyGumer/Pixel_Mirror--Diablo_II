@@ -206,6 +206,7 @@ public:
 
 	void SetAttribute(PLAYER_ATTRIBUTE attribute, float value);
 	void CalculateFinalStats();
+	void UpdateBuffs();
 
 	//Portals
 	j1Scene* GetDestiny();

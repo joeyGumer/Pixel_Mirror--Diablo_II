@@ -128,6 +128,7 @@ bool j1Player::PreUpdate()
 {
 
 	UpdateAction();
+	UpdateBuffs();
 
 	return true;
 }
@@ -1423,4 +1424,25 @@ void j1Player::CalculateFinalStats()
 	PlayerEvent(HP_DOWN);
 	PlayerEvent(ST_DOWN);
 
+}
+
+void j1Player::UpdateBuffs()
+{
+	bool buff_change = false;
+
+	list<Buff*>::iterator item = buffs.begin();
+
+	for (; item != buffs.end(); item++)
+	{
+		if (!(*item)->Update())
+		{
+			RELEASE(*item);
+			item = item--;
+			buffs.erase(item++);
+			buff_change = true;
+		}
+	}
+
+	if (buff_change)
+		CalculateFinalStats();
 }

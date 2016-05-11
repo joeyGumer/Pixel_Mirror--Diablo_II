@@ -244,7 +244,7 @@ void hudInventory::OnEvent(GuiElement* element, GUI_Event even)
 
 			for (int i = 0; i < it->item_buffs.size(); i++)
 			{
-				player->buffs.remove(&(it->item_buffs[i]));
+				player->buffs.remove((it->item_buffs[i]));
 			}
 			
 			player->PlayerEvent(CHANGE_ATTRIBUTE);
@@ -255,7 +255,7 @@ void hudInventory::OnEvent(GuiElement* element, GUI_Event even)
 
 			for (int i = 0; i < it->item_buffs.size(); i++)
 			{
-				player->buffs.push_back(&(it->item_buffs[i]));
+				player->buffs.push_back((it->item_buffs[i]));
 			}
 			player->PlayerEvent(CHANGE_ATTRIBUTE);
 		}

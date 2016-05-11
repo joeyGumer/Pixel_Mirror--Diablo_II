@@ -16,18 +16,38 @@ struct Buff
 		value = v;
 		permanent = perm;
 		time = tim;
-		to_delete = false;
+	
 	}
 	~Buff()
 	{
 
 	}
 
+	void Start()
+	{
+		if (!permanent)
+		{
+			buff_timer.Start();
+		}
+	}
+	bool Update()
+	{
+		if (!permanent)
+		{
+			if (buff_timer.ReadSec() >= time)
+			{
+				return false;
+			}
+		}
+
+		return true;
+	}
+
 	PLAYER_ATTRIBUTE attribute;
 	int value;
 	float time;
 	bool permanent;
-	bool to_delete;
+
 
 	j1Timer buff_timer;
 

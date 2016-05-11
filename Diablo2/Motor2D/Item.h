@@ -66,11 +66,14 @@ public:
 	SDL_Rect rect;
 
 	//Buff
-	vector<Buff> item_buffs;
+	vector<Buff*> item_buffs;
 
 	//Both representations
 	GuiItem* gui_item;
 	EntItem* ent_item;
+
+	//Controls
+	bool buff_given = false;
 };
 
 class itmConsumable : public Item

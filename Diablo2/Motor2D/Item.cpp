@@ -26,11 +26,21 @@ Item::~Item()
 	//NOTE: we'll, we'll need to change this, a fountain for memory leaks for sure
 	RELEASE(coord);
 
+	if (!buff_given)
+	{
+		for (int i = 0; i < item_buffs.size(); i++)
+		{
+			RELEASE(item_buffs[i]);
+		}
+	}
+
 	if (ent_item)
 		RELEASE(ent_item);
 
 	if (gui_item)
 		RELEASE(gui_item);
+
+
 }
 
 //In charge to create the item, so it can be accesed from outside
@@ -136,8 +146,8 @@ itmStone::itmStone(ITEM_RARITY rare, iPoint p) : Item(ITEM_STONE, rare, p)
 		break;
 	}
 
-	Buff buff(attribute, value);
-
+	Buff* buff; 
+	buff = new Buff(attribute, value);
 	item_buffs.push_back(buff);
 
 	rect = { x, y, ITEM_SLOT_SIZE, ITEM_SLOT_SIZE };
@@ -232,7 +242,8 @@ itmConsumable::itmConsumable(ITEM_RARITY rarity, iPoint p) : Item(ITEM_CONSUMABL
 	break;
 	}
 
-	Buff buff1(at, value);
+	Buff* buff1;
+	buff1 = new Buff(at, value, false, 15);
 	item_buffs.push_back(buff1);
 
 	rect = { x, y, ITEM_SLOT_SIZE, ITEM_SLOT_SIZE };
@@ -249,14 +260,17 @@ itmConsumable::itmConsumable(ITEM_RARITY rarity, iPoint p) : Item(ITEM_CONSUMABL
 
 void itmConsumable::Effect()
 {
-	/*if (item_buffs[1].attribute == HP)
+	if (item_buffs[0]->attribute == HP)
 	{
-		App->game->player->
+		//App->game->player->
 	}
 	else
 	{
-
-	}*/
+		App->game->player->buffs.push_back(item_buffs[0]);
+		buff_given = true;
+		item_buffs[0]->Start();
+		App->game->player->PlayerEvent(CHANGE_ATTRIBUTE);
+	}
 }
 
 
@@ -347,14 +361,17 @@ itmJewel::itmJewel(ITEM_RARITY rarity, iPoint p) : Item(ITEM_JEWEL, rarity, p)
 			attribute2 = (PLAYER_ATTRIBUTE)(rand() % 5);
 		}
 
-		Buff buff1(attribute1, value1);
+		Buff* buff1;
+		buff1 = new Buff(attribute1, value1);
 		item_buffs.push_back(buff1);
 
-		Buff buff2(attribute2, value2);
+		Buff* buff2;
+		buff2 = new Buff(attribute2, value2);
 		item_buffs.push_back(buff2);
 
 		int special1 = 4 + (rand() % 4);
-		Buff buff3(COOLDOWN, special1);
+		Buff*buff3;
+		buff3 = new Buff(COOLDOWN, special1);
 		item_buffs.push_back(buff3);
 	}
 		break;
@@ -373,16 +390,18 @@ itmJewel::itmJewel(ITEM_RARITY rarity, iPoint p) : Item(ITEM_JEWEL, rarity, p)
 			attribute2 = (PLAYER_ATTRIBUTE)(rand() % 5);
 		}
 
-		Buff buff1(attribute1, value1);
+		Buff* buff1;
+		buff1 = new Buff(attribute1, value1);
 		item_buffs.push_back(buff1);
 
-		Buff buff2(attribute2, value2);
+		Buff* buff2;
+		buff2 = new Buff(attribute2, value2);
 		item_buffs.push_back(buff2);
 
 		int special1 = 5 + (rand() % 11);
-		Buff buff3(BLOOD, special1);
+		Buff* buff3;
+		buff3 = new Buff(BLOOD, special1);
 		item_buffs.push_back(buff3);
-
 	}
 		break;
 	case RARITY_LEGENDARY:
@@ -406,17 +425,21 @@ itmJewel::itmJewel(ITEM_RARITY rarity, iPoint p) : Item(ITEM_JEWEL, rarity, p)
 			attribute3 = (PLAYER_ATTRIBUTE)(rand() % 5);
 		}
 
-		Buff buff1(attribute1, value1);
+		Buff* buff1;
+		buff1 = new Buff(attribute1, value1);
 		item_buffs.push_back(buff1);
 
-		Buff buff2(attribute2, value2);
+		Buff* buff2;
+		buff2 = new Buff(attribute2, value2);
 		item_buffs.push_back(buff2);
 
-		Buff buff3(attribute3, value3);
+		Buff* buff3;
+		buff3 = new Buff(attribute3, value3);
 		item_buffs.push_back(buff3);
 
 		int special1 = 1 + (rand() % 8);
-		Buff buff4(ARMOR, special1);
+		Buff* buff4;
+		buff4 = new Buff(ARMOR, special1);
 		item_buffs.push_back(buff4);
 	}
 		break;
@@ -496,10 +519,12 @@ itmRune::itmRune(ITEM_RARITY rarity, iPoint p) : Item(ITEM_RUNE, rarity, p)
 	}
 
 	//Buffs
-	Buff buff1(positive_attribute, positive_buff);
+	Buff* buff1;
+	buff1 = new Buff(positive_attribute, positive_buff);
 	item_buffs.push_back(buff1);
 
-	Buff buff2(negative_attribute, negative_buff);
+	Buff* buff2;
+	buff2 = new Buff(negative_attribute, negative_buff);
 	item_buffs.push_back(buff2);
 
 	rect = { x, y, ITEM_SLOT_SIZE, ITEM_SLOT_SIZE * 3 };
@@ -545,7 +570,8 @@ itmArmor::itmArmor(ITEM_RARITY rarity, iPoint p) : Item(ITEM_ARMOR, rarity, p)
 		break;
 	}
 
-	Buff buff(ARMOR, value);
+	Buff* buff;
+	buff = new Buff(ARMOR, value);
 	item_buffs.push_back(buff);
 
 	rect = { x, y, ITEM_SLOT_SIZE * 2, ITEM_SLOT_SIZE * 3 };
