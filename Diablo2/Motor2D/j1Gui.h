@@ -8,7 +8,7 @@
 #include "GuiInventory.h"
 #include "GuiSkill.h"
 #include "GuiMiniMap.h"
-
+#include <vector>
 #include <list>
 
 
@@ -55,7 +55,7 @@ public:
 	GuiMiniMap* AddGuiMiniMap(iPoint p, SDL_Rect r, GuiElement* par, j1Module* list);
 	GuiLabel* SetLabel();
 	GuiMouseImage* AddGuiMouseImage(iPoint p, SDL_Rect r, GuiElement* par, j1Module* list);
-	
+	GuiText* AddGuiText(iPoint p, vector<StringColor> text, GuiElement* par, j1Module* list = NULL);
 	//Function that creates an inventory
 	GuiInventory* AddGuiInventory(iPoint p, SDL_Rect r, int columns, int rows, int slot_w, int slot_h, GuiElement* par = NULL, j1Module* list = NULL);
 	//Get selected element

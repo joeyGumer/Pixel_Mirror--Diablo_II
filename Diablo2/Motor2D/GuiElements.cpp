@@ -86,6 +86,32 @@ GuiButton::GuiButton(iPoint p, SDL_Rect idle_r1, SDL_Rect hover_r1, SDL_Rect cli
 GuiMouseImage::GuiMouseImage(iPoint p, SDL_Rect r, GuiElement* par, j1Module* list)
 	: GuiElement(p, r, GUI_MOUSE_IMAGE, par, list), mouse_image({ p.x, p.y }, r, this, NULL)
 {}
+
+
+
+
+GuiText::GuiText(iPoint p, vector<StringColor> text, GuiElement* par, j1Module* list)
+	: GuiElement(p, GUI_TEXT,par, list)
+{
+
+	for (int i = 0; i < text.size(); i++)
+	{
+		if (i >= 1)
+			p.y += labels[0].tex_rect.h;
+		
+		labels.push_back(GuiLabel(text[i].string.GetString(), App->font->description, { 0, p.y }, text[i].color, this, list));
+		labels[i].Center(true, false);
+		if (labels[i].tex_rect.w > tex_rect.w)
+			tex_rect.w = labels[i].tex_rect.w;
+	}
+	
+	tex_rect.h = labels[0].tex_rect.h * text.size();
+	SetLocalRect({ GetLocalRect().x, GetLocalRect().y, tex_rect.w, tex_rect.h});
+	for (int i = 0; i < text.size(); i++)
+	{
+		labels[i].Center(true, false);
+	}
+}
 //-----
 
 //Draw functions
@@ -135,6 +161,15 @@ void GuiButton::Draw()
 {
 	button_image.Draw();
 	button_label.Draw();
+}
+void GuiText::Draw()
+{
+	App->render->DrawQuad({ (GetScreenPosition().x - App->render->camera.x), (GetScreenPosition().y - App->render->camera.y), tex_rect.w, tex_rect.h }, 0, 0, 0, 150);
+	for (int i = 0; i < labels.size(); i++)
+	{
+		labels[i].Draw();
+	}
+	
 }
 //
 

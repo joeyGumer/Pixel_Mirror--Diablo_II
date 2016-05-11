@@ -320,6 +320,13 @@ GuiButton* j1Gui::AddGuiButton(iPoint p, SDL_Rect idle_r1, SDL_Rect hover_r1, SD
 	return button;
 
 }
+GuiText* j1Gui::AddGuiText(iPoint p, vector<StringColor> text, GuiElement* par, j1Module* list)
+{
+	GuiText* Text = new GuiText(p, text, par, list);
+	gui_elements.push_back(Text);
+	if (Text->parent != NULL)Text->parent->AddChild(Text);
+	return Text;
+}
 
 GuiElement* j1Gui::FindSelectedElement()
 {

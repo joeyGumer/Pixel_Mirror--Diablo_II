@@ -3,7 +3,7 @@
 
 #include "j1Module.h"
 #include "p2Point.h"
-
+#include <vector>
 #include <list>
 ;
 using namespace std;
@@ -12,7 +12,7 @@ using namespace std;
 
 struct SDL_Texture;
 struct _TTF_Font;
-enum TextColor;
+
 enum GUI_Type
 {
 	GUI_LABEL,
@@ -26,6 +26,7 @@ enum GUI_Type
 	GUI_SLOT,
 	GUI_SKILL,
 	GUI_MINIMAP,
+	GUI_TEXT
 };
 
 enum GUI_Event
@@ -216,5 +217,34 @@ public:
 	int mouse_y, mouse_x;
 
 };
+
+class StringColor
+{
+public:
+	StringColor(p2SString s, SDL_Color c)
+	{
+		string = s;
+		color = c;
+	}
+	~StringColor(){}
+
+	p2SString string;
+	SDL_Color color;
+};
+
+class GuiText : public GuiElement
+{
+public:
+	GuiText(iPoint p, vector<StringColor> text, GuiElement* par, j1Module* list = NULL);
+	~GuiText(){}
+
+	void Draw();
+	void Update();
+
+	vector<GuiLabel> labels;
+};
+
+
+
 //----
 #endif _GUIELEMENTS_H_
