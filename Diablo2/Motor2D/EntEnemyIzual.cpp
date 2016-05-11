@@ -282,6 +282,7 @@ void EntEnemyIzual::StateMachine()
 
 		sprite_rect.w = sprite_dim.x = 190;
 		sprite_rect.h = sprite_dim.y = 175;
+		sprite_pivot = { sprite_rect.w / 2, sprite_rect.h - 24 };
 
 		break;
 	}
@@ -302,6 +303,7 @@ void EntEnemyIzual::SetAnimations()
 	for (int i = 0; i < 8; i++)
 	{
 		Animation tmp;
+		tmp.SetFrames(0, (119 + 0) * i, 158, 119, 8, 0);
 		tmp.speed = 0.2f;
 
 		idle.push_back(tmp);
