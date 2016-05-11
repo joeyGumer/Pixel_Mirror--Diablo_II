@@ -37,7 +37,7 @@ void GuiMiniMap::Draw()
 		{
 			Entity* entity = it->second;
 
-			// Set drawing quad for each unit
+			// Set drawing quad for each enemy
 			// Choose quad color
 			/*Uint8 r, g, b;
 			switch (entity->faction)
