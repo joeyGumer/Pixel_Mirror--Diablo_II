@@ -13,7 +13,7 @@
 GuiMiniMap::GuiMiniMap(iPoint p, SDL_Rect r, SDL_Texture* tex, GuiElement* par, j1Module* list) : GuiElement(p, r, GUI_MINIMAP, par, list), 
 			image(p,r,tex,par,list)
 {
-
+	SetAlpha(tex, 90);
 }
 
 GuiMiniMap::~GuiMiniMap()
@@ -24,7 +24,6 @@ GuiMiniMap::~GuiMiniMap()
 
 void GuiMiniMap::Draw()
 {
-	//image.Draw();
 
 	//print map
 	//App->render->Blit(tex, rect.x - App->render->camera.x, rect.y - App->render->camera.y);
@@ -139,3 +138,7 @@ iPoint GuiMiniMap::worldToMinimap(const iPoint &world_pos) const
 	return mini_map_pos;
 }
 
+void GuiMiniMap::SetAlpha(SDL_Texture* tex, Uint8 alpha)
+{
+	SDL_SetTextureAlphaMod(tex, alpha);
+}

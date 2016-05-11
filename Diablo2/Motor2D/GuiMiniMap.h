@@ -29,17 +29,10 @@ public:
 	void Update(GuiElement* hover, GuiElement* focus);
 
 
-	//Called when there's a gui event
-	void OnEvent(GuiElement* element, GUI_Event even);
+	void SetAlpha(SDL_Texture* tex, Uint8 alpha);
 	//Initializes all remaining data
 	bool SetAttributes(map<uint, Entity*>* entities, SDL_Texture* texture);
 
-public:
-
-//	vector<Skill*>	skill_parents;
-	//Skill*			skill;
-	//GuiImage		image;
-	//int				price;
 
 public:
 	SDL_Rect	rect;
