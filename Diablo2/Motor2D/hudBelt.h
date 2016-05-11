@@ -10,7 +10,7 @@ class GuiImage;
 class GuiLabel;
 class GuiInventory;
 class j1Player;
-
+class GuiSkill;
 
 #define STAT_LOCAL_Y 34
 #define STAT_TEX_Y 196
@@ -93,14 +93,22 @@ public:
 	GuiImage* inventorybutton = NULL;
 	GuiImage* minimapbutton = NULL;
 	GuiImage* game_menu = NULL;
-	GuiImage* attack1 = NULL;
-	GuiImage* attack2 = NULL;
-	GuiImage* skill11 = NULL;
-	GuiImage* skill12 = NULL;
-	GuiImage* skill13 = NULL;
-	GuiImage* skill21 = NULL;
-	GuiImage* skill22 = NULL;
-	GuiImage* skill23 = NULL;
+
+	/*
+	//---Skills options
+	*/
+
+	//Command
+	GuiSkill* attack_right = NULL;
+	GuiSkill* attack_left = NULL;
+
+	//Left skills
+	GuiSkill* left_basic_attack = NULL;
+
+
+	//Right skills
+	GuiSkill* right_basic_attack = NULL;
+	GuiSkill* blood_arrow = NULL;
 
 	
 

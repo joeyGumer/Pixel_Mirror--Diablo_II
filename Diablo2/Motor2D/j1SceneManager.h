@@ -44,6 +44,8 @@ public:
 	void AddScene(j1Scene* scene);
 	bool ChangeScene(j1Scene* new_scene);
 
+	bool RandomLevel();
+
 public:
 	snIntro*	intro = NULL;
 	snOutdoor1*	outdoor1 = NULL;
@@ -51,6 +53,10 @@ public:
 	snDungeon1* dungeon1 = NULL;
 	snDungeon2* dungeon2 = NULL;
 	snWin*		win = NULL;
+
+	j1Scene* level1;
+	j1Scene* level2;
+	j1Scene* level3;
 
 private:
 	list<j1Scene*>	scenes;

@@ -86,11 +86,7 @@ bool snIntro::Update(float dt)
 	*/
 	if (pass == true)
 	{
-		int random = rand() % 2;
-		if (random == 0)
-			App->sm->ChangeScene(App->sm->outdoor2);
-		else if (random == 1)
-			App->sm->ChangeScene(App->sm->dungeon2);
+		App->sm->RandomLevel();
 	}
 
 	else if (exit == true)

@@ -81,7 +81,7 @@ bool hudBelt::Start()
 	minipanelbutton->interactable = true;
 	hud_gui_elements.push_back(minipanelbutton);
 
-	attack1 = App->gui->AddGuiImage({ -50, 0 }, { 102, 280, 50, 47 }, HUD, this);
+	/*attack1 = App->gui->AddGuiImage({ -50, 0 }, { 102, 280, 50, 47 }, HUD, this);
 	attack1->interactable = true;
 	hud_gui_elements.push_back(attack1);
 
@@ -120,7 +120,7 @@ bool hudBelt::Start()
 	skill23 = App->gui->AddGuiImage({ 162, -70 }, { 0, 280, 50, 47 }, HUD, this);
 	skill23->interactable = true;
 	skill23->active = false;
-	hud_gui_elements.push_back(skill23);
+	hud_gui_elements.push_back(skill23);*/
 
 	//Minipanel's buttons -------------------------------
 	
@@ -452,7 +452,7 @@ void hudBelt::OnEvent(GuiElement* element, GUI_Event even)
 	}
 
 	//Attack1
-	if (attack1 == element)
+	/*if (attack1 == element)
 	{
 		switch (even)
 		{
@@ -589,7 +589,7 @@ void hudBelt::OnEvent(GuiElement* element, GUI_Event even)
 		break;
 		}
 	}
-	//HUD end ---------------------------------
+	//HUD end ---------------------------------*/
 }
 
 //Sets the life stat at the HUD
