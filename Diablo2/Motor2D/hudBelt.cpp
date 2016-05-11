@@ -61,7 +61,7 @@ bool hudBelt::Start()
 	life = App->gui->AddGuiImage({ -136, -44 }, { 371, 118, 79, 78 }, HUD, this);
 	hud_gui_elements.push_back(life);
 
-	mana = App->gui->AddGuiImage({ 366, -44 }, { 451, 118, 78, 78 }, HUD, this);
+	mana = App->gui->AddGuiImage({ 365, -44 }, { 451, 118, 78, 78 }, HUD, this);
 	hud_gui_elements.push_back(mana);
 
 	stamina = App->gui->AddGuiImage({ 27, 20 }, { 530, 118, 102, 18 }, HUD, this);
@@ -77,7 +77,7 @@ bool hudBelt::Start()
 	runbutton->interactable = true;
 	hud_gui_elements.push_back(runbutton);
 
-	minipanelbutton = App->gui->AddGuiImage({ 145, 8 }, { 296, 253, 16, 27 }, HUD, this);
+	minipanelbutton = App->gui->AddGuiImage({ 146, 9 }, { 296, 253, 16, 27 }, HUD, this);
 	minipanelbutton->interactable = true;
 	hud_gui_elements.push_back(minipanelbutton);
 

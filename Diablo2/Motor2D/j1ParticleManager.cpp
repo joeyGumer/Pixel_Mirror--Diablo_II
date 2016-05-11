@@ -197,8 +197,8 @@ Particle* j1ParticleManager::AddParticle(const Particle& p, int x, int y, Uint32
 	part->timer.Start();
 
 	SDL_Rect collider_pos;
-	collider_pos.x = part->position.x + part->collider_margin.x;
-	collider_pos.y = part->position.y + part->collider_margin.y;
+	collider_pos.x = part->position.x + part->collider_margin.x + part->collider_pivot.x;
+	collider_pos.y = part->position.y + part->collider_margin.y + part->collider_pivot.y;
 	collider_pos.w = part->anim.PeekCurrentFrame().w - part->collider_margin.x * 2;
 	collider_pos.h = part->anim.PeekCurrentFrame().h - part->collider_margin.y * 2;
 	if (part->type == PARTICLE_PLAYER_CAST)
@@ -294,6 +294,7 @@ Particle::Particle(const Particle& p)
 	anim = p.anim;
 	image = p.image;
 	collider_margin = p.collider_margin;
+	collider_pivot = p.collider_pivot;
 	type = p.type;
 	damage = p.damage;
 }
@@ -342,8 +343,8 @@ bool Particle::Update(float dt)
 
 		if (collider)
 		{
-			collider->rect.x = position.x + collider_margin.x;
-			collider->rect.y = position.y + collider_margin.y;
+			collider->rect.x = position.x + collider_margin.x + collider_pivot.x;
+			collider->rect.y = position.y + collider_margin.y + collider_pivot.y;
 		}
 	}
 

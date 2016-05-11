@@ -1180,6 +1180,9 @@ void j1Player::SetParticles()
 
 	particle_skill_1.collider_margin.x = particle_skill_1.anim.GetCurrentFrame().w / 3;
 	particle_skill_1.collider_margin.y = particle_skill_1.anim.GetCurrentFrame().h / 4;
+
+	particle_skill_1.collider_pivot.x = 0;
+	particle_skill_1.collider_pivot.y = 8;
 }
 
 void j1Player::SetDirection()

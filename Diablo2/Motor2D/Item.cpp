@@ -329,7 +329,7 @@ itmJewel::itmJewel(ITEM_RARITY rarity, iPoint p) : Item(ITEM_JEWEL, rarity, p)
 
 		while (attribute2 == attribute1)
 		{
-			PLAYER_ATTRIBUTE attribute2 = (PLAYER_ATTRIBUTE)(rand() % 5);
+			attribute2 = (PLAYER_ATTRIBUTE)(rand() % 5);
 		}
 
 		Buff buff1(attribute1, value1);
@@ -355,7 +355,7 @@ itmJewel::itmJewel(ITEM_RARITY rarity, iPoint p) : Item(ITEM_JEWEL, rarity, p)
 
 		while (attribute2 == attribute1)
 		{
-			PLAYER_ATTRIBUTE attribute2 = (PLAYER_ATTRIBUTE)(rand() % 5);
+			attribute2 = (PLAYER_ATTRIBUTE)(rand() % 5);
 		}
 
 		Buff buff1(attribute1, value1);
@@ -384,11 +384,11 @@ itmJewel::itmJewel(ITEM_RARITY rarity, iPoint p) : Item(ITEM_JEWEL, rarity, p)
 
 		while (attribute2 == attribute1)
 		{
-			PLAYER_ATTRIBUTE attribute2 = (PLAYER_ATTRIBUTE)(rand() % 5);
+			attribute2 = (PLAYER_ATTRIBUTE)(rand() % 5);
 		}
 		while (attribute2 == attribute3 || attribute1 == attribute3)
 		{
-			PLAYER_ATTRIBUTE attribute3 = (PLAYER_ATTRIBUTE)(rand() % 5);
+			attribute3 = (PLAYER_ATTRIBUTE)(rand() % 5);
 		}
 
 		Buff buff1(attribute1, value1);

@@ -78,7 +78,8 @@ struct Particle
 	bool				active = true;
 	bool			    on = false;
 	Collider*			collider = NULL;
-	fPoint				collider_margin;
+	iPoint				collider_margin;
+	iPoint				collider_pivot;
 	PARTICLE_TYPE		type;
 	int					damage = 0;
 
