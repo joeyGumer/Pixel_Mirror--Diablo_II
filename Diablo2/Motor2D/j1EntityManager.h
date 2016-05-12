@@ -122,6 +122,16 @@ public:
 	//Izual particles
 	SDL_Texture* izual_particle;
 
+	//Andariel textures
+	SDL_Texture* andariel_idle;
+	SDL_Texture* andariel_walk;
+	SDL_Texture* andariel_attack;
+	SDL_Texture* andariel_cast;
+	SDL_Texture* andariel_death;
+
+	//Andariel particles
+	SDL_Texture* andariel_particle;
+
 	//Portal texture
 	SDL_Texture* portal_tex;
 

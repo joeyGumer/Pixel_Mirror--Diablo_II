@@ -25,6 +25,7 @@
 #include "EntEnemyShaman.h"
 #include "EntEnemySummoner.h"
 #include "EntEnemyIzual.h"
+#include "EntEnemyAndariel.h"
 
 #include "j1ParticleManager.h"
 
@@ -131,6 +132,22 @@ bool j1EntityManager::Start()
 	//Izual particles
 	izual_particle = App->tex->Load("particles/Burn/Building_Burn_1.png");
 	texture_list.push_back(izual_particle);
+
+	//Andariel textures
+	andariel_idle = App->tex->Load("textures/andariel_idle.png");
+	texture_list.push_back(andariel_idle);
+	andariel_walk = App->tex->Load("textures/andariel_walk.png");
+	texture_list.push_back(andariel_walk);
+	andariel_attack = App->tex->Load("textures/andariel_attack.png");
+	texture_list.push_back(andariel_attack);
+	andariel_cast = App->tex->Load("textures/andariel_cast.png");
+	texture_list.push_back(andariel_cast);
+	andariel_death = App->tex->Load("textures/andariel_death.png");
+	texture_list.push_back(andariel_death);
+
+	//Andariel particles
+	andariel_particle = App->tex->Load("particles/Burn/Building_Burn_1.png");
+	texture_list.push_back(andariel_particle);
 
 	//Portal
 	portal_tex = App->tex->Load("textures/portal.png");
@@ -364,6 +381,9 @@ Entity* j1EntityManager::AddEnemy(iPoint &pos, ENEMY_TYPE type)
 			break;
 		case (ENEMY_IZUAL) :
 			entity = new EntEnemyIzual(pos, ++next_ID);
+			break;
+		case (ENEMY_ANDARIEL) :
+			entity = new EntEnemyAndariel(pos, ++next_ID);
 			break;
 		}
 
