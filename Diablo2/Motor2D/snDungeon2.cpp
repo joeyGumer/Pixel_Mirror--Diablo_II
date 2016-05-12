@@ -16,6 +16,7 @@
 #include "EntPortal.h"
 #include "EntEnemy.h"
 #include "snOutdoor2.h"
+#include "Item.h"
 
 
 
@@ -435,6 +436,86 @@ void snDungeon2::AddPortal(iPoint pos)
 		portal->destiny = App->sm->win;
 	}
 	entity_list.push_back(to_add);
+}
+
+void snDungeon2::DropItem(iPoint pos)
+{
+
+	//NOTE: thinking of using srand for more equally distributed random generation
+	//NOTE: have to change this, the random isn't equal at all. Even when there's a 60% to have no item, it almost always drops items
+	int chance = rand() % 100;
+	ITEM_RARITY rarity;
+
+	//note: HAVE TO CHANGE THIS TO VARIABLES SO IT CAN BE CHANGED BY LUCK
+	if (App->sm->level1 == App->sm->dungeon2)
+	{
+		rarity = RARITY_RARE;
+	}
+
+	else if (App->sm->level2 == App->sm->dungeon2)
+	{
+		rarity = RARITY_LEGENDARY;
+	}
+
+	if (rarity != NO_DROP)
+	{
+		chance = rand() % 100;
+
+		if (chance < 35)
+		{
+			itmStone* item;
+			item = new itmStone(rarity, pos);
+			if (!item->ent_item)
+			{
+				RELEASE(item);
+			}
+		}
+		else if (chance < 55)
+		{
+			itmRing* item;
+			item = new itmRing(rarity, pos);
+			if (!item->ent_item)
+			{
+				RELEASE(item);
+			}
+		}
+		else if (chance < 65)
+		{
+			itmJewel* item;
+			item = new itmJewel(rarity, pos);
+			if (!item->ent_item)
+			{
+				RELEASE(item);
+			}
+		}
+		else if (chance < 90)
+		{
+			itmRune* item;
+			item = new itmRune(rarity, pos);
+			if (!item->ent_item)
+			{
+				RELEASE(item);
+			}
+		}
+		else if (chance >= 90)
+		{
+			itmArmor* item;
+			item = new itmArmor(rarity, pos);
+			if (!item->ent_item)
+			{
+				RELEASE(item);
+			}
+		}
+	}
+	else if (chance >= 65)
+	{
+		itmConsumable* item;
+		item = new itmConsumable(rarity, pos);
+		if (!item->ent_item)
+		{
+			RELEASE(item);
+		}
+	}
 }
 
 //Spawn Player

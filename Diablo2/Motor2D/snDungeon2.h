@@ -57,6 +57,9 @@ public:
 	//Spawn player
 	void SpawnPlayer();
 
+	//DropItem
+	void DropItem(iPoint pos);
+
 private:
 
 
