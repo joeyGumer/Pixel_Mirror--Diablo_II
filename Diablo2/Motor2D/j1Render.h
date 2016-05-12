@@ -65,7 +65,7 @@ public:
 	iPoint ScreenToWorld(int x, int y) const;
 	iPoint WorldToScreen(int x, int y) const;
 	void CenterCamera(int x, int y);
-
+	void setCameraOnPosition(const iPoint &pos);
 	// Draw & Blit
 	bool Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section = NULL, float speed = 1.0f, double angle = 0, int pivot_x = INT_MAX, int pivot_y = INT_MAX) const;
 	bool DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool filled = true, bool use_camera = true) const;

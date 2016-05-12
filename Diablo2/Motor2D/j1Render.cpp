@@ -341,6 +341,11 @@ bool j1Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, U
 
 	return ret;
 }
+void j1Render::setCameraOnPosition(const iPoint &pos)
+{
+	camera.x = -pos.x + (camera.w / 2);
+	camera.y = -pos.y + (camera.h / 2);
+}
 //NOTE: Sprites functions
 
 //NOTE: Add Sprite to the list of Sprites

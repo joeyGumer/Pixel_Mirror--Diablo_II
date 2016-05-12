@@ -18,6 +18,7 @@ using namespace std;
 //class Skill;
 class j1Player;
 class SDL_Texture;
+class EntEnemy;
 
 class GuiMiniMap : public GuiElement
 {
@@ -30,23 +31,22 @@ public:
 
 
 	void SetAlpha(SDL_Texture* tex, Uint8 alpha);
-	//Initializes all remaining data
-	bool SetAttributes(map<uint, Entity*>* entities, SDL_Texture* texture);
+	
 
 
 public:
-	SDL_Rect	rect;
-	SDL_Rect	area;
+	//SDL_Rect	rect;
+	//SDL_Rect	area;
 	fPoint		scale;
-	j1Player*	player;
-
-
-	map<uint, Entity*>*   active_entities = NULL;
-	SDL_Texture*		  tex = NULL;
+	//j1Player*	player;
+	//SDL_Texture*		  tex = NULL;
 
 	void		calculateScale();
-	iPoint		minimapToWorld(const iPoint &mini_map_pos) const;
-	iPoint		worldToMinimap(const iPoint &world_pos) const;
+	iPoint		minimapToWorld(const iPoint &mini_map_pos);
+	iPoint		WorldToMinimapi(const iPoint &world_pos);
+	fPoint		WorldToMinimap(const fPoint &world_pos);
+	void		DrawPlayer(j1Player* player);
+	void		DrawEnemy(EntEnemy* enemy);
 
 	GuiImage image;
 }

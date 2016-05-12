@@ -30,7 +30,7 @@ bool hudMiniMap::Start()
 	
 	SDL_Texture* mapa = App->tex->Load("maps/MiniMapdungeonMap2.png");
 	//Creation of the minimap
-	minimap = App->gui->AddGuiMiniMap({ 0, 0 }, { 0, 0, 400, 200 }, mapa, NULL, this);
+	minimap = App->gui->AddGuiMiniMap({ 100, 20 }, { 0, 0, 400, 200 }, mapa, NULL, this);
 	minimap->active = false;
 	hud_gui_elements.push_back(minimap);
 

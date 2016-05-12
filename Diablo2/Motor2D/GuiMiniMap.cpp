@@ -9,11 +9,20 @@
 #include "j1Input.h"
 #include "j1Game.h"
 #include "j1Textures.h"
+#include "j1Player.h"
+#include "p2Point.h"
+#include "EntEnemy.h"
+#include "j1EntityManager.h"
+
 ;
 GuiMiniMap::GuiMiniMap(iPoint p, SDL_Rect r, SDL_Texture* tex, GuiElement* par, j1Module* list) : GuiElement(p, r, GUI_MINIMAP, par, list), 
 			image(p,r,tex,par,list)
 {
 	SetAlpha(tex, 90);
+	//this->rect = r;
+	scale.x = 20;
+	scale.y = 20;
+	
 }
 
 GuiMiniMap::~GuiMiniMap()
@@ -25,120 +34,129 @@ GuiMiniMap::~GuiMiniMap()
 void GuiMiniMap::Draw()
 {
 
-	//print map
-	//App->render->Blit(tex, rect.x - App->render->camera.x, rect.y - App->render->camera.y);
+	
 	image.Draw();
 
-	//print units
-	/*if (active_entities != NULL)
-	{
-		for (std::map<uint, Entity*>::iterator it = active_entities->begin(); it != active_entities->end(); ++it)
-		{
-			Entity* entity = it->second;
-
-			// Set drawing quad for each enemy
-			// Choose quad color
-			/*Uint8 r, g, b;
-			switch (entity->faction)
-			{
-			case FACTION::PLAYER:
-			r = 0;
-			g = 0;
-			b = 255;
-			break;
-
-			case FACTION::COMPUTER:
-			r = 255;
-			g = 0;
-			b = 0;
-			break;*/
-
-			//}
-
-			// send to render
-			//iPoint quad_pos = worldToMinimap({ (int)entity->center.x, (int)entity->center.y });
-			//app->render->DrawQuad({ quad_pos.x, quad_pos.y, 1, 1 }, r, g, b);
-	/*	}
-	}
+	App->render->DrawQuad({ GetScreenPosition().x - App->render->camera.x, GetScreenPosition().y - App->render->camera.y, 400, 200 }, 255, 255, 255, 255, false);
+	DrawPlayer(App->game->player);
+//	DrawEnemy(App->game->player->enemy)
+	/*
+	DrawPlayer(App->game->player);
+	
 
 	// print area
-	iPoint pos = worldToMinimap({ -App->render->camera.x, -App->render->camera.y });
-	App->render->DrawQuad({ pos.x, pos.y, area.w, area.h }, 255, 255, 255, 255, false);*/
-
+	fPoint pos;
+	pos.x = App->render->camera.x;
+	pos.y = App->render->camera.y;
+	pos = WorldToMinimap(pos);
+	App->render->DrawQuad({ pos.x, pos.y, 400, 200 }, 255, 255, 255, 255, false);
+	*/
 
 }
 
 void GuiMiniMap::Update(GuiElement* hover, GuiElement* focus)
 {
 	// check if using GuiMinimap
+	
 	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN || App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
 	{
 		iPoint mouse_pos;
 		mouse_pos = App->input->GetMousePosition();
-		if (mouse_pos.x < rect.x + rect.w && mouse_pos.x > rect.x && mouse_pos.y < rect.y + rect.h && mouse_pos.y > rect.y)
-			App->render->CenterCamera(mouse_pos.x, mouse_pos.y);
+		if (mouse_pos.x < image.tex_rect.x + image.tex_rect.w && mouse_pos.x > image.tex_rect.x && mouse_pos.y < image.tex_rect.y + image.tex_rect.h && mouse_pos.y > image.tex_rect.y)
+			App->render->setCameraOnPosition(WorldToMinimapi(mouse_pos));
+		
 	}
+	
+	
 }
 
-bool GuiMiniMap::SetAttributes(map<uint, Entity*>* entities, SDL_Texture* texture)
-{
-	bool ret = true;
-
-	if (ret = (entities != NULL))
-		active_entities = entities;
-
-	if (ret && (ret = (texture != NULL)))
-		tex = texture;
-
-	//set scale
-	calculateScale();
-
-
-
-	return ret;
-}
 
 
 void GuiMiniMap::calculateScale()
 {
-	scale.x = rect.w / (float)(App->map->data.width * App->map->data.tile_width);    //map width
-	scale.y = rect.h / (float)(App->map->data.height * App->map->data.tile_height);  //map height;
+	//scale.x = rect.w / (float)(App->map->data.width * App->map->data.tile_width);    //map width
+	//scale.y = rect.h / (float)(App->map->data.height * App->map->data.tile_height);  //map height;
 
-	area.w = App->render->camera.w * scale.x;
-	area.h = App->render->camera.h * scale.y;
+	//area.w = App->render->camera.w * scale.x;
+	//area.h = App->render->camera.h * scale.y;
 }
 
-iPoint GuiMiniMap::minimapToWorld(const iPoint &mini_map_pos) const
+iPoint GuiMiniMap::minimapToWorld(const iPoint &mini_map_pos)
 {
-	iPoint world_pos;
-	world_pos.x = mini_map_pos.x / scale.x;
-	world_pos.y = mini_map_pos.y / scale.y;
+	SDL_Rect mini_map = image.GetTextureRect();
 
-	// The method will never return the exact corners as world positions.
-	if (world_pos.x <= (App->render->camera.w / 2))
-		world_pos.x = App->render->camera.w / 2;
-	else if (world_pos.x >= (App->map->data.tile_width * App->map->data.width) - (App->render->camera.w / 2))
-		world_pos.x = (App->map->data.tile_width * App->map->data.width) - (App->render->camera.w / 2);
+	float currentX = (mini_map_pos.x - mini_map.x) / (float)mini_map.w;
+	float currentY = (mini_map_pos.y - mini_map.y) / (float)mini_map.h;
 
-	if (world_pos.y <= (App->render->camera.h / 2))
-		world_pos.y = App->render->camera.h / 2;
-	else if (world_pos.y >= (App->map->data.tile_height * App->map->data.height) - (App->render->camera.h / 2))
-		world_pos.y = (App->map->data.tile_height * App->map->data.height) - (App->render->camera.h / 2);
+	currentX = currentX * (App->map->data.width * App->map->data.tile_width);
+	currentY = currentY * (App->map->data.height * App->map->data.tile_height);
 
-	return world_pos;
+	return iPoint(currentX, currentY);
 }
 
-iPoint GuiMiniMap::worldToMinimap(const iPoint &world_pos) const
+iPoint GuiMiniMap::WorldToMinimapi(const iPoint &world_pos)
 {
-	iPoint mini_map_pos;
+	//SDL_Rect mini_map = image.GetTextureRect();
+	iPoint mini_pos;
 
-	mini_map_pos.x = rect.x + (world_pos.x * scale.x) - App->render->camera.x;
-	mini_map_pos.y = rect.y + (world_pos.y * scale.y) - App->render->camera.y;
+	mini_pos.x = (world_pos.x / scale.x) + App->render->camera.x;
+	mini_pos.y = (world_pos.y / scale.y) + App->render->camera.y;
 
-	return mini_map_pos;
+
+	//currentX = mini_map.x + currentX * mini_map.w;
+	//currentY = mini_map.y + currentY * mini_map.h;
+	//currentY
+	//currentX = mini_map_pos.x + currentX * rect.w;
+	//currentY = mini_map_pos.y + currentY * rect.h;
+	//return mini_map_pos;
+	return mini_pos;
 }
+
+fPoint GuiMiniMap::WorldToMinimap(const fPoint &world_pos)
+{
+	SDL_Rect mini_map = image.GetTextureRect();
+	//fPoint mini_pos;
+
+	fPoint mini_pos;
+
+	mini_pos.x = (GetScreenPosition().x - App->render->camera.x) + (world_pos.x / scale.x) + 200;
+	mini_pos.y = (GetScreenPosition().y - App->render->camera.y) + (world_pos.y / scale.y);
+
+	//mini_pos.x = GetScreenPosition().x + mini_pos.x;
+	//mini_pos.y = GetScreenPosition().y + mini_pos.y;
+	//currentX = mini_map.x + currentX * mini_map.w;
+	//currentY = mini_map.y + currentY * mini_map.h;
+	//currentY
+	//currentX = mini_map_pos.x + currentX * rect.w;
+	//currentY = mini_map_pos.y + currentY * rect.h;
+	//return mini_map_pos;
+	return mini_pos;
+}
+
 
 void GuiMiniMap::SetAlpha(SDL_Texture* tex, Uint8 alpha)
 {
 	SDL_SetTextureAlphaMod(tex, alpha);
+}
+
+void GuiMiniMap::DrawPlayer(j1Player* player)
+{
+	fPoint toDraw = WorldToMinimap(player->GetPivotPosition());
+	//fPoint toDraw = minimapToWorld(player->GetPivotPosition());
+	if (player->active)
+	{
+		App->render->DrawQuad(SDL_Rect{ toDraw.x, toDraw.y, 4, 4 }, false, 255, 255, 255, 200);
+	}
+	
+}
+
+void GuiMiniMap::DrawEnemy(EntEnemy* enemy)
+{
+	fPoint toDraw = WorldToMinimap(enemy->GetPivotPosition());
+	//fPoint toDraw = minimapToWorld(player->GetPivotPosition());
+	//if (enemy->PlayerInRange())
+	//{
+		App->render->DrawQuad(SDL_Rect{ toDraw.x, toDraw.y, 2, 2 }, false, 255, 150, 200, 200);
+	//}
+
 }
