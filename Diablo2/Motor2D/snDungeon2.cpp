@@ -167,7 +167,7 @@ bool snDungeon2::Update(float dt)
 			Entity* ent = App->game->em->AddEnemy(p, ENEMY_SUMMONER);
 		}
 
-		else if (App->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN)
+		else if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 		{
 			iPoint p;
 			p = App->input->GetMouseWorldPosition();
@@ -177,7 +177,7 @@ bool snDungeon2::Update(float dt)
 			Entity* ent = App->game->em->AddEnemy(p, ENEMY_IZUAL);
 		}
 
-		else if (App->input->GetKey(SDL_SCANCODE_U) == KEY_DOWN)
+		else if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
 		{
 			iPoint p;
 			p = App->input->GetMouseWorldPosition();
@@ -187,7 +187,7 @@ bool snDungeon2::Update(float dt)
 			Entity* ent = App->game->em->AddEnemy(p, ENEMY_ANDARIEL);
 		}
 
-		else if (App->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN)
+		else if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
 		{
 			iPoint p;
 			p = App->input->GetMouseWorldPosition();
