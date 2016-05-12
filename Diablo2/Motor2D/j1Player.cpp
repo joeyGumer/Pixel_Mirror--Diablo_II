@@ -56,6 +56,8 @@ bool j1Player::Start()
 	blood_arrow = new sklBloodArrow();
 	stinging_strike = new sklStingingStrike();
 	wild_talon = new sklWildTalon();
+	bat_strike = new sklBatStrike();
+	soul_of_ice = new sklSoulOfIce();
 
 	//
 	player_attack = App->audio->LoadFx("audio/fx/PlayerAttack.ogg");
@@ -1188,6 +1190,8 @@ void j1Player::SetAnimations()
 	blood_arrow->SetSkillAnimations();
 	stinging_strike->SetSkillAnimations();
 	wild_talon->SetSkillAnimations();
+	bat_strike->SetSkillAnimations();
+	soul_of_ice->SetSkillAnimations();
 }
 
 //NOTE: why is this at player and not at the skill that uses this?

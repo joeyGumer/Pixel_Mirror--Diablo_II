@@ -112,6 +112,13 @@ bool hudBelt::Start()
 	left_wild_talon->active = false;
 	hud_gui_elements.push_back(left_wild_talon);
 
+	left_bat_strike = App->gui->AddGuiSkill({ 100, -94 }, { 837, 871, 50, 47 }, { 1601, 805, 50, 47 }, player->bat_strike, attack_left, this);
+	left_bat_strike->active = false;
+	hud_gui_elements.push_back(left_bat_strike);
+
+	left_soul_of_ice = App->gui->AddGuiSkill({ 150, -94 }, { 888, 871, 50, 47 }, { 1652, 805, 50, 47 }, player->soul_of_ice, attack_left, this);
+	left_soul_of_ice->active = false;
+	hud_gui_elements.push_back(left_soul_of_ice);
 
 	//Right Skills
 	right_basic_attack = App->gui->AddGuiSkill({ 0, -47 }, { 51, 280, 50, 47 }, { 102, 280, 50, 47 }, player->basic_attack, attack_right, this);
@@ -123,10 +130,17 @@ bool hudBelt::Start()
 	right_stinging_strike->active = false;
 	hud_gui_elements.push_back(right_stinging_strike);
 
-
 	right_wild_talon = App->gui->AddGuiSkill({ -50, -94 }, { 684, 871, 50, 47 }, { 1448, 805, 50, 47 }, player->wild_talon, attack_right, this);
 	right_wild_talon->active = false;
 	hud_gui_elements.push_back(right_wild_talon);
+
+	right_bat_strike = App->gui->AddGuiSkill({ -100, -94 }, { 837, 871, 50, 47 }, { 1601, 805, 50, 47 }, player->bat_strike, attack_right, this);
+	right_bat_strike->active = false;
+	hud_gui_elements.push_back(right_bat_strike);
+
+	right_soul_of_ice = App->gui->AddGuiSkill({ -150, -94 }, { 888, 871, 50, 47 }, { 1652, 805, 50, 47 }, player->soul_of_ice, attack_right, this);
+	right_soul_of_ice->active = false;
+	hud_gui_elements.push_back(right_soul_of_ice);
 
 	//Blood spells
 	blood_arrow = App->gui->AddGuiSkill({ 0, -141 }, { 684, 920, 50, 47 }, { 1128, 1019, 50, 47 }, player->blood_arrow, attack_right, this);

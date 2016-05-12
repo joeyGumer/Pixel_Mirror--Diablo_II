@@ -187,6 +187,118 @@ void sklWildTalon::SetSkillAnimations()
 		skill_animation_set.push_back(atk);
 	}
 }
+//Bat Strike
+sklBatStrike::sklBatStrike()
+{
+	skill_tex = App->tex->Load("textures/vamp_attack.png");
+
+	base_damage_down = 21;
+	base_damage_up = 32;
+}
+sklBatStrike::~sklBatStrike()
+{
+
+}
+
+void sklBatStrike::SkillEffect()
+{
+	int damage = base_damage_down;
+	damage += rand() % (base_damage_up - base_damage_down + 1);
+
+	player->enemy->TakeDamage(damage);
+	//App->audio->PlayFx(player_attack, 0);
+
+	player->enemy = NULL;
+	player->objective = NULL;
+	player->attacking = false;
+}
+
+void sklBatStrike::SkillInit()
+{
+
+}
+void sklBatStrike::SkillUpdate()
+{
+	if (player->current_animation->CurrentFrame() == 12 && player->attacking == true)
+	{
+		SkillEffect();
+	}
+	else if (player->current_animation->Finished())
+	{
+		player->current_input = INPUT_STOP_MOVE;
+		player->attacking = false;
+		player->input_locked = false;
+	}
+}
+void sklBatStrike::SetSkillAnimations()
+{
+	for (int i = 0; i < 8; i++)
+	{
+		Animation atk;
+		atk.SetFrames(0, (92 + SPRITE_MARGIN) * i, 119, 92, 20, SPRITE_MARGIN);
+		atk.speed = 0.4f;
+		atk.loop = false;
+
+		skill_animation_set.push_back(atk);
+	}
+}
+
+//Soul of Ice
+sklSoulOfIce::sklSoulOfIce()
+{
+	skill_tex = App->tex->Load("textures/vamp_attack.png");
+
+	base_damage_down = 21;
+	base_damage_up = 32;
+}
+sklSoulOfIce::~sklSoulOfIce()
+{
+
+}
+
+void sklSoulOfIce::SkillEffect()
+{
+	int damage = base_damage_down;
+	damage += rand() % (base_damage_up - base_damage_down + 1);
+
+	player->enemy->TakeDamage(damage);
+	//App->audio->PlayFx(player_attack, 0);
+
+	player->enemy = NULL;
+	player->objective = NULL;
+	player->attacking = false;
+}
+
+void sklSoulOfIce::SkillInit()
+{
+
+}
+void sklSoulOfIce::SkillUpdate()
+{
+	if (player->current_animation->CurrentFrame() == 12 && player->attacking == true)
+	{
+		SkillEffect();
+	}
+	else if (player->current_animation->Finished())
+	{
+		player->current_input = INPUT_STOP_MOVE;
+		player->attacking = false;
+		player->input_locked = false;
+	}
+}
+void sklSoulOfIce::SetSkillAnimations()
+{
+	for (int i = 0; i < 8; i++)
+	{
+		Animation atk;
+		atk.SetFrames(0, (92 + SPRITE_MARGIN) * i, 119, 92, 20, SPRITE_MARGIN);
+		atk.speed = 0.4f;
+		atk.loop = false;
+
+		skill_animation_set.push_back(atk);
+	}
+}
+
 //Blood Arrow
 //NOTE: change this to be aplicable with the system particle
 sklBloodArrow::sklBloodArrow() : sklRanged()

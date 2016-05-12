@@ -60,6 +60,45 @@ public:
 	int base_damage_up;
 	int damage_dt;
 };
+
+class sklBatStrike : public sklMelee
+{
+public:
+	sklBatStrike();
+	~sklBatStrike();
+
+	void SkillEffect();
+
+	void SkillInit();
+	void SkillUpdate();
+	void SetSkillAnimations();
+
+public:
+
+	int base_damage_down;
+	int base_damage_up;
+	int damage_dt;
+};
+
+
+class sklSoulOfIce : public sklMelee
+{
+public:
+	sklSoulOfIce();
+	~sklSoulOfIce();
+
+	void SkillEffect();
+
+	void SkillInit();
+	void SkillUpdate();
+	void SetSkillAnimations();
+
+public:
+
+	int base_damage_down;
+	int base_damage_up;
+	int damage_dt;
+};
 //
 class sklBloodArrow : public sklRanged
 {

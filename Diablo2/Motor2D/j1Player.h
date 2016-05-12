@@ -106,6 +106,8 @@ class sklBasicAttack;
 class sklBloodArrow;
 class sklStingingStrike;
 class sklWildTalon;
+class sklBatStrike;
+class sklSoulOfIce;
 class Collider;
 struct Buff;
 
@@ -372,8 +374,12 @@ public:
 	//Those skills
 	sklBasicAttack* basic_attack = NULL;
 	sklBloodArrow* blood_arrow = NULL;
+
+	//Martial Blood
 	sklStingingStrike* stinging_strike = NULL;
 	sklWildTalon* wild_talon = NULL;
+	sklBatStrike* bat_strike = NULL;
+	sklSoulOfIce* soul_of_ice = NULL;
 
 	//Collider
 	Collider* p_collider;
