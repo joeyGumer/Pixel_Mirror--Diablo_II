@@ -104,11 +104,20 @@ void GuiInventory::Draw()
 	for (; it != items.end(); it++)
 	{
 		(*it)->Draw();
+		
 	}
-
+	
 	for (int i = 0; i < slots.size(); i++)
 	{
 		slots[i].Draw();
+	}
+	it = items.begin();
+	for (; it != items.end(); it++)
+	{
+		if ((*it)->mousehover)
+		{
+			(*it)->text->Draw();
+		}
 	}
 }
 

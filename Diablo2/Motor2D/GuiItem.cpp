@@ -39,10 +39,6 @@ GuiItem::~GuiItem()
 void GuiItem::Draw()
 {
 	image.Draw();
-	if (mousehover == true)
-	{
-		text->Draw();
-	}
 }
 
 void GuiItem::DrawDebug()
@@ -79,6 +75,7 @@ void GuiItem::Update(GuiElement* hover, GuiElement* focus)
 			
 	}
 
+	
 	if (App->gui->dragged_item == this)
 	{
 		mousehover = false;
@@ -123,38 +120,51 @@ void GuiItem::CreateText()
 	
 	attributeText.push_back(StringColor(nexus->name, nexus->rarity_color));
 	//TEMPORAL
-	if (nexus->type == ITEM_STONE)
+	
+		
+	for (int i =0 ; i < nexus->attribute_type.size(); i++)
 	{
-		p2SString Text("%i", nexus->buff_value);
-	for (int i = 0; i < nexus->size; i++)
-	{
-		switch (nexus->attribute_type)
+		SDL_Color color = FONT_WHITE;
+		if (nexus->buff_value[i] < 0)
+		{
+			color = FONT_RED;
+		}
+		p2SString Text("%i", nexus->buff_value[i]);
+		switch (nexus->attribute_type[i])
 		{
 			case STRENGHT:
-				Text.Insert(0, "Strength :");
-				attributeText.push_back(StringColor(Text, FONT_WHITE));
+				Text.Insert(0, "StrengTh :");
+				attributeText.push_back(StringColor(Text, color));
 				break;
 			case DEXTERITY:
 				Text.Insert(0, "DEXTERITY :");
-				attributeText.push_back(StringColor(Text, FONT_WHITE));
+				attributeText.push_back(StringColor(Text, color));
 				break;
 			case INTELLIGENCE:
 				Text.Insert(0, "INTELLIGENCE :");
-				attributeText.push_back(StringColor(Text, FONT_WHITE));
+				attributeText.push_back(StringColor(Text, color));
 				break;
 			case VITALITY:
 				Text.Insert(0, "VITALITY :");
-				attributeText.push_back(StringColor(Text, FONT_WHITE));
+				attributeText.push_back(StringColor(Text, color));
 				break;
 			case LUCK:
 				Text.Insert(0, "LUCK :");
-				attributeText.push_back(StringColor(Text, FONT_WHITE));
+				attributeText.push_back(StringColor(Text, color));
+				break;
+			case ARMOR:
+				Text.Insert(0, "ARMOR :");
+				attributeText.push_back(StringColor(Text, color));
+				break;
+			case BLOOD:
+				Text.Insert(0, "BLOOD :");
+				attributeText.push_back(StringColor(Text, color));
 				break;
 			}
 	}
-	}
+	
 
 	
-	text = new GuiText({ 0,0 }, attributeText, this, NULL);
+	text = new GuiText({ 0, 0 }, attributeText, this, NULL);
 	text->Activate();
 }

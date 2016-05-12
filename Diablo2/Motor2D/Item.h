@@ -68,8 +68,8 @@ public:
 	vector<Buff*> item_buffs;
 	const char* name = "NAME";
 	SDL_Color rarity_color;
-	int buff_value;
-	PLAYER_ATTRIBUTE attribute_type;
+	vector<int> buff_value;
+	vector<PLAYER_ATTRIBUTE> attribute_type;
 	//Both representations
 	GuiItem* gui_item;
 	EntItem* ent_item;

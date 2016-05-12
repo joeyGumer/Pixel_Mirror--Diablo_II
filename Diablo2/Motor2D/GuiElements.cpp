@@ -118,6 +118,11 @@ GuiText::GuiText(iPoint p, vector<StringColor> text, GuiElement* par, j1Module* 
 	{
 		labels[i].Center(true, false);
 	}
+	Center(true, false);
+	iPoint i;
+	i.x = GetLocalPosition().x;
+	i.y = GetLocalPosition().y - tex_rect.h;
+	SetLocalPosition(i);
 }
 //-----
 

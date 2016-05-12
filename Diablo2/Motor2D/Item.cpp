@@ -119,13 +119,13 @@ itmStone::itmStone(ITEM_RARITY rare, iPoint p) : Item(ITEM_STONE, rare, p)
 		value = 10;
 		value += rand() % 10;
 		y = 977;
-		rarity_color = FONT_BLUE;
+		rarity_color = FONT_ORANGE;
 		break;
 	case RARITY_LEGENDARY:
 		value = 17;
 		value += rand() % 10;
 		y = 1007;
-		rarity_color = FONT_GREEN;
+		rarity_color = FONT_VIOLET; 
 		
 		break;
 	}
@@ -156,8 +156,8 @@ itmStone::itmStone(ITEM_RARITY rare, iPoint p) : Item(ITEM_STONE, rare, p)
 		x = 2314;
 		break;
 	}
-	attribute_type = attribute;
-	buff_value = value;
+	attribute_type.push_back(attribute);
+	buff_value.push_back(value);
 	Buff* buff; 
 	buff = new Buff(attribute, value);
 	item_buffs.push_back(buff);
@@ -198,14 +198,17 @@ itmConsumable::itmConsumable(ITEM_RARITY rarity, iPoint p) : Item(ITEM_CONSUMABL
 		case RARITY_COMMON:
 			value = 30; //%
 			y = 797;
+			rarity_color = FONT_WHITE;
 			break;
 		case RARITY_RARE:
 			value = 60;
 			y = 827;
+			rarity_color = FONT_ORANGE;
 			break;
 		case RARITY_LEGENDARY:
 			value = 120;
 			y = 857;
+			rarity_color = FONT_VIOLET;
 			break;
 		}
 	}
@@ -253,10 +256,12 @@ itmConsumable::itmConsumable(ITEM_RARITY rarity, iPoint p) : Item(ITEM_CONSUMABL
 	}
 	break;
 	}
-
 	Buff* buff1;
 	buff1 = new Buff(at, value, false, 15);
 	item_buffs.push_back(buff1);
+
+	attribute_type.push_back(at);
+	buff_value.push_back(value);
 
 	rect = { x, y, ITEM_SLOT_SIZE, ITEM_SLOT_SIZE };
 
@@ -266,7 +271,7 @@ itmConsumable::itmConsumable(ITEM_RARITY rarity, iPoint p) : Item(ITEM_CONSUMABL
 	{
 		coord[i] = { 0, 0 };
 	}
-
+	
 	CreateEntItem(p);
 }
 
@@ -297,12 +302,11 @@ itmRing::itmRing(ITEM_RARITY rarity, iPoint p) : Item(ITEM_RING, rarity, p)
 	int y = 887;
 	int at;
 	name = "RING";
-	rarity_color = FONT_WHITE;
 	switch (rarity)
 	{
 	case RARITY_COMMON:
 		at = rand() % 2;
-
+		rarity_color = FONT_WHITE;
 		switch (at)
 		{
 		case 0:
@@ -317,7 +321,7 @@ itmRing::itmRing(ITEM_RARITY rarity, iPoint p) : Item(ITEM_RING, rarity, p)
 
 	case RARITY_RARE:
 		at = rand() % 2;
-
+		rarity_color = FONT_ORANGE;
 		switch (at)
 		{
 		case 0:
@@ -330,6 +334,7 @@ itmRing::itmRing(ITEM_RARITY rarity, iPoint p) : Item(ITEM_RING, rarity, p)
 		break;
 
 	case RARITY_LEGENDARY:
+		rarity_color = FONT_VIOLET; 
 		x = 2314;
 		break;
 	}
@@ -357,13 +362,13 @@ itmJewel::itmJewel(ITEM_RARITY rarity, iPoint p) : Item(ITEM_JEWEL, rarity, p)
 	int y = 917;
 	
 	name = "JEWEL";
-	rarity_color = FONT_WHITE;
+	
 	switch (rarity)
 	{
 	case RARITY_COMMON:
 	{
 		x = 2374;
-		
+		rarity_color = FONT_WHITE;
 		int value1 = 1 + (rand() % 10);
 		int value2 = 1 + (rand() % 10);
 
@@ -383,6 +388,13 @@ itmJewel::itmJewel(ITEM_RARITY rarity, iPoint p) : Item(ITEM_JEWEL, rarity, p)
 		buff2 = new Buff(attribute2, value2);
 		item_buffs.push_back(buff2);
 
+		attribute_type.push_back(attribute1);
+		buff_value.push_back(value1);
+
+		attribute_type.push_back(attribute2);
+		buff_value.push_back(value2);
+
+
 		int special1 = 4 + (rand() % 4);
 		Buff*buff3;
 		buff3 = new Buff(COOLDOWN, special1);
@@ -392,7 +404,7 @@ itmJewel::itmJewel(ITEM_RARITY rarity, iPoint p) : Item(ITEM_JEWEL, rarity, p)
 	case RARITY_RARE:
 	{
 		x = 2404;
-
+		rarity_color = FONT_ORANGE;
 		int value1 = 5 + (rand() % 11);
 		int value2 = 5 + (rand() % 11);
 
@@ -416,12 +428,18 @@ itmJewel::itmJewel(ITEM_RARITY rarity, iPoint p) : Item(ITEM_JEWEL, rarity, p)
 		Buff* buff3;
 		buff3 = new Buff(BLOOD, special1);
 		item_buffs.push_back(buff3);
+
+		attribute_type.push_back(attribute1);
+		buff_value.push_back(value1);
+
+		attribute_type.push_back(attribute2);
+		buff_value.push_back(value2);
 	}
 		break;
 	case RARITY_LEGENDARY:
 	{
 		x = 2434;
-
+		rarity_color = FONT_VIOLET;
 		int value1 = 5 + (rand() % 16);
 		int value2 = 5 + (rand() % 16);
 		int value3 = 5 + (rand() % 16);
@@ -455,6 +473,16 @@ itmJewel::itmJewel(ITEM_RARITY rarity, iPoint p) : Item(ITEM_JEWEL, rarity, p)
 		Buff* buff4;
 		buff4 = new Buff(ARMOR, special1);
 		item_buffs.push_back(buff4);
+
+		attribute_type.push_back(attribute1);
+		buff_value.push_back(value1);
+
+		attribute_type.push_back(attribute2);
+		buff_value.push_back(value2);
+
+		attribute_type.push_back(attribute3);
+		buff_value.push_back(value3);
+
 	}
 		break;
 	}
@@ -483,13 +511,13 @@ itmRune::itmRune(ITEM_RARITY rarity, iPoint p) : Item(ITEM_RUNE, rarity, p)
 	PLAYER_ATTRIBUTE positive_attribute, negative_attribute;
 	int r;
 	name = "RUNE";
-	rarity_color = FONT_WHITE;
+	
 	switch (rarity)
 	{
 	case RARITY_COMMON:
 	{
 		x = 2374;
-
+		rarity_color = FONT_WHITE;
 		positive_buff = 10;
 		positive_buff += rand() % 11;
 
@@ -501,7 +529,7 @@ itmRune::itmRune(ITEM_RARITY rarity, iPoint p) : Item(ITEM_RUNE, rarity, p)
 	case RARITY_RARE:
 	{
 		x = 2404;
-
+		rarity_color = FONT_VIOLET;
 
 		positive_buff = 20;
 		positive_buff += rand() % 11;
@@ -514,7 +542,7 @@ itmRune::itmRune(ITEM_RARITY rarity, iPoint p) : Item(ITEM_RUNE, rarity, p)
 	case RARITY_LEGENDARY:
 	{
 		x = 2434;
-
+		rarity_color = FONT_ORANGE;
 		positive_buff = 30;
 		positive_buff += rand() % 11;
 
@@ -542,6 +570,11 @@ itmRune::itmRune(ITEM_RARITY rarity, iPoint p) : Item(ITEM_RUNE, rarity, p)
 	buff2 = new Buff(negative_attribute, negative_buff);
 	item_buffs.push_back(buff2);
 
+	attribute_type.push_back(positive_attribute);
+	buff_value.push_back(positive_buff);
+
+	attribute_type.push_back(negative_attribute);
+	buff_value.push_back(negative_buff);
 	rect = { x, y, ITEM_SLOT_SIZE, ITEM_SLOT_SIZE * 3 };
 
 	size = 3;
@@ -566,31 +599,36 @@ itmArmor::itmArmor(ITEM_RARITY rarity, iPoint p) : Item(ITEM_ARMOR, rarity, p)
 	int x;
 	int value;
 	name = "ARMOR";
-	rarity_color = FONT_WHITE;
 	switch (rarity)
 	{
 	case RARITY_COMMON:
 		x = 2315;
 		value = 7;
+		rarity_color = FONT_WHITE;
 		value += rand() % 4;
 		break;
 	case RARITY_RARE:
 		x = 2256;
 		value = 10;
 		value += rand() % 6;
+		rarity_color = FONT_ORANGE;
 		break;
 	case RARITY_LEGENDARY:
 		x = 2197;
 		value = 17;
 		value += rand() % 9;
+		rarity_color = FONT_VIOLET; 
 		break;
 	}
 
 	Buff* buff;
 	buff = new Buff(ARMOR, value);
 	item_buffs.push_back(buff);
-
+	
 	rect = { x, y, ITEM_SLOT_SIZE * 2, ITEM_SLOT_SIZE * 3 };
+
+	attribute_type.push_back(ARMOR);
+	buff_value.push_back(value);
 
 	size = 6;
 	coord = new iPoint[size];
