@@ -29,7 +29,7 @@ public:
 	uint last_update;
 
 	//Particles
-	Particle	particle_izual;
+	Particle	particle;
 	fPoint		particle_destination;
 	bool		particle_is_casted = false;
 
@@ -41,6 +41,7 @@ public:
 	SDL_Texture*		cast_tex;
 	vector<Animation>	cast;
 
+	int row_number;
 
 	j1Timer win;
 };

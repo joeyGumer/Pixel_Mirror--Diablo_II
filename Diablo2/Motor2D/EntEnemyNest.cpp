@@ -440,7 +440,7 @@ void EntEnemyNest::UpdateRangedAttack()
 		{
 			int random_rangeX = rand() % 301;
 			int random_rangeY = rand() % 301;
-			Particle* skill_particle1 = App->pm->AddParticle(particle, particle_destination.x + marginX + random_rangeX, particle_destination.y + +marginY + random_rangeY, 3, particle.image);
+			Particle* skill_particle1 = App->pm->AddParticle(particle, particle_destination.x + marginX + random_rangeX, particle_destination.y + marginY + random_rangeY, 3, particle.image);
 		}
 	}
 
