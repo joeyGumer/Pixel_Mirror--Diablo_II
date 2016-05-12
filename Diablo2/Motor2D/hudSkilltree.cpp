@@ -41,24 +41,24 @@ bool hudSkilltree::Start()
 
 
 	//Skills
-	clotted_blood_skin = App->gui->AddGuiSkill({ 82, 9 }, { 537, 920, 48, 48 }, NULL, nightsummoning, this);
+	clotted_blood_skin = App->gui->AddGuiSkill({ 82, 9 }, { 537, 920, 48, 48 }, { 390, 871, 48, 48 }, NULL, nightsummoning, this);
 	clotted_blood_skin->active = false;
 	hud_gui_elements.push_back(clotted_blood_skin);
 
-	raise_wolf = App->gui->AddGuiSkill({ 152, 9 }, { 488, 969, 48, 48 }, NULL, nightsummoning, this);
+	raise_wolf = App->gui->AddGuiSkill({ 152, 9 }, { 488, 969, 48, 48 }, { 390, 969, 48, 48 }, NULL, nightsummoning, this);
 	raise_wolf->active = false;
 	hud_gui_elements.push_back(raise_wolf);
 
-	bat_girl = App->gui->AddGuiSkill({ 15, 77 }, { 537, 969, 48, 48 }, NULL, nightsummoning, this);
+	bat_girl = App->gui->AddGuiSkill({ 15, 77 }, { 537, 969, 48, 48 }, { 341, 1018, 48, 48 }, NULL, nightsummoning, this);
 	bat_girl->active = false;
 	hud_gui_elements.push_back(bat_girl);
 
-	raise_blood_hawk = App->gui->AddGuiSkill({ 82, 77 }, { 586, 969, 48, 48 }, NULL, nightsummoning, this);
+	raise_blood_hawk = App->gui->AddGuiSkill({ 82, 77 }, { 586, 969, 48, 48 }, { 390, 1018, 48, 48 }, NULL, nightsummoning, this);
 	raise_blood_hawk->active = false;
 	raise_blood_hawk->skill_parents.push_back(clotted_blood_skin->skill);
 	hud_gui_elements.push_back(raise_blood_hawk);
 
-	blood_golem = App->gui->AddGuiSkill({ 152, 145 }, { 635, 969, 48, 48 }, NULL, nightsummoning, this);
+	blood_golem = App->gui->AddGuiSkill({ 152, 145 }, { 635, 969, 48, 48 }, { 439, 1018, 48, 48 }, NULL, nightsummoning, this);
 	blood_golem->active = false;
 	blood_golem->skill_parents.push_back(raise_blood_hawk->skill);
 	blood_golem->skill_parents.push_back(raise_wolf->skill);
@@ -77,25 +77,25 @@ bool hudSkilltree::Start()
 	hud_gui_elements.push_back(skillpoints_label);
 
 	//Skills
-	striking_strike = App->gui->AddGuiSkill({ 154, 14 }, { 488, 871, 48, 48 },NULL, martialblood, this);
+	striking_strike = App->gui->AddGuiSkill({ 154, 14 }, { 488, 871, 48, 48 }, { 390, 724, 48, 48 }, NULL, martialblood, this);
 	striking_strike->active = false;
 	hud_gui_elements.push_back(striking_strike);
 
-	wild_talon = App->gui->AddGuiSkill({ 84, 14 }, { 439, 871, 48, 48 },NULL, martialblood, this);
+	wild_talon = App->gui->AddGuiSkill({ 84, 14 }, { 439, 871, 48, 48 }, { 341, 724, 48, 48 }, NULL, martialblood, this);
 	wild_talon->active = false;
 	hud_gui_elements.push_back(wild_talon);
 
-	bat_strike = App->gui->AddGuiSkill({ 154, 82}, { 586, 871, 48, 48 }, NULL, martialblood, this);
+	bat_strike = App->gui->AddGuiSkill({ 154, 82 }, { 586, 871, 48, 48 }, { 390, 773, 48, 48 }, NULL, martialblood, this);
 	bat_strike->active = false;
 	bat_strike->skill_parents.push_back(striking_strike->skill);
 	hud_gui_elements.push_back(bat_strike);
 	
-	soul_of_ice = App->gui->AddGuiSkill({ 84, 150 }, { 635, 871, 48, 48 }, NULL, martialblood, this);
+	soul_of_ice = App->gui->AddGuiSkill({ 84, 150 }, { 635, 871, 48, 48 }, { 341, 822, 48, 48 }, NULL, martialblood, this);
 	soul_of_ice->active = false;
 	soul_of_ice->skill_parents.push_back(wild_talon->skill);
 	hud_gui_elements.push_back(soul_of_ice);
 
-	krobus_arts = App->gui->AddGuiSkill({ 15, 82 }, { 537, 871, 48, 48 }, NULL, martialblood, this);
+	krobus_arts = App->gui->AddGuiSkill({ 15, 82 }, { 537, 871, 48, 48 }, { 341, 773, 48, 48 }, NULL, martialblood, this);
 	krobus_arts->active = false;
 	hud_gui_elements.push_back(krobus_arts);
 
@@ -116,26 +116,26 @@ bool hudSkilltree::Start()
 	hud_gui_elements.push_back(nightbutton);
 
 	//Skills
-	blood_arrow = App->gui->AddGuiSkill({ 14, 16 }, { 439, 920, 48, 48 }, player->blood_arrow, bloodspells, this);
+	blood_arrow = App->gui->AddGuiSkill({ 14, 16 }, { 439, 920, 48, 48 }, { 390, 822, 48, 48 }, player->blood_arrow, bloodspells, this);
 	blood_arrow->active = false;
 	hud_gui_elements.push_back(blood_arrow);
 
-	vampire_breath = App->gui->AddGuiSkill({ 84, 16 }, { 488, 920, 48, 48 }, NULL, bloodspells, this);
+	vampire_breath = App->gui->AddGuiSkill({ 84, 16 }, { 488, 920, 48, 48 }, { 341, 871, 48, 48 }, NULL, bloodspells, this);
 	vampire_breath->active = false;
 	hud_gui_elements.push_back(vampire_breath);
 
-	blood_bomb = App->gui->AddGuiSkill({ 14, 138 }, { 586, 920, 48, 48 }, NULL, bloodspells, this);
+	blood_bomb = App->gui->AddGuiSkill({ 14, 138 }, { 586, 920, 48, 48 }, { 341, 920, 48, 48 }, NULL, bloodspells, this);
 	blood_bomb->active = false;
 	blood_bomb->skill_parents.push_back(blood_arrow->skill);
 	hud_gui_elements.push_back(blood_bomb);
 
-	red_feast = App->gui->AddGuiSkill({ 83, 138 }, { 635, 920, 48, 48 },NULL, bloodspells, this);
+	red_feast = App->gui->AddGuiSkill({ 83, 138 }, { 635, 920, 48, 48 }, { 390, 920, 48, 48 }, NULL, bloodspells, this);
 	red_feast->active = false;
 	red_feast->skill_parents.push_back(blood_arrow->skill);
 	red_feast->skill_parents.push_back(vampire_breath->skill);
 	hud_gui_elements.push_back(red_feast);
 
-	heard_of_bats = App->gui->AddGuiSkill({ 152, 70 }, { 439, 969, 48, 48 }, NULL, bloodspells, this);
+	heard_of_bats = App->gui->AddGuiSkill({ 152, 70 }, { 439, 969, 48, 48 }, { 341, 969, 48, 48 }, NULL, bloodspells, this);
 	heard_of_bats->active = false;
 	hud_gui_elements.push_back(heard_of_bats);
 	
@@ -217,7 +217,7 @@ void hudSkilltree::OnEvent(GuiElement* element, GUI_Event even)
 	}
 
 	//Blood spells button
-	if (bloodbutton == element)
+	else if (bloodbutton == element)
 	{
 		switch (even)
 		{
@@ -231,7 +231,7 @@ void hudSkilltree::OnEvent(GuiElement* element, GUI_Event even)
 	}
 
 	//Martial delete button
-	if (martialdeletebutton == element)
+	else if (martialdeletebutton == element)
 	{
 		switch (even)
 		{
@@ -241,6 +241,36 @@ void hudSkilltree::OnEvent(GuiElement* element, GUI_Event even)
 				martialdeletebutton_pressed = true;
 		}
 		break;
+		}
+	}
+
+
+	else if (element->type == GUI_SKILL)
+	{
+		if (even == EVENT_MOUSE_LEFTCLICK_DOWN)
+		{
+			GuiSkill* tmp = (GuiSkill*)element;
+			if (tmp->skill_parents.size() == 0)
+			{
+				if (tmp->skill)
+					tmp->skill->unlocked = true;
+
+				tmp->image.SetTextureRect(tmp->unlocked);
+			}
+			else
+			{
+				for (int i = 0; i < tmp->skill_parents.size(); i++)
+				{
+					if (tmp->skill_parents[i] && tmp->skill_parents[i]->unlocked)
+					{
+						if (tmp->skill)
+							tmp->skill->unlocked = true;
+						tmp->image.SetTextureRect(tmp->unlocked);
+						break;
+					}
+	
+				}
+			}
 		}
 	}
 	/*

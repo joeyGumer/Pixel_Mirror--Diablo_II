@@ -84,8 +84,8 @@ bool j1Player::Start()
 	current_animation_set = idle;
 	current_animation = &current_animation_set[current_direction];
 
-	current_skill = left_skill = basic_attack;
-	right_skill = blood_arrow;
+	basic_attack->unlocked = true;
+	current_skill = left_skill = right_skill = basic_attack;
 
 	//Positioning
 	p_position = { 0, 500 };

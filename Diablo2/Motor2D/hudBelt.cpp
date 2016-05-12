@@ -90,20 +90,29 @@ bool hudBelt::Start()
 	*/
 
 	//Skills
-	attack_right = App->gui->AddGuiSkill({ -50, 0 }, { 102, 280, 50, 47 }, player->right_skill, HUD, this);
-	attack_right->interactable = true;
-	hud_gui_elements.push_back(attack_right);
-
-	attack_left = App->gui->AddGuiSkill({ 308, 0 }, { 102, 280, 50, 47 },player->left_skill, HUD, this);
-	attack_left->interactable = true;
+	attack_left = App->gui->AddGuiSkill({ -50, 0 }, { 102, 280, 50, 47 }, { 102, 280, 50, 47 }, player->right_skill, HUD, this);
 	hud_gui_elements.push_back(attack_left);
+
+	attack_right = App->gui->AddGuiSkill({ 308, 0 }, { 102, 280, 50, 47 }, { 102, 280, 50, 47 }, player->left_skill, HUD, this);
+	hud_gui_elements.push_back(attack_right);
 
 	//Left Skills
 	//Attack 1 ----------------------------------------
-	left_basic_attack = App->gui->AddGuiSkill({ -51, -70 }, { 1128, 119, 50, 47 }, player->basic_attack, HUD, this);
-	left_basic_attack->interactable = true;
+	left_basic_attack = App->gui->AddGuiSkill({ 0, -47 }, { 102, 280, 50, 47 }, { 102, 280, 50, 47 }, player->basic_attack, attack_left, this);
 	left_basic_attack->active = false;
 	hud_gui_elements.push_back(left_basic_attack);
+
+
+
+	//Right Skills
+	right_basic_attack = App->gui->AddGuiSkill({ 0, -47 }, { 102, 280, 50, 47 }, { 102, 280, 50, 47 }, player->basic_attack, attack_right, this);
+	right_basic_attack->active = false;
+	hud_gui_elements.push_back(right_basic_attack);
+
+	blood_arrow = App->gui->AddGuiSkill({ 0, -94 }, { 1128, 1019, 50, 47 }, { 1128, 1019, 50, 47 }, player->blood_arrow, attack_right, this);
+	blood_arrow->active = false;
+	hud_gui_elements.push_back(blood_arrow);
+
 
 	/*skill12 = App->gui->AddGuiImage({ 20, -70 }, { 0, 280, 50, 47 }, HUD, this);
 	skill12->interactable = true;
@@ -296,9 +305,8 @@ void hudBelt::OnEvent(GuiElement* element, GUI_Event even)
 			break;
 		}
 	}
-
 	//Mini panel button
-	if (minipanelbutton == element)
+	else if (minipanelbutton == element)
 	{
 		switch (even)
 		{
@@ -334,7 +342,7 @@ void hudBelt::OnEvent(GuiElement* element, GUI_Event even)
 	}
 	
 	//Inventory button
-	if (inventorybutton == element)
+	else if (inventorybutton == element)
 	{
 		switch (even)
 		{
@@ -364,7 +372,7 @@ void hudBelt::OnEvent(GuiElement* element, GUI_Event even)
 	}
 
 	//Stats button
-	if (stats == element)
+	else if (stats == element)
 	{
 		switch (even)
 		{
@@ -394,7 +402,7 @@ void hudBelt::OnEvent(GuiElement* element, GUI_Event even)
 	}
 
 	//Skilltree button
-	if (skilltree == element)
+	else if (skilltree == element)
 	{
 		switch (even)
 		{
@@ -420,7 +428,7 @@ void hudBelt::OnEvent(GuiElement* element, GUI_Event even)
 	}
 
 	//MiniMap button
-	if (minimapbutton == element)
+	else if (minimapbutton == element)
 	{
 		switch (even)
 		{
@@ -448,16 +456,8 @@ void hudBelt::OnEvent(GuiElement* element, GUI_Event even)
 		break;
 		}
 	}
-
-
-
-
-
-
-
-
 	//Game_menu button
-	if (game_menu == element)
+	else if (game_menu == element)
 	{
 		switch (even)
 		{
@@ -483,7 +483,7 @@ void hudBelt::OnEvent(GuiElement* element, GUI_Event even)
 	}
 
 	//Attack1
-	/*if (attack1 == element)
+	else if (attack_right == element)
 	{
 		switch (even)
 		{
@@ -492,16 +492,19 @@ void hudBelt::OnEvent(GuiElement* element, GUI_Event even)
 			if (attack1_pressed == false)
 			{
 				attack1_pressed = true;
-				skill11->active = true;
-				skill12->active = true;
-				skill13->active = true;
+				list<GuiElement*>::iterator it = attack_right->childs.begin();
+				for (; it != attack_right->childs.end(); it++)
+				{
+					if (((GuiSkill*)(*it))->skill->unlocked)
+					{
+						(*it)->active = true;
+					}
+				}
 			}
 			else
 			{
 				attack1_pressed = false;
-				skill11->active = false;
-				skill12->active = false;
-				skill13->active = false;
+				attack_right->DesactivateChilds();
 			}
 		}
 		break;
@@ -509,7 +512,7 @@ void hudBelt::OnEvent(GuiElement* element, GUI_Event even)
 	}
 
 	//Attack2
-	if (attack2 == element)
+	else if (attack_left == element)
 	{
 		switch (even)
 		{
@@ -518,109 +521,63 @@ void hudBelt::OnEvent(GuiElement* element, GUI_Event even)
 			if (attack2_pressed == false)
 			{
 				attack2_pressed = true;
-				skill21->active = true;
-				skill22->active = true;
-				skill23->active = true;
+				list<GuiElement*>::iterator it = attack_left->childs.begin();
+				for (; it != attack_left->childs.end(); it++)
+				{
+					if (((GuiSkill*)(*it))->skill->unlocked)
+					{
+						(*it)->active = true;
+					}
+				}
+
 			}
 			else
 			{
 				attack2_pressed = false;
-				skill21->active = false;
-				skill22->active = false;
-				skill23->active = false;
+				attack_left->DesactivateChilds();
 			}
 		}
 		break;
 		}
 	}
-	//Skills
-	//Attack 1---------------------------------
-	if (skill11 == element)
+
+	else if (attack1_pressed)
 	{
-		switch (even)
+		list<GuiElement*>::iterator it = attack_right->childs.begin();
+		for (; it != attack_right->childs.end(); it++)
 		{
-		case EVENT_MOUSE_LEFTCLICK_DOWN:
-		{
-			SDL_Rect rect = skill11->GetTextureRect();
-			SDL_Rect rect2 = attack1->GetTextureRect();
-			attack1->SetTextureRect(rect);
-			skill11->SetTextureRect(rect2);
-		}
-		break;
+			if (element == (*it))
+			{
+				if (even == EVENT_MOUSE_LEFTCLICK_DOWN)
+				{
+					attack_right->skill = ((GuiSkill*)element)->skill;
+					attack_right->image.SetTextureRect(((GuiSkill*)element)->image.GetTextureRect());
+					player->right_skill = attack_right->skill;
+					break;
+				}
+			}
 		}
 	}
-	if (skill12 == element)
+	else if (attack2_pressed)
 	{
-		switch (even)
+		list<GuiElement*>::iterator it = attack_left->childs.begin();
+		for (; it != attack_left->childs.end(); it++)
 		{
-		case EVENT_MOUSE_LEFTCLICK_DOWN:
-		{
-			SDL_Rect rect = skill12->GetTextureRect();
-			SDL_Rect rect2 = attack1->GetTextureRect();
-			attack1->SetTextureRect(rect);
-			skill12->SetTextureRect(rect2);
-		}
-		break;
+			if (element == (*it))
+			{
+				if (even == EVENT_MOUSE_LEFTCLICK_DOWN)
+				{
+					attack_left->skill = ((GuiSkill*)element)->skill;
+					attack_left->image.SetTextureRect(((GuiSkill*)element)->image.GetTextureRect());
+					player->left_skill = attack_left->skill;
+					break;
+				}
+			}
 		}
 	}
-	if (skill13 == element)
-	{
-		switch (even)
-		{
-		case EVENT_MOUSE_LEFTCLICK_DOWN:
-		{
-			SDL_Rect rect = skill13->GetTextureRect();
-			SDL_Rect rect2 = attack1->GetTextureRect();
-			attack1->SetTextureRect(rect);
-			skill13->SetTextureRect(rect2);
-		}
-		break;
-		}
-	}
-	//Attack 2---------------------------------
-	if (skill21 == element)
-	{
-		switch (even)
-		{
-		case EVENT_MOUSE_LEFTCLICK_DOWN:
-		{
-			SDL_Rect rect = skill21->GetTextureRect();
-			SDL_Rect rect2 = attack2->GetTextureRect();
-			attack2->SetTextureRect(rect);
-			skill21->SetTextureRect(rect2);
-		}
-		break;
-		}
-	}
-	if (skill22 == element)
-	{
-		switch (even)
-		{
-		case EVENT_MOUSE_LEFTCLICK_DOWN:
-		{
-			SDL_Rect rect = skill22->GetTextureRect();
-			SDL_Rect rect2 = attack2->GetTextureRect();
-			attack2->SetTextureRect(rect);
-			skill22->SetTextureRect(rect2);
-		}
-		break;
-		}
-	}
-	if (skill23 == element)
-	{
-		switch (even)
-		{
-		case EVENT_MOUSE_LEFTCLICK_DOWN:
-		{
-			SDL_Rect rect = skill23->GetTextureRect();
-			SDL_Rect rect2 = attack2->GetTextureRect();
-			attack2->SetTextureRect(rect);
-			skill23->SetTextureRect(rect2);
-		}
-		break;
-		}
-	}
-	//HUD end ---------------------------------*/
+
+
+	
 }
 
 //Sets the life stat at the HUD
@@ -706,4 +663,10 @@ void hudBelt::RunningOn()
 	{
 		runbutton->SetTextureRect({ 153, 280, 18, 22 });
 	}
+}
+
+//NOTE: not sure but meh
+void hudBelt::UnlockSkill()
+{
+	
 }

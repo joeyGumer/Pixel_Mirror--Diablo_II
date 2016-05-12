@@ -54,6 +54,9 @@ public:
 	//Running On
 	void RunningOn();
 
+	//Skills
+	void UnlockSkill();
+
 public:
 
 	//Life
@@ -104,11 +107,11 @@ public:
 
 	//Left skills
 	GuiSkill* left_basic_attack = NULL;
-
+	GuiSkill* blood_arrow = NULL;
 
 	//Right skills
 	GuiSkill* right_basic_attack = NULL;
-	GuiSkill* blood_arrow = NULL;
+	
 
 	
 

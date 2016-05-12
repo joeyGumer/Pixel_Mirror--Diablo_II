@@ -365,9 +365,9 @@ GuiInventory* j1Gui::AddGuiInventory(iPoint p, SDL_Rect r, int col, int rows, in
 }
 
 
-GuiSkill* j1Gui::AddGuiSkill(iPoint p, SDL_Rect r, Skill* s, GuiElement* par, j1Module* list)
+GuiSkill* j1Gui::AddGuiSkill(iPoint p, SDL_Rect r, SDL_Rect r2, Skill* s, GuiElement* par, j1Module* list)
 {
-	GuiSkill* skill = new GuiSkill(p, r, s, par, list);
+	GuiSkill* skill = new GuiSkill(p, r, r2, s, par, list);
 	gui_elements.push_back(skill);
 
 	if (par != NULL)par->AddChild(skill);

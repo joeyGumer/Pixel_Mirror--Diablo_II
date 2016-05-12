@@ -14,7 +14,7 @@ class Skill;
 class GuiSkill : public GuiElement
 {
 public:
-	GuiSkill(iPoint p, SDL_Rect r, Skill* s, GuiElement* par, j1Module* list);
+	GuiSkill(iPoint p, SDL_Rect r, SDL_Rect r2, Skill* s, GuiElement* par, j1Module* list);
 	~GuiSkill();
 
 	void Draw();
@@ -26,6 +26,9 @@ public:
 	Skill*			skill;
 	GuiImage		image;
 	int				price;
+
+	SDL_Rect		unlocked;
+	SDL_Rect		locked;
 
 }
 
