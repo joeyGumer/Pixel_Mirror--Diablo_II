@@ -267,32 +267,77 @@ bool snOutdoor2::UnLoad()
 Entity* snOutdoor2::AddEnemy(iPoint pos)
 {
 	int lvl;
+	Entity* ret = NULL;
 	if (App->sm->level1 == App->sm->outdoor2)
 	{
 		lvl = 1;
+		int random = rand() % 12;
+
+		if (random <= 2)
+		{
+			ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_CRAWLER, lvl);
+		}
+		else if (random <= 5)
+		{
+			ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF, lvl);
+		}
+		else if (random <= 7)
+		{
+			ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_COUNCIL, lvl);
+		}
+		else if (random <= 9)
+		{
+			ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_SUMMONER, lvl);
+		}
+		else if (random <= 11)
+		{
+			ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_SHAMAN, lvl);
+		}
 	}
 
 	else if (App->sm->level2 == App->sm->outdoor2)
 	{
 		lvl = 2;
+		int random = rand() % 12;
+
+		if (random <= 2)
+		{
+			ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_CRAWLER, lvl);
+		}
+		else if (random <= 5)
+		{
+			ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF, lvl);
+		}
+		else if (random <= 7)
+		{
+			ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_COUNCIL, lvl);
+		}
+		else if (random <= 9)
+		{
+			ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_SUMMONER, lvl);
+		}
+		else if (random <= 11)
+		{
+			ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_SHAMAN, lvl);
+		}
 	}
 
 	else if (App->sm->level3 == App->sm->outdoor2)
 	{
 		lvl = 3;
+		int random = rand() % 5;
+
+		if (random == 0)
+			ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_CRAWLER, lvl);
+		if (random == 1)
+			ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF, lvl);
+		if (random == 2)
+			ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_COUNCIL, lvl);
+		if (random == 3)
+			ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_SUMMONER, lvl);
+		if (random == 4)
+			ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_SHAMAN, lvl);
 	}
-	Entity* ret = NULL;
-	int random = rand() % 5;
-	if (random == 0)
-		ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_CRAWLER, lvl);
-	if (random == 1)
-		ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF, lvl);
-	if (random == 2)
-		ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_COUNCIL, lvl);
-	if (random == 3)
-		ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_SUMMONER, lvl);
-	if (random == 4)
-		ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_SHAMAN, lvl);
 
 	return ret;
 }
