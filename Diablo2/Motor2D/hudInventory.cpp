@@ -225,6 +225,7 @@ bool hudInventory::AddItem(GuiItem* item)
 	//Potion
 	if (!inventory->AutomaticAddItem(item))
 	{
+		item->convert = true;
 		RELEASE(item);
 		ret = false;
 	}

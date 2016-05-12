@@ -6,6 +6,8 @@
 #include "j1HUD.h"
 #include "j1Player.h"
 #include "j1Input.h"
+#include "Skill.h"
+#include "PlayerSkills.h"
 
 //NOTE: PROVISIONAL 
 #include "j1Fonts.h"
@@ -87,23 +89,23 @@ bool hudBelt::Start()
 	hud_gui_elements.push_back(minipanelbutton);
 	*/
 
-
-	/*attack1 = App->gui->AddGuiImage({ -50, 0 }, { 102, 280, 50, 47 }, HUD, this);
-	attack1->interactable = true;
-	hud_gui_elements.push_back(attack1);
-
-	attack2 = App->gui->AddGuiImage({ 308, 0 }, { 102, 280, 50, 47 }, HUD, this);
-	attack2->interactable = true;
-	hud_gui_elements.push_back(attack2);
-
 	//Skills
-	//Attack 1 ----------------------------------------
-	skill11 = App->gui->AddGuiImage({ -51, -70 }, { 51, 280, 50, 47 }, HUD, this);
-	skill11->interactable = true;
-	skill11->active = false;
-	hud_gui_elements.push_back(skill11);
+	attack_right = App->gui->AddGuiSkill({ -50, 0 }, { 102, 280, 50, 47 }, player->right_skill, HUD, this);
+	attack_right->interactable = true;
+	hud_gui_elements.push_back(attack_right);
 
-	skill12 = App->gui->AddGuiImage({ 20, -70 }, { 0, 280, 50, 47 }, HUD, this);
+	attack_left = App->gui->AddGuiSkill({ 308, 0 }, { 102, 280, 50, 47 },player->left_skill, HUD, this);
+	attack_left->interactable = true;
+	hud_gui_elements.push_back(attack_left);
+
+	//Left Skills
+	//Attack 1 ----------------------------------------
+	left_basic_attack = App->gui->AddGuiSkill({ -51, -70 }, { 1128, 119, 50, 47 }, player->basic_attack, HUD, this);
+	left_basic_attack->interactable = true;
+	left_basic_attack->active = false;
+	hud_gui_elements.push_back(left_basic_attack);
+
+	/*skill12 = App->gui->AddGuiImage({ 20, -70 }, { 0, 280, 50, 47 }, HUD, this);
 	skill12->interactable = true;
 	skill12->active = false;
 	hud_gui_elements.push_back(skill12);
