@@ -368,12 +368,38 @@ Entity* snOutdoor2::AddBoss(iPoint pos)
 	if (random == 2)
 		ret = App->game->em->AddEnemy(pos, ENEMY_NEST, lvl);
 
+	portal_spawn = pos;
+
 	return ret;
 }
 
 void snOutdoor2::AddPortal(iPoint pos)
 {
-	Entity* to_add = App->game->em->Add(pos, PORTAL);
+	Entity* to_add = App->game->em->Add(portal_spawn, PORTAL);
+
+	iPoint pos2;
+
+	if (to_add == NULL)
+	{
+		pos2.x = portal_spawn.x;
+		pos2.y = portal_spawn.y + 30;
+		to_add = App->game->em->Add(pos2, PORTAL);
+	}
+
+	else if (to_add == NULL)
+	{
+		pos2.x = portal_spawn.x + 30;
+		pos2.y = portal_spawn.y + 30;
+		to_add = App->game->em->Add(pos2, PORTAL);
+	}
+
+	else if (to_add == NULL)
+	{
+		pos2.x = portal_spawn.x - 30;
+		pos2.y = portal_spawn.y + 30;
+		to_add = App->game->em->Add(pos2, PORTAL);
+	}
+
 	EntPortal* portal = (EntPortal*)to_add;
 	if (App->sm->level1 == App->sm->outdoor2)
 	{

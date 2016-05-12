@@ -66,6 +66,8 @@ public:
 
 	list<Entity*>		entity_list;
 
+	iPoint portal_spawn;
+
 	bool win;
 };
 
