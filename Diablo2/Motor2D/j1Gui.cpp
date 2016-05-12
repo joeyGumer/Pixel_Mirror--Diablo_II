@@ -344,6 +344,14 @@ GuiElement* j1Gui::FindSelectedElement()
 	}
 	return NULL;
 }
+GuiAnimation* j1Gui::AddGuiAnimation(iPoint p, Animation anima, SDL_Texture* texture, GuiElement* par, j1Module* list)
+{
+	GuiAnimation* anim = new GuiAnimation(p,anima,texture, par,  list);
+	gui_elements.push_back(anim);
+	if (par != NULL)par->AddChild(anim);
+	return anim;
+}
+
 
 //EXERCISE 1
 GuiSlider* j1Gui::AddGuiSlider(iPoint p, SDL_Rect tex_1, SDL_Rect tex_2, int width, int thumb_h, iPoint offset, float value, GuiElement* par, j1Module* list)

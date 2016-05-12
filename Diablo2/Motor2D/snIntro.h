@@ -10,7 +10,7 @@ using namespace std;
 class GuiImage;
 class GuiElement;
 class GuiButton;
-
+class GuiAnimation;
 class snIntro : public j1Scene
 {
 public:
@@ -56,7 +56,7 @@ private:
 	GuiButton* controls_button = NULL;
 	GuiButton* exit_button = NULL;
 	GuiImage* background = NULL;
-	
+	GuiAnimation* titleAnim = NULL;
 	SDL_Texture* title = NULL;
 	Animation logo;
 

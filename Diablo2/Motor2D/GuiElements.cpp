@@ -93,6 +93,12 @@ GuiMouseImage::GuiMouseImage(iPoint p, SDL_Rect r, GuiElement* par, j1Module* li
 	: GuiElement(p, r, GUI_MOUSE_IMAGE, par, list), mouse_image({ p.x, p.y }, r, this, NULL)
 {}
 
+GuiAnimation::GuiAnimation(iPoint p, Animation anim, SDL_Texture* texture, GuiElement* par, j1Module* list)
+		: GuiElement(p, GUI_ANIM, par, list)
+{
+	anima = anim;
+	tex = texture;
+}
 
 
 
@@ -191,8 +197,14 @@ void GuiText::Draw()
 	{
 		labels[i].Draw();
 	}
-	
 }
+void GuiAnimation::Draw()
+{
+	App->render->Blit(tex, (GetScreenPosition().x - App->render->camera.x), (GetScreenPosition().y - App->render->camera.y), &anima.GetCurrentFrame());
+}
+
+
+
 //
 
 //Update functions
@@ -213,7 +225,10 @@ void GuiLabel::Update(GuiElement* hover, GuiElement* focus)
 {
 	//Nothing
 }
-
+void GuiAnimation::Update(GuiElement* hover, GuiElement* focus)
+{
+	//Nothing
+}
 void GuiInputBox::Update(GuiElement* hover, GuiElement* focus)
 {
 	bool focused = (focus == this);

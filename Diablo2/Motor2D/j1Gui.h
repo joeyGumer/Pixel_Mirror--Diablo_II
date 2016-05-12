@@ -11,7 +11,7 @@
 #include <vector>
 #include <list>
 
-
+#include "Animation.h"
 #define CURSOR_WIDTH 2
 
 // ---------------------------------------------------
@@ -58,7 +58,7 @@ public:
 	GuiText* AddGuiText(iPoint p, vector<StringColor> text, GuiElement* par, j1Module* list = NULL);
 	//Function that creates an inventory
 	GuiInventory* AddGuiInventory(iPoint p, SDL_Rect r, int columns, int rows, int slot_w, int slot_h, GuiElement* par = NULL, j1Module* list = NULL);
-	
+	GuiAnimation *  AddGuiAnimation(iPoint p, Animation anim, SDL_Texture* texture, GuiElement* par, j1Module* list = NULL);
 	
 	//Get selected element
 	GuiElement* FindSelectedElement();

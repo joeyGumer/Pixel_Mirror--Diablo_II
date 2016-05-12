@@ -23,6 +23,8 @@ snIntro::~snIntro()
 // Called before render is available
 bool snIntro::Awake(pugi::xml_node& conf)
 {
+	
+
 	return true;
 }
 
@@ -42,13 +44,15 @@ bool snIntro::Start()
 	intro_gui.push_back(background);
 
 	//Title animation
-	title = App->tex->Load("gui/NewTitle.png");
+	if (title == NULL)
+		title = App->tex->Load("gui/NewTitle.png");
 
 	logo.SetFrames( 0, 0, 400, 170, 30, 0 );
 	logo.loop = true;
 	logo.speed = 0.2f;
 
-
+	titleAnim = App->gui->AddGuiAnimation({ 115, 0 }, logo, title, NULL, this);
+	intro_gui.push_back(titleAnim);
 	//Play button
 	play_button = App->gui->AddGuiButton({ 181, 280 }, { 0, 0, 270, 35 }, { 0, 0, 270, 35 }, { 0, 36, 270, 35 }, "Single player", NULL, this);
 	intro_gui.push_back(play_button);
@@ -72,6 +76,7 @@ bool snIntro::Start()
 // PreUpdate
 bool snIntro::PreUpdate()
 {
+	
 	return true;
 }
 
@@ -113,8 +118,7 @@ bool snIntro::Update(float dt)
 bool snIntro::PostUpdate()
 {
 	//Logo animation
-	App->render->Blit(title, -165, 0, &logo.GetCurrentFrame());
-
+	
 	return true;
 }
 
@@ -137,9 +141,9 @@ bool snIntro::CleanUp()
 			}
 		}
 	}
-
+	
 	intro_gui.clear();
-
+	
 	return true;
 }
 

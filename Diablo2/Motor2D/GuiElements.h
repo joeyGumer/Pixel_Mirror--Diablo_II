@@ -5,6 +5,7 @@
 #include "p2Point.h"
 #include <vector>
 #include <list>
+#include "Animation.h"
 ;
 using namespace std;
 // WARNING: I'm doing trap here...
@@ -12,7 +13,7 @@ using namespace std;
 
 struct SDL_Texture;
 struct _TTF_Font;
-
+class Animation;
 enum GUI_Type
 {
 	GUI_LABEL,
@@ -26,7 +27,8 @@ enum GUI_Type
 	GUI_SLOT,
 	GUI_SKILL,
 	GUI_MINIMAP,
-	GUI_TEXT
+	GUI_TEXT,
+	GUI_ANIM
 };
 
 enum GUI_Event
@@ -246,7 +248,18 @@ public:
 
 	vector<GuiLabel> labels;
 };
+class GuiAnimation : public GuiElement
+{
+public:
+	GuiAnimation(iPoint p, Animation anim,SDL_Texture* texture, GuiElement* par, j1Module* list);
+	~GuiAnimation(){}
 
+	void Draw();
+	void Update(GuiElement* hover, GuiElement* focus);
+
+	Animation anima;
+	SDL_Texture* tex;
+};
 
 
 //----
