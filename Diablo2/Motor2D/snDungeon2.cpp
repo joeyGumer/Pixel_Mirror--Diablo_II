@@ -314,6 +314,35 @@ Entity* snDungeon2::AddEnemy(iPoint pos)
 	return ret;
 }
 
+Entity* snDungeon2::AddBoss(iPoint pos)
+{
+	int lvl;
+	if (App->sm->level1 == App->sm->dungeon2)
+	{
+		lvl = 1;
+	}
+
+	else if (App->sm->level2 == App->sm->dungeon2)
+	{
+		lvl = 2;
+	}
+
+	else if (App->sm->level3 == App->sm->dungeon2)
+	{
+		lvl = 3;
+	}
+	Entity* ret = NULL;
+	int random = rand() % 3;
+	if (random == 0)
+		ret = App->game->em->AddEnemy(pos, ENEMY_ANDARIEL, lvl);
+	if (random == 1)
+		ret = App->game->em->AddEnemy(pos, ENEMY_IZUAL, lvl);
+	if (random == 2)
+		ret = App->game->em->AddEnemy(pos, ENEMY_NEST, lvl);
+
+	return ret;
+}
+
 //Spawn Player
 void snDungeon2::SpawnPlayer()
 {
@@ -339,25 +368,25 @@ void snDungeon2::SpawnPlayer()
 	if (random2 == 0)
 	{
 		pos = { 1442, 1530 };
-		to_add = App->game->em->AddEnemy(pos, ENEMY_IZUAL, 1);
+		to_add = AddBoss(pos);
 		entity_list.push_back(to_add);
 	}	
 	else if (random2 == 1)
 	{
 		pos = { 120, 2169 };
-		to_add = App->game->em->AddEnemy(pos, ENEMY_IZUAL, 1);
+		to_add = AddBoss(pos);
 		entity_list.push_back(to_add);
 	}	
 	else if (random2 == 2)
 	{
 		pos = { -1262, 3101 };
-		to_add = App->game->em->AddEnemy(pos, ENEMY_IZUAL, 1);
+		to_add = AddBoss(pos);
 		entity_list.push_back(to_add);
 	}	
 	else if (random2 == 3)
 	{
 		pos = { -2340, 1961 };
-		to_add = App->game->em->AddEnemy(pos, ENEMY_IZUAL, 1);
+		to_add = AddBoss(pos);
 		entity_list.push_back(to_add);
 	}
 	
