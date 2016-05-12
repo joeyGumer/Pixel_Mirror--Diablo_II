@@ -9,7 +9,7 @@ class EntEnemyNest : public EntEnemy
 public:
 
 	//Constructor
-	EntEnemyNest(const iPoint &p, uint ID);
+	EntEnemyNest(const iPoint &p, uint ID, int lvl);
 	~EntEnemyNest();
 
 	bool Update(float dt);

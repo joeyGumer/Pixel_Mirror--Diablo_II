@@ -9,7 +9,7 @@ class EntEnemyIzual : public EntEnemy
 public:
 
 	//Constructor
-	EntEnemyIzual(const iPoint &p, uint ID);
+	EntEnemyIzual(const iPoint &p, uint ID, int lvl);
 
 	bool Update(float dt);
 

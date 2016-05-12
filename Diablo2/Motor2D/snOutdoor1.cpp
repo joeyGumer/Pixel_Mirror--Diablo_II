@@ -199,7 +199,7 @@ bool snOutdoor1::Update(float dt)
 		p.x += App->map->data.tile_width / 2;
 		p.y += App->map->data.tile_height / 2;
 
-		Entity* ent = App->game->em->AddEnemy(p, ENEMY_WOLF);
+		Entity* ent = App->game->em->AddEnemy(p, ENEMY_WOLF, 1);
 
 	}
 
@@ -210,7 +210,7 @@ bool snOutdoor1::Update(float dt)
 		p.x += App->map->data.tile_width / 2;
 		p.y += App->map->data.tile_height / 2;
 
-		Entity* ent = App->game->em->AddEnemy(p, ENEMY_CRAWLER);
+		Entity* ent = App->game->em->AddEnemy(p, ENEMY_CRAWLER, 1);
 	}
 
 	else if (App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN && App->debug)
@@ -220,7 +220,7 @@ bool snOutdoor1::Update(float dt)
 		p.x += App->map->data.tile_width / 2;
 		p.y += App->map->data.tile_height / 2;
 
-		Entity* ent = App->game->em->AddEnemy(p, ENEMY_COUNCIL);
+		Entity* ent = App->game->em->AddEnemy(p, ENEMY_COUNCIL, 1);
 	}
 
 	else if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN && App->debug)
@@ -230,7 +230,7 @@ bool snOutdoor1::Update(float dt)
 		p.x += App->map->data.tile_width / 2;
 		p.y += App->map->data.tile_height / 2;
 
-		Entity* ent = App->game->em->AddEnemy(p, ENEMY_SHAMAN);
+		Entity* ent = App->game->em->AddEnemy(p, ENEMY_SHAMAN, 1);
 	}
 
 	else if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN && App->debug)
@@ -240,7 +240,7 @@ bool snOutdoor1::Update(float dt)
 		p.x += App->map->data.tile_width / 2;
 		p.y += App->map->data.tile_height / 2;
 
-		Entity* ent = App->game->em->AddEnemy(p, ENEMY_SUMMONER);
+		Entity* ent = App->game->em->AddEnemy(p, ENEMY_SUMMONER, 1);
 	}
 
 	else if (App->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN)
@@ -250,7 +250,7 @@ bool snOutdoor1::Update(float dt)
 		p.x += App->map->data.tile_width / 2;
 		p.y += App->map->data.tile_height / 2;
 
-		Entity* ent = App->game->em->AddEnemy(p, ENEMY_IZUAL);
+		Entity* ent = App->game->em->AddEnemy(p, ENEMY_IZUAL, 1);
 	}
 
 	else if (App->input->GetKey(SDL_SCANCODE_U) == KEY_DOWN)
@@ -260,7 +260,7 @@ bool snOutdoor1::Update(float dt)
 		p.x += App->map->data.tile_width / 2;
 		p.y += App->map->data.tile_height / 2;
 
-		Entity* ent = App->game->em->AddEnemy(p, ENEMY_ANDARIEL);
+		Entity* ent = App->game->em->AddEnemy(p, ENEMY_ANDARIEL, 1);
 	}
 
 	//Map

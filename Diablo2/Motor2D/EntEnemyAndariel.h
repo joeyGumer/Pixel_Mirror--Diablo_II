@@ -9,7 +9,7 @@ class EntEnemyAndariel : public EntEnemy
 public:
 
 	//Constructor
-	EntEnemyAndariel(const iPoint &p, uint ID);
+	EntEnemyAndariel(const iPoint &p, uint ID, int lvl);
 
 	bool Update(float dt);
 

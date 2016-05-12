@@ -47,8 +47,8 @@ public:
 	void OnCollision(Collider* c1, Collider* c2);
 
 	Entity* Add(iPoint &pos, ENTITY_TYPE type);
-	Entity* AddEnemy(iPoint &pos, ENEMY_TYPE type);
-	Entity* AddEnemyMap(iPoint &pos, ENEMY_TYPE type);
+	Entity* AddEnemy(iPoint &pos, ENEMY_TYPE type, int level);
+	Entity* AddEnemyMap(iPoint &pos, ENEMY_TYPE type, int level);
 	bool Remove(uint id);
 	Entity* GetEntity(uint id);
 

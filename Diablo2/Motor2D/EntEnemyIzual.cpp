@@ -13,9 +13,12 @@
 
 
 //Constructor
-EntEnemyIzual::EntEnemyIzual(const iPoint &p, uint ID) : EntEnemy(p, ID)
+EntEnemyIzual::EntEnemyIzual(const iPoint &p, uint ID, int lvl) : EntEnemy(p, ID)
 {
 	name = "izual";
+
+	level = lvl;
+
 	tex = idle_tex = App->game->em->izual_idle;
 	walk_tex = App->game->em->izual_walk;
 	death_tex = App->game->em->izual_death;

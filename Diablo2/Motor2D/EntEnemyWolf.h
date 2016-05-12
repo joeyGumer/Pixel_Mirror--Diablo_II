@@ -8,7 +8,7 @@ class EntEnemyWolf : public EntEnemy
 public:
 
 	//Constructor
-	EntEnemyWolf(const iPoint &p, uint ID);
+	EntEnemyWolf(const iPoint &p, uint ID, int lvl);
 
 	bool Update(float dt);
 

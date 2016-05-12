@@ -12,9 +12,12 @@
 
 
 //Constructor
-EntEnemyNest::EntEnemyNest(const iPoint &p, uint ID) : EntEnemy(p, ID)
+EntEnemyNest::EntEnemyNest(const iPoint &p, uint ID, int lvl) : EntEnemy(p, ID)
 {
 	name = "nest";
+
+	level = lvl;
+
 	tex = idle_tex = App->game->em->nest_idle;
 	death_tex = App->game->em->nest_death;
 	attack_tex = App->game->em->nest_cast;
@@ -440,7 +443,7 @@ void EntEnemyNest::UpdateSummon()
 		iPoint pos = GetMapPosition();
 		pos.x -= 2;
 		pos.y += 2;
-		to_summon = App->game->em->AddEnemyMap(pos, ENEMY_CRAWLER);
+		to_summon = App->game->em->AddEnemyMap(pos, ENEMY_CRAWLER, level);
 		if (to_summon != NULL)
 		{
 			summon_list.push_back(to_summon);

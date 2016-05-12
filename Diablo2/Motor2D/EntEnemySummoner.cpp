@@ -12,9 +12,12 @@
 
 
 //Constructor
-EntEnemySummoner::EntEnemySummoner(const iPoint &p, uint ID) : EntEnemy(p, ID)
+EntEnemySummoner::EntEnemySummoner(const iPoint &p, uint ID, int lvl) : EntEnemy(p, ID)
 {
 	name = "summoner";
+
+	level = lvl;
+
 	tex = idle_tex = App->game->em->summoner_idle;
 	walk_tex = App->game->em->summoner_walk;
 	death_tex = App->game->em->summoner_death;
@@ -525,7 +528,7 @@ void EntEnemySummoner::UpdateSummon()
 		{
 			pos.y -= 3;
 		}
-		to_summon = App->game->em->AddEnemyMap(pos, ENEMY_WOLF);
+		to_summon = App->game->em->AddEnemyMap(pos, ENEMY_WOLF, level);
 		if (to_summon != NULL)
 		{
 			summon_list.push_back(to_summon);

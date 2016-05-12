@@ -8,9 +8,12 @@
 #include "j1Map.h"
 
 //Constructor
-EntEnemyCrawler::EntEnemyCrawler(const iPoint &p, uint ID) : EntEnemy(p, ID)
+EntEnemyCrawler::EntEnemyCrawler(const iPoint &p, uint ID, int lvl) : EntEnemy(p, ID)
 {
 	name = "crawler";
+
+	level = lvl;
+
 	tex = idle_tex = App->game->em->crawler_idle;
 	walk_tex = App->game->em->crawler_walk;
 	death_tex = App->game->em->crawler_death;

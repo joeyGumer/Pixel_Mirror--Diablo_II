@@ -339,14 +339,12 @@ Entity* j1EntityManager::Add(iPoint &pos, ENTITY_TYPE type)
 		switch (type)
 		{
 		//NOTE: to diferentiate the kinds of enemies, put ENEMY_TYPE enum, but don't use the one from the diferent kinds of entities
-		case (ENEMY) :
-			entity = new EntEnemyWolf(pos, ++next_ID);
-			break;
 		case (ITEM) :
 			entity = new EntItem(pos, ++next_ID);
 			break;
 		case(PORTAL) :
 			entity = new EntPortal(pos, ++next_ID);
+			break;
 		}
 
 		// We add the new entity to the map of active entities. 
@@ -356,7 +354,7 @@ Entity* j1EntityManager::Add(iPoint &pos, ENTITY_TYPE type)
 	return entity;
 }
 
-Entity* j1EntityManager::AddEnemy(iPoint &pos, ENEMY_TYPE type)
+Entity* j1EntityManager::AddEnemy(iPoint &pos, ENEMY_TYPE type, int level)
 {
 	Entity* entity = NULL;
 	iPoint tile_pos = App->map->WorldToMap(pos.x, pos.y);
@@ -376,30 +374,30 @@ Entity* j1EntityManager::AddEnemy(iPoint &pos, ENEMY_TYPE type)
 		{
 			//NOTE: to diferentiate the kinds of enemies, put ENEMY_TYPE enum, but don't use the one from the diferent kinds of entities
 		case (ENEMY_WOLF) :
-			entity = new EntEnemyWolf(pos, ++next_ID);
+			entity = new EntEnemyWolf(pos, ++next_ID, level);
 			break;
 
 		case (ENEMY_CRAWLER) :
-			entity = new EntEnemyCrawler(pos, ++next_ID);
+			entity = new EntEnemyCrawler(pos, ++next_ID, level);
 			break;
 
 		case (ENEMY_COUNCIL) :
-			entity = new EntEnemyCouncil(pos, ++next_ID);
+			entity = new EntEnemyCouncil(pos, ++next_ID, level);
 			break;
 		case (ENEMY_SHAMAN) :
-			entity = new EntEnemyShaman(pos, ++next_ID);
+			entity = new EntEnemyShaman(pos, ++next_ID, level);
 			break;
 		case (ENEMY_SUMMONER) :
-			entity = new EntEnemySummoner(pos, ++next_ID);
+			entity = new EntEnemySummoner(pos, ++next_ID, level);
 			break;
 		case (ENEMY_IZUAL) :
-			entity = new EntEnemyIzual(pos, ++next_ID);
+			entity = new EntEnemyIzual(pos, ++next_ID, level);
 			break;
 		case (ENEMY_ANDARIEL) :
-			entity = new EntEnemyAndariel(pos, ++next_ID);
+			entity = new EntEnemyAndariel(pos, ++next_ID, level);
 			break;
 		case (ENEMY_NEST) :
-			entity = new EntEnemyNest(pos, ++next_ID);
+			entity = new EntEnemyNest(pos, ++next_ID, level);
 			break;
 		}
 
@@ -410,7 +408,7 @@ Entity* j1EntityManager::AddEnemy(iPoint &pos, ENEMY_TYPE type)
 	return entity;
 }
 
-Entity* j1EntityManager::AddEnemyMap(iPoint &pos, ENEMY_TYPE type)
+Entity* j1EntityManager::AddEnemyMap(iPoint &pos, ENEMY_TYPE type, int level)
 {
 	Entity* entity = NULL;
 	iPoint tile_pos = pos;
@@ -430,24 +428,30 @@ Entity* j1EntityManager::AddEnemyMap(iPoint &pos, ENEMY_TYPE type)
 		{
 			//NOTE: to diferentiate the kinds of enemies, put ENEMY_TYPE enum, but don't use the one from the diferent kinds of entities
 		case (ENEMY_WOLF) :
-			entity = new EntEnemyWolf(App->map->MapToWorld(pos.x, pos.y), ++next_ID);
+			entity = new EntEnemyWolf(App->map->MapToWorld(pos.x, pos.y), ++next_ID, level);
 			break;
 
 		case (ENEMY_CRAWLER) :
-			entity = new EntEnemyCrawler(App->map->MapToWorld(pos.x, pos.y), ++next_ID);
+			entity = new EntEnemyCrawler(App->map->MapToWorld(pos.x, pos.y), ++next_ID, level);
 			break;
 
 		case (ENEMY_COUNCIL) :
-			entity = new EntEnemyCouncil(App->map->MapToWorld(pos.x, pos.y), ++next_ID);
+			entity = new EntEnemyCouncil(App->map->MapToWorld(pos.x, pos.y), ++next_ID, level);
 			break;
 		case (ENEMY_SHAMAN) :
-			entity = new EntEnemyShaman(App->map->MapToWorld(pos.x, pos.y), ++next_ID);
+			entity = new EntEnemyShaman(App->map->MapToWorld(pos.x, pos.y), ++next_ID, level);
 			break;
 		case (ENEMY_SUMMONER) :
-			entity = new EntEnemySummoner(App->map->MapToWorld(pos.x, pos.y), ++next_ID);
+			entity = new EntEnemySummoner(App->map->MapToWorld(pos.x, pos.y), ++next_ID, level);
 			break;
 		case (ENEMY_IZUAL) :
-			entity = new EntEnemyIzual(App->map->MapToWorld(pos.x, pos.y), ++next_ID);
+			entity = new EntEnemyIzual(App->map->MapToWorld(pos.x, pos.y), ++next_ID, level);
+			break;
+		case (ENEMY_ANDARIEL) :
+			entity = new EntEnemyAndariel(App->map->MapToWorld(pos.x, pos.y), ++next_ID, level);
+			break;
+		case (ENEMY_NEST) :
+			entity = new EntEnemyNest(App->map->MapToWorld(pos.x, pos.y), ++next_ID, level);
 			break;
 		}
 

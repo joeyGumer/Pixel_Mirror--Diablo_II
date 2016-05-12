@@ -13,9 +13,12 @@
 
 
 //Constructor
-EntEnemyAndariel::EntEnemyAndariel(const iPoint &p, uint ID) : EntEnemy(p, ID)
+EntEnemyAndariel::EntEnemyAndariel(const iPoint &p, uint ID, int lvl) : EntEnemy(p, ID)
 {
 	name = "andariel";
+
+	level = lvl;
+
 	tex = idle_tex = App->game->em->andariel_idle;
 	walk_tex = App->game->em->andariel_walk;
 	death_tex = App->game->em->andariel_death;

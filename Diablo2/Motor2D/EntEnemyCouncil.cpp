@@ -11,9 +11,12 @@
 #include "j1SceneManager.h"
 
 //Constructor
-EntEnemyCouncil::EntEnemyCouncil(const iPoint &p, uint ID) : EntEnemy(p, ID)
+EntEnemyCouncil::EntEnemyCouncil(const iPoint &p, uint ID, int lvl) : EntEnemy(p, ID)
 {
 	name = "council member";
+
+	level = lvl;
+
 	tex = idle_tex = App->game->em->boss_idle;
 	walk_tex = App->game->em->boss_walk;
 	death_tex = App->game->em->boss_death;
