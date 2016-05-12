@@ -18,6 +18,7 @@ EntEnemyCouncil::EntEnemyCouncil(const iPoint &p, uint ID) : EntEnemy(p, ID)
 	walk_tex = App->game->em->boss_walk;
 	death_tex = App->game->em->boss_death;
 	attack_tex = App->game->em->boss_attack;
+	cast_tex = App->game->em->boss_cast;
 
 	SetAnimations();
 	current_animation_set = idle;
@@ -110,6 +111,7 @@ EntEnemyCouncil::EntEnemyCouncil(const iPoint &p, uint ID) : EntEnemy(p, ID)
 	magic_timer.Start();
 	//------------------------------------
 
+	SetParticles();
 	last_update = PATHFINDING_FRAMES;
 
 	SDL_Rect col_rect;
@@ -148,8 +150,19 @@ bool EntEnemyCouncil::Update(float dt)
 
 		fPoint player_pos = App->game->player->GetPivotPosition();
 
+		if (ReadyToCast())
+		{
+			attacking = true;
+			current_input = ENTITY_INPUT_CAST;
+
+			particle_destination.x = enemy->p_position.x;
+			particle_destination.y = enemy->p_position.y - 40;
+
+			magic_timer.Start();
+		}
+
 		//NOTE: The enemy is for following the player one it has been founded, but for now, better not, because of the low framerate
-		if ((PlayerInRange()) && !attacking && last_update >= PATHFINDING_FRAMES)
+		else if ((PlayerInRange()) && !attacking && last_update >= PATHFINDING_FRAMES)
 		{
 			last_update = 0;
 			int target_x = player_pos.x;
@@ -181,6 +194,9 @@ bool EntEnemyCouncil::Update(float dt)
 
 		switch (current_action)
 		{
+		case ENTITY_CASTING:
+			UpdateCast();
+			break;
 		case ENTITY_ATTACKING:
 			UpdateAttack();
 		case ENTITY_WALKING:
@@ -213,6 +229,10 @@ ENTITY_STATE EntEnemyCouncil::UpdateAction()
 			{
 				current_action = ENTITY_ATTACKING;
 			}
+			if (current_input == ENTITY_INPUT_CAST)
+			{
+				current_action = ENTITY_CASTING;
+			}
 		}
 		break;
 
@@ -230,10 +250,27 @@ ENTITY_STATE EntEnemyCouncil::UpdateAction()
 			{
 				current_action = ENTITY_ATTACKING;
 			}
+			if (current_input == ENTITY_INPUT_CAST)
+			{
+				current_action = ENTITY_CASTING;
+			}
 		}
 		break;
 
 		case ENTITY_ATTACKING:
+		{
+			if (current_input == ENTITY_INPUT_STOP_MOVE)
+			{
+				current_action = ENTITY_IDLE;
+			}
+			if (current_input == ENTITY_INPUT_DEATH)
+			{
+				current_action = ENTITY_DEATH;
+			}
+		}
+		break;
+
+		case ENTITY_CASTING:
 		{
 			if (current_input == ENTITY_INPUT_STOP_MOVE)
 			{
@@ -329,6 +366,18 @@ void EntEnemyCouncil::StateMachine()
 		sprite_pivot.x += 30;
 
 		break;
+
+	case ENTITY_CASTING:
+		tex = cast_tex;
+		current_animation_set = cast;
+
+		sprite_rect.w = sprite_dim.x = 106;
+		sprite_rect.h = sprite_dim.y = 129;
+		sprite_pivot = pivot = { collider_rect.w / 2, collider_rect.h - 20 };
+		sprite_pivot.y += 5;
+		sprite_pivot.x += 30;
+
+		break;
 	}
 }
 
@@ -392,4 +441,93 @@ void EntEnemyCouncil::SetAnimations()
 
 		attack.push_back(tmp);
 	}
+
+	//Cast
+	for (int i = 0; i < 8; i++)
+	{
+		Animation tmp;
+		int width = 106;
+		int height = 129;
+		int margin = 0;
+		tmp.SetFrames(0, (height + margin) * i, width, height, 14, margin);
+		tmp.loop = false;
+		tmp.speed = 0.2f;
+
+		cast.push_back(tmp);
+	}
+}
+
+void EntEnemyCouncil::SetParticles()
+{
+	particle.image = App->game->em->izual_particle;
+
+	particle.life = 5;
+	particle.type = PARTICLE_ENEMY_CAST;
+	particle.damage = magic_damage;
+	particle.speed.x = 0;
+	particle.speed.y = 0;
+	particle.anim.frames.push_back({ 0, 0, 64, 64 });
+	particle.anim.frames.push_back({ 64, 0, 64, 64 });
+	particle.anim.frames.push_back({ 128, 0, 64, 64 });
+	particle.anim.frames.push_back({ 192, 0, 64, 64 });
+	particle.anim.frames.push_back({ 256, 0, 64, 64 });
+	particle.anim.frames.push_back({ 320, 0, 64, 64 });
+	particle.anim.frames.push_back({ 384, 0, 64, 64 });
+	particle.anim.frames.push_back({ 448, 0, 64, 64 });
+	particle.anim.speed = 0.5f;
+	particle.anim.loop = true;
+	particle.anim.Reset();
+
+	particle.collider_margin.x = particle.anim.GetCurrentFrame().w / 3;
+	particle.collider_margin.y = particle.anim.GetCurrentFrame().h / 4;
+}
+
+void EntEnemyCouncil::UpdateCast()
+{
+	if (current_animation->CurrentFrame() >= 7 && !particle_is_casted)
+	{
+		particle_is_casted = true;
+		Particle* skill_particle1 = App->pm->AddParticle(particle, particle_destination.x + 50, particle_destination.y + 50, 5, particle.image);
+		Particle* skill_particle2 = App->pm->AddParticle(particle, particle_destination.x - 50, particle_destination.y - 50, 5, particle.image);
+		Particle* skill_particle3 = App->pm->AddParticle(particle, particle_destination.x + 50, particle_destination.y - 50, 5, particle.image);
+		Particle* skill_particle4 = App->pm->AddParticle(particle, particle_destination.x - 50, particle_destination.y + 50, 5, particle.image);
+	}
+
+	if (current_animation->Finished())
+	{
+		particle_is_casted = false;
+		attacking = false;
+		current_animation->Reset();
+		//input_locked = false;
+
+		if (!enemy->Alive() || !ReadyToCast())
+		{
+			current_input = ENTITY_INPUT_STOP_MOVE;
+		}
+	}
+}
+
+bool EntEnemyCouncil::ReadyToCast()
+{
+	return PlayerInCastRange() && !attacking && last_update >= PATHFINDING_FRAMES && magic_timer.ReadSec() >= magic_cooldown;
+}
+
+bool EntEnemyCouncil::PlayerInCastRange()
+{
+	fPoint target_enemy = App->game->player->GetPivotPosition();
+
+	fPoint dist;
+
+	dist.x = target_enemy.x - position.x;
+	dist.y = target_enemy.y - position.y;
+
+	float ret = dist.GetModule();
+	ret = ret;
+
+	if (magic_range > ret)
+	{
+		return true;
+	}
+
+	return false;
 }

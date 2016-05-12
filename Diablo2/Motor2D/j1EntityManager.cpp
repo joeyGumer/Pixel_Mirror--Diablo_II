@@ -81,6 +81,8 @@ bool j1EntityManager::Start()
 	texture_list.push_back(boss_death);
 	boss_attack = App->tex->Load("textures/boss_attack.png");
 	texture_list.push_back(boss_attack);
+	boss_cast = App->tex->Load("textures/boss_cast.png");
+	texture_list.push_back(boss_cast);
 
 	//Shaman
 	shaman_idle = App->tex->Load("textures/shaman_idle.png");

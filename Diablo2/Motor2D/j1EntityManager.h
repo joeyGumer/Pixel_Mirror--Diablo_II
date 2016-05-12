@@ -88,6 +88,7 @@ public:
 	SDL_Texture* boss_idle;
 	SDL_Texture* boss_walk;
 	SDL_Texture* boss_attack;
+	SDL_Texture* boss_cast;
 	SDL_Texture* boss_death;
 
 	//Shaman textures

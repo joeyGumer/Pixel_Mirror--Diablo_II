@@ -234,6 +234,7 @@ void EntEnemy::UpdateAttack()
 		//input_locked = false;
 	}
 }
+
 void EntEnemy::CheckToAttack()
 {
 	if (enemy && !attacking)

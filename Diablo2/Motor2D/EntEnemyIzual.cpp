@@ -379,7 +379,7 @@ void EntEnemyIzual::SetAnimations()
 
 void EntEnemyIzual::SetParticles()
 {
-	particle_izual.image = App->game->em->summoner_particle;
+	particle_izual.image = App->game->em->izual_particle;
 
 	particle_izual.life = 5;
 	particle_izual.type = PARTICLE_ENEMY_CAST;
