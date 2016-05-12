@@ -25,6 +25,7 @@ public:
 	int magic_damage;
 	float magic_range;
 	int magic_cooldown;
+	j1Timer magic_timer;
 
 };
 

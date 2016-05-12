@@ -106,6 +106,8 @@ EntEnemyCouncil::EntEnemyCouncil(const iPoint &p, uint ID) : EntEnemy(p, ID)
 			blood_drop += blood_drop / 2;
 		}
 	}
+
+	magic_timer.Start();
 	//------------------------------------
 
 	last_update = PATHFINDING_FRAMES;
