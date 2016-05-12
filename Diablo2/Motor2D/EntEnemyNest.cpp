@@ -35,7 +35,7 @@ EntEnemyNest::EntEnemyNest(const iPoint &p, uint ID, int lvl) : EntEnemy(p, ID)
 	//------------------------------------
 	//Life
 	int random_range = 51;
-	HP_max = HP_current = 150;
+	HP_max = HP_current = 200;
 
 	for (int i = 0; i < level; i++)
 	{
@@ -93,7 +93,7 @@ EntEnemyNest::EntEnemyNest(const iPoint &p, uint ID, int lvl) : EntEnemy(p, ID)
 	agro_range = 300.0f;
 
 	//Pure Blood Drop
-	blood_drop = 1200;
+	blood_drop = 1500;
 
 	for (int i = 0; i < level; i++)
 	{
