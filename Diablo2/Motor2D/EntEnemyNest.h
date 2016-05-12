@@ -42,6 +42,10 @@ public:
 	j1Timer summon_timer;
 	list<Entity*> summon_list;
 	bool summoned = false;
+
+	j1Timer ranged_timer;
+	int ranged_cooldown;
+	int		ranged_columns;
 };
 
 #endif
