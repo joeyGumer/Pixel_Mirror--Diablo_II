@@ -27,11 +27,11 @@ GuiItem::GuiItem(int s, iPoint* coord, SDL_Rect r)
 		coords[i] = coord[i];
 	}
 }
-	RELEASE(text);
+
 GuiItem::~GuiItem()
 {
 	RELEASE(coords);
-
+	RELEASE(text);
 	if (!convert)
 		RELEASE(nexus);
 }
