@@ -33,6 +33,8 @@ public:
 	fPoint		particle_destination;
 	bool		particle_is_casted = false;
 
+	bool		portal_appeared = false;
+
 	int magic_damage;
 	float magic_range;
 	int magic_cooldown;

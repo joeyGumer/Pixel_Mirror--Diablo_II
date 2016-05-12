@@ -8,6 +8,7 @@
 #include "j1EntityManager.h"
 #include "j1SceneManager.h"
 #include "j1Collision.h"
+#include "j1Scene.h"
 
 EntPortal::EntPortal(const iPoint &p, uint ID) : EntStatic(p, ID)
 {

@@ -10,6 +10,7 @@
 #include "snDungeon2.h"
 #include "snOutdoor2.h"
 #include "j1SceneManager.h"
+#include "EntPortal.h"
 
 
 //Constructor
@@ -217,10 +218,23 @@ bool EntEnemyIzual::Update(float dt)
 
 	else
 	{
-		if (win.ReadSec() > 5)
+		if (win.ReadSec() > 0 && !portal_appeared)
 		{
-			App->sm->outdoor2->win = true;
-			App->sm->dungeon2->win = true;
+			if (App->sm->GetCurrentScene() == App->sm->dungeon2)
+			{
+				iPoint pos;
+				pos.x = position.x;
+				pos.y = position.y+10;
+				App->sm->dungeon2->AddPortal(pos);
+			}
+			if (App->sm->GetCurrentScene() == App->sm->outdoor2)
+			{
+				iPoint pos;
+				pos.x = position.x;
+				pos.y = position.y+10;
+				App->sm->outdoor2->AddPortal(pos);
+			}
+			portal_appeared = true;
 		}
 	}
 

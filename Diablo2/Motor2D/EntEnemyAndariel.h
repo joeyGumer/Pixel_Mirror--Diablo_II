@@ -44,6 +44,8 @@ public:
 	int row_number;
 
 	j1Timer win;
+
+	bool portal_appeared = false;
 };
 
 #endif

@@ -46,6 +46,10 @@ public:
 	j1Timer ranged_timer;
 	int ranged_cooldown;
 	int		ranged_columns;
+
+	j1Timer win;
+
+	bool portal_appeared = false;
 };
 
 #endif

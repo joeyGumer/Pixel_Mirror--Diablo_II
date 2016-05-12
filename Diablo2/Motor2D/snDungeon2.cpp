@@ -15,6 +15,7 @@
 #include "j1Player.h"
 #include "EntPortal.h"
 #include "EntEnemy.h"
+#include "snOutdoor2.h"
 
 
 
@@ -341,6 +342,28 @@ Entity* snDungeon2::AddBoss(iPoint pos)
 		ret = App->game->em->AddEnemy(pos, ENEMY_NEST, lvl);
 
 	return ret;
+}
+
+void snDungeon2::AddPortal(iPoint pos)
+{
+	Entity* to_add = App->game->em->Add(pos, PORTAL);
+	EntPortal* portal = (EntPortal*)to_add;
+	if (App->sm->level1 == App->sm->dungeon2)
+	{
+		portal->SetDestiny(App->sm->level2);
+	}
+
+	else if (App->sm->level2 == App->sm->dungeon2)
+	{
+		//portal->destiny = App->sm->level3;
+		portal->destiny = App->sm->win;
+	}
+
+	else if (App->sm->level3 == App->sm->dungeon2)
+	{
+		portal->destiny = App->sm->win;
+	}
+	entity_list.push_back(to_add);
 }
 
 //Spawn Player

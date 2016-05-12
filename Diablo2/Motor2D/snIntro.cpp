@@ -102,6 +102,8 @@ bool snIntro::Update(float dt)
 	if (pass == true)
 	{
 		App->sm->RandomLevel();
+		if (App->sm->level1)
+			App->sm->ChangeScene(App->sm->level1);
 	}
 
 	else if (exit == true)

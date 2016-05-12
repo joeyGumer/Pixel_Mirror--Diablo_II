@@ -52,6 +52,7 @@ public:
 	//Adding Enemies
 	Entity* AddEnemy(iPoint pos);
 	Entity* AddBoss(iPoint pos);
+	void AddPortal(iPoint pos);
 
 	//Spawn player
 	void SpawnPlayer();
