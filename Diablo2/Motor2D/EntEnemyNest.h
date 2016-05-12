@@ -32,6 +32,7 @@ public:
 	uint last_update;
 
 	//Particles
+	Particle	particle;
 	fPoint		particle_destination;
 	bool		particle_is_casted = false;
 	int			particle_speed;
