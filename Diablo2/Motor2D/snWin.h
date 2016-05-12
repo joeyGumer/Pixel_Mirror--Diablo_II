@@ -4,6 +4,7 @@
 #include "j1Scene.h"
 #include "j1Timer.h"
 #include <list>
+#include "j1Gui.h"
 
 using namespace std;
 
@@ -52,10 +53,12 @@ private:
 
 public:
 	//NOTE: provisional.
-	SDL_Texture* back = NULL;
+	//SDL_Texture* back = NULL;
 	j1Timer ret;
 
+	GuiImage* winback = NULL;
 
+	list<GuiElement*> win_gui;
 
 };
 
