@@ -20,6 +20,47 @@ public:
 
 };
 
+/*
+//Martial Blood!
+*/
+class sklStingingStrike : public sklMelee
+{
+public:
+	sklStingingStrike();
+	~sklStingingStrike();
+
+	void SkillEffect();
+
+	void SkillInit();
+	void SkillUpdate();
+	void SetSkillAnimations();
+
+public:
+
+	int base_damage_down;
+	int base_damage_up;
+	int damage_dt;
+};
+
+class sklWildTalon : public sklMelee
+{
+public:
+	sklWildTalon();
+	~sklWildTalon();
+
+	void SkillEffect();
+
+	void SkillInit();
+	void SkillUpdate();
+	void SetSkillAnimations();
+
+public:
+
+	int base_damage_down;
+	int base_damage_up;
+	int damage_dt;
+};
+//
 class sklBloodArrow : public sklRanged
 {
 public:

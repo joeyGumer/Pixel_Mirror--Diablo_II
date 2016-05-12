@@ -54,6 +54,8 @@ bool j1Player::Start()
 	//Create skills:
 	basic_attack = new sklBasicAttack();
 	blood_arrow = new sklBloodArrow();
+	stinging_strike = new sklStingingStrike();
+	wild_talon = new sklWildTalon();
 
 	//
 	player_attack = App->audio->LoadFx("audio/fx/PlayerAttack.ogg");
@@ -685,13 +687,12 @@ void j1Player::CheckToAttack()
 
 			SetDirection();
 
-			enemy->TakeDamage(atk_damage_final);
-			App->audio->PlayFx(player_attack, 0);
+			//Specify effect
+			//enemy->TakeDamage(atk_damage_final);
+			//App->audio->PlayFx(player_attack, 0);
 
 			movement = false;
 			current_input = INPUT_SKILL;
-			enemy = NULL;
-			objective = NULL;
 			attacking = true;
 			input_locked = true;
 		}
@@ -1185,6 +1186,8 @@ void j1Player::SetAnimations()
 
 	basic_attack->SetSkillAnimations();
 	blood_arrow->SetSkillAnimations();
+	stinging_strike->SetSkillAnimations();
+	wild_talon->SetSkillAnimations();
 }
 
 //NOTE: why is this at player and not at the skill that uses this?

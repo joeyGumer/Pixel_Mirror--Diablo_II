@@ -77,17 +77,17 @@ bool hudSkilltree::Start()
 	hud_gui_elements.push_back(skillpoints_label);
 
 	//Skills
-	striking_strike = App->gui->AddGuiSkill({ 154, 14 }, { 488, 871, 48, 48 }, { 390, 724, 48, 48 }, NULL, martialblood, this);
-	striking_strike->active = false;
-	hud_gui_elements.push_back(striking_strike);
+	stinging_strike = App->gui->AddGuiSkill({ 154, 14 }, { 488, 871, 48, 48 }, { 390, 724, 48, 48 }, player->stinging_strike, martialblood, this);
+	stinging_strike->active = false;
+	hud_gui_elements.push_back(stinging_strike);
 
-	wild_talon = App->gui->AddGuiSkill({ 84, 14 }, { 439, 871, 48, 48 }, { 341, 724, 48, 48 }, NULL, martialblood, this);
+	wild_talon = App->gui->AddGuiSkill({ 84, 14 }, { 439, 871, 48, 48 }, { 341, 724, 48, 48 }, player->wild_talon, martialblood, this);
 	wild_talon->active = false;
 	hud_gui_elements.push_back(wild_talon);
 
 	bat_strike = App->gui->AddGuiSkill({ 154, 82 }, { 586, 871, 48, 48 }, { 390, 773, 48, 48 }, NULL, martialblood, this);
 	bat_strike->active = false;
-	bat_strike->skill_parents.push_back(striking_strike->skill);
+	bat_strike->skill_parents.push_back(stinging_strike->skill);
 	hud_gui_elements.push_back(bat_strike);
 	
 	soul_of_ice = App->gui->AddGuiSkill({ 84, 150 }, { 635, 871, 48, 48 }, { 341, 822, 48, 48 }, NULL, martialblood, this);

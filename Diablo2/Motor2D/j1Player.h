@@ -104,6 +104,8 @@ class j1Scene;
 class Skill;
 class sklBasicAttack;
 class sklBloodArrow;
+class sklStingingStrike;
+class sklWildTalon;
 class Collider;
 struct Buff;
 
@@ -370,6 +372,8 @@ public:
 	//Those skills
 	sklBasicAttack* basic_attack = NULL;
 	sklBloodArrow* blood_arrow = NULL;
+	sklStingingStrike* stinging_strike = NULL;
+	sklWildTalon* wild_talon = NULL;
 
 	//Collider
 	Collider* p_collider;

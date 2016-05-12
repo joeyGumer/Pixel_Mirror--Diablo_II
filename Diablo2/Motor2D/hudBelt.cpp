@@ -90,26 +90,46 @@ bool hudBelt::Start()
 	*/
 
 	//Skills
-	attack_left = App->gui->AddGuiSkill({ -50, 0 }, { 102, 280, 50, 47 }, { 102, 280, 50, 47 }, player->right_skill, HUD, this);
+	attack_left = App->gui->AddGuiSkill({ -50, 0 }, { 51, 280, 50, 47 }, { 102, 280, 50, 47 }, player->right_skill, HUD, this);
 	hud_gui_elements.push_back(attack_left);
 
-	attack_right = App->gui->AddGuiSkill({ 308, 0 }, { 102, 280, 50, 47 }, { 102, 280, 50, 47 }, player->left_skill, HUD, this);
+	attack_right = App->gui->AddGuiSkill({ 308, 0 }, { 51, 280, 50, 47 }, { 102, 280, 50, 47 }, player->left_skill, HUD, this);
 	hud_gui_elements.push_back(attack_right);
 
 	//Left Skills
 	//Attack 1 ----------------------------------------
-	left_basic_attack = App->gui->AddGuiSkill({ 0, -47 }, { 102, 280, 50, 47 }, { 102, 280, 50, 47 }, player->basic_attack, attack_left, this);
+	left_basic_attack = App->gui->AddGuiSkill({ 0, -47 }, { 51, 280, 50, 47 }, { 102, 280, 50, 47 }, player->basic_attack, attack_left, this);
 	left_basic_attack->active = false;
 	hud_gui_elements.push_back(left_basic_attack);
 
+	//Martial Blood
+	left_stinging_strike = App->gui->AddGuiSkill({ 0, -94 }, { 735, 871, 50, 47 }, { 1499, 805, 50, 47 }, player->stinging_strike, attack_left, this);
+	left_stinging_strike->active = false;
+	hud_gui_elements.push_back(left_stinging_strike);
+
+
+	left_wild_talon = App->gui->AddGuiSkill({ 50, -94 }, { 684, 871, 50, 47 }, { 1448, 805, 50, 47 }, player->wild_talon, attack_left, this);
+	left_wild_talon->active = false;
+	hud_gui_elements.push_back(left_wild_talon);
 
 
 	//Right Skills
-	right_basic_attack = App->gui->AddGuiSkill({ 0, -47 }, { 102, 280, 50, 47 }, { 102, 280, 50, 47 }, player->basic_attack, attack_right, this);
+	right_basic_attack = App->gui->AddGuiSkill({ 0, -47 }, { 51, 280, 50, 47 }, { 102, 280, 50, 47 }, player->basic_attack, attack_right, this);
 	right_basic_attack->active = false;
 	hud_gui_elements.push_back(right_basic_attack);
 
-	blood_arrow = App->gui->AddGuiSkill({ 0, -94 }, { 1128, 1019, 50, 47 }, { 1128, 1019, 50, 47 }, player->blood_arrow, attack_right, this);
+	//Martial Blood
+	right_stinging_strike = App->gui->AddGuiSkill({ 0, -94 }, { 735, 871, 50, 47 }, { 1499, 805, 50, 47 }, player->stinging_strike, attack_right, this);
+	right_stinging_strike->active = false;
+	hud_gui_elements.push_back(right_stinging_strike);
+
+
+	right_wild_talon = App->gui->AddGuiSkill({ -50, -94 }, { 684, 871, 50, 47 }, { 1448, 805, 50, 47 }, player->wild_talon, attack_right, this);
+	right_wild_talon->active = false;
+	hud_gui_elements.push_back(right_wild_talon);
+
+	//Blood spells
+	blood_arrow = App->gui->AddGuiSkill({ 0, -141 }, { 684, 920, 50, 47 }, { 1128, 1019, 50, 47 }, player->blood_arrow, attack_right, this);
 	blood_arrow->active = false;
 	hud_gui_elements.push_back(blood_arrow);
 

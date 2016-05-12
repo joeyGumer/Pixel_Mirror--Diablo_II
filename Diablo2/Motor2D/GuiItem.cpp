@@ -79,11 +79,10 @@ void GuiItem::Update(GuiElement* hover, GuiElement* focus)
 			
 	}
 
-	//If this is the dragging item, move it
-	/*if (App->gui->dragged_item == this)
+	if (App->gui->dragged_item == this)
 	{
-		Move();
-	}*/
+		mousehover = false;
+	}
 }
 
 //Gives the pivot position over the screen

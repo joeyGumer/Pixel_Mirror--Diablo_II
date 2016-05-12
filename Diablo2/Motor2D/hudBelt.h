@@ -107,10 +107,15 @@ public:
 
 	//Left skills
 	GuiSkill* left_basic_attack = NULL;
-	GuiSkill* blood_arrow = NULL;
+	GuiSkill* left_stinging_strike = NULL;
+	GuiSkill* left_wild_talon = NULL;
+	
 
 	//Right skills
 	GuiSkill* right_basic_attack = NULL;
+	GuiSkill* right_stinging_strike = NULL;
+	GuiSkill* right_wild_talon = NULL;
+	GuiSkill* blood_arrow = NULL;
 	
 
 	

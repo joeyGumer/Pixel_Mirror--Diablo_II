@@ -36,7 +36,7 @@ public:
 	GuiSlot*		reference_slot;
 	GuiInventory*	inventory;
 	GuiImage		image;
-	GuiText*		text;
+	GuiText*			text;
 	vector<StringColor> attributeText;
 	Item*			nexus;
 	bool			convert = false;

@@ -114,7 +114,7 @@ public:
 	GuiSkill* heard_of_bats = NULL;
 
 	//Martial blood
-	GuiSkill* striking_strike = NULL;
+	GuiSkill* stinging_strike = NULL;
 	GuiSkill* wild_talon = NULL;
 	GuiSkill* bat_strike = NULL;
 	GuiSkill* soul_of_ice = NULL;

@@ -29,7 +29,11 @@ sklBasicAttack::~sklBasicAttack()
 
 void sklBasicAttack::SkillUpdate()
 {
-	if (player->current_animation->Finished())
+	if (player->current_animation->CurrentFrame() == 12 && player->attacking == true)
+	{
+		SkillEffect();
+	}
+	else if (player->current_animation->Finished())
 	{
 		player->current_input = INPUT_STOP_MOVE;
 		player->attacking = false;
@@ -40,6 +44,11 @@ void sklBasicAttack::SkillUpdate()
 void sklBasicAttack::SkillEffect()
 {
 	player->enemy->TakeDamage(player->atk_damage_final);
+
+	//App->audio->PlayFx(player_attack, 0);
+	player->enemy = NULL;
+	player->objective = NULL;
+	player->attacking = false;
 }
 
 void sklBasicAttack::SetSkillAnimations()
@@ -60,6 +69,124 @@ void sklBasicAttack::SkillInit()
 
 }
 
+/*
+//------Martial Blood
+*/
+
+// Striking Strike
+sklStingingStrike::sklStingingStrike()
+{
+	skill_tex = App->tex->Load("textures/vamp_attack.png");
+
+	base_damage_down = 13;
+	base_damage_up = 17;
+}
+
+sklStingingStrike::~sklStingingStrike()
+{
+
+}
+
+void sklStingingStrike::SkillEffect()
+{
+	int damage = base_damage_down;
+	damage += rand() % (base_damage_up - base_damage_down + 1);
+
+	player->enemy->TakeDamage(damage);
+	//App->audio->PlayFx(player_attack, 0);
+
+	player->enemy = NULL;
+	player->objective = NULL;
+	player->attacking = false;
+}
+
+void sklStingingStrike::SkillInit()
+{
+
+}
+void sklStingingStrike::SkillUpdate()
+{
+	if (player->current_animation->CurrentFrame() == 12 && player->attacking == true)
+	{
+		SkillEffect();
+	}
+	else if (player->current_animation->Finished())
+	{
+		player->current_input = INPUT_STOP_MOVE;
+		player->attacking = false;
+		player->input_locked = false;
+	}
+}
+
+void sklStingingStrike::SetSkillAnimations()
+{
+	for (int i = 0; i < 8; i++)
+	{
+		Animation atk;
+		atk.SetFrames(0, (92 + SPRITE_MARGIN) * i, 119, 92, 20, SPRITE_MARGIN);
+		atk.speed = 0.4f;
+		atk.loop = false;
+
+		skill_animation_set.push_back(atk);
+	}
+}
+
+//Wild Talon
+sklWildTalon::sklWildTalon()
+{
+	skill_tex = App->tex->Load("textures/vamp_attack.png");
+
+	base_damage_down = 21;
+	base_damage_up = 32;
+}
+sklWildTalon::~sklWildTalon()
+{
+
+}
+
+void sklWildTalon::SkillEffect()
+{
+	int damage = base_damage_down;
+	damage += rand() % (base_damage_up - base_damage_down + 1);
+
+	player->enemy->TakeDamage(damage);
+	//App->audio->PlayFx(player_attack, 0);
+
+	player->enemy = NULL;
+	player->objective = NULL;
+	player->attacking = false;
+}
+
+void sklWildTalon::SkillInit()
+{
+
+}
+
+void sklWildTalon::SkillUpdate()
+{
+	if (player->current_animation->CurrentFrame() == 12 && player->attacking == true)
+	{
+		SkillEffect();
+	}
+	else if (player->current_animation->Finished())
+	{
+		player->current_input = INPUT_STOP_MOVE;
+		player->attacking = false;
+		player->input_locked = false;
+	}
+}
+void sklWildTalon::SetSkillAnimations()
+{
+	for (int i = 0; i < 8; i++)
+	{
+		Animation atk;
+		atk.SetFrames(0, (92 + SPRITE_MARGIN) * i, 119, 92, 20, SPRITE_MARGIN);
+		atk.speed = 0.4f;
+		atk.loop = false;
+
+		skill_animation_set.push_back(atk);
+	}
+}
 //Blood Arrow
 //NOTE: change this to be aplicable with the system particle
 sklBloodArrow::sklBloodArrow() : sklRanged()
