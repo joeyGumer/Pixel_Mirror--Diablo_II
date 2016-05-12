@@ -283,18 +283,33 @@ bool snDungeon2::UnLoad()
 //Adding Enemies
 Entity* snDungeon2::AddEnemy(iPoint pos)
 {
+	int lvl;
+	if (App->sm->level1 == App->sm->dungeon2)
+	{
+		lvl = 1;
+	}
+
+	else if (App->sm->level2 == App->sm->dungeon2)
+	{
+		lvl = 2;
+	}
+
+	else if (App->sm->level3 == App->sm->dungeon2)
+	{
+		lvl = 3;
+	}
 	Entity* ret = NULL;
 	int random = rand() % 5;
 	if (random == 0)
-		ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_CRAWLER, 1);
+		ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_CRAWLER, lvl);
 	if (random == 1)
-		ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF, 1);
+		ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF, lvl);
 	if (random == 2)
-		ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_COUNCIL, 1);
+		ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_COUNCIL, lvl);
 	if (random == 3)
-		ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_SUMMONER, 1);
+		ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_SUMMONER, lvl);
 	if (random == 4)
-		ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_SHAMAN, 1);
+		ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_SHAMAN, lvl);
 
 	return ret;
 }
