@@ -100,7 +100,7 @@ public:
 	/*
 	//---Skills options
 	*/
-
+	int potionfx;
 	//Command
 	GuiSkill* attack_right = NULL;
 	GuiSkill* attack_left = NULL;

@@ -172,6 +172,16 @@ void EntEnemy::TakeDamage(float damage)
 		App->audio->PlayFx(App->game->em->crawler_gethitfx);
 	if (enemy_type == ENEMY_WOLF)
 		App->audio->PlayFx(App->game->em->wolf_gethitfx);
+	if (enemy_type == ENEMY_SUMMONER)
+		App->audio->PlayFx(App->game->em->summoner_gethitfx);
+	if (enemy_type == ENEMY_COUNCIL)
+		App->audio->PlayFx(App->game->em->council_gethitfx);
+	if (enemy_type == ENEMY_SHAMAN)
+		App->audio->PlayFx(App->game->em->shaman_gethitfx);
+	if (enemy_type == ENEMY_IZUAL)
+		App->audio->PlayFx(App->game->em->izual_gethitfx);
+	if (enemy_type == ENEMY_ANDARIEL)
+		App->audio->PlayFx(App->game->em->andariel_gethitfx);
 	//-------------
 	
 	if (HP_current <= 0)
@@ -182,6 +192,18 @@ void EntEnemy::TakeDamage(float damage)
 			App->audio->PlayFx(App->game->em->crawler_deathfx);
 		if (enemy_type == ENEMY_WOLF)
 			App->audio->PlayFx(App->game->em->wolf_deathfx);
+		if (enemy_type == ENEMY_SUMMONER)
+			App->audio->PlayFx(App->game->em->summoner_deathfx);
+		if (enemy_type == ENEMY_COUNCIL)
+			App->audio->PlayFx(App->game->em->council_deathfx);
+		if (enemy_type == ENEMY_SHAMAN)
+			App->audio->PlayFx(App->game->em->shaman_deathfx);
+		if (enemy_type == ENEMY_NEST)
+			App->audio->PlayFx(App->game->em->nest_deathfx);
+		if (enemy_type == ENEMY_IZUAL)
+			App->audio->PlayFx(App->game->em->izual_deathfx);
+		if (enemy_type == ENEMY_ANDARIEL)
+			App->audio->PlayFx(App->game->em->andariel_deathfx);
 	}
 }
 
@@ -258,6 +280,16 @@ void EntEnemy::CheckToAttack()
 				App->audio->PlayFx(App->game->em->crawler_attackfx);
 			if (enemy_type == ENEMY_WOLF)
 				App->audio->PlayFx(App->game->em->wolf_attackfx);
+			if (enemy_type == ENEMY_SUMMONER)
+				App->audio->PlayFx(App->game->em->summoner_attackfx);
+			if (enemy_type == ENEMY_COUNCIL)
+				App->audio->PlayFx(App->game->em->council_attackfx);
+			if (enemy_type == ENEMY_SHAMAN)
+				App->audio->PlayFx(App->game->em->shaman_attackfx);
+			if (enemy_type == ENEMY_IZUAL)
+				App->audio->PlayFx(App->game->em->izual_attackfx);
+			if (enemy_type == ENEMY_ANDARIEL)
+				App->audio->PlayFx(App->game->em->andariel_attackfx);
 		}
 	}
 }

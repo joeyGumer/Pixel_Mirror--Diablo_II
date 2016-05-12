@@ -178,6 +178,32 @@ bool j1EntityManager::Start()
 	wolf_gethitfx = App->audio->LoadFx("audio/fx/WolfGetHit.ogg");
 	wolf_deathfx = App->audio->LoadFx("audio/fx/WolfDeath.ogg");
 
+	summoner_attackfx = App->audio->LoadFx("audio/fx/VampireAttack.ogg");
+	summoner_gethitfx = App->audio->LoadFx("audio/fx/VampireGetHit.ogg");
+	summoner_deathfx = App->audio->LoadFx("audio/fx/VampireDeath.ogg");
+
+	shaman_attackfx = App->audio->LoadFx("audio/fx/FallenShamanRoar.ogg");
+	shaman_gethitfx = App->audio->LoadFx("audio/fx/FallenShamanGetHit.ogg");
+	shaman_deathfx = App->audio->LoadFx("audio/fx/FallenShamanDeath.ogg");
+
+	//nest_attackfx = App->audio->LoadFx("audio/fx/VileChildAttack.ogg");
+	//nest_gethitfx = App->audio->LoadFx("audio/fx/VileChildAttack.ogg");
+	nest_deathfx = App->audio->LoadFx("audio/fx/BloodHawkNestDeath.ogg");
+
+	izual_attackfx = App->audio->LoadFx("audio/fx/IzualAttack.ogg");
+	izual_gethitfx = App->audio->LoadFx("audio/fx/IzualGetHit.ogg");
+	izual_deathfx = App->audio->LoadFx("audio/fx/IzualDeath.ogg");
+
+	council_attackfx = App->audio->LoadFx("audio/fx/CouncilAttack.ogg");
+	council_gethitfx = App->audio->LoadFx("audio/fx/CouncilGetHit.ogg");
+	council_deathfx = App->audio->LoadFx("audio/fx/CounilDeath.ogg");
+
+	andariel_attackfx = App->audio->LoadFx("audio/fx/AndarielAttack.ogg");
+	andariel_gethitfx = App->audio->LoadFx("audio/fx/AndarielGetHit.ogg");
+	andariel_deathfx = App->audio->LoadFx("audio/fx/AndarielDeath.ogg");
+
+	
+
 	return true;
 }
 

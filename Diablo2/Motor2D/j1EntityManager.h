@@ -157,6 +157,31 @@ public:
 	int wolf_gethitfx;
 	int wolf_deathfx;
 
+	int summoner_attackfx;
+	int summoner_gethitfx;
+	int summoner_deathfx;
+
+	int shaman_attackfx;
+	int shaman_gethitfx;
+	int shaman_deathfx;
+
+	int nest_attackfx;
+	int nest_gethitfx;
+	int nest_deathfx;
+	
+	int izual_attackfx;
+	int izual_gethitfx;
+	int izual_deathfx;
+
+	int council_attackfx;
+	int council_gethitfx;
+	int council_deathfx;
+
+	int andariel_attackfx;
+	int andariel_gethitfx;
+	int andariel_deathfx;
+
+	
 	GuiLabel* enemy_name = NULL;
 };
 

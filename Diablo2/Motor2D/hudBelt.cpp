@@ -8,7 +8,7 @@
 #include "j1Input.h"
 #include "Skill.h"
 #include "PlayerSkills.h"
-
+#include "j1Audio.h"
 //NOTE: PROVISIONAL 
 #include "j1Fonts.h"
 
@@ -29,7 +29,7 @@ bool hudBelt::Start()
 {
 	//Player
 	player = App->game->player;
-
+	potionfx = App->audio->LoadFx("audio/fx/Potion3.ogg");
 	//
 	life_current_h = mana_current_h = 78;
 
@@ -254,6 +254,7 @@ bool hudBelt::PreUpdate()
 		list<GuiItem*>::iterator it = inventory1->items.begin();
 		if (it != inventory1->items.end())
 		{
+			App->audio->PlayFx(potionfx);
 			GuiItem* i = (*it);
 			i->nexus->Effect();
 			i->FreeSlots();
@@ -268,6 +269,7 @@ bool hudBelt::PreUpdate()
 		list<GuiItem*>::iterator it = inventory2->items.begin();
 		if (it != inventory2->items.end())
 		{
+			App->audio->PlayFx(potionfx);
 			GuiItem* i = (*it);
 			i->nexus->Effect();
 			i->FreeSlots();
@@ -282,6 +284,7 @@ bool hudBelt::PreUpdate()
 		list<GuiItem*>::iterator it = inventory3->items.begin();
 		if (it != inventory3->items.end())
 		{
+			App->audio->PlayFx(potionfx);
 			GuiItem* i = (*it);
 			i->nexus->Effect();
 			i->FreeSlots();
@@ -296,6 +299,7 @@ bool hudBelt::PreUpdate()
 		list<GuiItem*>::iterator it = inventory4->items.begin();
 		if (it != inventory4->items.end())
 		{
+			App->audio->PlayFx(potionfx);
 			GuiItem* i = (*it);
 			i->nexus->Effect();
 			i->FreeSlots();
