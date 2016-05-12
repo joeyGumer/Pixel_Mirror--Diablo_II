@@ -181,6 +181,9 @@
     <ClCompile Include="EntEnemyAndariel.cpp">
       <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile\EntEnemy\EntEnemyAndariel</Filter>
     </ClCompile>
+    <ClCompile Include="EntEnemyNest.cpp">
+      <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile\EntEnemy\EntEnemyNest</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h">
@@ -399,6 +402,9 @@
     <ClInclude Include="EntEnemyAndariel.h">
       <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile\EntEnemy\EntEnemyAndariel</Filter>
     </ClInclude>
+    <ClInclude Include="EntEnemyNest.h">
+      <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile\EntEnemy\EntEnemyNest</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -577,6 +583,9 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile\EntEnemy\EntEnemyAndariel">
       <UniqueIdentifier>{8b81fe58-002d-4be8-9abc-05da84fdda1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile\EntEnemy\EntEnemyNest">
+      <UniqueIdentifier>{35d8c3c8-ad9c-4fba-b384-4db94bd507f4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

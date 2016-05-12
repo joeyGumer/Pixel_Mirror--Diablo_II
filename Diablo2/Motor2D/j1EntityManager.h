@@ -132,6 +132,14 @@ public:
 	//Andariel particles
 	SDL_Texture* andariel_particle;
 
+	//Nest textures
+	SDL_Texture* nest_idle;
+	SDL_Texture* nest_death;
+	SDL_Texture* nest_cast;
+
+	//Nest particles
+	SDL_Texture* nest_particle;
+
 	//Portal texture
 	SDL_Texture* portal_tex;
 

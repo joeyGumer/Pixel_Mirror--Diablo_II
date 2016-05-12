@@ -26,6 +26,7 @@
 #include "EntEnemySummoner.h"
 #include "EntEnemyIzual.h"
 #include "EntEnemyAndariel.h"
+#include "EntEnemyNest.h"
 
 #include "j1ParticleManager.h"
 
@@ -148,6 +149,18 @@ bool j1EntityManager::Start()
 	//Andariel particles
 	andariel_particle = App->tex->Load("particles/Burn/Building_Burn_1.png");
 	texture_list.push_back(andariel_particle);
+
+	//Nest textures
+	nest_idle = App->tex->Load("textures/nest_idle.png");
+	texture_list.push_back(nest_idle);
+	nest_death = App->tex->Load("textures/nest_death.png");
+	texture_list.push_back(nest_death);
+	nest_cast = App->tex->Load("textures/nest_cast.png");
+	texture_list.push_back(nest_cast);
+
+	//Nest particles
+	nest_particle = App->tex->Load("particles/Flame/GreenFire.png");
+	texture_list.push_back(nest_particle);
 
 	//Portal
 	portal_tex = App->tex->Load("textures/portal.png");
@@ -384,6 +397,9 @@ Entity* j1EntityManager::AddEnemy(iPoint &pos, ENEMY_TYPE type)
 			break;
 		case (ENEMY_ANDARIEL) :
 			entity = new EntEnemyAndariel(pos, ++next_ID);
+			break;
+		case (ENEMY_NEST) :
+			entity = new EntEnemyNest(pos, ++next_ID);
 			break;
 		}
 
