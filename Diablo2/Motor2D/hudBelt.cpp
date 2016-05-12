@@ -33,7 +33,7 @@ bool hudBelt::Start()
 	//
 	life_current_h = mana_current_h = 78;
 
-	HUD = App->gui->AddGuiImage({ 166, 430 }, { 166, 386, 408, 47 }, NULL, this);
+	HUD = App->gui->AddGuiImage({ 166, 431 }, { 166, 386, 408, 47 }, NULL, this);
 	hud_gui_elements.push_back(HUD);
 
 	inventory1 = App->gui->AddGuiInventory({ 176, 9 }, { 342, 395, 30, 30 }, 1, 1 , 30, 30, HUD, this);
@@ -169,7 +169,7 @@ bool hudBelt::Start()
 	game_menu->interactable = true;
 	hud_gui_elements.push_back(game_menu);
 	
-	minipanelbutton = App->gui->AddGuiImageWithLabel({ 146, 9 }, { 296, 253, 16, 27 }, "open/close minipanel", App->font->description, { -60, 0 }, HUD, this);
+	minipanelbutton = App->gui->AddGuiImageWithLabel({ 146, 9 }, { 296, 253, 14, 25 }, "open/close minipanel", App->font->description, { -60, 0 }, HUD, this);
 	minipanelbutton->interactable = true;
 	hud_gui_elements.push_back(minipanelbutton);
 
@@ -316,14 +316,14 @@ void hudBelt::OnEvent(GuiElement* element, GUI_Event even)
 				{
 					HUDornament->Desactivate();
 					minipanel_pressed = true;
-					minipanelbutton->SetTextureRect({ 281, 253, 16, 27 });
+					minipanelbutton->SetTextureRect({ 281, 253, 14, 25 });
 					minipanel->Activate();
 				}
 				else
 				{
 					HUDornament->Activate();
 					minipanel_pressed = false;
-					minipanelbutton->SetTextureRect({ 296, 253, 16, 27 });
+					minipanelbutton->SetTextureRect({ 296, 253, 14, 25 });
 					minipanel->Desactivate();
 				}
 			}
