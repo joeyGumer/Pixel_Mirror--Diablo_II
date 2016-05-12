@@ -318,8 +318,7 @@ void EntEnemyCouncil::StateMachine()
 
 		sprite_rect.w = sprite_dim.x = 78;
 		sprite_rect.h = sprite_dim.y = 51;
-		sprite_pivot = pivot = { collider_rect.w / 2, collider_rect.h - 20 };
-		sprite_pivot.y += 5;
+		sprite_pivot = { collider_rect.w / 2, collider_rect.h - 20 };
 
 		break;
 
@@ -329,9 +328,7 @@ void EntEnemyCouncil::StateMachine()
 
 		sprite_rect.w = sprite_dim.x = 78;
 		sprite_rect.h = sprite_dim.y = 54;
-		sprite_pivot = pivot = { collider_rect.w / 2, collider_rect.h - 20 };
-		sprite_pivot.y += 7;
-		sprite_pivot.x += 45;
+		sprite_pivot = { (collider_rect.w / 2) + 30, collider_rect.h - 10 };
 
 		break;
 
@@ -341,9 +338,7 @@ void EntEnemyCouncil::StateMachine()
 
 		sprite_rect.w = sprite_dim.x = 190;
 		sprite_rect.h = sprite_dim.y = 129;
-		sprite_pivot = pivot = { collider_rect.w / 2, collider_rect.h - 20 };
-		sprite_pivot.y += 5;
-		sprite_pivot.x += 40;
+		sprite_pivot = { (collider_rect.w / 2) + 30, collider_rect.h - 10 };
 
 		App->game->player->IncreaseBlood(blood_drop);
 		App->game->player->PlayerEvent(BLOOD_UP);
@@ -361,9 +356,7 @@ void EntEnemyCouncil::StateMachine()
 
 		sprite_rect.w = sprite_dim.x = 170;
 		sprite_rect.h = sprite_dim.y = 81;
-		sprite_pivot = pivot = { collider_rect.w / 2, collider_rect.h - 20 };
-		sprite_pivot.y += 5;
-		sprite_pivot.x += 30;
+		sprite_pivot = { (collider_rect.w / 2) + 30, collider_rect.h - 10 };
 
 		break;
 
@@ -373,9 +366,7 @@ void EntEnemyCouncil::StateMachine()
 
 		sprite_rect.w = sprite_dim.x = 106;
 		sprite_rect.h = sprite_dim.y = 129;
-		sprite_pivot = pivot = { collider_rect.w / 2, collider_rect.h - 20 };
-		sprite_pivot.y += 5;
-		sprite_pivot.x += 30;
+		sprite_pivot = { (collider_rect.w / 2) + 10, collider_rect.h - 0 };
 
 		break;
 	}
@@ -388,7 +379,6 @@ void EntEnemyCouncil::SetAnimations()
 	collider_rect.h = sprite_rect.h = sprite_dim.y = 97;
 
 	sprite_pivot = pivot = { collider_rect.w / 2, collider_rect.h - 20 };
-	sprite_pivot.y += 5;
 
 
 
