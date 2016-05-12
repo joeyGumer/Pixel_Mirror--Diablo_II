@@ -30,7 +30,7 @@ public:
 
 	virtual void SkillInit()
 	{}
-	virtual void SkillUpdate()
+	virtual void SkillUpdate(float dt)
 	{}
 	virtual void SetSkillAnimations()
 	{}

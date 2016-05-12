@@ -2,6 +2,7 @@
 #include "j1App.h"
 #include "j1Player.h"
 #include "j1Game.h"
+#include "j1Render.h"
 #include "j1EntityManager.h"
 #include "entEnemy.h"
 #include "j1Textures.h"
@@ -27,7 +28,7 @@ sklBasicAttack::~sklBasicAttack()
 
 }
 
-void sklBasicAttack::SkillUpdate()
+void sklBasicAttack::SkillUpdate(float dt)
 {
 	if (player->current_animation->CurrentFrame() == 12 && player->attacking == true)
 	{
@@ -105,7 +106,7 @@ void sklStingingStrike::SkillInit()
 {
 
 }
-void sklStingingStrike::SkillUpdate()
+void sklStingingStrike::SkillUpdate(float dt)
 {
 	if (player->current_animation->CurrentFrame() == 12 && player->attacking == true)
 	{
@@ -163,7 +164,7 @@ void sklWildTalon::SkillInit()
 
 }
 
-void sklWildTalon::SkillUpdate()
+void sklWildTalon::SkillUpdate(float dt)
 {
 	if (player->current_animation->CurrentFrame() == 12 && player->attacking == true)
 	{
@@ -218,7 +219,7 @@ void sklBatStrike::SkillInit()
 {
 
 }
-void sklBatStrike::SkillUpdate()
+void sklBatStrike::SkillUpdate(float dt)
 {
 	if (player->current_animation->CurrentFrame() == 12 && player->attacking == true)
 	{
@@ -274,7 +275,7 @@ void sklSoulOfIce::SkillInit()
 {
 
 }
-void sklSoulOfIce::SkillUpdate()
+void sklSoulOfIce::SkillUpdate(float dt)
 {
 	if (player->current_animation->CurrentFrame() == 12 && player->attacking == true)
 	{
@@ -331,7 +332,7 @@ void sklKrobusArts::SkillInit()
 	player->attacking = true;
 }
 
-void sklKrobusArts::SkillUpdate()
+void sklKrobusArts::SkillUpdate(float dt)
 {
 	if (player->current_animation->CurrentFrame() >= 7 && player->attacking == true)
 	{
@@ -378,7 +379,7 @@ void sklBloodArrow::SkillInit()
 	player->SetDirection(player->particle_destination);
 }
 
-void sklBloodArrow::SkillUpdate()
+void sklBloodArrow::SkillUpdate(float dt)
 {
 	//NOTE: provisional
 	player->SetDirection(player->particle_destination);
@@ -432,7 +433,7 @@ void sklVampireBreath::SkillInit()
 {
 
 }
-void sklVampireBreath::SkillUpdate()
+void sklVampireBreath::SkillUpdate(float dt)
 {
 
 }
@@ -461,14 +462,19 @@ sklBloodBomb::~sklBloodBomb()
 
 void sklBloodBomb::SkillEffect()
 {
-
+	if (player->current_animation->Finished())
+	{
+		player->current_input = INPUT_STOP_MOVE;
+		player->input_locked = false;
+		player->particle_is_casted = false;
+	}
 }
 
 void sklBloodBomb::SkillInit()
 {
 
 }
-void sklBloodBomb::SkillUpdate()
+void sklBloodBomb::SkillUpdate(float dt)
 {
 
 }
@@ -489,15 +495,34 @@ void sklBloodBomb::SetSkillAnimations()
 sklRedFeast::sklRedFeast()
 {
 	skill_tex = App->tex->Load("textures/vamp_cast.png");
+
+	base_damage_down = 4;
+	base_damage_up = 10;
+
+	radius = 200;
 }
 sklRedFeast::~sklRedFeast()
 {
 
 }
 
-void sklRedFeast::SkillEffect()
+void sklRedFeast::SkillEffect(float dt)
 {
+	iPoint pos = {int(player->p_position.x), int(player->p_position.y)};
 
+	vector<EntEnemy*> enemies = App->game->em->EnemiesOnArea(pos, radius);
+
+	float damage = base_damage_down;
+	damage += rand() % (base_damage_up - base_damage_down + 1);
+	damage = float(damage) * dt;
+
+	for (int i = 0; i < enemies.size(); i++)
+	{
+		enemies[i]->TakeDamage(damage);
+	}
+
+
+	App->render->DrawCircle(pos.x, pos.y, radius, 255, 0, 0);
 }
 
 void sklRedFeast::SkillInit()
@@ -505,9 +530,25 @@ void sklRedFeast::SkillInit()
 
 }
 
-void sklRedFeast::SkillUpdate()
+void sklRedFeast::SkillUpdate(float dt)
 {
+	if (player->MP_current > 0)
+	{
+		SkillEffect(dt);
 
+		player->MP_current -= 20.0f * dt;
+		player->PlayerEvent(MP_DOWN);
+
+	}
+	else
+	{
+
+		player->current_input = INPUT_STOP_MOVE;
+		player->input_locked = false;
+
+	}
+
+	
 }
 
 void sklRedFeast::SetSkillAnimations()
@@ -543,7 +584,7 @@ void sklHeardOfBats::SkillInit()
 {
 
 }
-void sklHeardOfBats::SkillUpdate()
+void sklHeardOfBats::SkillUpdate(float dt)
 {
 
 }
@@ -582,7 +623,7 @@ void sklShadowsWalker::SkillInit()
 {
 
 }
-void sklShadowsWalker::SkillUpdate()
+void sklShadowsWalker::SkillUpdate(float dt)
 {
 
 }
@@ -618,7 +659,7 @@ void sklClottedBloodSkin::SkillInit()
 {
 
 }
-void sklClottedBloodSkin::SkillUpdate()
+void sklClottedBloodSkin::SkillUpdate(float dt)
 {
 
 }

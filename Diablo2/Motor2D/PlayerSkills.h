@@ -13,7 +13,7 @@ public:
 	void SkillEffect();
 
 	void SkillInit();
-	void SkillUpdate();
+	void SkillUpdate(float dt);
 	void SetSkillAnimations();
 
 public:
@@ -32,7 +32,7 @@ public:
 	void SkillEffect();
 
 	void SkillInit();
-	void SkillUpdate();
+	void SkillUpdate(float dt);
 	void SetSkillAnimations();
 
 public:
@@ -51,7 +51,7 @@ public:
 	void SkillEffect();
 
 	void SkillInit();
-	void SkillUpdate();
+	void SkillUpdate(float dt);
 	void SetSkillAnimations();
 
 public:
@@ -70,7 +70,7 @@ public:
 	void SkillEffect();
 
 	void SkillInit();
-	void SkillUpdate();
+	void SkillUpdate(float dt);
 	void SetSkillAnimations();
 
 public:
@@ -90,7 +90,7 @@ public:
 	void SkillEffect();
 
 	void SkillInit();
-	void SkillUpdate();
+	void SkillUpdate(float dt);
 	void SetSkillAnimations();
 
 public:
@@ -109,7 +109,7 @@ public:
 	void SkillEffect();
 
 	void SkillInit();
-	void SkillUpdate();
+	void SkillUpdate(float dt);
 	void SetSkillAnimations();
 public:
 
@@ -127,7 +127,7 @@ public:
 	void SkillEffect();
 
 	void SkillInit();
-	void SkillUpdate();
+	void SkillUpdate(float dt);
 	void SetSkillAnimations();
 
 public:
@@ -144,7 +144,7 @@ public:
 	void SkillEffect();
 
 	void SkillInit();
-	void SkillUpdate();
+	void SkillUpdate(float dt);
 	void SetSkillAnimations();
 
 public:
@@ -161,7 +161,7 @@ public:
 	void SkillEffect();
 
 	void SkillInit();
-	void SkillUpdate();
+	void SkillUpdate(float dt);
 	void SetSkillAnimations();
 
 public:
@@ -174,14 +174,20 @@ public:
 	sklRedFeast();
 	~sklRedFeast();
 
-	void SkillEffect();
+	void SkillEffect(float dt);
 
 	void SkillInit();
-	void SkillUpdate();
+	void SkillUpdate(float dt);
 	void SetSkillAnimations();
 
 public:
 	//Particle* skill_particle;
+
+	//
+	int time;
+	float radius;
+	int base_damage_down;
+	int base_damage_up;
 };
 
 
@@ -194,7 +200,7 @@ public:
 	void SkillEffect();
 
 	void SkillInit();
-	void SkillUpdate();
+	void SkillUpdate(float dt);
 	void SetSkillAnimations();
 
 public:
@@ -211,7 +217,7 @@ public:
 	void SkillEffect();
 
 	void SkillInit();
-	void SkillUpdate();
+	void SkillUpdate(float dt);
 	void SetSkillAnimations();
 
 public:
@@ -227,7 +233,7 @@ public:
 	void SkillEffect();
 
 	void SkillInit();
-	void SkillUpdate();
+	void SkillUpdate(float dt);
 	void SetSkillAnimations();
 
 public:

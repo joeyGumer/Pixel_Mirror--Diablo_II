@@ -36,7 +36,7 @@ public:
 	bool PlayerInAttackRange();
 
 	//Damage
-	void TakeDamage(int damage);
+	void TakeDamage(float damage);
 	void DrawHPbar();
 	
 	//Attack
@@ -52,8 +52,8 @@ public:
 	//Attributes
 
 	//Health
-	int		HP_max;
-	int		HP_current;
+	float 		HP_max;
+	float		HP_current;
 
 	//Level
 	int level = 1;

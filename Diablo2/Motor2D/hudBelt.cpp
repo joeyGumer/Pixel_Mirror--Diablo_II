@@ -163,7 +163,7 @@ bool hudBelt::Start()
 	red_feast->active = false;
 	hud_gui_elements.push_back(red_feast);
 
-	heard_of_bats = App->gui->AddGuiSkill({ 0, -88 }, { 888, 920, 50, 47 }, { 1652, 854, 50, 47 }, player->heard_of_bats, attack_right, this);
+	heard_of_bats = App->gui->AddGuiSkill({ 0, -188 }, { 684, 969, 50, 47 }, { 1652, 854, 50, 47 }, player->heard_of_bats, attack_right, this);
 	heard_of_bats->active = false;
 	hud_gui_elements.push_back(heard_of_bats);
 

@@ -174,7 +174,7 @@ bool j1Player::Update(float dt)
 			LowerStamina();
 			break;
 		case SKILL:
-			current_skill->SkillUpdate();
+			current_skill->SkillUpdate(dt);
 			break;
 
 		}
@@ -784,7 +784,7 @@ void j1Player::HandleInput()
 
 		PlayerEvent(HP_UP);
 	}
-	/*
+	
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 	{
 		if (MP_current <= 0)
@@ -811,7 +811,7 @@ void j1Player::HandleInput()
 
 		PlayerEvent(MP_UP);
 	}
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	/*if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
 		if (ST_current <= 0)
 		{

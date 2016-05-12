@@ -10,6 +10,7 @@
 enum ENTITY_TYPE;
 enum ENEMY_TYPE;
 class Entity;
+class EntEnemy;
 class GuiLabel;
 using namespace std;
 
@@ -54,6 +55,7 @@ public:
 
 	Entity* EntityOnMouse();
 	Entity* EntityOnCoords(iPoint &pos);
+	vector<EntEnemy*> EnemiesOnArea(iPoint &pos, int radius);
 
 private:
 	map<uint, Entity*> active_entities;

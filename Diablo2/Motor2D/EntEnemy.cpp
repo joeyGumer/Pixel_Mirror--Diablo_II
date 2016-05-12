@@ -162,7 +162,7 @@ bool EntEnemy::PlayerInRange()
 //----------------------------
 
 
-void EntEnemy::TakeDamage(int damage)
+void EntEnemy::TakeDamage(float damage)
 {
 	//NOTE: this will be changed when the defense is applied
 	HP_current -= damage;

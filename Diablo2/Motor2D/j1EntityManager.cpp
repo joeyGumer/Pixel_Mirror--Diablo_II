@@ -525,4 +525,32 @@ Entity* j1EntityManager::EntityOnCoords(iPoint &pos)
 	return NULL;
 }
 
+vector<EntEnemy*> j1EntityManager::EnemiesOnArea(iPoint &pos, int radius)
+{
+	vector<EntEnemy*> ret;
+
+	map<uint, Entity*>::reverse_iterator item = active_entities.rbegin();
+	for (; item != active_entities.rend(); ++item)
+	{
+		if (item->second->type != ENEMY)
+		{
+			continue;
+		}
+		else
+		{
+			if (((EntEnemy*)item->second)->current_action == ENTITY_DEATH)
+				continue;
+
+			EntEnemy* enemy = ((EntEnemy*)item->second);
+
+			iPoint position = { int(enemy->position.x), int(enemy->position.y) };
+			if (pos.DistanceTo(position) <= radius)
+			{
+				ret.push_back(enemy);
+			}
+		}
+	}
+
+	return ret;
+}
 
