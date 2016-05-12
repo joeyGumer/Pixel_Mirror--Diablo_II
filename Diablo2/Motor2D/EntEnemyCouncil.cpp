@@ -449,27 +449,21 @@ void EntEnemyCouncil::SetAnimations()
 
 void EntEnemyCouncil::SetParticles()
 {
-	particle.image = App->game->em->izual_particle;
+	particle.image = App->game->em->boss_particle;
 
 	particle.life = 5;
 	particle.type = PARTICLE_ENEMY_CAST;
 	particle.damage = magic_damage;
 	particle.speed.x = 0;
 	particle.speed.y = 0;
-	particle.anim.frames.push_back({ 0, 0, 64, 64 });
-	particle.anim.frames.push_back({ 64, 0, 64, 64 });
-	particle.anim.frames.push_back({ 128, 0, 64, 64 });
-	particle.anim.frames.push_back({ 192, 0, 64, 64 });
-	particle.anim.frames.push_back({ 256, 0, 64, 64 });
-	particle.anim.frames.push_back({ 320, 0, 64, 64 });
-	particle.anim.frames.push_back({ 384, 0, 64, 64 });
-	particle.anim.frames.push_back({ 448, 0, 64, 64 });
+	particle.anim.SetFrames(0, 0, 87, 112, 20);
 	particle.anim.speed = 0.5f;
 	particle.anim.loop = true;
 	particle.anim.Reset();
 
 	particle.collider_margin.x = particle.anim.GetCurrentFrame().w / 3;
 	particle.collider_margin.y = particle.anim.GetCurrentFrame().h / 4;
+	particle.collider_pivot.y = 15;
 }
 
 void EntEnemyCouncil::UpdateCast()

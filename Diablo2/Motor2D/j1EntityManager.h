@@ -91,6 +91,9 @@ public:
 	SDL_Texture* boss_cast;
 	SDL_Texture* boss_death;
 
+	//Boss particles
+	SDL_Texture* boss_particle;
+
 	//Shaman textures
 	SDL_Texture* shaman_idle;
 	SDL_Texture* shaman_walk;
