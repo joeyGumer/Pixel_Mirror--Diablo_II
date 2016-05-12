@@ -23,25 +23,99 @@ EntEnemyIzual::EntEnemyIzual(const iPoint &p, uint ID) : EntEnemy(p, ID)
 	cast_tex = App->game->em->izual_cast;
 
 	SetAnimations();
-	SetParticles();
+	
 
 	current_animation_set = idle;
 	current_animation = &current_animation_set[current_direction];
 
 	enemy_type = ENEMY_IZUAL;
 
-	HP_max = HP_current = 100;
-	speed = 100.0f;
+	//Attirbutes
+	//------------------------------------
+	//Life
+	int random_range = 16;
+	HP_max = HP_current = 25;
 
-	movement = false;
+	for (int i = 0; i < level; i++)
+	{
+		if (i > 0)
+		{
+			HP_max *= 2;
+			HP_current *= 2;
+			random_range *= 2;
+		}
+	}
+	int random = rand() % random_range;
+	HP_max += random;
+	HP_current = HP_max;
 
-	attack_range = 180.0f;
-	agro_range = 270.0f;
+	//Speed
+	speed = 120.0f;
 
-	damage = 5;
+	//Melee Attack
+	random_range = 5;
+	damage = 7;
 
-	blood_drop = 150;
+	for (int i = 0; i < level; i++)
+	{
+		if (i > 0)
+		{
+			damage *= 2;
+			random_range *= 2;
+		}
+	}
+	random = rand() % random_range;
+	damage += random;
 
+	//Melee Attack Range
+	attack_range = 65.0f;
+
+	//Spell Attack
+	random_range = 5;
+	magic_damage = 10;
+
+	for (int i = 0; i < level; i++)
+	{
+		if (i > 0)
+		{
+			magic_damage *= 2;
+			random_range *= 2;
+		}
+	}
+	random = rand() % random_range;
+	magic_damage += random;
+
+	//Spell Range
+	magic_range = 150.0f;
+
+	//Spell Cooldown
+	magic_cooldown = 4;
+	for (int i = 0; i < level; i++)
+	{
+		if (i > 0)
+		{
+			magic_cooldown--;
+		}
+	}
+
+	//Agro Range
+	agro_range = 200.0f;
+
+	//Pure Blood Drop
+	blood_drop = 250;
+
+	for (int i = 0; i < level; i++)
+	{
+		if (i > 0)
+		{
+			blood_drop += blood_drop / 2;
+		}
+	}
+
+	magic_timer.Start();
+	//------------------------------------
+
+	SetParticles();
 	last_update = PATHFINDING_FRAMES;
 
 	SDL_Rect col_rect;
@@ -80,8 +154,21 @@ bool EntEnemyIzual::Update(float dt)
 
 		fPoint player_pos = App->game->player->GetPivotPosition();
 
+		if (ReadyToCast())
+		{
+			attacking = true;
+			current_input = ENTITY_INPUT_CAST;
+
+			particle_destination.x = enemy->p_position.x;
+			particle_destination.y = enemy->p_position.y - 40;
+
+			SetDirection(particle_destination);
+
+			magic_timer.Start();
+		}
+
 		//NOTE: The enemy is for following the player one it has been founded, but for now, better not, because of the low framerate
-		if ((PlayerInRange() /*|| enemy*/) && !attacking && last_update >= PATHFINDING_FRAMES)
+		else if ((PlayerInRange() /*|| enemy*/) && !attacking && last_update >= PATHFINDING_FRAMES)
 		{
 			last_update = 0;
 			int target_x = player_pos.x;
@@ -109,14 +196,15 @@ bool EntEnemyIzual::Update(float dt)
 
 		}
 
-		CheckToCast();
+		CheckToAttack();
 
 		switch (current_action)
 		{
-		case ENTITY_ATTACKING:
-			UpdateAttack();
 		case ENTITY_CASTING:
 			UpdateRangedAttack();
+			break;
+		case ENTITY_ATTACKING:
+			UpdateAttack();
 		case ENTITY_WALKING:
 			UpdateMovement(dt);
 		}
@@ -286,7 +374,7 @@ void EntEnemyIzual::StateMachine()
 
 		sprite_rect.w = sprite_dim.x = 179;
 		sprite_rect.h = sprite_dim.y = 176;
-		sprite_pivot = { sprite_rect.w / 2, sprite_rect.h - 22 };
+		sprite_pivot = { sprite_rect.w / 2, sprite_rect.h - 40 };
 
 		break;
 
@@ -429,6 +517,7 @@ void EntEnemyIzual::CheckToCast()
 
 void EntEnemyIzual::UpdateRangedAttack()
 {
+	SetDirection(particle_destination);
 	if (current_animation->CurrentFrame() >= 7 && !particle_is_casted)
 	{
 		Particle* skill_particle = App->pm->AddParticle(particle_izual, position.x, position.y - 40, 2, particle_izual.image);
@@ -443,9 +532,34 @@ void EntEnemyIzual::UpdateRangedAttack()
 		current_animation->Reset();
 		//input_locked = false;
 
-		if (!enemy->Alive() || !PlayerInAttackRange())
+		if (!enemy->Alive() || !ReadyToCast())
 		{
 			current_input = ENTITY_INPUT_STOP_MOVE;
 		}
 	}
+}
+
+bool EntEnemyIzual::PlayerInCastRange()
+{
+	fPoint target_enemy = App->game->player->GetPivotPosition();
+
+	fPoint dist;
+
+	dist.x = target_enemy.x - position.x;
+	dist.y = target_enemy.y - position.y;
+
+	float ret = dist.GetModule();
+	ret = ret;
+
+	if (magic_range > ret)
+	{
+		return true;
+	}
+
+	return false;
+}
+
+bool EntEnemyIzual::ReadyToCast()
+{
+	return PlayerInCastRange() && !attacking && last_update >= PATHFINDING_FRAMES && magic_timer.ReadSec() >= magic_cooldown;
 }

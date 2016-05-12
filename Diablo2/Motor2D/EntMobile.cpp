@@ -52,6 +52,42 @@ void EntMobile::SetDirection()
 	}
 }
 
+void EntMobile::SetDirection(fPoint pos)
+{
+	fPoint direction;
+	direction.x = pos.x - position.x;
+	direction.y = pos.y - position.y;
+
+	direction.SetModule(1);
+
+	float angle = direction.GetAngle();
+
+	ENTITY_DIRECTION dir;
+
+	if (angle < 22.5 && angle > -22.5)
+		dir = ENTITY_D_RIGHT;
+	else if (angle >= 22.5 && angle <= 67.5)
+		dir = ENTITY_D_FRONT_RIGHT;
+	else if (angle > 67.5 && angle < 112.5)
+		dir = ENTITY_D_FRONT;
+	else if (angle >= 112.5 && angle <= 157.5)
+		dir = ENTITY_D_FRONT_LEFT;
+	else if (angle > 157.5 || angle < -157.5)
+		dir = ENTITY_D_LEFT;
+	else if (angle >= -157.5 && angle <= -112.5)
+		dir = ENTITY_D_BACK_LEFT;
+	else if (angle > -112.5 && angle < -67.5)
+		dir = ENTITY_D_BACK;
+	else if (angle >= -67.5 && angle <= -22.5)
+		dir = ENTITY_D_BACK_RIGHT;
+
+	if (dir != current_direction)
+	{
+		current_direction = dir;
+		current_animation = &current_animation_set[current_direction];
+	}
+}
+
 //Movement
 //---------------------------
 void EntMobile::SetInitVelocity()

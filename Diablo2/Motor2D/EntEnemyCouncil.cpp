@@ -158,6 +158,8 @@ bool EntEnemyCouncil::Update(float dt)
 			particle_destination.x = enemy->p_position.x;
 			particle_destination.y = enemy->p_position.y - 40;
 
+			SetDirection(particle_destination);
+
 			magic_timer.Start();
 		}
 
@@ -468,6 +470,7 @@ void EntEnemyCouncil::SetParticles()
 
 void EntEnemyCouncil::UpdateCast()
 {
+	SetDirection(particle_destination);
 	if (current_animation->CurrentFrame() >= 7 && !particle_is_casted)
 	{
 		particle_is_casted = true;

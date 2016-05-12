@@ -22,6 +22,8 @@ public:
 
 	void CheckToCast();
 	void UpdateRangedAttack();
+	bool PlayerInCastRange();
+	bool ReadyToCast();
 
 public:
 	uint last_update;
@@ -31,8 +33,14 @@ public:
 	fPoint		particle_destination;
 	bool		particle_is_casted = false;
 
+	int magic_damage;
+	float magic_range;
+	int magic_cooldown;
+	j1Timer magic_timer;
+
 	SDL_Texture*		cast_tex;
 	vector<Animation>	cast;
+
 
 	j1Timer win;
 };
