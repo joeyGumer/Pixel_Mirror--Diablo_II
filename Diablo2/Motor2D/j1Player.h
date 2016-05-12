@@ -95,6 +95,7 @@ enum PLAYER_ATTRIBUTE
 	ARMOR,
 	COOLDOWN,
 	EXTRA_DAMAGE,
+	INVISIBILITY,
 };
 
 class EntEnemy;
@@ -286,6 +287,8 @@ public:
 	/*
 	//-----Attributes
 	*/
+
+	bool visible = true;
 
 	//HP
 	float HP_max;

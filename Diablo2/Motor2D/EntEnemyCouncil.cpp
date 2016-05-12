@@ -516,7 +516,10 @@ bool EntEnemyCouncil::PlayerInCastRange()
 
 	if (magic_range > ret)
 	{
-		return true;
+		if (App->game->player->visible)
+			return true;
+		else
+			return false;
 	}
 
 	return false;

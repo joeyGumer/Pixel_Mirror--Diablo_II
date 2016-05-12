@@ -411,32 +411,67 @@ void sklBloodArrow::SetSkillAnimations()
 
 		skill_animation_set.push_back(cst);
 	}
-
 }
 
 //Vampire Breath
 sklVampireBreath::sklVampireBreath()
 {
 	skill_tex = App->tex->Load("textures/vamp_cast.png");
+	range = 150;
+	base_damage_down = 12;
+	base_damage_up = 25;
+	radius = 50;
+
 }
 sklVampireBreath::~sklVampireBreath()
 {
-
+	
 }
 
-void sklVampireBreath::SkillEffect()
+void sklVampireBreath::SkillEffect(float dt)
 {
+	iPoint pos = { int(player->p_position.x), int(player->p_position.y) };
 
+	vector<EntEnemy*> enemies = App->game->em->EnemiesOnArea(pos, radius);
+
+	float damage = base_damage_down;
+	damage += rand() % (base_damage_up - base_damage_down + 1);
+	damage = float(damage) * dt;
+
+	for (int i = 0; i < enemies.size(); i++)
+	{
+		enemies[i]->TakeDamage(damage);
+	}
+
+	App->render->DrawCircle(pos.x, pos.y, range, 255, 0, 0);
 }
 
 void sklVampireBreath::SkillInit()
 {
+	iPoint pos = App->input->GetMouseWorldPosition();
+	direction = player->p_position.GetDirection({ float(pos.x), float(pos.y) });
+
 
 }
 void sklVampireBreath::SkillUpdate(float dt)
 {
+	if (player->MP_current > 0)
+	{
+		SkillEffect(dt);
 
+		player->MP_current -= 20.0f * dt;
+		player->PlayerEvent(MP_DOWN);
+
+	}
+	else
+	{
+
+		player->current_input = INPUT_STOP_MOVE;
+		player->input_locked = false;
+
+	}
 }
+
 void sklVampireBreath::SetSkillAnimations()
 {
 	for (int i = 0; i < 12; i++)
@@ -472,11 +507,33 @@ void sklBloodBomb::SkillEffect()
 
 void sklBloodBomb::SkillInit()
 {
-
+	player->particle_destination.x = App->input->GetMouseWorldPosition().x;
+	player->particle_destination.y = App->input->GetMouseWorldPosition().y;
+	player->SetDirection(player->particle_destination);
 }
-void sklBloodBomb::SkillUpdate(float dt)
+
+void sklBloodBomb::SkillIndependentUpdate(float dt)
 {
 
+}
+
+void sklBloodBomb::SkillUpdate(float dt)
+{
+	player->SetDirection(player->particle_destination);
+
+	if (player->current_animation->CurrentFrame() >= 7 && !player->particle_is_casted)
+	{
+		skill_particle = App->pm->AddParticle(player->particle_skill_1, player->p_position.x, player->p_position.y - 40, 2, player->particle_skill_1.image);
+		player->particle_is_casted = true;
+		skill_particle->SetPointSpeed(150, player->particle_destination);
+	}
+
+	if (player->current_animation->Finished())
+	{
+		player->current_input = INPUT_STOP_MOVE;
+		player->input_locked = false;
+		player->particle_is_casted = false;
+	}
 }
 void sklBloodBomb::SetSkillAnimations()
 {
@@ -546,8 +603,6 @@ void sklRedFeast::SkillUpdate(float dt)
 		player->input_locked = false;
 
 	}
-
-	
 }
 
 void sklRedFeast::SetSkillAnimations()
@@ -643,7 +698,7 @@ void sklHeardOfBats::SetSkillAnimations()
 
 
 //Night Passives
-sklShadowsWalker::sklShadowsWalker() : sklBuff(STRENGHT, 1, 1)
+sklShadowsWalker::sklShadowsWalker() : sklBuff(INVISIBILITY, 1, 30)
 {
 	skill_tex = App->tex->Load("textures/vamp_cast.png");
 }
@@ -654,16 +709,32 @@ sklShadowsWalker::~sklShadowsWalker()
 
 void sklShadowsWalker::SkillEffect()
 {
+	Buff* tmp_buff;
+	tmp_buff = new Buff(buff.attribute, buff.value, false, buff.time);
 
+	player->buffs.push_back(tmp_buff);
+	player->CalculateFinalStats();
+
+	player->attacking = false;
 }
 
 void sklShadowsWalker::SkillInit()
 {
-
+	player->attacking = true;
 }
 void sklShadowsWalker::SkillUpdate(float dt)
 {
+	if (player->current_animation->CurrentFrame() >= 7 && player->attacking == true)
+	{
+		SkillEffect();
+	}
 
+	if (player->current_animation->Finished())
+	{
+		player->current_input = INPUT_STOP_MOVE;
+		player->input_locked = false;
+		player->attacking = false;
+	}
 }
 void sklShadowsWalker::SetSkillAnimations()
 {

@@ -142,14 +142,19 @@ public:
 	sklVampireBreath();
 	~sklVampireBreath();
 
-	void SkillEffect();
+	void SkillEffect(float dt);
 
 	void SkillInit();
 	void SkillUpdate(float dt);
 	void SetSkillAnimations();
 
 public:
-	//Particle* skill_particle;
+	
+	float  radius;
+	int range;
+	float direction;
+	int base_damage_down;
+	int base_damage_up;
 };
 
 
@@ -162,11 +167,12 @@ public:
 	void SkillEffect();
 
 	void SkillInit();
+	void SkillIndependentUpdate(float dt);
 	void SkillUpdate(float dt);
 	void SetSkillAnimations();
 
 public:
-	//Particle* skill_particle;
+	Particle* skill_particle;
 };
 
 class sklRedFeast : public sklArea
@@ -230,7 +236,7 @@ public:
 	void SetSkillAnimations();
 
 public:
-	
+	int time;
 };
 
 class sklClottedBloodSkin : public sklBuff

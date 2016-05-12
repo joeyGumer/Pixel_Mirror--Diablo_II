@@ -1399,9 +1399,14 @@ void j1Player::SetAttribute(PLAYER_ATTRIBUTE attribute, float value)
 	{
 		extra_damage += value;
 	}
+	case INVISIBILITY:
+	{
+		visible = false;
+	}
 	default:
 		break;
 	}
+	
 
 }
 
@@ -1416,6 +1421,7 @@ void j1Player::CalculateFinalStats()
 	atk_damage_final = atk_damage_base;
 	armor_final = armor_base;
 	extra_damage = 0;
+	visible = true;
 
 	HP_max = HP_base;
 	HP_recover_final = HP_recover_base;

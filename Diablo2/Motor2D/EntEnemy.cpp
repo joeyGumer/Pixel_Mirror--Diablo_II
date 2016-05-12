@@ -154,7 +154,10 @@ bool EntEnemy::PlayerInRange()
 
 	if (agro_range > ret)
 	{
-		return true;
+		if (App->game->player->visible)
+			return true;
+		else
+			return false;
 	}
 
 	return false;

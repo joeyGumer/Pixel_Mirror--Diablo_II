@@ -215,6 +215,15 @@ public:
 	{
 		return (atan2(y, x) * RADTODEG);
 	}
+
+	float GetDirection(const p2Point& v)
+	{
+		p2Point tmp = { x, y };
+
+		tmp -= v;
+
+		return (atan2(tmp.y, tmp.x) * RADTODEG);
+	}
 };
 
 typedef p2Point<int> iPoint;
