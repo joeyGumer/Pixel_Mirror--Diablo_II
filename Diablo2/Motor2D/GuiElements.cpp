@@ -111,7 +111,8 @@ GuiText::GuiText(iPoint p, vector<StringColor> text, GuiElement* par, j1Module* 
 			tex_rect.w = labels[i].tex_rect.w;
 	}
 	
-	tex_rect.h = labels[0].tex_rect.h * text.size();
+	if (text.size() > 0)
+		tex_rect.h = labels[0].tex_rect.h * text.size();
 	SetLocalRect({ GetLocalRect().x, GetLocalRect().y, tex_rect.w, tex_rect.h});
 	for (int i = 0; i < text.size(); i++)
 	{
@@ -268,7 +269,10 @@ void GuiButton::Update(GuiElement* hover, GuiElement* focus)
 {
 	//Nothing
 }
-
+void GuiText::Update(GuiElement* hover, GuiElement* focus)
+{
+	//Nothing
+}
 //GuiLabel Functions
 void GuiLabel::SetText(p2SString t)
 {

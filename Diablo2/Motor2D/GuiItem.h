@@ -9,7 +9,7 @@
 class GuiSlot;
 class GuiInventory;
 class Item;
-
+class Buff;
 class GuiItem : public GuiElement
 {
 public:
@@ -26,6 +26,8 @@ public:
 
 	void FreeSlots();
 
+	void CreateText();
+
 public:
 
 	int				size;
@@ -34,9 +36,11 @@ public:
 	GuiSlot*		reference_slot;
 	GuiInventory*	inventory;
 	GuiImage		image;
-
+	GuiText*		text;
+	vector<StringColor> attributeText;
 	Item*			nexus;
 	bool			convert = false;
+	bool			mousehover = false;
 };
 
 #endif _GUISLOT_H_

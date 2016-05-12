@@ -77,6 +77,7 @@ void Item::ConvertToGui()
 	{
 		gui_item = new GuiItem(size, coord, rect);
 		gui_item->nexus = this;
+		gui_item->CreateText();
 		if (App->game->HUD->inventory->AddItem(gui_item))
 		{
 			ent_item->convert = true;
@@ -105,32 +106,37 @@ itmStone::itmStone(ITEM_RARITY rare, iPoint p) : Item(ITEM_STONE, rare, p)
 {
 	int x, y, value;
 	PLAYER_ATTRIBUTE attribute;
-
+	name = "GEM";
 	switch (rare)
 	{
 	case RARITY_COMMON:
 		value = 4;
 		value += rand() % 8;
 		y = 947;
+		rarity_color = FONT_WHITE;
 		break;
 	case RARITY_RARE:
 		value = 10;
 		value += rand() % 10;
 		y = 977;
+		rarity_color = FONT_BLUE;
 		break;
 	case RARITY_LEGENDARY:
 		value = 17;
 		value += rand() % 10;
 		y = 1007;
+		rarity_color = FONT_GREEN;
+		
 		break;
 	}
-
+	
+	
 	int at = rand() % 5;
-
+	
 	switch (at)
 	{
 	case STRENGHT:
-		attribute = STRENGHT;
+		attribute =  STRENGHT;
 		x = 2434;
 		break;
 	case DEXTERITY:
@@ -139,7 +145,7 @@ itmStone::itmStone(ITEM_RARITY rare, iPoint p) : Item(ITEM_STONE, rare, p)
 		break;
 	case INTELLIGENCE:
 		attribute = INTELLIGENCE;
-		x = 2374;
+		x = 2374;	
 		break;
 	case VITALITY:
 		attribute = VITALITY;
@@ -150,7 +156,8 @@ itmStone::itmStone(ITEM_RARITY rare, iPoint p) : Item(ITEM_STONE, rare, p)
 		x = 2314;
 		break;
 	}
-
+	attribute_type = attribute;
+	buff_value = value;
 	Buff* buff; 
 	buff = new Buff(attribute, value);
 	item_buffs.push_back(buff);
@@ -175,12 +182,12 @@ itmConsumable::itmConsumable(ITEM_RARITY rarity, iPoint p) : Item(ITEM_CONSUMABL
 {
 	//NOTE: Have to apply %
 	int a = rand() % 2;
-
+	name = "POTION";
 	int x = 2464;
 	int y;
 	int value;
 	PLAYER_ATTRIBUTE at;
-
+	rarity_color = FONT_WHITE;
 	switch (a)
 	{
 	case 0:
@@ -289,7 +296,8 @@ itmRing::itmRing(ITEM_RARITY rarity, iPoint p) : Item(ITEM_RING, rarity, p)
 	int x;
 	int y = 887;
 	int at;
-
+	name = "RING";
+	rarity_color = FONT_WHITE;
 	switch (rarity)
 	{
 	case RARITY_COMMON:
@@ -348,7 +356,8 @@ itmJewel::itmJewel(ITEM_RARITY rarity, iPoint p) : Item(ITEM_JEWEL, rarity, p)
 	int x;
 	int y = 917;
 	
-
+	name = "JEWEL";
+	rarity_color = FONT_WHITE;
 	switch (rarity)
 	{
 	case RARITY_COMMON:
@@ -473,7 +482,8 @@ itmRune::itmRune(ITEM_RARITY rarity, iPoint p) : Item(ITEM_RUNE, rarity, p)
 	int positive_buff, negative_buff;
 	PLAYER_ATTRIBUTE positive_attribute, negative_attribute;
 	int r;
-
+	name = "RUNE";
+	rarity_color = FONT_WHITE;
 	switch (rarity)
 	{
 	case RARITY_COMMON:
@@ -555,7 +565,8 @@ itmArmor::itmArmor(ITEM_RARITY rarity, iPoint p) : Item(ITEM_ARMOR, rarity, p)
 	int y = 799;
 	int x;
 	int value;
-
+	name = "ARMOR";
+	rarity_color = FONT_WHITE;
 	switch (rarity)
 	{
 	case RARITY_COMMON:

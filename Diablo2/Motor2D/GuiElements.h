@@ -242,7 +242,7 @@ public:
 	~GuiText(){}
 
 	void Draw();
-	void Update();
+	void Update(GuiElement* hover, GuiElement* focus);
 
 	vector<GuiLabel> labels;
 };

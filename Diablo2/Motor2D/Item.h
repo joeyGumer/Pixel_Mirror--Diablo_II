@@ -4,7 +4,7 @@
 #include "SDL/include/SDL.h"
 #include "p2Point.h"
 #include "Buff.h"
-
+#include "GuiElements.h"
 #include <vector>
 
 #define ITEM_SLOT_SIZE 29
@@ -64,10 +64,12 @@ public:
 	iPoint* coord;
 	//NOTE: May be changed because now, we are using the same sprite for GuiItem and EntItem
 	SDL_Rect rect;
-
 	//Buff
 	vector<Buff*> item_buffs;
-
+	const char* name = "NAME";
+	SDL_Color rarity_color;
+	int buff_value;
+	PLAYER_ATTRIBUTE attribute_type;
 	//Both representations
 	GuiItem* gui_item;
 	EntItem* ent_item;

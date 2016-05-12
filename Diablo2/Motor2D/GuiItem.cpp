@@ -8,7 +8,7 @@
 //Absolutely not
 #include "j1Player.h"
 #include "j1Game.h"
-
+#include "Item.h"
 
 
 GuiItem::GuiItem(int s, iPoint* coord, SDL_Rect r) 
@@ -19,14 +19,15 @@ GuiItem::GuiItem(int s, iPoint* coord, SDL_Rect r)
 	coords = new iPoint[size];
 	reference_slot = NULL;
 	inventory = NULL;
+	
 	pivot = { ITEM_SECTION_SIZE / 2, ITEM_SECTION_SIZE / 2 };
-
+	
 	for (int i = 0; i < s; i++)
 	{
 		coords[i] = coord[i];
 	}
 }
-
+	RELEASE(text);
 GuiItem::~GuiItem()
 {
 	RELEASE(coords);
@@ -38,6 +39,10 @@ GuiItem::~GuiItem()
 void GuiItem::Draw()
 {
 	image.Draw();
+	if (mousehover == true)
+	{
+		text->Draw();
+	}
 }
 
 void GuiItem::DrawDebug()
@@ -59,12 +64,19 @@ void GuiItem::Update(GuiElement* hover, GuiElement* focus)
 		{
 			//Feedback :D
 			inventory->SetSlotsState(this, GREEN);
-			
+
+			mousehover = true;
+
 			if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 			{
 				inventory->FreeItem(this);
+
 			}
 		}
+		else
+			mousehover = false;
+		
+			
 	}
 
 	//If this is the dragging item, move it
@@ -106,3 +118,44 @@ void GuiItem::Move()
 	SetLocalPosition(tmp);
 }
 
+//Moves accordingly to the mouse
+void GuiItem::CreateText()
+{
+	
+	attributeText.push_back(StringColor(nexus->name, nexus->rarity_color));
+	//TEMPORAL
+	if (nexus->type == ITEM_STONE)
+	{
+		p2SString Text("%i", nexus->buff_value);
+	for (int i = 0; i < nexus->size; i++)
+	{
+		switch (nexus->attribute_type)
+		{
+			case STRENGHT:
+				Text.Insert(0, "Strength :");
+				attributeText.push_back(StringColor(Text, FONT_WHITE));
+				break;
+			case DEXTERITY:
+				Text.Insert(0, "DEXTERITY :");
+				attributeText.push_back(StringColor(Text, FONT_WHITE));
+				break;
+			case INTELLIGENCE:
+				Text.Insert(0, "INTELLIGENCE :");
+				attributeText.push_back(StringColor(Text, FONT_WHITE));
+				break;
+			case VITALITY:
+				Text.Insert(0, "VITALITY :");
+				attributeText.push_back(StringColor(Text, FONT_WHITE));
+				break;
+			case LUCK:
+				Text.Insert(0, "LUCK :");
+				attributeText.push_back(StringColor(Text, FONT_WHITE));
+				break;
+			}
+	}
+	}
+
+	
+	text = new GuiText({ 0,0 }, attributeText, this, NULL);
+	text->Activate();
+}
