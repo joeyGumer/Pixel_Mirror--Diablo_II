@@ -58,6 +58,13 @@ bool j1Player::Start()
 	wild_talon = new sklWildTalon();
 	bat_strike = new sklBatStrike();
 	soul_of_ice = new sklSoulOfIce();
+	krobus_arts = new sklKrobusArts();
+	vampire_breath = new sklVampireBreath();
+	blood_bomb = new sklBloodBomb();
+	red_feast = new sklRedFeast();
+	shadow_walker = new sklShadowsWalker();
+	clotted_blood = new sklClottedBloodSkin();
+	heard_of_bats = new sklHeardOfBats();
 
 	//
 	player_attack = App->audio->LoadFx("audio/fx/PlayerAttack.ogg");
@@ -1192,6 +1199,13 @@ void j1Player::SetAnimations()
 	wild_talon->SetSkillAnimations();
 	bat_strike->SetSkillAnimations();
 	soul_of_ice->SetSkillAnimations();
+	krobus_arts->SetSkillAnimations();
+	vampire_breath->SetSkillAnimations();
+	blood_bomb->SetSkillAnimations();
+	red_feast->SetSkillAnimations();
+	shadow_walker->SetSkillAnimations();
+	clotted_blood->SetSkillAnimations();
+	heard_of_bats->SetSkillAnimations();
 }
 
 //NOTE: why is this at player and not at the skill that uses this?
@@ -1377,6 +1391,10 @@ void j1Player::SetAttribute(PLAYER_ATTRIBUTE attribute, float value)
 		armor_final += value;
 	}
 	break;
+	case EXTRA_DAMAGE:
+	{
+		extra_damage += value;
+	}
 	default:
 		break;
 	}
@@ -1393,6 +1411,7 @@ void j1Player::CalculateFinalStats()
 	luck_final = luck_base;
 	atk_damage_final = atk_damage_base;
 	armor_final = armor_base;
+	extra_damage = 0;
 
 	HP_max = HP_base;
 	HP_recover_final = HP_recover_base;
@@ -1413,7 +1432,9 @@ void j1Player::CalculateFinalStats()
 	if (str_final < 0)
 		str_final = 0;
 
+
 	atk_damage_final += dAtk * str_final;
+	atk_damage_final += ((float(atk_damage_final) / 100) * float(extra_damage));
 
 	//Dexterity
 	if (dex_final < 0)

@@ -142,10 +142,39 @@ bool hudBelt::Start()
 	right_soul_of_ice->active = false;
 	hud_gui_elements.push_back(right_soul_of_ice);
 
+	krobus_arts = App->gui->AddGuiSkill({ -50, -47 }, { 786, 871, 50, 47 }, { 1550, 805, 50, 47 }, player->krobus_arts, attack_right, this);
+	krobus_arts->active = false;
+	hud_gui_elements.push_back(krobus_arts);
+
 	//Blood spells
 	blood_arrow = App->gui->AddGuiSkill({ 0, -141 }, { 684, 920, 50, 47 }, { 1128, 1019, 50, 47 }, player->blood_arrow, attack_right, this);
 	blood_arrow->active = false;
 	hud_gui_elements.push_back(blood_arrow);
+
+	vampire_breath = App->gui->AddGuiSkill({ -50, -141 }, { 735, 920, 50, 47 }, { 1499, 854, 50, 47 }, player->vampire_breath, attack_right, this);
+	vampire_breath->active = false;
+	hud_gui_elements.push_back(vampire_breath);
+
+	blood_bomb = App->gui->AddGuiSkill({ -100, -141 }, { 837, 920, 50, 47 }, { 1601, 854, 50, 47 }, player->blood_bomb, attack_right, this);
+	blood_bomb->active = false;
+	hud_gui_elements.push_back(blood_bomb);
+
+	red_feast = App->gui->AddGuiSkill({ -150, -141 }, { 888, 920, 50, 47 }, { 1652, 854, 50, 47 }, player->red_feast, attack_right, this);
+	red_feast->active = false;
+	hud_gui_elements.push_back(red_feast);
+
+	heard_of_bats = App->gui->AddGuiSkill({ 0, -88 }, { 888, 920, 50, 47 }, { 1652, 854, 50, 47 }, player->heard_of_bats, attack_right, this);
+	heard_of_bats->active = false;
+	hud_gui_elements.push_back(heard_of_bats);
+
+	shadow_walker = App->gui->AddGuiSkill({ -100, -47 }, { 735, 969, 50, 47 }, { 1499, 903, 50, 47 }, player->shadow_walker, attack_right, this);
+	shadow_walker->active = false;
+	hud_gui_elements.push_back(shadow_walker);
+
+	clotted_blood = App->gui->AddGuiSkill({ -150, -47 }, { 888, 969, 50, 47 }, { 1652, 903, 50, 47 }, player->clotted_blood, attack_right, this);
+	clotted_blood->active = false;
+	hud_gui_elements.push_back(clotted_blood);
+	
 
 
 	/*skill12 = App->gui->AddGuiImage({ 20, -70 }, { 0, 280, 50, 47 }, HUD, this);

@@ -99,7 +99,25 @@ public:
 	int base_damage_up;
 	int damage_dt;
 };
-//
+
+class sklKrobusArts : public sklBuff
+{
+public:
+	sklKrobusArts();
+	~sklKrobusArts();
+
+	void SkillEffect();
+
+	void SkillInit();
+	void SkillUpdate();
+	void SetSkillAnimations();
+public:
+
+	int damage_bonus_base;
+	int damage_bonus_dt;
+};
+
+//Blood Spells
 class sklBloodArrow : public sklRanged
 {
 public:
@@ -116,4 +134,104 @@ public:
 	Particle* skill_particle;
 
 };
+
+class sklVampireBreath : public sklArea
+{
+public:
+	sklVampireBreath();
+	~sklVampireBreath();
+
+	void SkillEffect();
+
+	void SkillInit();
+	void SkillUpdate();
+	void SetSkillAnimations();
+
+public:
+	//Particle* skill_particle;
+};
+
+
+class sklBloodBomb : public sklRanged
+{
+public:
+	sklBloodBomb();
+	~sklBloodBomb();
+
+	void SkillEffect();
+
+	void SkillInit();
+	void SkillUpdate();
+	void SetSkillAnimations();
+
+public:
+	//Particle* skill_particle;
+};
+
+class sklRedFeast : public sklArea
+{
+public:
+	sklRedFeast();
+	~sklRedFeast();
+
+	void SkillEffect();
+
+	void SkillInit();
+	void SkillUpdate();
+	void SetSkillAnimations();
+
+public:
+	//Particle* skill_particle;
+};
+
+
+class sklHeardOfBats : public sklArea
+{
+public:
+	sklHeardOfBats();
+	~sklHeardOfBats();
+
+	void SkillEffect();
+
+	void SkillInit();
+	void SkillUpdate();
+	void SetSkillAnimations();
+
+public:
+	//Particle* skill_particle;
+};
+
+//Passive
+class sklShadowsWalker : public sklBuff
+{
+public:
+	sklShadowsWalker();
+	~sklShadowsWalker();
+
+	void SkillEffect();
+
+	void SkillInit();
+	void SkillUpdate();
+	void SetSkillAnimations();
+
+public:
+	
+};
+
+class sklClottedBloodSkin : public sklBuff
+{
+public:
+	sklClottedBloodSkin();
+	~sklClottedBloodSkin();
+
+	void SkillEffect();
+
+	void SkillInit();
+	void SkillUpdate();
+	void SetSkillAnimations();
+
+public:
+
+};
+
 #endif _PLAYERSKILLS_H_

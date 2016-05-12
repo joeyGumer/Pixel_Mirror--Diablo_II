@@ -94,6 +94,7 @@ enum PLAYER_ATTRIBUTE
 	BLOOD,
 	ARMOR,
 	COOLDOWN,
+	EXTRA_DAMAGE,
 };
 
 class EntEnemy;
@@ -106,8 +107,15 @@ class sklBasicAttack;
 class sklBloodArrow;
 class sklStingingStrike;
 class sklWildTalon;
+class sklKrobusArts;
 class sklBatStrike;
 class sklSoulOfIce;
+class sklVampireBreath;
+class sklBloodBomb;
+class sklRedFeast;
+class sklShadowsWalker;
+class sklClottedBloodSkin;
+class sklHeardOfBats; 
 class Collider;
 struct Buff;
 
@@ -327,7 +335,8 @@ public:
 	int armor_base = 0;
 	int armor_final;
 
-	
+	int extra_damage = 0;
+
 	float life;
 	float stamina;
 	float basic_damage;
@@ -373,13 +382,25 @@ public:
 
 	//Those skills
 	sklBasicAttack* basic_attack = NULL;
-	sklBloodArrow* blood_arrow = NULL;
+
 
 	//Martial Blood
 	sklStingingStrike* stinging_strike = NULL;
 	sklWildTalon* wild_talon = NULL;
 	sklBatStrike* bat_strike = NULL;
 	sklSoulOfIce* soul_of_ice = NULL;
+	sklKrobusArts* krobus_arts = NULL;
+
+	//Blood Spells
+	sklBloodArrow* blood_arrow = NULL;
+	sklVampireBreath* vampire_breath = NULL;
+	sklBloodBomb* blood_bomb =  NULL;
+	sklRedFeast* red_feast = NULL;
+	sklHeardOfBats* heard_of_bats = NULL;
+
+	//Night passives
+	sklShadowsWalker* shadow_walker = NULL;
+	sklClottedBloodSkin* clotted_blood = NULL;
 
 	//Collider
 	Collider* p_collider;

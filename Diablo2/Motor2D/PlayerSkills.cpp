@@ -43,6 +43,7 @@ void sklBasicAttack::SkillUpdate()
 
 void sklBasicAttack::SkillEffect()
 {
+
 	player->enemy->TakeDamage(player->atk_damage_final);
 
 	//App->audio->PlayFx(player_attack, 0);
@@ -299,6 +300,64 @@ void sklSoulOfIce::SetSkillAnimations()
 	}
 }
 
+//Krobus Arts 
+//NOTE: for now, it's acting as a temporal buff
+sklKrobusArts::sklKrobusArts() :sklBuff(EXTRA_DAMAGE, 45, 15)
+{
+	damage_bonus_base = 45;
+	damage_bonus_dt = 10;
+
+	skill_tex = App->tex->Load("textures/vamp_cast.png");
+}
+
+sklKrobusArts::~sklKrobusArts()
+{
+
+}
+
+void sklKrobusArts::SkillEffect()
+{
+	Buff* tmp_buff;
+	tmp_buff = new Buff(buff.attribute, buff.value, false, buff.time);
+
+	player->buffs.push_back(tmp_buff);
+	player->CalculateFinalStats();
+
+	player->attacking = false;
+}
+
+void sklKrobusArts::SkillInit()
+{
+	player->attacking = true;
+}
+
+void sklKrobusArts::SkillUpdate()
+{
+	if (player->current_animation->CurrentFrame() >= 7 && player->attacking == true)
+	{
+		SkillEffect();
+	}
+
+	if (player->current_animation->Finished())
+	{
+		player->current_input = INPUT_STOP_MOVE;
+		player->input_locked = false;
+		player->attacking = false;
+	}
+}
+
+void sklKrobusArts::SetSkillAnimations()
+{
+	for (int i = 0; i < 12; i++)
+	{
+		Animation cst;
+		cst.SetFrames(0, (92 + SPRITE_MARGIN) * i, 119, 92, 12, SPRITE_MARGIN);
+		cst.speed = 0.3f;
+		cst.loop = false;
+
+		skill_animation_set.push_back(cst);
+	}
+}
 //Blood Arrow
 //NOTE: change this to be aplicable with the system particle
 sklBloodArrow::sklBloodArrow() : sklRanged()
@@ -352,4 +411,226 @@ void sklBloodArrow::SetSkillAnimations()
 		skill_animation_set.push_back(cst);
 	}
 
+}
+
+//Vampire Breath
+sklVampireBreath::sklVampireBreath()
+{
+	skill_tex = App->tex->Load("textures/vamp_cast.png");
+}
+sklVampireBreath::~sklVampireBreath()
+{
+
+}
+
+void sklVampireBreath::SkillEffect()
+{
+
+}
+
+void sklVampireBreath::SkillInit()
+{
+
+}
+void sklVampireBreath::SkillUpdate()
+{
+
+}
+void sklVampireBreath::SetSkillAnimations()
+{
+	for (int i = 0; i < 12; i++)
+	{
+		Animation cst;
+		cst.SetFrames(0, (92 + SPRITE_MARGIN) * i, 119, 92, 12, SPRITE_MARGIN);
+		cst.speed = 0.3f;
+		//cst.loop = false;
+
+		skill_animation_set.push_back(cst);
+	}
+}
+
+//BloodBomb
+sklBloodBomb::sklBloodBomb()
+{
+	skill_tex = App->tex->Load("textures/vamp_cast.png");
+}
+sklBloodBomb::~sklBloodBomb()
+{
+
+}
+
+void sklBloodBomb::SkillEffect()
+{
+
+}
+
+void sklBloodBomb::SkillInit()
+{
+
+}
+void sklBloodBomb::SkillUpdate()
+{
+
+}
+void sklBloodBomb::SetSkillAnimations()
+{
+	for (int i = 0; i < 12; i++)
+	{
+		Animation cst;
+		cst.SetFrames(0, (92 + SPRITE_MARGIN) * i, 119, 92, 12, SPRITE_MARGIN);
+		cst.speed = 0.3f;
+		cst.loop = false;
+
+		skill_animation_set.push_back(cst);
+	}
+}
+
+//Red Feast
+sklRedFeast::sklRedFeast()
+{
+	skill_tex = App->tex->Load("textures/vamp_cast.png");
+}
+sklRedFeast::~sklRedFeast()
+{
+
+}
+
+void sklRedFeast::SkillEffect()
+{
+
+}
+
+void sklRedFeast::SkillInit()
+{
+
+}
+
+void sklRedFeast::SkillUpdate()
+{
+
+}
+
+void sklRedFeast::SetSkillAnimations()
+{
+	for (int i = 0; i < 12; i++)
+	{
+		Animation cst;
+		cst.SetFrames(0, (92 + SPRITE_MARGIN) * i, 119, 92, 12, SPRITE_MARGIN);
+		cst.speed = 0.3f;
+		//cst.loop = false;
+
+		skill_animation_set.push_back(cst);
+	}
+}
+
+
+
+sklHeardOfBats::sklHeardOfBats()
+{
+	skill_tex = App->tex->Load("textures/vamp_cast.png");
+}
+sklHeardOfBats::~sklHeardOfBats()
+{
+
+}
+
+void sklHeardOfBats::SkillEffect()
+{
+
+}
+
+void sklHeardOfBats::SkillInit()
+{
+
+}
+void sklHeardOfBats::SkillUpdate()
+{
+
+}
+void sklHeardOfBats::SetSkillAnimations()
+{
+	for (int i = 0; i < 12; i++)
+	{
+		Animation cst;
+		cst.SetFrames(0, (92 + SPRITE_MARGIN) * i, 119, 92, 12, SPRITE_MARGIN);
+		cst.speed = 0.3f;
+		//cst.loop = false;
+
+		skill_animation_set.push_back(cst);
+	}
+}
+
+
+
+
+//Night Passives
+sklShadowsWalker::sklShadowsWalker() : sklBuff(STRENGHT, 1, 1)
+{
+	skill_tex = App->tex->Load("textures/vamp_cast.png");
+}
+sklShadowsWalker::~sklShadowsWalker()
+{
+
+}
+
+void sklShadowsWalker::SkillEffect()
+{
+
+}
+
+void sklShadowsWalker::SkillInit()
+{
+
+}
+void sklShadowsWalker::SkillUpdate()
+{
+
+}
+void sklShadowsWalker::SetSkillAnimations()
+{
+	for (int i = 0; i < 12; i++)
+	{
+		Animation cst;
+		cst.SetFrames(0, (92 + SPRITE_MARGIN) * i, 119, 92, 12, SPRITE_MARGIN);
+		cst.speed = 0.3f;
+		cst.loop = false;
+
+		skill_animation_set.push_back(cst);
+	}
+}
+
+//Clotted blood skin
+sklClottedBloodSkin::sklClottedBloodSkin() : sklBuff(STRENGHT, 1, 1)
+{
+	skill_tex = App->tex->Load("textures/vamp_cast.png");
+}
+sklClottedBloodSkin::~sklClottedBloodSkin()
+{
+
+}
+
+void sklClottedBloodSkin::SkillEffect()
+{
+
+}
+
+void sklClottedBloodSkin::SkillInit()
+{
+
+}
+void sklClottedBloodSkin::SkillUpdate()
+{
+
+}
+void sklClottedBloodSkin::SetSkillAnimations()
+{
+	for (int i = 0; i < 12; i++)
+	{
+		Animation cst;
+		cst.SetFrames(0, (92 + SPRITE_MARGIN) * i, 119, 92, 12, SPRITE_MARGIN);
+		cst.speed = 0.3f;
+		cst.loop = false;
+
+		skill_animation_set.push_back(cst);
+	}
 }

@@ -121,6 +121,13 @@ public:
 	GuiSkill* right_wild_talon = NULL;
 	GuiSkill* right_bat_strike = NULL;
 	GuiSkill* right_soul_of_ice = NULL;
+	GuiSkill* krobus_arts = NULL;
+	GuiSkill* vampire_breath = NULL;
+	GuiSkill* blood_bomb = NULL;
+	GuiSkill* red_feast = NULL;
+	GuiSkill* shadow_walker = NULL;
+	GuiSkill* clotted_blood = NULL;
+	GuiSkill* heard_of_bats = NULL;
 
 	GuiSkill* blood_arrow = NULL;
 	
