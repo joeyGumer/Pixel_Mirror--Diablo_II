@@ -67,7 +67,7 @@ EntEnemyNest::EntEnemyNest(const iPoint &p, uint ID) : EntEnemy(p, ID)
 	attack_range = 200.0f;
 
 	//Spell Range
-	summon_range = 100.0f;
+	summon_range = 300.0f;
 
 	//Spell Cooldown
 	summon_cooldown = 4;
@@ -278,7 +278,7 @@ void EntEnemyNest::StateMachine()
 
 		sprite_rect.w = sprite_dim.x = 206;
 		sprite_rect.h = sprite_dim.y = 243;
-		sprite_pivot = { sprite_rect.w / 2, sprite_rect.h - 20 };
+		sprite_pivot = { (sprite_rect.w / 2) - 20, sprite_rect.h - 40 };
 
 		App->game->player->IncreaseBlood(blood_drop);
 		App->game->player->PlayerEvent(BLOOD_UP);
@@ -305,7 +305,7 @@ void EntEnemyNest::StateMachine()
 
 		sprite_rect.w = sprite_dim.x = 124;
 		sprite_rect.h = sprite_dim.y = 189;
-		sprite_pivot = { sprite_rect.w / 2, sprite_rect.h - 20 };
+		sprite_pivot = { sprite_rect.w / 2, sprite_rect.h - 25 };
 
 		break;
 	}
@@ -438,7 +438,7 @@ void EntEnemyNest::UpdateSummon()
 	{
 		Entity* to_summon = NULL;
 		iPoint pos = GetMapPosition();
-		pos.x -= 3;
+		pos.x -= 2;
 		pos.y += 2;
 		to_summon = App->game->em->AddEnemyMap(pos, ENEMY_CRAWLER);
 		if (to_summon != NULL)
