@@ -3,6 +3,7 @@
 
 #include "Skill.h"
 #include "j1ParticleManager.h"
+#include "j1Timer.h"
 
 class sklBasicAttack : public sklMelee
 {
@@ -197,14 +198,22 @@ public:
 	sklHeardOfBats();
 	~sklHeardOfBats();
 
-	void SkillEffect();
+	void SkillEffect(float dt);
 
 	void SkillInit();
 	void SkillUpdate(float dt);
 	void SetSkillAnimations();
+	void SkillIndependentUpdate(float dt);
 
 public:
-	//Particle* skill_particle;
+	
+	int time;
+	float radius;
+	int base_damage_down;
+	int base_damage_up;
+	iPoint pos;
+
+	j1Timer timer;
 };
 
 //Passive

@@ -161,6 +161,10 @@ bool j1Player::Update(float dt)
 			CheckToAttack();
 		}
 
+		if (independent_skill)
+		{
+			independent_skill->SkillIndependentUpdate(dt);
+		}
 		//NOTE:Make this more elegant
 		switch (current_action)
 		{

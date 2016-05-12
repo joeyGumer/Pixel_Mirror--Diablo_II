@@ -27,7 +27,8 @@ public:
 
 	virtual void SkillEffect()
 	{}
-
+	virtual void SkillIndependentUpdate(float dt)
+	{}
 	virtual void SkillInit()
 	{}
 	virtual void SkillUpdate(float dt)

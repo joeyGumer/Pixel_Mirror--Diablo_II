@@ -521,7 +521,6 @@ void sklRedFeast::SkillEffect(float dt)
 		enemies[i]->TakeDamage(damage);
 	}
 
-
 	App->render->DrawCircle(pos.x, pos.y, radius, 255, 0, 0);
 }
 
@@ -569,24 +568,63 @@ void sklRedFeast::SetSkillAnimations()
 sklHeardOfBats::sklHeardOfBats()
 {
 	skill_tex = App->tex->Load("textures/vamp_cast.png");
+
+	time = 5;
+	radius = 150;
+	base_damage_down = 4;
+	base_damage_up = 10;
 }
 sklHeardOfBats::~sklHeardOfBats()
 {
 
 }
 
-void sklHeardOfBats::SkillEffect()
+void sklHeardOfBats::SkillEffect(float dt)
 {
+	
+
+	vector<EntEnemy*> enemies = App->game->em->EnemiesOnArea(pos, radius);
+
+	float damage = base_damage_down;
+	damage += rand() % (base_damage_up - base_damage_down + 1);
+	damage = float(damage) * dt;
+
+	for (int i = 0; i < enemies.size(); i++)
+	{
+		enemies[i]->TakeDamage(damage);
+	}
+
+	App->render->DrawCircle(pos.x, pos.y, radius, 255, 0, 0);
 
 }
 
 void sklHeardOfBats::SkillInit()
 {
+	pos = App->input->GetMouseWorldPosition();
+	player->independent_skill = this;
 
+	timer.Start();
+}
+
+void sklHeardOfBats::SkillIndependentUpdate(float dt)
+{
+	if (player->MP_current > 0 && timer.ReadSec() < time)
+	{
+		SkillEffect(dt);
+	}
+	else
+	{
+		player->independent_skill = NULL;
+	}
 }
 void sklHeardOfBats::SkillUpdate(float dt)
 {
-
+	if (player->current_animation->Finished())
+	{
+		player->current_input = INPUT_STOP_MOVE;
+		player->input_locked = false;
+	}
+	
 }
 void sklHeardOfBats::SetSkillAnimations()
 {
@@ -595,7 +633,7 @@ void sklHeardOfBats::SetSkillAnimations()
 		Animation cst;
 		cst.SetFrames(0, (92 + SPRITE_MARGIN) * i, 119, 92, 12, SPRITE_MARGIN);
 		cst.speed = 0.3f;
-		//cst.loop = false;
+		cst.loop = false;
 
 		skill_animation_set.push_back(cst);
 	}

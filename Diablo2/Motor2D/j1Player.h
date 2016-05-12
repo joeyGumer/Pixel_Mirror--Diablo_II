@@ -379,6 +379,7 @@ public:
 	Skill* left_skill = NULL;
 	Skill* right_skill = NULL;
 	Skill* current_skill = NULL;
+	Skill* independent_skill = NULL;
 
 	//Those skills
 	sklBasicAttack* basic_attack = NULL;
