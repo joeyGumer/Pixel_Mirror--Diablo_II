@@ -105,11 +105,12 @@ GuiAnimation::GuiAnimation(iPoint p, Animation anim, SDL_Texture* texture, GuiEl
 GuiText::GuiText(iPoint p, vector<StringColor> text, GuiElement* par, j1Module* list)
 	: GuiElement(p, GUI_TEXT,par, list)
 {
-
+	tex_rect.w = 0;
 	for (int i = 0; i < text.size(); i++)
 	{
 		if (i >= 1)
 			p.y += labels[0].tex_rect.h;
+		
 		
 		labels.push_back(GuiLabel(text[i].string.GetString(), App->font->description, { 0, p.y }, text[i].color, this, list));
 		labels[i].Center(true, false);
