@@ -95,6 +95,7 @@ void sklStingingStrike::SkillEffect()
 {
 	int damage = base_damage_down;
 	damage += rand() % (base_damage_up - base_damage_down + 1);
+	damage += int((float(damage) / 100) * player->dex_final);
 
 	player->enemy->TakeDamage(damage);
 	//App->audio->PlayFx(player_attack, 0);
@@ -152,6 +153,7 @@ void sklWildTalon::SkillEffect()
 {
 	int damage = base_damage_down;
 	damage += rand() % (base_damage_up - base_damage_down + 1);
+	damage += int((float(damage) / 100) * player->dex_final);
 
 	player->enemy->TakeDamage(damage);
 	//App->audio->PlayFx(player_attack, 0);
@@ -208,6 +210,7 @@ void sklBatStrike::SkillEffect()
 {
 	int damage = base_damage_down;
 	damage += rand() % (base_damage_up - base_damage_down + 1);
+	damage += int((float(damage) / 100) * player->dex_final);
 
 	player->enemy->TakeDamage(damage);
 	//App->audio->PlayFx(player_attack, 0);
@@ -264,6 +267,7 @@ void sklSoulOfIce::SkillEffect()
 {
 	int damage = base_damage_down;
 	damage += rand() % (base_damage_up - base_damage_down + 1);
+	damage += int((float(damage) / 100) * player->dex_final);
 
 	player->enemy->TakeDamage(damage);
 	player->enemy->Freeze(3);
@@ -439,6 +443,7 @@ void sklVampireBreath::SkillEffect(float dt)
 
 	float damage = base_damage_down;
 	damage += rand() % (base_damage_up - base_damage_down + 1);
+	damage += int((float(damage) / 100) * player->int_final);
 	damage = float(damage) * dt;
 
 	for (int i = 0; i < enemies.size(); i++)
@@ -574,6 +579,7 @@ void sklRedFeast::SkillEffect(float dt)
 
 	float damage = base_damage_down;
 	damage += rand() % (base_damage_up - base_damage_down + 1);
+	damage += int((float(damage) / 100) * player->int_final);
 	damage = float(damage) * dt;
 
 	for (int i = 0; i < enemies.size(); i++)
@@ -645,6 +651,7 @@ void sklHeardOfBats::SkillEffect(float dt)
 
 	float damage = base_damage_down;
 	damage += rand() % (base_damage_up - base_damage_down + 1);
+	damage += int((float(damage) / 100) * player->int_final);
 	damage = float(damage) * dt;
 
 	for (int i = 0; i < enemies.size(); i++)
