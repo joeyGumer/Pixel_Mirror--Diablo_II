@@ -371,6 +371,8 @@ void sklKrobusArts::SetSkillAnimations()
 sklBloodArrow::sklBloodArrow() : sklRanged()
 {
 	skill_tex = App->tex->Load("textures/vamp_cast.png");
+	base_damage_down = 6;
+	base_damage_up = 10;
 }
 
 sklBloodArrow::~sklBloodArrow()
@@ -393,8 +395,14 @@ void sklBloodArrow::SkillUpdate(float dt)
 
 	if (player->current_animation->CurrentFrame() >= 7 && !player->particle_is_casted)
 	{
+		float damage = base_damage_down;
+		damage += rand() % (base_damage_up - base_damage_down + 1);
+		damage += int((float(damage) / 100) * player->int_final);
+		damage = float(damage) * dt;
+
 		skill_particle = App->pm->AddParticle(player->particle_skill_1, player->p_position.x, player->p_position.y - 40, 2, player->particle_skill_1.image);
 		player->particle_is_casted = true;
+		skill_particle->damage = damage;
 		skill_particle->SetPointSpeed(150, player->particle_destination);
 	}
 

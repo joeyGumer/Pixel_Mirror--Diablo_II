@@ -134,6 +134,10 @@ public:
 public:
 	Particle* skill_particle;
 
+	int base_damage_down;
+	int base_damage_up;
+	int damage_dt;
+
 };
 
 class sklVampireBreath : public sklArea
