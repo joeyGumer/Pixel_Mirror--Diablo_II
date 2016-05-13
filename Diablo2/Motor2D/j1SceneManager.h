@@ -12,6 +12,7 @@ class snOutdoor1;
 class snOutdoor2;
 class snDungeon1;
 class snDungeon2;
+class snDungeon3;
 class snWin;
 
 class j1SceneManager : public j1Module
@@ -53,6 +54,7 @@ public:
 	snOutdoor2*	outdoor2 = NULL;
 	snDungeon1* dungeon1 = NULL;
 	snDungeon2* dungeon2 = NULL;
+	snDungeon3* dungeon3 = NULL;
 	snWin*		win = NULL;
 
 	j1Scene* level1 = NULL;

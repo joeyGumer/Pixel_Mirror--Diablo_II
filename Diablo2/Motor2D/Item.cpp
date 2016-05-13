@@ -437,6 +437,7 @@ itmRing::itmRing(ITEM_RARITY rarity, iPoint p) : Item(ITEM_RING, rarity, p)
 	}
 
 
+
 	rect = { x, y, ITEM_SLOT_SIZE, ITEM_SLOT_SIZE };
 
 	size = 1;

@@ -6,6 +6,7 @@
 #include "snOutdoor2.h"
 #include "snDungeon1.h"
 #include "snDungeon2.h"
+#include "snDungeon3.h"
 #include "snWin.h"
 
 #include "j1Game.h"
@@ -18,6 +19,7 @@ j1SceneManager::j1SceneManager() : j1Module()
 	outdoor2 = new snOutdoor2();
 	dungeon1 = new snDungeon1();
 	dungeon2 = new snDungeon2();
+	dungeon3 = new snDungeon3();
 	win = new snWin();
 
 	AddScene(win);
@@ -26,6 +28,7 @@ j1SceneManager::j1SceneManager() : j1Module()
 	AddScene(outdoor2);
 	AddScene(dungeon1);
 	AddScene(dungeon2);
+	AddScene(dungeon3);
 }
 
 
@@ -130,7 +133,7 @@ void j1SceneManager::RandomLevel()
 	switch (level)
 	{
 	case 0:
-		level1 = outdoor2;
+		level1 = dungeon3;
 		break;
 	case 1:
 		level1 = dungeon2;
@@ -139,14 +142,14 @@ void j1SceneManager::RandomLevel()
 	}
 
 
-	if (level1 == outdoor2)
+	if (level1 == dungeon3)
 	{
 		level2 = dungeon2;
 		//ChangeScene(dungeon2);
 	}
 	else
 	{
-		level2 = outdoor2;
+		level2 = dungeon3;
 		//ChangeScene(outdoor2);
 	}
 }

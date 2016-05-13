@@ -184,6 +184,9 @@
     <ClCompile Include="EntEnemyNest.cpp">
       <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile\EntEnemy\EntEnemyNest</Filter>
     </ClCompile>
+    <ClCompile Include="snDungeon3.cpp">
+      <Filter>Desenvolupament  ========\Scenes\snDungeon3</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h">
@@ -405,6 +408,9 @@
     <ClInclude Include="j1Fonts.h">
       <Filter>Desenvolupament  ========\Modules\j1Fonts</Filter>
     </ClInclude>
+    <ClInclude Include="snDungeon3.h">
+      <Filter>Desenvolupament  ========\Scenes\snDungeon3</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -586,6 +592,9 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile\EntEnemy\EntEnemyNest">
       <UniqueIdentifier>{35d8c3c8-ad9c-4fba-b384-4db94bd507f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Scenes\snDungeon3">
+      <UniqueIdentifier>{e514c162-2824-4a91-8061-adcfd666aae3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

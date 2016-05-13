@@ -10,6 +10,7 @@
 #include "j1SceneManager.h"
 #include "j1Scene.h"
 #include "snDungeon2.h"
+#include "snDungeon3.h"
 #include "snOutdoor2.h"
 
 
@@ -277,6 +278,13 @@ bool EntEnemyNest::Update(float dt)
 				pos.x = position.x;
 				pos.y = position.y+10;
 				App->sm->outdoor2->AddPortal(pos);
+			}
+			if (App->sm->GetCurrentScene() == App->sm->dungeon3)
+			{
+				iPoint pos;
+				pos.x = position.x;
+				pos.y = position.y + 10;
+				App->sm->dungeon3->AddPortal(pos);
 			}
 			portal_appeared = true;
 		}

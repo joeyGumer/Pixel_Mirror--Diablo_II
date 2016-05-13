@@ -7,6 +7,7 @@
 #include "snOutdoor2.h"
 #include "snDungeon1.h"
 #include "snDungeon2.h"
+#include "snDungeon3.h"
 #include "j1Gui.h"
 #include "j1Textures.h"
 #include "j1Audio.h"

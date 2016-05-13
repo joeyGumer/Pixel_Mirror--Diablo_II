@@ -123,6 +123,7 @@
     <ClCompile Include="Skill.cpp" />
     <ClCompile Include="snDungeon1.cpp" />
     <ClCompile Include="snDungeon2.cpp" />
+    <ClCompile Include="snDungeon3.cpp" />
     <ClCompile Include="snIntro.cpp" />
     <ClCompile Include="j1Pathfinding.cpp" />
     <ClCompile Include="j1PerfTimer.cpp" />
@@ -187,6 +188,7 @@
     <ClInclude Include="Skill.h" />
     <ClInclude Include="snDungeon1.h" />
     <ClInclude Include="snDungeon2.h" />
+    <ClInclude Include="snDungeon3.h" />
     <ClInclude Include="snIntro.h" />
     <ClInclude Include="j1Pathfinding.h" />
     <ClInclude Include="j1PerfTimer.h" />
