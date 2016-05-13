@@ -86,6 +86,7 @@ public:
 	bool frozen = false;
 	j1Timer freeze_timer;
 	int freeze_time = 0;
+	bool tex_frozen = false;
 };
 
 #endif

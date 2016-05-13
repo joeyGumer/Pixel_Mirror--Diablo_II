@@ -15,17 +15,12 @@
 #include "j1Player.h"
 #include "EntPortal.h"
 #include "EntEnemy.h"
-<<<<<<< HEAD
 #include "j1Game.h"
 #include "j1HUD.h"
 #include "GuiMiniMap.h"
 #include "hudMiniMap.h"
-=======
 #include "snDungeon2.h"
 #include "Item.h"
-
-
->>>>>>> origin/master
 
 // Constructor
 snOutdoor2::snOutdoor2()

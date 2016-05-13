@@ -68,10 +68,7 @@ public:
 	SDL_Texture* debug = NULL;
 	list<Entity*>		entity_list;
 
-<<<<<<< HEAD
-=======
 	iPoint portal_spawn;
->>>>>>> origin/master
 
 	bool win;
 };

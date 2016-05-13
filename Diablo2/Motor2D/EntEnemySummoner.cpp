@@ -153,9 +153,49 @@ bool EntEnemySummoner::Update(float dt)
 			if (freeze_timer.ReadSec() >= freeze_time)
 			{
 				frozen = false;
+
+				SDL_SetTextureColorMod(idle_tex,
+					255,
+					255,
+					255);
+
+				SDL_SetTextureColorMod(walk_tex,
+					255,
+					255,
+					255);
+
+				SDL_SetTextureColorMod(attack_tex,
+					255,
+					255,
+					255);
+
+				tex_frozen = false;
 			}
 			else
 			{
+				//TESTING SHITS
+				//--------------
+				if (!tex_frozen)
+				{
+					SDL_SetTextureColorMod(idle_tex,
+						150,
+						150,
+						255);
+
+					SDL_SetTextureColorMod(walk_tex,
+						150,
+						150,
+						255);
+
+					SDL_SetTextureColorMod(attack_tex,
+						150,
+						150,
+						255);
+
+					tex_frozen = true;
+				}
+				//--------------
+
 				dt = dt / 2;
 			}
 		}
