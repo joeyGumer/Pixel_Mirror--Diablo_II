@@ -1,4 +1,4 @@
-#ifndef _HUDSKILLTREEE_H_
+#ifndef _HUDSKILLTREE_H_
 #define _HUDSKILLTREE_H_
 
 #include "hudElement.h"
@@ -138,4 +138,4 @@ public:
 };
 
 
-#endif
+#endif _HUDSKILLTREE_H_

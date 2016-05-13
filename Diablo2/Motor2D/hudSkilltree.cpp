@@ -322,9 +322,10 @@ void hudSkilltree::OnEvent(GuiElement* element, GUI_Event even)
 			if (tmp->skill_parents.size() == 0)
 			{
 				if (tmp->skill)
-					tmp->skill->unlocked = true;
-
-				tmp->image.SetTextureRect(tmp->unlocked);
+				{
+					if(tmp->skill->UnlockSkill())
+						tmp->image.SetTextureRect(tmp->unlocked);
+				}
 			}
 			else
 			{
@@ -333,9 +334,13 @@ void hudSkilltree::OnEvent(GuiElement* element, GUI_Event even)
 					if (tmp->skill_parents[i] && tmp->skill_parents[i]->unlocked)
 					{
 						if (tmp->skill)
-							tmp->skill->unlocked = true;
-						tmp->image.SetTextureRect(tmp->unlocked);
-						break;
+						{
+							if (tmp->skill->UnlockSkill())
+							{
+								tmp->image.SetTextureRect(tmp->unlocked);
+								break;
+							}
+						}
 					}
 	
 				}

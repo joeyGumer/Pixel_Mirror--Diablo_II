@@ -5,3 +5,17 @@
 
 Skill::Skill(SKILL_TYPE t) : skill_type(t), player(App->game->player)
 {}
+
+
+bool Skill::UnlockSkill()
+{
+	if (player->blood_current >= price)
+	{
+		//player->IncreaseBlood(-price);
+		player->blood_current -= price;
+		player->PlayerEvent(BLOOD_DOWN);
+		unlocked = true;
+		return true;
+	}
+	return false;
+}

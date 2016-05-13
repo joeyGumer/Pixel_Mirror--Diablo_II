@@ -36,6 +36,8 @@ public:
 	virtual void SetSkillAnimations()
 	{}
 
+	virtual bool UnlockSkill();
+
 public:
 
 	SKILL_TYPE skill_type;
@@ -43,6 +45,7 @@ public:
 	vector<Animation> skill_animation_set;
 	j1Player* player;
 	bool unlocked = false;
+	int price;
 };
 
 class sklMelee : public Skill
