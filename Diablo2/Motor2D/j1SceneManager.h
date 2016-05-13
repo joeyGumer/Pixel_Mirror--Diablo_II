@@ -45,7 +45,7 @@ public:
 	bool ChangeScene(j1Scene* new_scene);
 
 	j1Scene* GetCurrentScene();
-	j1Scene* RandomLevel();
+	void RandomLevel();
 
 public:
 	snIntro*	intro = NULL;

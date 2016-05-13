@@ -420,22 +420,25 @@ void snDungeon2::AddPortal(iPoint pos)
 	}
 
 	EntPortal* portal = (EntPortal*)to_add;
-	if (App->sm->level1 == App->sm->dungeon2)
+	if (portal != NULL)
 	{
-		portal->SetDestiny(App->sm->level2);
-	}
+		if (App->sm->level1 == App->sm->dungeon2)
+		{
+			portal->SetDestiny(App->sm->level2);
+		}
 
-	else if (App->sm->level2 == App->sm->dungeon2)
-	{
-		//portal->destiny = App->sm->level3;
-		portal->destiny = App->sm->win;
-	}
+		else if (App->sm->level2 == App->sm->dungeon2)
+		{
+			//portal->destiny = App->sm->level3;
+			portal->destiny = App->sm->win;
+		}
 
-	else if (App->sm->level3 == App->sm->dungeon2)
-	{
-		portal->destiny = App->sm->win;
+		else if (App->sm->level3 == App->sm->dungeon2)
+		{
+			portal->destiny = App->sm->win;
+		}
+		entity_list.push_back(to_add);
 	}
-	entity_list.push_back(to_add);
 }
 
 void snDungeon2::DropItem(iPoint pos)
@@ -831,4 +834,13 @@ void snDungeon2::SpawnPlayer()
 	pos = { 91, 38 };
 	to_add = AddEnemy(pos);
 	entity_list.push_back(to_add);
+
+	//Items
+	DropItem({ 380, 3118 });
+	DropItem({ 1402, 2270 });
+	DropItem({ 61, 1265 });
+	DropItem({ -2182, 2524 });
+	DropItem({ -701, 2083 });
+	DropItem({ -1379, 2543 });
+
 }

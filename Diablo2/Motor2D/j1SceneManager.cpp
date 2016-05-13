@@ -123,44 +123,30 @@ j1Scene* j1SceneManager::GetCurrentScene()
 	return current_scene;
 }
 
-j1Scene* j1SceneManager::RandomLevel()
+void j1SceneManager::RandomLevel()
 {
-	j1Scene* ret = NULL;
-
 	int level = rand() % 2;
 
-	if (!level1)
+	switch (level)
 	{
-		switch (level)
-		{
-		case 0:
-			ret = level1 = outdoor2;
-			break;
-		case 1:
-			ret = level1 = dungeon2;
-			//ChangeScene(dungeon2);
-			break;
-		}
+	case 0:
+		level1 = outdoor2;
+		break;
+	case 1:
+		level1 = dungeon2;
+		//ChangeScene(dungeon2);
+		break;
 	}
-	if (!level2)
+
+
+	if (level1 == outdoor2)
 	{
-		if (level1 == outdoor2)
-		{
-			ret = level2 = dungeon2;
-			//ChangeScene(dungeon2);
-		}
-		else
-		{
-			ret = level2 = outdoor2;
-			//ChangeScene(outdoor2);
-		}
+		level2 = dungeon2;
+		//ChangeScene(dungeon2);
 	}
 	else
 	{
-		level1 = NULL;
-		level2 = NULL;
-		level3 = NULL;
+		level2 = outdoor2;
+		//ChangeScene(outdoor2);
 	}
-
-	return ret;
 }

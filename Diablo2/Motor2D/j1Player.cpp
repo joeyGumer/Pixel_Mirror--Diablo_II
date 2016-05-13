@@ -169,6 +169,8 @@ bool j1Player::Update(float dt)
 		switch (current_action)
 		{
 		case IDLE:
+			if (input_locked)
+				input_locked = false;
 			break;
 		case WALKING:
 			UpdateMovement(dt);

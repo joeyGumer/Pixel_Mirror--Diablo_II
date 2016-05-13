@@ -168,7 +168,7 @@ bool EntEnemyNest::Update(float dt)
 
 		fPoint player_pos = App->game->player->GetPivotPosition();
 
-		if (ReadyToSummon())
+		if (ReadyToSummon() && App->game->player->visible)
 		{
 			attacking = true;
 			current_input = ENTITY_INPUT_CAST;
