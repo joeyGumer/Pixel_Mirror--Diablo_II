@@ -42,6 +42,8 @@ public:
 	int base_damage_up;
 	int damage_dt;
 	int life_cost_base;
+	int blood_charge_increase_base;
+	float cooldown_base;
 };
 
 class sklWildTalon : public sklMelee
@@ -61,6 +63,9 @@ public:
 	int base_damage_down;
 	int base_damage_up;
 	int damage_dt;
+	int blood_charge_increase_base;
+	int life_cost_base;
+	float cooldown_base;
 };
 
 class sklBatStrike : public sklMelee
@@ -81,6 +86,8 @@ public:
 	int base_damage_up;
 	int damage_dt;
 	int life_cost_base;
+	int blood_charge_increase_base;
+	float cooldown_base;
 };
 
 
@@ -101,6 +108,8 @@ public:
 	int base_damage_down;
 	int base_damage_up;
 	int damage_dt;
+	int blood_charge_cost_base;
+	float cooldown_base;
 };
 
 class sklKrobusArts : public sklBuff
@@ -119,6 +128,7 @@ public:
 	int damage_bonus_base;
 	int damage_bonus_dt;
 	int life_cost_base;
+	float cooldown_base;
 };
 
 //Blood Spells
@@ -141,6 +151,8 @@ public:
 	int base_damage_up;
 	int damage_dt;
 	int life_cost_base;
+	float cooldown_base;
+	int blood_charge_increase_base;
 };
 
 class sklVampireBreath : public sklArea
@@ -162,6 +174,8 @@ public:
 	float direction;
 	int base_damage_down;
 	int base_damage_up;
+	int blood_charge_cost_base;
+	float cooldown_base;
 };
 
 
@@ -181,6 +195,8 @@ public:
 public:
 	Particle* skill_particle;
 	int life_cost_base;
+	int blood_charge_increase_base;
+	float cooldown_base;
 };
 
 class sklRedFeast : public sklArea
@@ -203,6 +219,10 @@ public:
 	float radius;
 	int base_damage_down;
 	int base_damage_up;
+	int life_steal_base;
+	float blood_charge_cost_base;
+	float cooldown_base;
+	bool hit = false;
 };
 
 
@@ -226,6 +246,9 @@ public:
 	int base_damage_down;
 	int base_damage_up;
 	iPoint pos;
+	float cooldown_base;
+	int blood_charge_increase_base;
+	bool hit = false;
 
 	j1Timer timer;
 };
@@ -245,6 +268,8 @@ public:
 
 public:
 	int time;
+	float cooldown_base;
+	int blood_charge_cost_base;
 };
 
 class sklClottedBloodSkin : public sklBuff
@@ -260,7 +285,8 @@ public:
 	void SetSkillAnimations();
 
 public:
-
+	float cooldown_base;
+	int blood_charge_cost_base;
 };
 
 #endif _PLAYERSKILLS_H_

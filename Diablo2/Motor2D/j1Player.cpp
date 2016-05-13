@@ -1080,6 +1080,21 @@ void j1Player::IncreaseBlood(int blood)
 	blood_current += int(float(blood) + float(float(blood)/100 * extra_pure_blood));
 }
 
+void j1Player::ChangeMP(int MP)
+{
+	MP_current += MP;
+
+	if (MP_current > MP_max)
+	{
+		MP_current = MP_max;
+	}
+	else if (MP_current == 0)
+	{
+		MP_current = 0;
+	}
+
+	PlayerEvent(MP_UP);
+}
 void j1Player::RecoverHP(float dt)
 {
 	

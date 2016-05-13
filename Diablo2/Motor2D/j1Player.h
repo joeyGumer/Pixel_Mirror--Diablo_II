@@ -217,6 +217,7 @@ public:
 	void LowerStamina();
 	void RecoverStamina();
 	void IncreaseBlood(int blood);
+	void ChangeMP(int MP);
 	void RecoverHP(float dt);
 	void RestoreHP(int hp);
 	void StartRecoverHP(int recovered_HP);

@@ -49,6 +49,7 @@ void sklBasicAttack::SkillEffect()
 	final_damage += rand() % (player->atk_damage_final_up + 1 - player->atk_damage_final_down);
 	player->enemy->TakeDamage(final_damage);
 
+
 	//App->audio->PlayFx(player_attack, 0);
 	player->enemy = NULL;
 	player->objective = NULL;
@@ -86,6 +87,10 @@ sklStingingStrike::sklStingingStrike()
 	base_damage_up = 17;
 
 	life_cost_base = 2;
+	blood_charge_increase_base = 5;
+	cooldown_base = 1;
+
+
 }
 
 sklStingingStrike::~sklStingingStrike()
@@ -102,6 +107,9 @@ void sklStingingStrike::SkillEffect()
 	player->enemy->TakeDamage(damage);
 	//App->audio->PlayFx(player_attack, 0);
 
+	player->ChangeMP(blood_charge_increase_base);
+	player->TakeDamage(life_cost_base);
+
 	player->enemy = NULL;
 	player->objective = NULL;
 	player->attacking = false;
@@ -109,7 +117,7 @@ void sklStingingStrike::SkillEffect()
 
 void sklStingingStrike::SkillInit()
 {
-	player->TakeDamage(life_cost_base);
+	
 }
 void sklStingingStrike::SkillUpdate(float dt)
 {
@@ -145,6 +153,9 @@ sklWildTalon::sklWildTalon()
 
 	base_damage_down = 21;
 	base_damage_up = 32;
+	blood_charge_increase_base = 10;
+	life_cost_base = 4;
+	cooldown_base = 1;
 }
 sklWildTalon::~sklWildTalon()
 {
@@ -159,6 +170,8 @@ void sklWildTalon::SkillEffect()
 
 	player->enemy->TakeDamage(damage);
 	//App->audio->PlayFx(player_attack, 0);
+	player->ChangeMP(blood_charge_increase_base);
+	player->TakeDamage(life_cost_base);
 
 	player->enemy = NULL;
 	player->objective = NULL;
@@ -203,7 +216,10 @@ sklBatStrike::sklBatStrike()
 	base_damage_down = 21;
 	base_damage_up = 32;
 
-	life_cost_base = 3;
+	life_cost_base = 50;
+
+	blood_charge_increase_base = 10;
+	cooldown_base = 3;
 }
 sklBatStrike::~sklBatStrike()
 {
@@ -218,6 +234,10 @@ void sklBatStrike::SkillEffect()
 
 	player->enemy->TakeDamage(damage);
 	//App->audio->PlayFx(player_attack, 0);
+	player->ChangeMP(-blood_charge_increase_base);
+
+
+	player->TakeDamage(-(float(damage)/100)*life_cost_base);
 
 	player->enemy = NULL;
 	player->objective = NULL;
@@ -226,7 +246,7 @@ void sklBatStrike::SkillEffect()
 
 void sklBatStrike::SkillInit()
 {
-	player->TakeDamage(life_cost_base);
+	//player->TakeDamage(life_cost_base);
 
 }
 void sklBatStrike::SkillUpdate(float dt)
@@ -262,6 +282,7 @@ sklSoulOfIce::sklSoulOfIce()
 
 	base_damage_down = 21;
 	base_damage_up = 32;
+	blood_charge_cost_base = 10;
 }
 sklSoulOfIce::~sklSoulOfIce()
 {
@@ -277,6 +298,7 @@ void sklSoulOfIce::SkillEffect()
 	player->enemy->TakeDamage(damage);
 	player->enemy->Freeze(3);
 	//App->audio->PlayFx(player_attack, 0);
+	player->ChangeMP(-blood_charge_cost_base);
 
 	player->enemy = NULL;
 	player->objective = NULL;
@@ -382,7 +404,7 @@ sklBloodArrow::sklBloodArrow() : sklRanged()
 	skill_tex = App->tex->Load("textures/vamp_cast.png");
 	base_damage_down = 6;
 	base_damage_up = 10;
-
+	blood_charge_increase_base = 8;
 	life_cost_base = 3;
 }
 
@@ -421,6 +443,7 @@ void sklBloodArrow::SkillUpdate(float dt)
 
 	if (player->current_animation->Finished())
 	{
+		player->ChangeMP(blood_charge_increase_base);
 		player->current_input = INPUT_STOP_MOVE;
 		player->input_locked = false;
 		player->particle_is_casted = false;
@@ -448,6 +471,7 @@ sklVampireBreath::sklVampireBreath()
 	range = 150;
 	base_damage_down = 12;
 	base_damage_up = 25;
+	blood_charge_cost_base = 20;
 	radius = 50;
 }
 sklVampireBreath::~sklVampireBreath()
@@ -487,7 +511,7 @@ void sklVampireBreath::SkillUpdate(float dt)
 	{
 		SkillEffect(dt);
 
-		player->MP_current -= 20.0f * dt;
+		player->MP_current -= blood_charge_cost_base * dt;
 		player->PlayerEvent(MP_DOWN);
 
 	}
@@ -541,8 +565,7 @@ void sklBloodBomb::SkillInit()
 	player->particle_destination.y = App->input->GetMouseWorldPosition().y;
 	player->SetDirection(player->particle_destination);
 
-	player->HP_current -= life_cost_base;
-	player->PlayerEvent(HP_DOWN);
+	player->TakeDamage(life_cost_base);
 }
 
 void sklBloodBomb::SkillIndependentUpdate(float dt)
@@ -588,6 +611,8 @@ sklRedFeast::sklRedFeast()
 
 	base_damage_down = 4;
 	base_damage_up = 10;
+	life_steal_base = 50;
+	blood_charge_cost_base = 20;
 
 	radius = 200;
 }
@@ -610,6 +635,14 @@ void sklRedFeast::SkillEffect(float dt)
 	for (int i = 0; i < enemies.size(); i++)
 	{
 		enemies[i]->TakeDamage(damage);
+		enemies[i]->Freeze(1);
+		hit = true;
+	}
+
+	if (hit)
+	{
+		float stealed_life = (damage / 100) * life_steal_base;
+		player->TakeDamage(-stealed_life);
 	}
 
 	App->render->DrawCircle(pos.x, pos.y, radius, 255, 0, 0);
@@ -617,7 +650,7 @@ void sklRedFeast::SkillEffect(float dt)
 
 void sklRedFeast::SkillInit()
 {
-
+	hit = false;
 }
 
 void sklRedFeast::SkillUpdate(float dt)
@@ -626,13 +659,13 @@ void sklRedFeast::SkillUpdate(float dt)
 	{
 		SkillEffect(dt);
 
-		player->MP_current -= 20.0f * dt;
+		player->MP_current -= blood_charge_cost_base * dt;
 		player->PlayerEvent(MP_DOWN);
 
 	}
 	else
 	{
-
+		
 		player->current_input = INPUT_STOP_MOVE;
 		player->input_locked = false;
 
@@ -658,10 +691,12 @@ sklHeardOfBats::sklHeardOfBats()
 {
 	skill_tex = App->tex->Load("textures/vamp_cast.png");
 
-	time = 5;
+	time = 3;
 	radius = 150;
 	base_damage_down = 4;
 	base_damage_up = 10;
+	blood_charge_increase_base = 25;
+	cooldown_base = 11;
 }
 sklHeardOfBats::~sklHeardOfBats()
 {
@@ -682,6 +717,7 @@ void sklHeardOfBats::SkillEffect(float dt)
 	for (int i = 0; i < enemies.size(); i++)
 	{
 		enemies[i]->TakeDamage(damage);
+		hit = true;
 	}
 
 	App->render->DrawCircle(pos.x, pos.y, radius, 255, 0, 0);
@@ -692,6 +728,9 @@ void sklHeardOfBats::SkillInit()
 {
 	pos = App->input->GetMouseWorldPosition();
 	player->independent_skill = this;
+	hit = false;
+
+	player->ChangeMP(-blood_charge_increase_base);
 
 	timer.Start();
 }
@@ -705,6 +744,11 @@ void sklHeardOfBats::SkillIndependentUpdate(float dt)
 	else
 	{
 		player->independent_skill = NULL;
+
+		if (hit)
+		{
+			player->ChangeMP(-blood_charge_increase_base);
+		}
 	}
 }
 void sklHeardOfBats::SkillUpdate(float dt)
@@ -733,9 +777,11 @@ void sklHeardOfBats::SetSkillAnimations()
 
 
 //Night Passives
-sklShadowsWalker::sklShadowsWalker() : sklBuff(INVISIBILITY, 1, 30)
+sklShadowsWalker::sklShadowsWalker() : sklBuff(INVISIBILITY, 1, 1)
 {
 	skill_tex = App->tex->Load("textures/vamp_cast.png");
+	cooldown_base = 10;
+	blood_charge_cost_base = 20;
 }
 sklShadowsWalker::~sklShadowsWalker()
 {
@@ -749,6 +795,7 @@ void sklShadowsWalker::SkillEffect()
 
 	player->buffs.push_back(tmp_buff);
 	player->CalculateFinalStats();
+	player->ChangeMP(-blood_charge_cost_base);
 
 	player->attacking = false;
 }
@@ -788,6 +835,9 @@ void sklShadowsWalker::SetSkillAnimations()
 sklClottedBloodSkin::sklClottedBloodSkin() : sklBuff(ARMOR, 20, 3)
 {
 	skill_tex = App->tex->Load("textures/vamp_cast.png");
+
+	cooldown_base = 10;
+	blood_charge_cost_base = 30;
 }
 sklClottedBloodSkin::~sklClottedBloodSkin()
 {
@@ -801,6 +851,7 @@ void sklClottedBloodSkin::SkillEffect()
 
 	player->buffs.push_back(tmp_buff);
 	player->CalculateFinalStats();
+	player->ChangeMP(-blood_charge_cost_base);
 
 	player->attacking = false;
 }
