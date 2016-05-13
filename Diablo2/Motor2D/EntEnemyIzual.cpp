@@ -172,6 +172,7 @@ bool EntEnemyIzual::Update(float dt)
 			{
 				frozen = false;
 
+				/*
 				SDL_SetTextureColorMod(idle_tex,
 					255,
 					255,
@@ -191,6 +192,7 @@ bool EntEnemyIzual::Update(float dt)
 					255,
 					255,
 					255);
+					*/
 
 				tex_frozen = false;
 			}
@@ -200,6 +202,7 @@ bool EntEnemyIzual::Update(float dt)
 				//--------------
 				if (!tex_frozen)
 				{
+					/*
 					SDL_SetTextureColorMod(idle_tex,
 						150,
 						150,
@@ -219,6 +222,7 @@ bool EntEnemyIzual::Update(float dt)
 						150,
 						150,
 						255);
+						*/
 
 					tex_frozen = true;
 				}

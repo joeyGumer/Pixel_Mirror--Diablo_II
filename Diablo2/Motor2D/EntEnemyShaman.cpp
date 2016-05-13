@@ -155,6 +155,7 @@ bool EntEnemyShaman::Update(float dt)
 			{
 				frozen = false;
 
+				/*
 				SDL_SetTextureColorMod(idle_tex,
 					255,
 					255,
@@ -169,6 +170,7 @@ bool EntEnemyShaman::Update(float dt)
 					255,
 					255,
 					255);
+					*/
 
 				tex_frozen = false;
 			}
@@ -176,8 +178,10 @@ bool EntEnemyShaman::Update(float dt)
 			{
 				//TESTING SHITS
 				//--------------
+				
 				if (!tex_frozen)
 				{
+					/*
 					SDL_SetTextureColorMod(idle_tex,
 						150,
 						150,
@@ -192,6 +196,7 @@ bool EntEnemyShaman::Update(float dt)
 						150,
 						150,
 						255);
+						*/
 
 					tex_frozen = true;
 				}

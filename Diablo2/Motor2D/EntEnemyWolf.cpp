@@ -119,6 +119,7 @@ bool EntEnemyWolf::Update(float dt)
 			{
 				frozen = false;
 
+				/*
 				SDL_SetTextureColorMod(idle_tex,
 					255,
 					255,
@@ -133,6 +134,7 @@ bool EntEnemyWolf::Update(float dt)
 					255,
 					255,
 					255);
+					*/
 
 				tex_frozen = false;
 			}
@@ -140,6 +142,7 @@ bool EntEnemyWolf::Update(float dt)
 			{
 				//TESTING SHITS
 				//--------------
+				/*
 				if (!tex_frozen)
 				{
 					SDL_SetTextureColorMod(idle_tex,
@@ -159,6 +162,7 @@ bool EntEnemyWolf::Update(float dt)
 
 					tex_frozen = true;
 				}
+				*/
 				//--------------
 
 				dt = dt / 2;

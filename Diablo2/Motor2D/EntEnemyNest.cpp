@@ -169,7 +169,7 @@ bool EntEnemyNest::Update(float dt)
 			if (freeze_timer.ReadSec() >= freeze_time)
 			{
 				frozen = false;
-
+				/*
 				SDL_SetTextureColorMod(idle_tex,
 					255,
 					255,
@@ -184,6 +184,7 @@ bool EntEnemyNest::Update(float dt)
 					255,
 					255,
 					255);
+					*/
 
 				tex_frozen = false;
 			}
@@ -193,6 +194,7 @@ bool EntEnemyNest::Update(float dt)
 				//--------------
 				if (!tex_frozen)
 				{
+					/*
 					SDL_SetTextureColorMod(idle_tex,
 						150,
 						150,
@@ -207,6 +209,7 @@ bool EntEnemyNest::Update(float dt)
 						150,
 						150,
 						255);
+						*/
 
 					tex_frozen = true;
 				}
