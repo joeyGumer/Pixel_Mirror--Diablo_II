@@ -41,6 +41,7 @@ public:
 	int base_damage_down;
 	int base_damage_up;
 	int damage_dt;
+	int life_cost_base;
 };
 
 class sklWildTalon : public sklMelee
@@ -79,6 +80,7 @@ public:
 	int base_damage_down;
 	int base_damage_up;
 	int damage_dt;
+	int life_cost_base;
 };
 
 
@@ -116,6 +118,7 @@ public:
 
 	int damage_bonus_base;
 	int damage_bonus_dt;
+	int life_cost_base;
 };
 
 //Blood Spells
@@ -137,7 +140,7 @@ public:
 	int base_damage_down;
 	int base_damage_up;
 	int damage_dt;
-
+	int life_cost_base;
 };
 
 class sklVampireBreath : public sklArea
@@ -177,6 +180,7 @@ public:
 
 public:
 	Particle* skill_particle;
+	int life_cost_base;
 };
 
 class sklRedFeast : public sklArea

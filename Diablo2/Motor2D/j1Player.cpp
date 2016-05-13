@@ -109,7 +109,7 @@ bool j1Player::Start()
 	p_collider = App->collision->AddCollider({GetPivotPosition().x-20, GetBlitPosition().y + 20, 37, GetPlayerRect().h - 20}, COLLIDER_PLAYER, this);
 
 	//initial stats
-	HP_max = HP_current = HP_base = 65.0f;
+	HP_max = HP_current = HP_base = 60.0f;
 	HP_recover_final = HP_recover_base;
 	MP_max = MP_current = MP_base = 100;
 	ST_max = ST_current = ST_base = 79.0f;

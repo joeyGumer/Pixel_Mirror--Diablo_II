@@ -84,6 +84,8 @@ sklStingingStrike::sklStingingStrike()
 
 	base_damage_down = 13;
 	base_damage_up = 17;
+
+	life_cost_base = 2;
 }
 
 sklStingingStrike::~sklStingingStrike()
@@ -107,7 +109,7 @@ void sklStingingStrike::SkillEffect()
 
 void sklStingingStrike::SkillInit()
 {
-
+	player->TakeDamage(life_cost_base);
 }
 void sklStingingStrike::SkillUpdate(float dt)
 {
@@ -200,6 +202,8 @@ sklBatStrike::sklBatStrike()
 
 	base_damage_down = 21;
 	base_damage_up = 32;
+
+	life_cost_base = 3;
 }
 sklBatStrike::~sklBatStrike()
 {
@@ -222,6 +226,7 @@ void sklBatStrike::SkillEffect()
 
 void sklBatStrike::SkillInit()
 {
+	player->TakeDamage(life_cost_base);
 
 }
 void sklBatStrike::SkillUpdate(float dt)
@@ -315,6 +320,8 @@ sklKrobusArts::sklKrobusArts() :sklBuff(EXTRA_DAMAGE, 45, 15)
 	damage_bonus_base = 45;
 	damage_bonus_dt = 10;
 
+	life_cost_base = 6;
+
 	skill_tex = App->tex->Load("textures/vamp_cast.png");
 }
 
@@ -337,6 +344,8 @@ void sklKrobusArts::SkillEffect()
 void sklKrobusArts::SkillInit()
 {
 	player->attacking = true;
+
+	player->TakeDamage(life_cost_base);
 }
 
 void sklKrobusArts::SkillUpdate(float dt)
@@ -373,6 +382,8 @@ sklBloodArrow::sklBloodArrow() : sklRanged()
 	skill_tex = App->tex->Load("textures/vamp_cast.png");
 	base_damage_down = 6;
 	base_damage_up = 10;
+
+	life_cost_base = 3;
 }
 
 sklBloodArrow::~sklBloodArrow()
@@ -386,6 +397,9 @@ void sklBloodArrow::SkillInit()
 	player->particle_destination.x = App->input->GetMouseWorldPosition().x;
 	player->particle_destination.y = App->input->GetMouseWorldPosition().y;
 	player->SetDirection(player->particle_destination);
+
+
+	player->TakeDamage(life_cost_base);
 }
 
 void sklBloodArrow::SkillUpdate(float dt)
@@ -398,7 +412,6 @@ void sklBloodArrow::SkillUpdate(float dt)
 		float damage = base_damage_down;
 		damage += rand() % (base_damage_up - base_damage_down + 1);
 		damage += int((float(damage) / 100) * player->int_final);
-		damage = float(damage) * dt;
 
 		skill_particle = App->pm->AddParticle(player->particle_skill_1, player->p_position.x, player->p_position.y - 40, 2, player->particle_skill_1.image);
 		player->particle_is_casted = true;
@@ -436,7 +449,6 @@ sklVampireBreath::sklVampireBreath()
 	base_damage_down = 12;
 	base_damage_up = 25;
 	radius = 50;
-
 }
 sklVampireBreath::~sklVampireBreath()
 {
@@ -505,6 +517,8 @@ void sklVampireBreath::SetSkillAnimations()
 sklBloodBomb::sklBloodBomb()
 {
 	skill_tex = App->tex->Load("textures/vamp_cast.png");
+
+	life_cost_base = 18;
 }
 sklBloodBomb::~sklBloodBomb()
 {
@@ -526,6 +540,9 @@ void sklBloodBomb::SkillInit()
 	player->particle_destination.x = App->input->GetMouseWorldPosition().x;
 	player->particle_destination.y = App->input->GetMouseWorldPosition().y;
 	player->SetDirection(player->particle_destination);
+
+	player->HP_current -= life_cost_base;
+	player->PlayerEvent(HP_DOWN);
 }
 
 void sklBloodBomb::SkillIndependentUpdate(float dt)
