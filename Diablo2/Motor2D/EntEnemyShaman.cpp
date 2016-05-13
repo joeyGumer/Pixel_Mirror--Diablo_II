@@ -10,9 +10,12 @@
 
 
 //Constructor
-EntEnemyShaman::EntEnemyShaman(const iPoint &p, uint ID) : EntEnemy(p, ID)
+EntEnemyShaman::EntEnemyShaman(const iPoint &p, uint ID, int lvl) : EntEnemy(p, ID)
 {
 	name = "shaman";
+
+	level = lvl;
+
 	tex = idle_tex = App->game->em->shaman_idle;
 	walk_tex = App->game->em->shaman_walk;
 	death_tex = App->game->em->shaman_death;
@@ -146,6 +149,18 @@ bool EntEnemyShaman::Update(float dt)
 {
 	if (!dead)
 	{
+		if (frozen)
+		{
+			if (freeze_timer.ReadSec() >= freeze_time)
+			{
+				frozen = false;
+			}
+			else
+			{
+				dt = dt / 2;
+			}
+		}
+
 		UpdateAction();
 
 		fPoint player_pos = App->game->player->GetPivotPosition();

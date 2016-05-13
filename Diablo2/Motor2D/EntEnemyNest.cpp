@@ -9,12 +9,17 @@
 #include "Animation.h"
 #include "j1SceneManager.h"
 #include "j1Scene.h"
+#include "snDungeon2.h"
+#include "snOutdoor2.h"
 
 
 //Constructor
-EntEnemyNest::EntEnemyNest(const iPoint &p, uint ID) : EntEnemy(p, ID)
+EntEnemyNest::EntEnemyNest(const iPoint &p, uint ID, int lvl) : EntEnemy(p, ID)
 {
 	name = "nest";
+
+	level = lvl;
+
 	tex = idle_tex = App->game->em->nest_idle;
 	death_tex = App->game->em->nest_death;
 	attack_tex = App->game->em->nest_cast;
@@ -29,8 +34,8 @@ EntEnemyNest::EntEnemyNest(const iPoint &p, uint ID) : EntEnemy(p, ID)
 	//Attirbutes
 	//------------------------------------
 	//Life
-	int random_range = 11;
-	HP_max = HP_current = 10;
+	int random_range = 51;
+	HP_max = HP_current = 200;
 
 	for (int i = 0; i < level; i++)
 	{
@@ -49,8 +54,8 @@ EntEnemyNest::EntEnemyNest(const iPoint &p, uint ID) : EntEnemy(p, ID)
 	speed = 90.0f;
 
 	//Attack
-	random_range = 5;
-	damage = 1;
+	random_range = 16;
+	damage = 15;
 
 	for (int i = 0; i < level; i++)
 	{
@@ -66,11 +71,15 @@ EntEnemyNest::EntEnemyNest(const iPoint &p, uint ID) : EntEnemy(p, ID)
 	//Attack Range
 	attack_range = 200.0f;
 
+	//Attack Cooldown
+	ranged_cooldown = 2;
+
 	//Spell Range
-	summon_range = 100.0f;
+	summon_range = 300.0f;
 
 	//Spell Cooldown
-	summon_cooldown = 4;
+	summon_cooldown = 5;
+	/*
 	for (int i = 0; i < level; i++)
 	{
 		if (i > 0)
@@ -78,12 +87,13 @@ EntEnemyNest::EntEnemyNest(const iPoint &p, uint ID) : EntEnemy(p, ID)
 			summon_cooldown--;
 		}
 	}
+	*/
 
 	//Agro Range
 	agro_range = 300.0f;
 
 	//Pure Blood Drop
-	blood_drop = 200;
+	blood_drop = 1500;
 
 	for (int i = 0; i < level; i++)
 	{
@@ -98,7 +108,17 @@ EntEnemyNest::EntEnemyNest(const iPoint &p, uint ID) : EntEnemy(p, ID)
 
 	//Timer Start
 	summon_timer.Start();
+	ranged_timer.Start();
 
+	//Columns
+	ranged_columns = 4;
+	for (int i = 0; i < level; i++)
+	{
+		if (i > 0)
+		{
+			ranged_columns++;
+		}
+	}
 	//------------------------------------
 
 	SetParticles();
@@ -144,11 +164,23 @@ bool EntEnemyNest::Update(float dt)
 {
 	if (!dead)
 	{
+		if (frozen)
+		{
+			if (freeze_timer.ReadSec() >= freeze_time)
+			{
+				frozen = false;
+			}
+			else
+			{
+				dt = dt / 2;
+			}
+		}
+
 		UpdateAction();
 
 		fPoint player_pos = App->game->player->GetPivotPosition();
 
-		if (ReadyToSummon())
+		if (ReadyToSummon() && App->game->player->visible)
 		{
 			attacking = true;
 			current_input = ENTITY_INPUT_CAST;
@@ -156,7 +188,8 @@ bool EntEnemyNest::Update(float dt)
 		}
 
 		//NOTE: The enemy is for following the player one it has been founded, but for now, better not, because of the low framerate
-		else if ((PlayerInRange()) && !attacking && last_update >= PATHFINDING_FRAMES)
+		else if ((PlayerInRange()) && !attacking && last_update >= PATHFINDING_FRAMES
+			&& ranged_timer.ReadSec() >= ranged_cooldown)
 		{
 			last_update = 0;
 			int target_x = player_pos.x;
@@ -166,6 +199,7 @@ bool EntEnemyNest::Update(float dt)
 			_target = App->map->WorldToMap(_target.x, _target.y);
 
 			enemy = App->game->player;
+			ranged_timer.Start();
 		}
 
 		CheckToCast();
@@ -181,6 +215,28 @@ bool EntEnemyNest::Update(float dt)
 		}
 
 		last_update++;
+	}
+
+	else
+	{
+		if (win.ReadSec() > 0 && !portal_appeared)
+		{
+			if (App->sm->GetCurrentScene() == App->sm->dungeon2)
+			{
+				iPoint pos;
+				pos.x = position.x;
+				pos.y = position.y+10;
+				App->sm->dungeon2->AddPortal(pos);
+			}
+			if (App->sm->GetCurrentScene() == App->sm->outdoor2)
+			{
+				iPoint pos;
+				pos.x = position.x;
+				pos.y = position.y+10;
+				App->sm->outdoor2->AddPortal(pos);
+			}
+			portal_appeared = true;
+		}
 	}
 
 	return true;
@@ -278,7 +334,7 @@ void EntEnemyNest::StateMachine()
 
 		sprite_rect.w = sprite_dim.x = 206;
 		sprite_rect.h = sprite_dim.y = 243;
-		sprite_pivot = { sprite_rect.w / 2, sprite_rect.h - 20 };
+		sprite_pivot = { (sprite_rect.w / 2) - 20, sprite_rect.h - 40 };
 
 		App->game->player->IncreaseBlood(blood_drop);
 		App->game->player->PlayerEvent(BLOOD_UP);
@@ -305,7 +361,7 @@ void EntEnemyNest::StateMachine()
 
 		sprite_rect.w = sprite_dim.x = 124;
 		sprite_rect.h = sprite_dim.y = 189;
-		sprite_pivot = { sprite_rect.w / 2, sprite_rect.h - 20 };
+		sprite_pivot = { sprite_rect.w / 2, sprite_rect.h - 25 };
 
 		break;
 	}
@@ -412,10 +468,16 @@ void EntEnemyNest::UpdateRangedAttack()
 	if (current_animation->CurrentFrame() >= 7 && !particle_is_casted)
 	{
 		particle_is_casted = true;
-		Particle* skill_particle1 = App->pm->AddParticle(particle, particle_destination.x + 50, particle_destination.y + 50, 5, particle.image);
-		Particle* skill_particle2 = App->pm->AddParticle(particle, particle_destination.x - 50, particle_destination.y - 50, 5, particle.image);
-		Particle* skill_particle3 = App->pm->AddParticle(particle, particle_destination.x + 50, particle_destination.y - 50, 5, particle.image);
-		Particle* skill_particle4 = App->pm->AddParticle(particle, particle_destination.x - 50, particle_destination.y + 50, 5, particle.image);
+
+		int marginX = -150;
+		int marginY = -150;
+
+		for (int i = 0; i < ranged_columns; i++)
+		{
+			int random_rangeX = rand() % 301;
+			int random_rangeY = rand() % 301;
+			Particle* skill_particle1 = App->pm->AddParticle(particle, particle_destination.x + marginX + random_rangeX, particle_destination.y + marginY + random_rangeY, 3, particle.image);
+		}
 	}
 
 	if (current_animation->Finished())
@@ -438,9 +500,9 @@ void EntEnemyNest::UpdateSummon()
 	{
 		Entity* to_summon = NULL;
 		iPoint pos = GetMapPosition();
-		pos.x -= 3;
+		pos.x -= 2;
 		pos.y += 2;
-		to_summon = App->game->em->AddEnemyMap(pos, ENEMY_CRAWLER);
+		to_summon = App->game->em->AddEnemyMap(pos, ENEMY_CRAWLER, level);
 		if (to_summon != NULL)
 		{
 			summon_list.push_back(to_summon);

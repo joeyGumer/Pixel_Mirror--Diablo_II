@@ -302,6 +302,46 @@ bool j1Render::DrawLine(int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Uint8 
 
 	return ret;
 }
+bool j1Render::DrawCone(int x, int y, int radius, int angle, float up_rad, float down_rad, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool use_camera) 
+{
+	bool ret = true;
+	uint scale = App->win->GetScale();
+
+	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+	SDL_SetRenderDrawColor(renderer, r, g, b, a);
+
+	int op = angle;
+	int result = -1;
+	SDL_Point points[30];
+
+	float factor = (float)M_PI / 180.0f;
+
+	if (use_camera)
+	{
+		x *= scale;
+		y *= scale;
+		x += camera.x;
+		y += camera.y;
+	}
+
+	for (uint i = 0; i < 360; ++i)
+	{
+		points[i].x = (int)(x + radius * cos(i * factor) * scale);
+		points[i].y = (int)(y + radius * sin(i * factor) * scale);
+	}
+
+
+	result = SDL_RenderDrawPoints(renderer, points, 50);
+
+	if (result != 0)
+	{
+		LOG("Cannot draw cone to screen. SDL_RenderFillRect error: %s", SDL_GetError());
+		ret = false;
+	}
+
+	return ret;
+}
+
 
 bool j1Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool use_camera) const
 {
@@ -331,7 +371,7 @@ bool j1Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, U
 		points[i].y = (int)(y + radius * sin(i * factor) * scale);
 	}
 
-	result = SDL_RenderDrawPoints(renderer, points, 360);
+	result = SDL_RenderDrawPoints(renderer, points, 180);
 
 	if(result != 0)
 	{

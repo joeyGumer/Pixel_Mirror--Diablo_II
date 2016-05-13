@@ -9,7 +9,7 @@ class EntEnemyAndariel : public EntEnemy
 public:
 
 	//Constructor
-	EntEnemyAndariel(const iPoint &p, uint ID);
+	EntEnemyAndariel(const iPoint &p, uint ID, int lvl);
 
 	bool Update(float dt);
 
@@ -29,7 +29,7 @@ public:
 	uint last_update;
 
 	//Particles
-	Particle	particle_izual;
+	Particle	particle;
 	fPoint		particle_destination;
 	bool		particle_is_casted = false;
 
@@ -41,8 +41,11 @@ public:
 	SDL_Texture*		cast_tex;
 	vector<Animation>	cast;
 
+	int row_number;
 
 	j1Timer win;
+
+	bool portal_appeared = false;
 };
 
 #endif

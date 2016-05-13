@@ -158,7 +158,7 @@ bool hudStats::Start()
 	basicAttack_name = App->gui->AddGuiLabel("Basic Attack", App->font->stats, { 4, 2 }, basicAttack, FONT_WHITE, backgroundColor, this);
 	basicAttack_name->Center(true, true);
 	basicAttack_value = App->gui->AddGuiImage({ 260, 136 }, { 3450, 960, 48, 20 }, window, this);
-	text.create("%i", App->game->player->atk_damage_base);
+	text.create("%i", App->game->player->atk_damage_base_up);
 	player_basicAttack = App->gui->AddGuiLabel(text, App->font->description, { 13, 2 }, basicAttack_value, FONT_WHITE, backgroundColor, this);
 	player_basicAttack->Center(true, true);
 	hud_gui_elements.push_back(basicAttack);

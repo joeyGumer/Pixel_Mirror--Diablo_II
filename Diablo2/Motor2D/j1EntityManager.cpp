@@ -178,6 +178,32 @@ bool j1EntityManager::Start()
 	wolf_gethitfx = App->audio->LoadFx("audio/fx/WolfGetHit.ogg");
 	wolf_deathfx = App->audio->LoadFx("audio/fx/WolfDeath.ogg");
 
+	summoner_attackfx = App->audio->LoadFx("audio/fx/VampireAttack.ogg");
+	summoner_gethitfx = App->audio->LoadFx("audio/fx/VampireGetHit.ogg");
+	summoner_deathfx = App->audio->LoadFx("audio/fx/VampireDeath.ogg");
+
+	shaman_attackfx = App->audio->LoadFx("audio/fx/FallenShamanRoar.ogg");
+	shaman_gethitfx = App->audio->LoadFx("audio/fx/FallenShamanGetHit.ogg");
+	shaman_deathfx = App->audio->LoadFx("audio/fx/FallenShamanDeath.ogg");
+
+	//nest_attackfx = App->audio->LoadFx("audio/fx/VileChildAttack.ogg");
+	//nest_gethitfx = App->audio->LoadFx("audio/fx/VileChildAttack.ogg");
+	nest_deathfx = App->audio->LoadFx("audio/fx/BloodHawkNestDeath.ogg");
+
+	izual_attackfx = App->audio->LoadFx("audio/fx/IzualAttack.ogg");
+	izual_gethitfx = App->audio->LoadFx("audio/fx/IzualGetHit.ogg");
+	izual_deathfx = App->audio->LoadFx("audio/fx/IzualDeath.ogg");
+
+	council_attackfx = App->audio->LoadFx("audio/fx/CouncilAttack.ogg");
+	council_gethitfx = App->audio->LoadFx("audio/fx/CouncilGetHit.ogg");
+	council_deathfx = App->audio->LoadFx("audio/fx/CounilDeath.ogg");
+
+	andariel_attackfx = App->audio->LoadFx("audio/fx/AndarielAttack.ogg");
+	andariel_gethitfx = App->audio->LoadFx("audio/fx/AndarielGetHit.ogg");
+	andariel_deathfx = App->audio->LoadFx("audio/fx/AndarielDeath.ogg");
+
+	
+
 	return true;
 }
 
@@ -237,8 +263,8 @@ bool j1EntityManager::Update(float dt)
 	{
 		if (ent->type == ENEMY)
 		{
-			((EntEnemy*)ent)->total_width = 200 + ((EntEnemy*)ent)->HP_max;
-			((EntEnemy*)ent)->xpos = 220 - ((((EntEnemy*)ent)->HP_max)/2);
+			((EntEnemy*)ent)->total_width = 200 + (((EntEnemy*)ent)->HP_max/2);
+			((EntEnemy*)ent)->xpos = 220 - ((((EntEnemy*)ent)->HP_max)/4);
 			((EntEnemy*)ent)->DrawHPbar();
 			enemy_name->Activate();
 			enemy_name->SetText(((EntEnemy*)ent)->name);
@@ -339,14 +365,12 @@ Entity* j1EntityManager::Add(iPoint &pos, ENTITY_TYPE type)
 		switch (type)
 		{
 		//NOTE: to diferentiate the kinds of enemies, put ENEMY_TYPE enum, but don't use the one from the diferent kinds of entities
-		case (ENEMY) :
-			entity = new EntEnemyWolf(pos, ++next_ID);
-			break;
 		case (ITEM) :
 			entity = new EntItem(pos, ++next_ID);
 			break;
 		case(PORTAL) :
 			entity = new EntPortal(pos, ++next_ID);
+			break;
 		}
 
 		// We add the new entity to the map of active entities. 
@@ -356,7 +380,7 @@ Entity* j1EntityManager::Add(iPoint &pos, ENTITY_TYPE type)
 	return entity;
 }
 
-Entity* j1EntityManager::AddEnemy(iPoint &pos, ENEMY_TYPE type)
+Entity* j1EntityManager::AddEnemy(iPoint &pos, ENEMY_TYPE type, int level)
 {
 	Entity* entity = NULL;
 	iPoint tile_pos = App->map->WorldToMap(pos.x, pos.y);
@@ -376,30 +400,30 @@ Entity* j1EntityManager::AddEnemy(iPoint &pos, ENEMY_TYPE type)
 		{
 			//NOTE: to diferentiate the kinds of enemies, put ENEMY_TYPE enum, but don't use the one from the diferent kinds of entities
 		case (ENEMY_WOLF) :
-			entity = new EntEnemyWolf(pos, ++next_ID);
+			entity = new EntEnemyWolf(pos, ++next_ID, level);
 			break;
 
 		case (ENEMY_CRAWLER) :
-			entity = new EntEnemyCrawler(pos, ++next_ID);
+			entity = new EntEnemyCrawler(pos, ++next_ID, level);
 			break;
 
 		case (ENEMY_COUNCIL) :
-			entity = new EntEnemyCouncil(pos, ++next_ID);
+			entity = new EntEnemyCouncil(pos, ++next_ID, level);
 			break;
 		case (ENEMY_SHAMAN) :
-			entity = new EntEnemyShaman(pos, ++next_ID);
+			entity = new EntEnemyShaman(pos, ++next_ID, level);
 			break;
 		case (ENEMY_SUMMONER) :
-			entity = new EntEnemySummoner(pos, ++next_ID);
+			entity = new EntEnemySummoner(pos, ++next_ID, level);
 			break;
 		case (ENEMY_IZUAL) :
-			entity = new EntEnemyIzual(pos, ++next_ID);
+			entity = new EntEnemyIzual(pos, ++next_ID, level);
 			break;
 		case (ENEMY_ANDARIEL) :
-			entity = new EntEnemyAndariel(pos, ++next_ID);
+			entity = new EntEnemyAndariel(pos, ++next_ID, level);
 			break;
 		case (ENEMY_NEST) :
-			entity = new EntEnemyNest(pos, ++next_ID);
+			entity = new EntEnemyNest(pos, ++next_ID, level);
 			break;
 		}
 
@@ -410,7 +434,7 @@ Entity* j1EntityManager::AddEnemy(iPoint &pos, ENEMY_TYPE type)
 	return entity;
 }
 
-Entity* j1EntityManager::AddEnemyMap(iPoint &pos, ENEMY_TYPE type)
+Entity* j1EntityManager::AddEnemyMap(iPoint &pos, ENEMY_TYPE type, int level)
 {
 	Entity* entity = NULL;
 	iPoint tile_pos = pos;
@@ -430,24 +454,30 @@ Entity* j1EntityManager::AddEnemyMap(iPoint &pos, ENEMY_TYPE type)
 		{
 			//NOTE: to diferentiate the kinds of enemies, put ENEMY_TYPE enum, but don't use the one from the diferent kinds of entities
 		case (ENEMY_WOLF) :
-			entity = new EntEnemyWolf(App->map->MapToWorld(pos.x, pos.y), ++next_ID);
+			entity = new EntEnemyWolf(App->map->MapToWorld(pos.x, pos.y), ++next_ID, level);
 			break;
 
 		case (ENEMY_CRAWLER) :
-			entity = new EntEnemyCrawler(App->map->MapToWorld(pos.x, pos.y), ++next_ID);
+			entity = new EntEnemyCrawler(App->map->MapToWorld(pos.x, pos.y), ++next_ID, level);
 			break;
 
 		case (ENEMY_COUNCIL) :
-			entity = new EntEnemyCouncil(App->map->MapToWorld(pos.x, pos.y), ++next_ID);
+			entity = new EntEnemyCouncil(App->map->MapToWorld(pos.x, pos.y), ++next_ID, level);
 			break;
 		case (ENEMY_SHAMAN) :
-			entity = new EntEnemyShaman(App->map->MapToWorld(pos.x, pos.y), ++next_ID);
+			entity = new EntEnemyShaman(App->map->MapToWorld(pos.x, pos.y), ++next_ID, level);
 			break;
 		case (ENEMY_SUMMONER) :
-			entity = new EntEnemySummoner(App->map->MapToWorld(pos.x, pos.y), ++next_ID);
+			entity = new EntEnemySummoner(App->map->MapToWorld(pos.x, pos.y), ++next_ID, level);
 			break;
 		case (ENEMY_IZUAL) :
-			entity = new EntEnemyIzual(App->map->MapToWorld(pos.x, pos.y), ++next_ID);
+			entity = new EntEnemyIzual(App->map->MapToWorld(pos.x, pos.y), ++next_ID, level);
+			break;
+		case (ENEMY_ANDARIEL) :
+			entity = new EntEnemyAndariel(App->map->MapToWorld(pos.x, pos.y), ++next_ID, level);
+			break;
+		case (ENEMY_NEST) :
+			entity = new EntEnemyNest(App->map->MapToWorld(pos.x, pos.y), ++next_ID, level);
 			break;
 		}
 
@@ -521,4 +551,32 @@ Entity* j1EntityManager::EntityOnCoords(iPoint &pos)
 	return NULL;
 }
 
+vector<EntEnemy*> j1EntityManager::EnemiesOnArea(iPoint &pos, int radius)
+{
+	vector<EntEnemy*> ret;
+
+	map<uint, Entity*>::reverse_iterator item = active_entities.rbegin();
+	for (; item != active_entities.rend(); ++item)
+	{
+		if (item->second->type != ENEMY)
+		{
+			continue;
+		}
+		else
+		{
+			if (((EntEnemy*)item->second)->current_action == ENTITY_DEATH)
+				continue;
+
+			EntEnemy* enemy = ((EntEnemy*)item->second);
+
+			iPoint position = { int(enemy->position.x), int(enemy->position.y) };
+			if (pos.DistanceTo(position) <= radius)
+			{
+				ret.push_back(enemy);
+			}
+		}
+	}
+
+	return ret;
+}
 

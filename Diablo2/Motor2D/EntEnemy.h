@@ -36,7 +36,7 @@ public:
 	bool PlayerInAttackRange();
 
 	//Damage
-	void TakeDamage(int damage);
+	void TakeDamage(float damage);
 	void DrawHPbar();
 	
 	//Attack
@@ -46,14 +46,17 @@ public:
 	//Item droping Algorithm
 	void DropItem(iPoint pos);
 
+	//Do you wanna build a snowman~~
+	void Freeze(int time);
+
 	
 public:
 
 	//Attributes
 
 	//Health
-	int		HP_max;
-	int		HP_current;
+	float 		HP_max;
+	float		HP_current;
 
 	//Level
 	int level = 1;
@@ -79,6 +82,10 @@ public:
 	float   total_width;
 	float   xpos;
 
+	//Frozen - Let it go~~
+	bool frozen = false;
+	j1Timer freeze_timer;
+	int freeze_time = 0;
 };
 
 #endif

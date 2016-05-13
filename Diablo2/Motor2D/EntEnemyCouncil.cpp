@@ -11,9 +11,12 @@
 #include "j1SceneManager.h"
 
 //Constructor
-EntEnemyCouncil::EntEnemyCouncil(const iPoint &p, uint ID) : EntEnemy(p, ID)
+EntEnemyCouncil::EntEnemyCouncil(const iPoint &p, uint ID, int lvl) : EntEnemy(p, ID)
 {
 	name = "council member";
+
+	level = lvl;
+
 	tex = idle_tex = App->game->em->boss_idle;
 	walk_tex = App->game->em->boss_walk;
 	death_tex = App->game->em->boss_death;
@@ -146,11 +149,23 @@ bool EntEnemyCouncil::Update(float dt)
 {
 	if (!dead)
 	{
+		if (frozen)
+		{
+			if (freeze_timer.ReadSec() >= freeze_time)
+			{
+				frozen = false;
+			}
+			else
+			{
+				dt = dt / 2;
+			}
+		}
+
 		UpdateAction();
 
 		fPoint player_pos = App->game->player->GetPivotPosition();
 
-		if (ReadyToCast())
+		if (ReadyToCast() && App->game->player->visible)
 		{
 			attacking = true;
 			current_input = ENTITY_INPUT_CAST;
@@ -513,7 +528,10 @@ bool EntEnemyCouncil::PlayerInCastRange()
 
 	if (magic_range > ret)
 	{
-		return true;
+		if (App->game->player->visible)
+			return true;
+		else
+			return false;
 	}
 
 	return false;

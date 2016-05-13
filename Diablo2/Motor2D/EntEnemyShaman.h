@@ -9,7 +9,7 @@ class EntEnemyShaman : public EntEnemy
 public:
 
 	//Constructor
-	EntEnemyShaman(const iPoint &p, uint ID);
+	EntEnemyShaman(const iPoint &p, uint ID, int lvl);
 
 	bool Update(float dt);
 

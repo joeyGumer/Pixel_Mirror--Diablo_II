@@ -15,10 +15,17 @@
 #include "j1Player.h"
 #include "EntPortal.h"
 #include "EntEnemy.h"
+<<<<<<< HEAD
 #include "j1Game.h"
 #include "j1HUD.h"
 #include "GuiMiniMap.h"
 #include "hudMiniMap.h"
+=======
+#include "snDungeon2.h"
+#include "Item.h"
+
+
+>>>>>>> origin/master
 
 // Constructor
 snOutdoor2::snOutdoor2()
@@ -112,7 +119,7 @@ bool snOutdoor2::Update(float dt)
 			p.x += App->map->data.tile_width / 2;
 			p.y += App->map->data.tile_height / 2;
 
-			Entity* ent = App->game->em->AddEnemy(p, ENEMY_WOLF);
+			Entity* ent = App->game->em->AddEnemy(p, ENEMY_WOLF, 1);
 			p = App->map->WorldToMap(p.x, p.y);
 			int i = 0;
 
@@ -125,7 +132,7 @@ bool snOutdoor2::Update(float dt)
 			p.x += App->map->data.tile_width / 2;
 			p.y += App->map->data.tile_height / 2;
 
-			Entity* ent = App->game->em->AddEnemy(p, ENEMY_CRAWLER);
+			Entity* ent = App->game->em->AddEnemy(p, ENEMY_CRAWLER, 1);
 		}
 
 		else if (App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
@@ -135,7 +142,7 @@ bool snOutdoor2::Update(float dt)
 			p.x += App->map->data.tile_width / 2;
 			p.y += App->map->data.tile_height / 2;
 
-			Entity* ent = App->game->em->AddEnemy(p, ENEMY_COUNCIL);
+			Entity* ent = App->game->em->AddEnemy(p, ENEMY_COUNCIL, 1);
 		}
 
 		else if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
@@ -145,7 +152,7 @@ bool snOutdoor2::Update(float dt)
 			p.x += App->map->data.tile_width / 2;
 			p.y += App->map->data.tile_height / 2;
 
-			Entity* ent = App->game->em->AddEnemy(p, ENEMY_SHAMAN);
+			Entity* ent = App->game->em->AddEnemy(p, ENEMY_SHAMAN, 1);
 		}
 
 		else if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
@@ -155,7 +162,7 @@ bool snOutdoor2::Update(float dt)
 			p.x += App->map->data.tile_width / 2;
 			p.y += App->map->data.tile_height / 2;
 
-			Entity* ent = App->game->em->AddEnemy(p, ENEMY_SUMMONER);
+			Entity* ent = App->game->em->AddEnemy(p, ENEMY_SUMMONER, 1);
 		}
 
 		else if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
@@ -165,7 +172,7 @@ bool snOutdoor2::Update(float dt)
 			p.x += App->map->data.tile_width / 2;
 			p.y += App->map->data.tile_height / 2;
 
-			Entity* ent = App->game->em->AddEnemy(p, ENEMY_IZUAL);
+			Entity* ent = App->game->em->AddEnemy(p, ENEMY_IZUAL, 1);
 		}
 
 		else if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
@@ -175,7 +182,7 @@ bool snOutdoor2::Update(float dt)
 			p.x += App->map->data.tile_width / 2;
 			p.y += App->map->data.tile_height / 2;
 
-			Entity* ent = App->game->em->AddEnemy(p, ENEMY_ANDARIEL);
+			Entity* ent = App->game->em->AddEnemy(p, ENEMY_ANDARIEL, 1);
 		}
 
 		else if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
@@ -185,7 +192,7 @@ bool snOutdoor2::Update(float dt)
 			p.x += App->map->data.tile_width / 2;
 			p.y += App->map->data.tile_height / 2;
 
-			Entity* ent = App->game->em->AddEnemy(p, ENEMY_NEST);
+			Entity* ent = App->game->em->AddEnemy(p, ENEMY_NEST, 1);
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
@@ -274,20 +281,230 @@ bool snOutdoor2::UnLoad()
 //Adding Enemies
 Entity* snOutdoor2::AddEnemy(iPoint pos)
 {
+	int lvl;
 	Entity* ret = NULL;
-	int random = rand() % 5;
-	if (random == 0)
-		ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_CRAWLER);
-	if (random == 1)
-		ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF);
-	if (random == 2)
-		ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_COUNCIL);
-	if (random == 3)
-		ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_SUMMONER);
-	if (random == 4)
-		ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_SHAMAN);
+	if (App->sm->level1 == App->sm->outdoor2)
+	{
+		lvl = 1;
+		int random = rand() % 12;
+
+		if (random <= 2)
+		{
+			ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_CRAWLER, lvl);
+		}
+		else if (random <= 5)
+		{
+			ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF, lvl);
+		}
+		else if (random <= 7)
+		{
+			ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_COUNCIL, lvl);
+		}
+		else if (random <= 9)
+		{
+			ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_SUMMONER, lvl);
+		}
+		else if (random <= 11)
+		{
+			ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_SHAMAN, lvl);
+		}
+	}
+
+	else if (App->sm->level2 == App->sm->outdoor2)
+	{
+		lvl = 2;
+		int random = rand() % 12;
+
+		if (random <= 2)
+		{
+			ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_CRAWLER, lvl);
+		}
+		else if (random <= 5)
+		{
+			ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF, lvl);
+		}
+		else if (random <= 7)
+		{
+			ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_COUNCIL, lvl);
+		}
+		else if (random <= 9)
+		{
+			ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_SUMMONER, lvl);
+		}
+		else if (random <= 11)
+		{
+			ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_SHAMAN, lvl);
+		}
+	}
+
+	else if (App->sm->level3 == App->sm->outdoor2)
+	{
+		lvl = 3;
+		int random = rand() % 5;
+
+		if (random == 0)
+			ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_CRAWLER, lvl);
+		if (random == 1)
+			ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_WOLF, lvl);
+		if (random == 2)
+			ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_COUNCIL, lvl);
+		if (random == 3)
+			ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_SUMMONER, lvl);
+		if (random == 4)
+			ret = App->game->em->AddEnemy(App->map->MapToWorld(pos.x, pos.y), ENEMY_SHAMAN, lvl);
+	}
 
 	return ret;
+}
+
+Entity* snOutdoor2::AddBoss(iPoint pos)
+{
+	int lvl;
+	if (App->sm->level1 == App->sm->outdoor2)
+	{
+		lvl = 1;
+	}
+
+	else if (App->sm->level2 == App->sm->outdoor2)
+	{
+		lvl = 2;
+	}
+
+	else if (App->sm->level3 == App->sm->outdoor2)
+	{
+		lvl = 3;
+	}
+	Entity* ret = NULL;
+	int random = rand() % 3;
+	if (random == 0)
+		ret = App->game->em->AddEnemy(pos, ENEMY_ANDARIEL, lvl);
+	if (random == 1)
+		ret = App->game->em->AddEnemy(pos, ENEMY_IZUAL, lvl);
+	if (random == 2)
+		ret = App->game->em->AddEnemy(pos, ENEMY_NEST, lvl);
+
+	portal_spawn = pos;
+
+	return ret;
+}
+
+void snOutdoor2::AddPortal(iPoint pos)
+{
+	Entity* to_add = App->game->em->Add(portal_spawn, PORTAL);
+
+	iPoint pos2;
+
+	if (to_add == NULL)
+	{
+		pos2.x = portal_spawn.x;
+		pos2.y = portal_spawn.y + 30;
+		to_add = App->game->em->Add(pos2, PORTAL);
+	}
+
+	else if (to_add == NULL)
+	{
+		pos2.x = portal_spawn.x + 30;
+		pos2.y = portal_spawn.y + 30;
+		to_add = App->game->em->Add(pos2, PORTAL);
+	}
+
+	else if (to_add == NULL)
+	{
+		pos2.x = portal_spawn.x - 30;
+		pos2.y = portal_spawn.y + 30;
+		to_add = App->game->em->Add(pos2, PORTAL);
+	}
+
+	EntPortal* portal = (EntPortal*)to_add;
+	if (portal != NULL)
+	{
+		if (App->sm->level1 == App->sm->outdoor2)
+		{
+			portal->SetDestiny(App->sm->level2);
+		}
+
+		else if (App->sm->level2 == App->sm->outdoor2)
+		{
+			//portal->destiny = App->sm->level3;
+			portal->destiny = App->sm->win;
+		}
+
+		else if (App->sm->level3 == App->sm->outdoor2)
+		{
+			portal->destiny = App->sm->win;
+		}
+		entity_list.push_back(to_add);
+	}
+}
+
+void snOutdoor2::DropItem(iPoint pos)
+{
+	//NOTE: thinking of using srand for more equally distributed random generation
+	//NOTE: have to change this, the random isn't equal at all. Even when there's a 60% to have no item, it almost always drops items
+	int chance = rand() % 100;
+	ITEM_RARITY rarity;
+
+	//note: HAVE TO CHANGE THIS TO VARIABLES SO IT CAN BE CHANGED BY LUCK
+	if (App->sm->level1 == App->sm->dungeon2)
+	{
+		rarity = RARITY_RARE;
+	}
+
+	else if (App->sm->level2 == App->sm->dungeon2)
+	{
+		rarity = RARITY_LEGENDARY;
+	}
+
+	if (rarity != NO_DROP)
+	{
+		chance = rand() % 100;
+
+		if (chance < 35)
+		{
+			itmStone* item;
+			item = new itmStone(rarity, pos);
+			if (!item->ent_item)
+			{
+				RELEASE(item);
+			}
+		}
+		else if (chance < 55)
+		{
+			itmRing* item;
+			item = new itmRing(rarity, pos);
+			if (!item->ent_item)
+			{
+				RELEASE(item);
+			}
+		}
+		else if (chance < 65)
+		{
+			itmJewel* item;
+			item = new itmJewel(rarity, pos);
+			if (!item->ent_item)
+			{
+				RELEASE(item);
+			}
+		}
+		else if (chance < 90)
+		{
+			itmRune* item;
+			item = new itmRune(rarity, pos);
+			if (!item->ent_item)
+			{
+				RELEASE(item);
+			}
+		}
+		else if (chance >= 90)
+		{
+			itmArmor* item;
+			item = new itmArmor(rarity, pos);
+			if (!item->ent_item)
+			{
+				RELEASE(item);
+			}
+		}
+	}
 }
 
 //Spawn Player
@@ -316,25 +533,25 @@ void snOutdoor2::SpawnPlayer()
 	if (random2 == 0)
 	{
 		pos = { -140, 796 };
-		to_add = App->game->em->AddEnemy(pos, ENEMY_IZUAL);
+		to_add = AddBoss(pos);
 		entity_list.push_back(to_add);
 	}
 	else if (random2 == 1)
 	{
 		pos = { -3041, 2106 };
-		to_add = App->game->em->AddEnemy(pos, ENEMY_IZUAL);
+		to_add = AddBoss(pos);
 		entity_list.push_back(to_add);
 	}
 	else if (random2 == 2)
 	{
 		pos = { -224, 4200 };
-		to_add = App->game->em->AddEnemy(pos, ENEMY_IZUAL);
+		to_add = AddBoss(pos);
 		entity_list.push_back(to_add);
 	}
 	else if (random2 == 3)
 	{
 		pos = { 2815, 2839 };
-		to_add = App->game->em->AddEnemy(pos, ENEMY_IZUAL);
+		to_add = AddBoss(pos);
 		entity_list.push_back(to_add);
 	}
 
@@ -608,4 +825,13 @@ void snOutdoor2::SpawnPlayer()
 	pos = { 202, 39 };
 	to_add = AddEnemy(pos);
 	entity_list.push_back(to_add);
+
+	//Items
+	DropItem({ -651, 1009 });
+	DropItem({ 82, 2075 });
+	DropItem({ -1780, 1403 });
+	DropItem({ -1117, 3272 });
+	DropItem({ 1096, 3679 });
+	DropItem({ 1146, 3164 });
+	DropItem({ 2399, 1849 });
 }

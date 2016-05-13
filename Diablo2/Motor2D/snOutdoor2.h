@@ -51,9 +51,13 @@ public:
 
 	//Adding Enemies
 	Entity* AddEnemy(iPoint pos);
+	Entity* AddBoss(iPoint pos);
+	void AddPortal(iPoint pos);
 
 	//Spawn player
 	void SpawnPlayer();
+
+	void DropItem(iPoint pos);
 
 private:
 
@@ -63,6 +67,8 @@ public:
 	SDL_Texture* debug = NULL;
 
 	list<Entity*>		entity_list;
+
+	iPoint portal_spawn;
 
 	bool win;
 };

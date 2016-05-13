@@ -9,7 +9,7 @@ class EntEnemySummoner : public EntEnemy
 public:
 
 	//Constructor
-	EntEnemySummoner(const iPoint &p, uint ID);
+	EntEnemySummoner(const iPoint &p, uint ID, int lvl);
 	~EntEnemySummoner();
 
 	bool Update(float dt);

@@ -10,7 +10,7 @@ class EntEnemyCouncil : public EntEnemy
 public:
 
 	//Constructor
-	EntEnemyCouncil(const iPoint &p, uint ID);
+	EntEnemyCouncil(const iPoint &p, uint ID, int lvl);
 
 	bool Update(float dt);
 

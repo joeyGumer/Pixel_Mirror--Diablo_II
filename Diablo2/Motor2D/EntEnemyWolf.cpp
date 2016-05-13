@@ -8,9 +8,12 @@
 #include "j1Map.h"
 
 //Constructor
-EntEnemyWolf::EntEnemyWolf(const iPoint &p, uint ID) : EntEnemy(p, ID)
+EntEnemyWolf::EntEnemyWolf(const iPoint &p, uint ID, int lvl) : EntEnemy(p, ID)
 {
 	name = "wolf";
+
+	level = lvl;
+
 	tex = idle_tex = App->game->em->wolf_idle;
 	walk_tex = App->game->em->wolf_walk;
 	death_tex = App->game->em->wolf_death;
@@ -110,6 +113,18 @@ bool EntEnemyWolf::Update(float dt)
 {
 	if (!dead)
 	{
+		if (frozen)
+		{
+			if (freeze_timer.ReadSec() >= freeze_time)
+			{
+				frozen = false;
+			}
+			else
+			{
+				dt = dt / 2;
+			}
+		}
+
 		UpdateAction();
 
 		fPoint player_pos = App->game->player->GetPivotPosition();

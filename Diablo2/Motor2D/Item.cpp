@@ -281,8 +281,15 @@ void itmConsumable::Effect()
 	{
 		App->game->player->RestoreHP(item_buffs[0]->value);
 	}
+	else if (item_buffs[0]->attribute == BLOOD)
+	{
+		App->game->player->MP_current += item_buffs[0]->value;
+		App->game->player->PlayerEvent(MP_UP);
+	}
 	else
 	{
+		item_buffs[0]->value += (float(item_buffs[0]->value)/100) * App->game->player->extra_potion;
+
 		App->game->player->buffs.push_back(item_buffs[0]);
 		buff_given = true;
 		item_buffs[0]->Start();
@@ -305,38 +312,112 @@ itmRing::itmRing(ITEM_RARITY rarity, iPoint p) : Item(ITEM_RING, rarity, p)
 	switch (rarity)
 	{
 	case RARITY_COMMON:
+	{
 		at = rand() % 2;
 		rarity_color = FONT_WHITE;
 		switch (at)
 		{
 		case 0:
+		{
 			x = 2374;
-			break;
-		case 1:
-			x = 2404;
-			break;
-		}
 
+			int r = 1;
+			r += rand() % 8;
+			Buff* buff1;
+			buff1 = new Buff(PURE_BLOOD, r);
+			item_buffs.push_back(buff1);
+
+			r = 1;
+			r += rand() % 8;
+			Buff* buff2;
+			buff2 = new Buff(POTION, r);
+			item_buffs.push_back(buff2);
+		}
 		break;
+		case 1:
+		{
+			x = 2404;
+
+			int r = 1;
+			r += rand() % 8;
+			Buff* buff2;
+			buff2 = new Buff(COOLDOWN, r);
+			item_buffs.push_back(buff2);
+
+			r = 1;
+			r += rand() % 10;
+			Buff* buff1;
+			buff1 = new Buff(BLOOD_MAX, r);
+			item_buffs.push_back(buff1);
+		}
+		break;
+		}
+	}
+	break;
 
 	case RARITY_RARE:
+	{
 		at = rand() % 2;
 		rarity_color = FONT_ORANGE;
 		switch (at)
 		{
 		case 0:
+		{
 			x = 2344;
+
+			int r = 5;
+			r += rand() % 11;
+			Buff* buff1;
+			buff1 = new Buff(PURE_BLOOD, r);
+			item_buffs.push_back(buff1);
+
+			r = 10;
+			r += rand() % 11;
+			Buff* buff2;
+			buff2 = new Buff(BLOOD_MAX, r);
+			item_buffs.push_back(buff2);
+		}
 			break;
 		case 1:
+		{
 			x = 2434;
+
+			int r = 5;
+			r += rand() % 11;
+			Buff* buff1;
+			buff1 = new Buff(POTION, r);
+			item_buffs.push_back(buff1);
+
+			r = 1;
+			r += rand() % 7;
+			Buff* buff2;
+			buff2 = new Buff(ARMOR, r);
+			item_buffs.push_back(buff2);
+		}
 			break;
 		}
-		break;
+	}
+	break;
 
 	case RARITY_LEGENDARY:
-		rarity_color = FONT_VIOLET; 
+	{
+		rarity_color = FONT_VIOLET;
 		x = 2314;
-		break;
+
+		int r = 4;
+		r += rand() % 7;
+		Buff* buff1;
+		buff1 = new Buff(ARMOR, r);
+		item_buffs.push_back(buff1);
+
+		r = 4;
+		r += rand() % 7;
+		Buff* buff2;
+		buff2 = new Buff(COOLDOWN, r);
+		item_buffs.push_back(buff2);
+	}
+	break;
+
 	}
 
 
@@ -426,7 +507,7 @@ itmJewel::itmJewel(ITEM_RARITY rarity, iPoint p) : Item(ITEM_JEWEL, rarity, p)
 
 		int special1 = 5 + (rand() % 11);
 		Buff* buff3;
-		buff3 = new Buff(BLOOD, special1);
+		buff3 = new Buff(PURE_BLOOD, special1);
 		item_buffs.push_back(buff3);
 
 		attribute_type.push_back(attribute1);

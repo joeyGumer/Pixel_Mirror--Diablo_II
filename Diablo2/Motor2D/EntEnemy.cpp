@@ -110,6 +110,13 @@ void EntEnemy::DropItem(iPoint pos)
 
 }
 
+void EntEnemy::Freeze(int time)
+{
+	frozen = true;
+	freeze_time = time;
+	freeze_timer.Start();
+}
+
 //Drawing methods
 void EntEnemy::Draw()
 {
@@ -154,7 +161,10 @@ bool EntEnemy::PlayerInRange()
 
 	if (agro_range > ret)
 	{
-		return true;
+		if (App->game->player->visible)
+			return true;
+		else
+			return false;
 	}
 
 	return false;
@@ -162,7 +172,7 @@ bool EntEnemy::PlayerInRange()
 //----------------------------
 
 
-void EntEnemy::TakeDamage(int damage)
+void EntEnemy::TakeDamage(float damage)
 {
 	//NOTE: this will be changed when the defense is applied
 	HP_current -= damage;
@@ -172,6 +182,16 @@ void EntEnemy::TakeDamage(int damage)
 		App->audio->PlayFx(App->game->em->crawler_gethitfx);
 	if (enemy_type == ENEMY_WOLF)
 		App->audio->PlayFx(App->game->em->wolf_gethitfx);
+	if (enemy_type == ENEMY_SUMMONER)
+		App->audio->PlayFx(App->game->em->summoner_gethitfx);
+	if (enemy_type == ENEMY_COUNCIL)
+		App->audio->PlayFx(App->game->em->council_gethitfx);
+	if (enemy_type == ENEMY_SHAMAN)
+		App->audio->PlayFx(App->game->em->shaman_gethitfx);
+	if (enemy_type == ENEMY_IZUAL)
+		App->audio->PlayFx(App->game->em->izual_gethitfx);
+	if (enemy_type == ENEMY_ANDARIEL)
+		App->audio->PlayFx(App->game->em->andariel_gethitfx);
 	//-------------
 	
 	if (HP_current <= 0)
@@ -182,6 +202,18 @@ void EntEnemy::TakeDamage(int damage)
 			App->audio->PlayFx(App->game->em->crawler_deathfx);
 		if (enemy_type == ENEMY_WOLF)
 			App->audio->PlayFx(App->game->em->wolf_deathfx);
+		if (enemy_type == ENEMY_SUMMONER)
+			App->audio->PlayFx(App->game->em->summoner_deathfx);
+		if (enemy_type == ENEMY_COUNCIL)
+			App->audio->PlayFx(App->game->em->council_deathfx);
+		if (enemy_type == ENEMY_SHAMAN)
+			App->audio->PlayFx(App->game->em->shaman_deathfx);
+		if (enemy_type == ENEMY_NEST)
+			App->audio->PlayFx(App->game->em->nest_deathfx);
+		if (enemy_type == ENEMY_IZUAL)
+			App->audio->PlayFx(App->game->em->izual_deathfx);
+		if (enemy_type == ENEMY_ANDARIEL)
+			App->audio->PlayFx(App->game->em->andariel_deathfx);
 	}
 }
 
@@ -192,8 +224,8 @@ void EntEnemy::DrawHPbar()
 	int height = 20;
 	int current_width = (total_width/HP_max)* HP_current;
 
-	App->render->DrawQuad({ xpos/*220*/, 0, total_width, height }, 0, 0, 0, 255, true, false);
-	App->render->DrawQuad({ xpos, 0, current_width, height }, 255, 0, 0, 255, true, false);
+	App->render->DrawQuad({ xpos/*220*/, 0, total_width, height }, 0, 0, 0, 150, true, false);
+	App->render->DrawQuad({ xpos, 0, current_width, height }, 102, 0, 0, 150, true, false);
 	
 }
 
@@ -258,6 +290,16 @@ void EntEnemy::CheckToAttack()
 				App->audio->PlayFx(App->game->em->crawler_attackfx);
 			if (enemy_type == ENEMY_WOLF)
 				App->audio->PlayFx(App->game->em->wolf_attackfx);
+			if (enemy_type == ENEMY_SUMMONER)
+				App->audio->PlayFx(App->game->em->summoner_attackfx);
+			if (enemy_type == ENEMY_COUNCIL)
+				App->audio->PlayFx(App->game->em->council_attackfx);
+			if (enemy_type == ENEMY_SHAMAN)
+				App->audio->PlayFx(App->game->em->shaman_attackfx);
+			if (enemy_type == ENEMY_IZUAL)
+				App->audio->PlayFx(App->game->em->izual_attackfx);
+			if (enemy_type == ENEMY_ANDARIEL)
+				App->audio->PlayFx(App->game->em->andariel_attackfx);
 		}
 	}
 }

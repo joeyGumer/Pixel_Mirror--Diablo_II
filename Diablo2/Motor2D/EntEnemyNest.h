@@ -9,7 +9,7 @@ class EntEnemyNest : public EntEnemy
 public:
 
 	//Constructor
-	EntEnemyNest(const iPoint &p, uint ID);
+	EntEnemyNest(const iPoint &p, uint ID, int lvl);
 	~EntEnemyNest();
 
 	bool Update(float dt);
@@ -42,6 +42,14 @@ public:
 	j1Timer summon_timer;
 	list<Entity*> summon_list;
 	bool summoned = false;
+
+	j1Timer ranged_timer;
+	int ranged_cooldown;
+	int		ranged_columns;
+
+	j1Timer win;
+
+	bool portal_appeared = false;
 };
 
 #endif

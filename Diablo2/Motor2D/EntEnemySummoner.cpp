@@ -12,9 +12,12 @@
 
 
 //Constructor
-EntEnemySummoner::EntEnemySummoner(const iPoint &p, uint ID) : EntEnemy(p, ID)
+EntEnemySummoner::EntEnemySummoner(const iPoint &p, uint ID, int lvl) : EntEnemy(p, ID)
 {
 	name = "summoner";
+
+	level = lvl;
+
 	tex = idle_tex = App->game->em->summoner_idle;
 	walk_tex = App->game->em->summoner_walk;
 	death_tex = App->game->em->summoner_death;
@@ -145,11 +148,23 @@ bool EntEnemySummoner::Update(float dt)
 {
 	if (!dead)
 	{
+		if (frozen)
+		{
+			if (freeze_timer.ReadSec() >= freeze_time)
+			{
+				frozen = false;
+			}
+			else
+			{
+				dt = dt / 2;
+			}
+		}
+
 		UpdateAction();
 
 		fPoint player_pos = App->game->player->GetPivotPosition();
 
-		if (ReadyToSummon())
+		if (ReadyToSummon() && App->game->player->visible)
 		{
 			attacking = true;
 			current_input = ENTITY_INPUT_CAST;
@@ -525,7 +540,7 @@ void EntEnemySummoner::UpdateSummon()
 		{
 			pos.y -= 3;
 		}
-		to_summon = App->game->em->AddEnemyMap(pos, ENEMY_WOLF);
+		to_summon = App->game->em->AddEnemyMap(pos, ENEMY_WOLF, level);
 		if (to_summon != NULL)
 		{
 			summon_list.push_back(to_summon);

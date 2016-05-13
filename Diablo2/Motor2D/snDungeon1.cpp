@@ -112,7 +112,7 @@ bool snDungeon1::Update(float dt)
 			//if (a == 0)
 			//App->game->em->Add(p, ENEMY);
 			//App->game->em->Add(p, ENEMY_CRAWLER);
-			App->game->em->AddEnemy(p, ENEMY_CRAWLER);
+			//App->game->em->AddEnemy(p, ENEMY_CRAWLER);
 			p = App->map->WorldToMap(p.x, p.y);
 			int i = 0;
 		}
@@ -203,6 +203,7 @@ bool snDungeon1::UnLoad()
 //Adding Enemies
 void snDungeon1::AddEnemies()
 {
+	/*
 	iPoint tile_pos;
 	Entity* to_add = NULL;
 
@@ -448,4 +449,5 @@ void snDungeon1::AddEnemies()
 				entity_list.push_back(to_add);
 		}
 	}
+	*/
 }

@@ -58,6 +58,13 @@ bool j1Player::Start()
 	wild_talon = new sklWildTalon();
 	bat_strike = new sklBatStrike();
 	soul_of_ice = new sklSoulOfIce();
+	krobus_arts = new sklKrobusArts();
+	vampire_breath = new sklVampireBreath();
+	blood_bomb = new sklBloodBomb();
+	red_feast = new sklRedFeast();
+	shadow_walker = new sklShadowsWalker();
+	clotted_blood = new sklClottedBloodSkin();
+	heard_of_bats = new sklHeardOfBats();
 
 	//
 	player_attack = App->audio->LoadFx("audio/fx/PlayerAttack.ogg");
@@ -109,8 +116,10 @@ bool j1Player::Start()
 	blood_current = 0;
 
 	//Attack
-	atk_damage_final = atk_damage_base = 38;
-	dAtk = (float)atk_damage_base / 100;
+	atk_damage_final_up = atk_damage_base_up = 15;
+	atk_damage_final_down = atk_damage_final_down = 10;
+
+	//dAtk = (float)atk_damage_base / 100;
 
 	//Armor
 	armor_final = armor_base = 0;
@@ -154,10 +163,16 @@ bool j1Player::Update(float dt)
 			CheckToAttack();
 		}
 
+		if (independent_skill)
+		{
+			independent_skill->SkillIndependentUpdate(dt);
+		}
 		//NOTE:Make this more elegant
 		switch (current_action)
 		{
 		case IDLE:
+			if (input_locked)
+				input_locked = false;
 			break;
 		case WALKING:
 			UpdateMovement(dt);
@@ -167,7 +182,7 @@ bool j1Player::Update(float dt)
 			LowerStamina();
 			break;
 		case SKILL:
-			current_skill->SkillUpdate();
+			current_skill->SkillUpdate(dt);
 			break;
 
 		}
@@ -777,7 +792,7 @@ void j1Player::HandleInput()
 
 		PlayerEvent(HP_UP);
 	}
-	/*
+	
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 	{
 		if (MP_current <= 0)
@@ -804,7 +819,7 @@ void j1Player::HandleInput()
 
 		PlayerEvent(MP_UP);
 	}
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	/*if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
 		if (ST_current <= 0)
 		{
@@ -1062,7 +1077,7 @@ void j1Player::RecoverStamina()
 
 void j1Player::IncreaseBlood(int blood)
 {
-	blood_current += blood;
+	blood_current += int(float(blood) + float(float(blood)/100 * extra_pure_blood));
 }
 
 void j1Player::RecoverHP(float dt)
@@ -1192,6 +1207,13 @@ void j1Player::SetAnimations()
 	wild_talon->SetSkillAnimations();
 	bat_strike->SetSkillAnimations();
 	soul_of_ice->SetSkillAnimations();
+	krobus_arts->SetSkillAnimations();
+	vampire_breath->SetSkillAnimations();
+	blood_bomb->SetSkillAnimations();
+	red_feast->SetSkillAnimations();
+	shadow_walker->SetSkillAnimations();
+	clotted_blood->SetSkillAnimations();
+	heard_of_bats->SetSkillAnimations();
 }
 
 //NOTE: why is this at player and not at the skill that uses this?
@@ -1377,9 +1399,34 @@ void j1Player::SetAttribute(PLAYER_ATTRIBUTE attribute, float value)
 		armor_final += value;
 	}
 	break;
+	case EXTRA_DAMAGE:
+	{
+		extra_damage += value;
+	}
+	case INVISIBILITY:
+	{
+		visible = false;
+	}
+	case PURE_BLOOD:
+	{
+		extra_pure_blood += value;
+	}
+	case COOLDOWN:
+	{
+		exta_cooldown += value;
+	}
+	case POTION:
+	{
+		extra_potion += value;
+	}
+	case BLOOD_MAX:
+	{
+		extra_blood_charge += value;
+	}
 	default:
 		break;
 	}
+	
 
 }
 
@@ -1391,10 +1438,18 @@ void j1Player::CalculateFinalStats()
 	vit_final = vit_base;
 	int_final = int_base;
 	luck_final = luck_base;
-	atk_damage_final = atk_damage_base;
+	atk_damage_final_up = atk_damage_base_up;
+	atk_damage_final_down = atk_damage_base_down;
 	armor_final = armor_base;
+	extra_damage = 0;
+	extra_pure_blood = 0;
+	exta_cooldown = 0;
+	extra_potion = 0;
+	extra_blood_charge = 0;
+	visible = true;
 
 	HP_max = HP_base;
+	MP_max = MP_base;
 	HP_recover_final = HP_recover_base;
 	ST_max = ST_base;
 
@@ -1413,7 +1468,11 @@ void j1Player::CalculateFinalStats()
 	if (str_final < 0)
 		str_final = 0;
 
-	atk_damage_final += dAtk * str_final;
+
+	atk_damage_final_down += str_final/2;
+	atk_damage_final_up += str_final;
+
+	atk_damage_final_up += ((float(atk_damage_final_up) / 100) * float(extra_damage));
 
 	//Dexterity
 	if (dex_final < 0)
@@ -1430,6 +1489,8 @@ void j1Player::CalculateFinalStats()
 	HP_max += HP_dt * vit_final;
 	HP_recover_final += HP_recover_dt * vit_final;
 	ST_max += ST_dt * vit_final;
+
+	MP_max += extra_blood_charge;
 
 	if (HP_current > HP_max)
 		HP_current = HP_max;
@@ -1451,12 +1512,13 @@ void j1Player::CalculateFinalStats()
 	App->game->HUD->stats->SetDexterityLabel(dex_final);
 	App->game->HUD->stats->SetIntelligenceLabel(int_final);
 	App->game->HUD->stats->SetLuckLabel(luck_final);
-	App->game->HUD->stats->SetBasicAttackLabel(atk_damage_final);
+	App->game->HUD->stats->SetBasicAttackLabel(atk_damage_final_up);
 	App->game->HUD->stats->SetResistenceLabel(armor_final);
 
 	//HUD related
 	PlayerEvent(HP_DOWN);
 	PlayerEvent(ST_DOWN);
+	PlayerEvent(MP_DOWN);
 
 }
 

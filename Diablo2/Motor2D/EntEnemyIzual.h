@@ -9,7 +9,7 @@ class EntEnemyIzual : public EntEnemy
 public:
 
 	//Constructor
-	EntEnemyIzual(const iPoint &p, uint ID);
+	EntEnemyIzual(const iPoint &p, uint ID, int lvl);
 
 	bool Update(float dt);
 
@@ -33,6 +33,8 @@ public:
 	fPoint		particle_destination;
 	bool		particle_is_casted = false;
 
+	bool		portal_appeared = false;
+
 	int magic_damage;
 	float magic_range;
 	int magic_cooldown;
@@ -41,6 +43,7 @@ public:
 	SDL_Texture*		cast_tex;
 	vector<Animation>	cast;
 
+	int magic_counter;
 
 	j1Timer win;
 };

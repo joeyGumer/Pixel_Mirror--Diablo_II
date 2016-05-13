@@ -92,8 +92,13 @@ enum PLAYER_ATTRIBUTE
 	LUCK,
 	HP, //Not vitality
 	BLOOD,
+	BLOOD_MAX,
 	ARMOR,
 	COOLDOWN,
+	EXTRA_DAMAGE,
+	INVISIBILITY,
+	PURE_BLOOD,
+	POTION,
 };
 
 class EntEnemy;
@@ -106,8 +111,15 @@ class sklBasicAttack;
 class sklBloodArrow;
 class sklStingingStrike;
 class sklWildTalon;
+class sklKrobusArts;
 class sklBatStrike;
 class sklSoulOfIce;
+class sklVampireBreath;
+class sklBloodBomb;
+class sklRedFeast;
+class sklShadowsWalker;
+class sklClottedBloodSkin;
+class sklHeardOfBats; 
 class Collider;
 struct Buff;
 
@@ -246,8 +258,10 @@ public:
 
 	//Attack
 	bool		attacking;
-	int			atk_damage_base = 38;
-	int			atk_damage_final;
+	int			atk_damage_base_up = 15;
+	int			atk_damage_base_down = 10;
+	int			atk_damage_final_up;
+	int			atk_damage_final_down;
 	float		dAtk;
 	float		attack_range = 65.0f;
 
@@ -278,6 +292,8 @@ public:
 	/*
 	//-----Attributes
 	*/
+
+	bool visible = true;
 
 	//HP
 	float HP_max;
@@ -327,7 +343,14 @@ public:
 	int armor_base = 0;
 	int armor_final;
 
+	int extra_damage = 0;
+	int extra_pure_blood = 0;
+
+	int exta_cooldown = 0;
+	int extra_potion = 0;
+	int extra_blood_charge = 0;
 	
+
 	float life;
 	float stamina;
 	float basic_damage;
@@ -370,16 +393,29 @@ public:
 	Skill* left_skill = NULL;
 	Skill* right_skill = NULL;
 	Skill* current_skill = NULL;
+	Skill* independent_skill = NULL;
 
 	//Those skills
 	sklBasicAttack* basic_attack = NULL;
-	sklBloodArrow* blood_arrow = NULL;
+
 
 	//Martial Blood
 	sklStingingStrike* stinging_strike = NULL;
 	sklWildTalon* wild_talon = NULL;
 	sklBatStrike* bat_strike = NULL;
 	sklSoulOfIce* soul_of_ice = NULL;
+	sklKrobusArts* krobus_arts = NULL;
+
+	//Blood Spells
+	sklBloodArrow* blood_arrow = NULL;
+	sklVampireBreath* vampire_breath = NULL;
+	sklBloodBomb* blood_bomb =  NULL;
+	sklRedFeast* red_feast = NULL;
+	sklHeardOfBats* heard_of_bats = NULL;
+
+	//Night passives
+	sklShadowsWalker* shadow_walker = NULL;
+	sklClottedBloodSkin* clotted_blood = NULL;
 
 	//Collider
 	Collider* p_collider;

@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "Animation.h"
+#include "Buff.h"
 
 struct SDL_Texture;
 class j1Player;
@@ -26,10 +27,11 @@ public:
 
 	virtual void SkillEffect()
 	{}
-
+	virtual void SkillIndependentUpdate(float dt)
+	{}
 	virtual void SkillInit()
 	{}
-	virtual void SkillUpdate()
+	virtual void SkillUpdate(float dt)
 	{}
 	virtual void SetSkillAnimations()
 	{}
@@ -91,8 +93,10 @@ public:
 class sklBuff : public Skill
 {
 public:
-	sklBuff() : Skill(SKILL_BUFF)
-	{}
+	sklBuff(PLAYER_ATTRIBUTE atribute, int value, int time) : Skill(SKILL_BUFF), buff(atribute, value, false, time)
+	{
+		
+	}
 
 	virtual ~sklBuff()
 	{}
@@ -100,6 +104,7 @@ public:
 
 public:
 
+	Buff buff;
 };
 
 //NOTE: this is the tricky one

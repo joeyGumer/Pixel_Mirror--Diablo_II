@@ -10,6 +10,7 @@
 enum ENTITY_TYPE;
 enum ENEMY_TYPE;
 class Entity;
+class EntEnemy;
 class GuiLabel;
 using namespace std;
 
@@ -47,13 +48,14 @@ public:
 	void OnCollision(Collider* c1, Collider* c2);
 
 	Entity* Add(iPoint &pos, ENTITY_TYPE type);
-	Entity* AddEnemy(iPoint &pos, ENEMY_TYPE type);
-	Entity* AddEnemyMap(iPoint &pos, ENEMY_TYPE type);
+	Entity* AddEnemy(iPoint &pos, ENEMY_TYPE type, int level);
+	Entity* AddEnemyMap(iPoint &pos, ENEMY_TYPE type, int level);
 	bool Remove(uint id);
 	Entity* GetEntity(uint id);
 
 	Entity* EntityOnMouse();
 	Entity* EntityOnCoords(iPoint &pos);
+	vector<EntEnemy*> EnemiesOnArea(iPoint &pos, int radius);
 
 private:
 	//map<uint, Entity*> active_entities;
@@ -156,6 +158,31 @@ public:
 	int wolf_gethitfx;
 	int wolf_deathfx;
 
+	int summoner_attackfx;
+	int summoner_gethitfx;
+	int summoner_deathfx;
+
+	int shaman_attackfx;
+	int shaman_gethitfx;
+	int shaman_deathfx;
+
+	int nest_attackfx;
+	int nest_gethitfx;
+	int nest_deathfx;
+	
+	int izual_attackfx;
+	int izual_gethitfx;
+	int izual_deathfx;
+
+	int council_attackfx;
+	int council_gethitfx;
+	int council_deathfx;
+
+	int andariel_attackfx;
+	int andariel_gethitfx;
+	int andariel_deathfx;
+
+	
 	GuiLabel* enemy_name = NULL;
 };
 

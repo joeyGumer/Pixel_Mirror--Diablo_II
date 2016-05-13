@@ -10,12 +10,16 @@
 #include "snDungeon2.h"
 #include "snOutdoor2.h"
 #include "j1SceneManager.h"
+#include "EntPortal.h"
 
 
 //Constructor
-EntEnemyIzual::EntEnemyIzual(const iPoint &p, uint ID) : EntEnemy(p, ID)
+EntEnemyIzual::EntEnemyIzual(const iPoint &p, uint ID, int lvl) : EntEnemy(p, ID)
 {
 	name = "izual";
+
+	level = lvl;
+
 	tex = idle_tex = App->game->em->izual_idle;
 	walk_tex = App->game->em->izual_walk;
 	death_tex = App->game->em->izual_death;
@@ -33,8 +37,8 @@ EntEnemyIzual::EntEnemyIzual(const iPoint &p, uint ID) : EntEnemy(p, ID)
 	//Attirbutes
 	//------------------------------------
 	//Life
-	int random_range = 16;
-	HP_max = HP_current = 25;
+	int random_range = 51;
+	HP_max = HP_current = 175;
 
 	for (int i = 0; i < level; i++)
 	{
@@ -50,11 +54,11 @@ EntEnemyIzual::EntEnemyIzual(const iPoint &p, uint ID) : EntEnemy(p, ID)
 	HP_current = HP_max;
 
 	//Speed
-	speed = 120.0f;
+	speed = 100.0f;
 
 	//Melee Attack
-	random_range = 5;
-	damage = 7;
+	random_range = 21;
+	damage = 10;
 
 	for (int i = 0; i < level; i++)
 	{
@@ -68,11 +72,11 @@ EntEnemyIzual::EntEnemyIzual(const iPoint &p, uint ID) : EntEnemy(p, ID)
 	damage += random;
 
 	//Melee Attack Range
-	attack_range = 65.0f;
+	attack_range = 80.0f;
 
 	//Spell Attack
-	random_range = 5;
-	magic_damage = 10;
+	random_range = 11;
+	magic_damage = 5;
 
 	for (int i = 0; i < level; i++)
 	{
@@ -86,29 +90,41 @@ EntEnemyIzual::EntEnemyIzual(const iPoint &p, uint ID) : EntEnemy(p, ID)
 	magic_damage += random;
 
 	//Spell Range
-	magic_range = 150.0f;
+	magic_range = 275.0f;
 
 	//Spell Cooldown
 	magic_cooldown = 4;
+	/*
 	for (int i = 0; i < level; i++)
 	{
-		if (i > 0)
-		{
-			magic_cooldown--;
-		}
+	if (i > 0)
+	{
+	magic_cooldown--;
 	}
+	}
+	*/
 
 	//Agro Range
-	agro_range = 200.0f;
+	agro_range = 300.0f;
 
 	//Pure Blood Drop
-	blood_drop = 250;
+	blood_drop = 1500;
 
 	for (int i = 0; i < level; i++)
 	{
 		if (i > 0)
 		{
 			blood_drop += blood_drop / 2;
+		}
+	}
+
+	//Magic Counter
+	magic_counter = 5;
+	for (int i = 0; i < level; i++)
+	{
+		if (i > 0)
+		{
+			magic_counter += 2;
 		}
 	}
 
@@ -150,11 +166,23 @@ bool EntEnemyIzual::Update(float dt)
 {
 	if (!dead)
 	{
+		if (frozen)
+		{
+			if (freeze_timer.ReadSec() >= freeze_time)
+			{
+				frozen = false;
+			}
+			else
+			{
+				dt = dt / 2;
+			}
+		}
+
 		UpdateAction();
 
 		fPoint player_pos = App->game->player->GetPivotPosition();
 
-		if (ReadyToCast())
+		if (ReadyToCast() && App->game->player->visible)
 		{
 			attacking = true;
 			current_input = ENTITY_INPUT_CAST;
@@ -214,10 +242,23 @@ bool EntEnemyIzual::Update(float dt)
 
 	else
 	{
-		if (win.ReadSec() > 5)
+		if (win.ReadSec() > 0 && !portal_appeared)
 		{
-			App->sm->outdoor2->win = true;
-			App->sm->dungeon2->win = true;
+			if (App->sm->GetCurrentScene() == App->sm->dungeon2)
+			{
+				iPoint pos;
+				pos.x = position.x;
+				pos.y = position.y+10;
+				App->sm->dungeon2->AddPortal(pos);
+			}
+			if (App->sm->GetCurrentScene() == App->sm->outdoor2)
+			{
+				iPoint pos;
+				pos.x = position.x;
+				pos.y = position.y+10;
+				App->sm->outdoor2->AddPortal(pos);
+			}
+			portal_appeared = true;
 		}
 	}
 
@@ -520,9 +561,57 @@ void EntEnemyIzual::UpdateRangedAttack()
 	SetDirection(particle_destination);
 	if (current_animation->CurrentFrame() >= 7 && !particle_is_casted)
 	{
-		Particle* skill_particle = App->pm->AddParticle(particle_izual, position.x, position.y - 40, 2, particle_izual.image);
 		particle_is_casted = true;
-		skill_particle->SetPointSpeed(150, particle_destination);
+
+		int marginX = -85;
+		int marginY = -85;
+
+		for (int i = 0; i < magic_counter; i++)
+		{
+			int random_rangeX = rand() % 171;
+			int random_rangeY = rand() % 171;
+
+			int random1 = rand() % 2;
+			if (random1 == 0)
+			{
+				random1 = -1;
+			}
+
+			int random2 = rand() % 2;
+			if (random2 == 0)
+			{
+				random2 = -1;
+			}
+			Particle* skill_particle1 = App->pm->AddParticle(particle_izual, position.x, position.y - 40, 3, particle_izual.image);
+			skill_particle1->SetPointSpeed(150, { particle_destination.x + marginX + random_rangeX * random1, particle_destination.y + marginY + random_rangeY * random2 });
+		}
+
+		/*
+		
+		particle_is_casted = true;
+
+		int marginX = -100;
+		int marginY = -100;
+
+		for (int i = 0; i < row_number; i++)
+		{
+			int random_rangeX = rand() % 201;
+			int random_rangeY = rand() % 201;
+
+			int random2 = rand() % 2;
+			if (random2 == 0)
+			{
+				random2 = -1;
+			}
+
+			for (int j = 0; j < 5; j++)
+			{
+				Particle* skill_particle1 = App->pm->AddParticle(particle, particle_destination.x + marginX + random_rangeX, particle_destination.y + marginY + random_rangeY + 25 * j * random2, 3, particle.image);
+			}
+			
+		}
+
+		*/
 	}
 
 	if (current_animation->Finished())

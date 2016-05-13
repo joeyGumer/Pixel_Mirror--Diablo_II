@@ -8,7 +8,7 @@ class EntEnemyCrawler : public EntEnemy
 public:
 
 	//Constructor
-	EntEnemyCrawler(const iPoint &p, uint ID);
+	EntEnemyCrawler(const iPoint &p, uint ID, int lvl);
 
 	bool Update(float dt);
 
