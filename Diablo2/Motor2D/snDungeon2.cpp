@@ -47,7 +47,10 @@ bool snDungeon2::Start()
 
 	//App->audio->PlayMusic("audio/music/town1.ogg", 0);
 	
-	App->game->HUD->minimap->minimap->image.outside_tex = App->tex->Load("maps/MiniMapdungeonMap2.png");
+	if (debug2 == NULL)
+	{
+		App->game->HUD->minimap->minimap->image.outside_tex = App->tex->Load("maps/MiniMapdungeonMap2.png");
+	}
 	App->game->HUD->minimap->minimap->SetAlpha(App->game->HUD->minimap->minimap->image.outside_tex,90);
 
 

@@ -52,7 +52,10 @@ bool snOutdoor2::Start()
 	//SDL_Texture* mapa = NULL;
 	//Creation of the minimap
 	
-	App->game->HUD->minimap->minimap->image.outside_tex = App->tex->Load("maps/path.png");
+	if (debug2 == NULL)
+	{
+		debug2 = App->game->HUD->minimap->minimap->image.outside_tex = App->tex->Load("maps/path.png");
+	}
 	App->game->HUD->minimap->minimap->SetAlpha(App->game->HUD->minimap->minimap->image.outside_tex, 90);
 
 	if (debug == NULL)
