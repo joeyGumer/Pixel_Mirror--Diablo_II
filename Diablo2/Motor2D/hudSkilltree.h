@@ -134,7 +134,7 @@ public:
 	//GuiSkill*
 
 	GuiLabel* skillpoints_label;
-	vector<GuiText*> texts;
+	//vector<GuiText*> texts;
 };
 
 

@@ -23,7 +23,7 @@ hudSkilltree::~hudSkilltree()
 bool hudSkilltree::Start()
 {
 	active = false;
-	p2SString text;
+	//p2SString text;
 	player = App->game->player;
 
 	skillpoints = 15;
@@ -144,11 +144,20 @@ bool hudSkilltree::Start()
 	
 	//GuiTexts --------------------------------------------------------------------------------------------
 	//Night summoning ---------------------------------------------------------------------------
-
+	/*
 	vector<StringColor> clottedtext;
 	clottedtext.push_back(StringColor("CloTTed Blood", FONT_WHITE));
+	text.create("%i", player->clotted_blood->blood_charge_cost_base);
+	text.Insert(0, "BLOOD COST: ");
+	clottedtext.push_back(StringColor(text, FONT_WHITE));
 	text.create("%i", player->clotted_blood->buff.value);
 	text.Insert(0, "ARMOR: ");
+	clottedtext.push_back(StringColor(text, FONT_WHITE));
+	text.create("%f", player->clotted_blood->cooldown_base);
+	text.Insert(0, "COOLDOWN: ");
+	clottedtext.push_back(StringColor(text, FONT_WHITE));
+	text.create("%f", player->clotted_blood->buff.time);
+	text.Insert(0, "TIME: ");
 	clottedtext.push_back(StringColor(text, FONT_WHITE));
 	clotted_blood_skin->text = App->gui->AddGuiText({ 0, 0 }, clottedtext, clotted_blood_skin, this);
 	clotted_blood_skin->text->Desactivate();
@@ -156,14 +165,40 @@ bool hudSkilltree::Start()
 
 	vector<StringColor> wolftext;
 	wolftext.push_back(StringColor("shadows walker", FONT_WHITE));
+	text.create("%i", player->shadow_walker->blood_charge_cost_base);
+	text.Insert(0, "BLOOD COST: ");
+	wolftext.push_back(StringColor(text, FONT_WHITE));
 	text.create("%i", player->shadow_walker->buff.value);
 	text.Insert(0, "INVISIBiliTy TIME: ");
+	wolftext.push_back(StringColor(text, FONT_WHITE));
+	text.create("%f", player->shadow_walker->cooldown_base);
+	text.Insert(0, "COOLDOWN: ");
 	wolftext.push_back(StringColor(text, FONT_WHITE));
 	raise_wolf->text = App->gui->AddGuiText({ 0, 0 }, wolftext, raise_wolf, this);
 	raise_wolf->text->Desactivate();
 	texts.push_back(raise_wolf->text);
 	
 	
+	
+	//Martial blood ---------------------------------------------------------------------------
+	vector<StringColor> stingtext;
+	stingtext.push_back(StringColor("STinging sTrike", FONT_WHITE));
+	text.create("%i", player->stinging_strike->life_cost_base);
+	text.Insert(0, "life cosT: ");
+	stingtext.push_back(StringColor(text, FONT_WHITE));
+	text.create("%i", player->stinging_strike->blood_charge_increase_base);
+	text.Insert(0, "blood charges: ");
+	stingtext.push_back(StringColor(text, FONT_WHITE));
+	text.create("%f", player->stinging_strike->cooldown_base);
+	text.Insert(0, "COOLDOWN: ");
+	stingtext.push_back(StringColor(text, FONT_WHITE));
+	stinging_strike->text = App->gui->AddGuiText({ 0, 20 }, stingtext, stinging_strike, this);
+	stinging_strike->text->Desactivate();
+	texts.push_back(stinging_strike->text);
+	
+	
+	player->stinging_strike;
+	*/
 
 	return true;
 }
@@ -236,8 +271,10 @@ void hudSkilltree::OnEvent(GuiElement* element, GUI_Event even)
 		{
 			bloodspells->Desactivate();
 			nightsummoning->Activate();
+			/*
 			for (int i = 0; i < texts.size(); i++)
 				texts[i]->Desactivate();
+				*/
 		}
 		break;
 		}
@@ -252,8 +289,10 @@ void hudSkilltree::OnEvent(GuiElement* element, GUI_Event even)
 		{
 			nightsummoning->Desactivate();
 			bloodspells->Activate();
+			/*
 			for (int i = 0; i < texts.size(); i++)
 				texts[i]->Desactivate();
+				*/
 		}
 		break;
 		}
@@ -302,7 +341,7 @@ void hudSkilltree::OnEvent(GuiElement* element, GUI_Event even)
 				}
 			}
 		}
-		
+		/*
 		else if (even == EVENT_MOUSE_ENTER)
 		{
 			GuiSkill* tmp = (GuiSkill*)element;
@@ -322,6 +361,7 @@ void hudSkilltree::OnEvent(GuiElement* element, GUI_Event even)
 					tmp->text->Desactivate();
 			}
 		}
+		*/
 	}
 
 	/*
