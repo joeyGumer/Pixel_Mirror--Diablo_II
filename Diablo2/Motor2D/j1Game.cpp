@@ -64,7 +64,7 @@ bool j1Game::PreUpdate()
 	}
 
 	//NOTE: DEBUG mode for items
-	if (App->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN)
 	{
 		DropItem(App->input->GetMouseWorldPosition());
 	}

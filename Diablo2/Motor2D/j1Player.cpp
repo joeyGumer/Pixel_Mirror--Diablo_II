@@ -781,7 +781,7 @@ bool j1Player::Alive()
 void j1Player::HandleInput()
 {
 	//NOTE: provisional mana and life changers
-	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_4) == KEY_REPEAT)
 	{
 		if (HP_current <= 0)
 		{
@@ -794,7 +794,7 @@ void j1Player::HandleInput()
 
 		PlayerEvent(HP_DOWN);
 	}
-	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_5) == KEY_REPEAT)
 	{
 		if (HP_current >= HP_max)
 		{
@@ -808,7 +808,7 @@ void j1Player::HandleInput()
 		PlayerEvent(HP_UP);
 	}
 	
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_7) == KEY_REPEAT)
 	{
 		if (MP_current <= 0)
 		{
@@ -821,7 +821,7 @@ void j1Player::HandleInput()
 
 		PlayerEvent(MP_DOWN);
 	}
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_8) == KEY_REPEAT)
 	{
 		if (MP_current >= MP_max)
 		{
@@ -834,32 +834,32 @@ void j1Player::HandleInput()
 
 		PlayerEvent(MP_UP);
 	}
-	/*if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_9) == KEY_REPEAT)
 	{
-		if (ST_current <= 0)
+		if (blood_current <= 0)
 		{
-			ST_current = 0;
+			blood_current = 0;
 		}
 		else
 		{
-			ST_current--;
+			blood_current--;
 		}
 
-		PlayerEvent(ST_DOWN);
+		PlayerEvent(BLOOD_DOWN);
 	}
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_8) == KEY_REPEAT)
 	{
-		if (ST_current >= ST_max)
+		if (blood_current >= ST_max)
 		{
-			ST_current = ST_max;
+			blood_current = ST_max;
 		}
 		else
 		{
-			ST_current++;
+			blood_current++;
 		}
 
-		PlayerEvent(ST_UP);
-	}*/
+		PlayerEvent(BLOOD_DOWN);
+	}
 	//
 
 	//NOTE: has to be changed for the skill 

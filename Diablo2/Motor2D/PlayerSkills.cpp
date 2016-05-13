@@ -791,7 +791,7 @@ void sklHeardOfBats::SetSkillAnimations()
 
 
 //Night Passives
-sklShadowsWalker::sklShadowsWalker() : sklBuff(INVISIBILITY, 1, 1)
+sklShadowsWalker::sklShadowsWalker() : sklBuff(INVISIBILITY, 1, 5)
 {
 	skill_tex = App->tex->Load("textures/vamp_cast.png");
 	price = 1500;
