@@ -2,6 +2,7 @@
 #define _HUDSKILLTREE_H_
 
 #include "hudElement.h"
+#include "p2Point.h"
 
 
 class j1HUD;
@@ -133,6 +134,7 @@ public:
 	//GuiSkill*
 
 	GuiLabel* skillpoints_label;
+	vector<GuiText*> texts;
 };
 
 

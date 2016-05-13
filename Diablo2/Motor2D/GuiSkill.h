@@ -25,6 +25,7 @@ public:
 	vector<Skill*>	skill_parents;
 	Skill*			skill;
 	GuiImage		image;
+	GuiText*        text;
 	int				price;
 
 	SDL_Rect		unlocked;
