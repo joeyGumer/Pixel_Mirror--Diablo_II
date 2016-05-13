@@ -440,12 +440,12 @@ void snOutdoor2::DropItem(iPoint pos)
 	ITEM_RARITY rarity;
 
 	//note: HAVE TO CHANGE THIS TO VARIABLES SO IT CAN BE CHANGED BY LUCK
-	if (App->sm->level1 == App->sm->dungeon2)
+	if (App->sm->level1 == App->sm->outdoor2)
 	{
 		rarity = RARITY_RARE;
 	}
 
-	else if (App->sm->level2 == App->sm->dungeon2)
+	else if (App->sm->level2 == App->sm->outdoor2)
 	{
 		rarity = RARITY_LEGENDARY;
 	}
