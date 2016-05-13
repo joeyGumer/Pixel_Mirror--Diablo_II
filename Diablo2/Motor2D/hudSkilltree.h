@@ -91,6 +91,7 @@ public:
 	GuiImage* martialdeletebutton = NULL;
 	GuiImage* blooddeletebutton = NULL;
 	GuiImage* nightdeletebutton = NULL;
+	GuiImage* skill_points_img = NULL;
 	/*GuiImage* lion = NULL;
 	GuiImage* claw = NULL;
 	GuiImage* swords = NULL;

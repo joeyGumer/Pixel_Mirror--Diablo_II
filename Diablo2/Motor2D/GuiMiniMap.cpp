@@ -43,8 +43,8 @@ void GuiMiniMap::Draw()
 	map<uint, Entity*>::iterator item =App->game->em->active_entities.begin();
 	for (; item != App->game->em->active_entities.end(); ++item)
 	{
-
-		DrawEnemy(App->game->em->GetEntity(item->second->id));	
+		if (!((EntEnemy*)(item->second))->dead)
+			DrawEnemy(App->game->em->GetEntity(item->second->id));	
 	}
 
 

@@ -25,7 +25,7 @@ sklBasicAttack::sklBasicAttack() : sklMelee()
 
 sklBasicAttack::~sklBasicAttack()
 {
-
+	App->tex->UnLoad(skill_tex);
 }
 
 void sklBasicAttack::SkillUpdate(float dt)
@@ -97,7 +97,7 @@ sklStingingStrike::sklStingingStrike()
 
 sklStingingStrike::~sklStingingStrike()
 {
-
+	App->tex->UnLoad(skill_tex);
 }
 
 void sklStingingStrike::SkillEffect()
@@ -162,7 +162,7 @@ sklWildTalon::sklWildTalon()
 }
 sklWildTalon::~sklWildTalon()
 {
-
+	App->tex->UnLoad(skill_tex);
 }
 
 void sklWildTalon::SkillEffect()
@@ -227,7 +227,7 @@ sklBatStrike::sklBatStrike()
 }
 sklBatStrike::~sklBatStrike()
 {
-
+	App->tex->UnLoad(skill_tex);
 }
 
 void sklBatStrike::SkillEffect()
@@ -291,7 +291,7 @@ sklSoulOfIce::sklSoulOfIce()
 }
 sklSoulOfIce::~sklSoulOfIce()
 {
-
+	App->tex->UnLoad(skill_tex);
 }
 
 void sklSoulOfIce::SkillEffect()
@@ -355,7 +355,7 @@ sklKrobusArts::sklKrobusArts() :sklBuff(EXTRA_DAMAGE, 45, 15)
 
 sklKrobusArts::~sklKrobusArts()
 {
-
+	App->tex->UnLoad(skill_tex);
 }
 
 void sklKrobusArts::SkillEffect()
@@ -416,7 +416,9 @@ sklBloodArrow::sklBloodArrow() : sklRanged()
 }
 
 sklBloodArrow::~sklBloodArrow()
-{}
+{
+	App->tex->UnLoad(skill_tex);
+}
 
 void sklBloodArrow::SkillEffect()
 {}
@@ -484,7 +486,7 @@ sklVampireBreath::sklVampireBreath()
 }
 sklVampireBreath::~sklVampireBreath()
 {
-	
+	App->tex->UnLoad(skill_tex);
 }
 
 void sklVampireBreath::SkillEffect(float dt)
@@ -556,7 +558,7 @@ sklBloodBomb::sklBloodBomb()
 }
 sklBloodBomb::~sklBloodBomb()
 {
-
+	App->tex->UnLoad(skill_tex);
 }
 
 void sklBloodBomb::SkillEffect()
@@ -629,7 +631,7 @@ sklRedFeast::sklRedFeast()
 }
 sklRedFeast::~sklRedFeast()
 {
-
+	App->tex->UnLoad(skill_tex);
 }
 
 void sklRedFeast::SkillEffect(float dt)
@@ -712,7 +714,7 @@ sklHeardOfBats::sklHeardOfBats()
 }
 sklHeardOfBats::~sklHeardOfBats()
 {
-
+	App->tex->UnLoad(skill_tex);
 }
 
 void sklHeardOfBats::SkillEffect(float dt)
@@ -789,7 +791,7 @@ void sklHeardOfBats::SetSkillAnimations()
 
 
 //Night Passives
-sklShadowsWalker::sklShadowsWalker() : sklBuff(INVISIBILITY, 1, 1)
+sklShadowsWalker::sklShadowsWalker() : sklBuff(INVISIBILITY, 1, 5)
 {
 	skill_tex = App->tex->Load("textures/vamp_cast.png");
 	price = 1500;
@@ -799,7 +801,7 @@ sklShadowsWalker::sklShadowsWalker() : sklBuff(INVISIBILITY, 1, 1)
 }
 sklShadowsWalker::~sklShadowsWalker()
 {
-
+	App->tex->UnLoad(skill_tex);
 }
 
 void sklShadowsWalker::SkillEffect()
@@ -856,7 +858,7 @@ sklClottedBloodSkin::sklClottedBloodSkin() : sklBuff(ARMOR, 20, 3)
 }
 sklClottedBloodSkin::~sklClottedBloodSkin()
 {
-
+	App->tex->UnLoad(skill_tex);
 }
 
 void sklClottedBloodSkin::SkillEffect()

@@ -371,7 +371,7 @@ bool j1Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, U
 		points[i].y = (int)(y + radius * sin(i * factor) * scale);
 	}
 
-	result = SDL_RenderDrawPoints(renderer, points, 180);
+	result = SDL_RenderDrawPoints(renderer, points, 360);
 
 	if(result != 0)
 	{

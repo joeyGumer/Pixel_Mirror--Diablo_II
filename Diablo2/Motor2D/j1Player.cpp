@@ -228,6 +228,22 @@ bool j1Player::CleanUp()
 	App->tex->UnLoad(p_attack);
 	App->tex->UnLoad(p_casting);
 	App->tex->UnLoad(p_death);
+
+	//Skills unload
+
+	RELEASE(basic_attack)
+	RELEASE(blood_arrow) 
+	RELEASE(stinging_strike) 
+	RELEASE(wild_talon)
+	RELEASE(bat_strike)
+	RELEASE(soul_of_ice) 
+	RELEASE(krobus_arts)
+	RELEASE(vampire_breath) 
+	RELEASE(blood_bomb) 
+	RELEASE(red_feast) 
+	RELEASE(shadow_walker) 
+	RELEASE(clotted_blood) 
+	RELEASE(heard_of_bats) 
 	
 	//Skills deleted
 	if (basic_attack)
@@ -443,9 +459,8 @@ void j1Player::PlayerEvent(PLAYER_EVENT even)
 		break;
 	case BLOOD_DOWN:
 		{
-			//Code here
-			//NOTE: why there's blood up and blood down? Don't copy me if you don't know what i'm doing this xD
-			//I put HP_UP and HP_DOWN because the HP recovery is over time and the Hp decrease is instant.
+			App->game->HUD->blood->SetBlood(blood_current);
+			App->game->HUD->stats->SetBloodLabel(blood_current);
 		}
 		break;
 	case TELEPORT:
@@ -766,85 +781,82 @@ bool j1Player::Alive()
 void j1Player::HandleInput()
 {
 	//NOTE: provisional mana and life changers
-	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+	if (App->debug)
 	{
-		if (HP_current <= 0)
+		if (App->input->GetKey(SDL_SCANCODE_4) == KEY_REPEAT)
 		{
-			HP_current = 0;
+			if (HP_current <= 0)
+			{
+				HP_current = 0;
+			}
+			else
+			{
+				HP_current--;
+			}
+
+			PlayerEvent(HP_DOWN);
 		}
-		else
+		if (App->input->GetKey(SDL_SCANCODE_5) == KEY_REPEAT)
 		{
-			HP_current--;
+			if (HP_current >= HP_max)
+			{
+				HP_current = HP_max;
+			}
+			else
+			{
+				HP_current++;
+			}
+
+			PlayerEvent(HP_UP);
 		}
 
-		PlayerEvent(HP_DOWN);
+		if (App->input->GetKey(SDL_SCANCODE_6) == KEY_REPEAT)
+		{
+			if (MP_current <= 0)
+			{
+				MP_current = 0;
+			}
+			else
+			{
+				MP_current--;
+			}
+
+			PlayerEvent(MP_DOWN);
+		}
+		if (App->input->GetKey(SDL_SCANCODE_7) == KEY_REPEAT)
+		{
+			if (MP_current >= MP_max)
+			{
+				MP_current = MP_max;
+			}
+			else
+			{
+				MP_current++;
+			}
+
+			PlayerEvent(MP_UP);
+		}
+		if (App->input->GetKey(SDL_SCANCODE_8) == KEY_REPEAT)
+		{
+			if (blood_current <= 0)
+			{
+				blood_current = 0;
+			}
+			else
+			{
+				blood_current--;
+			}
+
+			PlayerEvent(BLOOD_DOWN);
+		}
+		if (App->input->GetKey(SDL_SCANCODE_9) == KEY_REPEAT)
+		{
+		
+				blood_current++;
+
+			PlayerEvent(BLOOD_DOWN);
+		}
 	}
-	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-	{
-		if (HP_current >= HP_max)
-		{
-			HP_current = HP_max;
-		}
-		else
-		{
-			HP_current++;
-		}
-
-		PlayerEvent(HP_UP);
-	}
-	
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-	{
-		if (MP_current <= 0)
-		{
-			MP_current = 0;
-		}
-		else
-		{
-			MP_current--;
-		}
-
-		PlayerEvent(MP_DOWN);
-	}
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-	{
-		if (MP_current >= MP_max)
-		{
-			MP_current = MP_max;
-		}
-		else
-		{
-			MP_current++;
-		}
-
-		PlayerEvent(MP_UP);
-	}
-	/*if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-	{
-		if (ST_current <= 0)
-		{
-			ST_current = 0;
-		}
-		else
-		{
-			ST_current--;
-		}
-
-		PlayerEvent(ST_DOWN);
-	}
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-	{
-		if (ST_current >= ST_max)
-		{
-			ST_current = ST_max;
-		}
-		else
-		{
-			ST_current++;
-		}
-
-		PlayerEvent(ST_UP);
-	}*/
 	//
 
 	//NOTE: has to be changed for the skill 
@@ -1418,14 +1430,17 @@ void j1Player::SetAttribute(PLAYER_ATTRIBUTE attribute, float value)
 	{
 		extra_damage += value;
 	}
+	break;
 	case INVISIBILITY:
 	{
 		visible = false;
 	}
+	break;
 	case PURE_BLOOD:
 	{
 		extra_pure_blood += value;
 	}
+	break;
 	case COOLDOWN:
 	{
 		exta_cooldown += value;
@@ -1434,10 +1449,12 @@ void j1Player::SetAttribute(PLAYER_ATTRIBUTE attribute, float value)
 	{
 		extra_potion += value;
 	}
+	break;
 	case BLOOD_MAX:
 	{
 		extra_blood_charge += value;
 	}
+	break;
 	default:
 		break;
 	}

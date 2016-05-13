@@ -45,11 +45,11 @@ bool snDungeon3::Start()
 {
 	win = false;
 
-	//App->audio->PlayMusic("audio/music/town1.ogg", 0);
+	App->audio->PlayMusic("audio/music/town1.ogg", 0);
 
 	if (debug2 == NULL)
 	{
-		App->game->HUD->minimap->minimap->image.outside_tex = App->tex->Load("maps/MiniMapdungeonMap2.png");
+		App->game->HUD->minimap->minimap->image.outside_tex = App->tex->Load("maps/MiniMapdungeonMap3.png");
 	}
 	App->game->HUD->minimap->minimap->SetAlpha(App->game->HUD->minimap->minimap->image.outside_tex, 90);
 
