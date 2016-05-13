@@ -224,7 +224,7 @@ bool hudBelt::Start()
 	skilltree->interactable = true;
 	hud_gui_elements.push_back(skilltree);
 
-	minimapbutton = App->gui->AddGuiImageWithLabel({ 66, 3 }, { 233, 279, 20, 19 }, "mini map (M)", App->font->description, { -40, 0 }, minipanel, this);
+	minimapbutton = App->gui->AddGuiImageWithLabel({ 66, 3 }, { 233, 279, 20, 19 }, "mini map (TAB)", App->font->description, { -40, 0 }, minipanel, this);
 	minimapbutton->interactable = true;
 	hud_gui_elements.push_back(minimapbutton);
 

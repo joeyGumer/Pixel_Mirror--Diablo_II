@@ -263,8 +263,8 @@ bool j1EntityManager::Update(float dt)
 	{
 		if (ent->type == ENEMY)
 		{
-			((EntEnemy*)ent)->total_width = 200 + ((EntEnemy*)ent)->HP_max;
-			((EntEnemy*)ent)->xpos = 220 - ((((EntEnemy*)ent)->HP_max)/2);
+			((EntEnemy*)ent)->total_width = 200 + (((EntEnemy*)ent)->HP_max/2);
+			((EntEnemy*)ent)->xpos = 220 - ((((EntEnemy*)ent)->HP_max)/4);
 			((EntEnemy*)ent)->DrawHPbar();
 			enemy_name->Activate();
 			enemy_name->SetText(((EntEnemy*)ent)->name);

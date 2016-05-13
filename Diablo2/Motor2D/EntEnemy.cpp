@@ -217,8 +217,8 @@ void EntEnemy::DrawHPbar()
 	int height = 20;
 	int current_width = (total_width/HP_max)* HP_current;
 
-	App->render->DrawQuad({ xpos/*220*/, 0, total_width, height }, 0, 0, 0, 255, true, false);
-	App->render->DrawQuad({ xpos, 0, current_width, height }, 255, 0, 0, 255, true, false);
+	App->render->DrawQuad({ xpos/*220*/, 0, total_width, height }, 0, 0, 0, 150, true, false);
+	App->render->DrawQuad({ xpos, 0, current_width, height }, 102, 0, 0, 150, true, false);
 	
 }
 
