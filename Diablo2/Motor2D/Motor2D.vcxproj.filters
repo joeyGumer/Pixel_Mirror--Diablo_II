@@ -240,9 +240,6 @@
     <ClInclude Include="j1FileSystem.h">
       <Filter>Desenvolupament  ========\Modules\j1FileSystem</Filter>
     </ClInclude>
-    <ClInclude Include="j1Fonts.h">
-      <Filter>Desenvolupament  ========\Modules\j1Fonts</Filter>
-    </ClInclude>
     <ClInclude Include="j1Gui.h">
       <Filter>Desenvolupament  ========\Modules\j1Gui</Filter>
     </ClInclude>
@@ -404,6 +401,9 @@
     </ClInclude>
     <ClInclude Include="EntEnemyNest.h">
       <Filter>Desenvolupament  ========\Modules\j1EntityManager\Entities\EntMobile\EntEnemy\EntEnemyNest</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Fonts.h">
+      <Filter>Desenvolupament  ========\Modules\j1Fonts</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

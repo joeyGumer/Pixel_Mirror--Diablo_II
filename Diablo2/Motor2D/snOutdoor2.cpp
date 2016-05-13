@@ -15,8 +15,10 @@
 #include "j1Player.h"
 #include "EntPortal.h"
 #include "EntEnemy.h"
-
-
+#include "j1Game.h"
+#include "j1HUD.h"
+#include "GuiMiniMap.h"
+#include "hudMiniMap.h"
 
 // Constructor
 snOutdoor2::snOutdoor2()
@@ -41,8 +43,15 @@ bool snOutdoor2::Awake(pugi::xml_node& conf)
 bool snOutdoor2::Start()
 {
 	win = false;
-
+	//App->game->HUD->minimap->minimap->textura_minimapa = App->tex->Load("maps/path.png");
 	//App->audio->PlayMusic("audio/music/town1.ogg", 0);
+
+	
+	//SDL_Texture* mapa = NULL;
+	//Creation of the minimap
+	
+	App->game->HUD->minimap->minimap->image.outside_tex = App->tex->Load("maps/path.png");
+	App->game->HUD->minimap->minimap->SetAlpha(App->game->HUD->minimap->minimap->image.outside_tex, 90);
 
 	if (debug == NULL)
 		debug = App->tex->Load("maps/mini_path.png");

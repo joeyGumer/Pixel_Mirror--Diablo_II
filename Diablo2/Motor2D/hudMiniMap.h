@@ -2,7 +2,7 @@
 #define _HUDMINIMAP_H_
 
 #include "hudElement.h"
-
+#include "SDL/include/SDL.h"
 class j1HUD;
 class GuiElement;
 class GuiImage;
@@ -49,7 +49,7 @@ public:
 public:
 
 	GuiMiniMap* minimap = NULL;
-
+	
 };
 
 

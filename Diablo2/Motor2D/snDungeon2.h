@@ -61,8 +61,8 @@ private:
 public:
 	//NOTE: provisional.
 	SDL_Texture* debug = NULL;
-
 	list<Entity*>		entity_list;
+
 
 	bool win;
 };

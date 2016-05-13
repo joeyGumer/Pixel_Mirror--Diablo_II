@@ -15,7 +15,8 @@
 #include "j1Player.h"
 #include "EntPortal.h"
 #include "EntEnemy.h"
-
+#include "j1HUD.h"
+#include "hudMiniMap.h"
 
 
 // Constructor
@@ -43,6 +44,10 @@ bool snDungeon2::Start()
 	win = false;
 
 	//App->audio->PlayMusic("audio/music/town1.ogg", 0);
+	
+	App->game->HUD->minimap->minimap->image.outside_tex = App->tex->Load("maps/MiniMapdungeonMap2.png");
+	App->game->HUD->minimap->minimap->SetAlpha(App->game->HUD->minimap->minimap->image.outside_tex,90);
+
 
 	if (debug == NULL)
 		debug = App->tex->Load("maps/mini_path.png");

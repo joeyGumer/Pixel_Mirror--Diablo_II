@@ -4,6 +4,13 @@
 #include "j1Input.h"
 #include "j1Textures.h"
 #include "GuiMiniMap.h"
+#include "j1Player.h"
+#include "j1Game.h"
+#include "j1SceneManager.h"
+#include "snDungeon2.h"
+
+#include "j1HUD.h"
+#include "guiMiniMap.h"
 
 
 
@@ -26,14 +33,14 @@ hudMiniMap::~hudMiniMap()
 bool hudMiniMap::Start()
 {
 	active = false;
-
-	
+ 
 	SDL_Texture* mapa = App->tex->Load("maps/MiniMapdungeonMap2.png");
+	//SDL_Texture* mapa = NULL;
 	//Creation of the minimap
 	minimap = App->gui->AddGuiMiniMap({ 100, 20 }, { 0, 0, 400, 200 }, mapa, NULL, this);
 	minimap->active = false;
 	hud_gui_elements.push_back(minimap);
-
+	
 
 	return true;
 }
@@ -50,6 +57,7 @@ bool hudMiniMap::PreUpdate()
 //Called each frame
 bool hudMiniMap::Update(float dt)
 {
+	
 	
 	return true;
 }

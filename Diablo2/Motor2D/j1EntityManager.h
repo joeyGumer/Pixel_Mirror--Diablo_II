@@ -56,7 +56,7 @@ public:
 	Entity* EntityOnCoords(iPoint &pos);
 
 private:
-	map<uint, Entity*> active_entities;
+	//map<uint, Entity*> active_entities;
 	map<uint, Entity*> inactive_entities;
 	//selection
 	//selection_ordered
@@ -72,6 +72,7 @@ private:
 	//void sortEntities
 
 public:
+	map<uint, Entity*> active_entities;
 	//Wolf textures
 	SDL_Texture* wolf_idle;
 	SDL_Texture* wolf_walk;
