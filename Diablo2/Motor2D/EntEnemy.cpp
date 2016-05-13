@@ -110,6 +110,13 @@ void EntEnemy::DropItem(iPoint pos)
 
 }
 
+void EntEnemy::Freeze(int time)
+{
+	frozen = true;
+	freeze_time = time;
+	freeze_timer.Start();
+}
+
 //Drawing methods
 void EntEnemy::Draw()
 {

@@ -46,6 +46,9 @@ public:
 	//Item droping Algorithm
 	void DropItem(iPoint pos);
 
+	//Do you wanna build a snowman~~
+	void Freeze(int time);
+
 	
 public:
 
@@ -79,6 +82,10 @@ public:
 	float   total_width;
 	float   xpos;
 
+	//Frozen - Let it go~~
+	bool frozen = false;
+	j1Timer freeze_timer;
+	int freeze_time = 0;
 };
 
 #endif

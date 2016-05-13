@@ -264,6 +264,7 @@ void sklSoulOfIce::SkillEffect()
 	damage += rand() % (base_damage_up - base_damage_down + 1);
 
 	player->enemy->TakeDamage(damage);
+	player->enemy->Freeze(3);
 	//App->audio->PlayFx(player_attack, 0);
 
 	player->enemy = NULL;
