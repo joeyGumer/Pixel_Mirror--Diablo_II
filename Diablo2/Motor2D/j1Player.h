@@ -92,10 +92,13 @@ enum PLAYER_ATTRIBUTE
 	LUCK,
 	HP, //Not vitality
 	BLOOD,
+	BLOOD_MAX,
 	ARMOR,
 	COOLDOWN,
 	EXTRA_DAMAGE,
 	INVISIBILITY,
+	PURE_BLOOD,
+	POTION,
 };
 
 class EntEnemy;
@@ -339,6 +342,12 @@ public:
 	int armor_final;
 
 	int extra_damage = 0;
+	int extra_pure_blood = 0;
+
+	int exta_cooldown = 0;
+	int extra_potion = 0;
+	int extra_blood_charge = 0;
+	
 
 	float life;
 	float stamina;

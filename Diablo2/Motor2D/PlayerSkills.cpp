@@ -750,7 +750,7 @@ void sklShadowsWalker::SetSkillAnimations()
 }
 
 //Clotted blood skin
-sklClottedBloodSkin::sklClottedBloodSkin() : sklBuff(STRENGHT, 1, 1)
+sklClottedBloodSkin::sklClottedBloodSkin() : sklBuff(ARMOR, 20, 3)
 {
 	skill_tex = App->tex->Load("textures/vamp_cast.png");
 }
@@ -761,16 +761,32 @@ sklClottedBloodSkin::~sklClottedBloodSkin()
 
 void sklClottedBloodSkin::SkillEffect()
 {
+	Buff* tmp_buff;
+	tmp_buff = new Buff(buff.attribute, buff.value, false, buff.time);
 
+	player->buffs.push_back(tmp_buff);
+	player->CalculateFinalStats();
+
+	player->attacking = false;
 }
 
 void sklClottedBloodSkin::SkillInit()
 {
-
+	player->attacking = true;
 }
 void sklClottedBloodSkin::SkillUpdate(float dt)
 {
+	if (player->current_animation->CurrentFrame() >= 7 && player->attacking == true)
+	{
+		SkillEffect();
+	}
 
+	if (player->current_animation->Finished())
+	{
+		player->current_input = INPUT_STOP_MOVE;
+		player->input_locked = false;
+		player->attacking = false;
+	}
 }
 void sklClottedBloodSkin::SetSkillAnimations()
 {

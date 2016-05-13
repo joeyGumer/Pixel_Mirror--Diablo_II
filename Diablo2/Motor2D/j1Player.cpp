@@ -1075,7 +1075,7 @@ void j1Player::RecoverStamina()
 
 void j1Player::IncreaseBlood(int blood)
 {
-	blood_current += blood;
+	blood_current += int(float(blood) + float(float(blood)/100 * extra_pure_blood));
 }
 
 void j1Player::RecoverHP(float dt)
@@ -1405,6 +1405,22 @@ void j1Player::SetAttribute(PLAYER_ATTRIBUTE attribute, float value)
 	{
 		visible = false;
 	}
+	case PURE_BLOOD:
+	{
+		extra_pure_blood += value;
+	}
+	case COOLDOWN:
+	{
+		exta_cooldown += value;
+	}
+	case POTION:
+	{
+		extra_potion += value;
+	}
+	case BLOOD_MAX:
+	{
+		extra_blood_charge += value;
+	}
 	default:
 		break;
 	}
@@ -1423,9 +1439,14 @@ void j1Player::CalculateFinalStats()
 	atk_damage_final = atk_damage_base;
 	armor_final = armor_base;
 	extra_damage = 0;
+	extra_pure_blood = 0;
+	exta_cooldown = 0;
+	extra_potion = 0;
+	extra_blood_charge = 0;
 	visible = true;
 
 	HP_max = HP_base;
+	MP_max = MP_base;
 	HP_recover_final = HP_recover_base;
 	ST_max = ST_base;
 
@@ -1464,6 +1485,8 @@ void j1Player::CalculateFinalStats()
 	HP_recover_final += HP_recover_dt * vit_final;
 	ST_max += ST_dt * vit_final;
 
+	MP_max += extra_blood_charge;
+
 	if (HP_current > HP_max)
 		HP_current = HP_max;
 
@@ -1490,6 +1513,7 @@ void j1Player::CalculateFinalStats()
 	//HUD related
 	PlayerEvent(HP_DOWN);
 	PlayerEvent(ST_DOWN);
+	PlayerEvent(MP_DOWN);
 
 }
 
