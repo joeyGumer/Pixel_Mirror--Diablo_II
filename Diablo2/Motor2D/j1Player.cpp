@@ -228,6 +228,22 @@ bool j1Player::CleanUp()
 	App->tex->UnLoad(p_attack);
 	App->tex->UnLoad(p_casting);
 	App->tex->UnLoad(p_death);
+
+	//Skills unload
+
+	RELEASE(basic_attack)
+	RELEASE(blood_arrow) 
+	RELEASE(stinging_strike) 
+	RELEASE(wild_talon)
+	RELEASE(bat_strike)
+	RELEASE(soul_of_ice) 
+	RELEASE(krobus_arts)
+	RELEASE(vampire_breath) 
+	RELEASE(blood_bomb) 
+	RELEASE(red_feast) 
+	RELEASE(shadow_walker) 
+	RELEASE(clotted_blood) 
+	RELEASE(heard_of_bats) 
 	
 	//Skills deleted
 	if (basic_attack)
@@ -443,9 +459,8 @@ void j1Player::PlayerEvent(PLAYER_EVENT even)
 		break;
 	case BLOOD_DOWN:
 		{
-			//Code here
-			//NOTE: why there's blood up and blood down? Don't copy me if you don't know what i'm doing this xD
-			//I put HP_UP and HP_DOWN because the HP recovery is over time and the Hp decrease is instant.
+			App->game->HUD->blood->SetBlood(blood_current);
+			App->game->HUD->stats->SetBloodLabel(blood_current);
 		}
 		break;
 	case TELEPORT:
@@ -1418,14 +1433,17 @@ void j1Player::SetAttribute(PLAYER_ATTRIBUTE attribute, float value)
 	{
 		extra_damage += value;
 	}
+	break;
 	case INVISIBILITY:
 	{
 		visible = false;
 	}
+	break;
 	case PURE_BLOOD:
 	{
 		extra_pure_blood += value;
 	}
+	break;
 	case COOLDOWN:
 	{
 		exta_cooldown += value;
@@ -1434,10 +1452,12 @@ void j1Player::SetAttribute(PLAYER_ATTRIBUTE attribute, float value)
 	{
 		extra_potion += value;
 	}
+	break;
 	case BLOOD_MAX:
 	{
 		extra_blood_charge += value;
 	}
+	break;
 	default:
 		break;
 	}

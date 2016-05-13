@@ -26,7 +26,7 @@ bool hudSkilltree::Start()
 	//p2SString text;
 	player = App->game->player;
 
-	skillpoints = 15;
+	//skillpoints = 15;
 	//lionpoints = clawpoints = swordspoints = handpoints = starpoints = fireballpoints = projectilespoints = manpoints = cogpoints = heartjawpoints = batwingpoints = wolfpoints = fangspoints = bigjawpoints = bloodmanpoints = 0;
 	
 
@@ -72,7 +72,12 @@ bool hudSkilltree::Start()
 	martialblood->active = false;
 	hud_gui_elements.push_back(martialblood);
 
-	skillpoints_label = App->gui->AddGuiLabel("0", NULL, { 265, 62 }, martialblood, FONT_WHITE, this);
+	skill_points_img = App->gui->AddGuiImage({ 251, 56 }, { 1176,540, 49, 27 }, martialblood, this);
+	skill_points_img->active = false;
+	hud_gui_elements.push_back(skill_points_img);
+
+
+	skillpoints_label = App->gui->AddGuiLabel("0", NULL, { 265, 62 }, skill_points_img, FONT_WHITE, this);
 	skillpoints_label->active = false;
 	hud_gui_elements.push_back(skillpoints_label);
 
@@ -221,8 +226,10 @@ bool hudSkilltree::PostUpdate()
 {
 	//Total skill points
 	p2SString text;
-	text.create("%i", skillpoints);
+	text.create("%i", player->blood_current);
 	skillpoints_label->SetText(text);
+	skillpoints_label->Center(true, true);
+	
 
 	return true;
 }
