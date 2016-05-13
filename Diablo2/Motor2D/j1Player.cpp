@@ -781,84 +781,81 @@ bool j1Player::Alive()
 void j1Player::HandleInput()
 {
 	//NOTE: provisional mana and life changers
-	if (App->input->GetKey(SDL_SCANCODE_4) == KEY_REPEAT)
+	if (App->debug)
 	{
-		if (HP_current <= 0)
+		if (App->input->GetKey(SDL_SCANCODE_4) == KEY_REPEAT)
 		{
-			HP_current = 0;
+			if (HP_current <= 0)
+			{
+				HP_current = 0;
+			}
+			else
+			{
+				HP_current--;
+			}
+
+			PlayerEvent(HP_DOWN);
 		}
-		else
+		if (App->input->GetKey(SDL_SCANCODE_5) == KEY_REPEAT)
 		{
-			HP_current--;
+			if (HP_current >= HP_max)
+			{
+				HP_current = HP_max;
+			}
+			else
+			{
+				HP_current++;
+			}
+
+			PlayerEvent(HP_UP);
 		}
 
-		PlayerEvent(HP_DOWN);
-	}
-	if (App->input->GetKey(SDL_SCANCODE_5) == KEY_REPEAT)
-	{
-		if (HP_current >= HP_max)
+		if (App->input->GetKey(SDL_SCANCODE_6) == KEY_REPEAT)
 		{
-			HP_current = HP_max;
-		}
-		else
-		{
-			HP_current++;
-		}
+			if (MP_current <= 0)
+			{
+				MP_current = 0;
+			}
+			else
+			{
+				MP_current--;
+			}
 
-		PlayerEvent(HP_UP);
-	}
-	
-	if (App->input->GetKey(SDL_SCANCODE_7) == KEY_REPEAT)
-	{
-		if (MP_current <= 0)
-		{
-			MP_current = 0;
+			PlayerEvent(MP_DOWN);
 		}
-		else
+		if (App->input->GetKey(SDL_SCANCODE_7) == KEY_REPEAT)
 		{
-			MP_current--;
-		}
+			if (MP_current >= MP_max)
+			{
+				MP_current = MP_max;
+			}
+			else
+			{
+				MP_current++;
+			}
 
-		PlayerEvent(MP_DOWN);
-	}
-	if (App->input->GetKey(SDL_SCANCODE_8) == KEY_REPEAT)
-	{
-		if (MP_current >= MP_max)
-		{
-			MP_current = MP_max;
+			PlayerEvent(MP_UP);
 		}
-		else
+		if (App->input->GetKey(SDL_SCANCODE_8) == KEY_REPEAT)
 		{
-			MP_current++;
-		}
+			if (blood_current <= 0)
+			{
+				blood_current = 0;
+			}
+			else
+			{
+				blood_current--;
+			}
 
-		PlayerEvent(MP_UP);
-	}
-	if (App->input->GetKey(SDL_SCANCODE_9) == KEY_REPEAT)
-	{
-		if (blood_current <= 0)
-		{
-			blood_current = 0;
+			PlayerEvent(BLOOD_DOWN);
 		}
-		else
+		if (App->input->GetKey(SDL_SCANCODE_9) == KEY_REPEAT)
 		{
-			blood_current--;
-		}
+		
+				blood_current++;
 
-		PlayerEvent(BLOOD_DOWN);
-	}
-	if (App->input->GetKey(SDL_SCANCODE_8) == KEY_REPEAT)
-	{
-		if (blood_current >= ST_max)
-		{
-			blood_current = ST_max;
+			PlayerEvent(BLOOD_DOWN);
 		}
-		else
-		{
-			blood_current++;
-		}
-
-		PlayerEvent(BLOOD_DOWN);
 	}
 	//
 
