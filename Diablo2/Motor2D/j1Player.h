@@ -258,8 +258,10 @@ public:
 
 	//Attack
 	bool		attacking;
-	int			atk_damage_base = 38;
-	int			atk_damage_final;
+	int			atk_damage_base_up = 15;
+	int			atk_damage_base_down = 10;
+	int			atk_damage_final_up;
+	int			atk_damage_final_down;
 	float		dAtk;
 	float		attack_range = 65.0f;
 

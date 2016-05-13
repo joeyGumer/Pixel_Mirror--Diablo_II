@@ -45,7 +45,9 @@ void sklBasicAttack::SkillUpdate(float dt)
 void sklBasicAttack::SkillEffect()
 {
 
-	player->enemy->TakeDamage(player->atk_damage_final);
+	int final_damage = player->atk_damage_final_down;
+	final_damage += rand() % (player->atk_damage_final_up + 1 - player->atk_damage_final_down);
+	player->enemy->TakeDamage(final_damage);
 
 	//App->audio->PlayFx(player_attack, 0);
 	player->enemy = NULL;

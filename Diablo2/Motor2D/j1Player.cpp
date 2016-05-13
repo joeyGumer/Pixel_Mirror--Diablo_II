@@ -116,8 +116,10 @@ bool j1Player::Start()
 	blood_current = 0;
 
 	//Attack
-	atk_damage_final = atk_damage_base = 38;
-	dAtk = (float)atk_damage_base / 100;
+	atk_damage_final_up = atk_damage_base_up = 15;
+	atk_damage_final_down = atk_damage_final_down = 10;
+
+	//dAtk = (float)atk_damage_base / 100;
 
 	//Armor
 	armor_final = armor_base = 0;
@@ -1436,7 +1438,8 @@ void j1Player::CalculateFinalStats()
 	vit_final = vit_base;
 	int_final = int_base;
 	luck_final = luck_base;
-	atk_damage_final = atk_damage_base;
+	atk_damage_final_up = atk_damage_base_up;
+	atk_damage_final_down = atk_damage_base_down;
 	armor_final = armor_base;
 	extra_damage = 0;
 	extra_pure_blood = 0;
@@ -1466,8 +1469,10 @@ void j1Player::CalculateFinalStats()
 		str_final = 0;
 
 
-	atk_damage_final += dAtk * str_final;
-	atk_damage_final += ((float(atk_damage_final) / 100) * float(extra_damage));
+	atk_damage_final_down += str_final/2;
+	atk_damage_final_up += str_final;
+
+	atk_damage_final_up += ((float(atk_damage_final_up) / 100) * float(extra_damage));
 
 	//Dexterity
 	if (dex_final < 0)
@@ -1507,7 +1512,7 @@ void j1Player::CalculateFinalStats()
 	App->game->HUD->stats->SetDexterityLabel(dex_final);
 	App->game->HUD->stats->SetIntelligenceLabel(int_final);
 	App->game->HUD->stats->SetLuckLabel(luck_final);
-	App->game->HUD->stats->SetBasicAttackLabel(atk_damage_final);
+	App->game->HUD->stats->SetBasicAttackLabel(atk_damage_final_up);
 	App->game->HUD->stats->SetResistenceLabel(armor_final);
 
 	//HUD related
