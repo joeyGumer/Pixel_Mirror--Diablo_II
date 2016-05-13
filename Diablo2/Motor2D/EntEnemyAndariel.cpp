@@ -57,8 +57,8 @@ EntEnemyAndariel::EntEnemyAndariel(const iPoint &p, uint ID, int lvl) : EntEnemy
 	speed = 100.0f;
 
 	//Melee Attack
-	random_range = 11;
-	damage = 15;
+	random_range = 16;
+	damage = 10;
 
 	for (int i = 0; i < level; i++)
 	{
@@ -75,8 +75,8 @@ EntEnemyAndariel::EntEnemyAndariel(const iPoint &p, uint ID, int lvl) : EntEnemy
 	attack_range = 70.0f;
 
 	//Spell Attack
-	random_range = 11;
-	magic_damage = 10;
+	random_range = 16;
+	magic_damage = 5;
 
 	for (int i = 0; i < level; i++)
 	{

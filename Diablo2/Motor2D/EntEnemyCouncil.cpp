@@ -32,7 +32,7 @@ EntEnemyCouncil::EntEnemyCouncil(const iPoint &p, uint ID, int lvl) : EntEnemy(p
 	//Attirbutes
 	//------------------------------------
 	//Life
-	int random_range = 16;
+	int random_range = 11;
 	HP_max = HP_current = 25;
 
 	for (int i = 0; i < level; i++)
@@ -53,7 +53,7 @@ EntEnemyCouncil::EntEnemyCouncil(const iPoint &p, uint ID, int lvl) : EntEnemy(p
 
 	//Melee Attack
 	random_range = 5;
-	damage = 7;
+	damage = 6;
 
 	for (int i = 0; i < level; i++)
 	{
@@ -71,7 +71,7 @@ EntEnemyCouncil::EntEnemyCouncil(const iPoint &p, uint ID, int lvl) : EntEnemy(p
 
 	//Spell Attack
 	random_range = 5;
-	magic_damage = 10;
+	magic_damage = 7;
 
 	for (int i = 0; i < level; i++)
 	{
@@ -101,7 +101,7 @@ EntEnemyCouncil::EntEnemyCouncil(const iPoint &p, uint ID, int lvl) : EntEnemy(p
 	agro_range = 200.0f;
 
 	//Pure Blood Drop
-	blood_drop = 250;
+	blood_drop = 300;
 
 	for (int i = 0; i < level; i++)
 	{

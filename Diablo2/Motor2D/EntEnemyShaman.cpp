@@ -52,7 +52,7 @@ EntEnemyShaman::EntEnemyShaman(const iPoint &p, uint ID, int lvl) : EntEnemy(p, 
 
 	//Attack
 	random_range = 5;
-	damage = 3;
+	damage = 2;
 
 	for (int i = 0; i < level; i++)
 	{
@@ -99,7 +99,7 @@ EntEnemyShaman::EntEnemyShaman(const iPoint &p, uint ID, int lvl) : EntEnemy(p, 
 	agro_range = 300.0f;
 
 	//Pure Blood Drop
-	blood_drop = 200;
+	blood_drop = 300;
 
 	for (int i = 0; i < level; i++)
 	{

@@ -76,7 +76,7 @@ EntEnemyIzual::EntEnemyIzual(const iPoint &p, uint ID, int lvl) : EntEnemy(p, ID
 	attack_range = 80.0f;
 
 	//Spell Attack
-	random_range = 11;
+	random_range = 6;
 	magic_damage = 5;
 
 	for (int i = 0; i < level; i++)

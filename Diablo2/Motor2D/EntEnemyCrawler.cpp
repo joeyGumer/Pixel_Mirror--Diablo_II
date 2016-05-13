@@ -28,7 +28,7 @@ EntEnemyCrawler::EntEnemyCrawler(const iPoint &p, uint ID, int lvl) : EntEnemy(p
 	//Attirbutes
 	//------------------------------------
 	//Life
-	int random_range = 16;
+	int random_range = 11;
 	HP_max = HP_current = 20;
 
 	for (int i = 0; i < level; i++)
@@ -49,7 +49,7 @@ EntEnemyCrawler::EntEnemyCrawler(const iPoint &p, uint ID, int lvl) : EntEnemy(p
 
 	//Melee Attack
 	random_range = 5;
-	damage = 5;
+	damage = 4;
 
 	for (int i = 0; i < level; i++)
 	{
@@ -69,7 +69,7 @@ EntEnemyCrawler::EntEnemyCrawler(const iPoint &p, uint ID, int lvl) : EntEnemy(p
 	agro_range = 200.0f;
 
 	//Pure Blood Drop
-	blood_drop = 150;
+	blood_drop = 200;
 
 	for (int i = 0; i < level; i++)
 	{

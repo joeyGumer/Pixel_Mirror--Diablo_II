@@ -69,7 +69,7 @@ EntEnemyWolf::EntEnemyWolf(const iPoint &p, uint ID, int lvl) : EntEnemy(p, ID)
 	agro_range = 230.0f;
 
 	//Pure Blood Drop
-	blood_drop = 150;
+	blood_drop = 200;
 
 	for (int i = 0; i < level; i++)
 	{
