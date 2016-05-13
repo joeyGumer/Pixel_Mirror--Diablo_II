@@ -288,6 +288,8 @@ void itmConsumable::Effect()
 	}
 	else
 	{
+		item_buffs[0]->value += (float(item_buffs[0]->value)/100) * App->game->player->extra_potion;
+
 		App->game->player->buffs.push_back(item_buffs[0]);
 		buff_given = true;
 		item_buffs[0]->Start();
