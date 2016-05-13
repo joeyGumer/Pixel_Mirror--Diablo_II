@@ -326,12 +326,16 @@ itmRing::itmRing(ITEM_RARITY rarity, iPoint p) : Item(ITEM_RING, rarity, p)
 			Buff* buff1;
 			buff1 = new Buff(PURE_BLOOD, r);
 			item_buffs.push_back(buff1);
-
+			attribute_type.push_back(PURE_BLOOD);
+			buff_value.push_back(r);
 			r = 1;
 			r += rand() % 8;
 			Buff* buff2;
 			buff2 = new Buff(POTION, r);
 			item_buffs.push_back(buff2);
+			attribute_type.push_back(POTION);
+			buff_value.push_back(r);
+			
 		}
 		break;
 		case 1:
@@ -343,12 +347,15 @@ itmRing::itmRing(ITEM_RARITY rarity, iPoint p) : Item(ITEM_RING, rarity, p)
 			Buff* buff2;
 			buff2 = new Buff(COOLDOWN, r);
 			item_buffs.push_back(buff2);
-
+			attribute_type.push_back(COOLDOWN);
+			buff_value.push_back(r);
 			r = 1;
 			r += rand() % 10;
 			Buff* buff1;
 			buff1 = new Buff(BLOOD_MAX, r);
 			item_buffs.push_back(buff1);
+			attribute_type.push_back(BLOOD_MAX);
+			buff_value.push_back(r);
 		}
 		break;
 		}
@@ -370,12 +377,15 @@ itmRing::itmRing(ITEM_RARITY rarity, iPoint p) : Item(ITEM_RING, rarity, p)
 			Buff* buff1;
 			buff1 = new Buff(PURE_BLOOD, r);
 			item_buffs.push_back(buff1);
-
+			attribute_type.push_back(PURE_BLOOD);
+			buff_value.push_back(r);
 			r = 10;
 			r += rand() % 11;
 			Buff* buff2;
 			buff2 = new Buff(BLOOD_MAX, r);
 			item_buffs.push_back(buff2);
+			attribute_type.push_back(BLOOD_MAX);
+			buff_value.push_back(r);
 		}
 			break;
 		case 1:
@@ -387,12 +397,15 @@ itmRing::itmRing(ITEM_RARITY rarity, iPoint p) : Item(ITEM_RING, rarity, p)
 			Buff* buff1;
 			buff1 = new Buff(POTION, r);
 			item_buffs.push_back(buff1);
-
+			attribute_type.push_back(POTION);
+			buff_value.push_back(r);
 			r = 1;
 			r += rand() % 7;
 			Buff* buff2;
 			buff2 = new Buff(ARMOR, r);
 			item_buffs.push_back(buff2);
+			attribute_type.push_back(ARMOR);
+			buff_value.push_back(r);
 		}
 			break;
 		}
@@ -409,12 +422,15 @@ itmRing::itmRing(ITEM_RARITY rarity, iPoint p) : Item(ITEM_RING, rarity, p)
 		Buff* buff1;
 		buff1 = new Buff(ARMOR, r);
 		item_buffs.push_back(buff1);
-
+		attribute_type.push_back(ARMOR);
+		buff_value.push_back(r);
 		r = 4;
 		r += rand() % 7;
 		Buff* buff2;
 		buff2 = new Buff(COOLDOWN, r);
 		item_buffs.push_back(buff2);
+		attribute_type.push_back(COOLDOWN);
+		buff_value.push_back(r);
 	}
 	break;
 

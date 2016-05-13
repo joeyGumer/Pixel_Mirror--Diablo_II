@@ -160,6 +160,22 @@ void GuiItem::CreateText()
 				Text.Insert(0, "BLOOD :");
 				attributeText.push_back(StringColor(Text, color));
 				break;
+			case COOLDOWN:
+				Text.Insert(0, "COOLDOWN REDUCTION:");
+				attributeText.push_back(StringColor(Text, color));
+				break;
+			case POTION:
+				Text.Insert(0, "POTION EFFECT :");
+				attributeText.push_back(StringColor(Text, color));
+				break;
+			case BLOOD_MAX:
+				Text.Insert(0, "MAX BLOOD :");
+				attributeText.push_back(StringColor(Text, color));
+				break;
+			case PURE_BLOOD:
+				Text.Insert(0, "PURE BLOOD :");
+				attributeText.push_back(StringColor(Text, color));
+				break;
 			}
 	}
 	
