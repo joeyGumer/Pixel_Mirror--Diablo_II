@@ -5,6 +5,7 @@
 #include "j1Game.h"
 #include "j1Player.h"
 #include "PlayerSkills.h"
+#include "j1Fonts.h"
 
 
 
@@ -31,6 +32,7 @@ bool hudSkilltree::Start()
 	
 
 	//Night summoning ---------------------------------------------------------------------------
+
 	nightsummoning = App->gui->AddGuiImage({ 321, 216 }, { 1449, 588, 320, 216 }, NULL, this);
 	nightsummoning->active = false;
 	hud_gui_elements.push_back(nightsummoning);
@@ -48,6 +50,16 @@ bool hudSkilltree::Start()
 	raise_wolf = App->gui->AddGuiSkill({ 152, 9 }, { 488, 969, 48, 48 }, { 390, 969, 48, 48 }, player->shadow_walker, nightsummoning, this);
 	raise_wolf->active = false;
 	hud_gui_elements.push_back(raise_wolf);
+
+	//text2.create("%i", player->shadow_walker->price);
+	price11 = App->gui->AddGuiLabel("1500", NULL, { 0, 45 }, raise_wolf, FONT_WHITE, this);
+	price11->active = false;
+	hud_gui_elements.push_back(price11);
+
+	//text2.create("%i", player->clotted_blood->price);
+	price12 = App->gui->AddGuiLabel("2000", NULL, { 0, 45 }, clotted_blood_skin, FONT_WHITE, this);
+	price12->active = false;
+	hud_gui_elements.push_back(price12);
 
 	bat_girl = App->gui->AddGuiSkill({ 15, 77 }, { 537, 969, 48, 48 }, { 341, 1018, 48, 48 }, NULL, nightsummoning, this);
 	bat_girl->active = false;
@@ -72,7 +84,7 @@ bool hudSkilltree::Start()
 	martialblood->active = false;
 	hud_gui_elements.push_back(martialblood);
 
-	skillpoints_label = App->gui->AddGuiLabel("0", NULL, { 265, 62 }, martialblood, FONT_WHITE, this);
+	skillpoints_label = App->gui->AddGuiLabel("0", App->font->description, { 265, 66 }, martialblood, FONT_WHITE, this);
 	skillpoints_label->active = false;
 	hud_gui_elements.push_back(skillpoints_label);
 
@@ -141,6 +153,59 @@ bool hudSkilltree::Start()
 	heard_of_bats->active = false;
 	hud_gui_elements.push_back(heard_of_bats);
 	
+
+	//Prices -------------------------------------------------------------------------------------------------------------------------
+	p2SString text2;
+
+	//text2.create("%i", player->stinging_strike->price);
+	price1 = App->gui->AddGuiLabel("1500", NULL, { 0, 45 }, stinging_strike, FONT_WHITE, this);
+	price1->active = false;
+	hud_gui_elements.push_back(price1);
+
+	//text2.create("%i", player->wild_talon->price);
+	price2 = App->gui->AddGuiLabel("1500", NULL, { 0, 45 }, wild_talon, FONT_WHITE, this);
+	price2->active = false;
+	hud_gui_elements.push_back(price2);
+
+	//text2.create("%i", player->bat_strike->price);
+	price3 = App->gui->AddGuiLabel("2500", NULL, { 0, 45 }, bat_strike, FONT_WHITE, this);
+	price3->active = false;
+	hud_gui_elements.push_back(price3);
+
+	//text2.create("%i", player->soul_of_ice->price);
+	price4 = App->gui->AddGuiLabel("2500", NULL, { 0, 45 }, soul_of_ice, FONT_WHITE, this);
+	price4->active = false;
+	hud_gui_elements.push_back(price4);
+
+	//text2.create("%i", player->krobus_arts->price);
+	price5 = App->gui->AddGuiLabel("2000", NULL, { 0, 45 }, krobus_arts, FONT_WHITE, this);
+	price5->active = false;
+	hud_gui_elements.push_back(price5);
+
+	//text2.create("%i", player->blood_arrow->price);
+	price6 = App->gui->AddGuiLabel("1500", NULL, { 0, 45 }, blood_arrow, FONT_WHITE, this);
+	price6->active = false;
+	hud_gui_elements.push_back(price6);
+
+	//text2.create("%i", player->vampire_breath->price);
+	price7 = App->gui->AddGuiLabel("1500", NULL, { 0, 45 }, vampire_breath, FONT_WHITE, this);
+	price7->active = false;
+	hud_gui_elements.push_back(price7);
+
+	//text2.create("%i", player->blood_bomb->price);
+	price8 = App->gui->AddGuiLabel("2500", NULL, { 0, 45 }, blood_bomb, FONT_WHITE, this);
+	price8->active = false;
+	hud_gui_elements.push_back(price8);
+
+	//text2.create("%i", player->red_feast->price);
+	price9 = App->gui->AddGuiLabel("2500", NULL, { 0, 45 }, red_feast, FONT_WHITE, this);
+	price9->active = false;
+	hud_gui_elements.push_back(price9);
+
+	//text2.create("%i", player->heard_of_bats->price);
+	price10 = App->gui->AddGuiLabel("2000", NULL, { 0, 45 }, heard_of_bats, FONT_WHITE, this);
+	price10->active = false;
+	hud_gui_elements.push_back(price10);
 	
 	//GuiTexts --------------------------------------------------------------------------------------------
 	//Night summoning ---------------------------------------------------------------------------
@@ -221,7 +286,7 @@ bool hudSkilltree::PostUpdate()
 {
 	//Total skill points
 	p2SString text;
-	text.create("%i", skillpoints);
+	text.create("%i", player->blood_current);
 	skillpoints_label->SetText(text);
 
 	return true;

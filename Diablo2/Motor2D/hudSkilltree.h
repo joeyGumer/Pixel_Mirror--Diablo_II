@@ -128,7 +128,19 @@ public:
 	GuiSkill* raise_blood_hawk = NULL;
 	GuiSkill* blood_golem = NULL;
 	GuiSkill* bat_girl = NULL;
-	
+
+	GuiLabel* price1;
+	GuiLabel* price2;
+	GuiLabel* price3;
+	GuiLabel* price4;
+	GuiLabel* price5;
+	GuiLabel* price6;
+	GuiLabel* price7;
+	GuiLabel* price8;
+	GuiLabel* price9;
+	GuiLabel* price10; 
+	GuiLabel* price11;
+	GuiLabel* price12;
 
 	//GuiSkill* vampire_breath = NULL;
 	//GuiSkill*
