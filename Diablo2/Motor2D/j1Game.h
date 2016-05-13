@@ -52,6 +52,10 @@ public:
 	j1HUD*				HUD = NULL;
 	j1EntityManager*	em = NULL;
 
+	int base_no_drop = 60;
+	int base_common_drop = 25;
+	int base_rare_drop = 10;
+	int base_legendary_drop = 5;
 
 	bool        pause = false;
 

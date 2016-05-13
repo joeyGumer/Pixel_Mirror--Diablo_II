@@ -139,13 +139,13 @@ void j1Game::DropItem(iPoint pos)
 	ITEM_RARITY rarity;
 
 	//note: HAVE TO CHANGE THIS TO VARIABLES SO IT CAN BE CHANGED BY LUCK
-	if (chance < 0)
+	if (chance < base_no_drop - player->luck_final)
 		rarity = NO_DROP;
-	else if (chance < 85)
+	else if (chance < (base_no_drop + base_common_drop - player->luck_final))
 		rarity = RARITY_COMMON;
-	else if (chance < 95)
+	else if (chance < (base_no_drop + base_common_drop + base_rare_drop - player->luck_final))
 		rarity = RARITY_RARE;
-	else if (chance >= 95)
+	else 
 		rarity = RARITY_LEGENDARY;
 
 	/*itmConsumable* item;
