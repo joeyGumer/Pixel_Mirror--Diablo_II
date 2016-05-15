@@ -489,6 +489,10 @@ void snDungeon3::DropItem(iPoint pos)
 			{
 				RELEASE(item);
 			}
+			else
+			{
+				entity_list.push_back((Entity*)item->ent_item);
+			}
 		}
 		else if (chance < 55)
 		{
@@ -497,6 +501,10 @@ void snDungeon3::DropItem(iPoint pos)
 			if (!item->ent_item)
 			{
 				RELEASE(item);
+			}
+			else
+			{
+				entity_list.push_back((Entity*)item->ent_item);
 			}
 		}
 		else if (chance < 65)
@@ -507,6 +515,10 @@ void snDungeon3::DropItem(iPoint pos)
 			{
 				RELEASE(item);
 			}
+			else
+			{
+				entity_list.push_back((Entity*)item->ent_item);
+			}
 		}
 		else if (chance < 90)
 		{
@@ -515,6 +527,10 @@ void snDungeon3::DropItem(iPoint pos)
 			if (!item->ent_item)
 			{
 				RELEASE(item);
+			}
+			else
+			{
+				entity_list.push_back((Entity*)item->ent_item);
 			}
 		}
 		else if (chance >= 90)
@@ -525,6 +541,10 @@ void snDungeon3::DropItem(iPoint pos)
 			{
 				RELEASE(item);
 			}
+			else
+			{
+				entity_list.push_back((Entity*)item->ent_item);
+			}
 		}
 	}
 	else if (chance >= 65)
@@ -534,6 +554,10 @@ void snDungeon3::DropItem(iPoint pos)
 		if (!item->ent_item)
 		{
 			RELEASE(item);
+		}
+		else
+		{
+			entity_list.push_back((Entity*)item->ent_item);
 		}
 	}
 }

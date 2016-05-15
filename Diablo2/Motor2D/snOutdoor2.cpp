@@ -471,6 +471,10 @@ void snOutdoor2::DropItem(iPoint pos)
 			{
 				RELEASE(item);
 			}
+			else
+			{
+				entity_list.push_back((Entity*)item->ent_item);
+			}
 		}
 		else if (chance < 55)
 		{
@@ -479,6 +483,10 @@ void snOutdoor2::DropItem(iPoint pos)
 			if (!item->ent_item)
 			{
 				RELEASE(item);
+			}
+			else
+			{
+				entity_list.push_back((Entity*)item->ent_item);
 			}
 		}
 		else if (chance < 65)
@@ -489,6 +497,10 @@ void snOutdoor2::DropItem(iPoint pos)
 			{
 				RELEASE(item);
 			}
+			else
+			{
+				entity_list.push_back((Entity*)item->ent_item);
+			}
 		}
 		else if (chance < 90)
 		{
@@ -498,6 +510,10 @@ void snOutdoor2::DropItem(iPoint pos)
 			{
 				RELEASE(item);
 			}
+			else
+			{
+				entity_list.push_back((Entity*)item->ent_item);
+			}
 		}
 		else if (chance >= 90)
 		{
@@ -506,6 +522,10 @@ void snOutdoor2::DropItem(iPoint pos)
 			if (!item->ent_item)
 			{
 				RELEASE(item);
+			}
+			else
+			{
+				entity_list.push_back((Entity*)item->ent_item);
 			}
 		}
 	}
