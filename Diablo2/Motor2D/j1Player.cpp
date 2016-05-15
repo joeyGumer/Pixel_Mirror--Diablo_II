@@ -844,7 +844,7 @@ void j1Player::HandleInput()
 			}
 			else
 			{
-				blood_current--;
+				blood_current -= 500;
 			}
 
 			PlayerEvent(BLOOD_DOWN);
@@ -852,7 +852,7 @@ void j1Player::HandleInput()
 		if (App->input->GetKey(SDL_SCANCODE_9) == KEY_REPEAT)
 		{
 		
-				blood_current++;
+				blood_current += 1000;
 
 			PlayerEvent(BLOOD_DOWN);
 		}

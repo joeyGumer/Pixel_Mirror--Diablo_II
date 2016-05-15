@@ -103,8 +103,14 @@ bool snDungeon2::Update(float dt)
 			//App->game->em->Add(p, ENEMY);
 			//App->game->em->Add(p, ENEMY_CRAWLER);
 			EntPortal* portal = (EntPortal*)App->game->em->Add(p, PORTAL);
-			if (portal)
-				portal->destiny = App->sm->outdoor1;
+			if (portal && App->sm->GetCurrentScene() == App->sm->level1)
+			{
+				portal->destiny = App->sm->level2;
+			}
+			else if (portal && App->sm->GetCurrentScene() == App->sm->level2)
+			{
+				portal->destiny = App->sm->level1;
+			}
 
 			p = App->map->WorldToMap(p.x, p.y);
 			int i = 0;
@@ -121,7 +127,7 @@ bool snDungeon2::Update(float dt)
 			//if (a == 0)
 			//App->game->em->Add(p, ENEMY);
 			//App->game->em->Add(p, ENEMY_CRAWLER);
-			App->game->em->AddEnemy(p, ENEMY_CRAWLER, 1);
+			//App->game->em->AddEnemy(p, ENEMY_CRAWLER, 1);
 			p = App->map->WorldToMap(p.x, p.y);
 			int i = 0;
 		}

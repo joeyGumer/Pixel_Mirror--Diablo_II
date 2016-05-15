@@ -54,36 +54,36 @@ bool j1EntityManager::Awake(pugi::xml_node &node)
 bool j1EntityManager::Start()
 {
 	//Wolf
-	wolf_idle = App->tex->Load("textures/wolf.png");
+	wolf_idle = App->tex->Load("textures/wolf/wolf.png");
 	texture_list.push_back(wolf_idle);
-	wolf_walk = App->tex->Load("textures/wolf_walk.png");
+	wolf_walk = App->tex->Load("textures/wolf/wolf_walk.png");
 	texture_list.push_back(wolf_walk);
-	wolf_death = App->tex->Load("textures/wolf_death.png");
+	wolf_death = App->tex->Load("textures/wolf/wolf_death.png");
 	texture_list.push_back(wolf_death);
-	wolf_attack = App->tex->Load("textures/wolf_attack.png");
+	wolf_attack = App->tex->Load("textures/wolf/wolf_attack.png");
 	texture_list.push_back(wolf_attack);
 
 
 	//Crawler
-	crawler_idle = App->tex->Load("textures/crawler_idle.png");
+	crawler_idle = App->tex->Load("textures/crawler/crawler_idle.png");
 	texture_list.push_back(crawler_idle);
-	crawler_walk = App->tex->Load("textures/crawler_walk.png");
+	crawler_walk = App->tex->Load("textures/crawler/crawler_walk.png");
 	texture_list.push_back(crawler_walk);
-	crawler_death = App->tex->Load("textures/crawler_death.png");
+	crawler_death = App->tex->Load("textures/crawler/crawler_death.png");
 	texture_list.push_back(crawler_death);
-	crawler_attack = App->tex->Load("textures/crawler_attack.png");
+	crawler_attack = App->tex->Load("textures/crawler/crawler_attack.png");
 	texture_list.push_back(crawler_attack);
 
 	//Boss
-	boss_idle = App->tex->Load("textures/boss_idle.png");
+	boss_idle = App->tex->Load("textures/council/boss_idle.png");
 	texture_list.push_back(boss_idle);
-	boss_walk = App->tex->Load("textures/boss_walk.png");
+	boss_walk = App->tex->Load("textures/council/boss_walk.png");
 	texture_list.push_back(boss_walk);
-	boss_death = App->tex->Load("textures/boss_death.png");
+	boss_death = App->tex->Load("textures/council/boss_death.png");
 	texture_list.push_back(boss_death);
-	boss_attack = App->tex->Load("textures/boss_attack.png");
+	boss_attack = App->tex->Load("textures/council/boss_attack.png");
 	texture_list.push_back(boss_attack);
-	boss_cast = App->tex->Load("textures/boss_cast.png");
+	boss_cast = App->tex->Load("textures/council/boss_cast.png");
 	texture_list.push_back(boss_cast);
 
 	//Boss Particles
@@ -91,13 +91,13 @@ bool j1EntityManager::Start()
 	texture_list.push_back(boss_particle);
 
 	//Shaman
-	shaman_idle = App->tex->Load("textures/shaman_idle.png");
+	shaman_idle = App->tex->Load("textures/shaman/shaman_idle.png");
 	texture_list.push_back(shaman_idle);
-	shaman_walk = App->tex->Load("textures/shaman_walk.png");
+	shaman_walk = App->tex->Load("textures/shaman/shaman_walk.png");
 	texture_list.push_back(shaman_walk);
-	shaman_death = App->tex->Load("textures/shaman_death.png");
+	shaman_death = App->tex->Load("textures/shaman/shaman_death.png");
 	texture_list.push_back(shaman_death);
-	shaman_attack = App->tex->Load("textures/shaman_attack.png");
+	shaman_attack = App->tex->Load("textures/shaman/shaman_attack.png");
 	texture_list.push_back(shaman_attack);
 
 	//Shaman Particles
@@ -105,13 +105,13 @@ bool j1EntityManager::Start()
 	texture_list.push_back(shaman_particle);
 
 	//Summoner
-	summoner_idle = App->tex->Load("textures/summoner_idle.png");
+	summoner_idle = App->tex->Load("textures/summoner/summoner_idle.png");
 	texture_list.push_back(summoner_idle);
-	summoner_walk = App->tex->Load("textures/summoner_walk.png");
+	summoner_walk = App->tex->Load("textures/summoner/summoner_walk.png");
 	texture_list.push_back(summoner_walk);
-	summoner_death = App->tex->Load("textures/summoner_death.png");
+	summoner_death = App->tex->Load("textures/summoner/summoner_death.png");
 	texture_list.push_back(summoner_death);
-	summoner_attack = App->tex->Load("textures/summoner_attack.png");
+	summoner_attack = App->tex->Load("textures/summoner/summoner_attack.png");
 	texture_list.push_back(summoner_attack);
 
 	//Summoner Particles
@@ -119,15 +119,15 @@ bool j1EntityManager::Start()
 	texture_list.push_back(summoner_particle);
 
 	//Izual textures
-	izual_idle = App->tex->Load("textures/izual_idle.png");
+	izual_idle = App->tex->Load("textures/izual/izual_idle.png");
 	texture_list.push_back(izual_idle);
-	izual_walk = App->tex->Load("textures/izual_walk.png");
+	izual_walk = App->tex->Load("textures/izual/izual_walk.png");
 	texture_list.push_back(izual_walk);
-	izual_attack = App->tex->Load("textures/izual_attack.png");
+	izual_attack = App->tex->Load("textures/izual/izual_attack.png");
 	texture_list.push_back(izual_attack);
-	izual_cast = App->tex->Load("textures/izual_cast.png");
+	izual_cast = App->tex->Load("textures/izual/izual_cast.png");
 	texture_list.push_back(izual_cast);
-	izual_death = App->tex->Load("textures/izual_death.png");
+	izual_death = App->tex->Load("textures/izual/izual_death.png");
 	texture_list.push_back(izual_death);
 
 	//Izual particles
@@ -135,15 +135,15 @@ bool j1EntityManager::Start()
 	texture_list.push_back(izual_particle);
 
 	//Andariel textures
-	andariel_idle = App->tex->Load("textures/andariel_idle.png");
+	andariel_idle = App->tex->Load("textures/andariel/andariel_idle.png");
 	texture_list.push_back(andariel_idle);
-	andariel_walk = App->tex->Load("textures/andariel_walk.png");
+	andariel_walk = App->tex->Load("textures/andariel/andariel_walk.png");
 	texture_list.push_back(andariel_walk);
-	andariel_attack = App->tex->Load("textures/andariel_attack.png");
+	andariel_attack = App->tex->Load("textures/andariel/andariel_attack.png");
 	texture_list.push_back(andariel_attack);
-	andariel_cast = App->tex->Load("textures/andariel_cast.png");
+	andariel_cast = App->tex->Load("textures/andariel/andariel_cast.png");
 	texture_list.push_back(andariel_cast);
-	andariel_death = App->tex->Load("textures/andariel_death.png");
+	andariel_death = App->tex->Load("textures/andariel/andariel_death.png");
 	texture_list.push_back(andariel_death);
 
 	//Andariel particles
@@ -151,11 +151,11 @@ bool j1EntityManager::Start()
 	texture_list.push_back(andariel_particle);
 
 	//Nest textures
-	nest_idle = App->tex->Load("textures/nest_idle.png");
+	nest_idle = App->tex->Load("textures/nest/nest_idle.png");
 	texture_list.push_back(nest_idle);
-	nest_death = App->tex->Load("textures/nest_death.png");
+	nest_death = App->tex->Load("textures/nest/nest_death.png");
 	texture_list.push_back(nest_death);
-	nest_cast = App->tex->Load("textures/nest_cast.png");
+	nest_cast = App->tex->Load("textures/nest/nest_cast.png");
 	texture_list.push_back(nest_cast);
 
 	//Nest particles
