@@ -66,8 +66,8 @@ private:
 public:
 	//NOTE: provisional.
 	SDL_Texture* debug = NULL;
-	SDL_Texture* debug2 = NULL;
-	list<Entity*>		entity_list;
+	SDL_Texture* minimap_tex = NULL;
+	list<Entity*>	entity_list;
 
 	iPoint portal_spawn;
 

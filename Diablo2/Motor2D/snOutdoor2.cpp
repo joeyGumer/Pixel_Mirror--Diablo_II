@@ -46,15 +46,15 @@ bool snOutdoor2::Start()
 {
 	win = false;
 	//App->game->HUD->minimap->minimap->textura_minimapa = App->tex->Load("maps/path.png");
-	//App->audio->PlayMusic("audio/music/town1.ogg", 0);
+	App->audio->PlayMusic("audio/music/tristram.ogg", 0);
 
 	
 	//SDL_Texture* mapa = NULL;
 	//Creation of the minimap
 	
-	if (debug2 == NULL)
+	if (minimap_tex == NULL)
 	{
-		debug2 = App->game->HUD->minimap->minimap->image.outside_tex = App->tex->Load("maps/MiniMapoutdoor2.png");
+		minimap_tex = App->game->HUD->minimap->minimap->image.outside_tex = App->tex->Load("maps/MiniMapoutdoor2.png");
 	}
 	App->game->HUD->minimap->minimap->SetAlpha(App->game->HUD->minimap->minimap->image.outside_tex, 90);
 
@@ -103,8 +103,14 @@ bool snOutdoor2::Update(float dt)
 			p.y += App->map->data.tile_height / 2;
 
 			EntPortal* portal = (EntPortal*)App->game->em->Add(p, PORTAL);
-			if (portal)
-				portal->destiny = App->sm->outdoor1;
+			if (portal && App->sm->GetCurrentScene() == App->sm->level1)
+			{
+				portal->destiny = App->sm->level2;
+			}
+			else if (portal && App->sm->GetCurrentScene() == App->sm->level2)
+			{
+				portal->destiny = App->sm->level1;
+			}
 
 			p = App->map->WorldToMap(p.x, p.y);
 			int i = 0;

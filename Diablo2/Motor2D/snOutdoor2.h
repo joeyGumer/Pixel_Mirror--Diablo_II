@@ -65,7 +65,7 @@ private:
 public:
 	//NOTE: provisional.
 	SDL_Texture* debug = NULL;
-	SDL_Texture* debug2 = NULL;
+	SDL_Texture* minimap_tex = NULL;
 
 	list<Entity*>		entity_list;
 

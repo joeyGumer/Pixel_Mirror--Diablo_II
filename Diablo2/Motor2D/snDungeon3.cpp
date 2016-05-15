@@ -47,7 +47,7 @@ bool snDungeon3::Start()
 
 	App->audio->PlayMusic("audio/music/town1.ogg", 0);
 
-	if (debug2 == NULL)
+	if (minimap_tex == NULL)
 	{
 		App->game->HUD->minimap->minimap->image.outside_tex = App->tex->Load("maps/MiniMapdungeonMap3.png");
 	}
