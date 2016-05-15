@@ -129,8 +129,29 @@ bool j1HUD::PreUpdate()
 
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || belt->menubutton_pressed == true)
 	{
+		bool show_menu = true;
+
+		if (stats->active == true)
+		{
+			stats->Activate();
+			show_menu = false;
+		}
+		if (skilltree->active == true)
+		{
+			skilltree->Activate();
+			show_menu = false;
+		}
+		if (inventory->active == true)
+		{
+			inventory->Activate();
+			show_menu = false;
+		}
+		if (show_menu)
+		{
+			pause_menu->ActivateMenu();
+		}
+
 		belt->menubutton_pressed = false;
-		pause_menu->ActivateMenu();
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN || belt->minimapbutton_pressed == true)
