@@ -48,7 +48,10 @@ bool snIntro::Start()
 	if (title == NULL)
 		title = App->tex->Load("gui/NewTitle.png");
 
-	logo.SetFrames( 0, 0, 400, 170, 30, 0 );
+	for (int i = 0; i < 6; i++)
+	{
+		logo.SetFrames(0, 0 + 170*i, 400, 170, 5, 0);
+	}
 	logo.loop = true;
 	logo.speed = 0.2f;
 
