@@ -45,7 +45,7 @@ bool snDungeon2::Start()
 {
 	win = false;
 
-	App->audio->PlayMusic("audio/music/town1.ogg", 0);
+	//App->audio->PlayMusic("audio/music/town1.ogg", 0);
 	
 	if (minimap_tex == NULL)
 	{

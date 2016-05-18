@@ -193,7 +193,7 @@ void GuiButton::Draw()
 }
 void GuiText::Draw()
 {
-	App->render->DrawQuad({ (GetScreenPosition().x - App->render->camera.x), (labels[0].GetScreenPosition().y - App->render->camera.y), tex_rect.w, tex_rect.h }, 0, 0, 0, 150);
+	App->render->DrawQuad({ (GetScreenPosition().x - App->render->camera.x), (labels[0].GetScreenPosition().y - App->render->camera.y), tex_rect.w, tex_rect.h }, 0, 0, 0, 225);
 	for (int i = 0; i < labels.size(); i++)
 	{
 		labels[i].Draw();

@@ -73,5 +73,6 @@ inline const char* const PATH(const char* folder, const char* file)
 #define FONT_YELLOW { 255, 255, 0 }
 #define FONT_VIOLET {240, 170, 240}
 #define FONT_ORANGE {255 , 164 ,32}
+#define FONT_PURPLE {161, 20, 128}
 
 #endif

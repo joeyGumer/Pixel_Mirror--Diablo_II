@@ -46,7 +46,7 @@ bool snOutdoor2::Start()
 {
 	win = false;
 	//App->game->HUD->minimap->minimap->textura_minimapa = App->tex->Load("maps/path.png");
-	App->audio->PlayMusic("audio/music/tristram.ogg", 0);
+	//App->audio->PlayMusic("audio/music/tristram.ogg", 0);
 
 	
 	//SDL_Texture* mapa = NULL;
