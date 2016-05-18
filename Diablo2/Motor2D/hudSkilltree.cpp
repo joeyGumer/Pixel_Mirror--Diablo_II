@@ -97,8 +97,6 @@ bool hudSkilltree::Start()
 	stinging_strike->active = false;
 	hud_gui_elements.push_back(stinging_strike);
 
-	
-
 	wild_talon = App->gui->AddGuiSkill({ 84, 14 }, { 439, 871, 48, 48 }, { 341, 724, 48, 48 }, player->wild_talon, martialblood, this);
 	wild_talon->active = false;
 	hud_gui_elements.push_back(wild_talon);
@@ -213,32 +211,45 @@ bool hudSkilltree::Start()
 	
 	//GuiTexts --------------------------------------------------------------------------------------------
 	//Night summoning ---------------------------------------------------------------------------
-	
+	/*
 	vector<StringColor> clottedtext;
-	clottedtext.push_back(StringColor("CloTTed Blood", FONT_WHITE));
-	text.create("%i", player->clotted_blood->blood_charge_cost_base);
-	text.Insert(0, "BLOOD COST: ");
+	clottedtext.push_back(StringColor("CloTTed Blood skin", FONT_WHITE));
+	clottedtext.push_back(StringColor("ImprovemenT: reduces The damage Taken", FONT_WHITE));
+	text.create("%i", player->clotted_blood->price);
+	text.Insert(0, "pure BLOOD COST: ");
 	clottedtext.push_back(StringColor(text, FONT_WHITE));
-	text.create("%i", player->clotted_blood->buff.value);
-	text.Insert(0, "ARMOR: ");
+	text.create("%i", player->clotted_blood->blood_charge_cost_base);
+	text.Insert(0, "BLOOD charges COST: ");
+	clottedtext.push_back(StringColor(text, FONT_WHITE));
+	text.create("%f", player->clotted_blood->buff.time);
+	text.Insert(0, "duraTion: ");
 	clottedtext.push_back(StringColor(text, FONT_WHITE));
 	text.create("%f", player->clotted_blood->cooldown_base);
 	text.Insert(0, "COOLDOWN: ");
 	clottedtext.push_back(StringColor(text, FONT_WHITE));
-	text.create("%f", player->clotted_blood->buff.time);
-	text.Insert(0, "TIME: ");
+	text.create("%i", player->clotted_blood->buff.value);
+	text.Insert(0, "ARMOR: ");
+	clottedtext.push_back(StringColor(text, FONT_WHITE));
+	text.create("%f", player->clotted_blood->buff.attribute);
+	text.Insert(0, "reduced damage (%): ");
 	clottedtext.push_back(StringColor(text, FONT_WHITE));
 	clotted_blood_skin->text = App->gui->AddGuiText({ 0, 0 }, clottedtext, clotted_blood_skin, this);
 	clotted_blood_skin->text->Desactivate();
 	texts.push_back(clotted_blood_skin->text);
 	hud_gui_elements.push_back(clotted_blood_skin->text);
+
+
 	vector<StringColor> wolftext;
 	wolftext.push_back(StringColor("shadows walker", FONT_WHITE));
+	wolftext.push_back(StringColor("ImprovemenT: makes you invisible", FONT_WHITE));
+	text.create("%i", player->shadow_walker->price);
+	text.Insert(0, "pure BLOOD COST: ");
+	wolftext.push_back(StringColor(text, FONT_WHITE));
 	text.create("%i", player->shadow_walker->blood_charge_cost_base);
-	text.Insert(0, "BLOOD COST: ");
+	text.Insert(0, "BLOOD charges COST: ");
 	wolftext.push_back(StringColor(text, FONT_WHITE));
 	text.create("%i", player->shadow_walker->buff.value);
-	text.Insert(0, "INVISIBiliTy TIME: ");
+	text.Insert(0, "duraTion: ");
 	wolftext.push_back(StringColor(text, FONT_WHITE));
 	text.create("%f", player->shadow_walker->cooldown_base);
 	text.Insert(0, "COOLDOWN: ");
@@ -248,15 +259,49 @@ bool hudSkilltree::Start()
 	texts.push_back(raise_wolf->text);
 	hud_gui_elements.push_back(raise_wolf->text);
 	
+
+	vector<StringColor> batgirltext;
+	batgirltext.push_back(StringColor("baT girl", FONT_WHITE));
+	batgirltext.push_back(StringColor("unavailable", FONT_WHITE));
+	bat_girl->text = App->gui->AddGuiText({ 0, 0 }, batgirltext, bat_girl, this);
+	bat_girl->Desactivate();
+	texts.push_back(bat_girl->text);
+	hud_gui_elements.push_back(bat_girl->text);
+
+
+	vector<StringColor> hawktext;
+	hawktext.push_back(StringColor("raise blood hawk", FONT_WHITE));
+	hawktext.push_back(StringColor("unavailable", FONT_WHITE));
+	raise_blood_hawk->text = App->gui->AddGuiText({ 0, 0 }, hawktext, raise_blood_hawk, this);
+	raise_blood_hawk->Desactivate();
+	texts.push_back(raise_blood_hawk->text);
+	hud_gui_elements.push_back(raise_blood_hawk->text);
 	
+
+	vector<StringColor> golemtext;
+	golemtext.push_back(StringColor("blood golem", FONT_WHITE));
+	golemtext.push_back(StringColor("unavailable", FONT_WHITE));
+	blood_golem->text = App->gui->AddGuiText({ 0, 0 }, golemtext, blood_golem, this);
+	blood_golem->Desactivate();
+	texts.push_back(blood_golem->text);
+	hud_gui_elements.push_back(blood_golem->text);
+
+
 	//Martial blood ---------------------------------------------------------------------------
 	vector<StringColor> stingtext;
 	stingtext.push_back(StringColor("STinging sTrike", FONT_WHITE));
-	text.create("%i", player->stinging_strike->life_cost_base);
-	text.Insert(0, "life cosT: ");
+	stingtext.push_back(StringColor("charge-up skill: powerful sTrike", FONT_WHITE));
+	text.create("%i", player->stinging_strike->price);
+	text.Insert(0, "pure BLOOD COST: ");
 	stingtext.push_back(StringColor(text, FONT_WHITE));
 	text.create("%i", player->stinging_strike->blood_charge_increase_base);
-	text.Insert(0, "blood charges: ");
+	text.Insert(0, "BLOOD charges addiTion: ");
+	stingtext.push_back(StringColor(text, FONT_WHITE));
+	text.create("%f", player->stinging_strike->life_cost_base);
+	text.Insert(0, "life cosT: ");
+	stingtext.push_back(StringColor(text, FONT_WHITE));
+	text.create("%i-%i", player->stinging_strike->base_damage_down, player->stinging_strike->base_damage_up);
+	text.Insert(0, "Damage: ");
 	stingtext.push_back(StringColor(text, FONT_WHITE));
 	text.create("%f", player->stinging_strike->cooldown_base);
 	text.Insert(0, "COOLDOWN: ");
@@ -267,6 +312,226 @@ bool hudSkilltree::Start()
 	hud_gui_elements.push_back(stinging_strike->text);
 
 	
+	vector<StringColor> talontext;
+	talontext.push_back(StringColor("wild Talon", FONT_WHITE));
+	talontext.push_back(StringColor("charge-up skill: powerful kick", FONT_WHITE));
+	text.create("%i", player->wild_talon->price);
+	text.Insert(0, "pure BLOOD COST: ");
+	talontext.push_back(StringColor(text, FONT_WHITE));
+	text.create("%i", player->wild_talon->blood_charge_increase_base);
+	text.Insert(0, "BLOOD charges addiTion: ");
+	talontext.push_back(StringColor(text, FONT_WHITE));
+	text.create("%f", player->wild_talon->life_cost_base);
+	text.Insert(0, "life cosT: ");
+	talontext.push_back(StringColor(text, FONT_WHITE));
+	text.create("%i-%i", player->wild_talon->base_damage_down, player->wild_talon->base_damage_up);
+	text.Insert(0, "Damage: ");
+	talontext.push_back(StringColor(text, FONT_WHITE));
+	text.create("%f", player->wild_talon->cooldown_base);
+	text.Insert(0, "COOLDOWN: ");
+	talontext.push_back(StringColor(text, FONT_WHITE));
+	wild_talon->text = App->gui->AddGuiText({ 0, 0 }, talontext, wild_talon, this);
+	wild_talon->Desactivate();
+	texts.push_back(wild_talon->text);
+	hud_gui_elements.push_back(wild_talon->text);
+
+
+	vector<StringColor> battext;
+	battext.push_back(StringColor("baT sTrike", FONT_WHITE));
+	battext.push_back(StringColor("Finishing move: powerful kick ThaT heals", FONT_WHITE));
+	text.create("%i", player->bat_strike->price);
+	text.Insert(0, "pure BLOOD COST: ");
+	battext.push_back(StringColor(text, FONT_WHITE));
+	text.create("%i", player->bat_strike->blood_charge_increase_base);
+	text.Insert(0, "BLOOD charges cosT: ");
+	battext.push_back(StringColor(text, FONT_WHITE));
+	text.create("%f", player->bat_strike->life_cost_base);
+	text.Insert(0, "life sTeal (%): ");
+	battext.push_back(StringColor(text, FONT_WHITE));
+	text.create("%i-%i", player->bat_strike->base_damage_down, player->bat_strike->base_damage_up);
+	text.Insert(0, "Damage: ");
+	battext.push_back(StringColor(text, FONT_WHITE));
+	text.create("%f", player->bat_strike->cooldown_base);
+	text.Insert(0, "COOLDOWN: ");
+	battext.push_back(StringColor(text, FONT_WHITE));
+	bat_strike->text = App->gui->AddGuiText({ 0, 0 }, battext, bat_strike, this);
+	bat_strike->Desactivate();
+	texts.push_back(bat_strike->text);
+	hud_gui_elements.push_back(bat_strike->text);
+
+
+	vector<StringColor> icetext;
+	icetext.push_back(StringColor("soul of ice", FONT_WHITE));
+	icetext.push_back(StringColor("Finishing move: kick ThaT slows The enemies", FONT_WHITE));
+	text.create("%i", player->soul_of_ice->price);
+	text.Insert(0, "pure BLOOD COST: ");
+	icetext.push_back(StringColor(text, FONT_WHITE));
+	text.create("%i", player->soul_of_ice->blood_charge_cost_base);
+	text.Insert(0, "BLOOD charges cosT: ");
+	icetext.push_back(StringColor(text, FONT_WHITE));
+	text.create("%i-%i", player->soul_of_ice->base_damage_down, player->soul_of_ice->base_damage_up);
+	text.Insert(0, "Damage: ");
+	icetext.push_back(StringColor(text, FONT_WHITE));
+	icetext.push_back(StringColor("duraTion: 3 seconds", FONT_WHITE));
+	text.create("%f", player->soul_of_ice->cooldown_base);
+	text.Insert(0, "COOLDOWN: ");
+	icetext.push_back(StringColor(text, FONT_WHITE));
+	soul_of_ice->text = App->gui->AddGuiText({ 0, 0 }, icetext, soul_of_ice, this);
+	soul_of_ice->Desactivate();
+	texts.push_back(soul_of_ice->text);
+	hud_gui_elements.push_back(soul_of_ice->text);
+
+
+	vector<StringColor> krobustext;
+	krobustext.push_back(StringColor("krobus arTs", FONT_WHITE));
+	krobustext.push_back(StringColor("Improvement: nexT basic aTTacks are more powerful", FONT_WHITE));
+	text.create("%i", player->krobus_arts->price);
+	text.Insert(0, "pure BLOOD COST: ");
+	krobustext.push_back(StringColor(text, FONT_WHITE));
+	text.create("%i", player->krobus_arts->life_cost_base);
+	text.Insert(0, "life cosT: ");
+	krobustext.push_back(StringColor(text, FONT_WHITE));
+	text.create("%i", player->krobus_arts->damage_bonus_base);
+	text.Insert(0, "Damage: ");
+	krobustext.push_back(StringColor(text, FONT_WHITE));
+	krobustext.push_back(StringColor("duraTion: 3 seconds", FONT_WHITE));
+	text.create("%f", player->krobus_arts->cooldown_base);
+	text.Insert(0, "COOLDOWN: ");
+	krobustext.push_back(StringColor(text, FONT_WHITE));
+	krobus_arts->text = App->gui->AddGuiText({ 0, 0 }, krobustext, krobus_arts, this);
+	krobus_arts->Desactivate();
+	texts.push_back(krobus_arts->text);
+	hud_gui_elements.push_back(krobus_arts->text);
+
+
+	//Blood spells ---------------------------------------------------------------------------
+	vector<StringColor> arrowtext;
+	arrowtext.push_back(StringColor("blood arrow", FONT_WHITE));
+	arrowtext.push_back(StringColor("charge-up skill: Throws a blood projecTile aT The chosen direcTion", FONT_WHITE));
+	text.create("%i", player->blood_arrow->price);
+	text.Insert(0, "pure BLOOD COST: ");
+	arrowtext.push_back(StringColor(text, FONT_WHITE));
+	text.create("%i", player->blood_arrow->blood_charge_increase_base);
+	text.Insert(0, "BLOOD charges addiTion: ");
+	arrowtext.push_back(StringColor(text, FONT_WHITE));
+	text.create("%f", player->blood_arrow->life_cost_base);
+	text.Insert(0, "life cosT: ");
+	arrowtext.push_back(StringColor(text, FONT_WHITE));
+	text.create("%i-%i", player->blood_arrow->base_damage_down, player->blood_arrow->base_damage_up);
+	text.Insert(0, "spell Damage: ");
+	arrowtext.push_back(StringColor(text, FONT_WHITE));
+	text.create("%f", player->blood_arrow->cooldown_base);
+	text.Insert(0, "COOLDOWN: ");
+	arrowtext.push_back(StringColor(text, FONT_WHITE));
+	blood_arrow->text = App->gui->AddGuiText({ 0, 0 }, arrowtext, blood_arrow, this);
+	blood_arrow->Desactivate();
+	texts.push_back(blood_arrow->text);
+	hud_gui_elements.push_back(blood_arrow->text);
+
+
+	vector<StringColor> breathtext;
+	breathtext.push_back(StringColor("vampire breaTh", FONT_WHITE));
+	breathtext.push_back(StringColor("finishing move: projecTiles Thrown doing a cone", FONT_WHITE));
+	text.create("%i", player->vampire_breath->price);
+	text.Insert(0, "pure BLOOD COST: ");
+	breathtext.push_back(StringColor(text, FONT_WHITE));
+	text.create("%i", player->vampire_breath->blood_charge_cost_base);
+	text.Insert(0, "BLOOD charges cosT: ");
+	breathtext.push_back(StringColor(text, FONT_WHITE));
+	text.create("%i-%i", player->vampire_breath->base_damage_down, player->vampire_breath->base_damage_up);
+	text.Insert(0, "spells Damage: ");
+	breathtext.push_back(StringColor(text, FONT_WHITE));
+	text.create("%f", player->vampire_breath->cooldown_base);
+	text.Insert(0, "COOLDOWN: ");
+	breathtext.push_back(StringColor(text, FONT_WHITE));
+	text.create("%i", player->vampire_breath->range);
+	text.Insert(0, "range: ");
+	breathtext.push_back(StringColor(text, FONT_WHITE));
+	vampire_breath->text = App->gui->AddGuiText({ 0, 0 }, breathtext, vampire_breath, this);
+	vampire_breath->Desactivate();
+	texts.push_back(vampire_breath->text);
+	hud_gui_elements.push_back(vampire_breath->text);
+
+
+	vector<StringColor> bombtext;
+	bombtext.push_back(StringColor("blood bomb", FONT_WHITE));
+	bombtext.push_back(StringColor("charge-up skill: Throws a projecTile ThaT deals area damage on hiT", FONT_WHITE));
+	text.create("%i", player->blood_bomb->price);
+	text.Insert(0, "pure BLOOD COST: ");
+	bombtext.push_back(StringColor(text, FONT_WHITE));
+	text.create("%i", player->blood_bomb->blood_charge_increase_base);
+	text.Insert(0, "BLOOD charges addiTion: ");
+	bombtext.push_back(StringColor(text, FONT_WHITE));
+	text.create("%f", player->blood_bomb->life_cost_base);
+	text.Insert(0, "life cosT: ");
+	bombtext.push_back(StringColor(text, FONT_WHITE));
+	//Blood bomb needs a damage and an area variable
+	text.create("%i-%i", player->blood_arrow->base_damage_down, player->blood_arrow->base_damage_up);
+	text.Insert(0, "spell Damage: ");
+	bombtext.push_back(StringColor(text, FONT_WHITE));
+	text.create("%f", player->blood_bomb->cooldown_base);
+	text.Insert(0, "COOLDOWN: ");
+	bombtext.push_back(StringColor(text, FONT_WHITE));
+	blood_bomb->text = App->gui->AddGuiText({ 0, 0 }, bombtext, blood_bomb, this);
+	blood_bomb->Desactivate();
+	texts.push_back(blood_bomb->text);
+	hud_gui_elements.push_back(blood_bomb->text);
+
+
+	vector<StringColor> feasttext;
+	feasttext.push_back(StringColor("red feasT", FONT_WHITE));
+	feasttext.push_back(StringColor("finishing move: absorbs The life of The enemies found wiThin iTs area", FONT_WHITE));
+	feasttext.push_back(StringColor("you cannoT move while The abiliTy is acTive", FONT_WHITE));
+	text.create("%i", player->red_feast->price);
+	text.Insert(0, "pure BLOOD COST: ");
+	feasttext.push_back(StringColor(text, FONT_WHITE));
+	text.create("%i", player->red_feast->blood_charge_cost_base);
+	text.Insert(0, "BLOOD charges cosT (per second): ");
+	feasttext.push_back(StringColor(text, FONT_WHITE));
+	text.create("%i-%i", player->red_feast->base_damage_down, player->red_feast->base_damage_up);
+	text.Insert(0, "spell Damage (per second): ");
+	feasttext.push_back(StringColor(text, FONT_WHITE));
+	text.create("%f", player->red_feast->life_steal_base);
+	text.Insert(0, "life sTeal (%): ");
+	feasttext.push_back(StringColor(text, FONT_WHITE));
+	text.create("%f", player->red_feast->cooldown_base);
+	text.Insert(0, "COOLDOWN: ");
+	feasttext.push_back(StringColor(text, FONT_WHITE));
+	text.create("%i", player->vampire_breath->radius);
+	text.Insert(0, "radius: ");
+	feasttext.push_back(StringColor(text, FONT_WHITE));
+	red_feast->text = App->gui->AddGuiText({ 0, 0 }, feasttext, red_feast, this);
+	red_feast->Desactivate();
+	texts.push_back(red_feast->text);
+	hud_gui_elements.push_back(red_feast->text);
+
+
+	vector<StringColor> herdtext;
+	herdtext.push_back(StringColor("herd of baTs", FONT_WHITE));
+	herdtext.push_back(StringColor("Finishing move: invokes baTs in an area and deal damage over Time", FONT_WHITE));
+	text.create("%i", player->heard_of_bats->price);
+	text.Insert(0, "pure BLOOD COST: ");
+	herdtext.push_back(StringColor(text, FONT_WHITE));
+	text.create("%i", player->heard_of_bats->blood_charge_increase_base);
+	text.Insert(0, "BLOOD charges addiTion: ");
+	herdtext.push_back(StringColor(text, FONT_WHITE));
+	text.create("%i-%i", player->heard_of_bats->base_damage_down, player->heard_of_bats->base_damage_up);
+	text.Insert(0, "spell Damage (per second): ");
+	herdtext.push_back(StringColor(text, FONT_WHITE));
+	text.create("%f", player->heard_of_bats->time);
+	text.Insert(0, "duraTion: ");
+	herdtext.push_back(StringColor(text, FONT_WHITE));
+	text.create("%f", player->heard_of_bats->cooldown_base);
+	text.Insert(0, "COOLDOWN: ");
+	herdtext.push_back(StringColor(text, FONT_WHITE));
+	text.create("%i", player->heard_of_bats->radius);
+	text.Insert(0, "radius: ");
+	herdtext.push_back(StringColor(text, FONT_WHITE));
+	heard_of_bats->text = App->gui->AddGuiText({ 0, 0 }, herdtext, heard_of_bats, this);
+	heard_of_bats->Desactivate();
+	texts.push_back(heard_of_bats->text);
+	hud_gui_elements.push_back(heard_of_bats->text);
+	*/
 
 	return true;
 }
