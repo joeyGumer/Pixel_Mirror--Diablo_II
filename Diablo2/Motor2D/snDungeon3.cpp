@@ -266,10 +266,7 @@ bool snDungeon3::CleanUp()
 
 	while (item != entity_list.end())
 	{
-		if (item._Ptr->_Myval != NULL)
-		{
-			App->game->em->Remove(item._Ptr->_Myval->id);
-		}
+		App->game->em->Remove(item._Ptr->_Myval->id);
 		item++;
 	}
 	entity_list.clear();
@@ -464,7 +461,7 @@ void snDungeon3::DropItem(iPoint pos)
 	//NOTE: thinking of using srand for more equally distributed random generation
 	//NOTE: have to change this, the random isn't equal at all. Even when there's a 60% to have no item, it almost always drops items
 	int chance = rand() % 100;
-	ITEM_RARITY rarity = RARITY_RARE;
+	ITEM_RARITY rarity;
 
 	//note: HAVE TO CHANGE THIS TO VARIABLES SO IT CAN BE CHANGED BY LUCK
 	if (App->sm->level1 == App->sm->dungeon3)
@@ -547,19 +544,6 @@ void snDungeon3::DropItem(iPoint pos)
 			}
 		}
 	}
-	else if (chance >= 65)
-	{
-		itmConsumable* item;
-		item = new itmConsumable(rarity, pos);
-		if (!item->ent_item)
-		{
-			RELEASE(item);
-		}
-		else
-		{
-			entity_list.push_back((Entity*)item->ent_item);
-		}
-	}
 }
 
 //Spawn Player
@@ -576,6 +560,7 @@ void snDungeon3::SpawnPlayer()
 	else if (random == 3)
 		App->game->player->SetPosition({ 416, 3076 });
 
+	
 	//Add Boss
 	int random2 = rand() % 4;
 	while (random2 == random)
@@ -672,7 +657,7 @@ void snDungeon3::SpawnPlayer()
 			pos.y = 142;
 		}
 	}
-
+	
 	//Add Enemies 2
 	pos = { 73, 134 };
 	for (int i = 0; i < 2; i++)
@@ -726,6 +711,7 @@ void snDungeon3::SpawnPlayer()
 		pos.y = 83;
 	}
 
+	
 	//Add Enemies 3
 	//Y lines
 	pos = { 33, 112 };
@@ -733,7 +719,7 @@ void snDungeon3::SpawnPlayer()
 	{
 		to_add = AddEnemy(pos);
 		entity_list.push_back(to_add);
-		pos.y += 4;
+		pos.y += 3;
 	}
 
 	pos = { 127, 160 };
@@ -741,7 +727,7 @@ void snDungeon3::SpawnPlayer()
 	{
 		to_add = AddEnemy(pos);
 		entity_list.push_back(to_add);
-		pos.y += 4;
+		pos.y += 3;
 	}
 
 	pos = { 174, 60 };
@@ -749,9 +735,10 @@ void snDungeon3::SpawnPlayer()
 	{
 		to_add = AddEnemy(pos);
 		entity_list.push_back(to_add);
-		pos.y += 4;
+		pos.y += 3;
 	}
 
+	
 	//X lines
 	pos = { 157, 173 };
 	for (int i = 0; i < 3; i++)
@@ -818,7 +805,7 @@ void snDungeon3::SpawnPlayer()
 	pos = { 105, 70 };
 	to_add = AddEnemy(pos);
 	entity_list.push_back(to_add);
-
+	
 	pos = { 74, 110 };
 	for (int i = 0; i < 2; i++)
 	{
@@ -873,17 +860,7 @@ void snDungeon3::SpawnPlayer()
 	pos = { 185, 188 };
 	to_add = AddEnemy(pos);
 	entity_list.push_back(to_add);
-
-	pos = { 89, 35 };
-	for (int i = 0; i < 2; i++)
-	{
-		to_add = AddEnemy(pos);
-		entity_list.push_back(to_add);
-		pos.x += 3;
-	}
-	pos = { 91, 38 };
-	to_add = AddEnemy(pos);
-	entity_list.push_back(to_add);
+	
 
 	//Items
 	DropItem({ 2083, 2472 });

@@ -4,6 +4,7 @@
 #include "p2Log.h"
 #include "j1App.h"
 #include "memleaks.h"
+#include <time.h>
 
 // This is needed here because SDL redefines main function
 // do not add any other libraries here, instead put them in their modules
@@ -34,6 +35,8 @@ int main(int argc, char* args[])
 	//This makes brofiler to work
 	//BROFILER_FRAME("Hello World")
 	//ReportMemoryLeaks();
+
+	srand(time(NULL));
 
 	LOG("Engine starting ... %d");
 

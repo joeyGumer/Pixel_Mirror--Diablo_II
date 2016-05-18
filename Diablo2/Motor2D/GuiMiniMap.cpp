@@ -134,15 +134,10 @@ void GuiMiniMap::DrawPlayer(j1Player* player)
 void GuiMiniMap::DrawEnemy(Entity* enemy)
 {
 	fPoint toDraw = WorldToMinimap(enemy->GetPivotPosition());
-	
-	if (enemy->type == ITEM)
+
+	if (enemy->type == PORTAL)
 	{
 		App->render->DrawQuad(SDL_Rect{ toDraw.x, toDraw.y, 2, 2 }, 255, 255, 0, 255, false);
-	}
-
-	else if (enemy->type == PORTAL)
-	{
-		App->render->DrawQuad(SDL_Rect{ toDraw.x, toDraw.y, 2, 2 }, 255, 0, 0, 255, false);
 	}
 
 	else if (enemy->type == ENEMY)
