@@ -46,7 +46,7 @@ bool j1Textures::Start()
 // Called before quitting
 bool j1Textures::CleanUp()
 {
-	LOG("Freeing textures and Image library");
+	LOG("Freeing textures and Image library \n");
 	list<SDL_Texture*>::iterator item;
 
 	for(item = textures.begin(); item != textures.end(); ++item)

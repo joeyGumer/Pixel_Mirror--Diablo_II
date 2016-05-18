@@ -85,7 +85,8 @@ bool j1Input::PreUpdate()
 		switch(event.type)
 		{
 			case SDL_QUIT:
-				windowEvents[WE_QUIT] = true;
+				//windowEvents[WE_QUIT] = true;
+				std::exit(0);
 			break;
 
 			case SDL_WINDOWEVENT:

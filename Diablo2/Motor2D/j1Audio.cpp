@@ -60,7 +60,7 @@ bool j1Audio::CleanUp()
 	if(!active)
 		return true;
 
-	LOG("Freeing sound FX, closing Mixer and Audio subsystem");
+	LOG("Freeing sound FX, closing Mixer and Audio subsystem \n");
 
 	if(music != NULL)
 	{
