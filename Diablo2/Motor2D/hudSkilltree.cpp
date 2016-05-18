@@ -24,7 +24,7 @@ hudSkilltree::~hudSkilltree()
 bool hudSkilltree::Start()
 {
 	active = false;
-	//p2SString text;
+	p2SString text;
 	player = App->game->player;
 
 	//skillpoints = 15;
@@ -213,7 +213,7 @@ bool hudSkilltree::Start()
 	
 	//GuiTexts --------------------------------------------------------------------------------------------
 	//Night summoning ---------------------------------------------------------------------------
-	/*
+	
 	vector<StringColor> clottedtext;
 	clottedtext.push_back(StringColor("CloTTed Blood", FONT_WHITE));
 	text.create("%i", player->clotted_blood->blood_charge_cost_base);
@@ -231,7 +231,7 @@ bool hudSkilltree::Start()
 	clotted_blood_skin->text = App->gui->AddGuiText({ 0, 0 }, clottedtext, clotted_blood_skin, this);
 	clotted_blood_skin->text->Desactivate();
 	texts.push_back(clotted_blood_skin->text);
-
+	hud_gui_elements.push_back(clotted_blood_skin->text);
 	vector<StringColor> wolftext;
 	wolftext.push_back(StringColor("shadows walker", FONT_WHITE));
 	text.create("%i", player->shadow_walker->blood_charge_cost_base);
@@ -244,9 +244,9 @@ bool hudSkilltree::Start()
 	text.Insert(0, "COOLDOWN: ");
 	wolftext.push_back(StringColor(text, FONT_WHITE));
 	raise_wolf->text = App->gui->AddGuiText({ 0, 0 }, wolftext, raise_wolf, this);
-	raise_wolf->text->Desactivate();
+	raise_wolf->Desactivate();
 	texts.push_back(raise_wolf->text);
-	
+	hud_gui_elements.push_back(raise_wolf->text);
 	
 	
 	//Martial blood ---------------------------------------------------------------------------
@@ -264,10 +264,9 @@ bool hudSkilltree::Start()
 	stinging_strike->text = App->gui->AddGuiText({ 0, 20 }, stingtext, stinging_strike, this);
 	stinging_strike->text->Desactivate();
 	texts.push_back(stinging_strike->text);
+	hud_gui_elements.push_back(stinging_strike->text);
+
 	
-	
-	player->stinging_strike;
-	*/
 
 	return true;
 }
@@ -314,6 +313,8 @@ bool hudSkilltree::CleanUp()
 			}
 		}
 	}
+		
+	texts.clear();
 
 	hud_gui_elements.clear();
 	return true;
@@ -327,6 +328,9 @@ void hudSkilltree::Activate()
 	{
 		hud_gui_elements[i]->active = active;
 	}
+
+	for (int i = 0; i < texts.size(); i++)
+		texts[i]->Desactivate();
 
 }
 
@@ -342,10 +346,10 @@ void hudSkilltree::OnEvent(GuiElement* element, GUI_Event even)
 		{
 			bloodspells->Desactivate();
 			nightsummoning->Activate();
-			/*
+			
 			for (int i = 0; i < texts.size(); i++)
 				texts[i]->Desactivate();
-				*/
+				
 		}
 		break;
 		}
@@ -360,10 +364,10 @@ void hudSkilltree::OnEvent(GuiElement* element, GUI_Event even)
 		{
 			nightsummoning->Desactivate();
 			bloodspells->Activate();
-			/*
+			
 			for (int i = 0; i < texts.size(); i++)
 				texts[i]->Desactivate();
-				*/
+				
 		}
 		break;
 		}
@@ -417,7 +421,7 @@ void hudSkilltree::OnEvent(GuiElement* element, GUI_Event even)
 				}
 			}
 		}
-		/*
+		
 		else if (even == EVENT_MOUSE_ENTER)
 		{
 			GuiSkill* tmp = (GuiSkill*)element;
@@ -437,7 +441,7 @@ void hudSkilltree::OnEvent(GuiElement* element, GUI_Event even)
 					tmp->text->Desactivate();
 			}
 		}
-		*/
+		
 	}
 
 	/*
