@@ -25,6 +25,7 @@ bool hudSkilltree::Start()
 {
 	active = false;
 	p2SString text;
+	p2SString text2;
 	player = App->game->player;
 
 	//skillpoints = 15;
@@ -48,17 +49,11 @@ bool hudSkilltree::Start()
 	raise_wolf = App->gui->AddGuiSkill({ 152, 9 }, { 488, 969, 48, 48 }, { 390, 969, 48, 48 }, player->shadow_walker, nightsummoning, this);
 	raise_wolf->active = false;
 	hud_gui_elements.push_back(raise_wolf);
-	/*
-	//text2.create("%i", player->shadow_walker->price);
-	price11 = App->gui->AddGuiLabel("1500", NULL, { 0, 45 }, raise_wolf, FONT_WHITE, this);
+	
+	price11 = App->gui->AddGuiLabel("0", NULL, { 44, 43 }, raise_wolf, FONT_WHITE, this);
 	price11->active = false;
 	hud_gui_elements.push_back(price11);
-
-	//text2.create("%i", player->clotted_blood->price);
-	price12 = App->gui->AddGuiLabel("2000", NULL, { 0, 45 }, clotted_blood_skin, FONT_WHITE, this);
-	price12->active = false;
-	hud_gui_elements.push_back(price12);
-	*/
+	
 	bat_girl = App->gui->AddGuiSkill({ 15, 77 }, { 537, 969, 48, 48 }, { 341, 1018, 48, 48 }, player->night_ward, nightsummoning, this);
 	bat_girl->active = false;
 	hud_gui_elements.push_back(bat_girl);
@@ -79,6 +74,22 @@ bool hudSkilltree::Start()
 	clotted_blood_skin->skill_parents.push_back(blood_golem->skill);
 	clotted_blood_skin->skill_parents.push_back(raise_wolf->skill);
 	hud_gui_elements.push_back(clotted_blood_skin);
+
+	price12 = App->gui->AddGuiLabel("0", NULL, { 44, 43 }, clotted_blood_skin, FONT_WHITE, this);
+	price12->active = false;
+	hud_gui_elements.push_back(price12);
+
+	price13 = App->gui->AddGuiLabel("0", NULL, { 44, 43 }, raise_blood_hawk, FONT_WHITE, this);
+	price13->active = false;
+	hud_gui_elements.push_back(price13);
+
+	price14 = App->gui->AddGuiLabel("0", NULL, { 44, 43 }, bat_girl, FONT_WHITE, this);
+	price14->active = false;
+	hud_gui_elements.push_back(price14);
+
+	price15 = App->gui->AddGuiLabel("0", NULL, { 44, 43 }, blood_golem, FONT_WHITE, this);
+	price15->active = false;
+	hud_gui_elements.push_back(price15);
 
 	//--------------------------------------------------------------------------------------------
 	
@@ -160,59 +171,48 @@ bool hudSkilltree::Start()
 	hud_gui_elements.push_back(heard_of_bats);
 	
 
-	//Prices -------------------------------------------------------------------------------------------------------------------------
-	p2SString text2;
-	/*
-	//text2.create("%i", player->stinging_strike->price);
-	price1 = App->gui->AddGuiLabel("1500", NULL, { 0, 45 }, stinging_strike, FONT_WHITE, this);
+	//LEVELS (not prices) -------------------------------------------------------------------------------------------------------------------------
+	
+	price1 = App->gui->AddGuiLabel("0", NULL, { 44, 43 }, stinging_strike, FONT_WHITE, this);
 	price1->active = false;
 	hud_gui_elements.push_back(price1);
 
-	//text2.create("%i", player->wild_talon->price);
-	price2 = App->gui->AddGuiLabel("1500", NULL, { 0, 45 }, wild_talon, FONT_WHITE, this);
+	price2 = App->gui->AddGuiLabel("0", NULL, { 44, 43 }, wild_talon, FONT_WHITE, this);
 	price2->active = false;
 	hud_gui_elements.push_back(price2);
 
-	//text2.create("%i", player->bat_strike->price);
-	price3 = App->gui->AddGuiLabel("2500", NULL, { 0, 45 }, bat_strike, FONT_WHITE, this);
+	price3 = App->gui->AddGuiLabel("0", NULL, { 44, 43 }, bat_strike, FONT_WHITE, this);
 	price3->active = false;
 	hud_gui_elements.push_back(price3);
 
-	//text2.create("%i", player->soul_of_ice->price);
-	price4 = App->gui->AddGuiLabel("2500", NULL, { 0, 45 }, soul_of_ice, FONT_WHITE, this);
+	price4 = App->gui->AddGuiLabel("0", NULL, { 44, 43 }, soul_of_ice, FONT_WHITE, this);
 	price4->active = false;
 	hud_gui_elements.push_back(price4);
-
-	//text2.create("%i", player->krobus_arts->price);
-	price5 = App->gui->AddGuiLabel("2000", NULL, { 0, 45 }, krobus_arts, FONT_WHITE, this);
+	
+	price5 = App->gui->AddGuiLabel("0", NULL, { 44, 43 }, krobus_arts, FONT_WHITE, this);
 	price5->active = false;
 	hud_gui_elements.push_back(price5);
 
-	//text2.create("%i", player->blood_arrow->price);
-	price6 = App->gui->AddGuiLabel("1500", NULL, { 0, 45 }, blood_arrow, FONT_WHITE, this);
+	price6 = App->gui->AddGuiLabel("0", NULL, { 44, 43 }, blood_arrow, FONT_WHITE, this);
 	price6->active = false;
 	hud_gui_elements.push_back(price6);
 
-	//text2.create("%i", player->vampire_breath->price);
-	price7 = App->gui->AddGuiLabel("1500", NULL, { 0, 45 }, vampire_breath, FONT_WHITE, this);
+	price7 = App->gui->AddGuiLabel("0", NULL, { 44, 43 }, vampire_breath, FONT_WHITE, this);
 	price7->active = false;
 	hud_gui_elements.push_back(price7);
 
-	//text2.create("%i", player->blood_bomb->price);
-	price8 = App->gui->AddGuiLabel("2500", NULL, { 0, 45 }, blood_bomb, FONT_WHITE, this);
+	price8 = App->gui->AddGuiLabel("0", NULL, { 44, 43 }, blood_bomb, FONT_WHITE, this);
 	price8->active = false;
 	hud_gui_elements.push_back(price8);
 
-	//text2.create("%i", player->red_feast->price);
-	price9 = App->gui->AddGuiLabel("2500", NULL, { 0, 45 }, red_feast, FONT_WHITE, this);
+	price9 = App->gui->AddGuiLabel("0", NULL, { 44, 43 }, red_feast, FONT_WHITE, this);
 	price9->active = false;
 	hud_gui_elements.push_back(price9);
 
-	//text2.create("%i", player->heard_of_bats->price);
-	price10 = App->gui->AddGuiLabel("2000", NULL, { 0, 45 }, heard_of_bats, FONT_WHITE, this);
+	price10 = App->gui->AddGuiLabel("0", NULL, { 44, 43 }, heard_of_bats, FONT_WHITE, this);
 	price10->active = false;
 	hud_gui_elements.push_back(price10);
-	*/
+
 	//GuiTexts --------------------------------------------------------------------------------------------
 	//Night summoning ---------------------------------------------------------------------------
 	
@@ -653,6 +653,51 @@ bool hudSkilltree::PostUpdate()
 	skillpoints_label->SetText(text);
 	skillpoints_label->Center(true, true);
 	
+
+	text.create("%i", player->stinging_strike->level + 1);
+	price1->SetText(text);
+
+	text.create("%i", player->wild_talon->level + 1);
+	price2->SetText(text);
+
+	text.create("%i", player->bat_strike->level + 1);
+	price3->SetText(text);
+
+	text.create("%i", player->soul_of_ice->level + 1);
+	price4->SetText(text);
+
+	text.create("%i", player->krobus_arts->level + 1);
+	price5->SetText(text);
+
+	text.create("%i", player->blood_arrow->level + 1);
+	price6->SetText(text);
+
+	text.create("%i", player->vampire_breath->level + 1);
+	price7->SetText(text);
+
+	text.create("%i", player->blood_bomb->level + 1);
+	price8->SetText(text);
+
+	text.create("%i", player->red_feast->level + 1);
+	price9->SetText(text);
+
+	text.create("%i", player->heard_of_bats->level + 1);
+	price10->SetText(text);
+
+	text.create("%i", player->shadow_walker->level + 1);
+	price11->SetText(text);
+
+	text.create("%i", player->clotted_blood->level + 1);
+	price12->SetText(text);
+
+	text.create("%i", player->lust->level + 1);
+	price13->SetText(text);
+
+	text.create("%i", player->night_ward->level + 1);
+	price14->SetText(text);
+
+	text.create("%i", player->undead->level + 1);
+	price15->SetText(text);
 
 	return true;
 }

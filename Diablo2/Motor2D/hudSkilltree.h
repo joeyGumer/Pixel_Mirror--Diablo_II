@@ -142,6 +142,9 @@ public:
 	GuiLabel* price10; 
 	GuiLabel* price11;
 	GuiLabel* price12;
+	GuiLabel* price13;
+	GuiLabel* price14;
+	GuiLabel* price15;
 
 	//GuiSkill* vampire_breath = NULL;
 	//GuiSkill*
