@@ -63,7 +63,7 @@ bool hudSkilltree::Start()
 	price12->active = false;
 	hud_gui_elements.push_back(price12);
 
-	bat_girl = App->gui->AddGuiSkill({ 15, 77 }, { 537, 969, 48, 48 }, { 341, 1018, 48, 48 }, NULL, nightsummoning, this);
+	bat_girl = App->gui->AddGuiSkill({ 15, 77 }, { 537, 969, 48, 48 }, { 341, 1018, 48, 48 }, player->night_ward, nightsummoning, this);
 	bat_girl->active = false;
 	hud_gui_elements.push_back(bat_girl);
 

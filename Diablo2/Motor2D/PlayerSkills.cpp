@@ -982,3 +982,46 @@ void sklUndead::SkillUpdate(float dt)
 		}
 	}
 }
+
+//Night ward
+sklNightWard::sklNightWard()
+{
+	price = 2000;
+	price_dt = 100;
+}
+sklNightWard::~sklNightWard()
+{
+
+}
+
+void sklNightWard::SkillEffect()
+{
+	active = false;
+	avaliable = false;
+
+	cooldown_timer.Start();
+}
+
+void sklNightWard::SkillInit()
+{
+	effect_timer.Start();
+}
+
+void sklNightWard::SkillUpdate(float dt)
+{
+	if (avaliable)
+	{
+		if (effect_timer.ReadSec() >= time)
+		{
+			active = true;
+		}
+	}
+	else
+	{
+		if (cooldown_timer.ReadSec() >= cooldown)
+		{
+			avaliable = true;
+			SkillInit();
+		}
+	}
+}

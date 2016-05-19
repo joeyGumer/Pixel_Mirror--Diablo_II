@@ -348,6 +348,13 @@ public:
 
 public:
 
+	float time = 5;
+	float cooldown = 60;
+	float damage_reduction_base = 24;
+	j1Timer effect_timer;
+
+	bool active = false;
+	bool avaliable = true;
 };
 
 

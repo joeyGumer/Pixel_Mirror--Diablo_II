@@ -67,6 +67,7 @@ bool j1Player::Start()
 	heard_of_bats = new sklHeardOfBats();
 	lust = new sklLust();
 	undead = new sklUndead();
+	night_ward = new sklNightWard();
 
 	//
 	player_attack = App->audio->LoadFx("audio/fx/PlayerAttack.ogg");
@@ -261,6 +262,7 @@ bool j1Player::CleanUp()
 	RELEASE(heard_of_bats) 
 	RELEASE(lust)
 	RELEASE(undead)
+	RELEASE(night_ward)
 	
 	//Take an eye on this
 	if (sprite)
@@ -769,9 +771,30 @@ void j1Player::TakeDamage(float damage)
 {
 	if (!inmune)
 	{
-		float reduction = (float)damage / 100 * armor_final;
-		HP_current -= damage - reduction;
+	
+		
 
+
+		float reduction = (float)damage / 100 * armor_final;
+		float final_damage = damage - reduction;
+
+		if (night_ward->unlocked && night_ward->avaliable)
+		{
+			if (!night_ward->active)
+			{
+				night_ward->SkillInit();
+			}
+			else if (night_ward->active)
+			{
+				night_ward->SkillEffect();
+				final_damage -= (HP_max / 100) * night_ward->damage_reduction_base;
+			}
+		}
+
+		if (final_damage < 0)
+			final_damage = 0;
+
+		HP_current -= final_damage;
 		PlayerEvent(HP_DOWN);
 
 		if (HP_current <= 0 && Alive())
@@ -1614,5 +1637,10 @@ void j1Player::UpdatePassiveSkills()
 	if (undead->unlocked)
 	{
 		undead->SkillUpdate(0);
+	}
+
+	if (night_ward->unlocked)
+	{
+		night_ward->SkillUpdate(0);
 	}
 }

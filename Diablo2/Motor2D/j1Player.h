@@ -122,6 +122,7 @@ class sklClottedBloodSkin;
 class sklHeardOfBats; 
 class sklLust;
 class sklUndead;
+class sklNightWard;
 class Collider;
 struct Buff;
 
@@ -426,6 +427,7 @@ public:
 	sklClottedBloodSkin* clotted_blood = NULL;
 	sklLust* lust = NULL;
 	sklUndead* undead = NULL;
+	sklNightWard* night_ward = NULL;
 
 	//Collider
 	Collider* p_collider;
