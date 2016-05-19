@@ -320,7 +320,7 @@ bool hudSkilltree::Start()
 	text.Insert(0, "COOLDOWN: ");
 	stingtext.push_back(StringColor(text, FONT_BLUE));
 	*/
-	stinging_strike->text = App->gui->AddGuiText({ 0, 45 }, stingtext, stinging_strike, this);
+	stinging_strike->text = App->gui->AddGuiText({ 0, 145 }, stingtext, stinging_strike, this);
 	stinging_strike->text->Desactivate();
 	texts.push_back(stinging_strike->text);
 	hud_gui_elements.push_back(stinging_strike->text);
@@ -347,7 +347,7 @@ bool hudSkilltree::Start()
 	text.Insert(0, "COOLDOWN: ");
 	talontext.push_back(StringColor(text, FONT_BLUE));
 	*/
-	wild_talon->text = App->gui->AddGuiText({ 0, 45 }, talontext, wild_talon, this);
+	wild_talon->text = App->gui->AddGuiText({ 0, 145 }, talontext, wild_talon, this);
 	wild_talon->Desactivate();
 	texts.push_back(wild_talon->text);
 	hud_gui_elements.push_back(wild_talon->text);
@@ -374,7 +374,7 @@ bool hudSkilltree::Start()
 	text.Insert(0, "COOLDOWN: ");
 	battext.push_back(StringColor(text, FONT_BLUE));
 	*/
-	bat_strike->text = App->gui->AddGuiText({ -20, 20 }, battext, bat_strike, this);
+	bat_strike->text = App->gui->AddGuiText({ -20, 145 }, battext, bat_strike, this);
 	bat_strike->Desactivate();
 	texts.push_back(bat_strike->text);
 	hud_gui_elements.push_back(bat_strike->text);
@@ -424,7 +424,7 @@ bool hudSkilltree::Start()
 	text.Insert(0, "COOLDOWN: ");
 	krobustext.push_back(StringColor(text, FONT_BLUE));
 	*/
-	krobus_arts->text = App->gui->AddGuiText({ 0, 10 }, krobustext, krobus_arts, this);
+	krobus_arts->text = App->gui->AddGuiText({ 0,145 }, krobustext, krobus_arts, this);
 	krobus_arts->Desactivate();
 	texts.push_back(krobus_arts->text);
 	hud_gui_elements.push_back(krobus_arts->text);

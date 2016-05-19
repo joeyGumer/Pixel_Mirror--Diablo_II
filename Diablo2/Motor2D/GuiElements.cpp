@@ -106,14 +106,14 @@ GuiText::GuiText(iPoint p, vector<StringColor> text, GuiElement* par, j1Module* 
 	: GuiElement(p, GUI_TEXT,par, list)
 {
 	tex_rect.w = 0;
+	int y = 0;
 	for (int i = 0; i < text.size(); i++)
 	{
 		if (i >= 1)
-			p.y += labels[0].tex_rect.h;
+			y += labels[0].tex_rect.h;
 		
 		
-		labels.push_back(GuiLabel(text[i].string.GetString(), App->font->description, { p.x ,p.y }, text[i].color, this, list));
-		labels[i].Center(true, false);
+		labels.push_back(GuiLabel(text[i].string.GetString(), App->font->description, { p.x ,y}, text[i].color, this, list));
 		if (labels[i].tex_rect.w > tex_rect.w)
 			tex_rect.w = labels[i].tex_rect.w;
 	}
@@ -121,16 +121,16 @@ GuiText::GuiText(iPoint p, vector<StringColor> text, GuiElement* par, j1Module* 
 	if (text.size() > 0)
 		tex_rect.h = labels[0].tex_rect.h * text.size();
 	SetLocalRect({ GetLocalRect().x, GetLocalRect().y, tex_rect.w, tex_rect.h});
+	p.y = GetLocalPosition().y - tex_rect.h;
+	SetLocalPosition(p);
 	Center(true, false);
 	for (int i = 0; i < text.size(); i++)
 	{
 		labels[i].Center(true, false);
 	}
 	
-	iPoint i;
-	i.x = GetLocalPosition().x + p.x;
-	i.y = GetLocalPosition().y - tex_rect.h;
-	SetLocalPosition(i);
+	interactable = false;
+
 }
 //-----
 
@@ -194,7 +194,7 @@ void GuiButton::Draw()
 }
 void GuiText::Draw()
 {
-	App->render->DrawQuad({ (GetScreenPosition().x - App->render->camera.x), (labels[0].GetScreenPosition().y - App->render->camera.y), tex_rect.w, tex_rect.h }, 0, 0, 0, 225);
+	App->render->DrawQuad({ (GetScreenPosition().x - App->render->camera.x), (GetScreenPosition().y - App->render->camera.y), tex_rect.w, tex_rect.h }, 0, 0, 0, 225);
 	for (int i = 0; i < labels.size(); i++)
 	{
 		labels[i].Draw();
