@@ -620,6 +620,11 @@ void hudBelt::OnEvent(GuiElement* element, GUI_Event even)
 					attack_right->skill = ((GuiSkill*)element)->skill;
 					attack_right->image.SetTextureRect(((GuiSkill*)element)->image.GetTextureRect());
 					player->right_skill = attack_right->skill;
+					//NOTE: If you don't like this delete it
+					//--
+					attack1_pressed = false;
+					attack_right->DesactivateChilds();
+					//--
 					break;
 				}
 			}
@@ -637,6 +642,11 @@ void hudBelt::OnEvent(GuiElement* element, GUI_Event even)
 					attack_left->skill = ((GuiSkill*)element)->skill;
 					attack_left->image.SetTextureRect(((GuiSkill*)element)->image.GetTextureRect());
 					player->left_skill = attack_left->skill;
+					//NOTE: If you don't like this delete it
+					//--
+					attack2_pressed = false;
+					attack_left->DesactivateChilds();
+					//--
 					break;
 				}
 			}

@@ -639,7 +639,7 @@ void j1Player::InitMovement()
 	//NOTE: this will be later changed
 	objective = App->game->em->EntityOnMouse();
 
-	if (objective && objective->type == ENEMY)
+	if (objective && objective->type == ENEMY && current_skill->skill_type == SKILL_MELEE)
 	{
 		enemy = (EntEnemy*)App->game->em->EntityOnMouse();
 	}
