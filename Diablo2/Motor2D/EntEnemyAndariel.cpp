@@ -528,20 +528,20 @@ void EntEnemyAndariel::SetParticles()
 	particle.damage = magic_damage;
 	particle.speed.x = 0;
 	particle.speed.y = 0;
-	particle.anim.frames.push_back({ 0, 0, 64, 64 });
-	particle.anim.frames.push_back({ 64, 0, 64, 64 });
-	particle.anim.frames.push_back({ 128, 0, 64, 64 });
-	particle.anim.frames.push_back({ 192, 0, 64, 64 });
-	particle.anim.frames.push_back({ 256, 0, 64, 64 });
-	particle.anim.frames.push_back({ 320, 0, 64, 64 });
-	particle.anim.frames.push_back({ 384, 0, 64, 64 });
-	particle.anim.frames.push_back({ 448, 0, 64, 64 });
+	
+	for (int i = 0; i < 5; i++)
+	{
+		particle.anim.SetFrames(0, 0 + 100 * i, 32, 100, 5);
+	}
+
 	particle.anim.speed = 0.5f;
 	particle.anim.loop = true;
 	particle.anim.Reset();
 
-	particle.collider_margin.x = particle.anim.GetCurrentFrame().w / 3;
-	particle.collider_margin.y = particle.anim.GetCurrentFrame().h / 4;
+	particle.collider_margin.x = particle.anim.GetCurrentFrame().w / 5;
+	particle.collider_margin.y = particle.anim.GetCurrentFrame().h / 3 + 10;
+
+	particle.collider_pivot.y = 40;
 
 }
 

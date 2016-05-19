@@ -149,7 +149,7 @@ bool j1EntityManager::Start()
 	texture_list.push_back(andariel_death);
 
 	//Andariel particles
-	andariel_particle = App->tex->Load("particles/Burn/Building_Burn_1.png");
+	andariel_particle = App->tex->Load("particles/Special/Andariel/FireWall.png");
 	texture_list.push_back(andariel_particle);
 
 	//Nest textures
