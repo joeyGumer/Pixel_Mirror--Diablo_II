@@ -45,14 +45,10 @@ bool hudSkilltree::Start()
 
 
 	//Skills
-	clotted_blood_skin = App->gui->AddGuiSkill({ 82, 9 }, { 537, 920, 48, 48 }, { 390, 871, 48, 48 }, player->clotted_blood, nightsummoning, this);
-	clotted_blood_skin->active = false;
-	hud_gui_elements.push_back(clotted_blood_skin);
-
 	raise_wolf = App->gui->AddGuiSkill({ 152, 9 }, { 488, 969, 48, 48 }, { 390, 969, 48, 48 }, player->shadow_walker, nightsummoning, this);
 	raise_wolf->active = false;
 	hud_gui_elements.push_back(raise_wolf);
-
+	/*
 	//text2.create("%i", player->shadow_walker->price);
 	price11 = App->gui->AddGuiLabel("1500", NULL, { 0, 45 }, raise_wolf, FONT_WHITE, this);
 	price11->active = false;
@@ -62,21 +58,27 @@ bool hudSkilltree::Start()
 	price12 = App->gui->AddGuiLabel("2000", NULL, { 0, 45 }, clotted_blood_skin, FONT_WHITE, this);
 	price12->active = false;
 	hud_gui_elements.push_back(price12);
-
+	*/
 	bat_girl = App->gui->AddGuiSkill({ 15, 77 }, { 537, 969, 48, 48 }, { 341, 1018, 48, 48 }, player->night_ward, nightsummoning, this);
 	bat_girl->active = false;
 	hud_gui_elements.push_back(bat_girl);
 
-	raise_blood_hawk = App->gui->AddGuiSkill({ 82, 77 }, { 586, 969, 48, 48 }, { 390, 1018, 48, 48 }, player->lust, nightsummoning, this);
+	raise_blood_hawk = App->gui->AddGuiSkill({ 82, 9 }, { 586, 969, 48, 48 }, { 390, 1018, 48, 48 }, player->lust, nightsummoning, this);
 	raise_blood_hawk->active = false;
-	raise_blood_hawk->skill_parents.push_back(clotted_blood_skin->skill);
+	//raise_blood_hawk->skill_parents.push_back(clotted_blood_skin->skill);
 	hud_gui_elements.push_back(raise_blood_hawk);
 
-	blood_golem = App->gui->AddGuiSkill({ 152, 145 }, { 635, 969, 48, 48 }, { 439, 1018, 48, 48 }, player->undead, nightsummoning, this);
+	blood_golem = App->gui->AddGuiSkill({ 82, 77 }, { 537, 920, 48, 48 }, { 390, 871, 48, 48 }, player->undead, nightsummoning, this);
 	blood_golem->active = false;
 	blood_golem->skill_parents.push_back(raise_blood_hawk->skill);
-	blood_golem->skill_parents.push_back(raise_wolf->skill);
+	//blood_golem->skill_parents.push_back(raise_wolf->skill);
 	hud_gui_elements.push_back(blood_golem);
+
+	clotted_blood_skin = App->gui->AddGuiSkill({ 152, 145 }, { 635, 969, 48, 48 }, { 439, 1018, 48, 48 }, player->clotted_blood, nightsummoning, this);
+	clotted_blood_skin->active = false;
+	clotted_blood_skin->skill_parents.push_back(blood_golem->skill);
+	clotted_blood_skin->skill_parents.push_back(raise_wolf->skill);
+	hud_gui_elements.push_back(clotted_blood_skin);
 
 	//--------------------------------------------------------------------------------------------
 	
@@ -160,7 +162,7 @@ bool hudSkilltree::Start()
 
 	//Prices -------------------------------------------------------------------------------------------------------------------------
 	p2SString text2;
-
+	/*
 	//text2.create("%i", player->stinging_strike->price);
 	price1 = App->gui->AddGuiLabel("1500", NULL, { 0, 45 }, stinging_strike, FONT_WHITE, this);
 	price1->active = false;
@@ -210,7 +212,7 @@ bool hudSkilltree::Start()
 	price10 = App->gui->AddGuiLabel("2000", NULL, { 0, 45 }, heard_of_bats, FONT_WHITE, this);
 	price10->active = false;
 	hud_gui_elements.push_back(price10);
-	
+	*/
 	//GuiTexts --------------------------------------------------------------------------------------------
 	//Night summoning ---------------------------------------------------------------------------
 	
@@ -271,27 +273,67 @@ bool hudSkilltree::Start()
 	hud_gui_elements.push_back(raise_wolf->text);
 	wolftext.clear();
 
+
 	vector<StringColor> batgirltext;
-	batgirltext.push_back(StringColor("baT girl", FONT_VIOLET));
-	batgirltext.push_back(StringColor("unavailable", FONT_RED));
+	batgirltext.push_back(StringColor("nighT ward", FONT_VIOLET));
+	batgirltext.push_back(StringColor("Passive: afTer 5 seconds you geT a shield", FONT_WHITE));
+	batgirltext.push_back(StringColor("ThaT absorbs an amounT of The damage Taken", FONT_WHITE));
+	batgirltext.push_back(StringColor("when The shield is desTroyed, The passive", FONT_WHITE));
+	batgirltext.push_back(StringColor("will be available again afTer 60 seconds", FONT_WHITE));
+	text.create("%i", player->night_ward->price);
+	text.Insert(0, "pure BLOOD COST: ");
+	batgirltext.push_back(StringColor(text, FONT_YELLOW));
+	batgirltext.push_back(StringColor("percenT of your life absorbed: 24", FONT_GREEN));
+	/*
+	text.create("%i", player->night_ward->damage_reduction_base);
+	text.Insert(0, "percenT of your life absorbed: ");
+	batgirltext.push_back(StringColor(text, FONT_GREEN));
+	*/
 	bat_girl->text = App->gui->AddGuiText({ 0, 0 }, batgirltext, bat_girl, this);
 	bat_girl->Desactivate();
 	texts.push_back(bat_girl->text);
 	hud_gui_elements.push_back(bat_girl->text);
 	batgirltext.clear();
 
+
 	vector<StringColor> hawktext;
-	hawktext.push_back(StringColor("raise blood hawk", FONT_VIOLET));
-	hawktext.push_back(StringColor("unavailable", FONT_RED));
+	hawktext.push_back(StringColor("lusT", FONT_VIOLET));
+	hawktext.push_back(StringColor("Passive: basic aTTacks generaTes addiTional", FONT_WHITE));
+	hawktext.push_back(StringColor("blood charges and increases The maximum life", FONT_WHITE));
+	text.create("%i", player->lust->price);
+	text.Insert(0, "pure BLOOD COST: ");
+	hawktext.push_back(StringColor(text, FONT_YELLOW));
+	text.create("%i", player->lust->basic_blood_charges);
+	text.Insert(0, "blood charges per basic: ");
+	hawktext.push_back(StringColor(text, FONT_PURPLE));
+	text.create("%i", player->lust->increased_HP);
+	text.Insert(0, "maximum life: ");
+	hawktext.push_back(StringColor(text, FONT_RED));
 	raise_blood_hawk->text = App->gui->AddGuiText({ 0, 0 }, hawktext, raise_blood_hawk, this);
 	raise_blood_hawk->Desactivate();
 	texts.push_back(raise_blood_hawk->text);
 	hud_gui_elements.push_back(raise_blood_hawk->text);
 	hawktext.clear();
 
+
 	vector<StringColor> golemtext;
-	golemtext.push_back(StringColor("blood golem", FONT_VIOLET));
-	golemtext.push_back(StringColor("unavailable", FONT_RED));
+	golemtext.push_back(StringColor("undead", FONT_VIOLET));
+	golemtext.push_back(StringColor("Passive: if you are going To die, This passive", FONT_WHITE));
+	golemtext.push_back(StringColor("makes you invulnerable, increases The damage", FONT_WHITE));
+	golemtext.push_back(StringColor("and gives life per kill for 4 seconds", FONT_WHITE));
+	golemtext.push_back(StringColor("The passive will be available again afTer 60 seconds", FONT_WHITE));
+	golemtext.push_back(StringColor("pure blood cosT: 2500", FONT_YELLOW));
+	/*
+	text.create("%i", player->undead->price);
+	text.Insert(0, "pure BLOOD COST: ");
+	golemtext.push_back(StringColor(text, FONT_YELLOW));
+	*/
+	text.create("%i", player->undead->extra_damage);
+	text.Insert(0, "exTra damage: ");
+	golemtext.push_back(StringColor(text, FONT_GREEN));
+	text.create("%i", player->undead->life_steal);
+	text.Insert(0, "life per kill: ");
+	golemtext.push_back(StringColor(text, FONT_RED));
 	blood_golem->text = App->gui->AddGuiText({ 0, 0 }, golemtext, blood_golem, this);
 	blood_golem->Desactivate();
 	texts.push_back(blood_golem->text);
