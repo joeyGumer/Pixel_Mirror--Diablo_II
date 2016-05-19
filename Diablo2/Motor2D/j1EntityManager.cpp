@@ -87,7 +87,7 @@ bool j1EntityManager::Start()
 	texture_list.push_back(boss_cast);
 
 	//Boss Particles
-	boss_particle = App->tex->Load("particles/Flame/GreenFire.png");
+	boss_particle = App->tex->Load("particles/Flame/OrangeFire.png");
 	texture_list.push_back(boss_particle);
 
 	//Shaman

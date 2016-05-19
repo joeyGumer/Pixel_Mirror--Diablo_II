@@ -479,8 +479,8 @@ void EntEnemyCouncil::SetParticles()
 	particle.anim.Reset();
 
 	particle.collider_margin.x = particle.anim.GetCurrentFrame().w / 3;
-	particle.collider_margin.y = particle.anim.GetCurrentFrame().h / 4;
-	particle.collider_pivot.y = 15;
+	particle.collider_margin.y = particle.anim.GetCurrentFrame().h / 4 + 2;
+	particle.collider_pivot.y = 25;
 }
 
 void EntEnemyCouncil::UpdateCast()
