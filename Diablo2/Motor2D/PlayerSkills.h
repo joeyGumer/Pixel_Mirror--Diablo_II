@@ -289,4 +289,60 @@ public:
 	int blood_charge_cost_base;
 };
 
+class sklLust : public sklPassive
+{
+public:
+	sklLust();
+	~sklLust();
+
+	void SkillEffect();
+
+	void SkillInit();
+
+public:
+	int basic_blood_charges = 2;
+	int increased_HP = 5;
+
+};
+
+class sklUndead : public sklPassive
+{
+public:
+	sklUndead();
+	~sklUndead();
+
+	void SkillEffect();
+	void SkillInit();
+
+	void SkillUpdate(float dt);
+
+public:
+
+	int life_steal = 10;
+	int extra_damage = 25;
+	int time = 4;
+	int cooldown = 60;
+	bool active = false;
+	bool avaliable = true;
+
+	j1Timer effect_timer;
+};
+
+class sklNightWard : public sklPassive
+{
+public:
+	sklNightWard();
+	~sklNightWard();
+
+	void SkillEffect();
+
+	void SkillInit();
+
+	void SkillUpdate(float dt);
+
+public:
+
+};
+
+
 #endif _PLAYERSKILLS_H_

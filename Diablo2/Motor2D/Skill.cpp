@@ -15,6 +15,12 @@ bool Skill::UnlockSkill()
 		player->blood_current -= price;
 		player->PlayerEvent(BLOOD_DOWN);
 		unlocked = true;
+
+		if (skill_type == SKILL_PASSIVE)
+		{
+			SkillInit();
+		}
+
 		return true;
 	}
 	return false;

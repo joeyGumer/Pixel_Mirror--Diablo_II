@@ -44,11 +44,22 @@ void sklBasicAttack::SkillUpdate(float dt)
 
 void sklBasicAttack::SkillEffect()
 {
-
-	int final_damage = player->atk_damage_final_down;
+	//Damage calculation
+	float final_damage = player->atk_damage_final_down;
 	final_damage += rand() % (player->atk_damage_final_up + 1 - player->atk_damage_final_down);
+
+	//if extra damage
+	final_damage += ((float(final_damage) / 100) * float(player->extra_damage));
+
 	player->enemy->TakeDamage(final_damage);
 
+	player->RestoreHP(player->life_steal);
+
+	//Lust influence
+	if (player->lust->unlocked)
+	{
+		player->ChangeMP(player->lust->basic_blood_charges);
+	}
 
 	//App->audio->PlayFx(player_attack, 0);
 	player->enemy = NULL;
@@ -901,5 +912,79 @@ void sklClottedBloodSkin::SetSkillAnimations()
 		cst.loop = false;
 
 		skill_animation_set.push_back(cst);
+	}
+}
+
+//Lust
+sklLust::sklLust()
+{
+	basic_blood_charges = 2;
+	increased_HP = 5;
+	price = 1500;
+}
+
+sklLust::~sklLust()
+{
+
+}
+
+
+void sklLust::SkillEffect()
+{
+	player->CalculateFinalStats();
+}
+
+void sklLust::SkillInit()
+{
+	player->CalculateFinalStats();
+}
+
+//Undead
+sklUndead::sklUndead()
+{
+	avaliable = true;
+}
+
+sklUndead::~sklUndead()
+{
+
+}
+
+void sklUndead::SkillEffect()
+{
+	player->inmune = true;
+	active = true;
+	avaliable = false;
+	effect_timer.Start();
+	player->CalculateFinalStats();
+}
+
+void sklUndead::SkillInit()
+{
+	/*if (avaliable)
+	{
+		SkillEffect();
+	}*/
+}
+void sklUndead::SkillUpdate(float dt)
+{
+	if (active)
+	{
+		if (effect_timer.ReadSec() >= time)
+		{
+			active = false;
+			player->inmune = false;
+			player->CalculateFinalStats();
+			cooldown_timer.Start();
+
+		}
+	}
+	else
+	{
+		float sec = cooldown_timer.ReadSec();
+		if (sec >= cooldown)
+		{
+			avaliable = true;
+		}
 	}
 }

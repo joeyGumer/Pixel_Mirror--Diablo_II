@@ -120,6 +120,8 @@ class sklRedFeast;
 class sklShadowsWalker;
 class sklClottedBloodSkin;
 class sklHeardOfBats; 
+class sklLust;
+class sklUndead;
 class Collider;
 struct Buff;
 
@@ -231,6 +233,8 @@ public:
 	bool TeleportReady();
 	void ResetTeleport();
 	
+	//Skills
+	void UpdatePassiveSkills();
 
 //Attributes
 
@@ -295,6 +299,9 @@ public:
 	*/
 
 	bool visible = true;
+	bool inmune = false;
+
+	float life_steal = 0;
 
 	//HP
 	float HP_max;
@@ -417,6 +424,8 @@ public:
 	//Night passives
 	sklShadowsWalker* shadow_walker = NULL;
 	sklClottedBloodSkin* clotted_blood = NULL;
+	sklLust* lust = NULL;
+	sklUndead* undead = NULL;
 
 	//Collider
 	Collider* p_collider;

@@ -65,6 +65,8 @@ bool j1Player::Start()
 	shadow_walker = new sklShadowsWalker();
 	clotted_blood = new sklClottedBloodSkin();
 	heard_of_bats = new sklHeardOfBats();
+	lust = new sklLust();
+	undead = new sklUndead();
 
 	//
 	player_attack = App->audio->LoadFx("audio/fx/PlayerAttack.ogg");
@@ -144,6 +146,7 @@ bool j1Player::PreUpdate()
 
 	UpdateAction();
 	UpdateBuffs();
+	UpdatePassiveSkills();
 
 	return true;
 }
@@ -230,7 +233,6 @@ bool j1Player::CleanUp()
 	App->tex->UnLoad(p_death);
 
 	//Skills unload
-
 	RELEASE(basic_attack)
 	RELEASE(blood_arrow) 
 	RELEASE(stinging_strike) 
@@ -244,13 +246,9 @@ bool j1Player::CleanUp()
 	RELEASE(shadow_walker) 
 	RELEASE(clotted_blood) 
 	RELEASE(heard_of_bats) 
+	RELEASE(lust)
+	RELEASE(undead)
 	
-	//Skills deleted
-	if (basic_attack)
-	{
-		RELEASE(basic_attack);
-	}	
-
 	//Take an eye on this
 	if (sprite)
 	{
@@ -756,16 +754,26 @@ void j1Player::CheckToAttack()
 
 void j1Player::TakeDamage(float damage)
 {
-	float reduction = (float)damage / 100 * armor_final;
-	HP_current -= damage - reduction;
-
-	PlayerEvent(HP_DOWN);
-
-	if (HP_current <= 0 && Alive())
+	if (!inmune)
 	{
-		HP_current = 0;
-		current_input = INPUT_DEATH;
-		App->audio->PlayFx(player_death, 0);
+		float reduction = (float)damage / 100 * armor_final;
+		HP_current -= damage - reduction;
+
+		PlayerEvent(HP_DOWN);
+
+		if (HP_current <= 0 && Alive())
+		{
+			HP_current = 0;
+			if (undead->unlocked && undead->avaliable)
+			{
+				undead->SkillEffect();
+			}
+			else
+			{
+				current_input = INPUT_DEATH;
+				App->audio->PlayFx(player_death, 0);
+			}
+		}
 	}
 }
 
@@ -1478,6 +1486,7 @@ void j1Player::CalculateFinalStats()
 	exta_cooldown = 0;
 	extra_potion = 0;
 	extra_blood_charge = 0;
+	life_steal = 0;
 	visible = true;
 
 	HP_max = HP_base;
@@ -1504,7 +1513,7 @@ void j1Player::CalculateFinalStats()
 	atk_damage_final_down += str_final/2;
 	atk_damage_final_up += str_final;
 
-	atk_damage_final_up += ((float(atk_damage_final_up) / 100) * float(extra_damage));
+
 
 	//Dexterity
 	if (dex_final < 0)
@@ -1538,6 +1547,18 @@ void j1Player::CalculateFinalStats()
 	if (armor_final < 0)
 		armor_final = 0;
 
+	//Passive skills intervention
+
+	if (lust->unlocked)
+	{
+		HP_max += lust->increased_HP;
+	}
+
+	if (undead->unlocked  && undead->active)
+	{
+		extra_damage += undead->extra_damage;
+		life_steal += undead->life_steal;
+	}
 	//Label actualization
 	App->game->HUD->stats->SetStrengthLabel(str_final);
 	App->game->HUD->stats->SetVitalityLabel(vit_final);
@@ -1573,4 +1594,12 @@ void j1Player::UpdateBuffs()
 
 	if (buff_change)
 		CalculateFinalStats();
+}
+
+void j1Player::UpdatePassiveSkills()
+{
+	if (undead->unlocked)
+	{
+		undead->SkillUpdate(0);
+	}
 }

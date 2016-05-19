@@ -4,6 +4,7 @@
 #include <vector>
 #include "Animation.h"
 #include "Buff.h"
+#include "j1Timer.h"
 
 struct SDL_Texture;
 class j1Player;
@@ -14,7 +15,8 @@ enum SKILL_TYPE
 	SKILL_RANGED,
 	SKILL_AREA,
 	SKILL_SUMMON,
-	SKILL_BUFF
+	SKILL_BUFF,
+	SKILL_PASSIVE,
 };
 
 class Skill
@@ -44,6 +46,7 @@ public:
 	SDL_Texture* skill_tex;
 	vector<Animation> skill_animation_set;
 	j1Player* player;
+	j1Timer cooldown_timer;
 	bool unlocked = false;
 	int price;
 };
@@ -118,6 +121,20 @@ public:
 	{}
 
 	virtual ~sklSummon()
+	{}
+
+
+public:
+
+};
+
+class sklPassive : public Skill
+{
+public:
+	sklPassive() :Skill(SKILL_PASSIVE)
+	{}
+
+	virtual ~sklPassive()
 	{}
 
 

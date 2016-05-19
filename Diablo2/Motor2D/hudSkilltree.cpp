@@ -67,12 +67,12 @@ bool hudSkilltree::Start()
 	bat_girl->active = false;
 	hud_gui_elements.push_back(bat_girl);
 
-	raise_blood_hawk = App->gui->AddGuiSkill({ 82, 77 }, { 586, 969, 48, 48 }, { 390, 1018, 48, 48 }, NULL, nightsummoning, this);
+	raise_blood_hawk = App->gui->AddGuiSkill({ 82, 77 }, { 586, 969, 48, 48 }, { 390, 1018, 48, 48 }, player->lust, nightsummoning, this);
 	raise_blood_hawk->active = false;
 	raise_blood_hawk->skill_parents.push_back(clotted_blood_skin->skill);
 	hud_gui_elements.push_back(raise_blood_hawk);
 
-	blood_golem = App->gui->AddGuiSkill({ 152, 145 }, { 635, 969, 48, 48 }, { 439, 1018, 48, 48 }, NULL, nightsummoning, this);
+	blood_golem = App->gui->AddGuiSkill({ 152, 145 }, { 635, 969, 48, 48 }, { 439, 1018, 48, 48 }, player->undead, nightsummoning, this);
 	blood_golem->active = false;
 	blood_golem->skill_parents.push_back(raise_blood_hawk->skill);
 	blood_golem->skill_parents.push_back(raise_wolf->skill);
