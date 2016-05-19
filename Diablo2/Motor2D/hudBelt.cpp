@@ -147,7 +147,7 @@ bool hudBelt::Start()
 	hud_gui_elements.push_back(krobus_arts);
 
 	//Blood spells
-	blood_arrow = App->gui->AddGuiSkill({ 0, -141 }, { 684, 920, 50, 47 }, { 1128, 1019, 50, 47 }, player->blood_arrow, attack_right, this);
+	blood_arrow = App->gui->AddGuiSkill({ 0, -141 }, { 684, 920, 50, 47 }, { 1448, 854, 50, 47 }, player->blood_arrow, attack_right, this);
 	blood_arrow->active = false;
 	hud_gui_elements.push_back(blood_arrow);
 
@@ -163,7 +163,7 @@ bool hudBelt::Start()
 	red_feast->active = false;
 	hud_gui_elements.push_back(red_feast);
 
-	heard_of_bats = App->gui->AddGuiSkill({ 0, -188 }, { 684, 969, 50, 47 }, { 1652, 854, 50, 47 }, player->heard_of_bats, attack_right, this);
+	heard_of_bats = App->gui->AddGuiSkill({ 0, -188 }, { 684, 969, 50, 47 }, { 1449, 903, 50, 47 }, player->heard_of_bats, attack_right, this);
 	heard_of_bats->active = false;
 	hud_gui_elements.push_back(heard_of_bats);
 

@@ -77,7 +77,7 @@ public:
 	int damage_dt;
 	int blood_charge_increase_base;
 	int life_cost_base;
-	float cooldown_base;
+	//float cooldown_base;
 };
 
 class sklBatStrike : public sklMelee
@@ -99,7 +99,7 @@ public:
 	int damage_dt;
 	int life_cost_base;
 	int blood_charge_increase_base;
-	float cooldown_base;
+	//float cooldown_base;
 };
 
 
@@ -121,7 +121,7 @@ public:
 	int base_damage_up;
 	int damage_dt;
 	int blood_charge_cost_base;
-	float cooldown_base;
+	//float cooldown_base;
 };
 
 class sklKrobusArts : public sklBuff
@@ -140,7 +140,7 @@ public:
 	int damage_bonus_base;
 	int damage_bonus_dt;
 	int life_cost_base;
-	float cooldown_base;
+	//float cooldown_base;
 };
 
 //Blood Spells
@@ -163,7 +163,7 @@ public:
 	int base_damage_up;
 	int damage_dt;
 	int life_cost_base;
-	float cooldown_base;
+	//float cooldown_base;
 	int blood_charge_increase_base;
 };
 
@@ -187,7 +187,7 @@ public:
 	int base_damage_down;
 	int base_damage_up;
 	int blood_charge_cost_base;
-	float cooldown_base;
+	//float cooldown_base;
 };
 
 
@@ -208,7 +208,7 @@ public:
 	Particle* skill_particle;
 	int life_cost_base;
 	int blood_charge_increase_base;
-	float cooldown_base;
+	//float cooldown_base;
 };
 
 class sklRedFeast : public sklArea
@@ -233,7 +233,7 @@ public:
 	int base_damage_up;
 	int life_steal_base;
 	float blood_charge_cost_base;
-	float cooldown_base;
+	//float cooldown_base;
 	bool hit = false;
 };
 
@@ -258,7 +258,7 @@ public:
 	int base_damage_down;
 	int base_damage_up;
 	iPoint pos;
-	float cooldown_base;
+	//float cooldown_base;
 	int blood_charge_increase_base;
 	bool hit = false;
 
@@ -280,7 +280,7 @@ public:
 
 public:
 	int time;
-	float cooldown_base;
+	//float cooldown_base;
 	int blood_charge_cost_base;
 };
 
@@ -297,7 +297,7 @@ public:
 	void SetSkillAnimations();
 
 public:
-	float cooldown_base;
+	//float cooldown_base;
 	int blood_charge_cost_base;
 };
 

@@ -760,13 +760,14 @@ void j1Player::CheckToAttack()
 			if (current_skill->avaliable)
 			{
 				current_input = INPUT_SKILL;
+				attacking = true;
 			}
 			else
 			{
 				current_input = INPUT_STOP_MOVE;
 			}
-				attacking = true;
-				input_locked = true;
+				
+			input_locked = true;
 			
 		}
 	}

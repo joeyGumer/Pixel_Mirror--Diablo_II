@@ -98,7 +98,7 @@ sklStingingStrike::sklStingingStrike()
 	price = 1500;
 	price_dt = 100;
 
-	cooldown = 5;
+	cooldown = 1;
 }
 
 sklStingingStrike::~sklStingingStrike()
@@ -177,7 +177,7 @@ sklWildTalon::sklWildTalon()
 	base_damage_up = 32;
 	blood_charge_increase_base = 10;
 	life_cost_base = 4;
-	cooldown_base = 1;
+	cooldown = 2;
 }
 sklWildTalon::~sklWildTalon()
 {
@@ -198,6 +198,8 @@ void sklWildTalon::SkillEffect()
 	player->enemy = NULL;
 	player->objective = NULL;
 	player->attacking = false;
+
+	cooldown_timer.Start();
 }
 
 void sklWildTalon::SkillInit()
@@ -243,7 +245,7 @@ sklBatStrike::sklBatStrike()
 	life_cost_base = 50;
 
 	blood_charge_increase_base = 10;
-	cooldown_base = 3;
+	cooldown = 3;
 }
 sklBatStrike::~sklBatStrike()
 {
@@ -266,6 +268,9 @@ void sklBatStrike::SkillEffect()
 	player->enemy = NULL;
 	player->objective = NULL;
 	player->attacking = false;
+
+
+	cooldown_timer.Start();
 }
 
 void sklBatStrike::SkillInit()
@@ -309,6 +314,8 @@ sklSoulOfIce::sklSoulOfIce()
 	base_damage_down = 21;
 	base_damage_up = 32;
 	blood_charge_cost_base = 10;
+
+	cooldown = 3;
 }
 sklSoulOfIce::~sklSoulOfIce()
 {
@@ -329,6 +336,9 @@ void sklSoulOfIce::SkillEffect()
 	player->enemy = NULL;
 	player->objective = NULL;
 	player->attacking = false;
+
+
+	cooldown_timer.Start();
 }
 
 void sklSoulOfIce::SkillInit()
@@ -373,6 +383,8 @@ sklKrobusArts::sklKrobusArts() :sklBuff(EXTRA_DAMAGE, 45, 15)
 
 	life_cost_base = 6;
 
+	cooldown = 10;
+
 	skill_tex = App->tex->Load("textures/vamp_cast.png");
 }
 
@@ -390,6 +402,8 @@ void sklKrobusArts::SkillEffect()
 	player->CalculateFinalStats();
 
 	player->attacking = false;
+
+	cooldown_timer.Start();
 }
 
 void sklKrobusArts::SkillInit()
@@ -438,6 +452,8 @@ sklBloodArrow::sklBloodArrow() : sklRanged()
 	base_damage_up = 10;
 	blood_charge_increase_base = 8;
 	life_cost_base = 3;
+
+	cooldown = 1.5f;
 }
 
 sklBloodArrow::~sklBloodArrow()
@@ -456,6 +472,8 @@ void sklBloodArrow::SkillInit()
 
 
 	player->TakeDamage(life_cost_base);
+
+	cooldown_timer.Start();
 }
 
 void sklBloodArrow::SkillUpdate(float dt)
@@ -510,6 +528,9 @@ sklVampireBreath::sklVampireBreath()
 	base_damage_up = 25;
 	blood_charge_cost_base = 20;
 	radius = 50;
+
+
+	cooldown = 9;
 }
 sklVampireBreath::~sklVampireBreath()
 {
@@ -540,7 +561,7 @@ void sklVampireBreath::SkillInit()
 	iPoint pos = App->input->GetMouseWorldPosition();
 	direction = player->p_position.GetDirection({ float(pos.x), float(pos.y) });
 
-
+	cooldown_timer.Start();
 }
 void sklVampireBreath::SkillUpdate(float dt)
 {
@@ -582,6 +603,7 @@ sklBloodBomb::sklBloodBomb()
 	price = 2500;
 	price_dt = 100;
 
+	cooldown = 3;
 
 	life_cost_base = 18;
 }
@@ -607,6 +629,8 @@ void sklBloodBomb::SkillInit()
 	player->SetDirection(player->particle_destination);
 
 	player->TakeDamage(life_cost_base);
+
+	cooldown_timer.Start();
 }
 
 void sklBloodBomb::SkillIndependentUpdate(float dt)
@@ -658,6 +682,8 @@ sklRedFeast::sklRedFeast()
 	blood_charge_cost_base = 20;
 
 	radius = 200;
+
+	cooldown = 12;
 }
 sklRedFeast::~sklRedFeast()
 {
@@ -694,6 +720,7 @@ void sklRedFeast::SkillEffect(float dt)
 void sklRedFeast::SkillInit()
 {
 	hit = false;
+	cooldown_timer.Start();
 }
 
 void sklRedFeast::SkillUpdate(float dt)
@@ -741,7 +768,7 @@ sklHeardOfBats::sklHeardOfBats()
 	base_damage_down = 4;
 	base_damage_up = 10;
 	blood_charge_increase_base = 25;
-	cooldown_base = 11;
+	cooldown = 8;
 }
 sklHeardOfBats::~sklHeardOfBats()
 {
@@ -778,6 +805,7 @@ void sklHeardOfBats::SkillInit()
 	player->ChangeMP(-blood_charge_increase_base);
 
 	timer.Start();
+	cooldown_timer.Start();
 }
 
 void sklHeardOfBats::SkillIndependentUpdate(float dt)
@@ -828,7 +856,7 @@ sklShadowsWalker::sklShadowsWalker() : sklBuff(INVISIBILITY, 1, 5)
 	price = 1500;
 	price_dt = 100;
 
-	cooldown_base = 10;
+	cooldown = 10;
 	blood_charge_cost_base = 20;
 }
 sklShadowsWalker::~sklShadowsWalker()
@@ -851,6 +879,7 @@ void sklShadowsWalker::SkillEffect()
 void sklShadowsWalker::SkillInit()
 {
 	player->attacking = true;
+	cooldown_timer.Start();
 }
 void sklShadowsWalker::SkillUpdate(float dt)
 {
@@ -886,7 +915,7 @@ sklClottedBloodSkin::sklClottedBloodSkin() : sklBuff(ARMOR, 20, 3)
 	price = 2000;
 	price_dt = 100;
 
-	cooldown_base = 10;
+	cooldown= 13;
 	blood_charge_cost_base = 30;
 }
 sklClottedBloodSkin::~sklClottedBloodSkin()
@@ -909,6 +938,7 @@ void sklClottedBloodSkin::SkillEffect()
 void sklClottedBloodSkin::SkillInit()
 {
 	player->attacking = true;
+	cooldown_timer.Start();
 }
 void sklClottedBloodSkin::SkillUpdate(float dt)
 {
