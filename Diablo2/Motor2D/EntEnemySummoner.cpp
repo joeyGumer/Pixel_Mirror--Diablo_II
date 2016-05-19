@@ -513,6 +513,23 @@ void EntEnemySummoner::SetParticles()
 	particle_summoner.collider_margin.x = particle_summoner.anim.GetCurrentFrame().w / 3;
 	particle_summoner.collider_margin.y = particle_summoner.anim.GetCurrentFrame().h / 4;
 
+	//Summon Particle
+	particle_summon.image = App->game->em->summon_particle;
+	particle_summon.life = 1;
+	particle_summon.type = PARTICLE_BUFF;
+	particle_summon.damage = 0;
+	particle_summon.speed.x = 0;
+	particle_summon.speed.y = 0;
+
+	for (int i = 0; i < 3; i++)
+	{
+		particle_summon.anim.SetFrames(0, 0 + 136*i, 130, 136, 4);
+	}
+
+	particle_summon.anim.speed = 0.5f;
+	particle_summon.anim.loop = false;
+	particle_summon.anim.Reset();
+
 }
 
 void EntEnemySummoner::CheckToCast()
@@ -564,10 +581,12 @@ void EntEnemySummoner::UpdateRangedAttack()
 
 void EntEnemySummoner::UpdateSummon()
 {
-	if (current_animation->CurrentFrame() >= 7 && !summoned)
+	iPoint pos = GetMapPosition();
+	Particle* skill_particle = NULL;
+	if (current_animation->CurrentFrame() >= 1 && !particle_is_casted)
 	{
-		Entity* to_summon = NULL;
-		iPoint pos = GetMapPosition();
+		particle_is_casted = true;
+
 		int random = rand() % 4;
 		if (random == 0)
 		{
@@ -585,6 +604,14 @@ void EntEnemySummoner::UpdateSummon()
 		{
 			pos.y -= 3;
 		}
+
+		iPoint _pos = App->map->MapToWorld(pos.x, pos.y);
+		skill_particle = App->pm->AddParticle(particle_summon, _pos.x, _pos.y, 0.5f, particle_summon.image);
+	}
+
+	if (current_animation->CurrentFrame() >= 9 && !summoned)
+	{
+		Entity* to_summon = NULL;
 		to_summon = App->game->em->AddEnemyMap(pos, ENEMY_WOLF, level);
 		if (to_summon != NULL)
 		{
@@ -597,6 +624,7 @@ void EntEnemySummoner::UpdateSummon()
 	{
 		attacking = false;
 		summoned = false;
+		particle_is_casted = false;
 		current_animation->Reset();
 
 		current_input = ENTITY_INPUT_STOP_MOVE;

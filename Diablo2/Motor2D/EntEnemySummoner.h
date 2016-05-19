@@ -33,6 +33,7 @@ public:
 
 	//Particles
 	Particle	particle_summoner;
+	Particle	particle_summon;
 	fPoint		particle_destination;
 	bool		particle_is_casted = false;
 	int			particle_speed;

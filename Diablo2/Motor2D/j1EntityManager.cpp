@@ -115,8 +115,10 @@ bool j1EntityManager::Start()
 	texture_list.push_back(summoner_attack);
 
 	//Summoner Particles
-	summoner_particle = App->tex->Load("particles/Burn/Building_Burn_1.png");
+	summoner_particle = App->tex->Load("particles/Burn/Building_Burn_2.png");
 	texture_list.push_back(summoner_particle);
+	summon_particle = App->tex->Load("particles/Special/Summoner/ParticlesSinestry.png");
+	texture_list.push_back(summon_particle);
 
 	//Izual textures
 	izual_idle = App->tex->Load("textures/izual/izual_idle.png");

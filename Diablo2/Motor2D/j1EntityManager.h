@@ -114,6 +114,7 @@ public:
 
 	//Summoner particles
 	SDL_Texture* summoner_particle;
+	SDL_Texture* summon_particle;
 
 	//Izual textures
 	SDL_Texture* izual_idle;
