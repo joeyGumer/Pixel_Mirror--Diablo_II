@@ -121,14 +121,16 @@ GuiText::GuiText(iPoint p, vector<StringColor> text, GuiElement* par, j1Module* 
 	if (text.size() > 0)
 		tex_rect.h = labels[0].tex_rect.h * text.size();
 	SetLocalRect({ GetLocalRect().x, GetLocalRect().y, tex_rect.w, tex_rect.h});
-	p.y = GetLocalPosition().y - tex_rect.h;
-	SetLocalPosition(p);
+	
 	Center(true, false);
 	for (int i = 0; i < text.size(); i++)
 	{
 		labels[i].Center(true, false);
 	}
-	
+
+	p.x = GetLocalPosition().x + p.x;
+	p.y = GetLocalPosition().y - tex_rect.h;
+	SetLocalPosition(p);
 	interactable = false;
 
 }

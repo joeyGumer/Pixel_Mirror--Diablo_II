@@ -243,7 +243,7 @@ bool hudSkilltree::Start()
 	text.create("%i", player->clotted_blood->buff.attribute);
 	text.Insert(0, "reduced damage: ");
 	clottedtext.push_back(StringColor(text, FONT_GREEN));
-	clotted_blood_skin->text = App->gui->AddGuiText({ 0, 0 }, clottedtext, clotted_blood_skin, this);
+	clotted_blood_skin->text = App->gui->AddGuiText({ -20, 0 }, clottedtext, clotted_blood_skin, this);
 	clotted_blood_skin->text->Desactivate();
 	texts.push_back(clotted_blood_skin->text);
 	hud_gui_elements.push_back(clotted_blood_skin->text);
@@ -622,7 +622,7 @@ bool hudSkilltree::Start()
 	text.Insert(0, "radius: ");
 	herdtext.push_back(StringColor(text, FONT_GREEN));
 	*/
-	heard_of_bats->text = App->gui->AddGuiText({ -20, 0 }, herdtext, heard_of_bats, this);
+	heard_of_bats->text = App->gui->AddGuiText({ -110, 0 }, herdtext, heard_of_bats, this);
 	heard_of_bats->Desactivate();
 	texts.push_back(heard_of_bats->text);
 	hud_gui_elements.push_back(heard_of_bats->text);
