@@ -706,7 +706,7 @@ void hudBelt::SetMana(int max_MP, int MP)
 	}*/
 
 	mana->SetTextureRect({ 451, STAT_TEX_Y - int(mana_current_h), 78, int(mana_current_h) });
-	mana->SetLocalPosition({ 366, STAT_LOCAL_Y - int(mana_current_h) });
+	mana->SetLocalPosition({ 365, STAT_LOCAL_Y - int(mana_current_h) });
 }
 
 void hudBelt::SetStamina(int max_ST, int ST)
