@@ -33,3 +33,17 @@ bool Skill::UnlockSkill()
 	}
 	return false;
 }
+
+bool Skill::UpdateCooldown()
+{
+	if (cooldown_timer.ReadSec() >= cooldown)
+	{
+		avaliable = true;
+	}
+	else
+	{
+		avaliable = false;
+	}
+
+	return true;
+}

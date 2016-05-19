@@ -69,6 +69,24 @@ bool j1Player::Start()
 	undead = new sklUndead();
 	night_ward = new sklNightWard();
 
+	skills.push_back(basic_attack);
+	skills.push_back(blood_arrow);
+	skills.push_back(stinging_strike);
+	skills.push_back(wild_talon);
+	skills.push_back(bat_strike);
+	skills.push_back(soul_of_ice);
+	skills.push_back(krobus_arts);
+	skills.push_back(vampire_breath);
+	skills.push_back(blood_bomb);
+	skills.push_back(red_feast);
+	skills.push_back(shadow_walker);
+	skills.push_back(clotted_blood);
+	skills.push_back(heard_of_bats);
+	skills.push_back(lust);
+	skills.push_back(undead);
+	skills.push_back(night_ward);
+
+
 	//
 	player_attack = App->audio->LoadFx("audio/fx/PlayerAttack.ogg");
 	player_death = App->audio->LoadFx("audio/fx/PlayerDeath.ogg");
@@ -151,6 +169,7 @@ bool j1Player::PreUpdate()
 	UpdateAction();
 	UpdateBuffs();
 	UpdatePassiveSkills();
+	UpdateSkillsCooldown();
 	CalculateFinalStats();
 
 	return true;
@@ -737,9 +756,18 @@ void j1Player::CheckToAttack()
 			//App->audio->PlayFx(player_attack, 0);
 
 			movement = false;
-			current_input = INPUT_SKILL;
-			attacking = true;
-			input_locked = true;
+
+			if (current_skill->avaliable)
+			{
+				current_input = INPUT_SKILL;
+			}
+			else
+			{
+				current_input = INPUT_STOP_MOVE;
+			}
+				attacking = true;
+				input_locked = true;
+			
 		}
 	}
 
@@ -771,9 +799,6 @@ void j1Player::TakeDamage(float damage)
 {
 	if (!inmune)
 	{
-	
-		
-
 
 		float reduction = (float)damage / 100 * armor_final;
 		float final_damage = damage - reduction;
@@ -929,9 +954,12 @@ void j1Player::HandleInput()
 
 		if (current_skill->skill_type != SKILL_MELEE && current_action != SKILL)
 		{
-			current_skill->SkillInit();
-			current_input = INPUT_SKILL;
-			input_locked = true;
+			if (current_skill->avaliable)
+			{
+				current_skill->SkillInit();
+				current_input = INPUT_SKILL;
+				input_locked = true;
+			}
 		}
 		/*if (!input_locked)
 		{
@@ -1642,5 +1670,16 @@ void j1Player::UpdatePassiveSkills()
 	if (night_ward->unlocked)
 	{
 		night_ward->SkillUpdate(0);
+	}
+}
+
+void j1Player::UpdateSkillsCooldown()
+{
+	for (int i = 0; i < skills.size(); i++)
+	{
+		if (skills[i]->unlocked)
+		{
+			skills[i]->UpdateCooldown();
+		}
 	}
 }

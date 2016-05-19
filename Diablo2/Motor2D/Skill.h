@@ -41,6 +41,8 @@ public:
 	virtual void CalculateSkillStats()
 	{}
 
+	virtual bool UpdateCooldown();
+
 	virtual bool UnlockSkill();
 
 public:
@@ -65,6 +67,7 @@ public:
 	int level = -1;
 	int max_level = 5;
 
+	bool avaliable = true;
 	
 };
 

@@ -308,6 +308,27 @@ bool hudBelt::PreUpdate()
 		}
 
 	}
+
+	//NOTE: doing this each frame but... meh, whatever
+	//AAAAAND i have the rects inverted, yay
+	if (attack_right->skill->avaliable)
+	{
+		attack_right->image.SetTextureRect(attack_right->locked);
+	}
+	else
+	{
+		attack_right->image.SetTextureRect(attack_right->unlocked);
+	}
+
+	if (attack_left->skill->avaliable)
+	{
+		attack_left->image.SetTextureRect(attack_left->locked);
+	}
+	else
+	{
+		attack_left->image.SetTextureRect(attack_left->unlocked);
+	}
+
 	return true;
 }
 
@@ -619,6 +640,8 @@ void hudBelt::OnEvent(GuiElement* element, GUI_Event even)
 				{
 					attack_right->skill = ((GuiSkill*)element)->skill;
 					attack_right->image.SetTextureRect(((GuiSkill*)element)->image.GetTextureRect());
+					attack_right->unlocked = ((GuiSkill*)element)->unlocked;
+					attack_right->locked = ((GuiSkill*)element)->locked;
 					player->right_skill = attack_right->skill;
 					//NOTE: If you don't like this delete it
 					//--
@@ -641,6 +664,8 @@ void hudBelt::OnEvent(GuiElement* element, GUI_Event even)
 				{
 					attack_left->skill = ((GuiSkill*)element)->skill;
 					attack_left->image.SetTextureRect(((GuiSkill*)element)->image.GetTextureRect());
+					attack_left->unlocked = ((GuiSkill*)element)->unlocked;
+					attack_left->locked = ((GuiSkill*)element)->locked;
 					player->left_skill = attack_left->skill;
 					//NOTE: If you don't like this delete it
 					//--

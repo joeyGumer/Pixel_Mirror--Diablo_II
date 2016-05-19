@@ -236,6 +236,7 @@ public:
 	
 	//Skills
 	void UpdatePassiveSkills();
+	void UpdateSkillsCooldown();
 
 //Attributes
 
@@ -428,6 +429,8 @@ public:
 	sklLust* lust = NULL;
 	sklUndead* undead = NULL;
 	sklNightWard* night_ward = NULL;
+
+	vector<Skill*> skills;
 
 	//Collider
 	Collider* p_collider;

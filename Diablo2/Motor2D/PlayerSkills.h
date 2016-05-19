@@ -55,7 +55,7 @@ public:
 	int blood_dt = 1;
 	int final_blood_charge_increase;
 
-	float cooldown_base = 1;
+	//float cooldown_base = 1;
 };
 
 class sklWildTalon : public sklMelee
@@ -333,9 +333,7 @@ public:
 	int life_steal = 10;
 	int extra_damage = 25;
 	int time = 4;
-	int cooldown = 60;
 	bool active = false;
-	bool avaliable = true;
 
 	j1Timer effect_timer;
 };
@@ -355,12 +353,11 @@ public:
 public:
 
 	float time = 5;
-	float cooldown = 60;
+	//float cooldown = 60;
 	float damage_reduction_base = 24;
 	j1Timer effect_timer;
 
 	bool active = false;
-	bool avaliable = true;
 };
 
 

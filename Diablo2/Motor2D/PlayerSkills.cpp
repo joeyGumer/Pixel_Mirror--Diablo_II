@@ -65,6 +65,8 @@ void sklBasicAttack::SkillEffect()
 	player->enemy = NULL;
 	player->objective = NULL;
 	player->attacking = false;
+
+
 }
 
 void sklBasicAttack::SetSkillAnimations()
@@ -96,7 +98,7 @@ sklStingingStrike::sklStingingStrike()
 	price = 1500;
 	price_dt = 100;
 
-	cooldown_base = 1;
+	cooldown = 5;
 }
 
 sklStingingStrike::~sklStingingStrike()
@@ -119,6 +121,8 @@ void sklStingingStrike::SkillEffect()
 	player->enemy = NULL;
 	player->objective = NULL;
 	player->attacking = false;
+
+	cooldown_timer.Start();
 }
 
 void sklStingingStrike::SkillInit()
@@ -964,6 +968,8 @@ sklUndead::sklUndead()
 	avaliable = true;
 	price = 2500;
 	price_dt = 100;
+
+	cooldown = 60;
 }
 
 sklUndead::~sklUndead()
@@ -997,7 +1003,6 @@ void sklUndead::SkillUpdate(float dt)
 			player->inmune = false;
 			player->CalculateFinalStats();
 			cooldown_timer.Start();
-
 		}
 	}
 	else
@@ -1015,6 +1020,8 @@ sklNightWard::sklNightWard()
 {
 	price = 2000;
 	price_dt = 100;
+
+	cooldown = 60;
 }
 sklNightWard::~sklNightWard()
 {
