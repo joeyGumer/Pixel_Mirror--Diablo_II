@@ -128,7 +128,7 @@ bool j1Player::Start()
 	armor_final = armor_base = 0;
 
 	
-
+	enemy = NULL;
 
 
 	//Sprite creation
