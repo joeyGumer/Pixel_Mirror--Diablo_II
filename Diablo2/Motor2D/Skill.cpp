@@ -36,7 +36,10 @@ bool Skill::UnlockSkill()
 
 bool Skill::UpdateCooldown()
 {
-	if (cooldown_timer.ReadSec() >= cooldown)
+	float f_cooldown = cooldown;
+	f_cooldown -= (f_cooldown / 100) * player->exta_cooldown;
+
+	if (cooldown_timer.ReadSec() >= f_cooldown)
 	{
 		avaliable = true;
 	}
