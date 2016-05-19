@@ -136,6 +136,9 @@ bool j1Player::Start()
 	iPoint pos(p_position.x, p_position.y);
 	sprite = new Sprite(p_sprite, pos, p_pivot, current_sprite);
 	App->render->AddSpriteToList(sprite);
+
+
+
 	
 	return true;
 }
@@ -143,10 +146,11 @@ bool j1Player::Start()
 //PreUpdate
 bool j1Player::PreUpdate()
 {
-
+	
 	UpdateAction();
 	UpdateBuffs();
 	UpdatePassiveSkills();
+	CalculateFinalStats();
 
 	return true;
 }
@@ -222,6 +226,15 @@ bool j1Player::PostUpdate()
 // Called before quitting
 bool j1Player::CleanUp()
 {
+	list<Buff*>::iterator item = buffs.begin();
+
+	for (; item != buffs.end(); item++)
+	{
+		RELEASE(*item);
+	}
+
+	buffs.clear();
+
 	if (p_collider)
 		p_collider->to_delete = true;
 
