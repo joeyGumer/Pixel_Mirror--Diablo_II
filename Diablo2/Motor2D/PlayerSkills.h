@@ -38,12 +38,18 @@ public:
 
 public:
 
-	int base_damage_down;
-	int base_damage_up;
-	int damage_dt;
-	int life_cost_base;
-	int blood_charge_increase_base;
-	float cooldown_base;
+	int base_damage_down = 13;
+	int base_damage_up = 17;
+	int damage_up_dt = 8;
+	int damage_down_dt = 7;
+
+	int life_cost_base = 4;
+	int life_cost_dt = 1;
+
+	int blood_charge_increase_base = 5;
+	int blood_dt = 1;
+
+	float cooldown_base = 1;
 };
 
 class sklWildTalon : public sklMelee

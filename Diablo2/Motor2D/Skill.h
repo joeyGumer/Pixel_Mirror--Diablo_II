@@ -49,6 +49,10 @@ public:
 	j1Timer cooldown_timer;
 	bool unlocked = false;
 	int price;
+	int price_dt;
+	int final_price;
+	int level = -1;
+	int max_level = 5;
 };
 
 class sklMelee : public Skill

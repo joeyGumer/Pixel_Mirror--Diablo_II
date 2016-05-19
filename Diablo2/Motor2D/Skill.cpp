@@ -9,17 +9,24 @@ Skill::Skill(SKILL_TYPE t) : skill_type(t), player(App->game->player)
 
 bool Skill::UnlockSkill()
 {
-	if (player->blood_current >= price)
-	{
-		//player->IncreaseBlood(-price);
-		player->blood_current -= price;
-		player->PlayerEvent(BLOOD_DOWN);
-		unlocked = true;
+	final_price = price + price_dt * (level + 1);
 
-		if (skill_type == SKILL_PASSIVE)
+	if (player->blood_current >= (final_price) && (level + 1)<max_level)
+	{
+		player->blood_current -= final_price;
+		player->PlayerEvent(BLOOD_DOWN);
+
+		if (!unlocked)
 		{
-			SkillInit();
+			unlocked = true;
+
+			if (skill_type == SKILL_PASSIVE)
+			{
+				SkillInit();
+			}
 		}
+
+		level++;
 
 		return true;
 	}

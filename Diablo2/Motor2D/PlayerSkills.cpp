@@ -94,16 +94,9 @@ sklStingingStrike::sklStingingStrike()
 {
 	skill_tex = App->tex->Load("textures/vamp_attack.png");
 	price = 1500;
+	price_dt = 100;
 
-	base_damage_down = 13;
-	base_damage_up = 17;
-
-	life_cost_base = 2;
-	blood_charge_increase_base = 5;
 	cooldown_base = 1;
-
-
-
 }
 
 sklStingingStrike::~sklStingingStrike()
@@ -227,6 +220,7 @@ sklBatStrike::sklBatStrike()
 {
 	skill_tex = App->tex->Load("textures/vamp_attack.png");
 	price = 2500;
+	price_dt = 100;
 
 	base_damage_down = 21;
 	base_damage_up = 32;
