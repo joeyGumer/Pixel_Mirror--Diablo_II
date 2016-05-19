@@ -110,20 +110,20 @@ itmStone::itmStone(ITEM_RARITY rare, iPoint p) : Item(ITEM_STONE, rare, p)
 	switch (rare)
 	{
 	case RARITY_COMMON:
-		value = 4;
-		value += rand() % 8;
+		value = 1;
+		value += rand() % 7;
 		y = 947;
 		rarity_color = FONT_WHITE;
 		break;
 	case RARITY_RARE:
-		value = 10;
-		value += rand() % 10;
+		value = 7;
+		value += rand() % 7;
 		y = 977;
 		rarity_color = FONT_ORANGE;
 		break;
 	case RARITY_LEGENDARY:
-		value = 17;
-		value += rand() % 10;
+		value = 13;
+		value += rand() % 7;
 		y = 1007;
 		rarity_color = FONT_VIOLET; 
 		
@@ -196,17 +196,17 @@ itmConsumable::itmConsumable(ITEM_RARITY rarity, iPoint p) : Item(ITEM_CONSUMABL
 		switch (rarity)
 		{
 		case RARITY_COMMON:
-			value = 30; //%
+			value = 20; //%
 			y = 797;
 			rarity_color = FONT_WHITE;
 			break;
 		case RARITY_RARE:
-			value = 60;
+			value = 40;
 			y = 827;
 			rarity_color = FONT_ORANGE;
 			break;
 		case RARITY_LEGENDARY:
-			value = 120;
+			value = 80;
 			y = 857;
 			rarity_color = FONT_VIOLET;
 			break;
@@ -217,7 +217,7 @@ itmConsumable::itmConsumable(ITEM_RARITY rarity, iPoint p) : Item(ITEM_CONSUMABL
 	case 1:
 	{
 		a = rand() % 5;
-		value = 15; //%
+		value = 10; //%
 
 		switch (a)
 		{
@@ -322,7 +322,7 @@ itmRing::itmRing(ITEM_RARITY rarity, iPoint p) : Item(ITEM_RING, rarity, p)
 			x = 2374;
 
 			int r = 1;
-			r += rand() % 8;
+			r += rand() % 5;
 			Buff* buff1;
 			buff1 = new Buff(PURE_BLOOD, r);
 			item_buffs.push_back(buff1);
@@ -343,7 +343,7 @@ itmRing::itmRing(ITEM_RARITY rarity, iPoint p) : Item(ITEM_RING, rarity, p)
 			x = 2404;
 
 			int r = 1;
-			r += rand() % 8;
+			r += rand() % 4;
 			Buff* buff2;
 			buff2 = new Buff(COOLDOWN, r);
 			item_buffs.push_back(buff2);
@@ -372,8 +372,8 @@ itmRing::itmRing(ITEM_RARITY rarity, iPoint p) : Item(ITEM_RING, rarity, p)
 		{
 			x = 2344;
 
-			int r = 5;
-			r += rand() % 11;
+			int r = 2;
+			r += rand() % 9;
 			Buff* buff1;
 			buff1 = new Buff(PURE_BLOOD, r);
 			item_buffs.push_back(buff1);
@@ -392,15 +392,15 @@ itmRing::itmRing(ITEM_RARITY rarity, iPoint p) : Item(ITEM_RING, rarity, p)
 		{
 			x = 2434;
 
-			int r = 5;
-			r += rand() % 11;
+			int r = 1;
+			r += rand() % 15;
 			Buff* buff1;
 			buff1 = new Buff(POTION, r);
 			item_buffs.push_back(buff1);
 			attribute_type.push_back(POTION);
 			buff_value.push_back(r);
 			r = 1;
-			r += rand() % 7;
+			r += rand() % 4;
 			Buff* buff2;
 			buff2 = new Buff(ARMOR, r);
 			item_buffs.push_back(buff2);
@@ -417,15 +417,15 @@ itmRing::itmRing(ITEM_RARITY rarity, iPoint p) : Item(ITEM_RING, rarity, p)
 		rarity_color = FONT_VIOLET;
 		x = 2314;
 
-		int r = 4;
-		r += rand() % 7;
+		int r = 2;
+		r += rand() % 5;
 		Buff* buff1;
 		buff1 = new Buff(ARMOR, r);
 		item_buffs.push_back(buff1);
 		attribute_type.push_back(ARMOR);
 		buff_value.push_back(r);
-		r = 4;
-		r += rand() % 7;
+		r = 2;
+		r += rand() % 6;
 		Buff* buff2;
 		buff2 = new Buff(COOLDOWN, r);
 		item_buffs.push_back(buff2);
@@ -467,8 +467,8 @@ itmJewel::itmJewel(ITEM_RARITY rarity, iPoint p) : Item(ITEM_JEWEL, rarity, p)
 	{
 		x = 2374;
 		rarity_color = FONT_WHITE;
-		int value1 = 1 + (rand() % 10);
-		int value2 = 1 + (rand() % 10);
+		int value1 = 1 + (rand() % 5);
+		int value2 = 1 + (rand() % 5);
 
 		PLAYER_ATTRIBUTE attribute1 = (PLAYER_ATTRIBUTE)(rand() % 5);
 		PLAYER_ATTRIBUTE attribute2 = (PLAYER_ATTRIBUTE)(rand() % 5);
@@ -493,7 +493,7 @@ itmJewel::itmJewel(ITEM_RARITY rarity, iPoint p) : Item(ITEM_JEWEL, rarity, p)
 		buff_value.push_back(value2);
 
 
-		int special1 = 4 + (rand() % 4);
+		int special1 = 1 + (rand() % 7);
 		Buff*buff3;
 		buff3 = new Buff(COOLDOWN, special1);
 		item_buffs.push_back(buff3);
@@ -503,8 +503,8 @@ itmJewel::itmJewel(ITEM_RARITY rarity, iPoint p) : Item(ITEM_JEWEL, rarity, p)
 	{
 		x = 2404;
 		rarity_color = FONT_ORANGE;
-		int value1 = 5 + (rand() % 11);
-		int value2 = 5 + (rand() % 11);
+		int value1 = 4 + (rand() % 6);
+		int value2 = 4 + (rand() % 6);
 
 		PLAYER_ATTRIBUTE attribute1 = (PLAYER_ATTRIBUTE)(rand() % 5);
 		PLAYER_ATTRIBUTE attribute2 = (PLAYER_ATTRIBUTE)(rand() % 5);
@@ -522,7 +522,7 @@ itmJewel::itmJewel(ITEM_RARITY rarity, iPoint p) : Item(ITEM_JEWEL, rarity, p)
 		buff2 = new Buff(attribute2, value2);
 		item_buffs.push_back(buff2);
 
-		int special1 = 5 + (rand() % 11);
+		int special1 = 1 + (rand() % 10);
 		Buff* buff3;
 		buff3 = new Buff(PURE_BLOOD, special1);
 		item_buffs.push_back(buff3);
@@ -538,9 +538,9 @@ itmJewel::itmJewel(ITEM_RARITY rarity, iPoint p) : Item(ITEM_JEWEL, rarity, p)
 	{
 		x = 2434;
 		rarity_color = FONT_VIOLET;
-		int value1 = 5 + (rand() % 16);
-		int value2 = 5 + (rand() % 16);
-		int value3 = 5 + (rand() % 16);
+		int value1 = 7 + (rand() % 7);
+		int value2 = 7 + (rand() % 7);
+		int value3 = 7 + (rand() % 7);
 
 		PLAYER_ATTRIBUTE attribute1 = (PLAYER_ATTRIBUTE)(rand() % 5);
 		PLAYER_ATTRIBUTE attribute2 = (PLAYER_ATTRIBUTE)(rand() % 5);
@@ -567,7 +567,7 @@ itmJewel::itmJewel(ITEM_RARITY rarity, iPoint p) : Item(ITEM_JEWEL, rarity, p)
 		buff3 = new Buff(attribute3, value3);
 		item_buffs.push_back(buff3);
 
-		int special1 = 1 + (rand() % 8);
+		int special1 = 1 + (rand() % 5);
 		Buff* buff4;
 		buff4 = new Buff(ARMOR, special1);
 		item_buffs.push_back(buff4);
@@ -616,36 +616,36 @@ itmRune::itmRune(ITEM_RARITY rarity, iPoint p) : Item(ITEM_RUNE, rarity, p)
 	{
 		x = 2374;
 		rarity_color = FONT_WHITE;
-		positive_buff = 10;
+		positive_buff = 5;
 		positive_buff += rand() % 11;
 
 		negative_buff = 1;
-		negative_buff += rand() % 10;
+		negative_buff += rand() % 7;
 		negative_buff = -negative_buff;
 	}
 		break;
 	case RARITY_RARE:
 	{
 		x = 2404;
-		rarity_color = FONT_VIOLET;
+		rarity_color = FONT_ORANGE;
 
-		positive_buff = 20;
+		positive_buff = 10;
 		positive_buff += rand() % 11;
 
 		negative_buff = 1;
-		negative_buff += rand() % 15;
+		negative_buff += rand() % 13;
 		negative_buff = -negative_buff;
 	}
 		break;
 	case RARITY_LEGENDARY:
 	{
 		x = 2434;
-		rarity_color = FONT_ORANGE;
-		positive_buff = 30;
+		rarity_color = FONT_VIOLET;
+		positive_buff = 15;
 		positive_buff += rand() % 11;
 
 		negative_buff = 1;
-		negative_buff += rand() % 20;
+		negative_buff += rand() % 19;
 		negative_buff = -negative_buff;
 	}
 		break;
@@ -701,20 +701,20 @@ itmArmor::itmArmor(ITEM_RARITY rarity, iPoint p) : Item(ITEM_ARMOR, rarity, p)
 	{
 	case RARITY_COMMON:
 		x = 2315;
-		value = 7;
+		value = 1;
 		rarity_color = FONT_WHITE;
-		value += rand() % 4;
+		value += rand() % 10;
 		break;
 	case RARITY_RARE:
 		x = 2256;
-		value = 10;
-		value += rand() % 6;
+		value = 5;
+		value += rand() % 11;
 		rarity_color = FONT_ORANGE;
 		break;
 	case RARITY_LEGENDARY:
 		x = 2197;
-		value = 17;
-		value += rand() % 9;
+		value = 10;
+		value += rand() % 11;
 		rarity_color = FONT_VIOLET; 
 		break;
 	}
