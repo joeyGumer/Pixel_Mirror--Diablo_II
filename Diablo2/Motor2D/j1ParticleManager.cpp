@@ -194,6 +194,8 @@ Particle::Particle(const Particle& p)
 	collider_pivot = p.collider_pivot;
 	type = p.type;
 	damage = p.damage;
+	directions = p.directions;
+	anim_vector = p.anim_vector;
 }
 
 Particle::~Particle()
@@ -297,6 +299,48 @@ void Particle::SetPointSpeed(float velocity, fPoint target)
 	speed.y = _target.y - position.y;
 
 	speed.SetModule(velocity);
+
+	if (directions)
+	{
+		SetDirection(_target);
+	}
+}
+
+void Particle::SetDirection(fPoint target)
+{
+	//NOTE: This has been created to change the direction without moving the player
+	fPoint direction;
+	direction.x = target.x - position.x;
+	direction.y = target.y - position.y;
+
+	direction.SetModule(1);
+
+	float angle = direction.GetAngle();
+
+	PARTICLE_DIRECTION dir;
+
+	if (angle < 22.5 && angle > -22.5)
+		dir = PARTICLE_DIR_RIGHT;
+	else if (angle >= 22.5 && angle <= 67.5)
+		dir = PARTICLE_DIR_UPRIGHT;
+	else if (angle > 67.5 && angle < 112.5)
+		dir = PARTICLE_DIR_UP;
+	else if (angle >= 112.5 && angle <= 157.5)
+		dir = PARTICLE_DIR_UPLEFT;
+	else if (angle > 157.5 || angle < -157.5)
+		dir = PARTICLE_DIR_LEFT;
+	else if (angle >= -157.5 && angle <= -112.5)
+		dir = PARTICLE_DIR_DOWNLEFT;
+	else if (angle > -112.5 && angle < -67.5)
+		dir = PARTICLE_DIR_DOWN;
+	else if (angle >= -67.5 && angle <= -22.5)
+		dir = PARTICLE_DIR_DOWNRIGHT;
+
+	if (dir != current_direction)
+	{
+		current_direction = dir;
+		anim = anim_vector[current_direction];
+	}
 }
 //-----------------------------------------------------
 

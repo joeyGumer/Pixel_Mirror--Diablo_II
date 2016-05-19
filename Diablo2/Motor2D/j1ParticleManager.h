@@ -21,6 +21,19 @@ enum PARTICLE_TYPE
 	PARTICLE_BUFF
 };
 
+enum PARTICLE_DIRECTION
+{
+	PARTICLE_DIR_UPLEFT,
+	PARTICLE_DIR_DOWNLEFT,
+	PARTICLE_DIR_DOWNRIGHT,
+	PARTICLE_DIR_UPRIGHT,
+	PARTICLE_DIR_UP,
+	PARTICLE_DIR_LEFT,
+	PARTICLE_DIR_DOWN,
+	PARTICLE_DIR_RIGHT,
+	PARTICLE_DIR_NULL
+};
+
 class j1ParticleManager : public j1Module
 {
 public:
@@ -69,6 +82,9 @@ struct Particle
 	iPoint				collider_pivot;
 	PARTICLE_TYPE		type;
 	int					damage = 0;
+	bool				directions = false;
+	PARTICLE_DIRECTION	current_direction = PARTICLE_DIR_NULL;
+	vector<Animation>	anim_vector;
 
 	Particle();
 	Particle(const Particle& p);
@@ -82,6 +98,7 @@ struct Particle
 
 	void SetSpeed(float velocity, float minAngle = 0.0f, float maxAngle = 360.0f);
 	void SetPointSpeed(float velocity, fPoint target);
+	void SetDirection(fPoint target);
 };
 
 #endif

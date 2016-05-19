@@ -577,14 +577,20 @@ void EntEnemyIzual::SetParticles()
 	particle_izual.damage = 20;
 	particle_izual.speed.x = 0;
 	particle_izual.speed.y = 0;
-	particle_izual.anim.frames.push_back({ 0, 0, 64, 64 });
-	particle_izual.anim.frames.push_back({ 64, 0, 64, 64 });
-	particle_izual.anim.frames.push_back({ 128, 0, 64, 64 });
-	particle_izual.anim.frames.push_back({ 192, 0, 64, 64 });
-	particle_izual.anim.frames.push_back({ 256, 0, 64, 64 });
-	particle_izual.anim.frames.push_back({ 320, 0, 64, 64 });
-	particle_izual.anim.frames.push_back({ 384, 0, 64, 64 });
-	particle_izual.anim.frames.push_back({ 448, 0, 64, 64 });
+
+	for (int i = 0; i < 8; i++)
+	{
+		Animation tmp;
+		tmp.SetFrames(0, 0 + 55 * i, 66, 55, 5);
+		particle_izual.anim_vector.push_back(tmp);
+
+		if (i == 0)
+		{
+			particle_izual.anim = tmp;
+		}
+	}
+	particle_izual.directions = true;
+	particle_izual.current_direction = PARTICLE_DIR_DOWNLEFT;
 	particle_izual.anim.speed = 0.5f;
 	particle_izual.anim.loop = true;
 	particle_izual.anim.Reset();

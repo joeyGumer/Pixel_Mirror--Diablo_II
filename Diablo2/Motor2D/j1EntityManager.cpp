@@ -133,7 +133,7 @@ bool j1EntityManager::Start()
 	texture_list.push_back(izual_death);
 
 	//Izual particles
-	izual_particle = App->tex->Load("particles/Burn/Building_Burn_1.png");
+	izual_particle = App->tex->Load("particles/Special/Izual/Missile.png");
 	texture_list.push_back(izual_particle);
 
 	//Andariel textures
