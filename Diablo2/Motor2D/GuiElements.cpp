@@ -112,7 +112,7 @@ GuiText::GuiText(iPoint p, vector<StringColor> text, GuiElement* par, j1Module* 
 			p.y += labels[0].tex_rect.h;
 		
 		
-		labels.push_back(GuiLabel(text[i].string.GetString(), App->font->description, { 0, p.y }, text[i].color, this, list));
+		labels.push_back(GuiLabel(text[i].string.GetString(), App->font->description, { p.x ,p.y }, text[i].color, this, list));
 		labels[i].Center(true, false);
 		if (labels[i].tex_rect.w > tex_rect.w)
 			tex_rect.w = labels[i].tex_rect.w;
@@ -121,13 +121,14 @@ GuiText::GuiText(iPoint p, vector<StringColor> text, GuiElement* par, j1Module* 
 	if (text.size() > 0)
 		tex_rect.h = labels[0].tex_rect.h * text.size();
 	SetLocalRect({ GetLocalRect().x, GetLocalRect().y, tex_rect.w, tex_rect.h});
+	Center(true, false);
 	for (int i = 0; i < text.size(); i++)
 	{
 		labels[i].Center(true, false);
 	}
-	Center(true, false);
+	
 	iPoint i;
-	i.x = GetLocalPosition().x;
+	i.x = GetLocalPosition().x + p.x;
 	i.y = GetLocalPosition().y - tex_rect.h;
 	SetLocalPosition(i);
 }
