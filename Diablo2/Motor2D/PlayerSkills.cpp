@@ -169,7 +169,7 @@ void sklStingingStrike::CalculateSkillStats()
 //Wild Talon
 sklWildTalon::sklWildTalon()
 {
-	skill_tex = App->tex->Load("textures/vamp_attack.png");
+	skill_tex = App->tex->Load("textures/vamp_kick.png");
 	price = 1500;
 	price_dt = 100;
 
@@ -209,7 +209,7 @@ void sklWildTalon::SkillInit()
 
 void sklWildTalon::SkillUpdate(float dt)
 {
-	if (player->current_animation->CurrentFrame() == 12 && player->attacking == true)
+	if (player->current_animation->CurrentFrame() == 5 && player->attacking == true)
 	{
 		SkillEffect();
 	}
@@ -225,7 +225,7 @@ void sklWildTalon::SetSkillAnimations()
 	for (int i = 0; i < 8; i++)
 	{
 		Animation atk;
-		atk.SetFrames(0, (92 + SPRITE_MARGIN) * i, 119, 92, 20, SPRITE_MARGIN);
+		atk.SetFrames(0, (92 + SPRITE_MARGIN) * i, 119, 92, 12, SPRITE_MARGIN);
 		atk.speed = 0.4f;
 		atk.loop = false;
 
@@ -307,7 +307,7 @@ void sklBatStrike::SetSkillAnimations()
 //Soul of Ice
 sklSoulOfIce::sklSoulOfIce()
 {
-	skill_tex = App->tex->Load("textures/vamp_attack.png");
+	skill_tex = App->tex->Load("textures/vamp_kick.png");
 	price = 2500;
 	price_dt = 100;
 
@@ -347,7 +347,7 @@ void sklSoulOfIce::SkillInit()
 }
 void sklSoulOfIce::SkillUpdate(float dt)
 {
-	if (player->current_animation->CurrentFrame() == 12 && player->attacking == true)
+	if (player->current_animation->CurrentFrame() == 5 && player->attacking == true)
 	{
 		SkillEffect();
 	}
@@ -363,7 +363,7 @@ void sklSoulOfIce::SetSkillAnimations()
 	for (int i = 0; i < 8; i++)
 	{
 		Animation atk;
-		atk.SetFrames(0, (92 + SPRITE_MARGIN) * i, 119, 92, 20, SPRITE_MARGIN);
+		atk.SetFrames(0, (92 + SPRITE_MARGIN) * i, 119, 92, 12, SPRITE_MARGIN);
 		atk.speed = 0.4f;
 		atk.loop = false;
 
