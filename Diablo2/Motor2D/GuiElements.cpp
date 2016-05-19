@@ -414,7 +414,8 @@ bool GuiElement::CheckEvent(GuiElement* hover, GuiElement* focus, bool& interact
 		
 		if (inside)
 		{
-			interaction = true;
+			if (type !=  GUI_MINIMAP)
+				interaction = true;
 
 			if (listener)
 			{
