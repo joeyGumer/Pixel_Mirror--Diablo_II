@@ -38,6 +38,9 @@ public:
 	virtual void SetSkillAnimations()
 	{}
 
+	virtual void CalculateSkillStats()
+	{}
+
 	virtual bool UnlockSkill();
 
 public:
@@ -46,13 +49,23 @@ public:
 	SDL_Texture* skill_tex;
 	vector<Animation> skill_animation_set;
 	j1Player* player;
+
 	j1Timer cooldown_timer;
+
+	float cooldown = 0;
+	float final_cooldown = 0;
+	float cooldown_dt = 0;
+
 	bool unlocked = false;
+
 	int price;
 	int price_dt;
 	int final_price;
+
 	int level = -1;
 	int max_level = 5;
+
+	
 };
 
 class sklMelee : public Skill

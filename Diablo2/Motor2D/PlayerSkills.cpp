@@ -106,15 +106,15 @@ sklStingingStrike::~sklStingingStrike()
 
 void sklStingingStrike::SkillEffect()
 {
-	int damage = base_damage_down;
-	damage += rand() % (base_damage_up - base_damage_down + 1);
+	int damage = final_damage_down;
+	damage += rand() % (final_damage_up - final_damage_down + 1);
 	damage += int((float(damage) / 100) * player->dex_final);
 
 	player->enemy->TakeDamage(damage);
 	//App->audio->PlayFx(player_attack, 0);
 
-	player->ChangeMP(blood_charge_increase_base);
-	player->TakeDamage(life_cost_base);
+	player->ChangeMP(final_blood_charge_increase);
+	player->TakeDamage(final_life_cost);
 
 	player->enemy = NULL;
 	player->objective = NULL;
@@ -152,11 +152,22 @@ void sklStingingStrike::SetSkillAnimations()
 	}
 }
 
+void sklStingingStrike::CalculateSkillStats()
+{
+	final_damage_down = base_damage_down + damage_down_dt * level;
+	final_damage_up = base_damage_up + damage_up_dt * level;
+	
+	final_life_cost = life_cost_base + life_cost_dt * level;
+
+	final_blood_charge_increase = blood_charge_increase_base + blood_dt * level;
+}
+
 //Wild Talon
 sklWildTalon::sklWildTalon()
 {
 	skill_tex = App->tex->Load("textures/vamp_attack.png");
 	price = 1500;
+	price_dt = 100;
 
 	base_damage_down = 21;
 	base_damage_up = 32;
@@ -289,6 +300,7 @@ sklSoulOfIce::sklSoulOfIce()
 {
 	skill_tex = App->tex->Load("textures/vamp_attack.png");
 	price = 2500;
+	price_dt = 100;
 
 	base_damage_down = 21;
 	base_damage_up = 32;
@@ -350,6 +362,8 @@ void sklSoulOfIce::SetSkillAnimations()
 sklKrobusArts::sklKrobusArts() :sklBuff(EXTRA_DAMAGE, 45, 15)
 {
 	price = 2000;
+	price_dt = 100;
+
 	damage_bonus_base = 45;
 	damage_bonus_dt = 10;
 
@@ -414,6 +428,8 @@ sklBloodArrow::sklBloodArrow() : sklRanged()
 {
 	skill_tex = App->tex->Load("textures/vamp_cast.png");
 	price = 1500;
+	price_dt = 100;
+
 	base_damage_down = 6;
 	base_damage_up = 10;
 	blood_charge_increase_base = 8;
@@ -483,6 +499,8 @@ sklVampireBreath::sklVampireBreath()
 {
 	skill_tex = App->tex->Load("textures/vamp_cast.png");
 	price = 1500;
+	price_dt = 100;
+
 	range = 150;
 	base_damage_down = 12;
 	base_damage_up = 25;
@@ -558,6 +576,8 @@ sklBloodBomb::sklBloodBomb()
 	skill_tex = App->tex->Load("textures/vamp_cast.png");
 
 	price = 2500;
+	price_dt = 100;
+
 
 	life_cost_base = 18;
 }
@@ -626,6 +646,7 @@ sklRedFeast::sklRedFeast()
 {
 	skill_tex = App->tex->Load("textures/vamp_cast.png");
 	price = 2500;
+	price_dt = 100;
 
 	base_damage_down = 4;
 	base_damage_up = 10;
@@ -709,6 +730,7 @@ sklHeardOfBats::sklHeardOfBats()
 {
 	skill_tex = App->tex->Load("textures/vamp_cast.png");
 	price = 2000;
+	price_dt = 100;
 
 	time = 3;
 	radius = 150;
@@ -800,6 +822,7 @@ sklShadowsWalker::sklShadowsWalker() : sklBuff(INVISIBILITY, 1, 5)
 {
 	skill_tex = App->tex->Load("textures/vamp_cast.png");
 	price = 1500;
+	price_dt = 100;
 
 	cooldown_base = 10;
 	blood_charge_cost_base = 20;
@@ -857,6 +880,7 @@ sklClottedBloodSkin::sklClottedBloodSkin() : sklBuff(ARMOR, 20, 3)
 {
 	skill_tex = App->tex->Load("textures/vamp_cast.png");
 	price = 2000;
+	price_dt = 100;
 
 	cooldown_base = 10;
 	blood_charge_cost_base = 30;
@@ -915,6 +939,7 @@ sklLust::sklLust()
 	basic_blood_charges = 2;
 	increased_HP = 5;
 	price = 1500;
+	price_dt = 100;
 }
 
 sklLust::~sklLust()
@@ -937,6 +962,8 @@ void sklLust::SkillInit()
 sklUndead::sklUndead()
 {
 	avaliable = true;
+	price = 2500;
+	price_dt = 100;
 }
 
 sklUndead::~sklUndead()

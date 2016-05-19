@@ -36,18 +36,24 @@ public:
 	void SkillUpdate(float dt);
 	void SetSkillAnimations();
 
+	void CalculateSkillStats();
+
 public:
 
 	int base_damage_down = 13;
 	int base_damage_up = 17;
 	int damage_up_dt = 8;
 	int damage_down_dt = 7;
+	int final_damage_down;
+	int final_damage_up;
 
 	int life_cost_base = 4;
 	int life_cost_dt = 1;
+	int final_life_cost;
 
 	int blood_charge_increase_base = 5;
 	int blood_dt = 1;
+	int final_blood_charge_increase;
 
 	float cooldown_base = 1;
 };

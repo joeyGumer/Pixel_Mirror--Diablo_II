@@ -27,6 +27,7 @@ bool Skill::UnlockSkill()
 		}
 
 		level++;
+		CalculateSkillStats();
 
 		return true;
 	}
