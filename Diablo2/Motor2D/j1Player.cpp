@@ -1369,8 +1369,8 @@ void j1Player::SetParticles()
 	particle_skill_2.anim.loop = true;
 	particle_skill_2.anim.Reset();
 
-	particle_skill_2.collider_margin.x = particle_skill_2.anim.GetCurrentFrame().w / 3 + 20;
-	particle_skill_2.collider_margin.y = particle_skill_2.anim.GetCurrentFrame().h / 3;
+	particle_skill_2.collider_margin.x = particle_skill_2.anim.GetCurrentFrame().w / 3 + 30;
+	particle_skill_2.collider_margin.y = particle_skill_2.anim.GetCurrentFrame().h / 3 + 10;
 
 	particle_skill_2.collider_pivot.x = 0;
 	particle_skill_2.collider_pivot.y = -5;
