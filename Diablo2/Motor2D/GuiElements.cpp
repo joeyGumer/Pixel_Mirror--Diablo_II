@@ -202,11 +202,16 @@ void GuiText::Draw()
 		labels[i].Draw();
 	}
 }
+
 void GuiAnimation::Draw()
 {
 	App->render->Blit(tex, (GetScreenPosition().x - App->render->camera.x), (GetScreenPosition().y - App->render->camera.y), &anima.GetCurrentFrame());
 }
 
+void GuiText::SetText(int index, p2SString t)
+{
+	labels[index].SetText(t);
+}
 
 
 //

@@ -245,6 +245,7 @@ public:
 
 	void Draw();
 	void Update(GuiElement* hover, GuiElement* focus);
+	void SetText(int index, p2SString t);
 
 	vector<GuiLabel> labels;
 };
