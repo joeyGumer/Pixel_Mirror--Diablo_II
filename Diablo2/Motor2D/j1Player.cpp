@@ -1321,6 +1321,7 @@ void j1Player::SetAnimations()
 //NOTE: why is this at player and not at the skill that uses this?
 void j1Player::SetParticles()
 {
+	//Particle 1
 	particle_skill_1.image = App->tex->Load("particles/Burn/Building_Burn_1.png");
 
 	particle_skill_1.life = 5;
@@ -1345,6 +1346,38 @@ void j1Player::SetParticles()
 
 	particle_skill_1.collider_pivot.x = 0;
 	particle_skill_1.collider_pivot.y = 8;
+
+	//Particle2
+	particle_skill_2.image = App->tex->Load("particles/Special/Player/BloodBomb.png");
+
+	particle_skill_2.life = 5;
+	particle_skill_2.type = PARTICLE_PLAYER_CAST;
+	particle_skill_2.damage = 20;
+	particle_skill_2.speed.x = 0;
+	particle_skill_2.speed.y = 0;
+
+	for (int i = 0; i < 8; i++)
+	{
+		Animation tmp;
+		tmp.SetFrames(0, 0 + 109 * i, 221, 109, 8);
+		tmp.speed = 0.2f;
+		particle_skill_2.anim_vector.push_back(tmp);
+		if (i == 0)
+		{
+			particle_skill_2.anim = tmp;
+		}
+	}
+	particle_skill_2.directions = true;
+
+	
+	particle_skill_2.anim.loop = true;
+	particle_skill_2.anim.Reset();
+
+	particle_skill_2.collider_margin.x = particle_skill_2.anim.GetCurrentFrame().w / 3 + 20;
+	particle_skill_2.collider_margin.y = particle_skill_2.anim.GetCurrentFrame().h / 3;
+
+	particle_skill_2.collider_pivot.x = 0;
+	particle_skill_2.collider_pivot.y = -5;
 }
 
 void j1Player::SetDirection()

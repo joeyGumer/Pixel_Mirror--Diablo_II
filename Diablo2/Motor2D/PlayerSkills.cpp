@@ -644,7 +644,7 @@ void sklBloodBomb::SkillUpdate(float dt)
 
 	if (player->current_animation->CurrentFrame() >= 7 && !player->particle_is_casted)
 	{
-		skill_particle = App->pm->AddParticle(player->particle_skill_1, player->p_position.x, player->p_position.y - 40, 2, player->particle_skill_1.image);
+		skill_particle = App->pm->AddParticle(player->particle_skill_2, player->p_position.x, player->p_position.y - 40, 2, player->particle_skill_2.image);
 		player->particle_is_casted = true;
 		skill_particle->SetPointSpeed(150, player->particle_destination);
 	}

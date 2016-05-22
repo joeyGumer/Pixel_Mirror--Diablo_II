@@ -392,6 +392,7 @@ public:
 
 	//NOTE: this might be changed, particles in development
 	Particle				particle_skill_1;
+	Particle				particle_skill_2;
 	fPoint					particle_destination;
 	bool					particle_is_casted = false;
 
