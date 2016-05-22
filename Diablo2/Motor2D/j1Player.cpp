@@ -1322,30 +1322,26 @@ void j1Player::SetAnimations()
 void j1Player::SetParticles()
 {
 	//Particle 1
-	particle_skill_1.image = App->tex->Load("particles/Burn/Building_Burn_1.png");
+	particle_skill_1.image = App->tex->Load("particles/Special/Player/BloodArrow.png");
 
 	particle_skill_1.life = 5;
 	particle_skill_1.type = PARTICLE_PLAYER_CAST;
 	particle_skill_1.damage = 20;
 	particle_skill_1.speed.x = 0;
 	particle_skill_1.speed.y = 0;
-	particle_skill_1.anim.frames.push_back({ 0, 0, 64, 64 });
-	particle_skill_1.anim.frames.push_back({ 64, 0, 64, 64 });
-	particle_skill_1.anim.frames.push_back({ 128, 0, 64, 64 });
-	particle_skill_1.anim.frames.push_back({ 192, 0, 64, 64 });
-	particle_skill_1.anim.frames.push_back({ 256, 0, 64, 64 });
-	particle_skill_1.anim.frames.push_back({ 320, 0, 64, 64 });
-	particle_skill_1.anim.frames.push_back({ 384, 0, 64, 64 });
-	particle_skill_1.anim.frames.push_back({ 448, 0, 64, 64 });
+	for (int i = 0; i < 3; i++)
+	{
+		particle_skill_1.anim.SetFrames(0, 0 + 32 * i, 34, 32, 5);
+	}
 	particle_skill_1.anim.speed = 0.5f;
 	particle_skill_1.anim.loop = true;
 	particle_skill_1.anim.Reset();
 
-	particle_skill_1.collider_margin.x = particle_skill_1.anim.GetCurrentFrame().w / 3;
-	particle_skill_1.collider_margin.y = particle_skill_1.anim.GetCurrentFrame().h / 4;
+	particle_skill_1.collider_margin.x = 3;
+	particle_skill_1.collider_margin.y = 3;
 
 	particle_skill_1.collider_pivot.x = 0;
-	particle_skill_1.collider_pivot.y = 8;
+	particle_skill_1.collider_pivot.y = 0;
 
 	//Particle2
 	particle_skill_2.image = App->tex->Load("particles/Special/Player/BloodBomb.png");
