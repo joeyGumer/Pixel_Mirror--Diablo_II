@@ -57,6 +57,13 @@ bool j1ParticleManager::Update(float dt)
 			{
 				tmp._Ptr->_Myval->collider->to_delete = true;
 			}
+
+			if (tmp._Ptr->_Myval->sprite != NULL)
+			{
+				App->render->sprites.remove(tmp._Ptr->_Myval->sprite);
+				RELEASE(tmp._Ptr->_Myval->sprite);
+			}
+
 			RELEASE((*tmp));
 			tmp = particleList.erase(tmp);
 		}
@@ -165,6 +172,24 @@ Particle* j1ParticleManager::AddParticle(const Particle& p, int x, int y, Uint32
 	{
 		part->collider = App->collision->AddCollider(collider_pos, COLLIDER_ENEMY_PARTICLE);
 	}
+	else
+	{
+		part->collider = App->collision->AddCollider(collider_pos, COLLIDER_NONE);
+	}
+
+	//Sprite creation
+	SDL_Rect current_sprite = part->anim.GetCurrentFrame();
+
+	iPoint pos;
+	pos.x = part->position.x + part->collider_margin.x + part->collider_pivot.x + part->collider->rect.w / 2;
+	pos.y = part->position.y + part->collider_margin.y + part->collider_pivot.y + part->collider->rect.h / 2;
+
+	iPoint pivot;
+	pivot.x = part->collider_margin.x + part->collider_pivot.x + part->collider->rect.w / 2;
+	pivot.y = part->collider_margin.y + part->collider_pivot.y + part->collider->rect.h / 2;
+
+	part->sprite = new Sprite(part->image, pos, pivot, current_sprite);
+	App->render->AddSpriteToList(part->sprite);
 
 	//TODO 3: insert the particle in the particleList
 	particleList.push_back(part);
@@ -256,8 +281,21 @@ bool Particle::PostUpdate()
 		if (image != NULL)
 		{
 			//TODO 5: Get animation frame and then blit. 
-			SDL_Rect sect = anim.GetCurrentFrame();
-			App->render->Blit(image, position.x, position.y, &sect);
+
+			SDL_Rect current_sprite = anim.GetCurrentFrame();
+
+			iPoint pos;
+			pos.x = position.x + collider_margin.x + collider_pivot.x + collider->rect.w / 2;
+			pos.y = position.y + collider_margin.y + collider_pivot.y + collider->rect.h / 2;
+
+			iPoint pivot;
+			pivot.x = collider_margin.x + collider_pivot.x + collider->rect.w / 2;
+			pivot.y = collider_margin.y + collider_pivot.y + collider->rect.h / 2;
+
+			sprite->UpdateSprite(image, pos, pivot, current_sprite);
+
+			//SDL_Rect sect = anim.GetCurrentFrame();
+			//App->render->Blit(image, position.x, position.y, &sect);
 		}
 
 		if (fxPlayed == false)

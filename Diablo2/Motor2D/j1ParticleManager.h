@@ -13,6 +13,7 @@
 struct SDL_Texture;
 class Particle;
 class Collider;
+class Sprite;
 
 enum PARTICLE_TYPE
 {
@@ -78,13 +79,14 @@ struct Particle
 	bool				active = true;
 	bool			    on = false;
 	Collider*			collider = NULL;
-	iPoint				collider_margin;
-	iPoint				collider_pivot;
+	iPoint				collider_margin = { 0, 0 };
+	iPoint				collider_pivot = { 0, 0 };
 	PARTICLE_TYPE		type;
 	int					damage = 0;
 	bool				directions = false;
 	PARTICLE_DIRECTION	current_direction = PARTICLE_DIR_NULL;
 	vector<Animation>	anim_vector;
+	Sprite*				sprite = NULL;
 
 	Particle();
 	Particle(const Particle& p);
