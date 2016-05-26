@@ -33,7 +33,7 @@
 
 j1Player::j1Player()
 {
-	
+	name.create("player");
 }
 
 //Destructor
@@ -290,6 +290,43 @@ bool j1Player::CleanUp()
 	{
 		App->render->sprites.remove(sprite);
 		RELEASE(sprite);
+	}
+
+	return true;
+}
+
+bool j1Player::Load(pugi::xml_node& node)
+{
+	p_position.x = node.child("position").attribute("x").as_float();
+	p_position.y = node.child("position").attribute("y").as_float();
+
+	pugi::xml_node skl = node.child("skills").child("skill");
+
+	for (int i = 0; i < skills.size(); i++, skl = skl.next_sibling("skill"))
+	{
+		Skill* skill = skills[i];
+
+		skill->unlocked = skl.append_attribute("unlocked").as_bool();
+		skill->level = skl.append_attribute("level").as_int();
+	}
+
+	return true;
+}
+
+bool j1Player::Save(pugi::xml_node& node) const
+{
+	pugi::xml_node pos = node.append_child("position");
+	pugi::xml_node skls = node.append_child("skills");
+
+	pos.append_attribute("x") = p_position.x;
+	pos.append_attribute("y") = p_position.y;
+
+	for (int i = 0; i < skills.size(); i++)
+	{
+		pugi::xml_node skill = skls.append_child("skill");
+
+		skill.append_attribute("unlocked") = skills[i]->unlocked;
+		skill.append_attribute("level") = skills[i]->level;
 	}
 
 	return true;

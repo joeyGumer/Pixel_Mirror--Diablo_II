@@ -57,16 +57,21 @@ bool snIntro::Start()
 
 	titleAnim = App->gui->AddGuiAnimation({ 115, 0 }, logo, title, NULL, this);
 	intro_gui.push_back(titleAnim);
+
+	//New button
+	new_button = App->gui->AddGuiButton({ 181, 280 }, { 0, 0, 270, 35 }, { 0, 0, 270, 35 }, { 0, 36, 270, 35 }, "New Game", NULL, this);
+	intro_gui.push_back(play_button);
+
 	//Play button
-	play_button = App->gui->AddGuiButton({ 181, 280 }, { 0, 0, 270, 35 }, { 0, 0, 270, 35 }, { 0, 36, 270, 35 }, "Single player", NULL, this);
+	play_button = App->gui->AddGuiButton({ 181, 320 }, { 0, 0, 270, 35 }, { 0, 0, 270, 35 }, { 0, 36, 270, 35 }, "Load Game", NULL, this);
 	intro_gui.push_back(play_button);
 
 	//Controls button
-	controls_button = App->gui->AddGuiButton({ 181, 350 }, { 0, 0, 270, 35 }, { 0, 0, 270, 35 }, { 0, 36, 270, 35 }, "CONTROLS", NULL, this);
+	controls_button = App->gui->AddGuiButton({ 181, 360 }, { 0, 0, 270, 35 }, { 0, 0, 270, 35 }, { 0, 36, 270, 35 }, "CONTROLS", NULL, this);
 	intro_gui.push_back(controls_button);
 
 	//Exit button
-	exit_button = App->gui->AddGuiButton({ 181, 420 }, { 0, 0, 270, 35 }, { 0, 0, 270, 35 }, { 0, 36, 270, 35 }, "ExiT Diablo II", NULL, this);
+	exit_button = App->gui->AddGuiButton({ 181, 400 }, { 0, 0, 270, 35 }, { 0, 0, 270, 35 }, { 0, 36, 270, 35 }, "ExiT Diablo II", NULL, this);
 	intro_gui.push_back(exit_button);
 
 	//-----------
@@ -156,6 +161,38 @@ bool snIntro::CleanUp()
 void snIntro::OnEvent(GuiElement* element, GUI_Event even)
 {	
 	//NOTE clicking the button could charge the scene, now sets the bool pass to true and changes it, I don't think it's bad, but I don't know if the other way is better or not.
+	if (new_button == element)
+	{
+		switch (even)
+		{
+
+		case EVENT_MOUSE_LEFTCLICK_DOWN:
+		{
+			new_button->button_image.SetTextureRect(play_button->click_tex);
+			iPoint label_pos = new_button->button_label.GetLocalPosition();
+			label_pos.x -= 4;
+			label_pos.y += 2;
+			new_button->button_label.SetLocalPosition(label_pos);
+		}
+		break;
+
+		case EVENT_MOUSE_EXIT:
+		{
+			new_button->button_image.SetTextureRect(play_button->idle_tex);
+			new_button->button_label.Center(true, true);
+		}
+		break;
+
+		case EVENT_MOUSE_LEFTCLICK_UP:
+		{
+			new_button->button_image.SetTextureRect(play_button->idle_tex);
+			new_button->button_label.Center(true, true);
+			//pass = true;
+		}
+		break;
+		}
+	}
+
 	//Play button
 	if (play_button == element)
 	{
@@ -165,7 +202,10 @@ void snIntro::OnEvent(GuiElement* element, GUI_Event even)
 		case EVENT_MOUSE_LEFTCLICK_DOWN:
 		{
 			play_button->button_image.SetTextureRect(play_button->click_tex);
-			play_button->button_label.SetLocalPosition({ 50, 8 });
+			iPoint label_pos = play_button->button_label.GetLocalPosition();
+			label_pos.x -= 4;
+			label_pos.y += 2;
+			play_button->button_label.SetLocalPosition(label_pos);
 		}
 			break;
 

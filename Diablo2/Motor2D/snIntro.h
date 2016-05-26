@@ -53,6 +53,7 @@ private:
 
 	//Ui elements
 	GuiButton* play_button = NULL;
+	GuiButton* new_button = NULL;
 	GuiButton* controls_button = NULL;
 	GuiButton* exit_button = NULL;
 	GuiImage* background = NULL;

@@ -45,6 +45,10 @@ public:
 	//Drops an item
 	void DropItem(iPoint pos);
 
+	//Load/Save
+	bool Load(pugi::xml_node&);
+	bool Save(pugi::xml_node&) const;
+
 public:
 	//Modules
 

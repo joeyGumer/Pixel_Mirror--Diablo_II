@@ -9,6 +9,8 @@
 
 j1Game::j1Game() : j1Module()
 {
+	name.create("game");
+
 	//Init modules
 	player	= new j1Player();
 	em		= new j1EntityManager();
@@ -70,6 +72,16 @@ bool j1Game::PreUpdate()
 		{
 			DropItem(App->input->GetMouseWorldPosition());
 		}
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN)
+	{
+		App->SaveGame("save_state");
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+	{
+		App->LoadGame("save_state");
 	}
 
 	return true;
@@ -223,4 +235,28 @@ void j1Game::DropItem(iPoint pos)
 		}
 	}
 
+}
+
+bool j1Game::Load(pugi::xml_node& node)
+{
+	list<j1Module*>::iterator item = game_modules.begin();
+
+	for (; item != game_modules.end(); item++)
+	{
+		(*item)->Load(node.child((*item)->name.GetString()));
+	}
+
+	return true;
+}
+
+bool j1Game::Save(pugi::xml_node& node) const
+{
+	list<j1Module*>::const_iterator item = game_modules.begin();
+
+	for (; item != game_modules.end(); item++)
+	{
+		(*item)->Save(node.append_child((*item)->name.GetString()));
+	}
+
+	return true;
 }
