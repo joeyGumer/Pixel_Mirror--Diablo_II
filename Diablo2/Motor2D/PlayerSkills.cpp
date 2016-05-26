@@ -173,10 +173,6 @@ sklWildTalon::sklWildTalon()
 	price = 1500;
 	price_dt = 100;
 
-	base_damage_down = 21;
-	base_damage_up = 32;
-	blood_charge_increase_base = 10;
-	life_cost_base = 4;
 	cooldown = 2;
 }
 sklWildTalon::~sklWildTalon()
@@ -186,14 +182,14 @@ sklWildTalon::~sklWildTalon()
 
 void sklWildTalon::SkillEffect()
 {
-	int damage = base_damage_down;
-	damage += rand() % (base_damage_up - base_damage_down + 1);
-	damage += int((float(damage) / 100) * player->dex_final);
+	float damage = final_damage_down;
+	damage += rand() % (final_damage_up - final_damage_down + 1);
+	damage += float((float(damage) / 100) * player->dex_final);
 
 	player->enemy->TakeDamage(damage);
 	//App->audio->PlayFx(player_attack, 0);
 	player->ChangeMP(blood_charge_increase_base);
-	player->TakeDamage(life_cost_base);
+	player->RestoreHP(-life_cost_final);
 
 	player->enemy = NULL;
 	player->objective = NULL;
@@ -232,6 +228,15 @@ void sklWildTalon::SetSkillAnimations()
 		skill_animation_set.push_back(atk);
 	}
 }
+
+void sklWildTalon::CalculateSkillStats()
+{
+	final_damage_down = base_damage_down + damage_down_dt * level;
+	final_damage_up = base_damage_up + damage_up_dt * level;
+
+	life_cost_final = life_cost_base + life_cost_dt * level;
+}
+
 //Bat Strike
 sklBatStrike::sklBatStrike()
 {
@@ -239,12 +244,6 @@ sklBatStrike::sklBatStrike()
 	price = 2500;
 	price_dt = 100;
 
-	base_damage_down = 21;
-	base_damage_up = 32;
-
-	life_cost_base = 50;
-
-	blood_charge_increase_base = 10;
 	cooldown = 3;
 }
 sklBatStrike::~sklBatStrike()
@@ -254,16 +253,16 @@ sklBatStrike::~sklBatStrike()
 
 void sklBatStrike::SkillEffect()
 {
-	int damage = base_damage_down;
-	damage += rand() % (base_damage_up - base_damage_down + 1);
-	damage += int((float(damage) / 100) * player->dex_final);
+	float damage = final_damage_down;
+	damage += rand() % (final_damage_up - final_damage_down + 1);
+	damage += float((float(damage) / 100) * player->dex_final);
 
 	player->enemy->TakeDamage(damage);
 	//App->audio->PlayFx(player_attack, 0);
-	player->ChangeMP(-blood_charge_increase_base);
+	player->ChangeMP(-blood_charge_cost_final);
 
 
-	player->TakeDamage(-(float(damage)/100)*life_cost_base);
+	player->RestoreHP(float((damage)/100)*life_steal);
 
 	player->enemy = NULL;
 	player->objective = NULL;
@@ -275,7 +274,6 @@ void sklBatStrike::SkillEffect()
 
 void sklBatStrike::SkillInit()
 {
-	//player->TakeDamage(life_cost_base);
 
 }
 void sklBatStrike::SkillUpdate(float dt)
@@ -304,16 +302,20 @@ void sklBatStrike::SetSkillAnimations()
 	}
 }
 
+void sklBatStrike::CalculateSkillStats()
+{
+	final_damage_down = base_damage_down + damage_down_dt * level;
+	final_damage_up = base_damage_up + damage_up_dt * level;
+
+	blood_charge_cost_final = blood_charge_cost_base + blood_charge_cost_dt * level;
+}
+
 //Soul of Ice
 sklSoulOfIce::sklSoulOfIce()
 {
 	skill_tex = App->tex->Load("textures/vamp_kick.png");
 	price = 2500;
 	price_dt = 100;
-
-	base_damage_down = 21;
-	base_damage_up = 32;
-	blood_charge_cost_base = 10;
 
 	cooldown = 3;
 }
@@ -324,14 +326,14 @@ sklSoulOfIce::~sklSoulOfIce()
 
 void sklSoulOfIce::SkillEffect()
 {
-	int damage = base_damage_down;
-	damage += rand() % (base_damage_up - base_damage_down + 1);
-	damage += int((float(damage) / 100) * player->dex_final);
+	float damage = final_damage_down;
+	damage += rand() % (final_damage_up - final_damage_down + 1);
+	damage += float((float(damage) / 100) * player->dex_final);
 
 	player->enemy->TakeDamage(damage);
 	player->enemy->Freeze(3);
 	//App->audio->PlayFx(player_attack, 0);
-	player->ChangeMP(-blood_charge_cost_base);
+	player->ChangeMP(-blood_charge_cost_final);
 
 	player->enemy = NULL;
 	player->objective = NULL;
@@ -371,17 +373,21 @@ void sklSoulOfIce::SetSkillAnimations()
 	}
 }
 
+void sklSoulOfIce::CalculateSkillStats()
+{
+	
+	final_damage_down = base_damage_down + damage_down_dt * level;
+	final_damage_up = base_damage_up + damage_up_dt * level;
+
+	blood_charge_cost_final = blood_charge_cost_base + blood_charge_cost_dt * level;
+}
+
 //Krobus Arts 
 //NOTE: for now, it's acting as a temporal buff
-sklKrobusArts::sklKrobusArts() :sklBuff(EXTRA_DAMAGE, 45, 15)
+sklKrobusArts::sklKrobusArts() :sklBuff(EXTRA_DAMAGE, 45, 10)
 {
 	price = 2000;
 	price_dt = 100;
-
-	damage_bonus_base = 45;
-	damage_bonus_dt = 10;
-
-	life_cost_base = 6;
 
 	cooldown = 10;
 
@@ -410,7 +416,7 @@ void sklKrobusArts::SkillInit()
 {
 	player->attacking = true;
 
-	player->TakeDamage(life_cost_base);
+	player->RestoreHP(-life_cost_final);
 }
 
 void sklKrobusArts::SkillUpdate(float dt)
@@ -439,6 +445,15 @@ void sklKrobusArts::SetSkillAnimations()
 
 		skill_animation_set.push_back(cst);
 	}
+}
+
+void sklKrobusArts::CalculateSkillStats()
+{
+	damage_bonus_final = damage_bonus_base + damage_bonus_dt * level;
+
+	life_cost_final = life_cost_base + life_cost_dt * level;
+
+	buff.value = damage_bonus_final;
 }
 //Blood Arrow
 //NOTE: change this to be aplicable with the system particle

@@ -70,14 +70,22 @@ public:
 	void SkillUpdate(float dt);
 	void SetSkillAnimations();
 
+	void CalculateSkillStats();
+
 public:
 
-	int base_damage_down;
-	int base_damage_up;
-	int damage_dt;
-	int blood_charge_increase_base;
-	int life_cost_base;
-	//float cooldown_base;
+	int base_damage_down = 17;
+	int base_damage_up = 24;
+	int damage_down_dt = 8;
+	int damage_up_dt = 9;
+	int final_damage_down;
+	int final_damage_up;
+
+	int blood_charge_increase_base = 10;
+
+	int life_cost_base = 6;
+	int life_cost_dt = 2;
+	int life_cost_final;
 };
 
 class sklBatStrike : public sklMelee
@@ -92,14 +100,22 @@ public:
 	void SkillUpdate(float dt);
 	void SetSkillAnimations();
 
+	void CalculateSkillStats();
+
 public:
 
-	int base_damage_down;
-	int base_damage_up;
-	int damage_dt;
-	int life_cost_base;
-	int blood_charge_increase_base;
-	//float cooldown_base;
+	int base_damage_down = 13;
+	int base_damage_up = 17;
+	int damage_down_dt = 7;
+	int damage_up_dt = 8;
+	int final_damage_down;
+	int final_damage_up;
+
+	int blood_charge_cost_base = 10;
+	int blood_charge_cost_dt = 2;
+	int blood_charge_cost_final;
+
+	int life_steal = 50;
 };
 
 
@@ -115,13 +131,21 @@ public:
 	void SkillUpdate(float dt);
 	void SetSkillAnimations();
 
+	void CalculateSkillStats();
+
 public:
 
-	int base_damage_down;
-	int base_damage_up;
-	int damage_dt;
-	int blood_charge_cost_base;
-	//float cooldown_base;
+	int base_damage_down = 17;
+	int base_damage_up = 24;
+	int damage_down_dt  = 8;
+	int damage_up_dt = 9;
+	int final_damage_down;
+	int final_damage_up;
+
+	int blood_charge_cost_base = 10;
+	int blood_charge_cost_dt = 2;
+	int blood_charge_cost_final;
+	
 };
 
 class sklKrobusArts : public sklBuff
@@ -135,12 +159,18 @@ public:
 	void SkillInit();
 	void SkillUpdate(float dt);
 	void SetSkillAnimations();
+
+	void CalculateSkillStats();
 public:
 
-	int damage_bonus_base;
-	int damage_bonus_dt;
-	int life_cost_base;
-	//float cooldown_base;
+	int damage_bonus_base = 45;
+	int damage_bonus_dt = 10;
+	int damage_bonus_final;
+
+	int life_cost_base = 6;
+	int life_cost_dt = 2;
+	int life_cost_final;
+	
 };
 
 //Blood Spells

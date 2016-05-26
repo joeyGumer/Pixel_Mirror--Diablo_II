@@ -1202,6 +1202,12 @@ void j1Player::RestoreHP(int hp)
 		HP_current = HP_max;
 	}
 
+	else if (HP_current <= 0)
+	{
+		HP_current = 0;
+		current_input = INPUT_DEATH;
+	}
+
 	PlayerEvent(HP_UP);
 }
 

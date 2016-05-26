@@ -401,10 +401,10 @@ bool hudSkilltree::Start()
 	text.create("%i", player->bat_strike->price);
 	text.Insert(0, "pure BLOOD COST: ");
 	battext.push_back(StringColor(text, FONT_YELLOW));
-	text.create("%i", player->bat_strike->blood_charge_increase_base);
+	text.create("%i", player->bat_strike->blood_charge_cost_base);
 	text.Insert(0, "BLOOD charges cosT: ");
 	battext.push_back(StringColor(text, FONT_PURPLE));
-	text.create("%i", player->bat_strike->life_cost_base);
+	text.create("%i", player->bat_strike->life_steal);
 	text.Insert(0, "life sTeal: ");
 	battext.push_back(StringColor(text, FONT_GREEN));
 	text.create("%i-%i", player->bat_strike->base_damage_down, player->bat_strike->base_damage_up);

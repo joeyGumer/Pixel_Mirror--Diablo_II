@@ -215,8 +215,6 @@ void hudInventory::Activate()
 	{
 		hud_gui_elements[i]->active = active;
 	}
-
-
 }
 
 bool hudInventory::AddItem(GuiItem* item)
