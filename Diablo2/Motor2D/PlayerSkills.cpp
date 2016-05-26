@@ -463,11 +463,6 @@ sklBloodArrow::sklBloodArrow() : sklRanged()
 	price = 1500;
 	price_dt = 100;
 
-	base_damage_down = 6;
-	base_damage_up = 10;
-	blood_charge_increase_base = 8;
-	life_cost_base = 3;
-
 	cooldown = 1.5f;
 }
 
@@ -486,7 +481,7 @@ void sklBloodArrow::SkillInit()
 	player->SetDirection(player->particle_destination);
 
 
-	player->TakeDamage(life_cost_base);
+	player->RestoreHP(-life_cost_final);
 
 	cooldown_timer.Start();
 }
@@ -498,9 +493,9 @@ void sklBloodArrow::SkillUpdate(float dt)
 
 	if (player->current_animation->CurrentFrame() >= 7 && !player->particle_is_casted)
 	{
-		float damage = base_damage_down;
-		damage += rand() % (base_damage_up - base_damage_down + 1);
-		damage += int((float(damage) / 100) * player->int_final);
+		float damage = final_damage_down;
+		damage += rand() % (final_damage_up - final_damage_down + 1);
+		damage += float((float(damage) / 100) * player->int_final);
 
 		skill_particle = App->pm->AddParticle(player->particle_skill_1, player->p_position.x, player->p_position.y - 40, 2, player->particle_skill_1.image);
 		player->particle_is_casted = true;
@@ -510,7 +505,7 @@ void sklBloodArrow::SkillUpdate(float dt)
 
 	if (player->current_animation->Finished())
 	{
-		player->ChangeMP(blood_charge_increase_base);
+		player->ChangeMP(blood_charge_increase_final);
 		player->current_input = INPUT_STOP_MOVE;
 		player->input_locked = false;
 		player->particle_is_casted = false;
@@ -529,6 +524,18 @@ void sklBloodArrow::SetSkillAnimations()
 
 		skill_animation_set.push_back(cst);
 	}
+}
+
+void sklBloodArrow::CalculateSkillStats()
+{
+
+	
+	int final_damage_down = base_damage_down + damage_down_dt * level;
+	int final_damage_up = base_damage_up + damage_up_dt * level;
+
+	int life_cost_final = life_cost_base + life_cost_dt * level;
+
+	int blood_charge_increase_final = blood_charge_increase_base + blood_charge_increase_dt * level;
 }
 
 //Vampire Breath

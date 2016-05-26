@@ -185,16 +185,26 @@ public:
 	void SkillInit();
 	void SkillUpdate(float dt);
 	void SetSkillAnimations();
+	void CalculateSkillStats();
 
 public:
 	Particle* skill_particle;
 
 	int base_damage_down;
 	int base_damage_up;
-	int damage_dt;
-	int life_cost_base;
-	//float cooldown_base;
+	int damage_down_dt;
+	int damage_up_dt;
+	int final_damage_down;
+	int final_damage_up;
+
+	int life_cost_base = 4;
+	int life_cost_dt = 1;
+	int life_cost_final;
+
+
 	int blood_charge_increase_base;
+	int blood_charge_increase_dt;
+	int blood_charge_increase_final;
 };
 
 class sklVampireBreath : public sklArea
