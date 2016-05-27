@@ -5,6 +5,7 @@
 #include "j1SceneManager.h"
 #include "j1Game.h"
 #include "snIntro.h"
+#include "j1FileSystem.h"
 
 
 
@@ -46,7 +47,7 @@ bool hudPause::Start()
 //Called before each loop iteration
 bool hudPause::PreUpdate()
 {
-	if (main_menu == true)
+	if (App->fs->SaveFileExists() && main_menu)
 	{
 		ActivateMenu();
 		App->sm->ChangeScene(App->sm->intro);
@@ -99,6 +100,7 @@ void hudPause::OnEvent(GuiElement* element, GUI_Event even)
 		{
 		case EVENT_MOUSE_LEFTCLICK_DOWN:
 			main_menu = true;
+			App->SaveGame("save_state");
 			break;
 		}
 	}

@@ -3,6 +3,7 @@
 #include "j1Render.h"
 #include "j1SceneManager.h"
 #include "j1Input.h"
+#include "j1FileSystem.h"
 #include "snOutdoor1.h"
 #include "snOutdoor2.h"
 #include "snDungeon1.h"
@@ -60,11 +61,15 @@ bool snIntro::Start()
 
 	//New button
 	new_button = App->gui->AddGuiButton({ 181, 280 }, { 0, 0, 270, 35 }, { 0, 0, 270, 35 }, { 0, 36, 270, 35 }, "New Game", NULL, this);
-	intro_gui.push_back(play_button);
+	intro_gui.push_back(new_button);
 
 	//Play button
 	play_button = App->gui->AddGuiButton({ 181, 320 }, { 0, 0, 270, 35 }, { 0, 0, 270, 35 }, { 0, 36, 270, 35 }, "Load Game", NULL, this);
 	intro_gui.push_back(play_button);
+	if (!App->fs->SaveFileExists())
+	{
+		play_button->active = false;
+	}
 
 	//Controls button
 	controls_button = App->gui->AddGuiButton({ 181, 360 }, { 0, 0, 270, 35 }, { 0, 0, 270, 35 }, { 0, 36, 270, 35 }, "CONTROLS", NULL, this);
@@ -187,7 +192,7 @@ void snIntro::OnEvent(GuiElement* element, GUI_Event even)
 		{
 			new_button->button_image.SetTextureRect(play_button->idle_tex);
 			new_button->button_label.Center(true, true);
-			//pass = true;
+			pass = true;
 		}
 		break;
 		}
@@ -220,7 +225,6 @@ void snIntro::OnEvent(GuiElement* element, GUI_Event even)
 		{
 			play_button->button_image.SetTextureRect(play_button->idle_tex);
 			play_button->button_label.Center(true, true);
-			pass = true;
 		}
 			break;
 		}

@@ -169,3 +169,15 @@ unsigned int j1FileSystem::Save(const char* file, const char* buffer, unsigned i
 
 	return ret;
 }
+
+bool j1FileSystem::SetWriteDirectory()
+{
+	return true;
+}
+
+bool j1FileSystem::SaveFileExists()
+{
+	p2SString save_file("%ssave_state", GetSaveDirectory());
+
+	return Exists(save_file.GetString());
+}

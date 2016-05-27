@@ -744,8 +744,10 @@ bool hudSkilltree::CleanUp()
 	}
 		
 	texts.clear();
+	skills.clear();
 
 	hud_gui_elements.clear();
+
 	return true;
 }
 

@@ -31,6 +31,11 @@ public:
 		return "save/";
 	}
 
+	//Sets a Write Directory
+	bool SetWriteDirectory();
+
+	bool SaveFileExists();
+
 	// Open for Read/Write
 	unsigned int Load(const char* file, char** buffer) const;
 	SDL_RWops* Load(const char* file) const;

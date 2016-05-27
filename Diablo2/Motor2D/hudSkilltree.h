@@ -51,37 +51,6 @@ public:
 	int skillpoints;
 
 	bool martialdeletebutton_pressed = false;
-	/*int lionpoints;
-	int clawpoints;
-	int swordspoints;
-	int handpoints;
-	int starpoints;
-	int fireballpoints;
-	int projectilespoints;
-	int manpoints;
-	int cogpoints;
-	int heartjawpoints;
-	int batwingpoints;
-	int wolfpoints;
-	int fangspoints;
-	int bigjawpoints;
-	int bloodmanpoints;
-
-	bool lion_pressed = false;
-	bool claw_pressed = false;
-	bool swords_pressed = false;
-	bool hand_pressed = false;
-	bool star_pressed = false;
-	bool fireball_pressed = false;
-	bool projectiles_pressed = false;
-	bool man_pressed = false;
-	bool cog_pressed = false;
-	bool heartjaw_pressed = false;
-	bool batwing_pressed = false;
-	bool wolf_pressed = false;
-	bool fangs_pressed = false;
-	bool bigjaw_pressed = false;
-	bool bloodman_pressed = false;*/
 
 	GuiImage* martialblood = NULL;
 	GuiImage* bloodspells = NULL;
@@ -92,21 +61,7 @@ public:
 	GuiImage* blooddeletebutton = NULL;
 	GuiImage* nightdeletebutton = NULL;
 	GuiImage* skill_points_img = NULL;
-	/*GuiImage* lion = NULL;
-	GuiImage* claw = NULL;
-	GuiImage* swords = NULL;
-	GuiImage* hand = NULL;
-	GuiImage* star = NULL;
-	GuiImage* fireball = NULL;
-	GuiImage* projectiles = NULL;
-	GuiImage* man = NULL;
-	GuiImage* cog = NULL;
-	GuiImage* heartjaw = NULL;
-	GuiImage* batwing = NULL;
-	GuiImage* wolf = NULL;
-	GuiImage* fangs = NULL;
-	GuiImage* bigjaw = NULL;
-	GuiImage* bloodman = NULL;*/
+
 
 	//Blood spells
 	GuiSkill* blood_arrow = NULL;
@@ -146,8 +101,7 @@ public:
 	GuiLabel* price14;
 	GuiLabel* price15;
 
-	//GuiSkill* vampire_breath = NULL;
-	//GuiSkill*
+
 
 	GuiLabel* skillpoints_label;
 	vector<GuiText*> texts;
