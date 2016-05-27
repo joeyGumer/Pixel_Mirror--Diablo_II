@@ -27,8 +27,6 @@ bool snWin::Start()
 	
 	//back = App->tex->Load("textures/win.jpg");
 	winback = App->gui->AddGuiImage({ -80, -60 }, { 2630, 82, 800, 600 }, NULL, this);
-	win_gui.push_back(winback);
-
 
 	ret.Start();
 	return true;
@@ -59,21 +57,7 @@ bool snWin::PostUpdate()
 	// Called before quitting
 bool snWin::CleanUp()
 {
-	//App->tex->UnLoad(back);
-	for (list<GuiElement*>::iterator item = win_gui.begin(); item != win_gui.end(); item++)
-	{
-		for (list<GuiElement*>::iterator item2 = App->gui->gui_elements.begin(); item2 != App->gui->gui_elements.end(); item2++)
-		{
-			if ((*item2) == (*item))
-			{
-				RELEASE(*item2);
-				App->gui->gui_elements.erase(item2);
-				break;
-			}
-		}
-	}
-
-	win_gui.clear();
+	RELEASE(winback)
 
 	return true;
 }

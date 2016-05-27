@@ -85,7 +85,6 @@ bool hudMiniMap::CleanUp()
 	}
 
 	hud_gui_elements.clear();
-	minimap = NULL;
 	
 
 	return true;

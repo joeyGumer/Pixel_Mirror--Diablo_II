@@ -14,6 +14,7 @@ class snDungeon1;
 class snDungeon2;
 class snDungeon3;
 class snWin;
+class snLose;
 
 class j1SceneManager : public j1Module
 {
@@ -56,6 +57,7 @@ public:
 	snDungeon2* dungeon2 = NULL;
 	snDungeon3* dungeon3 = NULL;
 	snWin*		win = NULL;
+	snLose*     lose = NULL;
 
 	j1Scene* level1 = NULL;
 	j1Scene* level2 = NULL;

@@ -136,6 +136,7 @@
     <ClCompile Include="j1Window.cpp" />
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
     <ClCompile Include="GuiElements.cpp" />
+    <ClCompile Include="snLose.cpp" />
     <ClCompile Include="snOutdoor1.cpp" />
     <ClCompile Include="snOutdoor2.cpp" />
     <ClCompile Include="snWin.cpp" />
@@ -211,6 +212,7 @@
     <ClInclude Include="p2SString.h" />
     <ClInclude Include="PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="PugiXml\src\pugixml.hpp" />
+    <ClInclude Include="snLose.h" />
     <ClInclude Include="snOutdoor1.h" />
     <ClInclude Include="ExtraSTL.h" />
     <ClInclude Include="snOutdoor2.h" />

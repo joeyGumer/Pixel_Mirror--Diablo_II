@@ -35,6 +35,7 @@ public:
 	bool SetWriteDirectory();
 
 	bool SaveFileExists();
+	bool DeleteSaveFile();
 
 	// Open for Read/Write
 	unsigned int Load(const char* file, char** buffer) const;

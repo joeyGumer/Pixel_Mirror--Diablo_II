@@ -1,5 +1,5 @@
-#ifndef _SNWIN_H_
-#define _SNWIN_H_
+#ifndef _SNLOSE_H_
+#define _SNLOSE_H_
 
 #include "j1Scene.h"
 #include "j1Timer.h"
@@ -11,14 +11,14 @@ using namespace std;
 class Entity;
 
 
-class snWin : public j1Scene
+class snLose : public j1Scene
 {
 public:
 	// Constructor
-	snWin();
+	snLose();
 
 	// Destructor
-	~snWin();
+	~snLose();
 
 	// Called before render is available
 	bool Awake(pugi::xml_node& conf);
@@ -56,7 +56,10 @@ public:
 	//SDL_Texture* back = NULL;
 	j1Timer ret;
 
-	GuiImage* winback = NULL;
+	GuiImage* loseback = NULL;
+
+
+
 };
 
-#endif _SNWIN_
+#endif _SNLOSE_H_

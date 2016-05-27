@@ -8,6 +8,7 @@
 #include "snDungeon2.h"
 #include "snDungeon3.h"
 #include "snWin.h"
+#include "snLose.h"
 
 #include "j1Game.h"
 
@@ -21,8 +22,10 @@ j1SceneManager::j1SceneManager() : j1Module()
 	dungeon2 = new snDungeon2();
 	dungeon3 = new snDungeon3();
 	win = new snWin();
+	lose = new snLose();
 
 	AddScene(win);
+	AddScene(lose);
 	AddScene(intro);
 	AddScene(outdoor1);
 	AddScene(outdoor2);
@@ -100,7 +103,7 @@ bool j1SceneManager::ChangeScene(j1Scene* new_scene)
 {
 	current_scene->UnLoad();
 
-	//WARNING: this is purely provisional for the 0.2 version, HAS TO BE CHANGED, the in-game system and all the modules that are activcated there
+	
 	if (current_scene == intro)
 	{
 		//NOTE: may have to be changed in the future
@@ -108,7 +111,7 @@ bool j1SceneManager::ChangeScene(j1Scene* new_scene)
 		App->game->Start();
 	}
 
-	if ((new_scene == intro && current_scene != win) || new_scene == win)
+	if ((new_scene == intro && current_scene != win && current_scene != lose) || new_scene == win || new_scene == lose)
 	{
 		App->game->active = false;
 		App->game->CleanUp();

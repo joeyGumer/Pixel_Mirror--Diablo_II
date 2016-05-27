@@ -92,12 +92,13 @@ bool j1Game::Update(float dt)
 {
 	list<j1Module*>::iterator item = game_modules.begin();
 
-	for (; item != game_modules.end(); item++)
+	for (; item != game_modules.end() && active == true; item++)
 	{
 		if (!pause)
 			(*item)->Update(dt);
-
-		(*item)->Draw();
+		
+		if (active)
+			(*item)->Draw();
 	}
 
 
@@ -127,6 +128,7 @@ bool j1Game::CleanUp()
 		(*item)->CleanUp();
 	}
 
+	active = false;
 	return true;
 }
 

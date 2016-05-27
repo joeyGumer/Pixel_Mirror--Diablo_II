@@ -181,3 +181,17 @@ bool j1FileSystem::SaveFileExists()
 
 	return Exists(save_file.GetString());
 }
+
+bool j1FileSystem::DeleteSaveFile()
+{
+	p2SString save_file("save_state");
+
+	bool ret = (PHYSFS_delete(save_file.GetString()) != 0);
+
+	if (ret == false)
+	{
+		LOG("File system error when trying to delete Save State file: %s \n", PHYSFS_getLastError());
+	}
+
+	return ret;
+}

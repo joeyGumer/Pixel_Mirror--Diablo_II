@@ -29,6 +29,7 @@
 #include "j1Collision.h"
 #include "j1SceneManager.h"
 #include "snIntro.h"
+#include "snLose.h"
 
 
 j1Player::j1Player()
@@ -225,7 +226,7 @@ bool j1Player::Update(float dt)
 	{
 		if (respawn_timer.ReadSec() >= 5)
 		{
-			Respawn();
+			App->sm->ChangeScene(App->sm->lose);
 		}
 	}
 
@@ -334,33 +335,6 @@ bool j1Player::Save(pugi::xml_node& node) const
 
 void j1Player::Respawn()
 {
-	/*
-	//Cosnumable attributes restablished
-	HP_current = HP_max;
-	MP_current = MP_max;
-	ST_current = ST_max;
-
-	PlayerEvent(HP_UP);
-	PlayerEvent(MP_UP);
-	PlayerEvent(ST_UP);
-
-	//Reset state and animation
-	current_action = IDLE;
-	current_direction = D_FRONT;
-	current_input = INPUT_STOP_MOVE;
-	current_animation_set = idle;
-	current_animation = &current_animation_set[current_direction];
-
-
-	//Init position and booleans
-	p_position = { 0, 500 };
-	p_collider->rect.x = GetPivotPosition().x - 20;
-	p_collider->rect.y = GetBlitPosition().y + 20;
-	movement = false;
-	attacking = false;
-	enemy = NULL;
-	*/
-
 	App->sm->ChangeScene(App->sm->intro);
 }
 
