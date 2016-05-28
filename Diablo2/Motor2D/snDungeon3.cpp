@@ -69,7 +69,10 @@ bool snDungeon3::Start()
 	}
 
 	//Spawns
-	SpawnPlayer();
+	if (App->new_game)
+	{
+		SpawnPlayer();
+	}
 
 	return true;
 }

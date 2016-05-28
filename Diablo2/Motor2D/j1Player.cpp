@@ -301,14 +301,25 @@ bool j1Player::Load(pugi::xml_node& node)
 	p_position.x = node.child("position").attribute("x").as_float();
 	p_position.y = node.child("position").attribute("y").as_float();
 
+	HP_current = node.attribute("current_HP").as_float();
+	MP_current = node.attribute("current_MP").as_float();
+	ST_current = node.attribute("current_ST").as_float();
+	blood_current = node.attribute("current_blood").as_int();
+
+	PlayerEvent(HP_UP);
+	PlayerEvent(MP_UP);
+	PlayerEvent(ST_UP);
+	PlayerEvent(BLOOD_UP);
+
 	pugi::xml_node skl = node.child("skills").child("skill");
 
 	for (int i = 0; i < skills.size(); i++, skl = skl.next_sibling("skill"))
 	{
 		Skill* skill = skills[i];
 
-		skill->unlocked = skl.append_attribute("unlocked").as_bool();
-		skill->level = skl.append_attribute("level").as_int();
+		skill->unlocked = skl.attribute("unlocked").as_bool();
+		skill->level = skl.attribute("level").as_int();
+		bool ret = true;
 	}
 
 	return true;
@@ -318,6 +329,12 @@ bool j1Player::Save(pugi::xml_node& node) const
 {
 	pugi::xml_node pos = node.append_child("position");
 	pugi::xml_node skls = node.append_child("skills");
+	
+	node.append_attribute("current_HP") = HP_current;
+	node.append_attribute("current_MP") = MP_current;
+	node.append_attribute("current_ST") = ST_current;
+	node.append_attribute("current_blood") = blood_current;
+
 
 	pos.append_attribute("x") = p_position.x;
 	pos.append_attribute("y") = p_position.y;

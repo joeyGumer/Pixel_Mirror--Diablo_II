@@ -73,7 +73,10 @@ bool snOutdoor2::Start()
 	}
 
 	//Spawns
-	SpawnPlayer();
+	if (App->new_game)
+	{
+		SpawnPlayer();
+	}
 
 	return true;
 }
