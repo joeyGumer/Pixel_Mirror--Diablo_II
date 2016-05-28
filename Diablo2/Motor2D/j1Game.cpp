@@ -45,6 +45,8 @@ bool j1Game::Awake(pugi::xml_node& conf)
 // Called before the first frame
 bool j1Game::Start()
 {
+	//level = 0;
+
 	list<j1Module*>::iterator item = game_modules.begin();
 
 	for (; item != game_modules.end(); item++)

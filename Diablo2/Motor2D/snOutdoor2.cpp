@@ -23,7 +23,7 @@
 #include "Item.h"
 
 // Constructor
-snOutdoor2::snOutdoor2()
+snOutdoor2::snOutdoor2() :j1Scene(OUTDOOR_2)
 {
 
 }

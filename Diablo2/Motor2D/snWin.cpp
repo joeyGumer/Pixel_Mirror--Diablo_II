@@ -8,7 +8,7 @@
 
 
 	// Constructor
-snWin::snWin()
+snWin::snWin() :j1Scene(WIN)
 {}
 
 	// Destructor

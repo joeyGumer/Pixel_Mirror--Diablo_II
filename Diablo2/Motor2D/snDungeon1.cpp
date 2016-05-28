@@ -19,7 +19,7 @@
 
 
 // Constructor
-snDungeon1::snDungeon1()
+snDungeon1::snDungeon1() :j1Scene(DUNGEON_1)
 {
 
 }

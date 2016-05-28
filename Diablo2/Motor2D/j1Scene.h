@@ -12,12 +12,28 @@ class GuiImage;
 class GuiInputBox;
 class GuiSlider;
 
+
+enum SCENE_TYPE
+{
+	OUTDOOR_1,
+	OUTDOOR_2,
+	DUNGEON_1,
+	DUNGEON_2,
+	DUNGEON_3,
+	INTRO,
+	WIN,
+	LOSE
+};
+
 class j1Scene : public j1Module
 {
 public:
 
 	// Constructor
-	j1Scene(){}
+	j1Scene(SCENE_TYPE tp)
+	{
+		type = tp;
+	}
 
 	// Destructor
 	virtual ~j1Scene(){}
@@ -71,6 +87,9 @@ public:
 	{
 		return true;
 	}
+
+
+	SCENE_TYPE type;
 
 private:
 };

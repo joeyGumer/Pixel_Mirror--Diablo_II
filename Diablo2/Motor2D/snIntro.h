@@ -50,6 +50,7 @@ private:
 	
 	bool pass;
 	bool exit;
+	bool load;
 
 	//Ui elements
 	GuiButton* play_button = NULL;

@@ -24,7 +24,7 @@
 using namespace std;
 
 // Constructor
-snOutdoor1::snOutdoor1() : j1Scene()
+snOutdoor1::snOutdoor1() : j1Scene(OUTDOOR_1)
 {
 	name.create("outdoor1");
 }

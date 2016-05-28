@@ -80,12 +80,9 @@ bool j1SceneManager::CleanUp()
 	current_scene->CleanUp();
 
 
-	list<j1Scene*>::reverse_iterator item = scenes.rbegin();
-
-	while (item != scenes.rend())
+	for (int i = 0; i < scenes.size(); i++)
 	{
-		RELEASE(*item);
-		++item;
+		RELEASE(scenes[i]);
 	}
 
 	scenes.clear();
@@ -128,6 +125,41 @@ j1Scene* j1SceneManager::GetCurrentScene()
 {
 	return current_scene;
 }
+
+j1Scene* j1SceneManager::GetCurrentLevel()
+{
+
+
+	if (level2)
+	{
+		return level2;
+	}
+	else if (level1)
+	{
+		return level1;
+	}
+	else
+		return NULL;
+}
+
+j1Scene* j1SceneManager::GetSceneByType(SCENE_TYPE tp)
+{
+	j1Scene* ret = NULL;
+
+
+	for (int i = 0; i < scenes.size() ; i++)
+	{
+		if (scenes[i]->type == tp)
+		{
+			ret = scenes[i];
+			break;
+		}
+	}
+
+	return ret;
+}
+
+
 
 void j1SceneManager::RandomLevel()
 {
@@ -194,4 +226,48 @@ void j1SceneManager::RandomLevel()
 		//level2 = dungeon3;
 		//ChangeScene(outdoor2);
 	}
+}
+
+bool j1SceneManager::Load(pugi::xml_node& node)
+{
+	pugi::xml_node levels = node.child("levels");
+
+	pugi::xml_node lvl = levels.child("level");
+
+	for (; lvl; lvl = lvl.next_sibling("level"))
+	{
+		if (!level1)
+		{
+			SCENE_TYPE tp = (SCENE_TYPE)lvl.attribute("type").as_int();
+			level1 = GetSceneByType(tp);
+		}
+		else if (!level2)
+		{
+			SCENE_TYPE tp = (SCENE_TYPE)lvl.attribute("type").as_int();
+			level2 = GetSceneByType(tp);
+		}
+	}
+
+	return true;
+}
+
+bool j1SceneManager::Save(pugi::xml_node& node) const
+{
+	pugi::xml_node levels = node.append_child("levels");
+
+	if (level1)
+	{
+		pugi::xml_node lvl1 = node.append_child("level");
+
+		lvl1.append_attribute("type") = level1->type;
+	}
+	
+	if (level2)
+	{
+		pugi::xml_node lvl2 = node.append_child("level");
+
+		lvl2.append_attribute("type") = level2->type;
+	}
+
+	return true;
 }

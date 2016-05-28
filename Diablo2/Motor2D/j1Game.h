@@ -61,6 +61,8 @@ public:
 	int base_rare_drop = 10;
 	int base_legendary_drop = 5;
 
+	int level;
+
 	bool        pause = false;
 
 private:

@@ -15,7 +15,7 @@
 
 
 
-snIntro::snIntro() :j1Scene()
+snIntro::snIntro() :j1Scene(INTRO)
 {}
 
 
@@ -35,8 +35,13 @@ bool snIntro::Start()
 	//Music
 	//NOTE : deactivated for debugging mode
 	//App->audio->PlayMusic("audio/music/introedit.ogg", 0);
+	App->sm->level1 = NULL;
+	App->sm->level2 = NULL;
+
+	App->new_game = false;
 
 	pass = false;
+	load = false;
 	exit = false;
 
 	//Gui Elements
@@ -115,9 +120,27 @@ bool snIntro::Update(float dt)
 	*/
 	if (pass == true)
 	{
+		if (App->fs->SaveFileExists())
+		{
+			App->fs->DeleteSaveFile();
+		}
+
+		App->new_game = true;
+
 		App->sm->RandomLevel();
 		if (App->sm->level1)
+		{
 			App->sm->ChangeScene(App->sm->level1);
+		}
+	}
+
+	else if (load == true)
+	{
+		j1Scene* current_level = App->sm->GetCurrentLevel();
+		if (current_level)
+		{
+			App->sm->ChangeScene(current_level);
+		}
 	}
 
 	else if (exit == true)
@@ -225,6 +248,7 @@ void snIntro::OnEvent(GuiElement* element, GUI_Event even)
 		{
 			play_button->button_image.SetTextureRect(play_button->idle_tex);
 			play_button->button_label.Center(true, true);
+			load = true;
 		}
 			break;
 		}

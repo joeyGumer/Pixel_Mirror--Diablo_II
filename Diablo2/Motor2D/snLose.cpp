@@ -9,7 +9,7 @@
 
 
 // Constructor
-snLose::snLose()
+snLose::snLose() :j1Scene(LOSE)
 {}
 
 // Destructor

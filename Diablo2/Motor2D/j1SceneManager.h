@@ -3,6 +3,7 @@
 
 #include "j1Module.h"
 #include <list>
+#include <vector>
 
 using namespace std;
 
@@ -15,6 +16,7 @@ class snDungeon2;
 class snDungeon3;
 class snWin;
 class snLose;
+enum SCENE_TYPE;
 
 class j1SceneManager : public j1Module
 {
@@ -42,11 +44,20 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	//Load/Save
+	bool Load(pugi::xml_node&);
+	bool Save(pugi::xml_node&) const;
+
 	// Methods
 	void AddScene(j1Scene* scene);
 	bool ChangeScene(j1Scene* new_scene);
 
 	j1Scene* GetCurrentScene();
+
+	j1Scene* GetSceneByType(SCENE_TYPE tp);
+
+	j1Scene* GetCurrentLevel();
+
 	void RandomLevel();
 
 public:
@@ -63,8 +74,10 @@ public:
 	j1Scene* level2 = NULL;
 	j1Scene* level3 = NULL;
 
+	
+
 private:
-	list<j1Scene*>	scenes;
+	vector<j1Scene*>	scenes;
 	j1Scene*		current_scene = NULL;
 };
 

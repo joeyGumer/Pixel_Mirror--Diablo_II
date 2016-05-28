@@ -1646,6 +1646,11 @@ void j1Player::CalculateFinalStats()
 
 	MP_max += extra_blood_charge;
 
+	if (lust->unlocked)
+	{
+		HP_max += lust->increased_HP;
+	}
+
 	if (HP_current > HP_max)
 		HP_current = HP_max;
 
@@ -1661,12 +1666,6 @@ void j1Player::CalculateFinalStats()
 		armor_final = 0;
 
 	//Passive skills intervention
-
-	if (lust->unlocked)
-	{
-		HP_max += lust->increased_HP;
-	}
-
 	if (undead->unlocked  && undead->active)
 	{
 		extra_damage += undead->extra_damage;

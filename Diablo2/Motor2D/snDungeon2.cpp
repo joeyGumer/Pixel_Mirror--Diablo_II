@@ -22,7 +22,7 @@
 
 
 // Constructor
-snDungeon2::snDungeon2()
+snDungeon2::snDungeon2() :j1Scene(DUNGEON_2)
 {
 
 }
