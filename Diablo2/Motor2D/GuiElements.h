@@ -172,7 +172,7 @@ public:
 class GuiButton : public GuiElement
 {
 public:
-	GuiButton(iPoint p, SDL_Rect idle_r1, SDL_Rect hover_r1, SDL_Rect click_r1, p2SString t, _TTF_Font* f, j1Module* list = NULL, GuiElement* parent = NULL);
+	GuiButton(iPoint p, SDL_Rect idle_r1, SDL_Rect hover_r1, SDL_Rect click_r1, p2SString t, _TTF_Font* f, SDL_Color color = FONT_BLACK, j1Module* list = NULL, GuiElement* parent = NULL);
 	~GuiButton(){}
 
 	void Draw();

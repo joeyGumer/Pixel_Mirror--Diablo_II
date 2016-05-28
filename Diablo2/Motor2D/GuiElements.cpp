@@ -74,14 +74,13 @@ GuiInputBox::GuiInputBox(p2SString t, _TTF_Font* f, iPoint p, int width, SDL_Rec
 	cursor.x = 0;
 }
 
-GuiButton::GuiButton(iPoint p, SDL_Rect idle_r1, SDL_Rect hover_r1, SDL_Rect click_r1, p2SString t, _TTF_Font* f, j1Module* list, GuiElement* parent)
+GuiButton::GuiButton(iPoint p, SDL_Rect idle_r1, SDL_Rect hover_r1, SDL_Rect click_r1, p2SString t, _TTF_Font* f, SDL_Color color, j1Module* list, GuiElement* parent)
 	: GuiElement(p, idle_r1, GUI_BUTTON, parent, list),
 	  button_image(p, idle_r1, this, NULL),
-	  button_label(t, f, p,FONT_BLACK, this, NULL)
+	  button_label(t, f, p, color, this, NULL)
 {
 	button_image.Center(true, true);
 	button_label.Center(true, true);
-
 	interactable = true;
 
 	idle_tex = idle_r1;

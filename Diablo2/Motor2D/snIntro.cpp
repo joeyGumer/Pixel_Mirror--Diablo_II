@@ -12,7 +12,7 @@
 #include "j1Gui.h"
 #include "j1Textures.h"
 #include "j1Audio.h"
-
+#include "j1Fonts.h"
 
 
 snIntro::snIntro() :j1Scene(INTRO)
@@ -84,8 +84,98 @@ bool snIntro::Start()
 
 	//-----------
 	
+	//Controls Window
 
+	controls_window = App->gui->AddGuiImage({ 150, 20 }, { 941, 82, 320, 350 }, NULL, this);
+	intro_gui.push_back(controls_window);
 	
+	//PrimarySkill Label
+	primary_skill_image = App->gui->AddGuiImage({ 140, 45 }, { 3450, 960, 160, 10 }, controls_window, this);
+	primary_skill = App->gui->AddGuiLabel("LEFT CLICK", App->font->stats, { 0, 0 }, primary_skill_image, FONT_WHITE, this);
+	primary_skill->Center(true, true);
+	intro_gui.push_back(primary_skill);
+	intro_gui.push_back(primary_skill_image);
+
+	//SecondarySkill Label
+	secondary_skill_image = App->gui->AddGuiImage({140, 68 }, { 3450, 960, 160, 10 }, controls_window, this);
+	secondary_skill = App->gui->AddGuiLabel("RIGHT CLICK", App->font->stats, { 0, 0 }, secondary_skill_image, FONT_WHITE, this);
+	secondary_skill->Center(true, true);
+	intro_gui.push_back(secondary_skill);
+	intro_gui.push_back(secondary_skill_image);
+
+	//Potion 1 Label
+	potion_image = App->gui->AddGuiImage({140, 91 }, { 3450, 960, 160, 10 }, controls_window, this);
+	potion = App->gui->AddGuiLabel("1", App->font->stats, { 0, 0 }, potion_image, FONT_WHITE, this);
+	potion->Center(true, true);
+	intro_gui.push_back(potion);
+	intro_gui.push_back(potion_image);
+
+	//Potion 2 Label
+	potion_two_image = App->gui->AddGuiImage({140, 113 }, { 3450, 960, 160, 10 }, controls_window, this);
+	potion_two = App->gui->AddGuiLabel("2", App->font->stats, { 0, 0 }, potion_two_image, FONT_WHITE, this);
+	potion_two->Center(true, true);
+	intro_gui.push_back(potion_two);
+	intro_gui.push_back(potion_two_image);
+
+	//Potion 3 Label
+	potion_three_image = App->gui->AddGuiImage({140, 136 }, { 3450, 960, 160, 10 }, controls_window, this);
+	potion_three = App->gui->AddGuiLabel("3", App->font->stats, { 0, 0 }, potion_three_image, FONT_WHITE, this);
+	potion_three->Center(true, true);
+	intro_gui.push_back(potion_three);
+	intro_gui.push_back(potion_three_image);
+
+	//Potion 4 Label
+	potion_four_image = App->gui->AddGuiImage({140, 159 }, { 3450, 960, 160, 10 }, controls_window, this);
+	potion_four = App->gui->AddGuiLabel("4", App->font->stats, { 0, 0 }, potion_four_image, FONT_WHITE, this);
+	potion_four->Center(true, true);
+	intro_gui.push_back(potion_four);
+	intro_gui.push_back(potion_four_image);
+
+	//Inventory Label
+	inventory_image = App->gui->AddGuiImage({140, 183 }, { 3450, 960, 160, 10 }, controls_window, this);
+	inventory = App->gui->AddGuiLabel("I", App->font->stats, { 0, 0 }, inventory_image, FONT_WHITE, this);
+	inventory->Center(true, true);
+	intro_gui.push_back(inventory);
+	intro_gui.push_back(inventory_image);
+
+	//Stats Label
+	stats_image = App->gui->AddGuiImage({140, 205 }, { 3450, 960, 160, 10 }, controls_window, this);
+	stats = App->gui->AddGuiLabel("C", App->font->stats, { 0, 0 }, stats_image, FONT_WHITE, this);
+	stats->Center(true, true);
+	intro_gui.push_back(stats);
+	intro_gui.push_back(stats_image);
+
+	//Map Label
+	map_image = App->gui->AddGuiImage({140, 225 }, { 3450, 960, 160, 10 }, controls_window, this);
+	map = App->gui->AddGuiLabel("TAB", App->font->stats, { 0, 0 }, map_image, FONT_WHITE, this);
+	map->Center(true, true);
+	intro_gui.push_back(map);
+	intro_gui.push_back(map_image);
+
+	//Skill Tree Label
+	skill_tree_image = App->gui->AddGuiImage({140, 247 }, { 3450, 960, 160, 10 }, controls_window, this);
+	skill_tree = App->gui->AddGuiLabel("S", App->font->stats, { 0, 0 }, skill_tree_image, FONT_WHITE, this);
+	skill_tree->Center(true, true);
+	intro_gui.push_back(skill_tree);
+	intro_gui.push_back(skill_tree_image);
+	
+	//Game Menu Label
+	game_menu_image = App->gui->AddGuiImage({140, 268 }, { 3450, 960, 160, 10 }, controls_window, this);
+	game_menu = App->gui->AddGuiLabel("ESC", App->font->stats, { 0, 0 }, game_menu_image, FONT_WHITE, this);
+	game_menu->Center(true, true);
+	intro_gui.push_back(game_menu);
+	intro_gui.push_back(game_menu_image);
+
+	//Run Label
+	run_image = App->gui->AddGuiImage({140, 287 }, { 3450, 960, 160, 10 }, controls_window, this);
+	run = App->gui->AddGuiLabel("R", App->font->stats, { 0, 0 }, run_image, FONT_WHITE, this);
+	run->Center(true, true);
+	intro_gui.push_back(run);
+	intro_gui.push_back(run_image);
+
+	close_controls = App->gui->AddGuiButton({ 200, 315 }, { 3450, 960, 100, 35 }, { 3450, 960, 100, 35 }, { 3450, 960, 100, 35 }, "Close", App->font->stats,  this,controls_window,FONT_GREEN);
+	controls_window->Desactivate();
+
 
 	return true;
 }
@@ -257,6 +347,11 @@ void snIntro::OnEvent(GuiElement* element, GUI_Event even)
 		{
 			controls_button->button_image.SetTextureRect(controls_button->click_tex);
 			controls_button->button_label.SetLocalPosition({ 75, 8 });
+			
+			if(controls_window->active)
+				controls_window->Desactivate();
+			else
+				controls_window->Activate();
 		}
 			break;
 
@@ -271,8 +366,19 @@ void snIntro::OnEvent(GuiElement* element, GUI_Event even)
 		{
 			controls_button->button_image.SetTextureRect(controls_button->idle_tex);
 			controls_button->button_label.Center(true, true);
+			
 		}
 			break;
+		}
+	}
+	//Exit button
+	if (close_controls == element)
+	{
+		if (EVENT_MOUSE_LEFTCLICK_DOWN == even )
+		{
+
+			controls_window->Desactivate();
+
 		}
 	}
 	//Exit button

@@ -315,9 +315,9 @@ GuiInputBox* j1Gui::AddGuiInputBox(p2SString t, _TTF_Font* f, iPoint p, int widt
 	return input;
 }
 
-GuiButton* j1Gui::AddGuiButton(iPoint p, SDL_Rect idle_r1, SDL_Rect hover_r1, SDL_Rect click_r1, p2SString t, _TTF_Font* f , j1Module* list, GuiElement* parent)
+GuiButton* j1Gui::AddGuiButton(iPoint p, SDL_Rect idle_r1, SDL_Rect hover_r1, SDL_Rect click_r1, p2SString t, _TTF_Font* f, j1Module* list, GuiElement* parent, SDL_Color color)
 {
-	GuiButton* button = new GuiButton(p, idle_r1, hover_r1, click_r1, t, f, list, parent);
+	GuiButton* button = new GuiButton(p, idle_r1, hover_r1, click_r1, t, f,color, list, parent);
 	gui_elements.push_back(button);
 	if (button->parent != NULL)button->parent->AddChild(button);
 	return button;
