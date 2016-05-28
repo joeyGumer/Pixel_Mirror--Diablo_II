@@ -58,7 +58,7 @@ public:
 
 	GuiImage* loseback = NULL;
 
-
+	list<GuiElement*> lose_gui;
 
 };
 

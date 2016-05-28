@@ -32,7 +32,7 @@ bool snLose::Start()
 
 	//back = App->tex->Load("textures/win.jpg");
 	loseback = App->gui->AddGuiImage({ -80, -60 }, { 2630, 82, 800, 600 }, NULL, this);
-
+	lose_gui.push_back(loseback);
 	ret.Start();
 	return true;
 }
@@ -62,8 +62,24 @@ bool snLose::PostUpdate()
 // Called before quitting
 bool snLose::CleanUp()
 {
+	//App->tex->UnLoad(back);
+	for (list<GuiElement*>::iterator item = lose_gui.begin(); item != lose_gui.end(); item++)
+	{
+		for (list<GuiElement*>::iterator item2 = App->gui->gui_elements.begin(); item2 != App->gui->gui_elements.end(); item2++)
+		{
+			if ((*item2) == (*item))
+			{
+				RELEASE(*item2);
+				App->gui->gui_elements.erase(item2);
+				break;
+			}
+		}
+	}
 
-	RELEASE(loseback);
+	lose_gui.clear();
+
+
+	//RELEASE(loseback);
 
 	return true;
 }

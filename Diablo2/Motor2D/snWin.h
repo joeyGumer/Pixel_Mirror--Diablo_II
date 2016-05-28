@@ -57,6 +57,8 @@ public:
 	j1Timer ret;
 
 	GuiImage* winback = NULL;
+
+	list<GuiElement*> win_gui;
 };
 
 #endif _SNWIN_
