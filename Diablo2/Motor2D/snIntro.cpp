@@ -35,8 +35,6 @@ bool snIntro::Start()
 	//Music
 	//NOTE : deactivated for debugging mode
 	//App->audio->PlayMusic("audio/music/introedit.ogg", 0);
-	App->sm->level1 = NULL;
-	App->sm->level2 = NULL;
 
 	App->new_game = false;
 
@@ -136,11 +134,8 @@ bool snIntro::Update(float dt)
 
 	else if (load == true)
 	{
-		j1Scene* current_level = App->sm->GetCurrentLevel();
-		if (current_level)
-		{
-			App->sm->ChangeScene(current_level);
-		}
+
+		App->sm->LoadGame();
 	}
 
 	else if (exit == true)

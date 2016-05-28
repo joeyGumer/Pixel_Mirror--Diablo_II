@@ -3,6 +3,7 @@
 #include "j1Player.h"
 #include "j1HUD.h"
 #include "j1EntityManager.h"
+#include "j1SceneManager.h"
 #include "Item.h"
 #include "j1Input.h"
 
@@ -45,7 +46,7 @@ bool j1Game::Awake(pugi::xml_node& conf)
 // Called before the first frame
 bool j1Game::Start()
 {
-	//level = 0;
+	App->sm->level = 0;
 
 	list<j1Module*>::iterator item = game_modules.begin();
 

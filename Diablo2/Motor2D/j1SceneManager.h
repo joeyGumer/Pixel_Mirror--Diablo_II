@@ -48,6 +48,9 @@ public:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 
+	//Load Game
+	bool LoadGame();
+
 	// Methods
 	void AddScene(j1Scene* scene);
 	bool ChangeScene(j1Scene* new_scene);
@@ -74,7 +77,10 @@ public:
 	j1Scene* level2 = NULL;
 	j1Scene* level3 = NULL;
 
-	
+	bool	load_game = false;
+	bool	loading_game = false;
+
+	int level = 0;
 
 private:
 	vector<j1Scene*>	scenes;

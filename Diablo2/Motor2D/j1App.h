@@ -109,6 +109,7 @@ public:
 	//NOTE: Now the debug mode is global form the app, ask Ric
 	bool                debug = false;
 	bool				new_game = false;
+	
 
 private:
 

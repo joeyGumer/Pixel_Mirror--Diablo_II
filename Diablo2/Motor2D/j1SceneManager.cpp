@@ -15,6 +15,9 @@
 
 j1SceneManager::j1SceneManager() : j1Module()
 {
+	//name.create("scene manager");
+	name.create("sm");
+
 	intro = new snIntro();
 	outdoor1 = new snOutdoor1();
 	outdoor2 = new snOutdoor2();
@@ -49,6 +52,8 @@ bool j1SceneManager::Awake(pugi::xml_node& conf)
 // Called before the first frame
 bool j1SceneManager::Start()
 {
+
+
 	current_scene->Start();
 	return true;
 }
@@ -56,6 +61,18 @@ bool j1SceneManager::Start()
 //PreUpdate
 bool j1SceneManager::PreUpdate()
 {
+	if (loading_game)
+	{
+		j1Scene* loaded_scene = GetCurrentLevel();
+
+		if (loaded_scene)
+		{
+			ChangeScene(loaded_scene);
+		}
+
+		loading_game = false;
+	}
+
 	current_scene->PreUpdate();
 	return true;
 }
@@ -104,8 +121,12 @@ bool j1SceneManager::ChangeScene(j1Scene* new_scene)
 	if (current_scene == intro)
 	{
 		//NOTE: may have to be changed in the future
-		App->game->Init();
-		App->game->Start();
+		if (!loading_game)
+		{
+			App->game->Init();
+			App->game->Start();
+		}
+
 	}
 
 	if ((new_scene == intro && current_scene != win && current_scene != lose) || new_scene == win || new_scene == lose)
@@ -113,10 +134,26 @@ bool j1SceneManager::ChangeScene(j1Scene* new_scene)
 		App->game->active = false;
 		App->game->CleanUp();
 	}
+	else
+	{
+		if (!loading_game)
+		{
+			level++;
+		}
+	}
+
 	//
+
 	current_scene = new_scene;
 
-	current_scene->Load();
+
+	if (current_scene)
+	{
+		current_scene->Load();
+	}
+	
+
+	
 
 	return true;
 }
@@ -130,11 +167,11 @@ j1Scene* j1SceneManager::GetCurrentLevel()
 {
 
 
-	if (level2)
+	if (level == 2)
 	{
 		return level2;
 	}
-	else if (level1)
+	else if (level == 1)
 	{
 		return level1;
 	}
@@ -232,21 +269,29 @@ bool j1SceneManager::Load(pugi::xml_node& node)
 {
 	pugi::xml_node levels = node.child("levels");
 
-	pugi::xml_node lvl = levels.child("level");
+	pugi::xml_node lvl = levels.child("level_scene");
 
-	for (; lvl; lvl = lvl.next_sibling("level"))
+	
+
+	for (int i = 0; lvl; lvl = lvl.next_sibling("level_scene"), i++)
 	{
-		if (!level1)
+	
+		if (i == 0)
 		{
 			SCENE_TYPE tp = (SCENE_TYPE)lvl.attribute("type").as_int();
 			level1 = GetSceneByType(tp);
 		}
-		else if (!level2)
+	
+		else if (i == 1)
 		{
 			SCENE_TYPE tp = (SCENE_TYPE)lvl.attribute("type").as_int();
 			level2 = GetSceneByType(tp);
 		}
 	}
+
+	level = levels.child("level").attribute("value").as_int();
+
+	loading_game = true;
 
 	return true;
 }
@@ -255,19 +300,34 @@ bool j1SceneManager::Save(pugi::xml_node& node) const
 {
 	pugi::xml_node levels = node.append_child("levels");
 
+
+
 	if (level1)
 	{
-		pugi::xml_node lvl1 = node.append_child("level");
+		pugi::xml_node lvl1 = levels.append_child("level_scene");
 
 		lvl1.append_attribute("type") = level1->type;
 	}
 	
 	if (level2)
 	{
-		pugi::xml_node lvl2 = node.append_child("level");
+		pugi::xml_node lvl2 = levels.append_child("level_scene");
 
 		lvl2.append_attribute("type") = level2->type;
 	}
+
+	levels.append_child("level").append_attribute("value") = level;
+
+	return true;
+}
+
+
+bool j1SceneManager::LoadGame()
+{
+	App->game->Init();
+	App->game->Start();
+
+	App->LoadGame("save_state");
 
 	return true;
 }
