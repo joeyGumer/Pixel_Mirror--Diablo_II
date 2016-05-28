@@ -173,7 +173,7 @@ bool snIntro::Start()
 	intro_gui.push_back(run);
 	intro_gui.push_back(run_image);
 
-	close_controls = App->gui->AddGuiButton({ 200, 315 }, { 3450, 960, 100, 35 }, { 3450, 960, 100, 35 }, { 3450, 960, 100, 35 }, "Close", App->font->stats,  this,controls_window,FONT_GREEN);
+	close_controls = App->gui->AddGuiButton({ 200, 315 }, { 3450, 960, 100, 35 }, { 3450, 960, 100, 35 }, { 3450, 960, 100, 35 }, "Close", App->font->stats,  this,controls_window,FONT_YELLOW2);
 	controls_window->Desactivate();
 
 
