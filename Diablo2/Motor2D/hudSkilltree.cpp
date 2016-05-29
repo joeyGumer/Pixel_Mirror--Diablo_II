@@ -646,7 +646,7 @@ bool hudSkilltree::PostUpdate()
 	}
 	else
 	{
-		text.create("Pure blood cosT: %i", player->stinging_strike->price + (player->stinging_strike->price_dt * (player->stinging_strike->level + 1)));
+		text.create("Pure blood cosT: %i", player->stinging_strike->final_price);
 		stinging_strike->text->SetText(2, text);
 	}
 
@@ -663,13 +663,13 @@ bool hudSkilltree::PostUpdate()
 	}
 	else
 	{
-		text.create("life cosT: %i", player->stinging_strike->life_cost_base + (player->stinging_strike->life_cost_dt * player->stinging_strike->level));
+		text.create("life cosT: %i", player->stinging_strike->final_life_cost);
 		stinging_strike->text->SetText(4, text);
 
-		text.create("blood charges addiTion: %i", player->stinging_strike->blood_charge_increase_base + (player->stinging_strike->blood_dt * player->stinging_strike->level));
+		text.create("blood charges addiTion: %i", player->stinging_strike->final_blood_charge_increase);
 		stinging_strike->text->SetText(3, text);
 
-		text.create("damage: %i-%i", player->stinging_strike->base_damage_down + (player->stinging_strike->damage_down_dt * player->stinging_strike->level), player->stinging_strike->base_damage_up + (player->stinging_strike->damage_up_dt * player->stinging_strike->level));
+		text.create("damage: %i-%i", player->stinging_strike->final_damage_down, player->stinging_strike->final_damage_up);
 		stinging_strike->text->SetText(5, text);
 	}
 	//----------------------------------------------------------
@@ -695,10 +695,10 @@ bool hudSkilltree::PostUpdate()
 	}
 	else
 	{
-		text.create("life cosT: %i", player->wild_talon->life_cost_base + (player->wild_talon->life_cost_dt * player->wild_talon->level));
+		text.create("life cosT: %i", player->wild_talon->life_cost_final);
 		wild_talon->text->SetText(4, text);
 
-		text.create("damage: %i-%i", player->stinging_strike->base_damage_down + (player->wild_talon->damage_down_dt * player->wild_talon->level), player->wild_talon->base_damage_up + (player->wild_talon->damage_up_dt * player->wild_talon->level));
+		text.create("damage: %i-%i", player->stinging_strike->final_damage_down, player->wild_talon->final_damage_up);
 		wild_talon->text->SetText(5, text);
 	}
 	//-----------------------------------------------------------
