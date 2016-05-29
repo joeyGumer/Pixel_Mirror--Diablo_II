@@ -1178,12 +1178,6 @@ void sklNightWard::SkillUpdate(float dt)
 		}
 	}
 
-	if (active && buff_particle != NULL)
-	{
-		buff_particle->DestroyParticle();
-		buff_particle = NULL;
-	}
-
 	else
 	{
 		if (cooldown_timer.ReadSec() >= cooldown)
@@ -1192,6 +1186,13 @@ void sklNightWard::SkillUpdate(float dt)
 			SkillInit();
 		}
 	}
+
+	if (active && buff_particle != NULL)
+	{
+		buff_particle->DestroyParticle();
+		buff_particle = NULL;
+	}
+
 }
 
 void sklNightWard::CalculateSkillStats()
