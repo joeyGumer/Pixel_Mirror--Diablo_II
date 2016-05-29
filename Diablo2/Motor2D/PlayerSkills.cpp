@@ -1165,7 +1165,7 @@ void sklNightWard::SkillEffect()
 void sklNightWard::SkillInit()
 {
 	effect_timer.Start();
-	buff_particle = App->pm->AddParticle(player->yellow_buff_1, player->p_position.x, player->p_position.y + 2, 60, player->yellow_buff_1.image);
+	//buff_particle = App->pm->AddParticle(player->yellow_buff_1, player->p_position.x, player->p_position.y + 2, 60, player->yellow_buff_1.image);
 }
 
 void sklNightWard::SkillUpdate(float dt)
