@@ -235,6 +235,8 @@ void sklWildTalon::CalculateSkillStats()
 	final_damage_up = base_damage_up + damage_up_dt * level;
 
 	life_cost_final = life_cost_base + life_cost_dt * level;
+
+	final_blood_charge_increase = blood_charge_increase_base + blood_dt * level;
 }
 
 //Bat Strike
@@ -527,15 +529,13 @@ void sklBloodArrow::SetSkillAnimations()
 }
 
 void sklBloodArrow::CalculateSkillStats()
-{
+{	
+	final_damage_down = base_damage_down + damage_down_dt * level;
+	final_damage_up = base_damage_up + damage_up_dt * level;
 
-	
-	int final_damage_down = base_damage_down + damage_down_dt * level;
-	int final_damage_up = base_damage_up + damage_up_dt * level;
+	life_cost_final = life_cost_base + life_cost_dt * level;
 
-	int life_cost_final = life_cost_base + life_cost_dt * level;
-
-	int blood_charge_increase_final = blood_charge_increase_base + blood_charge_increase_dt * level;
+	blood_charge_increase_final = blood_charge_increase_base + blood_charge_increase_dt * level;
 }
 
 //Vampire Breath
@@ -544,13 +544,6 @@ sklVampireBreath::sklVampireBreath()
 	skill_tex = App->tex->Load("textures/vamp_cast.png");
 	price = 1500;
 	price_dt = 100;
-
-	range = 150;
-	base_damage_down = 12;
-	base_damage_up = 25;
-	blood_charge_cost_base = 20;
-	radius = 50;
-
 
 	cooldown = 9;
 }
@@ -565,8 +558,8 @@ void sklVampireBreath::SkillEffect(float dt)
 
 	vector<EntEnemy*> enemies = App->game->em->EnemiesOnArea(pos, radius);
 
-	float damage = base_damage_down;
-	damage += rand() % (base_damage_up - base_damage_down + 1);
+	float damage = final_damage_down;
+	damage += rand() % (final_damage_up - final_damage_down + 1);
 	damage += int((float(damage) / 100) * player->int_final);
 	damage = float(damage) * dt;
 
@@ -585,6 +578,7 @@ void sklVampireBreath::SkillInit()
 
 	cooldown_timer.Start();
 }
+
 void sklVampireBreath::SkillUpdate(float dt)
 {
 	if (player->MP_current > 0)
@@ -617,6 +611,14 @@ void sklVampireBreath::SetSkillAnimations()
 	}
 }
 
+void sklVampireBreath::CalculateSkillStats()
+{
+	final_damage_down = base_damage_down + damage_down_dt * level;
+	final_damage_up = base_damage_up + damage_up_dt * level;
+
+	blood_charge_cost_final = blood_charge_cost_base + blood_charge_cost_dt * level;
+}
+
 //BloodBomb
 sklBloodBomb::sklBloodBomb()
 {
@@ -626,9 +628,8 @@ sklBloodBomb::sklBloodBomb()
 	price_dt = 100;
 
 	cooldown = 3;
-
-	life_cost_base = 18;
 }
+
 sklBloodBomb::~sklBloodBomb()
 {
 	App->tex->UnLoad(skill_tex);
@@ -666,8 +667,13 @@ void sklBloodBomb::SkillUpdate(float dt)
 
 	if (player->current_animation->CurrentFrame() >= 7 && !player->particle_is_casted)
 	{
+		float damage = final_damage_down;
+		damage += rand() % (final_damage_up - final_damage_down + 1);
+		damage += float((float(damage) / 100) * player->int_final);
+
 		skill_particle = App->pm->AddParticle(player->particle_skill_2, player->p_position.x, player->p_position.y - 40, 2, player->particle_skill_2.image);
 		player->particle_is_casted = true;
+		skill_particle->damage = damage;
 		skill_particle->SetPointSpeed(150, player->particle_destination);
 	}
 
@@ -691,6 +697,16 @@ void sklBloodBomb::SetSkillAnimations()
 	}
 }
 
+void sklBloodBomb::CalculateSkillStats()
+{
+	final_damage_down = base_damage_down + damage_down_dt * level;
+	final_damage_up = base_damage_up + damage_up_dt * level;
+
+	life_cost_final = life_cost_base + life_cost_dt * level;
+
+	blood_charge_increase_final = blood_charge_increase_base + blood_charge_increase_dt * level;
+}
+
 //Red Feast
 sklRedFeast::sklRedFeast()
 {
@@ -698,14 +714,7 @@ sklRedFeast::sklRedFeast()
 	price = 2500;
 	price_dt = 100;
 
-	base_damage_down = 4;
-	base_damage_up = 10;
-	life_steal_base = 50;
-	blood_charge_cost_base = 20;
-
-	radius = 200;
-
-	cooldown = 12;
+	cooldown = 10;
 }
 sklRedFeast::~sklRedFeast()
 {
@@ -718,8 +727,8 @@ void sklRedFeast::SkillEffect(float dt)
 
 	vector<EntEnemy*> enemies = App->game->em->EnemiesOnArea(pos, radius);
 
-	float damage = base_damage_down;
-	damage += rand() % (base_damage_up - base_damage_down + 1);
+	float damage = final_damage_down;
+	damage += rand() % (final_damage_up - final_damage_down + 1);
 	damage += int((float(damage) / 100) * player->int_final);
 	damage = float(damage) * dt;
 
@@ -777,19 +786,21 @@ void sklRedFeast::SetSkillAnimations()
 	}
 }
 
+void sklRedFeast::CalculateSkillStats()
+{
+	final_damage_down = base_damage_down + damage_down_dt * level;
+	final_damage_up = base_damage_up + damage_up_dt * level;
 
+	blood_charge_cost_final = blood_charge_cost_base + blood_charge_cost_dt * level;
+}
 
+//Heard of Bats
 sklHeardOfBats::sklHeardOfBats()
 {
 	skill_tex = App->tex->Load("textures/vamp_cast.png");
 	price = 2000;
 	price_dt = 100;
 
-	time = 3;
-	radius = 150;
-	base_damage_down = 4;
-	base_damage_up = 10;
-	blood_charge_increase_base = 25;
 	cooldown = 8;
 }
 sklHeardOfBats::~sklHeardOfBats()
@@ -799,12 +810,10 @@ sklHeardOfBats::~sklHeardOfBats()
 
 void sklHeardOfBats::SkillEffect(float dt)
 {
-	
-
 	vector<EntEnemy*> enemies = App->game->em->EnemiesOnArea(pos, radius);
 
-	float damage = base_damage_down;
-	damage += rand() % (base_damage_up - base_damage_down + 1);
+	float damage = final_damage_down;
+	damage += rand() % (final_damage_up - final_damage_down + 1);
 	damage += int((float(damage) / 100) * player->int_final);
 	damage = float(damage) * dt;
 
@@ -824,7 +833,7 @@ void sklHeardOfBats::SkillInit()
 	player->independent_skill = this;
 	hit = false;
 
-	player->ChangeMP(-blood_charge_increase_base);
+	player->ChangeMP(-blood_charge_cost_final);
 
 	timer.Start();
 	cooldown_timer.Start();
@@ -842,19 +851,20 @@ void sklHeardOfBats::SkillIndependentUpdate(float dt)
 
 		if (hit)
 		{
-			player->ChangeMP(-blood_charge_increase_base);
+			player->ChangeMP(-blood_charge_cost_final);
 		}
 	}
 }
+
 void sklHeardOfBats::SkillUpdate(float dt)
 {
 	if (player->current_animation->Finished())
 	{
 		player->current_input = INPUT_STOP_MOVE;
 		player->input_locked = false;
-	}
-	
+	}	
 }
+
 void sklHeardOfBats::SetSkillAnimations()
 {
 	for (int i = 0; i < 12; i++)
@@ -868,8 +878,13 @@ void sklHeardOfBats::SetSkillAnimations()
 	}
 }
 
+void sklHeardOfBats::CalculateSkillStats()
+{
+	final_damage_down = base_damage_down + damage_down_dt * level;
+	final_damage_up = base_damage_up + damage_up_dt * level;
 
-
+	blood_charge_cost_final = blood_charge_increase_base + blood_charge_cost_dt * level;
+}
 
 //Night Passives
 sklShadowsWalker::sklShadowsWalker() : sklBuff(INVISIBILITY, 1, 5)
@@ -879,7 +894,6 @@ sklShadowsWalker::sklShadowsWalker() : sklBuff(INVISIBILITY, 1, 5)
 	price_dt = 100;
 
 	cooldown = 10;
-	blood_charge_cost_base = 20;
 }
 sklShadowsWalker::~sklShadowsWalker()
 {
@@ -893,7 +907,7 @@ void sklShadowsWalker::SkillEffect()
 
 	player->buffs.push_back(tmp_buff);
 	player->CalculateFinalStats();
-	player->ChangeMP(-blood_charge_cost_base);
+	player->ChangeMP(-blood_charge_cost_final);
 
 	player->attacking = false;
 }
@@ -930,16 +944,21 @@ void sklShadowsWalker::SetSkillAnimations()
 	}
 }
 
+void sklShadowsWalker::CalculateSkillStats()
+{
+	blood_charge_cost_final = blood_charge_cost_base + blood_charge_cost_dt * level;
+}
+
 //Clotted blood skin
-sklClottedBloodSkin::sklClottedBloodSkin() : sklBuff(ARMOR, 20, 3)
+sklClottedBloodSkin::sklClottedBloodSkin() : sklBuff(ARMOR, 10, 3) //We should put a "buff_armor_final" variable instead of "10"
 {
 	skill_tex = App->tex->Load("textures/vamp_cast.png");
 	price = 2000;
 	price_dt = 100;
 
 	cooldown= 13;
-	blood_charge_cost_base = 30;
 }
+
 sklClottedBloodSkin::~sklClottedBloodSkin()
 {
 	App->tex->UnLoad(skill_tex);
@@ -952,7 +971,7 @@ void sklClottedBloodSkin::SkillEffect()
 
 	player->buffs.push_back(tmp_buff);
 	player->CalculateFinalStats();
-	player->ChangeMP(-blood_charge_cost_base);
+	player->ChangeMP(-blood_charge_cost_final);
 
 	player->attacking = false;
 }
@@ -989,11 +1008,16 @@ void sklClottedBloodSkin::SetSkillAnimations()
 	}
 }
 
+void sklClottedBloodSkin::CalculateSkillStats()
+{
+	blood_charge_cost_final = blood_charge_cost_base + blood_charge_cost_dt * level;
+
+	buff_armor_final = buff_armor_base + buff_armor_dt * level;
+}
+
 //Lust
 sklLust::sklLust()
 {
-	basic_blood_charges = 2;
-	increased_HP = 5;
 	price = 1500;
 	price_dt = 100;
 }
@@ -1012,6 +1036,13 @@ void sklLust::SkillEffect()
 void sklLust::SkillInit()
 {
 	player->CalculateFinalStats();
+}
+
+void sklLust::CalculateSkillStats()
+{
+	basic_blood_charges = basic_blood_charges_base + basic_blood_charges_dt * level;
+	
+	increased_HP = increased_HP_base + increased_HP_dt * level;
 }
 
 //Undead
@@ -1067,13 +1098,20 @@ void sklUndead::SkillUpdate(float dt)
 	}
 }
 
+void sklUndead::CalculateSkillStats()
+{
+	life_steal = life_steal_base + life_steal_dt * level;
+
+	extra_damage = extra_damage_base + extra_damage_dt * level;
+}
+
 //Night ward
 sklNightWard::sklNightWard()
 {
 	price = 2000;
 	price_dt = 100;
 
-	cooldown = 60;
+	cooldown = 10;
 }
 sklNightWard::~sklNightWard()
 {
@@ -1110,4 +1148,9 @@ void sklNightWard::SkillUpdate(float dt)
 			SkillInit();
 		}
 	}
+}
+
+void sklNightWard::CalculateSkillStats()
+{
+	damage_reduction_final = damage_reduction_base + damage_reduction_dt * level;
 }
