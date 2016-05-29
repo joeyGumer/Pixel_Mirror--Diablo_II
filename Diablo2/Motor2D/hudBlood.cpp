@@ -26,7 +26,7 @@ bool hudBlood::Start()
 	blood_label = App->gui->AddGuiLabel("0", NULL, { 10, 5 }, NULL,FONT_YELLOW2, this);
 	hud_gui_elements.push_back(blood_label);
 
-	hey_listen = App->gui->AddGuiLabel("You have enough pure blood To unlock a skill! Open The skill Tree panel. (S by defaulT)", App->font->stats, {11, 25}, NULL, FONT_WHITE, this);
+	hey_listen = App->gui->AddGuiLabel("You have enough Pure Blood to unlock a skill! Press S to open the Skill Tree.", App->font->stats, {11, 25}, NULL, FONT_WHITE, this);
 	hey_listen->active = false;
 	hud_gui_elements.push_back(hey_listen);
 
