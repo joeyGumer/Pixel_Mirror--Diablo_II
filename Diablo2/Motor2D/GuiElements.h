@@ -14,6 +14,8 @@ using namespace std;
 struct SDL_Texture;
 struct _TTF_Font;
 class Animation;
+class GuiText;
+
 enum GUI_Type
 {
 	GUI_LABEL,
@@ -143,6 +145,7 @@ public:
 	void Update(GuiElement* hover, GuiElement* focus);
 
 	SDL_Texture* outside_tex = NULL;
+	GuiText* text;
 };
 
 class GuiInputBox : public GuiElement

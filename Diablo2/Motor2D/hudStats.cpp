@@ -35,8 +35,18 @@ bool hudStats::Start()
 	name = App->gui->AddGuiImage({ 8, 8 }, { 3450, 960, 175, 20 }, window, this);
 	player_name = App->gui->AddGuiLabel("Vampire", NULL, { 40, 2 }, name, FONT_WHITE, backgroundColor, this);
 	player_name->Center(true, true);
+
 	hud_gui_elements.push_back(name);
 	hud_gui_elements.push_back(player_name);
+
+	vector<StringColor> stattext;
+	stattext.push_back(StringColor("Class name", FONT_WHITE));
+	name->text = App->gui->AddGuiText({ 130, 17 }, stattext, name, this);
+	name->text->Desactivate();
+	texts.push_back(name->text);
+	hud_gui_elements.push_back(name->text);
+	stattext.clear();
+
 
 	//Experience Stat
 	experience = App->gui->AddGuiImage({ 8, 32 }, { 3450, 960, 175, 38 }, window, this);
@@ -47,6 +57,17 @@ bool hudStats::Start()
 	hud_gui_elements.push_back(experience);
 	hud_gui_elements.push_back(player_experience);
 	
+
+	vector<StringColor> experiencetext;
+	experiencetext.push_back(StringColor("Pure blood - This is The currency used", FONT_WHITE));
+	experiencetext.push_back(StringColor("To buy skills on The skill Tree, To do so, ", FONT_WHITE));
+	experiencetext.push_back(StringColor("press The key S, seT by defaulT.", FONT_WHITE));
+	experience->text = App->gui->AddGuiText({ 250, 40 }, experiencetext, experience, this);
+	experience->text->Desactivate();
+	texts.push_back(experience->text);
+	hud_gui_elements.push_back(experience->text);
+	experiencetext.clear();
+
 	//Vitality Stat
 	vitality = App->gui->AddGuiImage({ 8, 82 }, { 3450, 960, 67, 20 }, window, this);
 	player_vitality_name = App->gui->AddGuiLabel("Vitality", App->font->stats, { 2, 2 }, vitality, FONT_WHITE, backgroundColor, this);
@@ -61,6 +82,16 @@ bool hudStats::Start()
 	hud_gui_elements.push_back(vitality_value);
 	hud_gui_elements.push_back(player_vitality);
 
+
+	vector<StringColor> vitalitytext;
+	vitalitytext.push_back(StringColor("The viTaliTy increases The maximum life", FONT_WHITE));
+	vitalitytext.push_back(StringColor("and The life regeneraTion.", FONT_WHITE));
+	vitality->text = App->gui->AddGuiText({ 120, 50 }, vitalitytext, vitality, this);
+	vitality->text->Desactivate();
+	texts.push_back(vitality->text);
+	hud_gui_elements.push_back(vitality->text);
+	vitalitytext.clear();
+
 	//Strenght Stat
 	strength = App->gui->AddGuiImage({ 8, 136 }, { 3450, 960, 67, 20 }, window, this);
 	player_strength_name = App->gui->AddGuiLabel("Strength", App->font->stats, { 2, 2 }, strength, FONT_WHITE, backgroundColor, this);
@@ -69,10 +100,21 @@ bool hudStats::Start()
 	text.create("%i", App->game->player->str_final);
 	player_strength = App->gui->AddGuiLabel(text, App->font->description, { 13, 2 }, strength_value, FONT_BLUE, backgroundColor, this);
 	player_strength->Center(true, true);
+	
 	hud_gui_elements.push_back(strength);
 	hud_gui_elements.push_back(player_strength_name);
 	hud_gui_elements.push_back(strength_value);
 	hud_gui_elements.push_back(player_strength);
+
+
+	vector<StringColor> strengthtext;
+	strengthtext.push_back(StringColor("The sTrengTh increases The basic damage", FONT_WHITE));
+	strengthtext.push_back(StringColor("and The maximum sTamina.", FONT_WHITE));
+	strength->text = App->gui->AddGuiText({ 120, 50 }, strengthtext, strength, this);
+	strength->text->Desactivate();
+	texts.push_back(strength->text);
+	hud_gui_elements.push_back(strength->text);
+	strengthtext.clear();
 
 	//Dexterity Stat
 	dexterity = App->gui->AddGuiImage({ 8, 190 }, { 3450, 960, 67, 20 }, window, this);
@@ -82,10 +124,21 @@ bool hudStats::Start()
 	text.create("%i", App->game->player->dex_final);
 	player_dexterity = App->gui->AddGuiLabel(text, App->font->description, { 13, 2 }, dexterity_value, FONT_BLUE, backgroundColor, this);
 	player_dexterity->Center(true, true);
+	
 	hud_gui_elements.push_back(dexterity);
 	hud_gui_elements.push_back(player_dexterity_name);
 	hud_gui_elements.push_back(player_dexterity);
 	hud_gui_elements.push_back(dexterity_value);
+
+
+	vector<StringColor> dexteritytext;
+	dexteritytext.push_back(StringColor("The dexTeriTy increases The bonus marTial damage", FONT_WHITE));
+	dexteritytext.push_back(StringColor("and The maximum sTamina.", FONT_WHITE));
+	dexterity->text = App->gui->AddGuiText({ 120, 50 }, dexteritytext, dexterity, this);
+	dexterity->text->Desactivate();
+	texts.push_back(dexterity->text);
+	hud_gui_elements.push_back(dexterity->text);
+	dexteritytext.clear();
 
 	//Intelligence Stat
 	intelligence = App->gui->AddGuiImage({ 8, 242 }, { 3450, 960, 67, 20 }, window, this);
@@ -101,6 +154,16 @@ bool hudStats::Start()
 	hud_gui_elements.push_back(intelligence_value);
 	hud_gui_elements.push_back(player_intelligence);
 
+
+	vector<StringColor> intelligencetext;
+	intelligencetext.push_back(StringColor("The inTelligence increases The bonus spell damage", FONT_WHITE));
+	intelligencetext.push_back(StringColor("and The maximum blood charges.", FONT_WHITE));
+	intelligence->text = App->gui->AddGuiText({ 120, 50 }, intelligencetext, intelligence, this);
+	intelligence->text->Desactivate();
+	texts.push_back(intelligence->text);
+	hud_gui_elements.push_back(intelligence->text);
+	intelligencetext.clear();
+
 	//Luck Stat
 	luck = App->gui->AddGuiImage({ 8, 296 }, { 3450, 960, 67, 20 }, window, this);
 	player_luck_name = App->gui->AddGuiLabel("Luck", App->font->stats, { 4, 2 }, luck, FONT_WHITE, backgroundColor, this);
@@ -109,10 +172,21 @@ bool hudStats::Start()
 	text.create("%i", App->game->player->luck_final);
 	player_luck = App->gui->AddGuiLabel(text, App->font->description, { 13, 2 }, luck_value, FONT_BLUE, backgroundColor, this);
 	player_luck->Center(true, true);
+	
 	hud_gui_elements.push_back(luck);
 	hud_gui_elements.push_back(player_luck_name);
 	hud_gui_elements.push_back(luck_value);
 	hud_gui_elements.push_back(player_luck);
+
+
+	vector<StringColor> lucktext;
+	lucktext.push_back(StringColor("The luck increases The qualiTy and quanTiTY", FONT_WHITE));
+	lucktext.push_back(StringColor("of The iTems dropped by The enemies.", FONT_WHITE));
+	luck->text = App->gui->AddGuiText({ 120, 50 }, lucktext, luck, this);
+	luck->text->Desactivate();
+	texts.push_back(luck->text);
+	hud_gui_elements.push_back(luck->text);
+	lucktext.clear();
 
 	//Life Stat
 	life = App->gui->AddGuiImage({ 160, 82 }, { 3450, 960, 72, 20 }, window, this);
@@ -126,12 +200,22 @@ bool hudStats::Start()
 	text.create("%i", int(App->game->player->HP_max));
 	life_max = App->gui->AddGuiLabel(text, App->font->description, { 8, 2 }, life_2, FONT_WHITE, backgroundColor, this);
 	life_max->Center(true, true);
+	
 	hud_gui_elements.push_back(life);
 	hud_gui_elements.push_back(life_name);
 	hud_gui_elements.push_back(life_1);
 	hud_gui_elements.push_back(current_life);
 	hud_gui_elements.push_back(life_2);
 	hud_gui_elements.push_back(life_max);
+
+
+	vector<StringColor> lifetext;
+	lifetext.push_back(StringColor("The ToTal life of The characTer", FONT_WHITE));
+	life->text = App->gui->AddGuiText({ 20, -3 }, lifetext, life, this);
+	life->text->Desactivate();
+	texts.push_back(life->text);
+	hud_gui_elements.push_back(life->text);
+	lifetext.clear();
 
 	//Stamina Stat
 	stamina = App->gui->AddGuiImage({ 160, 108 }, { 3450, 960, 72, 20 }, window, this);
@@ -153,6 +237,15 @@ bool hudStats::Start()
 	hud_gui_elements.push_back(stamina_2);
 	hud_gui_elements.push_back(stamina_max);
 
+
+	vector<StringColor> staminatext;
+	staminatext.push_back(StringColor("The ToTal sTamina of The characTer", FONT_WHITE));
+	stamina->text = App->gui->AddGuiText({ 20, -1 }, staminatext, stamina, this);
+	stamina->text->Desactivate();
+	texts.push_back(stamina->text);
+	hud_gui_elements.push_back(stamina->text);
+	staminatext.clear();
+
 	//Basic Attack Stat
 	basicAttack = App->gui->AddGuiImage({ 160, 136 }, { 3450, 960, 100, 20 }, window, this);
 	basicAttack_name = App->gui->AddGuiLabel("Basic Attack", App->font->stats, { 4, 2 }, basicAttack, FONT_WHITE, backgroundColor, this);
@@ -161,10 +254,20 @@ bool hudStats::Start()
 	text.create("%i", App->game->player->atk_damage_base_up);
 	player_basicAttack = App->gui->AddGuiLabel(text, App->font->description, { 13, 2 }, basicAttack_value, FONT_WHITE, backgroundColor, this);
 	player_basicAttack->Center(true, true);
+	
 	hud_gui_elements.push_back(basicAttack);
 	hud_gui_elements.push_back(basicAttack_name);
 	hud_gui_elements.push_back(basicAttack_value);
 	hud_gui_elements.push_back(player_basicAttack);
+
+
+	vector<StringColor> attacktext;
+	attacktext.push_back(StringColor("The ToTal basic aTTack damage of The characTer", FONT_WHITE));
+	basicAttack->text = App->gui->AddGuiText({ 10, -1 }, attacktext, basicAttack, this);
+	basicAttack->text->Desactivate();
+	texts.push_back(basicAttack->text);
+	hud_gui_elements.push_back(basicAttack->text);
+	attacktext.clear();
 
 	//Resistance Stat
 	//NOTE: is initializing basic damage
@@ -175,6 +278,7 @@ bool hudStats::Start()
 	text.create("%i", App->game->player->basic_damage);
 	player_resistance = App->gui->AddGuiLabel(text, App->font->description, { 13, 2 }, resistance_value, FONT_WHITE, backgroundColor, this);
 	player_resistance->Center(true, true);
+	
 	hud_gui_elements.push_back(resistance);
 	hud_gui_elements.push_back(resistance_name);
 	hud_gui_elements.push_back(resistance_value);
@@ -182,6 +286,13 @@ bool hudStats::Start()
 	window->Desactivate();
 
 
+	vector<StringColor> resistancetext;
+	resistancetext.push_back(StringColor("The ToTal armor of The characTer", FONT_WHITE));
+	resistance->text = App->gui->AddGuiText({ 10, -1 }, resistancetext, resistance, this);
+	resistance->text->Desactivate();
+	texts.push_back(resistance->text);
+	hud_gui_elements.push_back(resistance->text);
+	resistancetext.clear();
 
 	return true;
 }
@@ -222,6 +333,8 @@ bool hudStats::CleanUp()
 		}
 	}
 
+	texts.clear();
+
 	hud_gui_elements.clear();
 	return true;
 }
@@ -234,6 +347,9 @@ void hudStats::Activate()
 	{
 		hud_gui_elements[i]->active = active;
 	}
+
+	for (int i = 0; i < texts.size(); i++)
+		texts[i]->Desactivate();
 }
 
 void hudStats::SetBloodLabel(int blood)
@@ -302,15 +418,6 @@ void hudStats::SetResistenceLabel(int resistence)
 }
 
 
-
-
-
-
-
-
-
-
-
 //Called when there's a gui event
 void hudStats::OnEvent(GuiElement* element, GUI_Event even)
 {
@@ -321,9 +428,30 @@ void hudStats::OnEvent(GuiElement* element, GUI_Event even)
 		case EVENT_MOUSE_LEFTCLICK_DOWN:
 		{
 			closebutton->SetTextureRect({ 324, 192, 38, 38 });
+			
+			for (int i = 0; i < texts.size(); i++)
+				texts[i]->Desactivate();
+			
 			closebutton_pressed = true;
 		}
 		break;
+		}
+	}
+
+	else if (element->type == GUI_IMAGE)
+	{
+		if (even == EVENT_MOUSE_ENTER)
+		{
+			GuiImage* tmp = (GuiImage*)element;
+			if (tmp->text)
+				tmp->text->Activate();
+		}
+
+		else if (even == EVENT_MOUSE_EXIT)
+		{
+			GuiImage* tmp = (GuiImage*)element;
+			if (tmp->text)
+				tmp->text->Desactivate();
 		}
 	}
 }

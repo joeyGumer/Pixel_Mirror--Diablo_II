@@ -104,6 +104,7 @@ public:
 	GuiLabel* player_resistance = NULL;
 
 	p2SString text;
+	vector<GuiText*> texts;
 };
 
 
