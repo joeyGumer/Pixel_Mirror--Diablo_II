@@ -46,8 +46,12 @@ public:
 	void OnEvent(GuiElement* element, GUI_Event even);
 
 	//Load/UnLoad, called when the scene changes
-	bool Load();
+	bool LoadScene();
 	bool UnLoad();
+
+	//Load/Save
+	bool Load(pugi::xml_node&);
+	bool Save(pugi::xml_node&) const;
 
 	//Adding Enemies
 	Entity* AddEnemy(iPoint pos);

@@ -42,7 +42,7 @@ public:
 	void OnEvent(GuiElement* element, GUI_Event even);
 
 	//Load/UnLoad, called when the scene changes
-	bool Load();
+	bool LoadScene();
 	bool UnLoad();
 	
 

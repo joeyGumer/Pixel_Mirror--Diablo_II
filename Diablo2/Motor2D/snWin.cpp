@@ -86,7 +86,7 @@ void snWin::OnEvent(GuiElement* element, GUI_Event even)
 
 
 	//Load/UnLoad, called when the scene changes
-bool snWin::Load()
+bool snWin::LoadScene()
 {
 	Start();
 	return true;

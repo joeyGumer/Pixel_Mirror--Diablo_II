@@ -42,11 +42,15 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	//Load/Save
+	bool Load(pugi::xml_node&);
+	bool Save(pugi::xml_node&) const;
+
 	// Called on certain event
 	void OnEvent(GuiElement* element, GUI_Event even);
 
 	//Load/UnLoad, called when the scene changes
-	bool Load();
+	bool LoadScene();
 	bool UnLoad();
 
 	//Adding Enemies

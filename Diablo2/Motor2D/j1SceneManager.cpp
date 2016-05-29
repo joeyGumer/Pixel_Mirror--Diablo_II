@@ -61,7 +61,7 @@ bool j1SceneManager::Start()
 //PreUpdate
 bool j1SceneManager::PreUpdate()
 {
-	if (loading_game)
+	/*if (loading_game)
 	{
 		j1Scene* loaded_scene = GetCurrentLevel();
 
@@ -71,7 +71,7 @@ bool j1SceneManager::PreUpdate()
 		}
 
 		loading_game = false;
-	}
+	}*/
 
 	current_scene->PreUpdate();
 	return true;
@@ -149,7 +149,7 @@ bool j1SceneManager::ChangeScene(j1Scene* new_scene)
 
 	if (current_scene)
 	{
-		current_scene->Load();
+		current_scene->LoadScene();
 	}
 	
 
@@ -270,7 +270,7 @@ bool j1SceneManager::Load(pugi::xml_node& node)
 	pugi::xml_node levels = node.child("levels");
 
 	pugi::xml_node lvl = levels.child("level_scene");
-
+	pugi::xml_node lvl1, lvl2;
 	
 
 	for (int i = 0; lvl; lvl = lvl.next_sibling("level_scene"), i++)
@@ -280,18 +280,38 @@ bool j1SceneManager::Load(pugi::xml_node& node)
 		{
 			SCENE_TYPE tp = (SCENE_TYPE)lvl.attribute("type").as_int();
 			level1 = GetSceneByType(tp);
+			lvl1 = lvl;
 		}
 	
 		else if (i == 1)
 		{
 			SCENE_TYPE tp = (SCENE_TYPE)lvl.attribute("type").as_int();
 			level2 = GetSceneByType(tp);
+			lvl2 = lvl;
 		}
 	}
 
 	level = levels.child("level").attribute("value").as_int();
 
 	loading_game = true;
+
+	j1Scene* loaded_scene = GetCurrentLevel();
+
+	if (loaded_scene)
+	{
+		ChangeScene(loaded_scene);
+	}
+
+	if (level == 1)
+	{
+		((j1Module*)current_scene)->Load(lvl1);
+	}
+	else if (level == 2)
+	{
+		((j1Module*)current_scene)->Load(lvl2);
+	}
+
+
 
 	return true;
 }
@@ -300,13 +320,19 @@ bool j1SceneManager::Save(pugi::xml_node& node) const
 {
 	pugi::xml_node levels = node.append_child("levels");
 
-
+	levels.append_child("level").append_attribute("value") = level;
 
 	if (level1)
 	{
 		pugi::xml_node lvl1 = levels.append_child("level_scene");
 
 		lvl1.append_attribute("type") = level1->type;
+
+		if (current_scene == level1)
+		{
+			((j1Module*)current_scene)->Save(lvl1);
+
+		}
 	}
 	
 	if (level2)
@@ -314,9 +340,15 @@ bool j1SceneManager::Save(pugi::xml_node& node) const
 		pugi::xml_node lvl2 = levels.append_child("level_scene");
 
 		lvl2.append_attribute("type") = level2->type;
+
+		if (current_scene == level2)
+		{
+			((j1Module*)current_scene)->Save(lvl2);
+
+		}
 	}
 
-	levels.append_child("level").append_attribute("value") = level;
+	
 
 	return true;
 }

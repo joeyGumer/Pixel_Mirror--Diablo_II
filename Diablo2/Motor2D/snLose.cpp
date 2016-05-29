@@ -92,7 +92,7 @@ void snLose::OnEvent(GuiElement* element, GUI_Event even)
 
 
 //Load/UnLoad, called when the scene changes
-bool snLose::Load()
+bool snLose::LoadScene()
 {
 	Start();
 	return true;

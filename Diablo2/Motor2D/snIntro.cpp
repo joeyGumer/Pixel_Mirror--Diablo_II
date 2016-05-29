@@ -225,8 +225,10 @@ bool snIntro::Update(float dt)
 
 	else if (load == true)
 	{
-
 		App->sm->LoadGame();
+
+		load = false;
+
 	}
 
 	else if (exit == true)
@@ -415,7 +417,7 @@ void snIntro::OnEvent(GuiElement* element, GUI_Event even)
 }
 
 //Load/UnLoad, called when the scene changes
-bool snIntro::Load()
+bool snIntro::LoadScene()
 {
 	Start();
 	return true;

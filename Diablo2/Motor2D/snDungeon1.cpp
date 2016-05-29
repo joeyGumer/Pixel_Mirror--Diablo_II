@@ -186,7 +186,7 @@ void snDungeon1::OnEvent(GuiElement* element, GUI_Event even)
 
 
 //Load/UnLoad, called when the scene changes
-bool snDungeon1::Load()
+bool snDungeon1::LoadScene()
 {
 	Start();
 	return true;

@@ -271,7 +271,7 @@ void snOutdoor2::OnEvent(GuiElement* element, GUI_Event even)
 
 
 //Load/UnLoad, called when the scene changes
-bool snOutdoor2::Load()
+bool snOutdoor2::LoadScene()
 {
 	Start();
 	return true;
@@ -861,4 +861,75 @@ void snOutdoor2::SpawnPlayer()
 	DropItem({ 1096, 3679 });
 	DropItem({ 1146, 3164 });
 	DropItem({ 2399, 1849 });
+}
+
+bool snOutdoor2::Load(pugi::xml_node& node)
+{
+	pugi::xml_node entities = node.child("entities");
+
+	pugi::xml_node entity = entities.child("entity");
+
+	for (; entity; entity = entity.next_sibling("entity"))
+	{
+		iPoint pos = { 0, 0 };
+
+		pos.x = entity.child("position").attribute("x").as_float();
+		pos.y = entity.child("position").attribute("y").as_float();
+
+		if ((ENTITY_TYPE)entity.attribute("type").as_int() == ENEMY)
+		{
+
+			pugi::xml_node enmy = entity.child("enemy");
+
+			EntEnemy* enemy = (EntEnemy*)App->game->em->AddEnemy(pos, (ENEMY_TYPE)enmy.attribute("enemy_type").as_int(), 1);
+			entity_list.push_back(enemy);
+
+			enemy->HP_current = enmy.child("HP").attribute("current_HP").as_float();
+			enemy->HP_max = enmy.child("HP").attribute("max_HP").as_float();
+
+		}
+	}
+
+	return true;
+}
+
+bool snOutdoor2::Save(pugi::xml_node& node) const
+{
+	pugi::xml_node entities = node.append_child("entities");
+
+	list<Entity*>::const_iterator item = entity_list.cbegin();
+
+
+
+	for (; item != entity_list.cend(); item++)
+	{
+		Entity* ent = (*item);
+
+		pugi::xml_node entity = entities.append_child("entity");
+
+		pugi::xml_node pos = entity.append_child("position");
+
+		pos.append_attribute("x") = ent->position.x;
+		pos.append_attribute("y") = ent->position.y;
+
+		//Saving an Enemy
+		if (ent->type == ENEMY)
+		{
+			EntEnemy* enemy = (EntEnemy*)ent;
+
+
+			entity.append_attribute("type") = ENEMY;
+
+			pugi::xml_node enmy = entity.append_child("enemy");
+
+			enmy.append_attribute("enemy_type") = enemy->enemy_type;
+
+			pugi::xml_node hp = enmy.append_child("HP");
+
+			hp.append_attribute("current_HP") = enemy->HP_current;
+			hp.append_attribute("max_HP") = enemy->HP_max;
+		}
+	}
+
+	return true;
 }

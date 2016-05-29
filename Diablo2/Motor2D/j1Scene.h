@@ -78,7 +78,7 @@ public:
 	virtual void OnEvent(GuiElement* element, GUI_Event even){}
 
 	//Load and unload NOTE:(maybe there's no need to make it virtual)
-	virtual bool Load()
+	virtual bool LoadScene()
 	{
 		return true;
 	}

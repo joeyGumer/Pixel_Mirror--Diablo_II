@@ -382,7 +382,7 @@ void snOutdoor1::OnEvent(GuiElement* element, GUI_Event even)
 }
 
 //Load
-bool snOutdoor1::Load()
+bool snOutdoor1::LoadScene()
 {
 	Start();
 	return true;
