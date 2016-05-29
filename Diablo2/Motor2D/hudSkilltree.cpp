@@ -239,7 +239,7 @@ bool hudSkilltree::Start()
 	text.Insert(0, "BLOOD charges COST: ");
 	clottedtext.push_back(StringColor(text, FONT_PURPLE));
 	clottedtext.push_back(StringColor("duraTion: 3 seconds", FONT_BLUE));
-	clottedtext.push_back(StringColor("Cooldown: 10 seconds", FONT_BLUE));
+	clottedtext.push_back(StringColor("Cooldown: 13 seconds", FONT_BLUE));
 	text.create("%i", player->clotted_blood->buff.value);
 	text.Insert(0, "ARMOR: ");
 	clottedtext.push_back(StringColor(text, FONT_GREEN));
@@ -258,9 +258,12 @@ bool hudSkilltree::Start()
 	text.create("%i", player->shadow_walker->blood_charge_cost_base);
 	text.Insert(0, "BLOOD charges COST: ");
 	wolftext.push_back(StringColor(text, FONT_PURPLE));
-	text.create("%i", player->shadow_walker->buff.value);
+	wolftext.push_back(StringColor("DuraTion: 5 seconds", FONT_BLUE));
+	/*
+	text.create("%i", player->shadow_walker->buff.time);
 	text.Insert(0, "duraTion: ");
 	wolftext.push_back(StringColor(text, FONT_BLUE));
+	*/
 	wolftext.push_back(StringColor("Cooldown: 10 seconds", FONT_BLUE));
 	raise_wolf->text = App->gui->AddGuiText({ 0, 0 }, wolftext, raise_wolf, this);
 	raise_wolf->Desactivate();
@@ -526,7 +529,7 @@ bool hudSkilltree::Start()
 	feasttext.push_back(StringColor(text, FONT_GREEN));
 	feasttext.push_back(StringColor("Cooldown: 10 seconds", FONT_BLUE));
 	//feasttext.push_back(StringColor("radius: 150", FONT_GREEN));
-	text.create("%i", player->vampire_breath->radius);
+	text.create("%i", player->red_feast->radius);
 	text.Insert(0, "radius: ");
 	feasttext.push_back(StringColor(text, FONT_GREEN));
 	red_feast->text = App->gui->AddGuiText({ -20, 0 }, feasttext, red_feast, this);
@@ -550,7 +553,7 @@ bool hudSkilltree::Start()
 	text.create("%i", player->heard_of_bats->time);
 	text.Insert(0, "duraTion: ");
 	herdtext.push_back(StringColor(text, FONT_BLUE));
-	herdtext.push_back(StringColor("Cooldown: 15 seconds", FONT_BLUE));
+	herdtext.push_back(StringColor("Cooldown: 8 seconds", FONT_BLUE));
 	//herdtext.push_back(StringColor("radius: 150", FONT_GREEN));
 	text.create("%i", player->heard_of_bats->radius);
 	text.Insert(0, "radius: ");
@@ -687,6 +690,9 @@ bool hudSkilltree::PostUpdate()
 
 	if (player->wild_talon->level == -1 || player->wild_talon->level == 0)
 	{
+		text.create("blood charges addiTion: %i", player->wild_talon->blood_charge_increase_base);
+		wild_talon->text->SetText(3, text);
+
 		text.create("life cosT: %i", player->wild_talon->life_cost_base);
 		wild_talon->text->SetText(4, text);
 
@@ -695,10 +701,13 @@ bool hudSkilltree::PostUpdate()
 	}
 	else
 	{
+		text.create("blood charges addiTion: %i", player->wild_talon->final_blood_charge_increase);
+		wild_talon->text->SetText(3, text);
+
 		text.create("life cosT: %i", player->wild_talon->life_cost_final);
 		wild_talon->text->SetText(4, text);
 
-		text.create("damage: %i-%i", player->stinging_strike->final_damage_down, player->wild_talon->final_damage_up);
+		text.create("damage: %i-%i", player->wild_talon->final_damage_down, player->wild_talon->final_damage_up);
 		wild_talon->text->SetText(5, text);
 	}
 	//-----------------------------------------------------------
@@ -845,20 +854,14 @@ bool hudSkilltree::PostUpdate()
 
 		text.create("spell damage: %i-%i", player->vampire_breath->base_damage_down, player->vampire_breath->base_damage_up);
 		vampire_breath->text->SetText(4, text);
-
-		text.create("range: %i", player->vampire_breath->range);
-		vampire_breath->text->SetText(6, text);
 	}
 	else
 	{
-		//text.create("blood charges cosT: %i", player->vampire_breath->blood_charge_cost_base + (player->vampire_breath-> * player->vampire_breath->level));
-		//vampire_breath->text->SetText(3, text);
+		text.create("blood charges cosT: %i", player->vampire_breath->blood_charge_cost_final);
+		vampire_breath->text->SetText(3, text);
 
-		//text.create("spell damage: %i-%i", player->vampire_breath->base_damage_down + (player->vampire_breath->damage_down_dt * player->vampire_breath->level), player->vampire_breath->base_damage_up + (player->vampire_breath->damage_up_dt * player->vampire_breath->level));
-		//vampire_breath->text->SetText(4, text);
-
-		//text.create("range: %i", player->vampire_breath->range + (player->vampire_breath-> * player->vampire_breath->level));
-		//vampire_breath->text->SetText(6, text);
+		text.create("spell damage: %i-%i", player->vampire_breath->final_damage_down, player->vampire_breath->final_damage_up);
+		vampire_breath->text->SetText(4, text);
 	}
 	//-----------------------------------------------------------
 	//Blood bomb ------------------------------------------------
@@ -876,24 +879,24 @@ bool hudSkilltree::PostUpdate()
 	if (player->blood_bomb->level == -1 || player->blood_bomb->level == 0)
 	{
 		text.create("life cosT: %i", player->blood_bomb->life_cost_base);
-		blood_arrow->text->SetText(4, text);
+		blood_bomb->text->SetText(4, text);
 
 		text.create("blood charges addiTion: %i", player->blood_bomb->blood_charge_increase_base);
 		blood_bomb->text->SetText(3, text);
 
-		//text.create("spell damage: %i-%i", player->blood_bomb->base_damage_down, player->blood_bomb->base_damage_up);
-		//blood_bomb->text->SetText(5, text);
+		text.create("spell damage: %i-%i", player->blood_bomb->base_damage_down, player->blood_bomb->base_damage_up);
+		blood_bomb->text->SetText(5, text);
 	}
 	else
 	{
-		//text.create("life cosT: %i", player->blood_bomb->life_cost_base + (player->blood_bomb->life_cost_dt * player->blood_bomb->level));
-		//blood_bomb->text->SetText(4, text);
+		text.create("life cosT: %i", player->blood_bomb->life_cost_final);
+		blood_bomb->text->SetText(4, text);
 
-		//text.create("blood charges addiTion: %i", player->blood_bomb->blood_charge_increase_base + (player->blood_bomb->blood_charge_increase_dt * player->blood_bomb->level));
-		//blood_bomb->text->SetText(3, text);
+		text.create("blood charges addiTion: %i", player->blood_bomb->blood_charge_increase_final);
+		blood_bomb->text->SetText(3, text);
 
-		//text.create("spell damage: %i-%i", player->blood_bomb->base_damage_down + (player->blood_bomb->damage_down_dt * player->blood_bomb->level), player->blood_bomb->base_damage_up + (player->blood_bomb->damage_up_dt * player->blood_bomb->level));
-		//blood_bomb->text->SetText(5, text);
+		text.create("spell damage: %i-%i", player->blood_bomb->final_damage_down, player->blood_bomb->final_damage_up);
+		blood_bomb->text->SetText(5, text);
 	}
 	//-----------------------------------------------------------
 	//Red feast -------------------------------------------------
@@ -911,24 +914,18 @@ bool hudSkilltree::PostUpdate()
 	if (player->red_feast->level == -1 || player->red_feast->level == 0)
 	{
 		text.create("blood charges cosT (per second): %i", player->red_feast->blood_charge_cost_base);
-		red_feast->text->SetText(3, text);
-
-		text.create("radius: %i", player->red_feast->radius);
-		red_feast->text->SetText(8, text);
+		red_feast->text->SetText(4, text);
 
 		text.create("spell damage (per second): %i-%i", player->red_feast->base_damage_down, player->red_feast->base_damage_up);
 		red_feast->text->SetText(5, text);
 	}
 	else
 	{
-		//text.create("blood charges cosT (per second): %i", player->red_feast->blood_charges_cost_base + (player->blood_bomb->life_cost_dt * player->red_feast->level));
-		//red_feast->text->SetText(4, text);
+		text.create("blood charges cosT (per second): %i", player->red_feast->blood_charge_cost_final);
+		red_feast->text->SetText(4, text);
 
-		//text.create("radius: %i-%i", player->red_feast->radius + (player->blood_bomb->damage_down_dt * player->blood_bomb->level), player->blood_bomb->base_damage_up + (player->blood_bomb->damage_up_dt * player->blood_bomb->level));
-		//red_feast->text->SetText(8, text);
-
-		//text.create("blood charges addiTion: %i", player->blood_bomb->blood_charge_increase_base + (player->blood_bomb->blood_charge_increase_dt * player->blood_bomb->level));
-		//red_feast->text->SetText(5, text);		
+		text.create("spell damage (per second): %i-%i", player->red_feast->final_damage_down, player->red_feast->final_damage_up);
+		red_feast->text->SetText(5, text);
 	}
 	//-----------------------------------------------------------
 	//Herd of bats ----------------------------------------------
@@ -950,20 +947,14 @@ bool hudSkilltree::PostUpdate()
 
 		text.create("spell damage (per second): %i-%i", player->heard_of_bats->base_damage_down, player->heard_of_bats->base_damage_up);
 		heard_of_bats->text->SetText(4, text);
-
-		text.create("radius: %i", player->heard_of_bats->radius);
-		heard_of_bats->text->SetText(7, text);
 	}
 	else
 	{
-		//text.create("blood charges cosT (per second): %i", player->red_feast->blood_charges_cost_base + (player->blood_bomb->life_cost_dt * player->red_feast->level));
-		//heard_of_bats->text->SetText(4, text);
+		text.create("blood charges cosT: %i", player->heard_of_bats->blood_charge_cost_final);
+		heard_of_bats->text->SetText(3, text);
 
-		//text.create("radius: %i-%i", player->red_feast->radius + (player->blood_bomb->damage_down_dt * player->blood_bomb->level), player->blood_bomb->base_damage_up + (player->blood_bomb->damage_up_dt * player->blood_bomb->level));
-		//heard_of_bats->text->SetText(8, text);
-
-		//text.create("blood charges addiTion: %i", player->blood_bomb->blood_charge_increase_base + (player->blood_bomb->blood_charge_increase_dt * player->blood_bomb->level));
-		//heard_of_bats->text->SetText(5, text);		
+		text.create("spell damage (per second): %i-%i", player->heard_of_bats->final_damage_down, player->heard_of_bats->final_damage_up);
+		heard_of_bats->text->SetText(4, text);
 	}
 	//-----------------------------------------------------------
 	//NIGHT PASSIVES ------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -984,15 +975,16 @@ bool hudSkilltree::PostUpdate()
 		text.create("blood charges cosT: %i", player->clotted_blood->blood_charge_cost_base);
 		clotted_blood_skin->text->SetText(3, text);
 
-		text.create("armor: %i", player->clotted_blood->buff.value);
+		text.create("armor: %i", player->clotted_blood->buff_armor_base);
 		clotted_blood_skin->text->SetText(6, text);
 	}
 	else
 	{
-		//text.create("blood charges cosT: %i", player->clotted_blood->blood_charge_cost_base + (player->clotted_blood->bl * player->clotted_blood->level));
-		//clotted_blood_skin->text->SetText(3, text);
+		text.create("blood charges cosT: %i", player->clotted_blood->blood_charge_cost_final);
+		clotted_blood_skin->text->SetText(3, text);
 
-	
+		text.create("armor: %i", player->clotted_blood->buff_armor_final);
+		clotted_blood_skin->text->SetText(6, text);
 	}
 	//-----------------------------------------------------------
 	//Shadow walker ---------------------------------------------
@@ -1014,8 +1006,8 @@ bool hudSkilltree::PostUpdate()
 	}
 	else
 	{
-		//text.create("blood charges cosT: %i", player->shadow_walker->blood_charge_cost_base + (player->shadow_walker->blood_charge_cost_dt * player->shadow_walker->level));
-		//raise_wolf->text->SetText(3, text);
+		text.create("blood charges cosT: %i", player->shadow_walker->blood_charge_cost_final);
+		raise_wolf->text->SetText(3, text);
 	}
 	//-----------------------------------------------------------
 	//Lust ------------------------------------------------------
@@ -1032,16 +1024,19 @@ bool hudSkilltree::PostUpdate()
 
 	if (player->lust->level == -1 || player->lust->level == 0)
 	{
-		text.create("blood charges per basic: %i", player->lust->basic_blood_charges);
-		raise_blood_hawk->text->SetText(3, text);
-
-		text.create("maximum life: %i", player->lust->increased_HP);
+		text.create("blood charges per basic: %i", player->lust->basic_blood_charges_base);
 		raise_blood_hawk->text->SetText(4, text);
+
+		text.create("maximum life: %i", player->lust->increased_HP_base);
+		raise_blood_hawk->text->SetText(5, text);
 	}
 	else
 	{
-		//text.create("blood charges cosT: %i", player->shadow_walker->blood_charge_cost_base + (player->shadow_walker->blood_charge_cost_dt * player->shadow_walker->level));
-		//raise_blood_hawk->text->SetText(3, text);
+		text.create("blood charges per basic: %i", player->lust->basic_blood_charges);
+		raise_blood_hawk->text->SetText(4, text);
+
+		text.create("maximum life: %i", player->lust->increased_HP);
+		raise_blood_hawk->text->SetText(5, text);
 	}
 	//-----------------------------------------------------------
 	//Undead ----------------------------------------------------
@@ -1058,16 +1053,19 @@ bool hudSkilltree::PostUpdate()
 
 	if (player->undead->level == -1 || player->undead->level == 0)
 	{
+		text.create("extra damage (percenT of The damage): %i", player->undead->extra_damage_base);
+		blood_golem->text->SetText(6, text);
+
+		text.create("life per kill: %i", player->undead->life_steal_base);
+		blood_golem->text->SetText(7, text);
+	}
+	else
+	{
 		text.create("extra damage (percenT of The damage): %i", player->undead->extra_damage);
 		blood_golem->text->SetText(6, text);
 
 		text.create("life per kill: %i", player->undead->life_steal);
-		blood_golem->text->SetText(4, text);
-	}
-	else
-	{
-		//text.create("blood charges cosT: %i", player->shadow_walker->blood_charge_cost_base + (player->shadow_walker->blood_charge_cost_dt * player->shadow_walker->level));
-		//blood_golem->text->SetText(3, text);
+		blood_golem->text->SetText(7, text);
 	}
 	//-----------------------------------------------------------
 	//Night ward ------------------------------------------------
@@ -1089,8 +1087,8 @@ bool hudSkilltree::PostUpdate()
 	}
 	else
 	{
-		//text.create("blood charges cosT: %i", player->shadow_walker->blood_charge_cost_base + (player->shadow_walker->blood_charge_cost_dt * player->shadow_walker->level));
-		//bat_girl->text->SetText(3, text);
+		text.create("percent of your life absorbed: %i", player->night_ward->damage_reduction_final);
+		bat_girl->text->SetText(6, text);
 	}
 	//-----------------------------------------------------------
 	// END ------------------------------------------------------------------------------------------------------------

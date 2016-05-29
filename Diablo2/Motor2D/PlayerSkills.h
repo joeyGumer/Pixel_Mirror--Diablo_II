@@ -313,7 +313,7 @@ public:
 	int blood_charge_cost_dt = 2;
 	int blood_charge_cost_final;
 
-	float radius = 200;
+	int radius = 200;
 
 	int life_steal_base = 50;
 
@@ -351,7 +351,7 @@ public:
 	int blood_charge_cost_dt = 2;
 	int blood_charge_cost_final;
 
-	float radius = 150;
+	int radius = 150;
 	float direction;
 	//float cooldown_base;
 
@@ -482,9 +482,9 @@ public:
 	//float cooldown = 60;
 
 	//"damage_reduction_final" should be "damage_reduction_base"
-	float damage_reduction_base = 24;
-	float damage_reduction_dt = 4;
-	float damage_reduction_final;
+	int damage_reduction_base = 24;
+	int damage_reduction_dt = 4;
+	int damage_reduction_final;
 
 	j1Timer effect_timer;
 
