@@ -239,22 +239,9 @@ bool hudSkilltree::Start()
 	text.Insert(0, "BLOOD charges COST: ");
 	clottedtext.push_back(StringColor(text, FONT_PURPLE));
 	clottedtext.push_back(StringColor("duraTion: 3 seconds", FONT_BLUE));
-	/*
-	text.create("%i", player->clotted_blood->buff.time);
-	text.Insert(0, "duraTion: ");
-	clottedtext.push_back(StringColor(text, FONT_BLUE));
-	*/
 	clottedtext.push_back(StringColor("Cooldown: 10 seconds", FONT_BLUE));
-	/*
-	text.create("%i", player->clotted_blood->cooldown_base);
-	text.Insert(0, "COOLDOWN: ");
-	clottedtext.push_back(StringColor(text, FONT_BLUE));
-	*/
 	text.create("%i", player->clotted_blood->buff.value);
 	text.Insert(0, "ARMOR: ");
-	clottedtext.push_back(StringColor(text, FONT_GREEN));
-	text.create("%i", player->clotted_blood->buff.attribute);
-	text.Insert(0, "reduced damage: ");
 	clottedtext.push_back(StringColor(text, FONT_GREEN));
 	clotted_blood_skin->text = App->gui->AddGuiText({ -20, 0 }, clottedtext, clotted_blood_skin, this);
 	clotted_blood_skin->text->Desactivate();
@@ -275,11 +262,6 @@ bool hudSkilltree::Start()
 	text.Insert(0, "duraTion: ");
 	wolftext.push_back(StringColor(text, FONT_BLUE));
 	wolftext.push_back(StringColor("Cooldown: 10 seconds", FONT_BLUE));
-	/*
-	text.create("%i", player->shadow_walker->cooldown_base);
-	text.Insert(0, "COOLDOWN: ");
-	wolftext.push_back(StringColor(text, FONT_BLUE));
-	*/
 	raise_wolf->text = App->gui->AddGuiText({ 0, 0 }, wolftext, raise_wolf, this);
 	raise_wolf->Desactivate();
 	texts.push_back(raise_wolf->text);
@@ -296,12 +278,10 @@ bool hudSkilltree::Start()
 	text.create("%i", player->night_ward->price);
 	text.Insert(0, "pure BLOOD COST: ");
 	batgirltext.push_back(StringColor(text, FONT_YELLOW));
-	batgirltext.push_back(StringColor("percenT of your life absorbed: 24", FONT_GREEN));
-	/*
+	//batgirltext.push_back(StringColor("percenT of your life absorbed: 24", FONT_GREEN));
 	text.create("%i", player->night_ward->damage_reduction_base);
 	text.Insert(0, "percenT of your life absorbed: ");
 	batgirltext.push_back(StringColor(text, FONT_GREEN));
-	*/
 	bat_girl->text = App->gui->AddGuiText({ 0, 0 }, batgirltext, bat_girl, this);
 	bat_girl->Desactivate();
 	texts.push_back(bat_girl->text);
@@ -335,14 +315,12 @@ bool hudSkilltree::Start()
 	golemtext.push_back(StringColor("makes you invulnerable, increases The damage", FONT_WHITE));
 	golemtext.push_back(StringColor("and gives life per kill for 4 seconds", FONT_WHITE));
 	golemtext.push_back(StringColor("The passive will be available again afTer 60 seconds", FONT_WHITE));
-	golemtext.push_back(StringColor("pure blood cosT: 2500", FONT_YELLOW));
-	/*
+	//golemtext.push_back(StringColor("pure blood cosT: 2500", FONT_YELLOW));
 	text.create("%i", player->undead->price);
 	text.Insert(0, "pure BLOOD COST: ");
 	golemtext.push_back(StringColor(text, FONT_YELLOW));
-	*/
 	text.create("%i", player->undead->extra_damage);
-	text.Insert(0, "exTra damage: ");
+	text.Insert(0, "exTra damage (percenT of The damage): ");
 	golemtext.push_back(StringColor(text, FONT_GREEN));
 	text.create("%i", player->undead->life_steal);
 	text.Insert(0, "life per kill: ");
@@ -370,11 +348,6 @@ bool hudSkilltree::Start()
 	text.Insert(0, "Damage: ");
 	stingtext.push_back(StringColor(text, FONT_GREEN));
 	stingtext.push_back(StringColor("Cooldown: 1 seconds", FONT_BLUE));
-	/*
-	text.create("%i", player->stinging_strike->cooldown_base);
-	text.Insert(0, "COOLDOWN: ");
-	stingtext.push_back(StringColor(text, FONT_BLUE));
-	*/
 	stinging_strike->text = App->gui->AddGuiText({ 0, 145 }, stingtext, stinging_strike, this);
 	stinging_strike->text->Desactivate();
 	texts.push_back(stinging_strike->text);
@@ -397,11 +370,6 @@ bool hudSkilltree::Start()
 	text.Insert(0, "Damage: ");
 	talontext.push_back(StringColor(text, FONT_GREEN));
 	talontext.push_back(StringColor("Cooldown: 2 seconds", FONT_BLUE));
-	/*
-	text.create("%i", player->wild_talon->cooldown_base);
-	text.Insert(0, "COOLDOWN: ");
-	talontext.push_back(StringColor(text, FONT_BLUE));
-	*/
 	wild_talon->text = App->gui->AddGuiText({ 0, 145 }, talontext, wild_talon, this);
 	wild_talon->Desactivate();
 	texts.push_back(wild_talon->text);
@@ -418,17 +386,12 @@ bool hudSkilltree::Start()
 	text.Insert(0, "BLOOD charges cosT: ");
 	battext.push_back(StringColor(text, FONT_PURPLE));
 	text.create("%i", player->bat_strike->life_steal);
-	text.Insert(0, "life sTeal: ");
+	text.Insert(0, "life sTeal(percenT of The damage): ");
 	battext.push_back(StringColor(text, FONT_GREEN));
 	text.create("%i-%i", player->bat_strike->base_damage_down, player->bat_strike->base_damage_up);
 	text.Insert(0, "Damage: ");
 	battext.push_back(StringColor(text, FONT_GREEN));
 	battext.push_back(StringColor("Cooldown: 3 seconds", FONT_BLUE));
-	/*
-	text.create("%i", player->bat_strike->cooldown_base);
-	text.Insert(0, "COOLDOWN: ");
-	battext.push_back(StringColor(text, FONT_BLUE));
-	*/
 	bat_strike->text = App->gui->AddGuiText({ -20, 145 }, battext, bat_strike, this);
 	bat_strike->Desactivate();
 	texts.push_back(bat_strike->text);
@@ -449,11 +412,6 @@ bool hudSkilltree::Start()
 	icetext.push_back(StringColor(text, FONT_GREEN));
 	icetext.push_back(StringColor("duraTion: 3 seconds", FONT_BLUE));
 	icetext.push_back(StringColor("Cooldown: 3 seconds", FONT_BLUE));
-	/*
-	text.create("%i", player->soul_of_ice->cooldown_base);
-	text.Insert(0, "COOLDOWN: ");
-	icetext.push_back(StringColor(text, FONT_BLUE));
-	*/
 	soul_of_ice->text = App->gui->AddGuiText({ 0, 0 }, icetext, soul_of_ice, this);
 	soul_of_ice->Desactivate();
 	texts.push_back(soul_of_ice->text);
@@ -470,15 +428,10 @@ bool hudSkilltree::Start()
 	text.Insert(0, "life cosT: ");
 	krobustext.push_back(StringColor(text, FONT_RED));
 	text.create("%i", player->krobus_arts->damage_bonus_base);
-	text.Insert(0, "Damage: ");
+	text.Insert(0, "Damage(percenT of The damage): ");
 	krobustext.push_back(StringColor(text, FONT_GREEN));
 	krobustext.push_back(StringColor("duraTion: 3 seconds", FONT_BLUE));
 	krobustext.push_back(StringColor("Cooldown: 10 seconds", FONT_BLUE));
-	/*
-	text.create("%i", player->krobus_arts->cooldown_base);
-	text.Insert(0, "COOLDOWN: ");
-	krobustext.push_back(StringColor(text, FONT_BLUE));
-	*/
 	krobus_arts->text = App->gui->AddGuiText({ 0,145 }, krobustext, krobus_arts, this);
 	krobus_arts->Desactivate();
 	texts.push_back(krobus_arts->text);
@@ -502,11 +455,6 @@ bool hudSkilltree::Start()
 	text.Insert(0, "spell Damage: ");
 	arrowtext.push_back(StringColor(text, FONT_GREEN));
 	arrowtext.push_back(StringColor("Cooldown: 1.5 seconds", FONT_BLUE));
-	/*
-	text.create("%i", player->blood_arrow->cooldown_base);
-	text.Insert(0, "COOLDOWN: ");
-	arrowtext.push_back(StringColor(text, FONT_BLUE));
-	*/
 	blood_arrow->text = App->gui->AddGuiText({ 0, 0 }, arrowtext, blood_arrow, this);
 	blood_arrow->Desactivate();
 	texts.push_back(blood_arrow->text);
@@ -525,12 +473,7 @@ bool hudSkilltree::Start()
 	text.create("%i-%i", player->vampire_breath->base_damage_down, player->vampire_breath->base_damage_up);
 	text.Insert(0, "spells Damage: ");
 	breathtext.push_back(StringColor(text, FONT_GREEN));
-	breathtext.push_back(StringColor("Cooldown: 10 seconds", FONT_BLUE));
-	/*
-	text.create("%i", player->vampire_breath->cooldown_base);
-	text.Insert(0, "COOLDOWN: ");
-	breathtext.push_back(StringColor(text, FONT_BLUE));
-	*/
+	breathtext.push_back(StringColor("Cooldown: 9 seconds", FONT_BLUE));
 	text.create("%i", player->vampire_breath->range);
 	text.Insert(0, "range: ");
 	breathtext.push_back(StringColor(text, FONT_GREEN));
@@ -546,26 +489,18 @@ bool hudSkilltree::Start()
 	text.create("%i", player->blood_bomb->price);
 	text.Insert(0, "pure BLOOD COST: ");
 	bombtext.push_back(StringColor(text, FONT_YELLOW));
-	bombtext.push_back(StringColor("blood charges addiTion: 18", FONT_PURPLE));
-	/*
+	//bombtext.push_back(StringColor("blood charges addiTion: 18", FONT_PURPLE));
 	text.create("%i", player->blood_bomb->blood_charge_increase_base);
 	text.Insert(0, "BLOOD charges addiTion: ");
 	bombtext.push_back(StringColor(text, FONT_PURPLE));
-	*/
 	text.create("%i", player->blood_bomb->life_cost_base);
 	text.Insert(0, "life cosT: ");
 	bombtext.push_back(StringColor(text, FONT_RED));
-	//Blood bomb needs a damage and an area variable
+	//Blood bomb needs a damage
 	text.create("%i-%i", player->blood_arrow->base_damage_down, player->blood_arrow->base_damage_up);
 	text.Insert(0, "spell Damage: ");
 	bombtext.push_back(StringColor(text, FONT_GREEN));
 	bombtext.push_back(StringColor("Cooldown: 3 seconds", FONT_BLUE));
-	bombtext.push_back(StringColor("area: 100", FONT_GREEN));
-	/*
-	text.create("%i", player->blood_bomb->cooldown_base);
-	text.Insert(0, "COOLDOWN: ");
-	bombtext.push_back(StringColor(text, FONT_BLUE));
-	*/
 	blood_bomb->text = App->gui->AddGuiText({ 0, 0 }, bombtext, blood_bomb, this);
 	blood_bomb->Desactivate();
 	texts.push_back(blood_bomb->text);
@@ -579,30 +514,21 @@ bool hudSkilltree::Start()
 	text.create("%i", player->red_feast->price);
 	text.Insert(0, "pure BLOOD COST: ");
 	feasttext.push_back(StringColor(text, FONT_YELLOW));
-	feasttext.push_back(StringColor("Blood charges (per second): 20", FONT_PURPLE));
-	/*
+	//feasttext.push_back(StringColor("Blood charges (per second): 20", FONT_PURPLE));
 	text.create("%i", player->red_feast->blood_charge_cost_base);
 	text.Insert(0, "BLOOD charges cosT (per second): ");
 	feasttext.push_back(StringColor(text, FONT_PURPLE));
-	*/
 	text.create("%i-%i", player->red_feast->base_damage_down, player->red_feast->base_damage_up);
 	text.Insert(0, "spell Damage (per second): ");
 	feasttext.push_back(StringColor(text, FONT_GREEN));
 	text.create("%i", player->red_feast->life_steal_base);
-	text.Insert(0, "life sTeal : ");
+	text.Insert(0, "life sTeal(percenT of The damage): ");
 	feasttext.push_back(StringColor(text, FONT_GREEN));
 	feasttext.push_back(StringColor("Cooldown: 10 seconds", FONT_BLUE));
-	/*
-	text.create("%i", player->red_feast->cooldown_base);
-	text.Insert(0, "COOLDOWN: ");
-	feasttext.push_back(StringColor(text, FONT_BLUE));
-	*/
-	feasttext.push_back(StringColor("radius: 150", FONT_GREEN));
-	/*
+	//feasttext.push_back(StringColor("radius: 150", FONT_GREEN));
 	text.create("%i", player->vampire_breath->radius);
 	text.Insert(0, "radius: ");
 	feasttext.push_back(StringColor(text, FONT_GREEN));
-	*/
 	red_feast->text = App->gui->AddGuiText({ -20, 0 }, feasttext, red_feast, this);
 	red_feast->Desactivate();
 	texts.push_back(red_feast->text);
@@ -616,7 +542,7 @@ bool hudSkilltree::Start()
 	text.Insert(0, "pure BLOOD COST: ");
 	herdtext.push_back(StringColor(text, FONT_YELLOW));
 	text.create("%i", player->heard_of_bats->blood_charge_increase_base);
-	text.Insert(0, "BLOOD charges addiTion: ");
+	text.Insert(0, "BLOOD charges cosT: ");
 	herdtext.push_back(StringColor(text, FONT_PURPLE));
 	text.create("%i-%i", player->heard_of_bats->base_damage_down, player->heard_of_bats->base_damage_up);
 	text.Insert(0, "spell Damage (per second): ");
@@ -625,21 +551,19 @@ bool hudSkilltree::Start()
 	text.Insert(0, "duraTion: ");
 	herdtext.push_back(StringColor(text, FONT_BLUE));
 	herdtext.push_back(StringColor("Cooldown: 15 seconds", FONT_BLUE));
-	herdtext.push_back(StringColor("radius: 150", FONT_GREEN));
-	/*
-	text.create("%i", player->heard_of_bats->cooldown_base);
-	text.Insert(0, "COOLDOWN: ");
-	herdtext.push_back(StringColor(text, FONT_BLUE));
-	
+	//herdtext.push_back(StringColor("radius: 150", FONT_GREEN));
 	text.create("%i", player->heard_of_bats->radius);
 	text.Insert(0, "radius: ");
 	herdtext.push_back(StringColor(text, FONT_GREEN));
-	*/
 	heard_of_bats->text = App->gui->AddGuiText({ -110, 0 }, herdtext, heard_of_bats, this);
 	heard_of_bats->Desactivate();
 	texts.push_back(heard_of_bats->text);
 	hud_gui_elements.push_back(heard_of_bats->text);
 	herdtext.clear();
+
+	
+
+	
 
 	return true;
 }
@@ -711,6 +635,467 @@ bool hudSkilltree::PostUpdate()
 
 	text.create("%i", player->undead->level + 1);
 	price15->SetText(text);
+
+
+	//MARTIAL BLOOD -----------------------------------------------------------------------------------------------------------
+	//Stinging strike ------------------------------------------
+	if (player->stinging_strike->level == 4)
+	{
+		text.create("        MAX LEVEL");
+		stinging_strike->text->SetText(2, text);
+	}
+	else
+	{
+		text.create("Pure blood cosT: %i", player->stinging_strike->price + (player->stinging_strike->price_dt * (player->stinging_strike->level + 1)));
+		stinging_strike->text->SetText(2, text);
+	}
+
+	if (player->stinging_strike->level == -1 || player->stinging_strike->level == 0)
+	{
+		text.create("life cosT: %i", player->stinging_strike->life_cost_base);
+		stinging_strike->text->SetText(4, text);
+
+		text.create("blood charges addiTion: %i", player->stinging_strike->blood_charge_increase_base);
+		stinging_strike->text->SetText(3, text);
+
+		text.create("damage: %i-%i", player->stinging_strike->base_damage_down, player->stinging_strike->base_damage_up);
+		stinging_strike->text->SetText(5, text);
+	}
+	else
+	{
+		text.create("life cosT: %i", player->stinging_strike->life_cost_base + (player->stinging_strike->life_cost_dt * player->stinging_strike->level));
+		stinging_strike->text->SetText(4, text);
+
+		text.create("blood charges addiTion: %i", player->stinging_strike->blood_charge_increase_base + (player->stinging_strike->blood_dt * player->stinging_strike->level));
+		stinging_strike->text->SetText(3, text);
+
+		text.create("damage: %i-%i", player->stinging_strike->base_damage_down + (player->stinging_strike->damage_down_dt * player->stinging_strike->level), player->stinging_strike->base_damage_up + (player->stinging_strike->damage_up_dt * player->stinging_strike->level));
+		stinging_strike->text->SetText(5, text);
+	}
+	//----------------------------------------------------------
+	//Wild talon -----------------------------------------------
+	if (player->wild_talon->level == 4)
+	{
+		text.create("        MAX LEVEL");
+		wild_talon->text->SetText(2, text);
+	}
+	else
+	{
+		text.create("Pure blood cosT: %i", player->wild_talon->price + (player->wild_talon->price_dt * (player->wild_talon->level + 1)));
+		wild_talon->text->SetText(2, text);
+	}
+
+	if (player->wild_talon->level == -1 || player->wild_talon->level == 0)
+	{
+		text.create("life cosT: %i", player->wild_talon->life_cost_base);
+		wild_talon->text->SetText(4, text);
+
+		text.create("damage: %i-%i", player->wild_talon->base_damage_down, player->wild_talon->base_damage_up);
+		wild_talon->text->SetText(5, text);
+	}
+	else
+	{
+		text.create("life cosT: %i", player->wild_talon->life_cost_base + (player->wild_talon->life_cost_dt * player->wild_talon->level));
+		wild_talon->text->SetText(4, text);
+
+		text.create("damage: %i-%i", player->stinging_strike->base_damage_down + (player->wild_talon->damage_down_dt * player->wild_talon->level), player->wild_talon->base_damage_up + (player->wild_talon->damage_up_dt * player->wild_talon->level));
+		wild_talon->text->SetText(5, text);
+	}
+	//-----------------------------------------------------------
+	//Bat strike ------------------------------------------------
+	if (player->bat_strike->level == 4)
+	{
+		text.create("         MAX LEVEL");
+		bat_strike->text->SetText(2, text);
+	}
+	else
+	{
+		text.create("Pure blood cosT: %i", player->bat_strike->price + (player->bat_strike->price_dt * (player->bat_strike->level + 1)));
+		bat_strike->text->SetText(2, text);
+	}
+
+	if (player->bat_strike->level == -1 || player->bat_strike->level == 0)
+	{
+		text.create("blood charges cosT: %i", player->bat_strike->blood_charge_cost_base);
+		bat_strike->text->SetText(3, text);
+
+		text.create("damage: %i-%i", player->bat_strike->base_damage_down, player->bat_strike->base_damage_up);
+		bat_strike->text->SetText(5, text);
+	}
+	else
+	{
+		text.create("blood charges cosT: %i", player->bat_strike->blood_charge_cost_base + (player->bat_strike->blood_charge_cost_dt * player->bat_strike->level));
+		bat_strike->text->SetText(3, text);
+
+		text.create("damage: %i-%i", player->bat_strike->base_damage_down + (player->bat_strike->damage_down_dt * player->bat_strike->level), player->bat_strike->base_damage_up + (player->bat_strike->damage_up_dt * player->bat_strike->level));
+		bat_strike->text->SetText(5, text);
+	}
+	//-----------------------------------------------------------
+	//Soul of ice -----------------------------------------------
+	if (player->soul_of_ice->level == 4)
+	{
+		text.create("        MAX LEVEL");
+		soul_of_ice->text->SetText(2, text);
+	}
+	else
+	{
+		text.create("Pure blood cosT: %i", player->soul_of_ice->price + (player->soul_of_ice->price_dt * (player->soul_of_ice->level + 1)));
+		soul_of_ice->text->SetText(2, text);
+	}
+
+	if (player->soul_of_ice->level == -1 || player->soul_of_ice->level == 0)
+	{
+		text.create("blood charges cosT: %i", player->soul_of_ice->blood_charge_cost_base);
+		soul_of_ice->text->SetText(3, text);
+
+		text.create("damage: %i-%i", player->soul_of_ice->base_damage_down, player->soul_of_ice->base_damage_up);
+		soul_of_ice->text->SetText(4, text);
+	}
+	else
+	{
+		text.create("blood charges cosT: %i", player->soul_of_ice->blood_charge_cost_base + (player->soul_of_ice->blood_charge_cost_dt * player->soul_of_ice->level));
+		soul_of_ice->text->SetText(3, text);
+
+		text.create("damage: %i-%i", player->soul_of_ice->base_damage_down + (player->soul_of_ice->damage_down_dt * player->soul_of_ice->level), player->soul_of_ice->base_damage_up + (player->soul_of_ice->damage_up_dt * player->soul_of_ice->level));
+		soul_of_ice->text->SetText(4, text);
+	}
+	//-----------------------------------------------------------
+	//Krobus arts -----------------------------------------------
+	if (player->krobus_arts->level == 4)
+	{
+		text.create("         MAX LEVEL");
+		krobus_arts->text->SetText(2, text);
+	}
+	else
+	{
+		text.create("Pure blood cosT: %i", player->krobus_arts->price + (player->krobus_arts->price_dt * (player->krobus_arts->level + 1)));
+		krobus_arts->text->SetText(2, text);
+	}
+
+	if (player->krobus_arts->level == -1 || player->krobus_arts->level == 0)
+	{
+		text.create("life cosT: %i", player->krobus_arts->life_cost_base);
+		krobus_arts->text->SetText(3, text);
+
+		text.create("damage(percenT of The damage): %i", player->krobus_arts->damage_bonus_base);
+		krobus_arts->text->SetText(4, text);
+	}
+	else
+	{
+		text.create("life cosT: %i", player->krobus_arts->life_cost_base + (player->krobus_arts->life_cost_dt * player->krobus_arts->level));
+		krobus_arts->text->SetText(3, text);
+
+		text.create("damage(percenT of The damage): %i", player->krobus_arts->damage_bonus_base + (player->krobus_arts->damage_bonus_dt * player->krobus_arts->level));
+		krobus_arts->text->SetText(4, text);
+	}
+	//-----------------------------------------------------------
+	//BLOOD SPELLS -------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	//Blood arrow -----------------------------------------------
+	if (player->blood_arrow->level == 4)
+	{
+		text.create("        MAX LEVEL");
+		blood_arrow->text->SetText(2, text);
+	}
+	else
+	{
+		text.create("Pure blood cosT: %i", player->blood_arrow->price + (player->blood_arrow->price_dt * (player->blood_arrow->level + 1)));
+		blood_arrow->text->SetText(2, text);
+	}
+
+	if (player->blood_arrow->level == -1 || player->blood_arrow->level == 0)
+	{
+		text.create("life cosT: %i", player->blood_arrow->life_cost_base);
+		blood_arrow->text->SetText(4, text);
+
+		text.create("blood charges addiTion: %i", player->blood_arrow->blood_charge_increase_base);
+		blood_arrow->text->SetText(3, text);
+
+		text.create("spell damage: %i-%i", player->blood_arrow->base_damage_down, player->blood_arrow->base_damage_up);
+		blood_arrow->text->SetText(5, text);
+	}
+	else
+	{
+		text.create("life cosT: %i", player->blood_arrow->life_cost_base + (player->blood_arrow->life_cost_dt * player->blood_arrow->level));
+		blood_arrow->text->SetText(4, text);
+
+		text.create("blood charges addiTion: %i", player->blood_arrow->blood_charge_increase_base + (player->blood_arrow->blood_charge_increase_dt * player->blood_arrow->level));
+		blood_arrow->text->SetText(3, text);
+
+		text.create("spell damage: %i-%i", player->blood_arrow->base_damage_down + (player->blood_arrow->damage_down_dt * player->blood_arrow->level), player->blood_arrow->base_damage_up + (player->blood_arrow->damage_up_dt * player->blood_arrow->level));
+		blood_arrow->text->SetText(5, text);
+	}
+	//-----------------------------------------------------------
+	//Vampire breath --------------------------------------------
+	
+	if (player->vampire_breath->level == 4)
+	{
+		text.create("        MAX LEVEL");
+		vampire_breath->text->SetText(2, text);
+	}
+	else
+	{
+		text.create("Pure blood cosT: %i", player->vampire_breath->price + (player->vampire_breath->price_dt * (player->vampire_breath->level + 1)));
+		vampire_breath->text->SetText(2, text);
+	}
+
+	if (player->vampire_breath->level == -1 || player->vampire_breath->level == 0)
+	{
+		text.create("blood charges cosT: %i", player->vampire_breath->blood_charge_cost_base);
+		vampire_breath->text->SetText(3, text);
+
+		text.create("spell damage: %i-%i", player->vampire_breath->base_damage_down, player->vampire_breath->base_damage_up);
+		vampire_breath->text->SetText(4, text);
+
+		text.create("range: %i", player->vampire_breath->range);
+		vampire_breath->text->SetText(6, text);
+	}
+	else
+	{
+		//text.create("blood charges cosT: %i", player->vampire_breath->blood_charge_cost_base + (player->vampire_breath-> * player->vampire_breath->level));
+		//vampire_breath->text->SetText(3, text);
+
+		//text.create("spell damage: %i-%i", player->vampire_breath->base_damage_down + (player->vampire_breath->damage_down_dt * player->vampire_breath->level), player->vampire_breath->base_damage_up + (player->vampire_breath->damage_up_dt * player->vampire_breath->level));
+		//vampire_breath->text->SetText(4, text);
+
+		//text.create("range: %i", player->vampire_breath->range + (player->vampire_breath-> * player->vampire_breath->level));
+		//vampire_breath->text->SetText(6, text);
+	}
+	//-----------------------------------------------------------
+	//Blood bomb ------------------------------------------------
+	if (player->blood_bomb->level == 4)
+	{
+		text.create("        MAX LEVEL");
+		blood_bomb->text->SetText(2, text);
+	}
+	else
+	{
+		text.create("Pure blood cosT: %i", player->blood_bomb->price + (player->blood_bomb->price_dt * (player->blood_bomb->level + 1)));
+		blood_bomb->text->SetText(2, text);
+	}
+
+	if (player->blood_bomb->level == -1 || player->blood_bomb->level == 0)
+	{
+		text.create("life cosT: %i", player->blood_bomb->life_cost_base);
+		blood_arrow->text->SetText(4, text);
+
+		text.create("blood charges addiTion: %i", player->blood_bomb->blood_charge_increase_base);
+		blood_bomb->text->SetText(3, text);
+
+		//text.create("spell damage: %i-%i", player->blood_bomb->base_damage_down, player->blood_bomb->base_damage_up);
+		//blood_bomb->text->SetText(5, text);
+	}
+	else
+	{
+		//text.create("life cosT: %i", player->blood_bomb->life_cost_base + (player->blood_bomb->life_cost_dt * player->blood_bomb->level));
+		//blood_bomb->text->SetText(4, text);
+
+		//text.create("blood charges addiTion: %i", player->blood_bomb->blood_charge_increase_base + (player->blood_bomb->blood_charge_increase_dt * player->blood_bomb->level));
+		//blood_bomb->text->SetText(3, text);
+
+		//text.create("spell damage: %i-%i", player->blood_bomb->base_damage_down + (player->blood_bomb->damage_down_dt * player->blood_bomb->level), player->blood_bomb->base_damage_up + (player->blood_bomb->damage_up_dt * player->blood_bomb->level));
+		//blood_bomb->text->SetText(5, text);
+	}
+	//-----------------------------------------------------------
+	//Red feast -------------------------------------------------
+	if (player->red_feast->level == 4)
+	{
+		text.create("        MAX LEVEL");
+		red_feast->text->SetText(3, text);
+	}
+	else
+	{
+		text.create("Pure blood cosT: %i", player->red_feast->price + (player->red_feast->price_dt * (player->red_feast->level + 1)));
+		red_feast->text->SetText(3, text);
+	}
+
+	if (player->red_feast->level == -1 || player->red_feast->level == 0)
+	{
+		text.create("blood charges cosT (per second): %i", player->red_feast->blood_charge_cost_base);
+		red_feast->text->SetText(3, text);
+
+		text.create("radius: %i", player->red_feast->radius);
+		red_feast->text->SetText(8, text);
+
+		text.create("spell damage (per second): %i-%i", player->red_feast->base_damage_down, player->red_feast->base_damage_up);
+		red_feast->text->SetText(5, text);
+	}
+	else
+	{
+		//text.create("blood charges cosT (per second): %i", player->red_feast->blood_charges_cost_base + (player->blood_bomb->life_cost_dt * player->red_feast->level));
+		//red_feast->text->SetText(4, text);
+
+		//text.create("radius: %i-%i", player->red_feast->radius + (player->blood_bomb->damage_down_dt * player->blood_bomb->level), player->blood_bomb->base_damage_up + (player->blood_bomb->damage_up_dt * player->blood_bomb->level));
+		//red_feast->text->SetText(8, text);
+
+		//text.create("blood charges addiTion: %i", player->blood_bomb->blood_charge_increase_base + (player->blood_bomb->blood_charge_increase_dt * player->blood_bomb->level));
+		//red_feast->text->SetText(5, text);		
+	}
+	//-----------------------------------------------------------
+	//Herd of bats ----------------------------------------------
+	if (player->heard_of_bats->level == 4)
+	{
+		text.create("        MAX LEVEL");
+		heard_of_bats->text->SetText(2, text);
+	}
+	else
+	{
+		text.create("Pure blood cosT: %i", player->heard_of_bats->price + (player->heard_of_bats->price_dt * (player->heard_of_bats->level + 1)));
+		heard_of_bats->text->SetText(2, text);
+	}
+
+	if (player->heard_of_bats->level == -1 || player->heard_of_bats->level == 0)
+	{
+		text.create("blood charges cosT: %i", player->heard_of_bats->blood_charge_increase_base);
+		heard_of_bats->text->SetText(3, text);
+
+		text.create("spell damage (per second): %i-%i", player->heard_of_bats->base_damage_down, player->heard_of_bats->base_damage_up);
+		heard_of_bats->text->SetText(4, text);
+
+		text.create("radius: %i", player->heard_of_bats->radius);
+		heard_of_bats->text->SetText(7, text);
+	}
+	else
+	{
+		//text.create("blood charges cosT (per second): %i", player->red_feast->blood_charges_cost_base + (player->blood_bomb->life_cost_dt * player->red_feast->level));
+		//heard_of_bats->text->SetText(4, text);
+
+		//text.create("radius: %i-%i", player->red_feast->radius + (player->blood_bomb->damage_down_dt * player->blood_bomb->level), player->blood_bomb->base_damage_up + (player->blood_bomb->damage_up_dt * player->blood_bomb->level));
+		//heard_of_bats->text->SetText(8, text);
+
+		//text.create("blood charges addiTion: %i", player->blood_bomb->blood_charge_increase_base + (player->blood_bomb->blood_charge_increase_dt * player->blood_bomb->level));
+		//heard_of_bats->text->SetText(5, text);		
+	}
+	//-----------------------------------------------------------
+	//NIGHT PASSIVES ------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	//Clotted blood skin ----------------------------------------
+	if (player->clotted_blood->level == 4)
+	{
+		text.create("        MAX LEVEL");
+		clotted_blood_skin->text->SetText(2, text);
+	}
+	else
+	{
+		text.create("Pure blood cosT: %i", player->clotted_blood->price + (player->clotted_blood->price_dt * (player->clotted_blood->level + 1)));
+		clotted_blood_skin->text->SetText(2, text);
+	}
+
+	if (player->clotted_blood->level == -1 || player->clotted_blood->level == 0)
+	{
+		text.create("blood charges cosT: %i", player->clotted_blood->blood_charge_cost_base);
+		clotted_blood_skin->text->SetText(3, text);
+
+		text.create("armor: %i", player->clotted_blood->buff.value);
+		clotted_blood_skin->text->SetText(6, text);
+	}
+	else
+	{
+		//text.create("blood charges cosT: %i", player->clotted_blood->blood_charge_cost_base + (player->clotted_blood->bl * player->clotted_blood->level));
+		//clotted_blood_skin->text->SetText(3, text);
+
+	
+	}
+	//-----------------------------------------------------------
+	//Shadow walker ---------------------------------------------
+	if (player->shadow_walker->level == 4)
+	{
+		text.create("        MAX LEVEL");
+		raise_wolf->text->SetText(2, text);
+	}
+	else
+	{
+		text.create("Pure blood cosT: %i", player->shadow_walker->price + (player->shadow_walker->price_dt * (player->shadow_walker->level + 1)));
+		raise_wolf->text->SetText(2, text);
+	}
+
+	if (player->shadow_walker->level == -1 || player->shadow_walker->level == 0)
+	{
+		text.create("blood charges cosT: %i", player->shadow_walker->blood_charge_cost_base);
+		raise_wolf->text->SetText(3, text);
+	}
+	else
+	{
+		//text.create("blood charges cosT: %i", player->shadow_walker->blood_charge_cost_base + (player->shadow_walker->blood_charge_cost_dt * player->shadow_walker->level));
+		//raise_wolf->text->SetText(3, text);
+	}
+	//-----------------------------------------------------------
+	//Lust ------------------------------------------------------
+	if (player->lust->level == 4)
+	{
+		text.create("        MAX LEVEL");
+		raise_blood_hawk->text->SetText(3, text);
+	}
+	else
+	{
+		text.create("Pure blood cosT: %i", player->lust->price + (player->lust->price_dt * (player->lust->level + 1)));
+		raise_blood_hawk->text->SetText(3, text);
+	}
+
+	if (player->lust->level == -1 || player->lust->level == 0)
+	{
+		text.create("blood charges per basic: %i", player->lust->basic_blood_charges);
+		raise_blood_hawk->text->SetText(3, text);
+
+		text.create("maximum life: %i", player->lust->increased_HP);
+		raise_blood_hawk->text->SetText(4, text);
+	}
+	else
+	{
+		//text.create("blood charges cosT: %i", player->shadow_walker->blood_charge_cost_base + (player->shadow_walker->blood_charge_cost_dt * player->shadow_walker->level));
+		//raise_blood_hawk->text->SetText(3, text);
+	}
+	//-----------------------------------------------------------
+	//Undead ----------------------------------------------------
+	if (player->undead->level == 4)
+	{
+		text.create("        MAX LEVEL");
+		blood_golem->text->SetText(5, text);
+	}
+	else
+	{
+		text.create("Pure blood cosT: %i", player->undead->price + (player->undead->price_dt * (player->undead->level + 1)));
+		blood_golem->text->SetText(5, text);
+	}
+
+	if (player->undead->level == -1 || player->undead->level == 0)
+	{
+		text.create("extra damage (percenT of The damage): %i", player->undead->extra_damage);
+		blood_golem->text->SetText(6, text);
+
+		text.create("life per kill: %i", player->undead->life_steal);
+		blood_golem->text->SetText(4, text);
+	}
+	else
+	{
+		//text.create("blood charges cosT: %i", player->shadow_walker->blood_charge_cost_base + (player->shadow_walker->blood_charge_cost_dt * player->shadow_walker->level));
+		//blood_golem->text->SetText(3, text);
+	}
+	//-----------------------------------------------------------
+	//Night ward ------------------------------------------------
+	if (player->night_ward->level == 4)
+	{
+		text.create("        MAX LEVEL");
+		bat_girl->text->SetText(5, text);
+	}
+	else
+	{
+		text.create("Pure blood cosT: %i", player->night_ward->price + (player->night_ward->price_dt * (player->night_ward->level + 1)));
+		bat_girl->text->SetText(5, text);
+	}
+
+	if (player->night_ward->level == -1 || player->night_ward->level == 0)
+	{
+		text.create("percent of your life absorbed: %i", player->night_ward->damage_reduction_base);
+		bat_girl->text->SetText(6, text);
+	}
+	else
+	{
+		//text.create("blood charges cosT: %i", player->shadow_walker->blood_charge_cost_base + (player->shadow_walker->blood_charge_cost_dt * player->shadow_walker->level));
+		//bat_girl->text->SetText(3, text);
+	}
+	//-----------------------------------------------------------
+	// END ------------------------------------------------------------------------------------------------------------
+
+
 
 	for (int i = 0; i < skills.size(); i++)
 	{
