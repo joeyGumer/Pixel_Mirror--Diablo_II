@@ -1203,7 +1203,7 @@ void j1Player::ChangeMP(int MP)
 	{
 		MP_current = MP_max;
 	}
-	else if (MP_current == 0)
+	else if (MP_current <= 0)
 	{
 		MP_current = 0;
 	}

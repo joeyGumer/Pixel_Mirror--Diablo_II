@@ -256,15 +256,18 @@ sklBatStrike::~sklBatStrike()
 void sklBatStrike::SkillEffect()
 {
 	float damage = final_damage_down;
-	damage += rand() % (final_damage_up - final_damage_down + 1);
-	damage += float((float(damage) / 100) * player->dex_final);
+	
+	if (player->MP_current >= blood_charge_cost_final)
+	{
+		damage += rand() % (final_damage_up - final_damage_down + 1);
+		damage += float((float(damage) / 100) * player->dex_final);
+		player->RestoreHP(float((damage) / 100)*life_steal);
+	}
 
 	player->enemy->TakeDamage(damage);
+
 	//App->audio->PlayFx(player_attack, 0);
 	player->ChangeMP(-blood_charge_cost_final);
-
-
-	player->RestoreHP(float((damage)/100)*life_steal);
 
 	player->enemy = NULL;
 	player->objective = NULL;
@@ -282,10 +285,14 @@ void sklBatStrike::SkillUpdate(float dt)
 {
 	if (player->current_animation->CurrentFrame() == 12 && player->attacking == true)
 	{
-		iPoint pos;
-		pos.x = player->enemy->position.x;
-		pos.y = player->enemy->position.y + 1;
-		particle_skill = App->pm->AddParticle(player->effect_red, pos.x, pos.y, 1, player->effect_red.image);
+		if (player->MP_current >= blood_charge_cost_final)
+		{
+			iPoint pos;
+			pos.x = player->enemy->position.x;
+			pos.y = player->enemy->position.y + 1;
+			particle_skill = App->pm->AddParticle(player->effect_red, pos.x, pos.y, 1, player->effect_red.image);
+		}
+			
 		SkillEffect();
 	}
 	else if (player->current_animation->Finished())
@@ -333,11 +340,15 @@ sklSoulOfIce::~sklSoulOfIce()
 void sklSoulOfIce::SkillEffect()
 {
 	float damage = final_damage_down;
-	damage += rand() % (final_damage_up - final_damage_down + 1);
-	damage += float((float(damage) / 100) * player->dex_final);
+
+	if (player->MP_current >= blood_charge_cost_final)
+	{
+		damage += rand() % (final_damage_up - final_damage_down + 1);
+		damage += float((float(damage) / 100) * player->dex_final);
+		player->enemy->Freeze(3);
+	}
 
 	player->enemy->TakeDamage(damage);
-	player->enemy->Freeze(3);
 	//App->audio->PlayFx(player_attack, 0);
 	player->ChangeMP(-blood_charge_cost_final);
 
@@ -357,12 +368,17 @@ void sklSoulOfIce::SkillUpdate(float dt)
 {
 	if (player->current_animation->CurrentFrame() == 5 && player->attacking == true)
 	{
-		iPoint pos;
-		pos.x = player->enemy->position.x;
-		pos.y = player->enemy->position.y + 1;
-		particle_skill = App->pm->AddParticle(player->effect_blue, pos.x, pos.y, 1, player->effect_blue.image);
+		if (player->MP_current >= blood_charge_cost_final)
+		{
+			iPoint pos;
+			pos.x = player->enemy->position.x;
+			pos.y = player->enemy->position.y + 1;
+			particle_skill = App->pm->AddParticle(player->effect_blue, pos.x, pos.y, 1, player->effect_blue.image);
+		}
+			
 		SkillEffect();
 	}
+
 	else if (player->current_animation->Finished())
 	{
 		player->current_input = INPUT_STOP_MOVE;
