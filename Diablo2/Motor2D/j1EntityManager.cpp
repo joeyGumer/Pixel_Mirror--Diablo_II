@@ -168,8 +168,7 @@ bool j1EntityManager::Start()
 	portal_tex = App->tex->Load("textures/portal.png");
 	texture_list.push_back(portal_tex);
 	
-	enemy_name = App->gui->AddGuiLabel(" ", NULL, { 260, 0 }, NULL, FONT_WHITE, this);
-	enemy_name->Desactivate();
+	enemy_name = new GuiLabel(" ", NULL, { 260, 0 },FONT_WHITE, NULL,  this);
 
 	//Sounds
 	crawler_attackfx = App->audio->LoadFx("audio/fx/VileChildAttack.ogg");
@@ -261,20 +260,9 @@ bool j1EntityManager::Update(float dt)
 
 	}
 
-	if (Entity* ent = EntityOnMouse())
-	{
-		if (ent->type == ENEMY)
-		{
-			((EntEnemy*)ent)->total_width = 200 + (((EntEnemy*)ent)->HP_max/2);
-			((EntEnemy*)ent)->xpos = 220 - ((((EntEnemy*)ent)->HP_max)/4);
-			((EntEnemy*)ent)->DrawHPbar();
-			enemy_name->Activate();
-			enemy_name->SetText(((EntEnemy*)ent)->name);
-			enemy_name->Center(true, false);
-		}
-	}
-	else
-		enemy_name->Desactivate();
+
+	
+		
 
 	return true;
 }
@@ -285,7 +273,18 @@ bool j1EntityManager::PostUpdate()
 
 	//Checking if there's an entity under the mouse to do it's stuff
 	// NOTE: put it as gui
-
+	if (Entity* ent = EntityOnMouse())
+	{
+		if (ent->type == ENEMY)
+		{
+			((EntEnemy*)ent)->total_width = 200 + (((EntEnemy*)ent)->HP_max / 2);
+			((EntEnemy*)ent)->xpos = 220 - ((((EntEnemy*)ent)->HP_max) / 4);
+			((EntEnemy*)ent)->DrawHPbar();
+			enemy_name->SetText(((EntEnemy*)ent)->name);
+			enemy_name->Center(true, false);
+			enemy_name->Draw();
+		}
+	}
 
 	return true;
 }
@@ -304,8 +303,7 @@ bool j1EntityManager::CleanUp()
 	active_entities.clear();
 	inactive_entities.clear();
 
-	if (enemy_name)
-		enemy_name->Desactivate();
+	delete enemy_name;
 
 	list<SDL_Texture*>::iterator item2 = texture_list.begin();
 	for (; item2 != texture_list.end(); item2++)
