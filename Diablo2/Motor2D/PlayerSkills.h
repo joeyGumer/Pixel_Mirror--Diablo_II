@@ -106,6 +106,8 @@ public:
 
 public:
 
+	Particle* particle_skill = NULL;
+
 	int base_damage_down = 13;
 	int base_damage_up = 17;
 	int damage_down_dt = 7;
@@ -136,6 +138,8 @@ public:
 	void CalculateSkillStats();
 
 public:
+
+	Particle* particle_skill = NULL;
 
 	int base_damage_down = 17;
 	int base_damage_up = 24;

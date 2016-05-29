@@ -1664,6 +1664,51 @@ void j1Player::SetParticles()
 
 	area_3_down.collider_pivot.x = 0;
 	area_3_down.collider_pivot.y = 0;
+
+	//Effect
+	//Red
+	effect_red.image = App->tex->Load("particles/Special/Player/RedEffect.png");
+
+	effect_red.life = 5;
+	effect_red.type = PARTICLE_BUFF;
+	effect_red.damage = 0;
+	effect_red.speed.x = 0;
+	effect_red.speed.y = 0;
+	for (int i = 0; i < 4; i++)
+	{
+		effect_red.anim.SetFrames(0, 0 + 64 * i, 24, 64, 3);
+	}
+	effect_red.anim.speed = 0.2f;
+	effect_red.anim.loop = true;
+	effect_red.anim.Reset();
+
+	effect_red.collider_margin.x = 0;
+	effect_red.collider_margin.y = 0;
+
+	effect_red.collider_pivot.x = 0;
+	effect_red.collider_pivot.y = 0;
+
+	//Blue
+	effect_blue.image = App->tex->Load("particles/Special/Player/BlueEffect.png");
+
+	effect_blue.life = 5;
+	effect_blue.type = PARTICLE_BUFF;
+	effect_blue.damage = 0;
+	effect_blue.speed.x = 0;
+	effect_blue.speed.y = 0;
+	for (int i = 0; i < 4; i++)
+	{
+		effect_blue.anim.SetFrames(0, 0 + 64 * i, 24, 64, 3);
+	}
+	effect_blue.anim.speed = 0.2f;
+	effect_blue.anim.loop = true;
+	effect_blue.anim.Reset();
+
+	effect_blue.collider_margin.x = 0;
+	effect_blue.collider_margin.y = 0;
+
+	effect_blue.collider_pivot.x = 0;
+	effect_blue.collider_pivot.y = 0;
 }
 
 void j1Player::SetDirection()

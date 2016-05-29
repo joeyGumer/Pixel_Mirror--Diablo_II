@@ -415,6 +415,9 @@ public:
 	Particle				area_3_up;
 	Particle				area_3_down;
 
+	Particle				effect_red;
+	Particle				effect_blue;
+
 	fPoint					particle_destination;
 	bool					particle_is_casted = false;
 

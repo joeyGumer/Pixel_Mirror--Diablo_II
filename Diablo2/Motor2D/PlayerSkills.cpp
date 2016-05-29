@@ -282,6 +282,10 @@ void sklBatStrike::SkillUpdate(float dt)
 {
 	if (player->current_animation->CurrentFrame() == 12 && player->attacking == true)
 	{
+		iPoint pos;
+		pos.x = player->enemy->position.x;
+		pos.y = player->enemy->position.y + 1;
+		particle_skill = App->pm->AddParticle(player->effect_red, pos.x, pos.y, 1, player->effect_red.image);
 		SkillEffect();
 	}
 	else if (player->current_animation->Finished())
@@ -353,6 +357,10 @@ void sklSoulOfIce::SkillUpdate(float dt)
 {
 	if (player->current_animation->CurrentFrame() == 5 && player->attacking == true)
 	{
+		iPoint pos;
+		pos.x = player->enemy->position.x;
+		pos.y = player->enemy->position.y + 1;
+		particle_skill = App->pm->AddParticle(player->effect_blue, pos.x, pos.y, 1, player->effect_blue.image);
 		SkillEffect();
 	}
 	else if (player->current_animation->Finished())
