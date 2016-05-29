@@ -8,6 +8,8 @@
 #include "j1Timer.h"
 #include "j1Audio.h"
 #include "j1Collision.h"
+#include "j1Player.h"
+#include "j1Game.h"
 
 // PARTICLE MANAGER---------------
 
@@ -221,6 +223,7 @@ Particle::Particle(const Particle& p)
 	damage = p.damage;
 	directions = p.directions;
 	anim_vector = p.anim_vector;
+	follow_player = p.follow_player;
 }
 
 Particle::~Particle()
@@ -232,6 +235,8 @@ void Particle::FollowPoint(int x, int y)
 {
 	position.x = x - anim.PeekCurrentFrame().w / 2;
 	position.y = y - anim.PeekCurrentFrame().h / 2;
+
+
 }
 
 void Particle::DestroyParticle()
@@ -269,6 +274,11 @@ bool Particle::Update(float dt)
 		{
 			collider->rect.x = position.x + collider_margin.x + collider_pivot.x;
 			collider->rect.y = position.y + collider_margin.y + collider_pivot.y;
+		}
+
+		if (follow_player)
+		{
+			FollowPoint(App->game->player->p_position.x, App->game->player->p_position.y + 2);
 		}
 	}
 

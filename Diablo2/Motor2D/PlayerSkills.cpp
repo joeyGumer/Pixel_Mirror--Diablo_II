@@ -424,6 +424,7 @@ void sklKrobusArts::SkillUpdate(float dt)
 	if (player->current_animation->CurrentFrame() >= 7 && player->attacking == true)
 	{
 		SkillEffect();
+		buff_particle = App->pm->AddParticle(player->green_buff_1, player->p_position.x, player->p_position.y + 2, buff.time, player->green_buff_1.image);
 	}
 
 	if (player->current_animation->Finished())
@@ -582,6 +583,14 @@ void sklVampireBreath::SkillInit()
 {
 	iPoint pos = App->input->GetMouseWorldPosition();
 	direction = player->p_position.GetDirection({ float(pos.x), float(pos.y) });
+
+	if (player->MP_current > blood_charge_cost_base)
+	{
+		skill_particle_up = App->pm->AddParticle(player->area_3_up, player->p_position.x, player->p_position.y + 5, 5, player->area_3_up.image);
+		skill_particle_up->FollowPoint(player->p_position.x, player->p_position.y + 5 - skill_particle_up->anim.PeekCurrentFrame().h / 2);
+		skill_particle_down = App->pm->AddParticle(player->area_3_down, player->p_position.x, player->p_position.y + 5, 5, player->area_3_down.image);
+		skill_particle_down->FollowPoint(player->p_position.x, player->p_position.y + 5 + skill_particle_up->anim.PeekCurrentFrame().h / 2);
+	}
 
 	cooldown_timer.Start();
 }
@@ -742,6 +751,15 @@ void sklRedFeast::SkillEffect(float dt)
 void sklRedFeast::SkillInit()
 {
 	hit = false;
+
+	if (player->MP_current > blood_charge_cost_base)
+	{
+		skill_particle_up = App->pm->AddParticle(player->area_2_up, player->p_position.x, player->p_position.y + 5, 5, player->area_2_up.image);
+		skill_particle_up->FollowPoint(player->p_position.x, player->p_position.y + 5 - skill_particle_up->anim.PeekCurrentFrame().h / 2);
+		skill_particle_down = App->pm->AddParticle(player->area_2_down, player->p_position.x, player->p_position.y + 5, 5, player->area_2_down.image);
+		skill_particle_down->FollowPoint(player->p_position.x, player->p_position.y + 5 + skill_particle_up->anim.PeekCurrentFrame().h / 2);
+	}
+
 	cooldown_timer.Start();
 }
 
@@ -753,14 +771,13 @@ void sklRedFeast::SkillUpdate(float dt)
 
 		player->MP_current -= blood_charge_cost_base * dt;
 		player->PlayerEvent(MP_DOWN);
-
 	}
 	else
 	{
-		
+		skill_particle_up->DestroyParticle();
+		skill_particle_down->DestroyParticle();
 		player->current_input = INPUT_STOP_MOVE;
 		player->input_locked = false;
-
 	}
 }
 
@@ -824,6 +841,14 @@ void sklHeardOfBats::SkillInit()
 	player->independent_skill = this;
 	hit = false;
 
+	if (player->MP_current > blood_charge_increase_base)
+	{
+		Particle* skill_particle_up = App->pm->AddParticle(player->area_1_up, pos.x, pos.y, time, player->area_1_up.image);
+		skill_particle_up->FollowPoint(pos.x, pos.y - skill_particle_up->anim.PeekCurrentFrame().h / 2);
+		Particle* skill_particle_down = App->pm->AddParticle(player->area_1_down, pos.x, pos.y, time, player->area_1_down.image);
+		skill_particle_down->FollowPoint(pos.x, pos.y + skill_particle_up->anim.PeekCurrentFrame().h / 2);
+	}
+	
 	player->ChangeMP(-blood_charge_increase_base);
 
 	timer.Start();
@@ -908,6 +933,7 @@ void sklShadowsWalker::SkillUpdate(float dt)
 	if (player->current_animation->CurrentFrame() >= 7 && player->attacking == true)
 	{
 		SkillEffect();
+		buff_particle = App->pm->AddParticle(player->white_buff_1, player->p_position.x, player->p_position.y + 2, buff.time, player->white_buff_1.image);
 	}
 
 	if (player->current_animation->Finished())
@@ -967,6 +993,7 @@ void sklClottedBloodSkin::SkillUpdate(float dt)
 	if (player->current_animation->CurrentFrame() >= 7 && player->attacking == true)
 	{
 		SkillEffect();
+		buff_particle = App->pm->AddParticle(player->red_buff_1, player->p_position.x, player->p_position.y + 2, buff.time, player->red_buff_1.image);
 	}
 
 	if (player->current_animation->Finished())
@@ -1036,6 +1063,7 @@ void sklUndead::SkillEffect()
 	avaliable = false;
 	effect_timer.Start();
 	player->CalculateFinalStats();
+	buff_particle = App->pm->AddParticle(player->blue_buff_1, player->p_position.x, player->p_position.y + 2, 4, player->blue_buff_1.image);
 }
 
 void sklUndead::SkillInit()
@@ -1084,13 +1112,13 @@ void sklNightWard::SkillEffect()
 {
 	active = false;
 	avaliable = false;
-
 	cooldown_timer.Start();
 }
 
 void sklNightWard::SkillInit()
 {
 	effect_timer.Start();
+	buff_particle = App->pm->AddParticle(player->yellow_buff_1, player->p_position.x, player->p_position.y + 2, 60, player->yellow_buff_1.image);
 }
 
 void sklNightWard::SkillUpdate(float dt)
@@ -1102,6 +1130,13 @@ void sklNightWard::SkillUpdate(float dt)
 			active = true;
 		}
 	}
+
+	if (active && buff_particle != NULL)
+	{
+		buff_particle->DestroyParticle();
+		buff_particle = NULL;
+	}
+
 	else
 	{
 		if (cooldown_timer.ReadSec() >= cooldown)

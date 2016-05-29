@@ -1408,6 +1408,262 @@ void j1Player::SetParticles()
 
 	particle_skill_2.collider_pivot.x = 0;
 	particle_skill_2.collider_pivot.y = -5;
+
+	//Buffs 1
+	//Green
+	green_buff_1.image = App->tex->Load("particles/Special/Buffs/tier1green.png");
+
+	green_buff_1.life = 5;
+	green_buff_1.type = PARTICLE_BUFF;
+	green_buff_1.damage = 0;
+	green_buff_1.speed.x = 0;
+	green_buff_1.speed.y = 0;
+	for (int i = 0; i < 4; i++)
+	{
+		green_buff_1.anim.SetFrames(0, 0 + 50 * i, 89, 50, 4);
+	}
+	green_buff_1.anim.speed = 0.5f;
+	green_buff_1.anim.loop = true;
+	green_buff_1.anim.Reset();
+
+	green_buff_1.collider_margin.x = 0;
+	green_buff_1.collider_margin.y = 0;
+
+	green_buff_1.collider_pivot.x = 0;
+	green_buff_1.collider_pivot.y = 0;
+
+	green_buff_1.follow_player = true;
+
+	//Red
+	red_buff_1.image = App->tex->Load("particles/Special/Buffs/tier1red.png");
+
+	red_buff_1.life = 5;
+	red_buff_1.type = PARTICLE_BUFF;
+	red_buff_1.damage = 0;
+	red_buff_1.speed.x = 0;
+	red_buff_1.speed.y = 0;
+	for (int i = 0; i < 4; i++)
+	{
+		red_buff_1.anim.SetFrames(0, 0 + 50 * i, 89, 50, 4);
+	}
+	red_buff_1.anim.speed = 0.5f;
+	red_buff_1.anim.loop = true;
+	red_buff_1.anim.Reset();
+
+	red_buff_1.collider_margin.x = 0;
+	red_buff_1.collider_margin.y = 0;
+
+	red_buff_1.collider_pivot.x = 0;
+	red_buff_1.collider_pivot.y = 0;
+
+	red_buff_1.follow_player = true;
+
+	//White
+	white_buff_1.image = App->tex->Load("particles/Special/Buffs/tier1white.png");
+
+	white_buff_1.life = 5;
+	white_buff_1.type = PARTICLE_BUFF;
+	white_buff_1.damage = 0;
+	white_buff_1.speed.x = 0;
+	white_buff_1.speed.y = 0;
+	for (int i = 0; i < 4; i++)
+	{
+		white_buff_1.anim.SetFrames(0, 0 + 50 * i, 89, 50, 4);
+	}
+	white_buff_1.anim.speed = 0.5f;
+	white_buff_1.anim.loop = true;
+	white_buff_1.anim.Reset();
+
+	white_buff_1.collider_margin.x = 0;
+	white_buff_1.collider_margin.y = 0;
+
+	white_buff_1.collider_pivot.x = 0;
+	white_buff_1.collider_pivot.y = 0;
+
+	white_buff_1.follow_player = true;
+
+	//Blue
+	blue_buff_1.image = App->tex->Load("particles/Special/Buffs/tier1blue.png");
+
+	blue_buff_1.life = 5;
+	blue_buff_1.type = PARTICLE_BUFF;
+	blue_buff_1.damage = 0;
+	blue_buff_1.speed.x = 0;
+	blue_buff_1.speed.y = 0;
+	for (int i = 0; i < 4; i++)
+	{
+		blue_buff_1.anim.SetFrames(0, 0 + 50 * i, 89, 50, 4);
+	}
+	blue_buff_1.anim.speed = 0.5f;
+	blue_buff_1.anim.loop = true;
+	blue_buff_1.anim.Reset();
+
+	blue_buff_1.collider_margin.x = 0;
+	blue_buff_1.collider_margin.y = 0;
+
+	blue_buff_1.collider_pivot.x = 0;
+	blue_buff_1.collider_pivot.y = 0;
+
+	blue_buff_1.follow_player = true;
+
+	//Yellow
+	yellow_buff_1.image = App->tex->Load("particles/Special/Buffs/tier1yellow.png");
+
+	yellow_buff_1.life = 5;
+	yellow_buff_1.type = PARTICLE_BUFF;
+	yellow_buff_1.damage = 0;
+	yellow_buff_1.speed.x = 0;
+	yellow_buff_1.speed.y = 0;
+	for (int i = 0; i < 4; i++)
+	{
+		yellow_buff_1.anim.SetFrames(0, 0 + 50 * i, 89, 50, 4);
+	}
+	yellow_buff_1.anim.speed = 0.5f;
+	yellow_buff_1.anim.loop = true;
+	yellow_buff_1.anim.Reset();
+
+	yellow_buff_1.collider_margin.x = 0;
+	yellow_buff_1.collider_margin.y = 0;
+
+	yellow_buff_1.collider_pivot.x = 0;
+	yellow_buff_1.collider_pivot.y = 0;
+
+	yellow_buff_1.follow_player = true;
+
+	//Area 1
+	//Up
+	area_1_up.image = App->tex->Load("particles/Special/Player/BatsUp1.png");
+
+	area_1_up.life = 5;
+	area_1_up.type = PARTICLE_BUFF;
+	area_1_up.damage = 0;
+	area_1_up.speed.x = 0;
+	area_1_up.speed.y = 0;
+	for (int i = 0; i < 11; i++)
+	{
+		area_1_up.anim.SetFrames(0, 0 + 64 * i, 172, 64, 1);
+	}
+	area_1_up.anim.speed = 0.5f;
+	area_1_up.anim.loop = true;
+	area_1_up.anim.Reset();
+
+	area_1_up.collider_margin.x = 0;
+	area_1_up.collider_margin.y = 0;
+
+	area_1_up.collider_pivot.x = 0;
+	area_1_up.collider_pivot.y = 0;
+
+	//Down
+	area_1_down.image = App->tex->Load("particles/Special/Player/BatsDown1.png");
+
+	area_1_down.life = 5;
+	area_1_down.type = PARTICLE_BUFF;
+	area_1_down.damage = 0;
+	area_1_down.speed.x = 0;
+	area_1_down.speed.y = 0;
+	for (int i = 0; i < 11; i++)
+	{
+		area_1_down.anim.SetFrames(0, 0 + 64 * i, 172, 64, 1);
+	}
+	area_1_down.anim.speed = 0.5f;
+	area_1_down.anim.loop = true;
+	area_1_down.anim.Reset();
+
+	area_1_down.collider_margin.x = 0;
+	area_1_down.collider_margin.y = 0;
+
+	area_1_down.collider_pivot.x = 0;
+	area_1_down.collider_pivot.y = 0;
+
+	//Area 2
+	//Up
+	area_2_up.image = App->tex->Load("particles/Special/Player/Area1Up.png");
+
+	area_2_up.life = 5;
+	area_2_up.type = PARTICLE_BUFF;
+	area_2_up.damage = 0;
+	area_2_up.speed.x = 0;
+	area_2_up.speed.y = 0;
+	for (int i = 0; i < 2; i++)
+	{
+		area_2_up.anim.SetFrames(0, 0 + 38 * i, 225, 38, 4);
+	}
+	area_2_up.anim.speed = 0.2f;
+	area_2_up.anim.loop = true;
+	area_2_up.anim.Reset();
+
+	area_2_up.collider_margin.x = 0;
+	area_2_up.collider_margin.y = 0;
+
+	area_2_up.collider_pivot.x = 0;
+	area_2_up.collider_pivot.y = 0;
+
+	//Down
+	area_2_down.image = App->tex->Load("particles/Special/Player/Area1Down.png");
+
+	area_2_down.life = 5;
+	area_2_down.type = PARTICLE_BUFF;
+	area_2_down.damage = 0;
+	area_2_down.speed.x = 0;
+	area_2_down.speed.y = 0;
+	for (int i = 0; i < 2; i++)
+	{
+		area_2_down.anim.SetFrames(0, 0 + 38 * i, 225, 38, 4);
+	}
+	area_2_down.anim.speed = 0.2f;
+	area_2_down.anim.loop = true;
+	area_2_down.anim.Reset();
+
+	area_2_down.collider_margin.x = 0;
+	area_2_down.collider_margin.y = 0;
+
+	area_2_down.collider_pivot.x = 0;
+	area_2_down.collider_pivot.y = 0;
+
+	//Area 3
+	//Up
+	area_3_up.image = App->tex->Load("particles/Special/Player/Area2Up.png");
+
+	area_3_up.life = 5;
+	area_3_up.type = PARTICLE_BUFF;
+	area_3_up.damage = 0;
+	area_3_up.speed.x = 0;
+	area_3_up.speed.y = 0;
+	for (int i = 0; i < 2; i++)
+	{
+		area_3_up.anim.SetFrames(0, 0 + 38 * i, 225, 38, 4);
+	}
+	area_3_up.anim.speed = 0.2f;
+	area_3_up.anim.loop = true;
+	area_3_up.anim.Reset();
+
+	area_3_up.collider_margin.x = 0;
+	area_3_up.collider_margin.y = 0;
+
+	area_3_up.collider_pivot.x = 0;
+	area_3_up.collider_pivot.y = 0;
+
+	//Down
+	area_3_down.image = App->tex->Load("particles/Special/Player/Area2Down.png");
+
+	area_3_down.life = 5;
+	area_3_down.type = PARTICLE_BUFF;
+	area_3_down.damage = 0;
+	area_3_down.speed.x = 0;
+	area_3_down.speed.y = 0;
+	for (int i = 0; i < 2; i++)
+	{
+		area_3_down.anim.SetFrames(0, 0 + 38 * i, 225, 38, 4);
+	}
+	area_3_down.anim.speed = 0.2f;
+	area_3_down.anim.loop = true;
+	area_3_down.anim.Reset();
+
+	area_3_down.collider_margin.x = 0;
+	area_3_down.collider_margin.y = 0;
+
+	area_3_down.collider_pivot.x = 0;
+	area_3_down.collider_pivot.y = 0;
 }
 
 void j1Player::SetDirection()

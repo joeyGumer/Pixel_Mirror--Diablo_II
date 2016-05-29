@@ -397,6 +397,20 @@ public:
 	//NOTE: this might be changed, particles in development
 	Particle				particle_skill_1;
 	Particle				particle_skill_2;
+
+	Particle				green_buff_1;
+	Particle				red_buff_1;
+	Particle				white_buff_1;
+	Particle				blue_buff_1;
+	Particle				yellow_buff_1;
+
+	Particle				area_1_up;
+	Particle				area_1_down;
+	Particle				area_2_up;
+	Particle				area_2_down;
+	Particle				area_3_up;
+	Particle				area_3_down;
+
 	fPoint					particle_destination;
 	bool					particle_is_casted = false;
 

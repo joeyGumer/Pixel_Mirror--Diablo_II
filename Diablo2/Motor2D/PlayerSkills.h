@@ -170,6 +170,8 @@ public:
 	int life_cost_base = 6;
 	int life_cost_dt = 2;
 	int life_cost_final;
+
+	Particle* buff_particle = NULL;
 	
 };
 
@@ -221,6 +223,9 @@ public:
 
 public:
 	
+	Particle* skill_particle_up;
+	Particle* skill_particle_down;
+
 	float  radius;
 	int range;
 	float direction;
@@ -265,7 +270,8 @@ public:
 
 public:
 	//Particle* skill_particle;
-
+	Particle* skill_particle_up;
+	Particle* skill_particle_down;
 	//
 	int time;
 	float radius;
@@ -322,6 +328,8 @@ public:
 	int time;
 	//float cooldown_base;
 	int blood_charge_cost_base;
+
+	Particle* buff_particle = NULL;
 };
 
 class sklClottedBloodSkin : public sklBuff
@@ -339,6 +347,8 @@ public:
 public:
 	//float cooldown_base;
 	int blood_charge_cost_base;
+
+	Particle* buff_particle = NULL;
 };
 
 class sklLust : public sklPassive
@@ -376,6 +386,8 @@ public:
 	bool active = false;
 
 	j1Timer effect_timer;
+
+	Particle* buff_particle = NULL;
 };
 
 class sklNightWard : public sklPassive
@@ -398,6 +410,8 @@ public:
 	j1Timer effect_timer;
 
 	bool active = false;
+
+	Particle* buff_particle = NULL;
 };
 
 

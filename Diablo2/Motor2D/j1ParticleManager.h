@@ -87,6 +87,7 @@ struct Particle
 	PARTICLE_DIRECTION	current_direction = PARTICLE_DIR_NULL;
 	vector<Animation>	anim_vector;
 	Sprite*				sprite = NULL;
+	bool				follow_player = false;
 
 	Particle();
 	Particle(const Particle& p);
