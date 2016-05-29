@@ -134,12 +134,12 @@ bool j1Player::Start()
 	HP_max = HP_current = HP_base = 60.0f;
 	HP_recover_final = HP_recover_base;
 	MP_max = MP_current = MP_base = 100;
-	ST_max = ST_current = ST_base = 79.0f;
+	ST_max = ST_current = ST_base = 70.0f;
 	blood_current = 0;
 
 	//Attack
-	atk_damage_final_up = atk_damage_base_up = 15;
-	atk_damage_final_down = atk_damage_final_down = 10;
+	atk_damage_final_up = atk_damage_base_up = 14;
+	atk_damage_final_down = atk_damage_final_down = 9;
 
 	//dAtk = (float)atk_damage_base / 100;
 
@@ -1897,7 +1897,7 @@ void j1Player::CalculateFinalStats()
 
 
 	atk_damage_final_down += str_final/2;
-	atk_damage_final_up += str_final;
+	atk_damage_final_up += str_final * atk_dt;
 
 
 
@@ -1915,9 +1915,9 @@ void j1Player::CalculateFinalStats()
 
 	HP_max += HP_dt * vit_final;
 	HP_recover_final += HP_recover_dt * vit_final;
-	ST_max += ST_dt * vit_final;
+	ST_max += (ST_dt * str_final) + (ST_dt * dex_final);
 
-	MP_max += extra_blood_charge;
+	MP_max += extra_blood_charge + (MP_dt * int_final);
 
 	if (lust->unlocked)
 	{

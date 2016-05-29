@@ -313,9 +313,9 @@ public:
 	float HP_max;
 	float HP_current;
 	float HP_base;
-	float HP_dt = 4;
-	float HP_recover_dt = 0.2f;
-	float HP_recover_base = 1;
+	float HP_dt = 3;
+	float HP_recover_dt = 0.08f;
+	float HP_recover_base = 1.3;
 	float HP_recover_final;
 	bool HP_potion;
 
@@ -323,12 +323,16 @@ public:
 	float MP_max;
 	float MP_current;
 	float MP_base;
+	float MP_dt = 0.5f;
 
 	//ST
 	float ST_max;
 	float ST_current;
 	float ST_base;
-	int		ST_dt = 1;
+	float ST_dt = 0.5f;
+
+	//atk
+	float atk_dt = 0.75f;
 
 	//This is mana basically...?
 	int blood_current;

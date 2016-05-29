@@ -46,7 +46,6 @@ public:
 	bool main_menu;
 
 	//In game menu elements -------
-	GuiImage* options = NULL;
 	GuiImage* saveandexit = NULL;
 	GuiImage* returntogame = NULL;
 };
