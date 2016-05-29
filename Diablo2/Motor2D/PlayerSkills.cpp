@@ -955,8 +955,11 @@ void sklShadowsWalker::SkillUpdate(float dt)
 {
 	if (player->current_animation->CurrentFrame() >= 7 && player->attacking == true)
 	{
-		SkillEffect();
-		buff_particle = App->pm->AddParticle(player->white_buff_1, player->p_position.x, player->p_position.y + 2, buff.time, player->white_buff_1.image);
+		if (player->MP_current >= blood_charge_cost_final)
+		{
+			SkillEffect();
+			buff_particle = App->pm->AddParticle(player->white_buff_1, player->p_position.x, player->p_position.y + 2, buff.time, player->white_buff_1.image);
+		}
 	}
 
 	if (player->current_animation->Finished())
@@ -1020,8 +1023,11 @@ void sklClottedBloodSkin::SkillUpdate(float dt)
 {
 	if (player->current_animation->CurrentFrame() >= 7 && player->attacking == true)
 	{
-		SkillEffect();
-		buff_particle = App->pm->AddParticle(player->red_buff_1, player->p_position.x, player->p_position.y + 2, buff.time, player->red_buff_1.image);
+		if (player->MP_current >= blood_charge_cost_final)
+		{
+			SkillEffect();
+			buff_particle = App->pm->AddParticle(player->red_buff_1, player->p_position.x, player->p_position.y + 2, buff.time, player->red_buff_1.image);
+		}
 	}
 
 	if (player->current_animation->Finished())
