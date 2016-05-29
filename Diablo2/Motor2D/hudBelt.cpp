@@ -63,8 +63,12 @@ bool hudBelt::Start()
 	life = App->gui->AddGuiImage({ -136, -44 }, { 371, 118, 79, 78 }, HUD, this);
 	hud_gui_elements.push_back(life);
 
+
+
 	mana = App->gui->AddGuiImage({ 365, -44 }, { 451, 118, 78, 78 }, HUD, this);
 	hud_gui_elements.push_back(mana);
+
+	
 
 	stamina = App->gui->AddGuiImage({ 27, 20 }, { 530, 118, 102, 18 }, HUD, this);
 	hud_gui_elements.push_back(stamina);
@@ -72,8 +76,17 @@ bool hudBelt::Start()
 	life_holder = App->gui->AddGuiImage({ -166, -55 }, { 0, 331, 116, 103 }, HUD, this);
 	hud_gui_elements.push_back(life_holder);
 
+	life_label = App->gui->AddGuiLabel("50/50", App->font->description, { 0, -10 }, life_holder, FONT_WHITE, this);
+	hud_gui_elements.push_back(life_label);
+	life_label->Center(true, false);
+
 	mana_holder = App->gui->AddGuiImage({ 358, -55 }, { 524, 331, 116, 102 }, HUD, this);
 	hud_gui_elements.push_back(mana_holder);
+
+	mana_label = App->gui->AddGuiLabel("50/50", App->font->description, { 0, -10 }, mana_holder, FONT_WHITE, this);
+	hud_gui_elements.push_back(mana_label);
+	mana_label->Center(true, false);
+
 	/*
 	runbutton = App->gui->AddGuiImage({ 9, 19 }, { 153, 280, 18, 22 }, HUD, this);
 	runbutton->interactable = true;
@@ -685,6 +698,11 @@ void hudBelt::OnEvent(GuiElement* element, GUI_Event even)
 //Sets the life stat at the HUD
 void hudBelt::SetLife(int max_HP, int HP)
 {
+	p2SString text;
+	text.create("%i / %i",HP, max_HP);
+	life_label->SetText(text);
+	life_label->Center(true, false);
+
 	if (HP != max_HP && HP != 0)
 	{
 		life_current_h = STAT_MAX_H / max_HP;
@@ -711,6 +729,11 @@ void hudBelt::SetLife(int max_HP, int HP)
 //Sets the mana stat at the HUD
 void hudBelt::SetMana(int max_MP, int MP)
 {
+	p2SString text;
+	text.create("%i / %i", MP, max_MP);
+	mana_label->SetText(text);
+	mana_label->Center(true, false);
+	
 	if (MP != max_MP && MP != 0)
 	{
 		mana_current_h = STAT_MAX_H / max_MP;
@@ -724,7 +747,7 @@ void hudBelt::SetMana(int max_MP, int MP)
 	{
 		mana_current_h = 0;
 	}
-
+	
 	/*if (App->debug)
 	{
 	mana_debug->SetText("FUCK YOU");

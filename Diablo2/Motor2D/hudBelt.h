@@ -96,7 +96,8 @@ public:
 	GuiImage* inventorybutton = NULL;
 	GuiImage* minimapbutton = NULL;
 	GuiImage* game_menu = NULL;
-
+	GuiLabel* life_label;
+	GuiLabel* mana_label;
 	/*
 	//---Skills options
 	*/
