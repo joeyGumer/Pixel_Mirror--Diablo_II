@@ -37,9 +37,11 @@ public:
 public:
 
 	int			blood_current;
+	bool        message_get;
 	j1Player*	player;
 
 	GuiLabel*	blood_label;
+	GuiLabel*   hey_listen;
 };
 
 #endif

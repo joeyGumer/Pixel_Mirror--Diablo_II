@@ -3,6 +3,8 @@
 #include "j1App.h"
 #include "j1Game.h"
 #include "j1Gui.h"
+#include "j1Fonts.h"
+#include "j1Input.h"
 
 hudBlood::hudBlood()
 {
@@ -16,12 +18,17 @@ hudBlood::~hudBlood()
 
 bool hudBlood::Start()
 {
+	message_get = false;
 	player = App->game->player;
 	blood_current = 0;
 
 	
 	blood_label = App->gui->AddGuiLabel("0", NULL, { 10, 5 }, NULL,FONT_YELLOW2, this);
 	hud_gui_elements.push_back(blood_label);
+
+	hey_listen = App->gui->AddGuiLabel("You have enough pure blood To unlock a skill! Open The skill Tree panel. (S by defaulT)", App->font->stats, {11, 25}, NULL, FONT_WHITE, this);
+	hey_listen->active = false;
+	hud_gui_elements.push_back(hey_listen);
 
 	return true;
 }
@@ -38,6 +45,15 @@ bool hudBlood::Update(float dt)
 
 bool hudBlood::PostUpdate()
 {
+	if (blood_current >= 1500 && message_get == false)
+	{
+		hey_listen->active = true;
+		message_get = true;
+	}
+
+	if (message_get == true && App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+		hey_listen->active = false;
+
 	return true;
 }
 
