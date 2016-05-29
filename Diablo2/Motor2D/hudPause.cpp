@@ -26,17 +26,13 @@ bool hudPause::Start()
 	main_menu = false;
 	active = true;
 	//Menu
-	options = App->gui->AddGuiImage({ 210, 130 }, { 395, 71, 194, 31 }, NULL, this);
-	options->interactable = true;
-	options->active = false;
-	hud_gui_elements.push_back(options);
 
-	saveandexit = App->gui->AddGuiImage({ 45, 200 }, { 460, 0, 534, 35 }, NULL, this);
+	saveandexit = App->gui->AddGuiImage({ 45, 180 }, { 460, 0, 534, 35 }, NULL, this);
 	saveandexit->interactable = true;
 	saveandexit->active = false;
 	hud_gui_elements.push_back(saveandexit);
 
-	returntogame = App->gui->AddGuiImage({ 95, 270 }, { 994, 0, 438, 35 }, NULL, this);
+	returntogame = App->gui->AddGuiImage({ 95, 250 }, { 994, 0, 438, 35 }, NULL, this);
 	returntogame->interactable = true;
 	returntogame->active = false;
 	hud_gui_elements.push_back(returntogame);
@@ -119,7 +115,6 @@ void hudPause::OnEvent(GuiElement* element, GUI_Event even)
 
 void hudPause::ActivateMenu()
 {
-	options->active = !options->active;
 	returntogame->active = !returntogame->active;
 	saveandexit->active = !saveandexit->active;
 

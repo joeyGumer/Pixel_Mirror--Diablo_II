@@ -136,8 +136,8 @@ public:
 	
 
 	//NOTE : labels for debug:
-	GuiLabel* life_debug;
-	GuiLabel* mana_debug;
+	GuiLabel* life_debug = NULL;
+	GuiLabel* mana_debug = NULL;
 	
 	GuiInventory* inventory1 = NULL;
 	GuiInventory* inventory2 = NULL;
