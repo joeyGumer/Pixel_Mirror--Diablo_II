@@ -695,10 +695,10 @@ bool hudSkilltree::PostUpdate()
 		bat_strike->text->SetText(2, text);
 	}
 	
-	text.create("blood charges cosT: %i", player->bat_strike->blood_charge_cost_base + (player->bat_strike->blood_charge_cost_dt * player->bat_strike->level));
+	text.create("blood charges cosT: %i", player->bat_strike->blood_charge_cost_final);
 	bat_strike->text->SetText(3, text);
 
-	text.create("damage: %i-%i", player->bat_strike->base_damage_down + (player->bat_strike->damage_down_dt * player->bat_strike->level), player->bat_strike->base_damage_up + (player->bat_strike->damage_up_dt * player->bat_strike->level));
+	text.create("damage: %i-%i", player->bat_strike->final_damage_down, player->bat_strike->final_damage_up);
 	bat_strike->text->SetText(5, text);
 	//-----------------------------------------------------------
 	//Soul of ice -----------------------------------------------
@@ -713,10 +713,10 @@ bool hudSkilltree::PostUpdate()
 		soul_of_ice->text->SetText(2, text);
 	}
 	
-	text.create("blood charges cosT: %i", player->soul_of_ice->blood_charge_cost_base + (player->soul_of_ice->blood_charge_cost_dt * player->soul_of_ice->level));
+	text.create("blood charges cosT: %i", player->soul_of_ice->blood_charge_cost_final);
 	soul_of_ice->text->SetText(3, text);
 
-	text.create("damage: %i-%i", player->soul_of_ice->base_damage_down + (player->soul_of_ice->damage_down_dt * player->soul_of_ice->level), player->soul_of_ice->base_damage_up + (player->soul_of_ice->damage_up_dt * player->soul_of_ice->level));
+	text.create("damage: %i-%i", player->soul_of_ice->final_damage_down, player->soul_of_ice->final_damage_up);
 	soul_of_ice->text->SetText(4, text);
 	//-----------------------------------------------------------
 	//Krobus arts -----------------------------------------------
@@ -731,10 +731,10 @@ bool hudSkilltree::PostUpdate()
 		krobus_arts->text->SetText(2, text);
 	}
 	
-	text.create("life cosT: %i", player->krobus_arts->life_cost_base + (player->krobus_arts->life_cost_dt * player->krobus_arts->level));
+	text.create("life cosT: %i", player->krobus_arts->life_cost_final);
 	krobus_arts->text->SetText(3, text);
 
-	text.create("damage(percenT of The damage): %i", player->krobus_arts->damage_bonus_base + (player->krobus_arts->damage_bonus_dt * player->krobus_arts->level));
+	text.create("damage(percenT of The damage): %i", player->krobus_arts->damage_bonus_final);
 	krobus_arts->text->SetText(4, text);
 	//-----------------------------------------------------------
 	//BLOOD SPELLS -------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -750,13 +750,13 @@ bool hudSkilltree::PostUpdate()
 		blood_arrow->text->SetText(2, text);
 	}
 	
-	text.create("life cosT: %i", player->blood_arrow->life_cost_base + (player->blood_arrow->life_cost_dt * player->blood_arrow->level));
+	text.create("life cosT: %i", player->blood_arrow->life_cost_final);
 	blood_arrow->text->SetText(4, text);
 
-	text.create("blood charges addiTion: %i", player->blood_arrow->blood_charge_increase_base + (player->blood_arrow->blood_charge_increase_dt * player->blood_arrow->level));
+	text.create("blood charges addiTion: %i", player->blood_arrow->blood_charge_increase_final);
 	blood_arrow->text->SetText(3, text);
 
-	text.create("spell damage: %i-%i", player->blood_arrow->base_damage_down + (player->blood_arrow->damage_down_dt * player->blood_arrow->level), player->blood_arrow->base_damage_up + (player->blood_arrow->damage_up_dt * player->blood_arrow->level));
+	text.create("spell damage: %i-%i", player->blood_arrow->final_damage_down, player->blood_arrow->final_damage_up);
 	blood_arrow->text->SetText(5, text);
 	//-----------------------------------------------------------
 	//Vampire breath --------------------------------------------
