@@ -31,7 +31,7 @@ bool snLose::Start()
 	}
 
 	//back = App->tex->Load("textures/win.jpg");
-	loseback = App->gui->AddGuiImage({ -80, -60 }, { 2630, 82, 800, 600 }, NULL, this);
+	loseback = App->gui->AddGuiImage({ 0, 0 }, { 3431, 82, 640, 480 }, NULL, this);
 	lose_gui.push_back(loseback);
 	ret.Start();
 	return true;
