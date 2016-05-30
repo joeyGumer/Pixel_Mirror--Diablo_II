@@ -177,8 +177,7 @@ The bosses have different strategies and you will have to find diverse ways to f
 	- Arrow Keys: Move Camera.
 	- P: Portal.
 	- Middle Mouse Click: Delete entity.
-	- 0: Drop Item.
-	- Invoke Bosses:
+	- Spawn Bosses:
 		- 1: Summon Izual.
 		- 2: Summon Andariel.
 		- 3: Summon Nest.
@@ -189,7 +188,7 @@ The bosses have different strategies and you will have to find diverse ways to f
 	- 8: Decrease Pure Blood.
 	- 9: Increase Pure Blood.
 	- 0: Drop Item.
-	- Invoke enemies:
+	- Spawn enemies:
 		- Q: Wolf.
 		- W: Crawler.
 		- E: Council Member.
