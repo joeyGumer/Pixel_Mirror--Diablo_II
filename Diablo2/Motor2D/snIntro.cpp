@@ -177,6 +177,20 @@ bool snIntro::Start()
 	intro_gui.push_back(close_controls);
 	controls_window->Desactivate();
 
+	pixelmirror_logo = App->gui->AddGuiImage({ 540, 350 }, {530, 136, 66, 60}, NULL, this);
+	intro_gui.push_back(pixelmirror_logo);
+
+	blizzard = App->gui->AddGuiLabel("All trademarks for Diablo II are property of Blizzard Entertainment, Inc. All rights reserved.", App->font->stats, { 10, 460 }, NULL, FONT_WHITE, this);
+	intro_gui.push_back(blizzard);
+
+	blood = App->gui->AddGuiLabel("Made by Pixel Mirror", App->font->stats, { 522, 420 }, NULL, FONT_WHITE, this);
+	intro_gui.push_back(blood);
+
+	project = App->gui->AddGuiLabel("College project 2015-2016", App->font->stats, { 510, 440 }, NULL, FONT_WHITE, this);
+	intro_gui.push_back(project);
+
+	UPC = App->gui->AddGuiLabel("UPC/CITM", App->font->stats, { 550, 460 }, NULL, FONT_WHITE, this);
+	intro_gui.push_back(UPC);
 
 	return true;
 }

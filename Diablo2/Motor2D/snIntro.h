@@ -53,6 +53,11 @@ private:
 	bool load;
 
 	//Ui elements
+	GuiImage* pixelmirror_logo = NULL;
+	GuiLabel* blizzard = NULL;
+	GuiLabel* UPC = NULL;
+	GuiLabel* blood = NULL;
+	GuiLabel* project = NULL;
 	GuiButton* play_button = NULL;
 	GuiButton* new_button = NULL;
 	GuiButton* controls_button = NULL;
