@@ -1,57 +1,445 @@
+
 <!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <meta charset="UTF-8">
-    <title>Diablo 2: Blood Harvest by joeyGumer</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
-  </head>
-  <body>
-    <section class="page-header">
-      <h1 class="project-name">Diablo 2: Blood Harvest</h1>
-      <h2 class="project-tagline">Diablo II tribute made by Pixel Mirror</h2>
-      <a href="https://github.com/joeyGumer/Pixel_Mirror--Diablo_II" class="btn">View on GitHub</a>
-      <a href="https://github.com/joeyGumer/Pixel_Mirror--Diablo_II/zipball/master" class="btn">Download .zip</a>
-      <a href="https://github.com/joeyGumer/Pixel_Mirror--Diablo_II/tarball/master" class="btn">Download .tar.gz</a>
-    </section>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Pixel Mirror</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Pixel Mirror game" />
+	<meta name="keywords" content="game Diablo 2 Harvest Blood" />
+	<meta name="author" content="Pixel Mirror" />
 
-    <section class="main-content">
-      <h3>
-<a id="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here <a href="https://guides.github.com/features/mastering-markdown/">using GitHub Flavored Markdown</a>, select a template crafted by a designer, and publish. After your page is generated, you can check out the new <code>gh-pages</code> branch locally. If you’re using GitHub Desktop, simply sync your repository and you’ll see the new branch.</p>
 
-<h3>
-<a id="designer-templates" class="anchor" href="#designer-templates" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Designer Templates</h3>
+  	<!-- Facebook and Twitter integration -->
+	<meta property="og:title" content=""/>
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content=""/>
+	<meta property="og:site_name" content=""/>
+	<meta property="og:description" content=""/>
+	<meta name="twitter:title" content="" />
+	<meta name="twitter:image" content="" />
+	<meta name="twitter:url" content="" />
+	<meta name="twitter:card" content="" />
 
-<p>We’ve crafted some handsome templates for you to use. Go ahead and click 'Continue to layouts' to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved.</p>
+	
+	<link rel="shortcut icon" href="images/favicon.ico">
 
-<h3>
-<a id="creating-pages-manually" class="anchor" href="#creating-pages-manually" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Creating pages manually</h3>
+	<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,600,400italic,700' rel='stylesheet' type='text/css'>
+	
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="css/animate.css">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="css/icomoon.css">
+	<!-- Simple Line Icons -->
+	<link rel="stylesheet" href="css/simple-line-icons.css">
+	<!-- Magnific Popup -->
+	<link rel="stylesheet" href="css/magnific-popup.css">
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="css/bootstrap.css">
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
 
-<h3>
-<a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+	<link rel="stylesheet" href="css/style.css">
 
-<p>You can <a href="https://help.github.com/articles/basic-writing-and-formatting-syntax/#mentioning-users-and-teams" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor’s GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+	<!-- Modernizr JS -->
+	<script src="js/modernizr-2.6.2.min.js"></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
 
-<h3>
-<a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Support or Contact</h3>
+	</head>
+	<body>
+	<header role="banner" id="fh5co-header">
+			<div class="container">
+				<!-- <div class="row"> -->
+			    <nav class="navbar navbar-default">
+		        <div class="navbar-header">
+		        	<!-- Mobile Toggle Menu Button -->
+					<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><i></i></a>
+		         <a class="navbar-brand" href="index.html">Diablo 2: Blood Harvest</a> 
+		        </div>
+		        <div id="navbar" class="navbar-collapse collapse">
+		          <ul class="nav navbar-nav navbar-right">
+		            <li class="active"><a href="#HOME" data-nav-section="home"><span>Home</span></a></li>
+		            <li><a href="#TRAILER" data-nav-section="testimonials"><span>Trailer</span></a></li>
+					<li><a href="#GAMEPLAY" data-nav-section="contact"><span>Gameplay</span></a></li>
+		            <li><a href="#TEAM" data-nav-section="about"><span>Team</span></a></li>
+		            <li><a href="#PIXEL" data-nav-section="pixel"><span>Pixel Mirror</span></a></li>
+					
+		          </ul>
+		        </div>
+			    </nav>
+			  <!-- </div> -->
+		  </div>
+	</header>
 
-<p>Having trouble with Pages? Check out our <a href="https://help.github.com/pages">documentation</a> or <a href="https://github.com/contact">contact support</a> and we’ll help you sort it out.</p>
+	<section id="fh5co-home" data-section="home" style="background-image: url(images/full_image_2.png);" data-stellar-background-ratio="0.5">
+		<div class="gradient"></div>
+		<div class="container">
+			<div class="text-wrap">
+				<div class="text-inner">
+					<div class="row">
+						<div class="col-md-8 col-md-offset-2">
+						
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="slant"></div>
+	</section>
 
-      <footer class="site-footer">
-        <span class="site-footer-owner"><a href="https://github.com/joeyGumer/Pixel_Mirror--Diablo_II">Diablo 2: Blood Harvest</a> is maintained by <a href="https://github.com/joeyGumer">joeyGumer</a>.</span>
+	<section id="fh5co-intro">
+		<div class="container">
+			<div class="row row-bottom-padded-lg">
+				<div class="fh5co-block to-animate" style="background-image: url(images/img_7.jpg);">
+					<div class="overlay-darker"></div>
+					<div class="overlay"></div>
+					<div class="fh5co-text">
+						<i class="fh5co-intro-icon icon-bulb"></i>
+						<h2>Team</h2>
+						<p>Do you want meet each member team? Click the Team button to see more information.</p>
+						<p><a href="#fh5co-about" data-nav-section="about" class="btn btn-primary">Team</a></p>
+					</div>
+				</div>
+				<div class="fh5co-block to-animate" style="background-image: url(images/img_8.jpg);">
+					<div class="overlay-darker"></div>
+					<div class="overlay"></div>
+					<div class="fh5co-text">
+						<i class="fh5co-intro-icon icon-wrench"></i>
+						<h2>1.0 Release</h2>
+						<p>We have already the gold version. Release 1.0, click the button below to download the game.</p>
+						<p><a href="https://github.com/joeyGumer/Pixel_Mirror--Diablo_II/releases/download/0.9.2/Diablo.II.Blood.Harvest.0.9.2.zip" class="btn btn-primary">Download</a></p>
+					</div>
+				</div>
+				<div class="fh5co-block to-animate" style="background-image: url(images/img_10.jpg);">
+					<div class="overlay-darker"></div>
+					<div class="overlay"></div>
+					<div class="fh5co-text">
+						<i class="fh5co-intro-icon icon-rocket"></i>
+						<h2>Pixel Mirror</h2>
+						<p>Do you want say us something? We are on Social Networks, click for more information.</p>
+						<p><a href="#fh5co-contact" class="btn btn-primary">Social Networks</a></p>
+					</div>
+				</div>
+				
+				
+				
+				
+			</div>
+			
+			
+		</div>
+		
+		
+		<section data-section="testimonials"></section>
+		<div class="video_area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 wow fadeInLeftBig">
+                    <!-- VIDEO esquerra titol -->
+                        <div class="video_title">
+                            <h2>See the new trailer <br>Diablo 2: Blood Harvest!</h2>
+                            <p></p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 wow fadeInRightBig">
+                         <!-- VIDEO -->
+                        <div class="video">
+							<iframe width="560" height="315" src="http://www.youtube.com/embed/KxnWjyvmpnI"> </iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+		
+	</section>
 
-        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
-      </footer>
 
-    </section>
 
-  
-  </body>
+
+	<section id="fh5co-services" data-section="contact">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 section-heading text-left">
+					<h2 class=" left-border to-animate">Diablo 2: Blood Harvest</h2>
+					<div class="row">
+						<div class="col-md-8 subtext to-animate">
+							<h3>Diablo 2: Blood Harvest is about Action Role Play Game that you are a vampire and you need to win all bosses to win the play.</h3>
+							<p>Battle is conducted in real-time, using an isometric oblique top-down viewpoint. Players fight monsters to level their character up and gain better items.
+							There are three Skill trees and your character will be able to specialize in different skills, which will determine how you should distribute Pure Blood points.
+							It will not be possible to specialize in every skill, so each character will be forced to spend their points on especific skills.
+							Your character doesn't level up, you just can upgrade your skills using Pure Blood and increasing its power. </p>
+							<p>The storyline of Diablo II Blood Harvest is played through permanent death and randomization. Permanent death meaning that once the player dies, nothing comes back. 
+							It’s like the game restarts completely. Randomization means that any time a player turns on the game, it’s a completely new experience with each level being different than the last play through.</p>
+						</div>
+						
+						<div class="video">
+							<iframe width="560" height="315" src="http://www.youtube.com/embed/KxnWjyvmpnI"> </iframe>
+                        </div>
+						
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<section id="fh5co-about" data-section="about">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 section-heading text-center">
+					<h2 class="to-animate">Team</h2>
+					<div class="row">
+						<div class="col-md-8 col-md-offset-2 subtext to-animate">
+							<h3>This is the team of Pixel Mirror creators of Diablo 2: Blood Harvest</h3>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<div class="fh5co-person text-center to-animate">
+						<figure><img src="images/Pep.jpg" alt="Image"></figure>
+						<h3>Pep Atencià</h3>
+						<span class="fh5co-position">Code Lead</span>
+						<p>I am the master of C++ programming.</p>
+						<ul class="social social-circle">
+							<li><a target ="_blank" href="https://twitter.com/JoeyGumersindo"><i class="icon-twitter"></i></a></li>
+							<li><a target ="_blank" href="https://www.facebook.com/joey.atenciasanmiguel?fref=ts"><i class="icon-facebook"></i></a></li>
+							<li><a target ="_blank" href="https://github.com/joeyGumer"><i class="icon-github"></i></a></li>
+					
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="fh5co-person text-center to-animate">
+						<figure><img src="images/Ian.jpg" alt="Image"></figure>
+						<h3>Ian Trueba</h3>
+						<span class="fh5co-position">Team Lead</span>
+						<p>I lead the Team to motivate and improve skills of each member.</p>
+						<ul class="social social-circle">
+							<li><a target ="_blank" href="https://twitter.com/iantl96"><i class="icon-twitter"></i></a></li>
+							<li><a target ="_blank" href="https://www.facebook.com/ian.trueba.96?fref=ts"><i class="icon-facebook"></i></a></li>
+							<li><a target ="_blank" href="https://github.com/ianexe"><i class="icon-github"></i></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="fh5co-person text-center to-animate">
+						<figure><img src="images/Sergi.png" alt="Image"></figure>
+						<h3>Sergi Pérez</h3>
+						<span class="fh5co-position">Game Designer Lead</span>
+						<p>I love design games.</p>
+						<ul class="social social-circle">
+							<li><a target ="_blank" href="https://twitter.com/mr_deku"><i class="icon-twitter"></i></a></li>
+							<li><a target ="_blank" href="https://www.facebook.com/sergi.perezcrespo?fref=ts"><i class="icon-facebook"></i></a></li>
+							<li><a target ="_blank" href="https://github.com/SergiPC"><i class="icon-github"></i></a></li>
+						</ul>
+					</div>
+				</div>
+				
+				<div class="row">
+						<div class="col-md-8 col-md-offset-2 subtext to-animate">
+							<h3></h3>
+						</div>
+					</div>
+				<div class="row">
+						<div class="col-md-8 col-md-offset-2 subtext to-animate">
+							<h3></h3>
+						</div>
+					</div>	
+				<div class="col-md-4">
+					<div class="fh5co-person text-center to-animate">
+						<figure><img src="images/Alexis.png" alt="Image"></figure>
+						<h3>Alexis Cosano</h3>
+						<span class="fh5co-position">Game User Interface Lead</span>
+						<p>I am a master of User Interfaces.</p>
+						<ul class="social social-circle">
+							<li><a target ="_blank" href="https://twitter.com/alcoro13"><i class="icon-twitter"></i></a></li>
+							<li><a target ="_blank" href="https://www.facebook.com/alcoro.yt?fref=ts"><i class="icon-facebook"></i></a></li>
+							<li><a target ="_blank" href="https://github.com/AlexisCosano"><i class="icon-github"></i></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="fh5co-person text-center to-animate">
+						<figure><img src="images/Ausias.jpg" alt="Image"></figure>
+						<h3>Ausiàs Dalmau</h3>
+						<span class="fh5co-position">Quality Assurance Lead</span>
+						<p>Every release I will accept if pass all the QA.</p>
+						<ul class="social social-circle">
+							<li><a target ="_blank" href="https://twitter.com/auusi9"><i class="icon-twitter"></i></a></li>
+							<li><a target ="_blank" href="https://www.facebook.com/ausias.dalmau?fref=ts"><i class="icon-facebook"></i></a></li>
+							<li><a target ="_blank" href="https://github.com/auusi9"><i class="icon-github"></i></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="fh5co-person text-center to-animate">
+						<figure><img src="images/Javi.jpg" alt="Image"></figure>
+						<h3>Javier Sabariego</h3>
+						<span class="fh5co-position">Game Artist & Sound Lead </span>
+						<p>I love Art.</p>
+						<ul class="social social-circle">
+							<li><a target ="_blank" href="https://twitter.com/Javisaba7"><i class="icon-twitter"></i></a></li>
+							<li><a target ="_blank" href="https://www.facebook.com/javiersabariego?fref=ts"><i class="icon-facebook"></i></a></li>
+							<li><a target ="_blank" href="https://github.com/JaviSaba7"><i class="icon-github"></i></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="row">
+						<div class="col-md-8 col-md-offset-2 subtext to-animate">
+							<h3></h3>
+						</div>
+					</div>
+				<div class="row">
+						<div class="col-md-8 col-md-offset-2 subtext to-animate">
+							<h3></h3>
+						</div>
+					</div>	
+				<div class="col-md-4">
+					<div class="fh5co-person text-center to-animate">
+						<figure><img src="images/Guillem.jpg" alt="Image"></figure>
+						<h3>Guillem Muñoz</h3>
+						<span class="fh5co-position">Project Management Lead</span>
+						<p>I love Management.</p>
+						<ul class="social social-circle">
+							<li><a target ="_blank" href="https://twitter.com/guiguimup"><i class="icon-twitter"></i></a></li>
+							<li><a target ="_blank" href="https://www.facebook.com/guillem.munoz.33?fref=ts"><i class="icon-facebook"></i></a></li>
+							<li><a target ="_blank" href="https://github.com/kellazo"><i class="icon-github"></i></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<section id="fh5co-counters" style="background-image: url(images/full_image_1.jpg);" data-stellar-background-ratio="0.5">
+		<div class="fh5co-overlay"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 section-heading text-center to-animate">
+					<h2>Fun Facts</h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3 col-sm-6 col-xs-12">
+					<div class="fh5co-counter to-animate">
+						<i class="fh5co-counter-icon icon-briefcase to-animate-2"></i>
+						<span class="fh5co-counter-number js-counter" data-from="0" data-to="89" data-speed="5000" data-refresh-interval="50">1</span>
+						<span class="fh5co-counter-label">Finished projects</span>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6 col-xs-12">
+					<div class="fh5co-counter to-animate">
+						<i class="fh5co-counter-icon icon-code to-animate-2"></i>
+						<span class="fh5co-counter-number js-counter" data-from="0" data-to="2343409" data-speed="5000" data-refresh-interval="50">2343409</span>
+						<span class="fh5co-counter-label">Line of codes</span>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6 col-xs-12">
+					<div class="fh5co-counter to-animate">
+						<i class="fh5co-counter-icon icon-cup to-animate-2"></i>
+						<span class="fh5co-counter-number js-counter" data-from="0" data-to="1302" data-speed="5000" data-refresh-interval="50">1302</span>
+						<span class="fh5co-counter-label">Monster's drink</span>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6 col-xs-12">
+					<div class="fh5co-counter to-animate">
+						<i class="fh5co-counter-icon icon-people to-animate-2"></i>
+						<span class="fh5co-counter-number js-counter" data-from="0" data-to="52" data-speed="5000" data-refresh-interval="50">121</span>
+						<span class="fh5co-counter-label">Downloads</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="fh5co-contact" data-section="pixel">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 section-heading text-center">
+					<h2 class="to-animate">Pixel Mirror</h2>
+					<div class="row">
+						<div class="col-md-8 col-md-offset-2 subtext to-animate">
+							<h3>Pixel Mirror is a company of indie games.</h3>
+						</div>
+					</div>
+					<div class="row">
+				<div class="col-md-12 text-center">
+					<ul class="social social-circle">
+						<li><a target ="_blank" href="https://twitter.com/pixel_mirror"><i class="icon-twitter"></i></a></li>
+						<li><a target ="_blank" href="https://www.facebook.com/Pixel-Mirror-814809901980089/"><i class="icon-facebook"></i></a></li>
+					</ul>
+				</div>
+				<div class="row">
+						<div class="col-md-8 col-md-offset-2 subtext to-animate">
+							<h3></h3>
+						</div>
+					</div>
+				<div class="fh5co-block to-animate">
+					<div class="overlay-darker"></div>
+					<div class="overlay"></div>
+					<div class="fh5co-text">
+						<i class="icon-github"></i>
+						<h1>Wiki</h1>
+						<h2>A Wiki page with all the information about the game Diablo 2: Blood Harvest</h2>
+						<p><a target ="_blank" href="https://github.com/joeyGumer/Pixel_Mirror--Diablo_II/wiki" class="btn btn-primary">Wiki GitHub</a></p>
+					</div>
+				</div>
+			</div>
+				</div>
+			</div>
+			
+
+			</div>
+		</div>
+	</section>
+	
+	
+	<footer id="footer" role="contentinfo">
+		<a href="#" class="gotop js-gotop"><i class="icon-arrow-up2"></i></a>
+		<div class="container">
+			<div class="">
+				<div class="col-md-12 text-center">
+					<p>&copy; Pixel Mirror 2016 All Rights Reserved. <br>Created by Pixel Mirror Team </a></p>
+					
+				</div>
+			</div>
+			
+		</div>
+	</footer>
+	
+	
+	
+
+	
+	<!-- jQuery -->
+	<script src="js/jquery.min.js"></script>
+	<!-- jQuery Easing -->
+	<script src="js/jquery.easing.1.3.js"></script>
+	<!-- Bootstrap -->
+	<script src="js/bootstrap.min.js"></script>
+	<!-- Waypoints -->
+	<script src="js/jquery.waypoints.min.js"></script>
+	<!-- Stellar Parallax -->
+	<script src="js/jquery.stellar.min.js"></script>
+	<!-- Counter -->
+	<script src="js/jquery.countTo.js"></script>
+	<!-- Magnific Popup -->
+	<script src="js/jquery.magnific-popup.min.js"></script>
+	<script src="js/magnific-popup-options.js"></script>
+	
+
+	<!-- Main JS (Do not remove) -->
+	<script src="js/main.js"></script>
+
+	</body>
 </html>
+
