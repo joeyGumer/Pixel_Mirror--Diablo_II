@@ -46,7 +46,7 @@ bool snDungeon3::Start()
 {
 	win = false;
 
-	//App->audio->PlayMusic("audio/music/town1.ogg", 0);
+	App->audio->PlayMusic("audio/music/town1.ogg", 0);
 
 	if (minimap_tex == NULL)
 	{
@@ -910,6 +910,7 @@ bool snDungeon3::Load(pugi::xml_node& node)
 
 			if (dead)
 			{
+				enemy->blood_drop = 0;
 				enemy->current_input = ENTITY_INPUT_DEATH;
 			}
 

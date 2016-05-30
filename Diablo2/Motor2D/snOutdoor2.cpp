@@ -47,7 +47,7 @@ bool snOutdoor2::Start()
 {
 	win = false;
 	//App->game->HUD->minimap->minimap->textura_minimapa = App->tex->Load("maps/path.png");
-	//App->audio->PlayMusic("audio/music/tristram.ogg", 0);
+	App->audio->PlayMusic("audio/music/tristram.ogg", 0);
 
 	
 	//SDL_Texture* mapa = NULL;
@@ -899,6 +899,7 @@ bool snOutdoor2::Load(pugi::xml_node& node)
 
 			if (dead)
 			{
+				enemy->blood_drop = 0;
 				enemy->current_input = ENTITY_INPUT_DEATH;
 			}
 
