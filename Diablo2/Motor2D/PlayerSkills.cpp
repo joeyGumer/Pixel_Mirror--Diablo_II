@@ -581,7 +581,7 @@ void sklVampireBreath::SkillEffect(float dt)
 {
 	iPoint pos = { int(player->p_position.x), int(player->p_position.y) };
 
-	vector<EntEnemy*> enemies = App->game->em->EnemiesOnArea(pos, radius);
+	vector<EntEnemy*> enemies = App->game->em->EnemiesOnArea(pos, range);
 
 	float damage = final_damage_down;
 	damage += rand() % (final_damage_up - final_damage_down + 1);
