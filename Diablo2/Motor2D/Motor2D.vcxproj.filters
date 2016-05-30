@@ -190,6 +190,9 @@
     <ClCompile Include="snLose.cpp">
       <Filter>Desenvolupament  ========\Scenes\snLose</Filter>
     </ClCompile>
+    <ClCompile Include="j1InputManager.cpp">
+      <Filter>Desenvolupament  ========\j1InputManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h">
@@ -417,6 +420,9 @@
     <ClInclude Include="snLose.h">
       <Filter>Desenvolupament  ========\Scenes\snLose</Filter>
     </ClInclude>
+    <ClInclude Include="j1InputManager.h">
+      <Filter>Desenvolupament  ========\j1InputManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -604,6 +610,9 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Scenes\snLose">
       <UniqueIdentifier>{50154264-c410-45f0-9268-3015cb17151b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\j1InputManager">
+      <UniqueIdentifier>{f1c498b0-6f42-4178-a4c1-300d8fc3213a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

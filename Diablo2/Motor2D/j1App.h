@@ -25,6 +25,7 @@ class j1Gui;
 class j1Game;
 class j1Collision;
 class j1ParticleManager;
+class j1InputManager;
 
 class j1App
 {
@@ -105,6 +106,7 @@ public:
 	j1Game*             game = NULL;
 	j1Collision*		collision = NULL;
 	j1ParticleManager*	pm = NULL;
+	j1InputManager*		im = NULL;
 
 	//NOTE: Now the debug mode is global form the app, ask Ric
 	bool                debug = false;

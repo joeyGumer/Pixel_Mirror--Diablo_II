@@ -3,6 +3,7 @@
 
 #include "j1Module.h"
 #include "p2Point.h"
+#include <queue>
 
 //#define NUM_KEYS 352
 #define NUM_MOUSE_BUTTONS 5
@@ -95,6 +96,11 @@ private:
 	bool		enable_input;
 	p2SString   input_text;
 	int			cursor_pos;
+
+public:
+	std::queue<const char*>		down_queue;
+	std::queue<const char*>		up_queue;
+	std::queue<const char*>		repeat_queue;
 };
 
 #endif // __j1INPUT_H__

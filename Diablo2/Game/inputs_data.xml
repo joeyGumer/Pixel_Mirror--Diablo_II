@@ -1,0 +1,35 @@
+<inputs_data>
+
+  <!-- COMMANDS MUST BE CAPS -->
+  
+  <shortcut>
+    <TYPE value = "UP"/>
+    <name value ="inventory"/>
+    <command value ="I"/>
+  </shortcut>
+
+  <shortcut>
+    <TYPE value = "UP"/>
+    <name value ="skill_tree"/>
+    <command value ="S"/>
+  </shortcut>
+
+  <shortcut>
+    <TYPE value = "UP"/>
+    <name value ="stats"/>
+    <command value ="C"/>
+  </shortcut>
+
+  <shortcut>
+    <TYPE value = "UP"/>
+    <name value ="pause"/>
+    <command value ="P"/>
+  </shortcut>
+  
+  <shortcut>
+    <TYPE value = "UP"/>
+    <name value ="map"/>
+    <command value ="M"/>
+  </shortcut>
+
+</inputs_data>

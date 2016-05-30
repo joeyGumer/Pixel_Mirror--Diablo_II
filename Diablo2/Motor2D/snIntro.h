@@ -44,6 +44,16 @@ public:
 	//Load/UnLoad, called when the scene changes
 	bool LoadScene();
 	bool UnLoad();
+
+	//Reprogramable Keys
+	//------------------------------------------
+
+	bool LoadShortcutsInfo();
+
+	//Refresh commands once have been changed
+	//void ChangeShortcutCommand(ShortCut* shortcut);
+
+	//------------------------------------------
 	
 
 private:
@@ -97,6 +107,7 @@ private:
 	//NOTE : added this list to iterate easily the gui_elements of the scene. Ask ric about a more optimal way to control the UI
 	//NOTE: do the button class so it can have the diferent images and even a label, so it doesn?t interfere with the rest of the ui
 	list<GuiElement*> intro_gui;
+
 };
 
 #endif // __SNINTRO_H__

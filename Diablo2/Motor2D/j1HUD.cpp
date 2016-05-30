@@ -13,6 +13,7 @@
 #include "hudSkilltree.h"
 #include "hudStats.h"
 #include "hudMiniMap.h"
+#include "j1InputManager.h"
 
 //NOTE : provisional
 #include "j1Input.h"
@@ -64,8 +65,91 @@ bool j1HUD::Start()
 //Called before each loop iteration
 bool j1HUD::PreUpdate()
 {
+	list<ShortCut*>::iterator it = App->im->shortcuts_list.begin();
 
-	if (App->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN || belt->inventorybutton_pressed == true)
+	while (it != App->im->shortcuts_list.end())
+	{
+		if ((*it)->name == "inventory" && (*it)->active)
+		{
+			if (skilltree->active == true)
+			{
+				inventory->Activate();
+				skilltree->Activate();
+				belt->inventorybutton_pressed = false;
+			}
+			else
+			{
+				inventory->Activate();
+				belt->inventorybutton_pressed = false;
+			}
+		}
+
+		if ((*it)->name == "skill_tree" && (*it)->active)
+		{ 
+			if (inventory->active == true)
+			{
+				skilltree->Activate();
+				inventory->Activate();
+				belt->skilltreebutton_pressed = false;
+			}
+			else
+			{
+				skilltree->Activate();
+				belt->skilltreebutton_pressed = false;
+			}
+		}
+
+		if ((*it)->name == "stats" && (*it)->active)
+		{
+			if (inventory->background->active == true && inventory->inventory->active == true)
+			{
+				stats->Activate();
+				belt->statsbutton_pressed = false;
+			}
+			else
+			{
+				stats->Activate();
+				belt->statsbutton_pressed = false;
+			}
+		}
+
+		if ((*it)->name == "pause" && (*it)->active)
+		{
+			bool show_menu = true;
+
+			if (stats->active == true)
+			{
+				stats->Activate();
+				show_menu = false;
+			}
+			if (skilltree->active == true)
+			{
+				skilltree->Activate();
+				show_menu = false;
+			}
+			if (inventory->active == true)
+			{
+				inventory->Activate();
+				show_menu = false;
+			}
+			if (show_menu)
+			{
+				pause_menu->ActivateMenu();
+			}
+
+			belt->menubutton_pressed = false;
+		}
+
+		if ((*it)->name == "map" && (*it)->active)
+		{
+			belt->minimapbutton_pressed = false;
+			minimap->Activate();
+		}
+
+		++it;
+	}
+
+	if (belt->inventorybutton_pressed == true)
 	{
 		if (skilltree->active == true)
 		{
@@ -86,7 +170,7 @@ bool j1HUD::PreUpdate()
 		inventory->closebutton_pressed = false;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || belt->skilltreebutton_pressed == true)
+	if (belt->skilltreebutton_pressed == true)
 	{
 		if (inventory->active == true)
 		{
@@ -107,7 +191,7 @@ bool j1HUD::PreUpdate()
 		skilltree->martialdeletebutton_pressed = false;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN || belt->statsbutton_pressed == true)
+	if (belt->statsbutton_pressed == true)
 	{
 		if (inventory->background->active == true && inventory->inventory->active == true)
 		{
@@ -127,7 +211,7 @@ bool j1HUD::PreUpdate()
 		stats->closebutton_pressed = false;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || belt->menubutton_pressed == true)
+	if (belt->menubutton_pressed == true)
 	{
 		bool show_menu = true;
 
@@ -154,7 +238,7 @@ bool j1HUD::PreUpdate()
 		belt->menubutton_pressed = false;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN || belt->minimapbutton_pressed == true)
+	if (belt->minimapbutton_pressed == true)
 	{
 		belt->minimapbutton_pressed = false;
 		minimap->Activate();

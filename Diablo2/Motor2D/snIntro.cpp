@@ -13,10 +13,14 @@
 #include "j1Textures.h"
 #include "j1Audio.h"
 #include "j1Fonts.h"
+#include "p2Log.h"
+#include "j1InputManager.h"
 
 
 snIntro::snIntro() :j1Scene(INTRO)
-{}
+{
+	name.create("intro");
+}
 
 
 snIntro::~snIntro()
@@ -25,7 +29,6 @@ snIntro::~snIntro()
 // Called before render is available
 bool snIntro::Awake(pugi::xml_node& conf)
 {
-	
 
 	return true;
 }
@@ -89,7 +92,13 @@ bool snIntro::Start()
 	controls_window = App->gui->AddGuiImage({ 140, -350 }, { 941, 82, 320, 350 }, controls_button, this);
 	controls_window->Center(true, false);
 	intro_gui.push_back(controls_window);
+
+	//Reprogramable Keys
+	//---------------------------
+	LoadShortcutsInfo();
+	//---------------------------
 	
+	/*
 	//PrimarySkill Label
 	primary_skill_image = App->gui->AddGuiImage({ 140, 45 }, { 3450, 960, 160, 10 }, controls_window, this);
 	primary_skill = App->gui->AddGuiLabel("LEFT CLICK", App->font->stats, { 0, 0 }, primary_skill_image, FONT_WHITE, this);
@@ -173,6 +182,7 @@ bool snIntro::Start()
 	run->Center(true, true);
 	intro_gui.push_back(run);
 	intro_gui.push_back(run_image);
+	*/
 
 	/*close_controls = App->gui->AddGuiButton({ 200, 315 }, { 3450, 960, 100, 35 }, { 3450, 960, 100, 35 }, { 3450, 960, 100, 35 }, "Close", App->font->stats,  this,controls_window,FONT_YELLOW2);
 	intro_gui.push_back(close_controls);
@@ -200,7 +210,7 @@ bool snIntro::Start()
 // PreUpdate
 bool snIntro::PreUpdate()
 {
-	
+
 	return true;
 }
 
@@ -252,16 +262,13 @@ bool snIntro::Update(float dt)
 		std::exit(0);
 	}
 
-
-
 	return true;
 }
 
 // PostUpdate
 bool snIntro::PostUpdate()
 {
-	//Logo animation
-	
+
 	return true;
 }
 
@@ -430,6 +437,86 @@ void snIntro::OnEvent(GuiElement* element, GUI_Event even)
 
 		}
 	}
+
+	//Reprogramable Keys
+	//--------------------------------
+	if (element->type == GUI_LABEL)
+	{
+		list<ShortCut*>::iterator it = App->im->shortcuts_list.begin();
+
+		while (it != App->im->shortcuts_list.end())
+		{
+			if (element == (*it)->command_label && even == EVENT_MOUSE_LEFTCLICK_DOWN)
+			{
+				(*it)->ready_to_change = true;
+			}
+			++it;
+		}
+
+	}
+	//--------------------------------
+}
+
+bool snIntro::LoadShortcutsInfo()
+{
+	bool ret = true;
+
+	
+	//Loading shortcuts info
+
+	pugi::xml_document	inputs_data;
+	pugi::xml_node		node;
+
+	char* buf;
+	int size = App->fs->Load(App->im->inputs_file_path.c_str(), &buf);
+	pugi::xml_parse_result result = inputs_data.load_buffer(buf, size);
+	RELEASE(buf);
+
+	if (result == NULL)
+	{
+		LOG("Could not load xml file %s. PUGI error: &s", App->im->inputs_file_path.c_str(), result.description());
+		return false;
+	}
+	else
+		node = inputs_data.child("inputs_data");
+
+	//Pop-up position
+	int pos_x = 170;
+	int pos_y = 20;
+
+	for (node = node.child("shortcut"); node && ret; node = node.next_sibling("shortcut"))
+	{
+		ShortCut* shortcut = new ShortCut();
+
+		string type_tmp = node.child("TYPE").attribute("value").as_string();
+		if (type_tmp == "UP")
+			shortcut->type = UP;
+		if (type_tmp == "DOWN")
+			shortcut->type = DOWN;
+		if (type_tmp == "REPEAT")
+			shortcut->type = REPEAT;
+
+		shortcut->name = node.child("name").attribute("value").as_string();
+		shortcut->command = node.child("command").attribute("value").as_string();
+
+		//TODO 4: Uncomment this to complete TODO 3
+		p2SString text;
+		text = shortcut->command.data();
+		shortcut->command_label = App->gui->AddGuiLabel(text, App->font->stats, { pos_x, pos_y += 30 }, controls_window, this);
+		//shortcut->command_label = App->gui->CreateLabel(shortcut->command.data(), pos_x, pos_y += 30, App->input_manager);
+		//shortcut->command_label->SetParent((UIEntity*)pop_up);
+
+		p2SString text2;
+		text2 = shortcut->command.data();
+		shortcut->shortcut_label = App->gui->AddGuiLabel(text2, App->font->stats, { pos_x - 140, pos_y }, controls_window, this);
+		//shortcut->shortcut_label->SetParent((UIEntity*)pop_up);
+		shortcut->shortcut_label->focusable = false;
+		shortcut->active = false;
+
+		App->im->shortcuts_list.push_back(shortcut);
+	}
+
+	return ret;
 }
 
 //Load/UnLoad, called when the scene changes

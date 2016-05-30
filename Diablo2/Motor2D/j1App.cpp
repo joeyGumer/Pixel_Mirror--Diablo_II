@@ -19,6 +19,7 @@
 #include "j1Game.h"
 #include "j1Collision.h"
 #include "j1ParticleManager.h"
+#include "j1InputManager.h"
 
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
@@ -39,6 +40,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	game = new j1Game();
 	collision = new j1Collision();
 	pm = new j1ParticleManager();
+	im = new j1InputManager();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -51,6 +53,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(pathfinding);
 	AddModule(font);
 	AddModule(gui);
+	AddModule(im);
 
 	// scene manager
 	AddModule(sm);

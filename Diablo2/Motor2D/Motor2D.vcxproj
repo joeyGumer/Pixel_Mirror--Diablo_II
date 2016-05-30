@@ -112,6 +112,7 @@
     <ClCompile Include="j1Fonts.cpp" />
     <ClCompile Include="j1Gui.cpp" />
     <ClCompile Include="j1HUD.cpp" />
+    <ClCompile Include="j1InputManager.cpp" />
     <ClCompile Include="j1Main.cpp" />
     <ClCompile Include="j1App.cpp" />
     <ClCompile Include="j1Audio.cpp" />
@@ -181,6 +182,7 @@
     <ClInclude Include="j1Fonts.h" />
     <ClInclude Include="j1Gui.h" />
     <ClInclude Include="j1HUD.h" />
+    <ClInclude Include="j1InputManager.h" />
     <ClInclude Include="j1Map.h" />
     <ClInclude Include="j1ParticleManager.h" />
     <ClInclude Include="memleaks.h" />

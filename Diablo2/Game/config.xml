@@ -35,5 +35,9 @@
   <map>
     <folder>maps/</folder>
   </map>
+  
+  <input_manager>
+    <shortcuts_path value="inputs_data.xml"/>
+  </input_manager>
 
 </config>

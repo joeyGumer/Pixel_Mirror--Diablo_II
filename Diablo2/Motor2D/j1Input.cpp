@@ -53,21 +53,50 @@ bool j1Input::PreUpdate()
 	
 	const Uint8* keys = SDL_GetKeyboardState(NULL);
 
+	//Clean queues
+	while (!down_queue.empty())
+	{
+		down_queue.pop();
+	}
+	while (!up_queue.empty())
+	{
+		up_queue.pop();
+	}
+	while (!repeat_queue.empty())
+	{
+		repeat_queue.pop();
+	}
+
 	for(int i = 0; i < MAX_KEYS; ++i)
 	{
+		SDL_Scancode code = (SDL_Scancode)i;
+
 		if(keys[i] == 1)
 		{
-			if(keyboard[i] == KEY_IDLE)
+			if (keyboard[i] == KEY_IDLE)
+			{
 				keyboard[i] = KEY_DOWN;
+				down_queue.push(SDL_GetScancodeName(code));
+			}
+				
 			else
+			{
 				keyboard[i] = KEY_REPEAT;
+				repeat_queue.push(SDL_GetScancodeName(code));
+			}
 		}
 		else
 		{
-			if(keyboard[i] == KEY_REPEAT || keyboard[i] == KEY_DOWN)
+			if (keyboard[i] == KEY_REPEAT || keyboard[i] == KEY_DOWN)
+			{
 				keyboard[i] = KEY_UP;
+				up_queue.push(SDL_GetScancodeName(code));
+			}
+				
 			else
+			{
 				keyboard[i] = KEY_IDLE;
+			}
 		}
 	}
 
