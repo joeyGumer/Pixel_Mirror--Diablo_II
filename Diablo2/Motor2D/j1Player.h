@@ -266,6 +266,7 @@ public:
 	bool		target_reached;
 	bool		path_on = true;
 	int			walk_frame = 0;
+	SDL_Rect	current_sprite;
 
 	//Attack
 	bool		attacking;

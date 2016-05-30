@@ -150,7 +150,7 @@ bool j1Player::Start()
 	enemy = NULL;
 
 	//Sprite creation
-	SDL_Rect current_sprite = current_animation->GetCurrentFrame();
+	current_sprite = current_animation->GetCurrentFrame();
 
 	iPoint pos(p_position.x, p_position.y);
 	sprite = new Sprite(p_sprite, pos, p_pivot, current_sprite);
@@ -235,7 +235,7 @@ bool j1Player::Update(float dt)
 	if (App->debug == false)
 		App->render->CenterCamera(p_position.x, p_position.y);
 
-		
+	current_sprite = current_animation->GetCurrentFrame();
 
 	return true;
 }
@@ -367,7 +367,7 @@ void j1Player::Draw()
 	//NOTE: for pause mode, this will have to be on update to vary on dt
 	if (sprite)
 	{
-		SDL_Rect current_sprite = current_animation->GetCurrentFrame();
+		//SDL_Rect current_sprite = current_animation->GetCurrentFrame();
 		iPoint pos(p_position.x, p_position.y);
 		sprite->UpdateSprite(p_sprite, pos, p_pivot, current_sprite);
 	}
