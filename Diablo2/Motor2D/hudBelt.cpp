@@ -37,6 +37,9 @@ bool hudBelt::Start()
 	HUD = App->gui->AddGuiImage({ 166, 431 }, { 166, 386, 408, 47 }, NULL, this);
 	hud_gui_elements.push_back(HUD);
 
+	HUDornament = App->gui->AddGuiImage({ 96, -5 }, { 262, 381, 115, 5 }, HUD, this);
+	hud_gui_elements.push_back(HUDornament);
+
 	inventory1 = App->gui->AddGuiInventory({ 176, 9 }, { 342, 395, 30, 30 }, 1, 1 , 30, 30, HUD, this);
 	inventory1->restriction = ITEM_CONSUMABLE;
 	hud_gui_elements.push_back(inventory1);
@@ -51,9 +54,6 @@ bool hudBelt::Start()
 	hud_gui_elements.push_back(inventory4);
 	//HUD elements definition
 	//NOTE: these position are very inaccurate
-
-	HUDornament = App->gui->AddGuiImage({ 96, -5 }, { 262, 381, 115, 5 }, HUD, this);
-	hud_gui_elements.push_back(HUDornament);
 
 	HUDback1 = App->gui->AddGuiImage({ -132, -19 }, { 362, 226, 76, 53 }, HUD, this);
 	hud_gui_elements.push_back(HUDback1);

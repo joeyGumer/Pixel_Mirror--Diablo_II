@@ -41,7 +41,7 @@ bool j1Gui::Awake(pugi::xml_node& conf)
 // Called before the first frame
 bool j1Gui::Start()
 {
-	mouse_clicked == false;
+	mouse_clicked = false;
 	atlas = App->tex->Load(atlas_file_name.GetString());
 	//Disables the cursor
 	SDL_ShowCursor(SDL_DISABLE);
