@@ -71,11 +71,9 @@ The bosses have different strategies and you will have to find diverse ways to f
 	- Drawing layered.
 	- Boss.
 	- Enemies.
-	- Attack enemies.
+	- Melee Attack.
 	- Dungeon map.
-	- Animation Character.
-	- Stamina Character.
-	- Damage taken Character.
+	- Stamina system.
 	- Object on inventory( drag and drop).
 
 - Version 0.6:
@@ -87,7 +85,7 @@ The bosses have different strategies and you will have to find diverse ways to f
 	- Change Mana for Blood.
 	- Fix Hp bar.
 	- Fix player run.
-	- Open Skill Tree.
+	- New Skill Tree.
 	- Portals.
 	- Outdoor and Dungeon Map.
 	- Updated HUD.
