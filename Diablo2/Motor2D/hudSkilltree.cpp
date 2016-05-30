@@ -106,7 +106,7 @@ bool hudSkilltree::Start()
 	skill_points_img->active = false;
 	hud_gui_elements.push_back(skill_points_img);
 
-	skillpoints_label = App->gui->AddGuiLabel("0", NULL, { 265, 62 }, skill_points_img, FONT_WHITE, this);
+	skillpoints_label = App->gui->AddGuiLabel("0", App->font->description, { 265, 10 }, skill_points_img, FONT_WHITE, this);
 	skillpoints_label->active = false;
 	hud_gui_elements.push_back(skillpoints_label);
 
@@ -591,7 +591,7 @@ bool hudSkilltree::PostUpdate()
 	p2SString text;
 	text.create("%i", player->blood_current);
 	skillpoints_label->SetText(text);
-	skillpoints_label->Center(true, true);
+	skillpoints_label->Center(true, false);
 	
 
 	text.create("%i", player->stinging_strike->level + 1);
