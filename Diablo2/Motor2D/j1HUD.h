@@ -41,6 +41,10 @@ public:
 	//Called when there's a GUI event
 	void OnEvent(GuiElement* element, GUI_Event even);
 
+	//Load/Save
+	bool Load(pugi::xml_node&);
+	bool Save(pugi::xml_node&) const;
+
 private:
 
 public:

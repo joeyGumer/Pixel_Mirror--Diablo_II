@@ -40,12 +40,19 @@ public:
 	//Called when there's a gui event
 	void OnEvent(GuiElement* element, GUI_Event even);
 
+	//Load/Save
+	bool Load(pugi::xml_node&);
+	bool Save(pugi::xml_node&) const;
+
+	void SaveItemData(GuiItem* item, pugi::xml_node&) const ;
+	void LoadItemData(pugi::xml_node& node, GuiInventory* inv);
+
 	//Activation/Desactivation
 	void Activate();
 
 	//NOTE: master of nope, but now i need it
 	//Change it for an addItem
-	bool AddItem(GuiItem* item);
+	bool AddItem(GuiItem* item, GuiInventory* inv = NULL);
 
 public:
 
@@ -72,6 +79,5 @@ public:
 	GuiInventory* rune2 = NULL;
 	GuiInventory* rune3 = NULL;
 };
-
 
 #endif _HUDINVENTORY_H_

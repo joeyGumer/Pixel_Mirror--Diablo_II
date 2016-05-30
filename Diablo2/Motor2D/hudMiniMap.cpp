@@ -20,7 +20,7 @@
 ;
 hudMiniMap::hudMiniMap() : hudElement()
 {
-
+	name.create("hud_minimap");
 }
 
 //Destructor

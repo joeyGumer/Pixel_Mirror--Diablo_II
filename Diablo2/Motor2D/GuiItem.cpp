@@ -134,7 +134,7 @@ void GuiItem::CreateText()
 		switch (nexus->item_buffs[i]->attribute)
 		{
 			case STRENGHT:
-				Text.Insert(0, "StrengTh :");
+				Text.Insert(0, "STRENGTH :");
 				attributeText.push_back(StringColor(Text, color));
 				break;
 			case DEXTERITY:

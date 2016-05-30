@@ -9,7 +9,7 @@
 
 #define ITEM_SLOT_SIZE 29
 
-
+class GuiInventory;
 
 enum ITEM_TYPE
 {
@@ -47,6 +47,8 @@ public:
 	//Changes from a entItem to guiItem and viceversa
 	void ConvertToEntity(iPoint p);
 	void ConvertToGui();
+
+	void ConvertToGuiInv(GuiInventory* inv);
 
 	void DeleteBuffs();
 	//The effect or buff that the item aplicates

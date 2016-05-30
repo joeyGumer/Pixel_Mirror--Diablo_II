@@ -11,7 +11,7 @@
 
 hudPause::hudPause()
 {
-
+	name.create("hud_pause");
 }
 
 //Destructor

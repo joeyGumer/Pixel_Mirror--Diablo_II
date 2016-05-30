@@ -38,7 +38,7 @@ j1HUD::j1HUD() : j1Module()
 	HUD_elements.push_back(skilltree);
 	HUD_elements.push_back(pause_menu);
 	
-	
+	name.create("hud");
 	
 }
 
@@ -270,4 +270,24 @@ void j1HUD::OnEvent(GuiElement* element, GUI_Event even)
 
 
 
+//Load/Save
+bool j1HUD::Load(pugi::xml_node& node)
+{
+	for (int i = 0; i < HUD_elements.size(); i++)
+	{
+		pugi::xml_node item = node.child(HUD_elements[i]->name.GetString());
+		HUD_elements[i]->Load(item);
+	}
 
+	return true;
+}
+
+bool j1HUD::Save(pugi::xml_node& node) const
+{
+	for(int i = 0; i < HUD_elements.size(); i++)
+	{
+		HUD_elements[i]->Save(node.append_child(HUD_elements[i]->name.GetString()));
+	}
+
+	return true;
+}

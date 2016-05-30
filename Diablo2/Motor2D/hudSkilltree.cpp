@@ -11,7 +11,7 @@
 
 hudSkilltree::hudSkilltree()
 {
-
+	name.create("hud_skilltree");
 }
 
 //Destructor

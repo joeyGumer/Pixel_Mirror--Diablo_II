@@ -8,6 +8,7 @@
 
 hudBlood::hudBlood()
 {
+	name.create("hud_blood");
 	active = true;
 }
 

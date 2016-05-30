@@ -5,9 +5,10 @@
 #include "j1Player.h"
 #include "j1Game.h"
 #include "j1Fonts.h"
+
 hudStats::hudStats()
 {
-
+	name.create("hud_stats");
 }
 
 //Destructor
@@ -32,11 +33,11 @@ bool hudStats::Start()
 	hud_gui_elements.push_back(closebutton);
 
 	//Name Player Stat
-	name = App->gui->AddGuiImage({ 8, 8 }, { 3450, 960, 175, 20 }, window, this);
-	player_name = App->gui->AddGuiLabel("Vampire", NULL, { 40, 2 }, name, FONT_WHITE, backgroundColor, this);
+	name_player = App->gui->AddGuiImage({ 8, 8 }, { 3450, 960, 175, 20 }, window, this);
+	player_name = App->gui->AddGuiLabel("Vampire", NULL, { 40, 2 }, name_player, FONT_WHITE, backgroundColor, this);
 	player_name->Center(true, true);
 	player_name->interactable = true;
-	hud_gui_elements.push_back(name);
+	hud_gui_elements.push_back(name_player);
 	hud_gui_elements.push_back(player_name);
 
 

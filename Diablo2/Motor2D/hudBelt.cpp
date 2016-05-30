@@ -18,6 +18,7 @@
 //Constructor
 hudBelt::hudBelt():hudElement()
 {
+	name.create("hud_belt");
 	active = true;
 }
 

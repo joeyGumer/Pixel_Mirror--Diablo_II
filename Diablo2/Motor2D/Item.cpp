@@ -106,6 +106,28 @@ void Item::ConvertToGui()
 	}
 }
 
+void Item::ConvertToGuiInv(GuiInventory* inv)
+{
+	if (ent_item)
+	{
+		gui_item = new GuiItem(size, coord, rect);
+		gui_item->nexus = this;
+		gui_item->CreateText();
+		if (App->game->HUD->inventory->AddItem(gui_item, inv))
+		{
+			ent_item->convert = true;
+
+			App->game->em->Remove(ent_item->id);
+
+			RELEASE(ent_item);
+		}
+		else
+		{
+			gui_item = NULL;
+		}
+	}
+}
+
 //The effect or buff that the item aplicates
 void Item::Effect()
 {

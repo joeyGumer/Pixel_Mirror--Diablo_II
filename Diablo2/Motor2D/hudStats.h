@@ -57,7 +57,7 @@ public:
 	//Images
 	GuiImage* closebutton = NULL;
 	GuiImage* window = NULL;
-	GuiImage* name = NULL;
+	GuiImage* name_player = NULL;
 	GuiImage* experience = NULL;
 	GuiImage* strength = NULL;
 	GuiImage* strength_value = NULL;
