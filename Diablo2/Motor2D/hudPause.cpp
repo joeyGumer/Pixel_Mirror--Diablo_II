@@ -94,7 +94,7 @@ void hudPause::OnEvent(GuiElement* element, GUI_Event even)
 	{
 		switch (even)
 		{
-		case EVENT_MOUSE_LEFTCLICK_DOWN:
+		case EVENT_MOUSE_LEFTCLICK_UP:
 			main_menu = true;
 			App->SaveGame("save_state");
 			break;
