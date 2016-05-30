@@ -462,61 +462,88 @@ bool snIntro::LoadShortcutsInfo()
 {
 	bool ret = true;
 
-	
-	//Loading shortcuts info
-
-	pugi::xml_document	inputs_data;
-	pugi::xml_node		node;
-
-	char* buf;
-	int size = App->fs->Load(App->im->inputs_file_path.c_str(), &buf);
-	pugi::xml_parse_result result = inputs_data.load_buffer(buf, size);
-	RELEASE(buf);
-
-	if (result == NULL)
+	if (!shorcuts_loaded)
 	{
-		LOG("Could not load xml file %s. PUGI error: &s", App->im->inputs_file_path.c_str(), result.description());
-		return false;
+		//Loading shortcuts info
+
+		pugi::xml_document	inputs_data;
+		pugi::xml_node		node;
+
+		char* buf;
+		int size = App->fs->Load(App->im->inputs_file_path.c_str(), &buf);
+		pugi::xml_parse_result result = inputs_data.load_buffer(buf, size);
+		RELEASE(buf);
+
+		if (result == NULL)
+		{
+			LOG("Could not load xml file %s. PUGI error: &s", App->im->inputs_file_path.c_str(), result.description());
+			return false;
+		}
+		else
+			node = inputs_data.child("inputs_data");
+
+		//Pop-up position
+		int pos_x = 216;
+		int pos_y = 20;
+
+		for (node = node.child("shortcut"); node && ret; node = node.next_sibling("shortcut"))
+		{
+			ShortCut* shortcut = new ShortCut();
+
+			string type_tmp = node.child("TYPE").attribute("value").as_string();
+			if (type_tmp == "UP")
+				shortcut->type = UP;
+			if (type_tmp == "DOWN")
+				shortcut->type = DOWN;
+			if (type_tmp == "REPEAT")
+				shortcut->type = REPEAT;
+
+			shortcut->name = node.child("name").attribute("value").as_string();
+			shortcut->command = node.child("command").attribute("value").as_string();
+
+			//TODO 4: Uncomment this to complete TODO 3
+			p2SString text;
+			text = shortcut->command.data();
+			shortcut->command_label = App->gui->AddGuiLabel(text, App->font->stats, { pos_x, pos_y += 30 }, controls_window, FONT_WHITE, this);
+			intro_gui.push_back(shortcut->command_label);
+			//shortcut->command_label = App->gui->CreateLabel(shortcut->command.data(), pos_x, pos_y += 30, App->input_manager);
+			//shortcut->command_label->SetParent((UIEntity*)pop_up);
+
+			p2SString text2;
+			text2 = shortcut->name.data();
+			shortcut->shortcut_label = App->gui->AddGuiLabel(text2, App->font->stats, { pos_x - 179, pos_y }, controls_window, FONT_WHITE, this);
+			intro_gui.push_back(shortcut->shortcut_label);
+			//shortcut->shortcut_label->SetParent((UIEntity*)pop_up);
+			shortcut->shortcut_label->focusable = false;
+			shortcut->active = false;
+
+			App->im->shortcuts_list.push_back(shortcut);
+		}
+		shorcuts_loaded = true;
 	}
+
 	else
-		node = inputs_data.child("inputs_data");
-
-	//Pop-up position
-	int pos_x = 216;
-	int pos_y = 20;
-
-	for (node = node.child("shortcut"); node && ret; node = node.next_sibling("shortcut"))
 	{
-		ShortCut* shortcut = new ShortCut();
+		int pos_x = 216;
+		int pos_y = 20;
 
-		string type_tmp = node.child("TYPE").attribute("value").as_string();
-		if (type_tmp == "UP")
-			shortcut->type = UP;
-		if (type_tmp == "DOWN")
-			shortcut->type = DOWN;
-		if (type_tmp == "REPEAT")
-			shortcut->type = REPEAT;
+		list<ShortCut*>::iterator it = App->im->shortcuts_list.begin();
+		while (it != App->im->shortcuts_list.end())
+		{
+			p2SString text;
+			text = (*it)->command.data();
+			(*it)->command_label = App->gui->AddGuiLabel(text, App->font->stats, { pos_x, pos_y += 30 }, controls_window, FONT_WHITE, this);
+			intro_gui.push_back((*it)->command_label);
 
-		shortcut->name = node.child("name").attribute("value").as_string();
-		shortcut->command = node.child("command").attribute("value").as_string();
+			p2SString text2;
+			text2 = (*it)->name.data();
+			(*it)->shortcut_label = App->gui->AddGuiLabel(text2, App->font->stats, { pos_x - 179, pos_y }, controls_window, FONT_WHITE, this);
+			(*it)->shortcut_label->focusable = false;
+			(*it)->active = false;
+			intro_gui.push_back((*it)->shortcut_label);
 
-		//TODO 4: Uncomment this to complete TODO 3
-		p2SString text;
-		text = shortcut->command.data();
-		shortcut->command_label = App->gui->AddGuiLabel(text, App->font->stats, { pos_x, pos_y += 30 }, controls_window, FONT_WHITE, this);
-		intro_gui.push_back(shortcut->command_label);
-		//shortcut->command_label = App->gui->CreateLabel(shortcut->command.data(), pos_x, pos_y += 30, App->input_manager);
-		//shortcut->command_label->SetParent((UIEntity*)pop_up);
-
-		p2SString text2;
-		text2 = shortcut->name.data();
-		shortcut->shortcut_label = App->gui->AddGuiLabel(text2, App->font->stats, { pos_x - 179, pos_y }, controls_window, FONT_WHITE, this);
-		intro_gui.push_back(shortcut->shortcut_label);
-		//shortcut->shortcut_label->SetParent((UIEntity*)pop_up);
-		shortcut->shortcut_label->focusable = false;
-		shortcut->active = false;
-
-		App->im->shortcuts_list.push_back(shortcut);
+			++it;
+		}
 	}
 
 	return ret;

@@ -58,6 +58,8 @@ public:
 
 private:
 	
+	bool shorcuts_loaded = false;
+
 	bool pass;
 	bool exit;
 	bool load;
