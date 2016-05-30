@@ -9,6 +9,8 @@
 #include "j1HUD.h"
 #include "hudInventory.h"
 #include "j1Player.h"
+#include "j1SceneManager.h"
+#include "j1Scene.h"
 
 Item::Item(ITEM_TYPE ty, ITEM_RARITY rare, iPoint p)
 {
@@ -43,6 +45,15 @@ Item::~Item()
 
 }
 
+void Item::DeleteBuffs()
+{
+	for (int i = 0; i < item_buffs.size(); i++)
+	{
+		RELEASE(item_buffs[i]);
+	}
+
+	item_buffs.clear();
+}
 //In charge to create the item, so it can be accesed from outside
 void Item::CreateEntItem(iPoint &p)
 {
@@ -53,7 +64,9 @@ void Item::CreateEntItem(iPoint &p)
 	{
 		ent_item->SetSprite(rect);
 		ent_item->nexus = this;
+		App->sm->current_scene->entity_list.push_back(ent_item);
 	}
+
 }
 
 
@@ -81,7 +94,9 @@ void Item::ConvertToGui()
 		if (App->game->HUD->inventory->AddItem(gui_item))
 		{
 			ent_item->convert = true;
+
 			App->game->em->Remove(ent_item->id);
+
 			RELEASE(ent_item);
 		}
 		else

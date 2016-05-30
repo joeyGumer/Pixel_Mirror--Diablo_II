@@ -5,6 +5,8 @@
 #include "j1Textures.h"
 #include "j1Gui.h"
 #include "j1Render.h"
+#include "j1SceneManager.h"
+#include "j1Scene.h"
 
 EntItem::EntItem(const iPoint &p, uint ID) : EntStatic(p, ID)
 {
@@ -13,6 +15,8 @@ EntItem::EntItem(const iPoint &p, uint ID) : EntStatic(p, ID)
 
 EntItem::~EntItem()
 {
+	App->sm->current_scene->entity_list.remove(this);
+
 	if (!convert)
 		RELEASE(nexus);
 }

@@ -354,11 +354,11 @@ Entity* j1EntityManager::Add(iPoint &pos, ENTITY_TYPE type)
 	map<uint, Entity*>::iterator item = active_entities.begin();
 
 	//NOTE: disabled for now, because the items doesn't care if there's an entity
-	for (; item != active_entities.end(); item++)
+	/*for (; item != active_entities.end(); item++)
 	{
 		if (EntityOnCoords(pos) != NULL)
 			return entity; // No entity is created!
-	}
+	}*/
 
 	if (App->pathfinding->IsWalkable(tile_pos))	// Can we add a new entity on that tile? i.e. Is that tile walkable?
 	{
@@ -431,10 +431,7 @@ Entity* j1EntityManager::AddEnemy(iPoint &pos, ENEMY_TYPE type, int level)
 		active_entities.insert(pair<uint, Entity*>(next_ID, entity));
 	}
 
-	if (entity == NULL)
-	{
-		bool wtf = false;
-	}
+
 
 	return entity;
 }

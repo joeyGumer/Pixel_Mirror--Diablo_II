@@ -32,6 +32,7 @@ GuiItem::~GuiItem()
 {
 	RELEASE(coords);
 	RELEASE(text);
+
 	if (!convert)
 		RELEASE(nexus);
 }
@@ -122,15 +123,15 @@ void GuiItem::CreateText()
 	//TEMPORAL
 	
 		
-	for (int i =0 ; i < nexus->attribute_type.size(); i++)
+	for (int i =0 ; i < nexus->item_buffs.size(); i++)
 	{
 		SDL_Color color = FONT_WHITE;
-		if (nexus->buff_value[i] < 0)
+		if (nexus->item_buffs[i]->value < 0)
 		{
 			color = FONT_RED;
 		}
-		p2SString Text("%i", nexus->buff_value[i]);
-		switch (nexus->attribute_type[i])
+		p2SString Text("%i", nexus->item_buffs[i]->value);
+		switch (nexus->item_buffs[i]->attribute)
 		{
 			case STRENGHT:
 				Text.Insert(0, "StrengTh :");

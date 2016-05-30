@@ -48,6 +48,7 @@ public:
 	void ConvertToEntity(iPoint p);
 	void ConvertToGui();
 
+	void DeleteBuffs();
 	//The effect or buff that the item aplicates
 	//NOTE: may be changed to an structure, not a function, because when out, it should not do the effecct anymore
 	virtual void Effect();

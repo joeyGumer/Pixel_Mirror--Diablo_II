@@ -333,7 +333,22 @@ bool snDungeon2::Load(pugi::xml_node& node)
 
 			item = App->game->CreateItem(tp, rarity, pos);
 
-			entity_list.push_back(item->ent_item);
+
+			item->DeleteBuffs();
+
+			for (pugi::xml_node bff = itm.child("buff"); bff; bff = itm.next_sibling("buff"))
+			{
+				Buff* buff;
+				buff = new Buff((PLAYER_ATTRIBUTE)bff.attribute("type").as_int(), bff.attribute("value").as_int());
+				item->item_buffs.push_back(buff);
+			}
+
+			item->rect.x = itm.child("rect").attribute("x").as_int();
+			item->rect.y = itm.child("rect").attribute("y").as_int();
+			item->rect.w = itm.child("rect").attribute("w").as_int();
+			item->rect.h = itm.child("rect").attribute("h").as_int();
+
+			item->ent_item->sprite->section_texture = item->rect;
 		}
 	}
 

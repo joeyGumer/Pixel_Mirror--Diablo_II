@@ -250,12 +250,6 @@ void j1Game::DropItem(iPoint pos)
 			ret = item;
 		}
 	}
-
-	if (ret)
-	{
-		App->sm->current_scene->entity_list.push_back(ret->ent_item);
-	}
-
 }
 
 Item* j1Game::CreateItem(ITEM_TYPE type, ITEM_RARITY rarity, iPoint pos)
