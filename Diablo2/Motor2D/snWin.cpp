@@ -5,6 +5,7 @@
 #include "j1Textures.h"
 #include "j1SceneManager.h"
 #include "snIntro.h"
+#include "j1FileSystem.h"
 
 
 	// Constructor
@@ -24,7 +25,10 @@ bool snWin::Awake(pugi::xml_node& conf)
 	// Called the first frame
 bool snWin::Start()
 {
-	
+	if (App->fs->SaveFileExists())
+	{
+		App->fs->DeleteSaveFile();
+	}
 	//back = App->tex->Load("textures/win.jpg");
 	winback = App->gui->AddGuiImage({ -80, -60 }, { 2630, 82, 800, 600 }, NULL, this);
 	win_gui.push_back(winback);
