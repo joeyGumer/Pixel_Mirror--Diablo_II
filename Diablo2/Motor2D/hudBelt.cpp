@@ -14,6 +14,7 @@
 
 #include "Item.h"
 #include "j1InputManager.h"
+#include "hudInventory.h"
 
 //Constructor
 hudBelt::hudBelt():hudElement()
@@ -799,4 +800,60 @@ void hudBelt::RunningOn()
 void hudBelt::UnlockSkill()
 {
 	
+}
+
+//Load/Save
+bool hudBelt::Load(pugi::xml_node& node)
+{
+	pugi::xml_node slots = node.child("slots");
+
+
+	pugi::xml_node slot = slots.child("slot1");
+	pugi::xml_node item = slot.child("gui_item");
+	if (item)
+		App->game->HUD->inventory->LoadItemData(item, inventory1);
+
+	slot = slots.child("slot2");
+	item = slot.child("gui_item");
+	if (item)
+		App->game->HUD->inventory->LoadItemData(item, inventory2);
+
+	slot = slots.child("slot3");
+	item = slot.child("gui_item");
+	if (item)
+		App->game->HUD->inventory->LoadItemData(item, inventory3);
+
+	slot = slots.child("slot4");
+	item = slot.child("gui_item");
+	if (item)
+		App->game->HUD->inventory->LoadItemData(item, inventory4);
+
+	return true;
+}
+
+bool hudBelt::Save(pugi::xml_node& node) const
+{
+	pugi::xml_node slots = node.append_child("slots");
+
+	pugi::xml_node slot = slots.append_child("slot1");
+	list<GuiItem*>::const_iterator gui_item = inventory1->items.cbegin();
+	if (gui_item != inventory1->items.cend())
+		App->game->HUD->inventory->SaveItemData((*gui_item), slot);
+
+	slot = slots.append_child("slot2");
+	gui_item = inventory2->items.cbegin();
+	if (gui_item != inventory2->items.cend())
+		App->game->HUD->inventory->SaveItemData((*gui_item), slot);
+
+	slot = slots.append_child("slot3");
+	gui_item = inventory3->items.cbegin();
+	if (gui_item != inventory3->items.cend())
+		App->game->HUD->inventory->SaveItemData((*gui_item), slot);
+
+	slot = slots.append_child("slot4");
+	gui_item = inventory4->items.cbegin();
+	if (gui_item != inventory4->items.cend())
+		App->game->HUD->inventory->SaveItemData((*gui_item), slot);
+
+	return true;
 }

@@ -51,6 +51,10 @@ public:
 	void SetMana(int max_MP, int MP);
 	void SetStamina(int max_ST, int ST);
 
+	//Load/Save
+	bool Load(pugi::xml_node&);
+	bool Save(pugi::xml_node&) const;
+
 	//Running On
 	void RunningOn();
 
