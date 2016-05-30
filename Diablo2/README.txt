@@ -98,7 +98,6 @@ Changelog:
 - Version 0.8:
 
  	- Add Graphical User interface Skills. 
-	- Fix Bug busting.
 	- UI minor fixes.
 	- Map dungeon.
 	- Map outdoor.
@@ -112,7 +111,7 @@ Changelog:
 
 	- Two new dungeon maps.
 	- Random spawn for player and enemies.
-	- New enemies.
+	- Enemies rebalanced.
 	- New bosses.
 	- Skill system implemented.
 	- Customizable stats.
@@ -129,9 +128,9 @@ Changelog:
 	- Spells with particles.
 	- Save & Load.
 	- Game balancing.
-	- Feedback.
-	- When player is able to upgrade a skill.
-	- When an item can’t be picked.
+	- Feedback:
+		- When player is able to upgrade a skill.
+		- When an item can’t be picked.
 	- Reprogrammable keys.
 
 How to install:
@@ -163,18 +162,18 @@ How to Play:
 
 How to win the game:
 
-- When you defeat at least 2 bosses and entries in the portal you will win the game.
+- Defeat the second boss and enter the portal.
 
 Debug features:
 
-- To enter mode Debug click F1:
+- To enter mode Debug press F1:
 
 	- See Walkability Tiles.
 	- Arrow Keys: Move Camera.
 	- P: Portal.
 	- Middle Mouse Click: Delete entity.
 	- 0: Drop Item.
-	- Invoke Bosses:
+	- Spawn Bosses:
 		- 1: Summon Izual.
 		- 2: Summon Andariel.
 		- 3: Summon Nest.
@@ -185,7 +184,7 @@ Debug features:
 	- 8: Decrease Pure Blood.
 	- 9: Increase Pure Blood.
 	- 0: Drop Item.
-	- Invoke enemies:
+	- Spawn enemies:
 		- Q: Wolf.
 		- W: Crawler.
 		- E: Council Member.
