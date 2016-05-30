@@ -455,9 +455,11 @@ void hudInventory::SaveItemData(GuiItem* gui_item, pugi::xml_node& invent)const
 	rect.append_attribute("w") = g_item->rect.w;
 	rect.append_attribute("h") = g_item->rect.h;
 
+	pugi::xml_node buffs = item.append_child("buffs");
+
 	for (int i = 0; i < g_item->item_buffs.size(); i++)
 	{
-		pugi::xml_node buff = item.append_child("buff");
+		pugi::xml_node buff = buffs.append_child("buff");
 
 		buff.append_attribute("type") = g_item->item_buffs[i]->attribute;
 		buff.append_attribute("value") = g_item->item_buffs[i]->value;
@@ -478,17 +480,23 @@ void hudInventory::LoadItemData(pugi::xml_node& item, GuiInventory* inv)
 
 	g_item->DeleteBuffs();
 
-	for (pugi::xml_node bff = item.child("buff"); bff; bff = item.next_sibling("buff"))
-	{
-		Buff* buff;
-		buff = new Buff((PLAYER_ATTRIBUTE)bff.attribute("type").as_int(), bff.attribute("value").as_int());
-		g_item->item_buffs.push_back(buff);
-	}
-
 	g_item->rect.x = item.child("rect").attribute("x").as_int();
 	g_item->rect.y = item.child("rect").attribute("y").as_int();
 	g_item->rect.w = item.child("rect").attribute("w").as_int();
 	g_item->rect.h = item.child("rect").attribute("h").as_int();
+
+	pugi::xml_node buffs = item.child("buffs");
+
+	pugi::xml_node bff = buffs.child("buff");
+
+	while (bff)
+	{
+		Buff* buff;
+		buff = new Buff((PLAYER_ATTRIBUTE)bff.attribute("type").as_int(), bff.attribute("value").as_int());
+		g_item->item_buffs.push_back(buff);
+
+		bff = bff.next_sibling("buff");
+	}
 
 	g_item->ConvertToGuiInv(inv);
 }
