@@ -301,6 +301,9 @@ bool j1Player::Load(pugi::xml_node& node)
 	p_position.x = node.child("position").attribute("x").as_float();
 	p_position.y = node.child("position").attribute("y").as_float();
 
+	p_collider->rect.x = GetPivotPosition().x - 20;
+	p_collider->rect.y = GetBlitPosition().y + 20;
+
 	HP_current = node.attribute("current_HP").as_float();
 	MP_current = node.attribute("current_MP").as_float();
 	ST_current = node.attribute("current_ST").as_float();
