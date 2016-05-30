@@ -1008,6 +1008,7 @@ bool snDungeon3::Save(pugi::xml_node& node) const
 
 		if (ent->type == ITEM)
 		{
+
 			EntItem* item_ent = (EntItem*)ent;
 			Item* item = item_ent->nexus;
 

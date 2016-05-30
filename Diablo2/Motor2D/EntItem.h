@@ -13,8 +13,8 @@ public:
 
 	void Draw()
 	{}
-	void DrawDebug()
-	{}
+	void DrawDebug();
+	
 
 	void SetSprite(SDL_Rect r);
 

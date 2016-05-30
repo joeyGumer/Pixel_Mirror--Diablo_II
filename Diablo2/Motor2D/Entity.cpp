@@ -9,8 +9,8 @@ Entity::Entity(const iPoint &p, uint ID)
 	iPoint tmp = App->map->WorldToMap(p.x, p.y);
 	//position.x = tmp.x;
 	//position.y = tmp.y;
-	tmp = App->map->MapToWorld(tmp.x, tmp.y);
-	position.x = tmp.x - (App->map->data.tile_width / 2);
+	tmp = App->map->GetTileCenter(tmp.x, tmp.y);
+	position.x = tmp.x;
 	position.y = tmp.y;
 	id = ID;
 
