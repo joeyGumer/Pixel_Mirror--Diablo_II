@@ -7,6 +7,7 @@
 #include "GuiInventory.h"
 #include "j1Player.h"
 #include "Item.h"
+#include "j1Audio.h"
 
 
 
@@ -102,7 +103,7 @@ bool hudInventory::Start()
 	rune3->restriction = ITEM_RUNE;
 	hud_gui_elements.push_back(rune3);
 
-
+	no_item_feedback = App->audio->LoadFx("audio/player/Sor_cantcarrymore.ogg");
 	
 	return true;
 }
@@ -229,6 +230,7 @@ bool hudInventory::AddItem(GuiItem* item, GuiInventory* inv)
 			item->convert = true;
 			RELEASE(item);
 			ret = false;
+			App->audio->PlayFx(no_item_feedback);
 		}
 
 		return ret;

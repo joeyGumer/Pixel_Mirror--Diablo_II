@@ -78,6 +78,8 @@ public:
 	GuiInventory* rune1 = NULL;
 	GuiInventory* rune2 = NULL;
 	GuiInventory* rune3 = NULL;
+
+	int no_item_feedback;
 };
 
 #endif _HUDINVENTORY_H_
