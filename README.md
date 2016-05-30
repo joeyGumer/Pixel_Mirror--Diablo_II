@@ -2,7 +2,7 @@
 Diablo II tribute made by Pixel Mirror
 
 
-Diablo II: Blood Harvest 1.0
+*Diablo II: Blood Harvest 1.0*
 
 Diablo II: Blood Harvest is an ARPG game influenced by the Rogue-lite genre and based on Diablo II, made by Blizzard Entertainment, Inc.
 
