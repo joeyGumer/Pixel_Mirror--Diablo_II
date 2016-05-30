@@ -892,6 +892,14 @@ bool snOutdoor2::Load(pugi::xml_node& node)
 			enemy->HP_current = enmy.child("HP").attribute("current_HP").as_float();
 			enemy->HP_max = enmy.child("HP").attribute("max_HP").as_float();
 
+
+			bool dead = enmy.attribute("death").as_bool();
+
+			if (dead)
+			{
+				enemy->current_input = ENTITY_INPUT_DEATH;
+			}
+
 		}
 
 		if ((ENTITY_TYPE)entity.attribute("type").as_int() == PORTAL)
@@ -976,6 +984,10 @@ bool snOutdoor2::Save(pugi::xml_node& node) const
 
 			hp.append_attribute("current_HP") = enemy->HP_current;
 			hp.append_attribute("max_HP") = enemy->HP_max;
+
+			enmy.append_attribute("death") = enemy->dead;
+
+
 		}
 
 		if (ent->type == PORTAL)
