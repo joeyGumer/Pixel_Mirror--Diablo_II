@@ -165,7 +165,7 @@ The bosses have different strategies and you will have to find diverse ways to f
 
 **How to win the game:**
 
-- Defeat the second boss and enter the portal
+- Defeat the second boss and enter the portal.
 
 **Debug features:**
 
