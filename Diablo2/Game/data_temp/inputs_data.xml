@@ -1,0 +1,53 @@
+<inputs_data>
+
+  <!-- COMMANDS MUST BE CAPS -->
+  
+  <shortcut>
+    <TYPE value = "DOWN"/>
+    <name value ="inventory"/>
+    <command value ="I"/>
+  </shortcut>
+
+  <shortcut>
+    <TYPE value = "DOWN"/>
+    <name value ="skill_tree"/>
+    <command value ="S"/>
+  </shortcut>
+
+  <shortcut>
+    <TYPE value = "DOWN"/>
+    <name value ="stats"/>
+    <command value ="C"/>
+  </shortcut>
+  
+  <shortcut>
+    <TYPE value = "DOWN"/>
+    <name value ="map"/>
+    <command value ="M"/>
+  </shortcut>
+  
+  <shortcut>
+    <TYPE value = "DOWN"/>
+    <name value ="potion_1"/>
+    <command value ="1"/>
+  </shortcut>
+  
+  <shortcut>
+    <TYPE value = "DOWN"/>
+    <name value ="potion_2"/>
+    <command value ="2"/>
+  </shortcut>
+  
+  <shortcut>
+    <TYPE value = "DOWN"/>
+    <name value ="potion_3"/>
+    <command value ="3"/>
+  </shortcut>
+  
+  <shortcut>
+    <TYPE value = "DOWN"/>
+    <name value ="potion_4"/>
+    <command value ="4"/>
+  </shortcut>
+
+</inputs_data>

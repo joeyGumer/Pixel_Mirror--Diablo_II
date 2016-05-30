@@ -113,33 +113,6 @@ bool j1HUD::PreUpdate()
 			}
 		}
 
-		if ((*it)->name == "pause" && (*it)->active)
-		{
-			bool show_menu = true;
-
-			if (stats->active == true)
-			{
-				stats->Activate();
-				show_menu = false;
-			}
-			if (skilltree->active == true)
-			{
-				skilltree->Activate();
-				show_menu = false;
-			}
-			if (inventory->active == true)
-			{
-				inventory->Activate();
-				show_menu = false;
-			}
-			if (show_menu)
-			{
-				pause_menu->ActivateMenu();
-			}
-
-			belt->menubutton_pressed = false;
-		}
-
 		if ((*it)->name == "map" && (*it)->active)
 		{
 			belt->minimapbutton_pressed = false;
@@ -211,7 +184,7 @@ bool j1HUD::PreUpdate()
 		stats->closebutton_pressed = false;
 	}
 
-	if (belt->menubutton_pressed == true)
+	if ((App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) || belt->menubutton_pressed == true)
 	{
 		bool show_menu = true;
 

@@ -220,7 +220,8 @@ bool snIntro::Update(float dt)
 	//Exit game quick
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 	{
-		std::exit(0);
+		if (controls_window->active == false)
+			std::exit(0);
 	}
 	//Insert iterations for this scene here
 
@@ -481,7 +482,7 @@ bool snIntro::LoadShortcutsInfo()
 		node = inputs_data.child("inputs_data");
 
 	//Pop-up position
-	int pos_x = 170;
+	int pos_x = 216;
 	int pos_y = 20;
 
 	for (node = node.child("shortcut"); node && ret; node = node.next_sibling("shortcut"))
@@ -502,13 +503,15 @@ bool snIntro::LoadShortcutsInfo()
 		//TODO 4: Uncomment this to complete TODO 3
 		p2SString text;
 		text = shortcut->command.data();
-		shortcut->command_label = App->gui->AddGuiLabel(text, App->font->stats, { pos_x, pos_y += 30 }, controls_window, this);
+		shortcut->command_label = App->gui->AddGuiLabel(text, App->font->stats, { pos_x, pos_y += 30 }, controls_window, FONT_WHITE, this);
+		intro_gui.push_back(shortcut->command_label);
 		//shortcut->command_label = App->gui->CreateLabel(shortcut->command.data(), pos_x, pos_y += 30, App->input_manager);
 		//shortcut->command_label->SetParent((UIEntity*)pop_up);
 
 		p2SString text2;
-		text2 = shortcut->command.data();
-		shortcut->shortcut_label = App->gui->AddGuiLabel(text2, App->font->stats, { pos_x - 140, pos_y }, controls_window, this);
+		text2 = shortcut->name.data();
+		shortcut->shortcut_label = App->gui->AddGuiLabel(text2, App->font->stats, { pos_x - 179, pos_y }, controls_window, FONT_WHITE, this);
+		intro_gui.push_back(shortcut->shortcut_label);
 		//shortcut->shortcut_label->SetParent((UIEntity*)pop_up);
 		shortcut->shortcut_label->focusable = false;
 		shortcut->active = false;
