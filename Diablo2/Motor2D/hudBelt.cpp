@@ -13,6 +13,7 @@
 #include "j1Fonts.h"
 
 #include "Item.h"
+#include "j1InputManager.h"
 
 //Constructor
 hudBelt::hudBelt():hudElement()
@@ -262,64 +263,67 @@ bool hudBelt::PreUpdate()
 		RunningOn();
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+	list<ShortCut*>::iterator it = App->im->shortcuts_list.begin();
+
+	while (it != App->im->shortcuts_list.end())
 	{
-		list<GuiItem*>::iterator it = inventory1->items.begin();
-		if (it != inventory1->items.end())
+		if ((*it)->name == "potion_1" && (*it)->active)
 		{
-			App->audio->PlayFx(potionfx);
-			GuiItem* i = (*it);
-			i->nexus->Effect();
-			i->FreeSlots();
-			inventory1->items.remove(i);
-			RELEASE(i);
+			list<GuiItem*>::iterator it = inventory1->items.begin();
+			if (it != inventory1->items.end())
+			{
+				App->audio->PlayFx(potionfx);
+				GuiItem* i = (*it);
+				i->nexus->Effect();
+				i->FreeSlots();
+				inventory1->items.remove(i);
+				RELEASE(i);
+			}
 		}
 
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
-	{
-		list<GuiItem*>::iterator it = inventory2->items.begin();
-		if (it != inventory2->items.end())
+		if ((*it)->name == "potion_2" && (*it)->active)
 		{
-			App->audio->PlayFx(potionfx);
-			GuiItem* i = (*it);
-			i->nexus->Effect();
-			i->FreeSlots();
-			inventory2->items.remove(i);
-			RELEASE(i);
+			list<GuiItem*>::iterator it = inventory2->items.begin();
+			if (it != inventory2->items.end())
+			{
+				App->audio->PlayFx(potionfx);
+				GuiItem* i = (*it);
+				i->nexus->Effect();
+				i->FreeSlots();
+				inventory2->items.remove(i);
+				RELEASE(i);
+			}
 		}
 
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
-	{
-		list<GuiItem*>::iterator it = inventory3->items.begin();
-		if (it != inventory3->items.end())
+		if ((*it)->name == "potion_3" && (*it)->active)
 		{
-			App->audio->PlayFx(potionfx);
-			GuiItem* i = (*it);
-			i->nexus->Effect();
-			i->FreeSlots();
-			inventory3->items.remove(i);
-			RELEASE(i);
+			list<GuiItem*>::iterator it = inventory3->items.begin();
+			if (it != inventory3->items.end())
+			{
+				App->audio->PlayFx(potionfx);
+				GuiItem* i = (*it);
+				i->nexus->Effect();
+				i->FreeSlots();
+				inventory3->items.remove(i);
+				RELEASE(i);
+			}
 		}
 
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
-	{
-		list<GuiItem*>::iterator it = inventory4->items.begin();
-		if (it != inventory4->items.end())
+		if ((*it)->name == "potion_4" && (*it)->active)
 		{
-			App->audio->PlayFx(potionfx);
-			GuiItem* i = (*it);
-			i->nexus->Effect();
-			i->FreeSlots();
-			inventory4->items.remove(i);
-			RELEASE(i);
+			list<GuiItem*>::iterator it = inventory4->items.begin();
+			if (it != inventory4->items.end())
+			{
+				App->audio->PlayFx(potionfx);
+				GuiItem* i = (*it);
+				i->nexus->Effect();
+				i->FreeSlots();
+				inventory4->items.remove(i);
+				RELEASE(i);
+			}
 		}
 
+		++it;
 	}
 
 	//NOTE: doing this each frame but... meh, whatever
