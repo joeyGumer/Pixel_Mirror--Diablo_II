@@ -311,7 +311,7 @@ bool j1SceneManager::Load(pugi::xml_node& node)
 		((j1Module*)current_scene)->Load(lvl2);
 	}
 
-
+	loading_game = false;
 
 	return true;
 }

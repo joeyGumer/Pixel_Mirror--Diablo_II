@@ -896,6 +896,10 @@ bool snDungeon3::Load(pugi::xml_node& node)
 			EntEnemy* enemy = (EntEnemy*)App->game->em->AddEnemy(pos, (ENEMY_TYPE)enmy.attribute("enemy_type").as_int(), 1);
 			entity_list.push_back(enemy);
 
+			if (entity_list.size() == 22)
+			{
+				bool testing = false;
+			}
 			enemy->HP_current = enmy.child("HP").attribute("current_HP").as_float();
 			enemy->HP_max = enmy.child("HP").attribute("max_HP").as_float();
 
