@@ -882,11 +882,13 @@ bool snOutdoor2::Load(pugi::xml_node& node)
 			pugi::xml_node enmy = entity.child("enemy");
 
 			EntEnemy* enemy = (EntEnemy*)App->game->em->AddEnemy(pos, (ENEMY_TYPE)enmy.attribute("enemy_type").as_int(), 1);
-			entity_list.push_back(enemy);
+			if (enemy != NULL)
+			{
+				entity_list.push_back(enemy);
 
-			enemy->HP_current = enmy.child("HP").attribute("current_HP").as_float();
-			enemy->HP_max = enmy.child("HP").attribute("max_HP").as_float();
-
+				enemy->HP_current = enmy.child("HP").attribute("current_HP").as_float();
+				enemy->HP_max = enmy.child("HP").attribute("max_HP").as_float();
+			}
 		}
 	}
 
