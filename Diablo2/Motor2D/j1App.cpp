@@ -447,6 +447,8 @@ bool j1App::LoadGameNow()
 		LOG("Could not load game state xml file %s", load_game.GetString());
 
 	want_to_load = false;
+	App->new_game = true;
+
 	return ret;
 }
 
