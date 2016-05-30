@@ -131,7 +131,7 @@ public:
 	_TTF_Font* font;
 	SDL_Texture* tex;
 	SDL_Color rectColor;
-	
+	GuiText* texts;
 };
 
 class GuiImage : public GuiElement
