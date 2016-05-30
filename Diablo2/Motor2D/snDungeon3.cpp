@@ -19,6 +19,7 @@
 #include "hudMiniMap.h"
 #include "snOutdoor2.h"
 #include "Item.h"
+#include "EntItem.h"
 
 
 // Constructor
@@ -918,6 +919,20 @@ bool snDungeon3::Load(pugi::xml_node& node)
 
 			entity_list.push_back(portal);
 		}
+
+		if ((ENTITY_TYPE)entity.attribute("type").as_int() == ITEM)
+		{
+			pugi::xml_node itm = entity.child("item");
+
+			Item* item = NULL;
+
+			ITEM_TYPE tp = (ITEM_TYPE)itm.attribute("type").as_int();
+			ITEM_RARITY rarity = (ITEM_RARITY)itm.attribute("rarity").as_int();
+
+			item = App->game->CreateItem(tp, rarity, pos);
+
+			entity_list.push_back(item->ent_item);
+		}
 	}
 
 	return true;
@@ -928,8 +943,6 @@ bool snDungeon3::Save(pugi::xml_node& node) const
 	pugi::xml_node entities = node.append_child("entities");
 
 	list<Entity*>::const_iterator item = entity_list.cbegin();
-
-
 
 	for (; item != entity_list.cend(); item++)
 	{
@@ -963,6 +976,35 @@ bool snDungeon3::Save(pugi::xml_node& node) const
 		if (ent->type == PORTAL)
 		{
 			entity.append_attribute("type") = PORTAL;
+		}
+
+		if (ent->type == ITEM)
+		{
+			EntItem* item_ent = (EntItem*)ent;
+			Item* item = item_ent->nexus;
+
+			entity.append_attribute("type") = ITEM;
+
+			pugi::xml_node itm = entity.append_child("item");
+
+			itm.append_attribute("rarity") = item->rarity;
+			itm.append_attribute("type") = item->type;
+
+			pugi::xml_node rect = itm.append_child("rect");
+
+			rect.append_attribute("x") = item->rect.x;
+			rect.append_attribute("y") = item->rect.y;
+			rect.append_attribute("w") = item->rect.w;
+			rect.append_attribute("h") = item->rect.h;
+
+			for (int i = 0; i < item->item_buffs.size(); i++)
+			{
+				pugi::xml_node buff = itm.append_child("buff");
+
+				buff.append_attribute("type") = item->item_buffs[i]->attribute;
+				buff.append_attribute("value") = item->item_buffs[i]->value;
+			}
+
 		}
 	}
 

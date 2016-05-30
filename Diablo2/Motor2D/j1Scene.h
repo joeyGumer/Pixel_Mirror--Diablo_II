@@ -2,6 +2,7 @@
 #define __j1SCENE_H__
 
 #include "j1Module.h"
+#include <list>
 
 struct SDL_Texture;
 
@@ -11,6 +12,9 @@ class GuiLabel;
 class GuiImage;
 class GuiInputBox;
 class GuiSlider;
+class Entity;
+
+using namespace std;
 
 
 enum SCENE_TYPE
@@ -90,6 +94,8 @@ public:
 
 
 	SCENE_TYPE type;
+
+	list<Entity*> entity_list;
 
 private:
 };

@@ -10,6 +10,9 @@ using namespace std;
 class j1Player;
 class j1HUD;
 class j1EntityManager;
+class Item;
+enum ITEM_TYPE;
+enum ITEM_RARITY;
 
 class j1Game : public j1Module
 {
@@ -44,6 +47,7 @@ public:
 
 	//Drops an item
 	void DropItem(iPoint pos);
+	Item* CreateItem(ITEM_TYPE type, ITEM_RARITY rarity, iPoint pos);
 
 	//Load/Save
 	bool Load(pugi::xml_node&);

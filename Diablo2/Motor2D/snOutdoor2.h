@@ -71,7 +71,7 @@ public:
 	SDL_Texture* debug = NULL;
 	SDL_Texture* minimap_tex = NULL;
 
-	list<Entity*>		entity_list;
+
 
 	iPoint portal_spawn;
 

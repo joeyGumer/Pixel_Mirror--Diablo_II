@@ -82,9 +82,10 @@ public:
 
 	int level = 0;
 
+	j1Scene*		current_scene = NULL;
+
 private:
 	vector<j1Scene*>	scenes;
-	j1Scene*		current_scene = NULL;
 };
 
 #endif // __j1SCENEMANAGER_H__

@@ -70,6 +70,7 @@ public:
 	SDL_Color rarity_color;
 	vector<int> buff_value;
 	vector<PLAYER_ATTRIBUTE> attribute_type;
+
 	//Both representations
 	GuiItem* gui_item;
 	EntItem* ent_item;

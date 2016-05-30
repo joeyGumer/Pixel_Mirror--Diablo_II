@@ -4,7 +4,9 @@
 #include "j1HUD.h"
 #include "j1EntityManager.h"
 #include "j1SceneManager.h"
+#include "j1Scene.h"
 #include "Item.h"
+#include "EntItem.h"
 #include "j1Input.h"
 
 
@@ -158,6 +160,8 @@ void j1Game::DropItem(iPoint pos)
 	int chance = rand() % 100;
 	ITEM_RARITY rarity;
 
+	Item* ret = NULL;
+
 	//note: HAVE TO CHANGE THIS TO VARIABLES SO IT CAN BE CHANGED BY LUCK
 	if (chance < base_no_drop - player->drop)
 		rarity = NO_DROP;
@@ -191,6 +195,8 @@ void j1Game::DropItem(iPoint pos)
 				{
 					RELEASE(item);
 				}
+
+				ret = item;
 			}
 			else if (chance < 55)
 			{
@@ -200,6 +206,7 @@ void j1Game::DropItem(iPoint pos)
 				{
 					RELEASE(item);
 				}
+				ret = item;
 			}
 			else if (chance < 65)
 			{
@@ -209,6 +216,7 @@ void j1Game::DropItem(iPoint pos)
 				{
 					RELEASE(item);
 				}
+				ret = item;
 			}
 			else if (chance < 90)
 			{
@@ -218,6 +226,7 @@ void j1Game::DropItem(iPoint pos)
 				{
 					RELEASE(item);
 				}
+				ret = item;
 			}
 			else if (chance >= 90)
 			{
@@ -227,6 +236,7 @@ void j1Game::DropItem(iPoint pos)
 				{
 					RELEASE(item);
 				}
+				ret = item;
 			}
 		}
 		else if (chance >= 65)
@@ -237,9 +247,98 @@ void j1Game::DropItem(iPoint pos)
 			{
 				RELEASE(item);
 			}
+			ret = item;
 		}
 	}
 
+	if (ret)
+	{
+		App->sm->current_scene->entity_list.push_back(ret->ent_item);
+	}
+
+}
+
+Item* j1Game::CreateItem(ITEM_TYPE type, ITEM_RARITY rarity, iPoint pos)
+{
+	Item* ret = NULL;
+
+	switch (type)
+	{
+	case ITEM_CONSUMABLE:
+	{
+		itmConsumable* item;
+		item = new itmConsumable(rarity, pos);
+		if (!item->ent_item)
+		{
+			RELEASE(item);
+		}
+
+		ret = item;
+	}
+		break;
+	case ITEM_RING:
+	{
+		itmRing* item;
+		item = new itmRing(rarity, pos);
+		if (!item->ent_item)
+		{
+			RELEASE(item);
+		}
+
+		ret = item;
+	}
+		break;
+	case ITEM_JEWEL:
+	{
+		itmJewel* item;
+		item = new itmJewel(rarity, pos);
+		if (!item->ent_item)
+		{
+			RELEASE(item);
+		}
+
+		ret = item;
+	}
+		break;
+	case ITEM_STONE:
+	{
+		itmStone* item;
+		item = new itmStone(rarity, pos);
+		if (!item->ent_item)
+		{
+			RELEASE(item);
+		}
+
+		ret = item;
+	}
+		break;
+	case ITEM_RUNE:
+	{
+		itmRune* item;
+		item = new itmRune(rarity, pos);
+		if (!item->ent_item)
+		{
+			RELEASE(item);
+		}
+
+		ret = item;
+	}
+		break;
+	case ITEM_ARMOR:
+	{
+		itmArmor* item;
+		item = new itmArmor(rarity, pos);
+		if (!item->ent_item)
+		{
+			RELEASE(item);
+		}
+
+		ret = item;
+	}
+		break;
+	}
+
+	return ret;
 }
 
 bool j1Game::Load(pugi::xml_node& node)
