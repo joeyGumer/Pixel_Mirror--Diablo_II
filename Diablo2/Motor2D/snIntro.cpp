@@ -86,7 +86,8 @@ bool snIntro::Start()
 	
 	//Controls Window
 
-	controls_window = App->gui->AddGuiImage({ 150, 20 }, { 941, 82, 320, 350 }, NULL, this);
+	controls_window = App->gui->AddGuiImage({ 140, -350 }, { 941, 82, 320, 350 }, controls_button, this);
+	controls_window->Center(true, false);
 	intro_gui.push_back(controls_window);
 	
 	//PrimarySkill Label
@@ -173,8 +174,9 @@ bool snIntro::Start()
 	intro_gui.push_back(run);
 	intro_gui.push_back(run_image);
 
-	close_controls = App->gui->AddGuiButton({ 200, 315 }, { 3450, 960, 100, 35 }, { 3450, 960, 100, 35 }, { 3450, 960, 100, 35 }, "Close", App->font->stats,  this,controls_window,FONT_YELLOW2);
+	/*close_controls = App->gui->AddGuiButton({ 200, 315 }, { 3450, 960, 100, 35 }, { 3450, 960, 100, 35 }, { 3450, 960, 100, 35 }, "Close", App->font->stats,  this,controls_window,FONT_YELLOW2);
 	intro_gui.push_back(close_controls);
+	*/
 	controls_window->Desactivate();
 
 	pixelmirror_logo = App->gui->AddGuiImage({ 540, 350 }, {530, 136, 66, 60}, NULL, this);
@@ -389,7 +391,7 @@ void snIntro::OnEvent(GuiElement* element, GUI_Event even)
 		}
 	}
 	//Exit button
-	if (close_controls == element)
+	/*if (close_controls == element)
 	{
 		if (EVENT_MOUSE_LEFTCLICK_DOWN == even )
 		{
@@ -397,7 +399,7 @@ void snIntro::OnEvent(GuiElement* element, GUI_Event even)
 			controls_window->Desactivate();
 
 		}
-	}
+	}*/
 	//Exit button
 	if (exit_button == element)
 	{
