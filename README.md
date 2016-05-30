@@ -1,15 +1,18 @@
-# Pixel Mirror --> Diablo II: Blood Harvest 
+# Pixel Mirror - Diablo II: Blood Harvest 
 Diablo II tribute made by Pixel Mirror
 
 
 Diablo II: Blood Harvest 1.0
 
 Diablo II: Blood Harvest is an ARPG game influenced by the Rogue-lite genre and based on Diablo II, made by Blizzard Entertainment, Inc.
+
 In this game you take the role of a vampire with unique skills, divided in three different types:
 Martial Blood, Blood Spells and Night Summoning. Depending on the strategy that you choose to follow, you will obtain different powers to face dangerous enemies.
+
 You will have to explore different levels in which your objective is to defeat the monsters in your way.
 Each time you play the game these enemies will appear in new places, so each game will be a unique experience.
 Keep in mind that there are items around the maps that will upgrade your attributes, so don’t forget to equip them.
+
 Each map has a final boss that you will have to defeat in order to continue with the game.
 The bosses have different strategies and you will have to find diverse ways to face each boss.
 
@@ -102,12 +105,11 @@ Changelog:
 - Version 0.8:
 
  	- Add Graphical User interface Skills. 
-	- Fix Bug busting.
 	- UI minor fixes.
 	- Map dungeon.
 	- Map outdoor.
 	- Life bar scalation.
-	- Particle system fix.
+	- Particle System Fix.
 	- Add new types of enemies.
 	- Add random respawn.
 	- Add random enemies.
@@ -116,26 +118,26 @@ Changelog:
 
 	- Two new dungeon maps.
 	- Random spawn for player and enemies.
-	- New enemies.
+	- Enemies rebalanced.
 	- New bosses.
 	- Skill system implemented.
 	- Customizable stats.
-	- New items.
+	- New Items.
 	- New Minimap.
 
 - Version 1.0:
 
-	Three possible stages (player has to play two of them to win the game):
-	- 2 Dungeons.
-	- 1 Outdoor.
+	- Three possible stages (player has to play two of them to win the game):
+	 - 2 Dungeons.
+	 - 1 Outdoor.
 	- Fully functional skills.
 	- Improve skills if upgraded more than once (from level 1 to level 5).
 	- Spells with particles.
-	- Save & Load.
+	- Save & Load system.
 	- Game balancing.
-	- Feedback.
-	- When player is able to upgrade a skill.
-	- When an item can’t be picked.
+	- Feedback
+	 - When player is able to upgrade a skill.
+	 - When an item can’t be picked.
 	- Reprogrammable keys.
 
 How to install:
@@ -167,11 +169,11 @@ How to Play:
 
 How to win the game:
 
-- When you defeat at least 2 bosses and entries in the portal you will win the game.
+- Defeat the second boss and enter the portal
 
 Debug features:
 
-- To enter mode Debug click F1:
+- To enter mode Debug press F1:
 
 	- See Walkability Tiles.
 	- Arrow Keys: Move Camera.
