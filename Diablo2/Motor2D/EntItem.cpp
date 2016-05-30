@@ -28,7 +28,7 @@ void EntItem::SetSprite(SDL_Rect r)
 	collider_rect.w = sprite_rect.w = sprite_dim.x = r.w;
 	collider_rect.h = sprite_rect.h = sprite_dim.y = r.h;
 
-	sprite_pivot = pivot = { sprite_rect.w /2, sprite_rect.h/2};
+	sprite_pivot = pivot = { sprite_rect.w, sprite_rect.h};
 
 	fPoint po = GetPivotPosition();
 	iPoint pos(po.x, po.y);

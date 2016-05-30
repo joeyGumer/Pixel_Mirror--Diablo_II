@@ -302,8 +302,11 @@ bool snDungeon2::Load(pugi::xml_node& node)
 			EntEnemy* enemy = (EntEnemy*)App->game->em->AddEnemy(pos, (ENEMY_TYPE)enmy.attribute("enemy_type").as_int(), 1);
 			entity_list.push_back(enemy);
 
+			enemy->level = enmy.attribute("level").as_int();
+
 			enemy->HP_current = enmy.child("HP").attribute("current_HP").as_float();
 			enemy->HP_max = enmy.child("HP").attribute("max_HP").as_float();
+
 
 			bool dead = enmy.attribute("death").as_bool();
 
@@ -391,6 +394,8 @@ bool snDungeon2::Save(pugi::xml_node& node) const
 			pugi::xml_node enmy = entity.append_child("enemy");
 
 			enmy.append_attribute("enemy_type") = enemy->enemy_type;
+
+			enmy.append_attribute("level") = enemy->level;
 
 			pugi::xml_node hp = enmy.append_child("HP");
 

@@ -900,6 +900,8 @@ bool snDungeon3::Load(pugi::xml_node& node)
 			EntEnemy* enemy = (EntEnemy*)App->game->em->AddEnemy(pos, (ENEMY_TYPE)enmy.attribute("enemy_type").as_int(), 1);
 			entity_list.push_back(enemy);
 
+			enemy->level = enmy.attribute("level").as_int();
+
 			enemy->HP_current = enmy.child("HP").attribute("current_HP").as_float();
 			enemy->HP_max = enmy.child("HP").attribute("max_HP").as_float();
 
@@ -939,14 +941,14 @@ bool snDungeon3::Load(pugi::xml_node& node)
 			ITEM_RARITY rarity = (ITEM_RARITY)itm.attribute("rarity").as_int();
 
 			item = App->game->CreateItem(tp, rarity, pos);
-			
+
 
 			item->DeleteBuffs();
 
 			for (pugi::xml_node bff = itm.child("buff"); bff; bff = itm.next_sibling("buff"))
 			{
 				Buff* buff;
-				buff = new Buff((PLAYER_ATTRIBUTE)bff.attribute("type").as_int(),bff.attribute("value").as_int());
+				buff = new Buff((PLAYER_ATTRIBUTE)bff.attribute("type").as_int(), bff.attribute("value").as_int());
 				item->item_buffs.push_back(buff);
 			}
 
@@ -991,6 +993,8 @@ bool snDungeon3::Save(pugi::xml_node& node) const
 
 			enmy.append_attribute("enemy_type") = enemy->enemy_type;
 
+			enmy.append_attribute("level") = enemy->level;
+
 			pugi::xml_node hp = enmy.append_child("HP");
 
 			hp.append_attribute("current_HP") = enemy->HP_current;
@@ -1008,7 +1012,6 @@ bool snDungeon3::Save(pugi::xml_node& node) const
 
 		if (ent->type == ITEM)
 		{
-
 			EntItem* item_ent = (EntItem*)ent;
 			Item* item = item_ent->nexus;
 
