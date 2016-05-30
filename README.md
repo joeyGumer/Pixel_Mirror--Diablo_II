@@ -1,6 +1,4 @@
 # Pixel Mirror - Diablo II: Blood Harvest 
-Diablo II tribute made by Pixel Mirror
-
 
 **Diablo II: Blood Harvest 1.0**
 
@@ -16,7 +14,7 @@ Keep in mind that there are items around the maps that will upgrade your attribu
 Each map has a final boss that you will have to defeat in order to continue with the game.
 The bosses have different strategies and you will have to find diverse ways to face each boss.
 
-Changelog:
+**Changelog:**
 
 - Version 0.1:
 
@@ -140,11 +138,11 @@ Changelog:
 	 - When an item can’t be picked.
 	- Reprogrammable keys.
 
-How to install:
+**How to install:**
 
 - Execute the exe file with the name "Diablo2.exe" inside the zip file. 
 
-Controls:
+**Controls:**
 
 - Left Mouse Click: Left Skill / Move character.
 - Right Mouse Click: Right Skill.
@@ -163,15 +161,15 @@ Controls:
 - Mouse Click on HUD skill: Open available skills.
 - ESC: Open menu.
 
-How to Play:
+**How to Play:**
 
 - Click on label new game and you will start a new game. You can move the character targetting on screen and then left click button mouse.
 
-How to win the game:
+**How to win the game:**
 
 - Defeat the second boss and enter the portal
 
-Debug features:
+**Debug features:**
 
 - To enter mode Debug press F1:
 
@@ -199,7 +197,7 @@ Debug features:
 		- T: Summoner.
 
 
-Links:
+**Links:**
 
 	- Github: https://github.com/joeyGumer/Pixel_Mirror--Diablo_II
 
