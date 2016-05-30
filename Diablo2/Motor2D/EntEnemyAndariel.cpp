@@ -57,7 +57,7 @@ EntEnemyAndariel::EntEnemyAndariel(const iPoint &p, uint ID, int lvl) : EntEnemy
 	speed = 100.0f;
 
 	//Melee Attack
-	random_range = 16;
+	random_range = 11;
 	damage = 10;
 
 	for (int i = 0; i < level; i++)
@@ -105,7 +105,7 @@ EntEnemyAndariel::EntEnemyAndariel(const iPoint &p, uint ID, int lvl) : EntEnemy
 	*/
 
 	//Agro Range
-	agro_range = 350.0f;
+	agro_range = 320.0f;
 
 	//Pure Blood Drop
 	blood_drop = 1500;

@@ -42,8 +42,8 @@ public:
 
 	int base_damage_down = 13;
 	int base_damage_up = 17;
-	int damage_up_dt = 8;
-	int damage_down_dt = 7;
+	int damage_up_dt = 6;
+	int damage_down_dt = 5;
 	int final_damage_down = base_damage_down;
 	int final_damage_up = base_damage_up;
 
@@ -74,10 +74,10 @@ public:
 
 public:
 
-	int base_damage_down = 17;
-	int base_damage_up = 24;
-	int damage_down_dt = 8;
-	int damage_up_dt = 9;
+	int base_damage_down = 15;
+	int base_damage_up = 22;
+	int damage_down_dt = 6;
+	int damage_up_dt = 7;
 	int final_damage_down = base_damage_down;
 	int final_damage_up = base_damage_up;
 
@@ -110,12 +110,12 @@ public:
 
 	int base_damage_down = 13;
 	int base_damage_up = 17;
-	int damage_down_dt = 7;
-	int damage_up_dt = 8;
+	int damage_down_dt = 5;
+	int damage_up_dt = 6;
 	int final_damage_down = base_damage_down;
 	int final_damage_up = base_damage_up;
 
-	int blood_charge_cost_base = 10;
+	int blood_charge_cost_base = 12;
 	int blood_charge_cost_dt = 2;
 	int blood_charge_cost_final = blood_charge_cost_base;
 
@@ -141,14 +141,14 @@ public:
 
 	Particle* particle_skill = NULL;
 
-	int base_damage_down = 17;
-	int base_damage_up = 24;
-	int damage_down_dt  = 8;
-	int damage_up_dt = 9;
+	int base_damage_down = 15;
+	int base_damage_up = 23;
+	int damage_down_dt  = 6;
+	int damage_up_dt = 7;
 	int final_damage_down =base_damage_down;
 	int final_damage_up = base_damage_up;
 
-	int blood_charge_cost_base = 10;
+	int blood_charge_cost_base = 12;
 	int blood_charge_cost_dt = 2;
 	int blood_charge_cost_final = blood_charge_cost_base;
 	
@@ -169,7 +169,7 @@ public:
 	void CalculateSkillStats();
 public:
 
-	int damage_bonus_base = 45;
+	int damage_bonus_base = 40;
 	int damage_bonus_dt = 10;
 	int damage_bonus_final = damage_bonus_base;
 
@@ -205,7 +205,7 @@ public:
 	int final_damage_down = base_damage_down;
 	int final_damage_up = base_damage_up;
 
-	int life_cost_base = 4;
+	int life_cost_base = 5;
 	int life_cost_dt = 1;
 	int life_cost_final = life_cost_base;
 
@@ -235,8 +235,8 @@ public:
 
 	int base_damage_down = 12;
 	int base_damage_up = 18;
-	int damage_down_dt = 8;
-	int damage_up_dt = 9;
+	int damage_down_dt = 6;
+	int damage_up_dt = 7;
 	int final_damage_down = base_damage_down;
 	int final_damage_up = base_damage_up;
 
@@ -271,12 +271,12 @@ public:
 
 	int base_damage_down = 12;
 	int base_damage_up = 18;
-	int damage_down_dt = 8;
-	int damage_up_dt = 9;
+	int damage_down_dt = 6;
+	int damage_up_dt = 7;
 	int final_damage_down = base_damage_down;
 	int final_damage_up = base_damage_up;
 
-	int life_cost_base = 8;
+	int life_cost_base = 9;
 	int life_cost_dt = 2;
 	int life_cost_final = life_cost_base;
 
@@ -308,12 +308,12 @@ public:
 
 	int base_damage_down = 8;
 	int base_damage_up = 14;
-	int damage_down_dt = 8;
-	int damage_up_dt = 9;
+	int damage_down_dt = 6;
+	int damage_up_dt = 7;
 	int final_damage_down = base_damage_down;
 	int final_damage_up = base_damage_up;
 
-	int blood_charge_cost_base = 14;
+	int blood_charge_cost_base = 13;
 	int blood_charge_cost_dt = 2;
 	int blood_charge_cost_final = blood_charge_cost_base;
 
@@ -343,14 +343,14 @@ public:
 
 public:
 	
-	int base_damage_down = 6;
-	int base_damage_up = 12;
-	int damage_down_dt = 10;
-	int damage_up_dt = 11;
+	int base_damage_down = 5;
+	int base_damage_up = 11;
+	int damage_down_dt = 5;
+	int damage_up_dt = 6;
 	int final_damage_down = base_damage_down;
 	int final_damage_up = base_damage_up;
 
-	int blood_charge_increase_base = 24;
+	int blood_charge_increase_base = 25;
 	//int blood_charge_cost_base = 24;
 	int blood_charge_cost_dt = 2;
 	int blood_charge_cost_final = blood_charge_increase_base;
@@ -390,6 +390,9 @@ public:
 	int blood_charge_cost_dt = 2;
 	int blood_charge_cost_final = blood_charge_cost_base;
 
+	float time_effect_base = 5;
+	float time_effect_dt = 0.5f;
+	float time_effect_final = time_effect_base;
 };
 
 class sklClottedBloodSkin : public sklBuff
@@ -454,7 +457,7 @@ public:
 public:
 
 	int life_steal_base = 10;
-	int life_steal_dt = 5;
+	int life_steal_dt = 4;
 	int life_steal = life_steal_base;
 
 	int extra_damage_base = 25;
@@ -487,7 +490,7 @@ public:
 
 	//"damage_reduction_final" should be "damage_reduction_base"
 	int damage_reduction_base = 24;
-	int damage_reduction_dt = 4;
+	int damage_reduction_dt = 3;
 	int damage_reduction_final = damage_reduction_base;
 
 	j1Timer effect_timer;

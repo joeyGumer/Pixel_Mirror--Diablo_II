@@ -133,7 +133,8 @@ bool j1Player::Start()
 	//initial stats
 	HP_max = HP_current = HP_base = 60.0f;
 	HP_recover_final = HP_recover_base;
-	MP_max = MP_current = MP_base = 100;
+	MP_max = MP_base = 100;
+	MP_current = 50;
 	ST_max = ST_current = ST_base = 70.0f;
 	blood_current = 0;
 
@@ -145,10 +146,8 @@ bool j1Player::Start()
 
 	//Armor
 	armor_final = armor_base = 0;
-
 	
 	enemy = NULL;
-
 
 	//Sprite creation
 	SDL_Rect current_sprite = current_animation->GetCurrentFrame();

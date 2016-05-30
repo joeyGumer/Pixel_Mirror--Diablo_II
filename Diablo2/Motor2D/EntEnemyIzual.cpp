@@ -106,7 +106,7 @@ EntEnemyIzual::EntEnemyIzual(const iPoint &p, uint ID, int lvl) : EntEnemy(p, ID
 	*/
 
 	//Agro Range
-	agro_range = 350.0f;
+	agro_range = 320.0f;
 
 	//Pure Blood Drop
 	blood_drop = 1500;

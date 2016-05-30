@@ -96,7 +96,7 @@ sklStingingStrike::sklStingingStrike()
 {
 	skill_tex = App->tex->Load("textures/vamp_attack.png");
 	price = 1500;
-	price_dt = 100;
+	price_dt = 200;
 
 	cooldown = 1;
 }
@@ -171,7 +171,7 @@ sklWildTalon::sklWildTalon()
 {
 	skill_tex = App->tex->Load("textures/vamp_kick.png");
 	price = 1500;
-	price_dt = 100;
+	price_dt = 200;
 
 	cooldown = 2;
 }
@@ -244,7 +244,7 @@ sklBatStrike::sklBatStrike()
 {
 	skill_tex = App->tex->Load("textures/vamp_attack.png");
 	price = 2500;
-	price_dt = 100;
+	price_dt = 200;
 
 	cooldown = 3;
 }
@@ -328,7 +328,7 @@ sklSoulOfIce::sklSoulOfIce()
 {
 	skill_tex = App->tex->Load("textures/vamp_kick.png");
 	price = 2500;
-	price_dt = 100;
+	price_dt = 200;
 
 	cooldown = 3;
 }
@@ -413,7 +413,7 @@ void sklSoulOfIce::CalculateSkillStats()
 sklKrobusArts::sklKrobusArts() :sklBuff(EXTRA_DAMAGE, 45, 10)
 {
 	price = 2000;
-	price_dt = 100;
+	price_dt = 200;
 
 	cooldown = 10;
 
@@ -488,7 +488,7 @@ sklBloodArrow::sklBloodArrow() : sklRanged()
 {
 	skill_tex = App->tex->Load("textures/vamp_cast.png");
 	price = 1500;
-	price_dt = 100;
+	price_dt = 200;
 
 	cooldown = 1.5f;
 }
@@ -568,7 +568,7 @@ sklVampireBreath::sklVampireBreath()
 {
 	skill_tex = App->tex->Load("textures/vamp_cast.png");
 	price = 1500;
-	price_dt = 100;
+	price_dt = 200;
 
 	cooldown = 9;
 }
@@ -663,7 +663,7 @@ sklBloodBomb::sklBloodBomb()
 	skill_tex = App->tex->Load("textures/vamp_cast.png");
 
 	price = 2500;
-	price_dt = 100;
+	price_dt = 200;
 
 	cooldown = 3;
 }
@@ -750,7 +750,7 @@ sklRedFeast::sklRedFeast()
 {
 	skill_tex = App->tex->Load("textures/vamp_cast.png");
 	price = 2500;
-	price_dt = 100;
+	price_dt = 200;
 
 	cooldown = 10;
 }
@@ -849,7 +849,7 @@ sklHeardOfBats::sklHeardOfBats()
 {
 	skill_tex = App->tex->Load("textures/vamp_cast.png");
 	price = 2000;
-	price_dt = 100;
+	price_dt = 200;
 
 	cooldown = 8;
 }
@@ -945,14 +945,15 @@ void sklHeardOfBats::CalculateSkillStats()
 }
 
 //Night Passives
-sklShadowsWalker::sklShadowsWalker() : sklBuff(INVISIBILITY, 1, 5)
+sklShadowsWalker::sklShadowsWalker() : sklBuff(INVISIBILITY, 1, 5) //We should put a "time_effect_final" variable instead of "5"
 {
 	skill_tex = App->tex->Load("textures/vamp_cast.png");
 	price = 1500;
-	price_dt = 100;
+	price_dt = 200;
 
 	cooldown = 10;
 }
+
 sklShadowsWalker::~sklShadowsWalker()
 {
 	App->tex->UnLoad(skill_tex);
@@ -1009,6 +1010,8 @@ void sklShadowsWalker::SetSkillAnimations()
 void sklShadowsWalker::CalculateSkillStats()
 {
 	blood_charge_cost_final = blood_charge_cost_base + blood_charge_cost_dt * level;
+
+	time_effect_final = time_effect_base + time_effect_dt * level;
 }
 
 //Clotted blood skin
@@ -1016,7 +1019,7 @@ sklClottedBloodSkin::sklClottedBloodSkin() : sklBuff(ARMOR, 10, 3) //We should p
 {
 	skill_tex = App->tex->Load("textures/vamp_cast.png");
 	price = 2000;
-	price_dt = 100;
+	price_dt = 200;
 
 	cooldown= 13;
 }
@@ -1085,7 +1088,7 @@ void sklClottedBloodSkin::CalculateSkillStats()
 sklLust::sklLust()
 {
 	price = 1500;
-	price_dt = 100;
+	price_dt = 200;
 }
 
 sklLust::~sklLust()
@@ -1116,7 +1119,7 @@ sklUndead::sklUndead()
 {
 	avaliable = true;
 	price = 2500;
-	price_dt = 100;
+	price_dt = 200;
 
 	cooldown = 60;
 }
@@ -1176,7 +1179,7 @@ void sklUndead::CalculateSkillStats()
 sklNightWard::sklNightWard()
 {
 	price = 2000;
-	price_dt = 100;
+	price_dt = 200;
 
 	cooldown = 10;
 }

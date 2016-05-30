@@ -66,7 +66,7 @@ EntEnemyCrawler::EntEnemyCrawler(const iPoint &p, uint ID, int lvl) : EntEnemy(p
 	attack_range = 60.0f;
 
 	//Agro Range
-	agro_range = 200.0f;
+	agro_range = 250.0f;
 
 	//Pure Blood Drop
 	blood_drop = 150;

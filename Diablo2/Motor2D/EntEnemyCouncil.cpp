@@ -101,7 +101,7 @@ EntEnemyCouncil::EntEnemyCouncil(const iPoint &p, uint ID, int lvl) : EntEnemy(p
 	agro_range = 240.0f;
 
 	//Pure Blood Drop
-	blood_drop = 200;
+	blood_drop = 250;
 
 	for (int i = 0; i < level; i++)
 	{
