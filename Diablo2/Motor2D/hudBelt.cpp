@@ -267,7 +267,7 @@ bool hudBelt::PreUpdate()
 
 	while (it != App->im->shortcuts_list.end())
 	{
-		if ((*it)->name == "potion_1" && (*it)->active)
+		if ((*it)->name == "Potion 1" && (*it)->active)
 		{
 			list<GuiItem*>::iterator it = inventory1->items.begin();
 			if (it != inventory1->items.end())
@@ -281,7 +281,7 @@ bool hudBelt::PreUpdate()
 			}
 		}
 
-		if ((*it)->name == "potion_2" && (*it)->active)
+		if ((*it)->name == "Potion 2" && (*it)->active)
 		{
 			list<GuiItem*>::iterator it = inventory2->items.begin();
 			if (it != inventory2->items.end())
@@ -295,7 +295,7 @@ bool hudBelt::PreUpdate()
 			}
 		}
 
-		if ((*it)->name == "potion_3" && (*it)->active)
+		if ((*it)->name == "Potion 3" && (*it)->active)
 		{
 			list<GuiItem*>::iterator it = inventory3->items.begin();
 			if (it != inventory3->items.end())
@@ -309,7 +309,7 @@ bool hudBelt::PreUpdate()
 			}
 		}
 
-		if ((*it)->name == "potion_4" && (*it)->active)
+		if ((*it)->name == "Potion 4" && (*it)->active)
 		{
 			list<GuiItem*>::iterator it = inventory4->items.begin();
 			if (it != inventory4->items.end())

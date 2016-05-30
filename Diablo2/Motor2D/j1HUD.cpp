@@ -69,7 +69,7 @@ bool j1HUD::PreUpdate()
 
 	while (it != App->im->shortcuts_list.end())
 	{
-		if ((*it)->name == "inventory" && (*it)->active)
+		if ((*it)->name == "Inventory" && (*it)->active)
 		{
 			if (skilltree->active == true)
 			{
@@ -84,7 +84,7 @@ bool j1HUD::PreUpdate()
 			}
 		}
 
-		if ((*it)->name == "skill_tree" && (*it)->active)
+		if ((*it)->name == "Skill Tree" && (*it)->active)
 		{ 
 			if (inventory->active == true)
 			{
@@ -99,7 +99,7 @@ bool j1HUD::PreUpdate()
 			}
 		}
 
-		if ((*it)->name == "stats" && (*it)->active)
+		if ((*it)->name == "Stats" && (*it)->active)
 		{
 			if (inventory->background->active == true && inventory->inventory->active == true)
 			{
@@ -113,7 +113,7 @@ bool j1HUD::PreUpdate()
 			}
 		}
 
-		if ((*it)->name == "map" && (*it)->active)
+		if ((*it)->name == "Map" && (*it)->active)
 		{
 			belt->minimapbutton_pressed = false;
 			minimap->Activate();

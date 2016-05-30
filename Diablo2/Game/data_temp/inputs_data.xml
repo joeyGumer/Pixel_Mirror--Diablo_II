@@ -4,49 +4,49 @@
   
   <shortcut>
     <TYPE value = "DOWN"/>
-    <name value ="inventory"/>
+    <name value ="Inventory"/>
     <command value ="I"/>
   </shortcut>
 
   <shortcut>
     <TYPE value = "DOWN"/>
-    <name value ="skill_tree"/>
+    <name value ="Skill Tree"/>
     <command value ="S"/>
   </shortcut>
 
   <shortcut>
     <TYPE value = "DOWN"/>
-    <name value ="stats"/>
+    <name value ="Stats"/>
     <command value ="C"/>
   </shortcut>
   
   <shortcut>
     <TYPE value = "DOWN"/>
-    <name value ="map"/>
+    <name value ="Map"/>
     <command value ="M"/>
   </shortcut>
   
   <shortcut>
     <TYPE value = "DOWN"/>
-    <name value ="potion_1"/>
+    <name value ="Potion 1"/>
     <command value ="1"/>
   </shortcut>
   
   <shortcut>
     <TYPE value = "DOWN"/>
-    <name value ="potion_2"/>
+    <name value ="Potion 2"/>
     <command value ="2"/>
   </shortcut>
   
   <shortcut>
     <TYPE value = "DOWN"/>
-    <name value ="potion_3"/>
+    <name value ="Potion 3"/>
     <command value ="3"/>
   </shortcut>
   
   <shortcut>
     <TYPE value = "DOWN"/>
-    <name value ="potion_4"/>
+    <name value ="Potion 4"/>
     <command value ="4"/>
   </shortcut>
 
