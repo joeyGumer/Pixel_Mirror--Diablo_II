@@ -1867,7 +1867,7 @@ void j1Player::SetAttribute(PLAYER_ATTRIBUTE attribute, float value)
 	case LUCK:
 	{
 		luck_final += value;
-		//drop = value;
+		//drop = luck_final * drop_dt;
 	}
 		break;
 	case ARMOR:
@@ -1907,8 +1907,6 @@ void j1Player::SetAttribute(PLAYER_ATTRIBUTE attribute, float value)
 	default:
 		break;
 	}
-	
-
 }
 
 void j1Player::CalculateFinalStats()
@@ -1935,7 +1933,6 @@ void j1Player::CalculateFinalStats()
 	HP_recover_final = HP_recover_base;
 	ST_max = ST_base;
 
-
 	list<Buff*>::iterator item = buffs.begin();
 
 	for (; item != buffs.end(); item++)
@@ -1949,13 +1946,10 @@ void j1Player::CalculateFinalStats()
 	//Strength
 	if (str_final < 0)
 		str_final = 0;
-
-
+	
 	atk_damage_final_down += str_final/2;
 	atk_damage_final_up += str_final * atk_dt;
-
-
-
+	
 	//Dexterity
 	if (dex_final < 0)
 		dex_final = 0;
@@ -1973,6 +1967,9 @@ void j1Player::CalculateFinalStats()
 	ST_max += (ST_dt * str_final) + (ST_dt * dex_final);
 
 	MP_max += extra_blood_charge + (MP_dt * int_final);
+	
+	//Drop
+	drop = luck_final * drop_dt;
 
 	if (lust->unlocked)
 	{
@@ -1988,7 +1985,7 @@ void j1Player::CalculateFinalStats()
 	//Luck
 	if (luck_final < 0)
 		luck_final = 0;
-
+	
 	//Armor
 	if (armor_final < 0)
 		armor_final = 0;
@@ -2012,7 +2009,6 @@ void j1Player::CalculateFinalStats()
 	PlayerEvent(HP_DOWN);
 	PlayerEvent(ST_DOWN);
 	PlayerEvent(MP_DOWN);
-
 }
 
 void j1Player::UpdateBuffs()

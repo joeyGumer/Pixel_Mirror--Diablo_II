@@ -39,7 +39,7 @@ EntEnemyIzual::EntEnemyIzual(const iPoint &p, uint ID, int lvl) : EntEnemy(p, ID
 	//------------------------------------
 	//Life
 	int random_range = 51;
-	HP_max = HP_current = 175;
+	HP_max = HP_current = 200;
 
 	for (int i = 0; i < level; i++)
 	{
@@ -55,11 +55,11 @@ EntEnemyIzual::EntEnemyIzual(const iPoint &p, uint ID, int lvl) : EntEnemy(p, ID
 	HP_current = HP_max;
 
 	//Speed
-	speed = 100.0f;
+	speed = 120.0f;
 
 	//Melee Attack
-	random_range = 21;
-	damage = 10;
+	random_range = 16;
+	damage = 15;
 
 	for (int i = 0; i < level; i++)
 	{
@@ -76,7 +76,7 @@ EntEnemyIzual::EntEnemyIzual(const iPoint &p, uint ID, int lvl) : EntEnemy(p, ID
 	attack_range = 80.0f;
 
 	//Spell Attack
-	random_range = 6;
+	random_range = 11;
 	magic_damage = 5;
 
 	for (int i = 0; i < level; i++)
@@ -106,7 +106,7 @@ EntEnemyIzual::EntEnemyIzual(const iPoint &p, uint ID, int lvl) : EntEnemy(p, ID
 	*/
 
 	//Agro Range
-	agro_range = 300.0f;
+	agro_range = 350.0f;
 
 	//Pure Blood Drop
 	blood_drop = 1500;

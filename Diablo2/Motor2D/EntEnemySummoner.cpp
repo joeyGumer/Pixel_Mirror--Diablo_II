@@ -33,8 +33,8 @@ EntEnemySummoner::EntEnemySummoner(const iPoint &p, uint ID, int lvl) : EntEnemy
 	//Attirbutes
 	//------------------------------------
 	//Life
-	int random_range = 11;
-	HP_max = HP_current = 10;
+	int random_range = 10;
+	HP_max = HP_current = 12;
 
 	for (int i = 0; i < level; i++)
 	{
@@ -75,6 +75,8 @@ EntEnemySummoner::EntEnemySummoner(const iPoint &p, uint ID, int lvl) : EntEnemy
 
 	//Spell Cooldown
 	summon_cooldown = 4;
+
+	/*
 	for (int i = 0; i < level; i++)
 	{
 		if (i > 0)
@@ -82,12 +84,13 @@ EntEnemySummoner::EntEnemySummoner(const iPoint &p, uint ID, int lvl) : EntEnemy
 			summon_cooldown--;
 		}
 	}
+	*/
 
 	//Agro Range
 	agro_range = 300.0f;
 
 	//Pure Blood Drop
-	blood_drop = 200;
+	blood_drop = 150;
 
 	for (int i = 0; i < level; i++)
 	{

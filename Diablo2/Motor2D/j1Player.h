@@ -314,8 +314,8 @@ public:
 	float HP_current;
 	float HP_base;
 	float HP_dt = 3;
-	float HP_recover_dt = 0.08f;
-	float HP_recover_base = 1.3;
+	float HP_recover_dt = 0.05f;
+	float HP_recover_base = 1.1;
 	float HP_recover_final;
 	bool HP_potion;
 
@@ -332,7 +332,7 @@ public:
 	float ST_dt = 0.5f;
 
 	//atk
-	float atk_dt = 0.75f;
+	float atk_dt = 0.7f;
 
 	//This is mana basically...?
 	int blood_current;
@@ -356,9 +356,11 @@ public:
 	//Luck
 	int luck_base = 0;
 	int luck_final;
+	float drop;
+	float drop_dt = 0.8f;
 
 	//Armor
-	int armor_base = 0;
+	int armor_base = 0;	
 	int armor_final;
 
 	int extra_damage = 0;
@@ -374,7 +376,6 @@ public:
 	float basic_damage;
 	float bonus_martial_damage;
 	float bonus_spell_damage;
-	float drop;
 
 	//Buffs list
 	list<Buff*> buffs;

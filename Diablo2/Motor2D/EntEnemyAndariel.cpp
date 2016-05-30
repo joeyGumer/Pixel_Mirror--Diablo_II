@@ -90,7 +90,7 @@ EntEnemyAndariel::EntEnemyAndariel(const iPoint &p, uint ID, int lvl) : EntEnemy
 	magic_damage += random;
 
 	//Spell Range
-	magic_range = 250.0f;
+	magic_range = 275.0f;
 
 	//Spell Cooldown
 	magic_cooldown = 5;
@@ -105,7 +105,7 @@ EntEnemyAndariel::EntEnemyAndariel(const iPoint &p, uint ID, int lvl) : EntEnemy
 	*/
 
 	//Agro Range
-	agro_range = 300.0f;
+	agro_range = 350.0f;
 
 	//Pure Blood Drop
 	blood_drop = 1500;

@@ -36,7 +36,7 @@ EntEnemyNest::EntEnemyNest(const iPoint &p, uint ID, int lvl) : EntEnemy(p, ID)
 	//------------------------------------
 	//Life
 	int random_range = 51;
-	HP_max = HP_current = 200;
+	HP_max = HP_current = 250;
 
 	for (int i = 0; i < level; i++)
 	{
@@ -70,13 +70,13 @@ EntEnemyNest::EntEnemyNest(const iPoint &p, uint ID, int lvl) : EntEnemy(p, ID)
 	damage += random;
 
 	//Attack Range
-	attack_range = 200.0f;
+	attack_range = 340.0f;
 
 	//Attack Cooldown
-	ranged_cooldown = 2;
+	ranged_cooldown = 3;
 
 	//Spell Range
-	summon_range = 300.0f;
+	summon_range = 280.0f;
 
 	//Spell Cooldown
 	summon_cooldown = 5;
@@ -91,7 +91,7 @@ EntEnemyNest::EntEnemyNest(const iPoint &p, uint ID, int lvl) : EntEnemy(p, ID)
 	*/
 
 	//Agro Range
-	agro_range = 300.0f;
+	agro_range = 350.0f;
 
 	//Pure Blood Drop
 	blood_drop = 1500;

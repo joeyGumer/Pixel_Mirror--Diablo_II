@@ -31,8 +31,8 @@ EntEnemyShaman::EntEnemyShaman(const iPoint &p, uint ID, int lvl) : EntEnemy(p, 
 	//Attirbutes
 	//------------------------------------
 	//Life
-	int random_range = 11;
-	HP_max = HP_current = 10;
+	int random_range = 10;
+	HP_max = HP_current = 12;
 
 	for (int i = 0; i < level; i++)
 	{
@@ -99,7 +99,7 @@ EntEnemyShaman::EntEnemyShaman(const iPoint &p, uint ID, int lvl) : EntEnemy(p, 
 	agro_range = 300.0f;
 
 	//Pure Blood Drop
-	blood_drop = 300;
+	blood_drop = 150;
 
 	for (int i = 0; i < level; i++)
 	{
