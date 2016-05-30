@@ -453,7 +453,7 @@ void snIntro::OnEvent(GuiElement* element, GUI_Event even)
 
 		while (it != App->im->shortcuts_list.end())
 		{
-			if (element == (*it)->command_label && even == EVENT_MOUSE_LEFTCLICK_DOWN)
+			if (element == (*it)->shortcut_label && even == EVENT_MOUSE_LEFTCLICK_DOWN)
 			{
 				(*it)->ready_to_change = true;
 				controls_feedback->Activate();
