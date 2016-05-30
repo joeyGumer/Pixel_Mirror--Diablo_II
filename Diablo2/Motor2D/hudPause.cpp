@@ -45,8 +45,11 @@ bool hudPause::PreUpdate()
 {
 	if (App->fs->SaveFileExists() && main_menu)
 	{
-		ActivateMenu();
-		App->sm->ChangeScene(App->sm->intro);
+		if (!App->want_to_save)
+		{
+			ActivateMenu();
+			App->sm->ChangeScene(App->sm->intro);
+		}
 	}
 
 	return true;

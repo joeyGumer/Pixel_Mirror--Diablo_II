@@ -109,6 +109,7 @@ public:
 	//NOTE: Now the debug mode is global form the app, ask Ric
 	bool                debug = false;
 	bool				new_game = false;
+	mutable bool		want_to_save = false;
 	
 
 private:
@@ -120,7 +121,7 @@ private:
 	p2SString			title;
 	p2SString			organization;
 
-	mutable bool		want_to_save = false;
+	
 	bool				want_to_load = false;
 	p2SString			load_game;
 	mutable p2SString	save_game;
