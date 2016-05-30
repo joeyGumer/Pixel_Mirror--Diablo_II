@@ -124,6 +124,7 @@ bool j1InputManager::Update(float dt)
 				ChangeShortcutCommand((*it));
 				(*it)->ready_to_change = false;
 				App->sm->intro->controls_feedback->Desactivate();
+				App->sm->intro->controls_advice->Activate();
 			}
 		}
 

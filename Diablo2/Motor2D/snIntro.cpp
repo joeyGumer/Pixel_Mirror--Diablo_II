@@ -100,6 +100,8 @@ bool snIntro::Start()
 	
 	controls_feedback = App->gui->AddGuiLabel("Press the key you want to assign.", App->font->stats, { 70, 325 }, controls_window, FONT_WHITE, this);
 	intro_gui.push_back(controls_feedback);
+	controls_advice = App->gui->AddGuiLabel("Click the function you want to reassign.", App->font->stats, { 67, 325 }, controls_window, FONT_WHITE, this);
+	intro_gui.push_back(controls_advice);
 
 	/*
 	//PrimarySkill Label
@@ -383,6 +385,7 @@ void snIntro::OnEvent(GuiElement* element, GUI_Event even)
 			else
 			{
 				controls_window->Activate();
+				controls_advice->Activate();
 				controls_feedback->Desactivate();
 			}
 		}
@@ -457,6 +460,7 @@ void snIntro::OnEvent(GuiElement* element, GUI_Event even)
 			{
 				(*it)->ready_to_change = true;
 				controls_feedback->Activate();
+				controls_advice->Desactivate();
 			}
 			++it;
 		}

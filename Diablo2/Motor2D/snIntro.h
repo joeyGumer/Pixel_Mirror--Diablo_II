@@ -112,6 +112,7 @@ private:
 
 public:
 	GuiLabel* controls_feedback = NULL;
+	GuiLabel* controls_advice = NULL;
 };
 
 #endif // __SNINTRO_H__
