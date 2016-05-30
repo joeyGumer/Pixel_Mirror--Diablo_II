@@ -919,7 +919,7 @@ void sklHeardOfBats::SkillIndependentUpdate(float dt)
 
 		if (hit)
 		{
-			player->ChangeMP(-blood_charge_cost_final);
+			//player->ChangeMP(-blood_charge_cost_final);
 		}
 	}
 }

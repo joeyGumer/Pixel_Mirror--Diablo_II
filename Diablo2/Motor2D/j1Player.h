@@ -357,7 +357,7 @@ public:
 	int luck_base = 0;
 	int luck_final;
 	float drop;
-	float drop_dt = 0.8f;
+	float drop_dt = 1.0f;
 
 	//Armor
 	int armor_base = 0;	
