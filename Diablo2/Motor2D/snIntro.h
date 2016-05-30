@@ -110,6 +110,8 @@ private:
 	//NOTE: do the button class so it can have the diferent images and even a label, so it doesn?t interfere with the rest of the ui
 	list<GuiElement*> intro_gui;
 
+public:
+	GuiLabel* controls_feedback = NULL;
 };
 
 #endif // __SNINTRO_H__

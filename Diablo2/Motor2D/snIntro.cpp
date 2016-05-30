@@ -98,6 +98,9 @@ bool snIntro::Start()
 	LoadShortcutsInfo();
 	//---------------------------
 	
+	controls_feedback = App->gui->AddGuiLabel("Press the key you want to assign.", App->font->stats, { 70, 325 }, controls_window, FONT_WHITE, this);
+	intro_gui.push_back(controls_feedback);
+
 	/*
 	//PrimarySkill Label
 	primary_skill_image = App->gui->AddGuiImage({ 140, 45 }, { 3450, 960, 160, 10 }, controls_window, this);
@@ -378,7 +381,10 @@ void snIntro::OnEvent(GuiElement* element, GUI_Event even)
 			if(controls_window->active)
 				controls_window->Desactivate();
 			else
+			{
 				controls_window->Activate();
+				controls_feedback->Desactivate();
+			}
 		}
 			break;
 
@@ -450,6 +456,7 @@ void snIntro::OnEvent(GuiElement* element, GUI_Event even)
 			if (element == (*it)->command_label && even == EVENT_MOUSE_LEFTCLICK_DOWN)
 			{
 				(*it)->ready_to_change = true;
+				controls_feedback->Activate();
 			}
 			++it;
 		}

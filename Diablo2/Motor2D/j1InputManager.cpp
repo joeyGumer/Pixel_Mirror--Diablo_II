@@ -6,6 +6,8 @@
 #include "j1Input.h"
 #include "SDL\include\SDL.h"
 #include "j1Gui.h"
+#include "j1SceneManager.h"
+#include "snIntro.h"
 
 j1InputManager::j1InputManager() : j1Module()
 {
@@ -121,6 +123,7 @@ bool j1InputManager::Update(float dt)
 				(*it)->command = SDL_GetScancodeName(event.key.keysym.scancode);
 				ChangeShortcutCommand((*it));
 				(*it)->ready_to_change = false;
+				App->sm->intro->controls_feedback->Desactivate();
 			}
 		}
 
