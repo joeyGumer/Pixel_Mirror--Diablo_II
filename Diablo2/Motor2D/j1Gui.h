@@ -71,6 +71,7 @@ public:
 	list<GuiElement*> gui_elements;
 	bool			mouse_hovering;
 	GuiItem*		dragged_item;
+	GuiImage*		load_screen;
 
 private:
 	bool			debug;
