@@ -156,7 +156,10 @@ bool j1Player::Start()
 	sprite = new Sprite(p_sprite, pos, p_pivot, current_sprite);
 	App->render->AddSpriteToList(sprite);
 
-
+	fx_die = App->audio->LoadFx("audio/player/Sor_die.ogg");
+	fx_cooldown = App->audio->LoadFx("audio/player/Sor_cantuseyet.ogg");
+	fx_meetdeath = App->audio->LoadFx("audio/player/Sor_meetdeath.ogg");
+	fx_datedeath = App->audio->LoadFx("audio/player/Sor_datewithdeath.ogg");
 
 	
 	return true;
@@ -999,6 +1002,10 @@ void j1Player::HandleInput()
 				current_skill->SkillInit();
 				current_input = INPUT_SKILL;
 				input_locked = true;
+			}
+			else
+			{
+				App->audio->PlayFx(fx_cooldown);
 			}
 		}
 		/*if (!input_locked)

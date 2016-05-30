@@ -11,6 +11,7 @@
 //#include "playerParticle.h" 
 #include "j1ParticleManager.h"
 #include "j1Collision.h"
+#include "j1Audio.h"
 
 /*
 //--Basic Attack
@@ -61,7 +62,7 @@ void sklBasicAttack::SkillEffect()
 		player->ChangeMP(player->lust->basic_blood_charges);
 	}
 
-	//App->audio->PlayFx(player_attack, 0);
+	App->audio->PlayFx(player->player_attack);
 	player->enemy = NULL;
 	player->objective = NULL;
 	player->attacking = false;
@@ -113,7 +114,7 @@ void sklStingingStrike::SkillEffect()
 	damage += int((float(damage) / 100) * player->dex_final);
 
 	player->enemy->TakeDamage(damage);
-	//App->audio->PlayFx(player_attack, 0);
+	App->audio->PlayFx(player->player_attack);
 
 	player->ChangeMP(final_blood_charge_increase);
 	player->TakeDamage(final_life_cost);
@@ -187,7 +188,7 @@ void sklWildTalon::SkillEffect()
 	damage += float((float(damage) / 100) * player->dex_final);
 
 	player->enemy->TakeDamage(damage);
-	//App->audio->PlayFx(player_attack, 0);
+	App->audio->PlayFx(player->player_attack);
 	player->ChangeMP(blood_charge_increase_base);
 	player->RestoreHP(-life_cost_final);
 
@@ -266,7 +267,7 @@ void sklBatStrike::SkillEffect()
 
 	player->enemy->TakeDamage(damage);
 
-	//App->audio->PlayFx(player_attack, 0);
+	App->audio->PlayFx(player->player_attack);
 	player->ChangeMP(-blood_charge_cost_final);
 
 	player->enemy = NULL;
@@ -349,7 +350,7 @@ void sklSoulOfIce::SkillEffect()
 	}
 
 	player->enemy->TakeDamage(damage);
-	//App->audio->PlayFx(player_attack, 0);
+	App->audio->PlayFx(player->player_attack);
 	player->ChangeMP(-blood_charge_cost_final);
 
 	player->enemy = NULL;
@@ -507,6 +508,7 @@ void sklBloodArrow::SkillInit()
 	player->particle_destination.y = App->input->GetMouseWorldPosition().y;
 	player->SetDirection(player->particle_destination);
 
+	App->audio->PlayFx(player->fx_die);
 
 	player->RestoreHP(-life_cost_final);
 
@@ -607,6 +609,8 @@ void sklVampireBreath::SkillInit()
 		skill_particle_up->FollowPoint(player->p_position.x, player->p_position.y + 5 - skill_particle_up->anim.PeekCurrentFrame().h / 2);
 		skill_particle_down = App->pm->AddParticle(player->area_3_down, player->p_position.x, player->p_position.y + 5, 5, player->area_3_down.image);
 		skill_particle_down->FollowPoint(player->p_position.x, player->p_position.y + 5 + skill_particle_up->anim.PeekCurrentFrame().h / 2);
+
+		App->audio->PlayFx(player->fx_meetdeath);
 	}
 
 	cooldown_timer.Start();
@@ -690,6 +694,8 @@ void sklBloodBomb::SkillInit()
 	player->SetDirection(player->particle_destination);
 
 	player->TakeDamage(life_cost_base);
+
+	App->audio->PlayFx(player->fx_die);
 
 	cooldown_timer.Start();
 }
@@ -796,6 +802,8 @@ void sklRedFeast::SkillInit()
 		skill_particle_up->FollowPoint(player->p_position.x, player->p_position.y + 5 - skill_particle_up->anim.PeekCurrentFrame().h / 2);
 		skill_particle_down = App->pm->AddParticle(player->area_2_down, player->p_position.x, player->p_position.y + 5, 5, player->area_2_down.image);
 		skill_particle_down->FollowPoint(player->p_position.x, player->p_position.y + 5 + skill_particle_up->anim.PeekCurrentFrame().h / 2);
+
+		App->audio->PlayFx(player->fx_meetdeath);
 	}
 
 	cooldown_timer.Start();
@@ -889,6 +897,8 @@ void sklHeardOfBats::SkillInit()
 		skill_particle_up->FollowPoint(pos.x, pos.y - skill_particle_up->anim.PeekCurrentFrame().h / 2);
 		Particle* skill_particle_down = App->pm->AddParticle(player->area_1_down, pos.x, pos.y, time, player->area_1_down.image);
 		skill_particle_down->FollowPoint(pos.x, pos.y + skill_particle_up->anim.PeekCurrentFrame().h / 2);
+
+		App->audio->PlayFx(player->fx_datedeath);
 	}
 	
 	player->ChangeMP(-blood_charge_cost_final);

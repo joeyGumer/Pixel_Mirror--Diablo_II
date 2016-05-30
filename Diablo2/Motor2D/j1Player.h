@@ -385,6 +385,11 @@ public:
 	int player_attack;
 	int player_gethit;
 
+	int fx_die;
+	int fx_cooldown;
+	int fx_meetdeath;
+	int fx_datedeath;
+
 	//StateMachine Attributes
 	ACTION_STATE	current_action;
 	vector<Animation> current_animation_set;
@@ -460,7 +465,8 @@ public:
 	vector<Skill*> skills;
 
 	//Collider
-	Collider* p_collider;
+	Collider* p_collider;	
+
 
 };
 
