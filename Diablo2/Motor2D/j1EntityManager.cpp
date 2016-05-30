@@ -212,7 +212,7 @@ bool j1EntityManager::Start()
 bool j1EntityManager::PreUpdate()
 {
 	// Clicking middle button, eliminates an entity
-	if (App->input->GetMouseButtonDown(SDL_BUTTON_MIDDLE) == KEY_DOWN)
+	if ((App->input->GetMouseButtonDown(SDL_BUTTON_MIDDLE) == KEY_DOWN) && App->debug)
 	{
 		iPoint pos; 
 		pos = App->input->GetMouseWorldPosition();

@@ -79,16 +79,6 @@ bool j1Game::PreUpdate()
 		}
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN)
-	{
-		App->SaveGame("save_state");
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
-	{
-		App->LoadGame("save_state");
-	}
-
 	return true;
 }
 
