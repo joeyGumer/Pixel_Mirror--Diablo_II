@@ -112,11 +112,13 @@ bool snOutdoor2::Update(float dt)
 			}
 			else if (portal && App->sm->GetCurrentScene() == App->sm->level2)
 			{
-				portal->destiny = App->sm->level1;
+				portal->destiny = App->sm->win;
 			}
 
 			p = App->map->WorldToMap(p.x, p.y);
 			int i = 0;
+
+			entity_list.push_back(portal);
 		}
 
 		else if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN)
@@ -882,13 +884,27 @@ bool snOutdoor2::Load(pugi::xml_node& node)
 			pugi::xml_node enmy = entity.child("enemy");
 
 			EntEnemy* enemy = (EntEnemy*)App->game->em->AddEnemy(pos, (ENEMY_TYPE)enmy.attribute("enemy_type").as_int(), 1);
-			if (enemy != NULL)
-			{
-				entity_list.push_back(enemy);
+			entity_list.push_back(enemy);
 
-				enemy->HP_current = enmy.child("HP").attribute("current_HP").as_float();
-				enemy->HP_max = enmy.child("HP").attribute("max_HP").as_float();
+			enemy->HP_current = enmy.child("HP").attribute("current_HP").as_float();
+			enemy->HP_max = enmy.child("HP").attribute("max_HP").as_float();
+
+		}
+
+		if ((ENTITY_TYPE)entity.attribute("type").as_int() == PORTAL)
+		{
+			EntPortal* portal = (EntPortal*)App->game->em->Add(pos, PORTAL);
+
+			if (portal && App->sm->GetCurrentScene() == App->sm->level1)
+			{
+				portal->destiny = App->sm->level2;
 			}
+			else if (portal && App->sm->GetCurrentScene() == App->sm->level2)
+			{
+				portal->destiny = App->sm->win;
+			}
+
+			entity_list.push_back(portal);
 		}
 	}
 
@@ -900,8 +916,6 @@ bool snOutdoor2::Save(pugi::xml_node& node) const
 	pugi::xml_node entities = node.append_child("entities");
 
 	list<Entity*>::const_iterator item = entity_list.cbegin();
-
-
 
 	for (; item != entity_list.cend(); item++)
 	{
@@ -930,6 +944,11 @@ bool snOutdoor2::Save(pugi::xml_node& node) const
 
 			hp.append_attribute("current_HP") = enemy->HP_current;
 			hp.append_attribute("max_HP") = enemy->HP_max;
+		}
+
+		if (ent->type == PORTAL)
+		{
+			entity.append_attribute("type") = PORTAL;
 		}
 	}
 

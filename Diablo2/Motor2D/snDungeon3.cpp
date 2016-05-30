@@ -112,11 +112,13 @@ bool snDungeon3::Update(float dt)
 			}
 			else if (portal && App->sm->GetCurrentScene() == App->sm->level2)
 			{
-				portal->destiny = App->sm->level1;
+				portal->destiny = App->sm->win;
 			}
 
 			p = App->map->WorldToMap(p.x, p.y);
 			int i = 0;
+
+			entity_list.push_back(portal);
 		}
 
 		if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN)
@@ -896,13 +898,25 @@ bool snDungeon3::Load(pugi::xml_node& node)
 			EntEnemy* enemy = (EntEnemy*)App->game->em->AddEnemy(pos, (ENEMY_TYPE)enmy.attribute("enemy_type").as_int(), 1);
 			entity_list.push_back(enemy);
 
-			if (entity_list.size() == 22)
-			{
-				bool testing = false;
-			}
 			enemy->HP_current = enmy.child("HP").attribute("current_HP").as_float();
 			enemy->HP_max = enmy.child("HP").attribute("max_HP").as_float();
 
+		}
+
+		if ((ENTITY_TYPE)entity.attribute("type").as_int() == PORTAL)
+		{
+			EntPortal* portal = (EntPortal*)App->game->em->Add(pos, PORTAL);
+
+			if (portal && App->sm->GetCurrentScene() == App->sm->level1)
+			{
+				portal->destiny = App->sm->level2;
+			}
+			else if (portal && App->sm->GetCurrentScene() == App->sm->level2)
+			{
+				portal->destiny = App->sm->win;
+			}
+
+			entity_list.push_back(portal);
 		}
 	}
 
@@ -944,6 +958,11 @@ bool snDungeon3::Save(pugi::xml_node& node) const
 
 			hp.append_attribute("current_HP") = enemy->HP_current;
 			hp.append_attribute("max_HP") = enemy->HP_max;
+		}
+
+		if (ent->type == PORTAL)
+		{
+			entity.append_attribute("type") = PORTAL;
 		}
 	}
 
