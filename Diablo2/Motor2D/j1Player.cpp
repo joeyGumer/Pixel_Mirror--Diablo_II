@@ -472,6 +472,13 @@ void j1Player::PlayerEvent(PLAYER_EVENT even)
 	{
 	case HP_DOWN:
 		{
+			//Forgive me Pep-sama
+			//--------------------------
+			if (HP_current <= 0)
+			{
+				HP_current = 0;
+			}
+			//--------------------------
 			App->game->HUD->belt->SetLife(int(HP_max), int(HP_current));
 			App->game->HUD->stats->SetLifeLabel(int(HP_current),int(HP_max));
 		}

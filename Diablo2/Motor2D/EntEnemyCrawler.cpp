@@ -83,10 +83,16 @@ EntEnemyCrawler::EntEnemyCrawler(const iPoint &p, uint ID, int lvl) : EntEnemy(p
 	last_update = PATHFINDING_FRAMES;
 
 	SDL_Rect col_rect;
-	col_rect.x = GetPlayerRect().x + 16;
-	col_rect.y = GetPlayerRect().y + 5;
-	col_rect.w = GetPlayerRect().w - 32;
-	col_rect.h = GetPlayerRect().h - 10;
+	col_margin.x = 16;
+	col_margin.y = 5;
+
+	col_pivot.x = 0;
+	col_pivot.y = 0;
+
+	col_rect.x = GetPlayerRect().x + col_margin.x + col_pivot.x;
+	col_rect.y = GetPlayerRect().y + col_margin.y + col_pivot.y;
+	col_rect.w = GetPlayerRect().w - col_margin.x * 2;
+	col_rect.h = GetPlayerRect().h - col_margin.y * 2;
 
 	collider = App->collision->AddCollider(col_rect, COLLIDER_ENEMY, App->game->em);
 

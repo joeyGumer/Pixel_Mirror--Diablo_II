@@ -137,11 +137,9 @@ EntEnemyIzual::EntEnemyIzual(const iPoint &p, uint ID, int lvl) : EntEnemy(p, ID
 
 	SDL_Rect col_rect;
 
-	iPoint col_margin;
 	col_margin.x = 5;
 	col_margin.y = 5;
 
-	iPoint col_pivot;
 	col_pivot.x = 0;
 	col_pivot.y = 0;
 

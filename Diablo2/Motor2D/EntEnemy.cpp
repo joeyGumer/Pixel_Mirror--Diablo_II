@@ -37,6 +37,13 @@ void EntEnemy::Freeze(int time)
 	freeze_timer.Start();
 }
 
+void EntEnemy::SetPosition(fPoint pos)
+{
+	position = pos;
+	collider->rect.x = GetPivotPosition().x + col_pivot.x + col_margin.x;
+	collider->rect.y = GetBlitPosition().y + col_pivot.y + col_margin.y;
+}
+
 //Drawing methods
 void EntEnemy::Draw()
 {

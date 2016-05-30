@@ -84,11 +84,9 @@ EntEnemyWolf::EntEnemyWolf(const iPoint &p, uint ID, int lvl) : EntEnemy(p, ID)
 
 	SDL_Rect col_rect;
 
-	iPoint col_margin;
 	col_margin.x = 10;
 	col_margin.y = 10;
 
-	iPoint col_pivot;
 	col_pivot.x = 0;
 	col_pivot.y = 0;
 

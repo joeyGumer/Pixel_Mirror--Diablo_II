@@ -49,6 +49,9 @@ public:
 	//Do you wanna build a snowman~~
 	void Freeze(int time);
 
+	//SetPosition
+	void SetPosition(fPoint pos);
+
 	
 public:
 
@@ -87,6 +90,10 @@ public:
 	j1Timer freeze_timer;
 	int freeze_time = 0;
 	bool tex_frozen = false;
+
+	//Colliders
+	iPoint col_margin;
+	iPoint col_pivot;
 };
 
 #endif
