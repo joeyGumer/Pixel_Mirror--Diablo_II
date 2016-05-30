@@ -194,17 +194,10 @@ The bosses have different strategies and you will have to find diverse ways to f
 		- T: Summoner.
 
 
-**Links:**
+# **Links:**
 
-	- Github: https://github.com/joeyGumer/Pixel_Mirror--Diablo_II
-
- 	- Facebook: https://www.facebook.com/Pixel-Mirror-814809901980089/
-
-	- Twitter: https://twitter.com/pixel_mirror
-
-	- Wiki: https://github.com/joeyGumer/Pixel_Mirror--Diablo_II/wiki
-
-	- WebPage: http://joeygumer.github.io/Pixel_Mirror--Diablo_II/
-
-
-* ![Pep](https://github.com/joeyGumer/Pixel_Mirror--Diablo_II/blob/Wiki_Images/Diablo2/Wiki_Images/Welcome%20Page/Pep.jpg?raw=true) [![Twitter](https://github.com/joeyGumer/Pixel_Mirror--Diablo_II/blob/Wiki_Images/Diablo2/Wiki_Images/Welcome%20Page/Twitter.png?raw=true)](https://twitter.com/JoeyGumersindo)
+* [Github](https://github.com/joeyGumer/Pixel_Mirror--Diablo_II)
+* [Facebook](https://www.facebook.com/Pixel-Mirror-814809901980089/)
+* [Twitter](https://twitter.com/pixel_mirror)
+* [Wiki](https://github.com/joeyGumer/Pixel_Mirror--Diablo_II/wiki)
+* [WebPage](http://joeygumer.github.io/Pixel_Mirror--Diablo_II/)
