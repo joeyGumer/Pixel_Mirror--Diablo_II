@@ -18,6 +18,7 @@ hudBlood::~hudBlood()
 
 bool hudBlood::Start()
 {
+	blood_tmp = 1500;
 	message_get = false;
 	player = App->game->player;
 	blood_current = 0;
@@ -45,14 +46,22 @@ bool hudBlood::Update(float dt)
 
 bool hudBlood::PostUpdate()
 {
-	if (blood_current >= 1500 && message_get == false)
+
+	if (hey_listen->active == false)
 	{
-		hey_listen->active = true;
-		message_get = true;
+		if ((blood_current >= blood_tmp) && message_get == false)
+		{
+			blood_tmp = blood_tmp + 2000;
+			hey_listen->active = true;
+			message_get = true;
+		}
 	}
 
 	if (message_get == true && App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+	{
+		message_get = false;
 		hey_listen->active = false;
+	}
 
 	return true;
 }

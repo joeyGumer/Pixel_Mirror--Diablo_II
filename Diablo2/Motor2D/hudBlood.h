@@ -37,6 +37,7 @@ public:
 public:
 
 	int			blood_current;
+	int         blood_tmp;
 	bool        message_get;
 	j1Player*	player;
 
