@@ -50,8 +50,9 @@ bool snDungeon3::Start()
 
 	if (minimap_tex == NULL)
 	{
-		App->game->HUD->minimap->minimap->image.outside_tex = App->tex->Load("maps/MiniMapdungeonMap3.png");
+		minimap_tex = App->tex->Load("maps/MiniMapdungeonMap3.png");
 	}
+	App->game->HUD->minimap->minimap->image.outside_tex = minimap_tex;
 	App->game->HUD->minimap->minimap->SetAlpha(App->game->HUD->minimap->minimap->image.outside_tex, 90);
 
 

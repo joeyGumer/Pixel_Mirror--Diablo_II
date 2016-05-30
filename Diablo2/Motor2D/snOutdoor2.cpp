@@ -55,8 +55,10 @@ bool snOutdoor2::Start()
 	
 	if (minimap_tex == NULL)
 	{
-		minimap_tex = App->game->HUD->minimap->minimap->image.outside_tex = App->tex->Load("maps/MiniMapoutdoor2.png");
+		minimap_tex = App->tex->Load("maps/MiniMapoutdoor2.png");
+		
 	}
+	App->game->HUD->minimap->minimap->image.outside_tex = minimap_tex;
 	App->game->HUD->minimap->minimap->SetAlpha(App->game->HUD->minimap->minimap->image.outside_tex, 90);
 
 	if (debug == NULL)
