@@ -442,8 +442,6 @@ void sklKrobusArts::SkillEffect()
 void sklKrobusArts::SkillInit()
 {
 	player->attacking = true;
-
-	player->RestoreHP(-life_cost_final);
 }
 
 void sklKrobusArts::SkillUpdate(float dt)
@@ -456,9 +454,11 @@ void sklKrobusArts::SkillUpdate(float dt)
 
 	if (player->current_animation->Finished())
 	{
+		
 		player->current_input = INPUT_STOP_MOVE;
 		player->input_locked = false;
 		player->attacking = false;
+		player->RestoreHP(-life_cost_final);
 	}
 }
 
@@ -510,8 +510,6 @@ void sklBloodArrow::SkillInit()
 
 	App->audio->PlayFx(player->fx_die);
 
-	player->RestoreHP(-life_cost_final);
-
 	cooldown_timer.Start();
 }
 
@@ -538,6 +536,7 @@ void sklBloodArrow::SkillUpdate(float dt)
 		player->current_input = INPUT_STOP_MOVE;
 		player->input_locked = false;
 		player->particle_is_casted = false;
+		player->RestoreHP(-life_cost_final);
 	}
 
 }
@@ -693,7 +692,6 @@ void sklBloodBomb::SkillInit()
 	player->particle_destination.y = App->input->GetMouseWorldPosition().y;
 	player->SetDirection(player->particle_destination);
 
-	player->RestoreHP(-life_cost_base);
 
 	App->audio->PlayFx(player->fx_die);
 
@@ -726,6 +724,7 @@ void sklBloodBomb::SkillUpdate(float dt)
 		player->current_input = INPUT_STOP_MOVE;
 		player->input_locked = false;
 		player->particle_is_casted = false;
+		player->RestoreHP(-life_cost_final);
 	}
 }
 void sklBloodBomb::SetSkillAnimations()
