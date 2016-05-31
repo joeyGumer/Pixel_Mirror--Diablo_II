@@ -228,23 +228,23 @@ bool hudBelt::Start()
 	stats->interactable = true;
 	hud_gui_elements.push_back(stats);*/
 
-	stats = App->gui->AddGuiImageWithLabel({ 3, 3 }, { 170, 279, 20, 19 }, "player (C)", App->font->description, { -30, 0 }, minipanel, this);
+	stats = App->gui->AddGuiImageWithLabel({ 3, 3 }, { 170, 279, 20, 19 }, "player", App->font->description, { -30, 0 }, minipanel, this);
 	stats->interactable = true;
 	hud_gui_elements.push_back(stats);
 
-	inventorybutton = App->gui->AddGuiImageWithLabel({ 24, 3 }, { 191, 279, 20, 19 }, "invenTory (I)", App->font->description, {-30, 0}, minipanel, this);
+	inventorybutton = App->gui->AddGuiImageWithLabel({ 24, 3 }, { 191, 279, 20, 19 }, "invenTory", App->font->description, {-30, 0}, minipanel, this);
 	inventorybutton->interactable = true;
 	hud_gui_elements.push_back(inventorybutton);
 
-	skilltree = App->gui->AddGuiImageWithLabel({ 45, 3 }, { 212, 279, 20, 19 }, "skill Tree (S)", App->font->description, {-30, 0}, minipanel, this);
+	skilltree = App->gui->AddGuiImageWithLabel({ 45, 3 }, { 212, 279, 20, 19 }, "skill Tree", App->font->description, {-30, 0}, minipanel, this);
 	skilltree->interactable = true;
 	hud_gui_elements.push_back(skilltree);
 
-	minimapbutton = App->gui->AddGuiImageWithLabel({ 66, 3 }, { 233, 279, 20, 19 }, "mini map (TAB)", App->font->description, { -40, 0 }, minipanel, this);
+	minimapbutton = App->gui->AddGuiImageWithLabel({ 66, 3 }, { 233, 279, 20, 19 }, "mini map", App->font->description, { -40, 0 }, minipanel, this);
 	minimapbutton->interactable = true;
 	hud_gui_elements.push_back(minimapbutton);
 
-	game_menu = App->gui->AddGuiImageWithLabel({ 87, 3 }, { 254, 279, 20, 19 }, "game menu (ESC)", App->font->description, {-30, 0}, minipanel, this);
+	game_menu = App->gui->AddGuiImageWithLabel({ 87, 3 }, { 254, 279, 20, 19 }, "game menu", App->font->description, {-30, 0}, minipanel, this);
 	game_menu->interactable = true;
 	hud_gui_elements.push_back(game_menu);
 	
