@@ -11,6 +11,7 @@
 #include "snLose.h"
 
 #include "j1Game.h"
+#include "j1Render.h"
 
 
 j1SceneManager::j1SceneManager() : j1Module()
@@ -143,7 +144,6 @@ bool j1SceneManager::ChangeScene(j1Scene* new_scene)
 	}
 
 	//
-
 	current_scene = new_scene;
 
 
@@ -151,9 +151,6 @@ bool j1SceneManager::ChangeScene(j1Scene* new_scene)
 	{
 		current_scene->LoadScene();
 	}
-	
-
-	
 
 	return true;
 }

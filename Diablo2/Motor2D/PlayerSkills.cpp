@@ -117,7 +117,7 @@ void sklStingingStrike::SkillEffect()
 	App->audio->PlayFx(player->player_attack);
 
 	player->ChangeMP(final_blood_charge_increase);
-	player->TakeDamage(final_life_cost);
+	player->RestoreHP(-final_life_cost);
 
 	player->enemy = NULL;
 	player->objective = NULL;
@@ -693,7 +693,7 @@ void sklBloodBomb::SkillInit()
 	player->particle_destination.y = App->input->GetMouseWorldPosition().y;
 	player->SetDirection(player->particle_destination);
 
-	player->TakeDamage(life_cost_base);
+	player->RestoreHP(-life_cost_base);
 
 	App->audio->PlayFx(player->fx_die);
 

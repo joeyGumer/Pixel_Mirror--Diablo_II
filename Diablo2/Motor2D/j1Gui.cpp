@@ -48,8 +48,6 @@ bool j1Gui::Start()
 	//Mouse--------
 	mouse = new GuiMouseImage({ mouse_x, mouse_y }, { 189, 98, 33, 26 }, NULL, this);
 	dragged_item = NULL;
-	load_screen = new GuiImage({ -95, -40 }, { 1829, 82, 800, 600 }, NULL, this);
-	load_screen->active = false;
 	//-------------
 	return true;
 }
@@ -205,10 +203,7 @@ bool j1Gui::PostUpdate()
 		}
 	}
 
-	if (load_screen->active)
-	{
-		load_screen->Draw();
-	}
+
 
 	if (dragged_item)
 	{
@@ -239,7 +234,7 @@ bool j1Gui::CleanUp()
 
 	gui_elements.clear();
 
-	RELEASE(load_screen);
+
 	RELEASE(mouse);
 	RELEASE(dragged_item);
 	
