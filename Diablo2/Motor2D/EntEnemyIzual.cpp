@@ -235,7 +235,7 @@ bool EntEnemyIzual::Update(float dt)
 
 		fPoint player_pos = App->game->player->GetPivotPosition();
 
-		if (ReadyToCast() && App->game->player->visible)
+		if (ReadyToCast() && App->game->player->visible && enemy != NULL)
 		{
 			attacking = true;
 			current_input = ENTITY_INPUT_CAST;
