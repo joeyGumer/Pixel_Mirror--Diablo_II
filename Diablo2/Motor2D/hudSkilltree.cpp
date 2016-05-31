@@ -381,7 +381,7 @@ bool hudSkilltree::Start()
 
 	vector<StringColor> battext;
 	battext.push_back(StringColor("baT sTrike", FONT_VIOLET));
-	battext.push_back(StringColor("Finishing move: powerful kick ThaT heals", FONT_WHITE));
+	battext.push_back(StringColor("Finishing move: powerful sTrike ThaT heals", FONT_WHITE));
 	text.create("%i", player->bat_strike->price);
 	text.Insert(0, "pure BLOOD COST: ");
 	battext.push_back(StringColor(text, FONT_YELLOW));
@@ -466,7 +466,7 @@ bool hudSkilltree::Start()
 
 	vector<StringColor> breathtext;
 	breathtext.push_back(StringColor("vampire breaTh", FONT_VIOLET));
-	breathtext.push_back(StringColor("finishing move: projecTiles Thrown doing a cone", FONT_WHITE));
+	breathtext.push_back(StringColor("finishing move: damage The enemies found wiThin iTs area.", FONT_WHITE));
 	text.create("%i", player->vampire_breath->price);
 	text.Insert(0, "pure BLOOD COST: ");
 	breathtext.push_back(StringColor(text, FONT_YELLOW));
@@ -488,7 +488,7 @@ bool hudSkilltree::Start()
 
 	vector<StringColor> bombtext;
 	bombtext.push_back(StringColor("blood bomb", FONT_VIOLET));
-	bombtext.push_back(StringColor("charge-up skill: Throws a projecTile ThaT deals area damage on hiT", FONT_WHITE));
+	bombtext.push_back(StringColor("charge-up skill: Throws a big blood projecTile aT The chosen direcTion", FONT_WHITE));
 	text.create("%i", player->blood_bomb->price);
 	text.Insert(0, "pure BLOOD COST: ");
 	bombtext.push_back(StringColor(text, FONT_YELLOW));
