@@ -1813,34 +1813,34 @@ void j1Player::StateMachine()
 	case IDLE:
 		p_sprite = p_idle;
 		current_animation_set = idle;
-		sprite_rect = current_animation->PeekCurrentFrame();
-		sprite_pivot = { sprite_rect.w / 2, sprite_rect.h - PLAYER_PIVOT_OFFSET };
+		//sprite_rect = current_animation->PeekCurrentFrame();
+		//sprite_pivot = { sprite_rect.w / 2, sprite_rect.h - PLAYER_PIVOT_OFFSET };
 		break;
 	case WALKING:
 		p_sprite = p_walk;
 		current_animation_set = walk;
-		sprite_rect = current_animation->PeekCurrentFrame();
-		sprite_pivot = { sprite_rect.w / 2, sprite_rect.h - PLAYER_PIVOT_OFFSET };
+		//sprite_rect = current_animation->PeekCurrentFrame();
+		//sprite_pivot = { sprite_rect.w / 2, sprite_rect.h - PLAYER_PIVOT_OFFSET };
 		p_speed = PLAYER_SPEED;
 		break;
 	case RUNNING:
 		p_sprite = p_run;
 		current_animation_set = run;
-		sprite_rect = current_animation->PeekCurrentFrame();
-		sprite_pivot = { sprite_rect.w / 2, sprite_rect.h - PLAYER_PIVOT_OFFSET };
+		//sprite_rect = current_animation->PeekCurrentFrame();
+		//sprite_pivot = { sprite_rect.w / 2, sprite_rect.h - PLAYER_PIVOT_OFFSET };
 		p_speed = PLAYER_RUN_SPEED;
 		break;
 	case SKILL:
 		p_sprite = current_skill->skill_tex;
 		current_animation_set = current_skill->skill_animation_set;
-		sprite_rect = current_animation->PeekCurrentFrame();
-		sprite_pivot = { sprite_rect.w / 2, sprite_rect.h - PLAYER_PIVOT_OFFSET };
+	    //sprite_rect = current_animation->PeekCurrentFrame();
+		//sprite_pivot = { sprite_rect.w / 2, sprite_rect.h - PLAYER_PIVOT_OFFSET };
 		break;
 	case DEATH:
 		p_sprite = p_death;
 		current_animation_set = death;
-		sprite_rect = current_animation->PeekCurrentFrame();
-		sprite_pivot = { sprite_rect.w / 2, sprite_rect.h - PLAYER_PIVOT_OFFSET };
+		//sprite_rect = current_animation->PeekCurrentFrame();
+		//sprite_pivot = { sprite_rect.w / 2, sprite_rect.h - PLAYER_PIVOT_OFFSET };
 		respawn_timer.Start();
 		break;
 	}
