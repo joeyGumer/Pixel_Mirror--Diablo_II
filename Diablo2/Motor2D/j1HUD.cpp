@@ -145,6 +145,9 @@ bool j1HUD::PreUpdate()
 
 	if (belt->skilltreebutton_pressed == true)
 	{
+		blood->hey_listen->active = false;
+		blood->message_get = false;
+
 		if (inventory->active == true)
 		{
 			skilltree->Activate();
