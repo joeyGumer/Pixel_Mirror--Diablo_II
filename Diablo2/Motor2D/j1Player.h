@@ -252,6 +252,7 @@ public:
 	//Position
 	fPoint p_position;
 	iPoint p_pivot;
+	iPoint sprite_pivot;
 	
 	//Movement
 	//NOTE: All this will be used with the moving unities too

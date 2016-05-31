@@ -123,6 +123,7 @@ bool j1Player::Start()
 	//Positioning
 	p_position = { 0, 500 };
 	p_pivot = { (PLAYER_SPRITE_W / 2), (PLAYER_SPRITE_H - PLAYER_PIVOT_OFFSET) };
+	sprite_pivot = { (PLAYER_SPRITE_W / 2), (PLAYER_SPRITE_H - PLAYER_PIVOT_OFFSET) };
 	movement = false;
 	attacking = false;
 	running = false;
@@ -433,8 +434,8 @@ iPoint j1Player::GetBlitPosition()const
 {
 	fPoint tmp = GetPivotPosition();
 	iPoint ret(tmp.x, tmp.y);
-	ret.x -= p_pivot.x;
-	ret.y -= p_pivot.y;
+	ret.x -= sprite_pivot.x;
+	ret.y -= sprite_pivot.y;
 
 	return  ret;
 }
@@ -1805,29 +1806,41 @@ void j1Player::SetPosition(fPoint pos)
 
 void j1Player::StateMachine()
 {
+	SDL_Rect sprite_rect;
+
 	switch (current_action)
 	{
 	case IDLE:
 		p_sprite = p_idle;
 		current_animation_set = idle;
+		sprite_rect = current_animation->PeekCurrentFrame();
+		sprite_pivot = { sprite_rect.w / 2, sprite_rect.h - PLAYER_PIVOT_OFFSET };
 		break;
 	case WALKING:
 		p_sprite = p_walk;
 		current_animation_set = walk;
+		sprite_rect = current_animation->PeekCurrentFrame();
+		sprite_pivot = { sprite_rect.w / 2, sprite_rect.h - PLAYER_PIVOT_OFFSET };
 		p_speed = PLAYER_SPEED;
 		break;
 	case RUNNING:
 		p_sprite = p_run;
 		current_animation_set = run;
+		sprite_rect = current_animation->PeekCurrentFrame();
+		sprite_pivot = { sprite_rect.w / 2, sprite_rect.h - PLAYER_PIVOT_OFFSET };
 		p_speed = PLAYER_RUN_SPEED;
 		break;
 	case SKILL:
 		p_sprite = current_skill->skill_tex;
 		current_animation_set = current_skill->skill_animation_set;
+		sprite_rect = current_animation->PeekCurrentFrame();
+		sprite_pivot = { sprite_rect.w / 2, sprite_rect.h - PLAYER_PIVOT_OFFSET };
 		break;
 	case DEATH:
 		p_sprite = p_death;
 		current_animation_set = death;
+		sprite_rect = current_animation->PeekCurrentFrame();
+		sprite_pivot = { sprite_rect.w / 2, sprite_rect.h - PLAYER_PIVOT_OFFSET };
 		respawn_timer.Start();
 		break;
 	}
