@@ -59,7 +59,7 @@ bool j1FileSystem::Awake(pugi::xml_node& config)
 // Called before quitting
 bool j1FileSystem::CleanUp()
 {
-	//LOG("Freeing File System subsystem");
+	LOG("Freeing File System subsystem");
 	return true;
 }
 
@@ -170,6 +170,7 @@ unsigned int j1FileSystem::Save(const char* file, const char* buffer, unsigned i
 	return ret;
 }
 
+//NOTE: fullfill this
 bool j1FileSystem::SetWriteDirectory()
 {
 	return true;
